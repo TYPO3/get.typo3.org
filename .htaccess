@@ -1,0 +1,5 @@
+DirectoryIndex index.php
+RewriteEngine On
+Options +FollowSymlinks
+RewriteBase /
+RewriteRule !\.(js|ico|gif|jpg|jpeg|png|css|pdf)$ index.php [NC,QSA,L]
