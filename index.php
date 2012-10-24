@@ -60,10 +60,13 @@ if (empty($redirectData)) {
 function getRedirectUrl($versionName, $format, $releasesFile) {
 	$result = array();
 	$releases = json_decode(file_get_contents($releasesFile));
-	if ($versionName == 'stable') {
+	$package = 'typo3_src';
+	if ($versionName == 'introduction' || $versionName == 'government') {
+		$package = $versionName . 'package';
 		$versionName = $releases->latest_stable;
-	}
-	if ($versionName == 'dev') {
+	} elseif ($versionName == 'stable') {
+		$versionName = $releases->latest_stable;
+	} elseif ($versionName == 'dev') {
 		$versionName = getDevVersionName($releases);
 	}
 	$versionParts = explode('.', $versionName);
@@ -79,7 +82,7 @@ function getRedirectUrl($versionName, $format, $releasesFile) {
 		$version = $branch->releases->$versionName->version;
 		if ($version !== NULL) {
 			$result = array(
-				'url' => 'http://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20' . $version . '/typo3_src-' . $version . '.' . $format,
+				'url' => 'http://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20' . $version . '/' . $package . '-' . $version . '.' . $format,
 				'version' => $version,
 				'format' => $format
 			);
