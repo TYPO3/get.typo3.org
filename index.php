@@ -4,11 +4,20 @@
  */
 $usageFile = 'usage.html';
 $sorryFile = 'sorry.html';
-$releasesFile = 'data/releases.txt';
+// $releasesFile = 'data/releases.txt';
+$releasesFile = 'data/releases.json';
 
 if ($_SERVER['REQUEST_URI'] == '/') {
 	// well... very there is room for improvement here ;)
 	$content = file_get_contents($usageFile);
+	print $content;
+	die();
+}
+if ($_SERVER['REQUEST_URI'] == '/json') {
+	$content = file_get_contents($releasesFile);
+
+	header('Content-type: application/json');
+	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
 	print $content;
 	die();
 }
