@@ -31,7 +31,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html
  */
 class sfExtractor {
-	
+
 	const SF_URL = 'http://sourceforge.net/projects/typo3/files/TYPO3%20Source%20and%20Dummy/';
 	const WIKI_URL = 'http://wiki.typo3.org/TYPO3_%s';
 
@@ -39,9 +39,10 @@ class sfExtractor {
 		$summary = array();
 		$latestStable = '0.0.0';
 		$releases = $this->getReleases();
-		
+
 			// Group releases by branch
 		foreach ($releases as $release) {
+
 			preg_match('/^(\d\.\d+)/', $release['version'], $matches);
 			$branch = $matches[1];
 			if (!isset($summary[$branch])) {
@@ -54,7 +55,7 @@ class sfExtractor {
 			if (version_compare($release['version'], $summary[$branch]['latest'], '>')) {
 				$summary[$branch]['latest'] = $release['version'];
 			}
-			if (preg_match('/^4\.[0-9]+\.[0-9]+$/', $release['version'])) {
+			if (preg_match('/^6\.[0-9]+\.[0-9]+$/', $release['version'])) {
 				if (version_compare($release['version'], $latestStable, '>')) {
 					$latestStable = $release['version'];
 				}
@@ -62,12 +63,13 @@ class sfExtractor {
 		}
 
 		$summary['latest_stable'] = $latestStable;
-		$parts = explode('.', $latestStable);
-		$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
-		$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
+		# @todo check if "latest_old_stable" is still needed - not working anymore after the 6.0 jump.
+		#$parts = explode('.', $latestStable);
+		#$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
+		#$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
 		$summary['latest_lts'] = $summary['4.5']['latest'];
 		$summary['latest_deprecated'] = $summary['4.4']['latest'];
-		
+
 		return $summary;
 	}
 
@@ -76,10 +78,10 @@ class sfExtractor {
 		$content = $this->strCutTo($content, '<table id="files_list"');
 		$content = $this->strCutToInclusive($content, '<tbody>');
 		$content = $this->strCutFrom($content, '</tbody>');
-		
+
 		$blocks = explode('<tr ', $content);
 		array_shift($blocks);
-		
+
 		$releases = array();
 		foreach ($blocks as $block) {
 			$block = $this->strCutToInclusive($block, 'title="');
@@ -100,7 +102,7 @@ class sfExtractor {
 
 		return $releases;
 	}
-	
+
 	/**
 	 * Returns the type of a given TYPO3 version.
 	 *
@@ -196,7 +198,7 @@ class sfExtractor {
 		if (($pos = strpos($haystack, $needle)) === FALSE) return $haystack;
 		return substr($haystack, $pos);
 	}
-	
+
 	/**
 	 * Cuts <var>$haystack</var> up to the first occurence of <var>$needle</var> (inclusive)
 	 *
@@ -234,7 +236,13 @@ class sfExtractor {
 	}
 }
 
-$cacheFile = '/var/www/vhosts/get.typo3.org/www/data/releases.json';
+$dataDirectory = $_SERVER['PWD'] . '/data';
+if (is_dir($dataDirectory)) {
+	$cacheFile = $dataDirectory . '/releases.json';
+} else {
+	// hardcoded path as fallback
+	$cacheFile = '/var/www/vhosts/get.typo3.org/www/data/releases.json';
+}
 $summary = '';
 if (!file_exists($cacheFile) || filemtime($cacheFile) < time() - 3600) {
 	$extractor = new sfExtractor();
