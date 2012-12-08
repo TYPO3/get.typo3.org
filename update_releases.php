@@ -1,17 +1,17 @@
 <?php
 /**
- * Entry point for updating the Data
+ * Entry point for updating data
  */
 
 require_once ('Classes/CheckSumProvider.php');
 require_once ('Classes/SfExtractor.php');
 
-$dataDirectory = $_SERVER['PWD'] . '/Data';
+$dataDirectory = $_SERVER['PWD'] . '/data';
 if (is_dir($dataDirectory)) {
 	$cacheFile = $dataDirectory . '/releases.json';
 } else {
 	// hardcoded path as fallback
-	$cacheFile = '/var/www/vhosts/get.typo3.org/www/Data/releases.json';
+	$cacheFile = '/var/www/vhosts/get.typo3.org/www/data/releases.json';
 }
 $summary = '';
 if (!file_exists($cacheFile) || filemtime($cacheFile) < time() - 3600) {

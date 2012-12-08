@@ -4,7 +4,7 @@
  */
 $usageFile = 'usage.html';
 $sorryFile = 'sorry.html';
-$releasesFile = 'Data/releases.json';
+$releasesFile = 'data/releases.json';
 
 if ($_SERVER['REQUEST_URI'] == '/') {
 	// well... very there is room for improvement here ;)
