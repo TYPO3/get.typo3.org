@@ -68,7 +68,7 @@ class SfExtractor {
 		#$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
 		#$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
 		$summary['latest_lts'] = $summary['4.5']['latest'];
-		$summary['latest_deprecated'] = $summary['4.4']['latest'];
+		$summary['latest_deprecated'] = $summary['4.6']['latest'];
 
 		return $summary;
 	}
@@ -115,11 +115,15 @@ class SfExtractor {
 
 		// Just to speed up the process...
 		$types = array(
-			'4.7.5' => 'regular',
+			'6.0.4' => 'regular', '6.0.3' => 'security', '6.0.2' => 'regular', '6.0.1' => 'regular', '6.0.0' => 'release',
+			'4.7.10' => 'regular',
+			'4.7.9' => 'security', '4.7.8' => 'regular', '4.7.7' => 'regular', '4.7.6' => 'security', '4.7.5' => 'regular',
 			'4.7.4' => 'security', '4.7.3' => 'regular', '4.7.2' => 'security', '4.7.1' => 'regular', '4.7.0' => 'release',
-			'4.6.13' => 'regular', '4.6.12' => 'security', '4.6.11' => 'regular', '4.6.10' => 'security',
+			'4.6.18' => 'regular', '4.6.17' => 'security', '4.6.16' => 'regular', '4.6.15' => 'regular',
+			'4.6.14' => 'security', '4.6.13' => 'regular', '4.6.12' => 'security', '4.6.11' => 'regular', '4.6.10' => 'security',
 			'4.6.9' => 'regular', '4.6.8' => 'security', '4.6.7' => 'security', '4.6.6' => 'regular', '4.6.5' => 'regular',
 			'4.6.4' => 'regular', '4.6.3' => 'regular', '4.6.2' => 'security', '4.6.1' => 'regular', '4.6.0' => 'release',
+			'4.5.25' => 'regular', '4.5.24' => 'security', '4.5.23' => 'regular', '4.5.22' => 'regular', '4.5.21' => 'security',
 			'4.5.20' => 'regular', '4.5.19' => 'security', '4.5.18' => 'regular', '4.5.17' => 'security',
 			'4.5.16' => 'regular', '4.5.15' => 'security', '4.5.14' => 'security', '4.5.13' => 'regular', '4.5.12' => 'regular',
 			'4.5.11' => 'regular', '4.5.10' => 'regular', '4.5.9' => 'security', '4.5.8' => 'regular', '4.5.7' => 'security',
