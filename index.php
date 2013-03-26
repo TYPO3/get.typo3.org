@@ -7,7 +7,7 @@ $sorryFile = 'sorry.html';
 $releasesFile = 'data/releases.json';
 
 if ($_SERVER['REQUEST_URI'] == '/') {
-	// well... very there is room for improvement here ;)
+	// well... quite rude ending!
 	$content = file_get_contents($usageFile);
 	print $content;
 	die();
@@ -24,8 +24,7 @@ if ($_SERVER['REQUEST_URI'] == '/json') {
 /**
  * APPLICATION
  */
-$arguments = explode('/', $_SERVER['REDIRECT_SCRIPT_URL']);
-
+$arguments = explode('/', $_SERVER['REQUEST_URI']);
 $requestedVersion = !empty($arguments[1]) ? $arguments[1] : 'stable';
 $requestedFormat = !empty($arguments[2]) ? $arguments[2] : 'tar.gz';
 if ($requestedVersion == 'current') {
@@ -36,7 +35,7 @@ if ($requestedVersion == 'current') {
 $redirectData = getRedirectUrl($requestedVersion, $requestedFormat, $releasesFile);
 
 if (empty($redirectData)) {
-	// well... very there is room for improvement here ;)
+	// well... quite rude ending!
 	$content = file_get_contents($sorryFile);
 	print $content;
 	die();
@@ -57,13 +56,51 @@ if (empty($redirectData)) {
 }
 
 function getRedirectUrl($versionName, $format, $releasesFile) {
+	$packageFiles = array(
+		// slug (url part) => filename (without Extensions, url-encoded)
+		'typo3_src' => 'typo3_src',
+		'typo3_src_dummy' => 'typo3_src%2Bdummy',
+		'dummy' => 'dummy',
+		'introduction' => 'introductionpackage',
+		'government' => 'governmentpackage',
+		'blank' => 'blankpackage'
+	);
+
 	$result = array();
 	$releases = json_decode(file_get_contents($releasesFile));
+	// defaults
 	$package = 'typo3_src';
-	if ($versionName == 'introduction' || $versionName == 'government') {
-		$package = $versionName . 'package';
-		$versionName = $releases->latest_stable;
-	} elseif ($versionName == 'stable') {
+
+	/*
+	 * $versionName could be something like:
+	 * stable
+	 * dev
+	 * 4.5
+	 * 6.0.0
+	 * typo3_src-4.5
+	 * typo3_src-dev
+	 * dummy-4.5
+	 * dummy-6.0.0
+	 */
+	// Detecting Package files, possible with version number
+	foreach ($packageFiles as $slug => $filename) {
+
+		// a Package Name without version number
+		if ($versionName == $slug) { // simple
+			$package = $filename;
+			$versionName = 'stable';
+			break;
+		}
+		// a Package Name with version number
+		if (substr($versionName, 0, strlen($slug) + 1) == $slug . '-') {
+			$package = $filename;
+			$versionName = substr($versionName, strlen($slug) + 1);
+			break;
+		}
+	}
+
+	// named version detection
+	if ($versionName == 'stable') {
 		$versionName = $releases->latest_stable;
 	} elseif ($versionName == 'dev') {
 		$versionName = getDevVersionName($releases);
