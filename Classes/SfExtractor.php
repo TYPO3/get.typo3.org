@@ -33,14 +33,18 @@
 class SfExtractor {
 
 	const SF_URL = 'http://sourceforge.net/projects/typo3/files/TYPO3%20Source%20and%20Dummy/';
+
 	const WIKI_URL = 'http://wiki.typo3.org/TYPO3_%s';
 
+	/**
+	 * @return array
+	 */
 	public function getSummary() {
 		$summary = array();
 		$latestStable = '0.0.0';
 		$releases = $this->getReleases();
 
-			// Group releases by branch
+		// Group releases by branch
 		foreach ($releases as $release) {
 
 			preg_match('/^(\d\.\d+)/', $release['version'], $matches);
@@ -49,12 +53,18 @@ class SfExtractor {
 				$summary[$branch] = array(
 					'releases' => array(),
 					'latest' => '0.0.0',
+					'stable' => '0.0.0',
 				);
 			}
 			$summary[$branch]['releases'][$release['version']] = $release;
 			if (version_compare($release['version'], $summary[$branch]['latest'], '>')) {
 				$summary[$branch]['latest'] = $release['version'];
 			}
+
+			if ($release['type'] !== 'development' && (version_compare($release['version'], $summary[$branch]['stable'], '>'))) {
+				$summary[$branch]['stable'] = $release['version'];
+			}
+
 			if (preg_match('/^6\.[0-9]+\.[0-9]+$/', $release['version'])) {
 				if (version_compare($release['version'], $latestStable, '>')) {
 					$latestStable = $release['version'];
@@ -73,6 +83,9 @@ class SfExtractor {
 		return $summary;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getReleases() {
 		$content = file_get_contents(self::SF_URL);
 		$content = $this->strCutTo($content, '<table id="files_list"');
@@ -140,11 +153,15 @@ class SfExtractor {
 			'4.0.13' => 'regular', '3.8.1' => 'regular', '3.7.1' => 'regular', '3.6.2' => 'regular', '3.5.0' => 'release',
 			'3.3.0' => 'release',
 		);
-		if (isset($types[$version])) return $types[$version];
+		if (isset($types[$version])) {
+			return $types[$version];
+		}
 
 		// Automatic retrieval of the status
 		$parts = explode('.', $version);
-		if (count($parts) == 2) return 'development';
+		if (count($parts) == 2) {
+			return 'development';
+		}
 		list($major, $minor, $revision) = $parts;
 		if ($revision === '0') {
 			$type = 'release';
@@ -185,10 +202,10 @@ class SfExtractor {
 			return $checkSums[$version];
 		}
 
-		$info = (array)json_decode(file_get_contents(self::SF_URL . 'TYPO3%20' . $version . '/list'));
-		if($info) {
-			$tar = (array)$info['typo3_src-' . $version . '.tar.gz'];
-			$zip = (array)$info['typo3_src-' . $version . '.zip'];
+		$info = (array) json_decode(file_get_contents(self::SF_URL . 'TYPO3%20' . $version . '/list'));
+		if ($info) {
+			$tar = (array) $info['typo3_src-' . $version . '.tar.gz'];
+			$zip = (array) $info['typo3_src-' . $version . '.zip'];
 
 			$checkSum = array(
 				'tar' => array(
@@ -208,72 +225,84 @@ class SfExtractor {
 	/**
 	 * Cuts from <var>$haystack</var> the part that is after <var>$needle</var>
 	 *
-	 * @param	string		$haystack
-	 * @param	string		$needle
-	 * @return	string
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return string
 	 */
 	protected function strCutFrom($haystack, $needle) {
-        if (($pos = strpos($haystack, $needle)) === FALSE) return $haystack;
-    	return substr($haystack, 0, $pos);
+		if (($pos = strpos($haystack, $needle)) === FALSE) {
+			return $haystack;
+		}
+		return substr($haystack, 0, $pos);
 	}
 
 	/**
 	 * Cuts from <var>$haystack</var> the part that is after last occurence of <var>$needle</var>
 	 *
-	 * @param	string		$haystack
-	 * @param	string		$needle
-	 * @return	string
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return string
 	 */
 	function strCutFromLast($haystack, $needle) {
-        if (($pos = strrpos($haystack, $needle)) === FALSE) return $haystack;
-    	return substr($haystack, 0, $pos);
+		if (($pos = strrpos($haystack, $needle)) === FALSE) {
+			return $haystack;
+		}
+		return substr($haystack, 0, $pos);
 	}
 
 	/**
 	 * Cuts <var>$haystack</var> up to the first occurence of <var>$needle</var>
 	 *
-	 * @param	string		$haystack
-	 * @param	string		$needle
-	 * @return	string
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return string
 	 */
 	protected function strCutTo($haystack, $needle) {
-		if (($pos = strpos($haystack, $needle)) === FALSE) return $haystack;
+		if (($pos = strpos($haystack, $needle)) === FALSE) {
+			return $haystack;
+		}
 		return substr($haystack, $pos);
 	}
 
 	/**
 	 * Cuts <var>$haystack</var> up to the first occurence of <var>$needle</var> (inclusive)
 	 *
-	 * @param	string		$haystack
-	 * @param	string		$needle
-	 * @return	string
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return string
 	 */
 	protected function strCutToInclusive($haystack, $needle) {
-		if (($pos = strpos($haystack, $needle)) === FALSE) return $haystack;
+		if (($pos = strpos($haystack, $needle)) === FALSE) {
+			return $haystack;
+		}
 		return substr($haystack, $pos + strlen($needle));
 	}
 
 	/**
 	 * Cuts <var>$haystack</var> up to the last occurence of <var>$needle</var>
 	 *
-	 * @param	string		$haystack
-	 * @param	string		$needle
-	 * @return	string
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return string
 	 */
 	protected function strCutToLast($haystack, $needle) {
-		if (($pos = strrpos($haystack, $needle)) === FALSE) return $haystack;
+		if (($pos = strrpos($haystack, $needle)) === FALSE) {
+			return $haystack;
+		}
 		return substr($haystack, $pos);
 	}
 
 	/**
 	 * Cuts <var>$haystack</var> up to the last occurence of <var>$needle</var> (inclusive)
 	 *
-	 * @param	string		$haystack
-	 * @param	string		$needle
-	 * @return	string
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return string
 	 */
 	protected function strCutToLastInclusive($haystack, $needle) {
-		if (($pos = strrpos($haystack, $needle)) === FALSE) return $haystack;
+		if (($pos = strrpos($haystack, $needle)) === FALSE) {
+			return $haystack;
+		}
 		return substr($haystack, $pos + strlen($needle));
 	}
 }
