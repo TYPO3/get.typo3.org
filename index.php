@@ -111,7 +111,9 @@ function getRedirectUrl($versionName, $format, $releasesFile) {
 	if (count($versionParts) > 1 && in_array($format, array('tar.gz', 'zip'))) {
 		$branchName = $versionParts[0] . '.' . $versionParts[1];
 		$branch = $releases->$branchName;
-		if (!$versionParts[2]) {
+
+		// $versionParts[2] can be the number '0' as a valid content. e.g. 6.0.0.
+		if (isset($versionParts[2]) === FALSE) {
 			$versionName = $branch->latest;
 		}
 
