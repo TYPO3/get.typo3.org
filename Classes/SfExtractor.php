@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011-2012 Xavier Perseguers <xavier@causal.ch>, Causal Sàrl
+ *  (c) 2011-2013 Xavier Perseguers <xavier@causal.ch>, Causal Sàrl
  *
  *  All rights reserved
  *
@@ -27,7 +27,7 @@
  * SourceForge.net TYPO3 version extractor.
  *
  * @author      Xavier Perseguers <xavier@causal.ch>
- * @copyright   2012 Causal Sàrl
+ * @copyright   2011-2013 Causal Sàrl
  * @license     http://www.gnu.org/copyleft/gpl.html
  */
 class SfExtractor {
@@ -74,11 +74,11 @@ class SfExtractor {
 
 		$summary['latest_stable'] = $latestStable;
 		# @todo check if "latest_old_stable" is still needed - not working anymore after the 6.0 jump.
-		#$parts = explode('.', $latestStable);
-		#$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
-		#$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
+		$parts = explode('.', $latestStable);
+		$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
+		$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
 		$summary['latest_lts'] = $summary['4.5']['latest'];
-		$summary['latest_deprecated'] = $summary['4.6']['latest'];
+		$summary['latest_deprecated'] = $summary['4.7']['latest'];
 
 		return $summary;
 	}
@@ -128,6 +128,7 @@ class SfExtractor {
 
 		// Just to speed up the process...
 		$types = array(
+			'6.1.0' => 'release',
 			'6.0.4' => 'regular', '6.0.3' => 'security', '6.0.2' => 'regular', '6.0.1' => 'regular', '6.0.0' => 'release',
 			'4.7.10' => 'regular',
 			'4.7.9' => 'security', '4.7.8' => 'regular', '4.7.7' => 'regular', '4.7.6' => 'security', '4.7.5' => 'regular',
