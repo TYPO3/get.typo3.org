@@ -1,10 +1,12 @@
 <?php
+require_once('Classes/SafeWriter.php');
 /**
  * CONFIG
  */
 $usageFile = 'usage.html';
 $sorryFile = 'sorry.html';
 $releasesFile = 'Data/releases.json';
+$statsFile = 'Data/stats.json';
 
 if ($_SERVER['REQUEST_URI'] == '/') {
 	// well... quite rude ending!
@@ -12,8 +14,21 @@ if ($_SERVER['REQUEST_URI'] == '/') {
 	print $content;
 	die();
 }
+
+// Print releases file
 if ($_SERVER['REQUEST_URI'] == '/json') {
 	$content = file_get_contents($releasesFile);
+
+	header('Content-type: application/json');
+	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
+	print $content;
+	die();
+}
+
+// Print stats file
+// FYI, "stats" segment is reserved for Awstats => fallback to "statistics"
+if ($_SERVER['REQUEST_URI'] == '/statistics') {
+	$content = file_get_contents($statsFile);
 
 	header('Content-type: application/json');
 	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
@@ -32,7 +47,10 @@ if ($requestedVersion == 'current') {
 }
 
 // Get information about version to download
-$redirectData = getRedirectUrl($requestedVersion, $requestedFormat, $releasesFile);
+$redirectData = getSourceForgeRedirect($requestedVersion, $requestedFormat, $releasesFile);
+if (empty($redirectData)) {
+	$redirectData = getFedextRedirect($requestedVersion, $requestedFormat, $releasesFile);
+}
 
 if (empty($redirectData)) {
 	// well... quite rude ending!
@@ -44,6 +62,9 @@ if (empty($redirectData)) {
 		strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'wget') === FALSE &&
 		strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'curl') === FALSE
 	) {
+
+		// Write stats
+		writeStats($requestedVersion, $redirectData['version'], $requestedFormat);
 		header("Content-type: application/octet-stream");
 		$fileName = basename($redirectData['url']);
 		header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -55,7 +76,13 @@ if (empty($redirectData)) {
 	}
 }
 
-function getRedirectUrl($versionName, $format, $releasesFile) {
+/**
+ * @param string $versionName
+ * @param string $format
+ * @param string $releasesFile
+ * @return array
+ */
+function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 	$packageFiles = array(
 		// slug (url part) => filename (without Extensions, url-encoded)
 		'typo3_src' => 'typo3_src',
@@ -143,6 +170,77 @@ function getDevVersionName($releases) {
 		}
 	}
 	return $latestBranch;
+}
+
+/**
+ * @param string $versionName
+ * @param string $format
+ * @param string $releasesFile
+ * @return array
+ */
+function getFedextRedirect($versionName, $format, $releasesFile) {
+	$result = array();
+	if ($versionName == 'bootstrap') {
+
+		$releases = json_decode(file_get_contents($releasesFile));
+
+		$result['url'] = sprintf('http://cdn.fedext.net/%spackage.%s', $versionName, $format);
+		$result['format'] = $format;
+		$result['version'] = $releases->latest_stable;
+	}
+	return $result;
+}
+
+
+/**
+ * @param string $versionName
+ * @param string $version
+ * @param string $format
+ * @param string $statsFile
+ * @return void
+ */
+function writeStats($versionName, $version, $format, $statsFile) {
+
+	if (!file_exists($statsFile)) {
+		touch($statsFile);
+	}
+
+	// Initialize stats
+	$stats = json_decode(file_get_contents($statsFile), TRUE);
+
+	if (!is_array($stats)) {
+		$stats = array('starting_date' => date('d-m-Y @ H:m'));
+	}
+
+	// Initialize summary array
+	if (empty($stats[$versionName])) {
+		$stats[$versionName] = array(
+			'summary' => array(
+				'total' => 0,
+				'tar.gz' => 0,
+				'zip' => 0,
+			),
+			'versions' => array(),
+		);
+	}
+
+	// Initialize version array
+	if (empty($stats[$versionName]['versions'][$version])) {
+		$stats[$versionName]['versions'][$version] = array(
+			'total' => 0,
+			'tar.gz' => 0,
+			'zip' => 0,
+		);
+	}
+
+	// Increment value
+	$stats[$versionName]['summary']['total'] = $stats[$versionName]['summary']['total'] + 1;
+	$stats[$versionName]['summary'][$format] = $stats[$versionName]['summary'][$format] + 1;
+	$stats[$versionName]['versions'][$version]['total'] = $stats[$versionName]['versions'][$version]['total'] + 1;
+	$stats[$versionName]['versions'][$version][$format] = $stats[$versionName]['versions'][$version][$format] + 1;
+
+	$safeWriter = new SafeWriter();
+	$safeWriter->write('Data/stats.json', json_encode($stats));
 }
 
 ?>
