@@ -64,7 +64,7 @@ if (empty($redirectData)) {
 	) {
 
 		// Write stats
-		writeStats($requestedVersion, $redirectData['version'], $requestedFormat);
+		writeStats($requestedVersion, $redirectData['version'], $requestedFormat, $statsFile);
 		header("Content-type: application/octet-stream");
 		$fileName = basename($redirectData['url']);
 		header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -240,7 +240,7 @@ function writeStats($versionName, $version, $format, $statsFile) {
 	$stats[$versionName]['versions'][$version][$format] = $stats[$versionName]['versions'][$version][$format] + 1;
 
 	$safeWriter = new SafeWriter();
-	$safeWriter->write('Data/stats.json', json_encode($stats));
+	$safeWriter->write($statsFile, json_encode($stats));
 }
 
 ?>
