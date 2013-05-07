@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_URI'] == '/json') {
 	$content = file_get_contents($releasesFile);
 
 	header('Content-type: application/json');
+	header('Access-Control-Allow-Origin: *');
 	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
 	print $content;
 	die();
@@ -31,6 +32,7 @@ if ($_SERVER['REQUEST_URI'] == '/statistics') {
 	$content = file_get_contents($statsFile);
 
 	header('Content-type: application/json');
+	header('Access-Control-Allow-Origin: *');
 	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
 	print $content;
 	die();
