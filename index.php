@@ -221,6 +221,7 @@ function writeStats($versionName, $version, $format, $statsFile) {
 				'total' => 0,
 				'tar.gz' => 0,
 				'zip' => 0,
+				'starting_date' => date('d-m-Y @ H:m'),
 			),
 			'versions' => array(),
 		);
