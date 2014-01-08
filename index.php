@@ -3,14 +3,14 @@ require_once('Classes/SafeWriter.php');
 /**
  * CONFIG
  */
-$usageFile = 'usage.html';
 $sorryFile = 'sorry.html';
 $releasesFile = 'Data/releases.json';
 $statsFile = 'Data/stats.json';
 
 if ($_SERVER['REQUEST_URI'] == '/') {
 	// well... quite rude ending!
-	$content = file_get_contents($usageFile);
+	$content = file_get_contents('http://typo3.org/?id=527');
+	$content = str_replace(array('src="/','href="/', 'url(/'), array('src="http://typo3.org/', 'href="http://typo3.org/', 'url(http://typo3.org/'), $content);
 	print $content;
 	die();
 }
