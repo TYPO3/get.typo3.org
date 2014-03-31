@@ -156,6 +156,13 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 		}
 
 		if ($version !== NULL) {
+			// TYPO3 6.2 does not have some packages anymore
+			$legacyPackages = array('introductionpackage', 'governmentpackage', 'blankpackage', 'dummy');
+			if (version_compare($version, '6.2.0', '>=') && in_array($package, $legacyPackages)) {
+				$flippedPackageFiles = array_flip($packageFiles);
+				$fallbackPackage = $flippedPackageFiles[$package] . '-6.1.7';
+				return getSourceForgeRedirect($fallbackPackage, $format, $releasesFile);
+			}
 			$result = array(
 				'url' => 'http://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20' . $version . '/' . $package . '-' . $version . '.' . $format,
 				'version' => $version,
