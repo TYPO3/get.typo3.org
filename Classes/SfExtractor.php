@@ -34,7 +34,7 @@ class SfExtractor {
 
 	const SF_URL = 'http://sourceforge.net/projects/typo3/files/TYPO3%20Source%20and%20Dummy/';
 
-	const WIKI_URL = 'http://wiki.typo3.org/TYPO3_%s';
+	const WIKI_URL = 'http://wiki.typo3.org/TYPO3_CMS_%s';
 
 	/**
 	 * @return array
