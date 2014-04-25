@@ -8,12 +8,18 @@ $releasesFile = 'Data/releases.json';
 $statsFile = 'Data/stats.json';
 
 if ($_SERVER['REQUEST_URI'] == '/') {
+
 	// well... quite rude ending!
-	$content = file_get_contents('http://typo3.org/?id=527');
-	$content = preg_replace('@src="/(?!/)@', 'src="//typo3.org/', $content);
-	$content = preg_replace('@href="/(?!/)@', 'href="//typo3.org/', $content);
-	$content = preg_replace('@url\(/(?!/)@', 'url("//typo3.org/', $content);
-	print $content;
+	$template = 'LandingPage/template.html';
+	$output = file_get_contents($template);
+
+	$contentTemplate = 'content.html';
+	$content = file_get_contents($contentTemplate);
+
+	$output = str_replace('###CONTENT###', $content, $output);
+	$output = str_replace('../', '/LandingPage/', $output);
+
+	print $output;
 	die();
 }
 
