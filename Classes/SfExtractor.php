@@ -83,13 +83,13 @@ class SfExtractor {
 		$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
 		$summary['latest_lts'] = $summary['6.2']['latest'];
 		$summary['latest_old_lts'] = $summary['4.5']['latest'];
-		$summary['latest_deprecated'] = $summary['4.7']['latest'];
+		$summary['latest_deprecated'] = $summary['6.1']['latest'];
 
 		// Supported branches
 		$summary['4.5']['active'] = TRUE;
-		$summary['4.7']['active'] = TRUE;
-		$summary['6.0']['active'] = TRUE;
-		$summary['6.1']['active'] = TRUE;
+		$summary['4.7']['active'] = FALSE;
+		$summary['6.0']['active'] = FALSE;
+		$summary['6.1']['active'] = FALSE;
 		$summary['6.2']['active'] = TRUE;
 
 		return $summary;
