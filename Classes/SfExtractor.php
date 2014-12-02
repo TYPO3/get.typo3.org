@@ -66,7 +66,7 @@ class SfExtractor {
 				$summary[$branch]['stable'] = $release['version'];
 			}
 
-			if (preg_match('/^6\.[0-9]+\.[0-9]+$/', $release['version'])) {
+			if (preg_match('/^7\.[0-9]+\.[0-9]+$/', $release['version'])) {
 				if (version_compare($release['version'], $latestStable, '>')) {
 					$latestStable = $release['version'];
 				}
@@ -78,19 +78,18 @@ class SfExtractor {
 
 		$summary['latest_stable'] = $latestStable;
 		# @todo check if "latest_old_stable" is still needed - not working anymore after the 6.0 jump.
-		$parts = explode('.', $latestStable);
-		$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
+		//$parts = explode('.', $latestStable);
+		//$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
+		$branchOldStable = '6.2';
 		$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
 		$summary['latest_lts'] = $summary['6.2']['latest'];
 		$summary['latest_old_lts'] = $summary['4.5']['latest'];
-		$summary['latest_deprecated'] = $summary['6.1']['latest'];
+		//$summary['latest_deprecated'] = $summary['6.1']['latest'];
 
 		// Supported branches
 		$summary['4.5']['active'] = TRUE;
-		$summary['4.7']['active'] = FALSE;
-		$summary['6.0']['active'] = FALSE;
-		$summary['6.1']['active'] = FALSE;
 		$summary['6.2']['active'] = TRUE;
+		$summary['7.0']['active'] = TRUE;
 
 		return $summary;
 	}
