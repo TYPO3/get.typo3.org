@@ -38,11 +38,16 @@ class SfExtractor {
 
 	/**
 	 * @return array
+	 * @throws RuntimeException
 	 */
 	public function getSummary() {
 		$summary = array();
 		$latestStable = '0.0.0';
 		$releases = $this->getReleases();
+
+		if (count($releases) == 0) {
+			throw new RuntimeException('Could not fetch the list of releases.', 1420539806);
+		}
 
 		// Group releases by branch
 		foreach ($releases as $release) {
