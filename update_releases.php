@@ -24,5 +24,3 @@ if (!file_exists($cacheFile) || filemtime($cacheFile) < time() - 3600) {
 // header('Content-type: application/json');
 // header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
 // echo $summary ?: file_get_contents($cacheFile);
-
-?>
