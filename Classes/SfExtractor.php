@@ -94,7 +94,7 @@ class SfExtractor {
 		// Supported branches
 		$summary['4.5']['active'] = TRUE;
 		$summary['6.2']['active'] = TRUE;
-		$summary['7.0']['active'] = TRUE;
+		$summary['7.1']['active'] = TRUE;
 
 		return $summary;
 	}
