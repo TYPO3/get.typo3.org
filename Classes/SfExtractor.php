@@ -45,15 +45,19 @@ class SfExtractor {
 		$latestStable = '0.0.0';
 		$releases = $this->getReleases();
 
-		if (count($releases) == 0) {
+		if (empty($releases)) {
 			throw new RuntimeException('Could not fetch the list of releases.', 1420539806);
 		}
 
 		// Group releases by branch
 		foreach ($releases as $release) {
-
 			preg_match('/^(\d\.\d+)/', $release['version'], $matches);
 			$branch = $matches[1];
+			list($major, $minor) = explode('.', $branch, 2);
+			if ((int)$major >= 7) {
+				$branch = $major;
+			}
+
 			if (!isset($summary[$branch])) {
 				$summary[$branch] = array(
 					'releases' => array(),
@@ -93,7 +97,7 @@ class SfExtractor {
 
 		// Supported branches
 		$summary['6.2']['active'] = TRUE;
-		$summary['7.2']['active'] = TRUE;
+		$summary['7']['active'] = TRUE;
 
 		return $summary;
 	}
