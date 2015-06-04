@@ -146,7 +146,7 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 
 	// Make sure we can retrieve a product release
 	if (count($versionParts) > 1 && in_array($format, array('tar.gz', 'zip'))) {
-		$branchName = $versionParts[0] . '.' . $versionParts[1];
+		$branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
 		$branch = $releases->$branchName;
 
 		// $versionParts[2] can be the number '0' as a valid content. e.g. 6.0.0.
