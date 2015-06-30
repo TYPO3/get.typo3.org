@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_URI'] === '/json') {
 
 	header('Content-type: application/json; charset=utf-8');
 	header('Access-Control-Allow-Origin: *');
-	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
+	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($releasesFile) + 3600));
 	print $content;
 	die();
 }
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_URI'] === '/statistics') {
 
 	header('Content-type: application/json; charset=utf-8');
 	header('Access-Control-Allow-Origin: *');
-	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($cacheFile) + 3600));
+	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($statsFile) + 3600));
 	print $content;
 	die();
 }
