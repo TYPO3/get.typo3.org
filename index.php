@@ -7,7 +7,7 @@ $sorryFile = 'sorry.html';
 $releasesFile = 'Data/releases.json';
 $statsFile = 'Data/stats.json';
 
-if ($_SERVER['REQUEST_URI'] == '/') {
+if ($_SERVER['REQUEST_URI'] === '/') {
 
 	// well... quite rude ending!
 	$template = 'LandingPage/template.html';
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_URI'] == '/') {
 }
 
 // Print releases file
-if ($_SERVER['REQUEST_URI'] == '/json') {
+if ($_SERVER['REQUEST_URI'] === '/json') {
 	$content = file_get_contents($releasesFile);
 
 	header('Content-type: application/json; charset=utf-8');
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_URI'] == '/json') {
 
 // Print stats file
 // FYI, "stats" segment is reserved for Awstats => fallback to "statistics"
-if ($_SERVER['REQUEST_URI'] == '/statistics') {
+if ($_SERVER['REQUEST_URI'] === '/statistics') {
 	$content = file_get_contents($statsFile);
 
 	header('Content-type: application/json; charset=utf-8');
@@ -75,7 +75,7 @@ if (empty($redirectData)) {
 
 		// Write stats
 		writeStats($requestedVersion, $redirectData['version'], $requestedFormat, $statsFile);
-		header("Content-type: application/octet-stream");
+		header('Content-type: application/octet-stream');
 		$fileName = basename($redirectData['url']);
 		header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		readfile($redirectData['url']);
@@ -157,7 +157,7 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 		$version = $branch->releases->$versionName->version;
 
 		// Versions 3.3.0 and 3.5.0 was packed as tgz and not tar.gz and we got no zip package here
-		if ($version == '3.5.0' || $version == '3.3.0') {
+		if ($version === '3.5.0' || $version === '3.3.0') {
 			$format = 'tgz';
 		}
 
@@ -197,7 +197,7 @@ function getDevVersionName($releases) {
  */
 function getFedextRedirect($versionName, $format, $releasesFile) {
 	$result = array();
-	if ($versionName == 'bootstrap') {
+	if ($versionName === 'bootstrap') {
 
 		$releases = json_decode(file_get_contents($releasesFile));
 
@@ -260,5 +260,3 @@ function writeStats($versionName, $version, $format, $statsFile) {
 	$safeWriter = new SafeWriter();
 	$safeWriter->write($statsFile, json_encode($stats));
 }
-
-?>

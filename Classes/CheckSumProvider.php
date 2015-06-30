@@ -36,7 +36,37 @@ class CheckSumProvider {
 	static public function getCache() {
 		// Just to speed up the process...
 		// Note: use extract_checksums.php to prepare
-		$checkSums = array(
+		$checksums = array(
+			'7.3.0' => array(
+				'tar' => array(
+					'md5' => '3a36ee4ac34a2433ab2e2089c923d8f1',
+					'sha1' => '16c91366a5ce6209986ef0007bdb6cb9bdadf43a',
+				),
+				'zip' => array(
+					'md5' => '56904794c4d880512963d48d78e25674',
+					'sha1' => 'c52b4e0f7da558c0f26665cdd54a51795b429414',
+				),
+			),
+			'7.2.0' => array(
+				'tar' => array(
+					'md5' => '144e4d29acf2e6a3ed7f548b5d470310',
+					'sha1' => '506d22dcf384f23c172ebe7f562057e0bbf89d32',
+				),
+				'zip' => array(
+					'md5' => 'caebda48df74d0dac007c6ce338a0a4e',
+					'sha1' => '55fff8c6c465b1fdf090fd52b0d311cce79d71f0',
+				),
+			),
+			'7.1.0' => array(
+				'tar' => array(
+					'md5' => 'c17d256e7d2e1b6bfaf7c70ba5b26d90',
+					'sha1' => '82f3ce50a83c0ae266649d8051f0456f97cfa3f7',
+				),
+				'zip' => array(
+					'md5' => '60a1725869c7633cdb697cea6672ad5d',
+					'sha1' => '3aba4c8def027d7f75b1ccba62005847732fcd41',
+				),
+			),
 			'7.0.2' => array(
 				'tar' => array(
 					'md5' => 'a42d3292df8761b59ff64e8719a18520',
@@ -55,6 +85,56 @@ class CheckSumProvider {
 				'zip' => array(
 					'md5' => 'a35a51b6104247c78dabdced052027fd',
 					'sha1' => '4f45a9176c6086751a5f095433d2e7a932be1de4',
+				),
+			),
+			'6.2.13' => array(
+				'tar' => array(
+					'md5' => '9c04385b58e65b9087540ca6ae59f7cc',
+					'sha1' => '0bec0888e298c9a34618d0fb7b726aef7a41ef7f',
+				),
+				'zip' => array(
+					'md5' => '5db5d737ddd7ab546f872ec147b75fa8',
+					'sha1' => '31fa87b676ab995e7724fb52253dba8126de207c',
+				),
+			),
+			'6.2.12' => array(
+				'tar' => array(
+					'md5' => 'ae2bff15c479e8260aa7eef637872973',
+					'sha1' => '41775b361eb89c45195820cba8c8e3085dfa9f5d',
+				),
+				'zip' => array(
+					'md5' => '140e6980f01d0fce330d9204415a32af',
+					'sha1' => 'c9c859ecba3d5dd2b5537d4b905279d0efa12667',
+				),
+			),
+			'6.2.11' => array(
+				'tar' => array(
+					'md5' => '07bd9ad3c7fe8af4468160e62dabe6c2',
+					'sha1' => '935aa012e2904742ddf1fd9bb2118865edf4097b',
+				),
+				'zip' => array(
+					'md5' => '9fc257cdc3329171b0a5e8bfbcb64eff',
+					'sha1' => '509206f922883f1eb09cd437de662f0851867009',
+				),
+			),
+			'6.2.10' => array(
+				'tar' => array(
+					'md5' => '97437e953b15b8445166c4dda615bda0',
+					'sha1' => '0b2fcc884555de035a27199177656a5f51855625',
+				),
+				'zip' => array(
+					'md5' => '2df3f8a26daff609e3797a747baa5a52',
+					'sha1' => 'f3f1e5269a5d82741235b5001a071e1eb06fafc4',
+				),
+			),
+			'6.2.10rc1' => array(
+				'tar' => array(
+					'md5' => 'a55d0a3304c6bc17cad2f0410760ca0a',
+					'sha1' => 'b30dc1c375ccc8b058773f2c4aa14077a87939ba',
+				),
+				'zip' => array(
+					'md5' => '50479d483c3529040df0e736417d6608',
+					'sha1' => 'bdb6fbdbe6e01dd3f5c8ac28adf5cfa4b589223b',
 				),
 			),
 			'6.2.9' => array(
@@ -1267,6 +1347,16 @@ class CheckSumProvider {
 					'sha1' => '61245ede74fbd4752cc8611d9706fce29edf7b6e',
 				),
 			),
+			'4.5.40' => array(
+				'tar' => array(
+					'md5' => '75dc19184abfec84c384f31a7b353b6a',
+					'sha1' => '290acdeac2dc1937ce0cfb1d7ea982cd1b0b7398',
+				),
+				'zip' => array(
+					'md5' => '03bf82bfe10f13022af80f038d75fe4e',
+					'sha1' => 'd92dd3ccde15ccb64357bbb20fdcffb987d273d4',
+				),
+			),
 			'4.5.39' => array(
 				'tar' => array(
 					'md5' => '39b1707b1202d3f350092efb7dce72d4',
@@ -2189,6 +2279,6 @@ class CheckSumProvider {
 			),
 		);
 
-		return $checkSums;
+		return $checksums;
 	}
 }

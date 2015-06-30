@@ -34,8 +34,8 @@ class SafeWriter {
 	 * @param string $data
 	 * @return bool
 	 */
-	public static function write($path, $data) {
-		$fp = fopen($path, "w");
+	static public function write($path, $data) {
+		$fp = fopen($path, 'w');
 		$retries = 0;
 		$max_retries = 100;
 

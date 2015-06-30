@@ -21,4 +21,4 @@ $cache = var_export($checksums, TRUE);
 $cache = str_replace('array (', 'array(', $cache);
 $cache = preg_replace('/ =>\s+array/s', ' => array', $cache);
 $cache = str_replace('  ', "\t", $cache);
-echo $cache;
+echo '$checksums = ' . $cache . ";\n";
