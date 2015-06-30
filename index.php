@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_URI'] === '/statistics') {
 $arguments = explode('/', $_SERVER['REQUEST_URI']);
 $requestedVersion = !empty($arguments[1]) ? $arguments[1] : 'stable';
 $requestedFormat = !empty($arguments[2]) ? $arguments[2] : 'tar.gz';
-if ($requestedVersion == 'current') {
+if ($requestedVersion === 'current') {
 	$requestedVersion = 'stable';
 }
 
@@ -123,13 +123,13 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 	foreach ($packageFiles as $slug => $filename) {
 
 		// a Package Name without version number
-		if ($versionName == $slug) { // simple
+		if ($versionName === $slug) { // simple
 			$package = $filename;
 			$versionName = 'stable';
 			break;
 		}
 		// a Package Name with version number
-		if (substr($versionName, 0, strlen($slug) + 1) == $slug . '-') {
+		if (substr($versionName, 0, strlen($slug) + 1) === $slug . '-') {
 			$package = $filename;
 			$versionName = substr($versionName, strlen($slug) + 1);
 			break;
@@ -137,15 +137,18 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 	}
 
 	// named version detection
-	if ($versionName == 'stable') {
+	if ($versionName === 'stable') {
 		$versionName = $releases->latest_stable;
 	} elseif ($versionName == 'dev') {
 		$versionName = getDevVersionName($releases);
 	}
 	$versionParts = explode('.', $versionName);
 
+	$isValidVersion = !empty($versionParts)
+		&& ((int)$versionParts[0] >= 7 || count($versionParts) > 1);
+
 	// Make sure we can retrieve a product release
-	if (count($versionParts) > 1 && in_array($format, array('tar.gz', 'zip'))) {
+	if ($isValidVersion && in_array($format, array('tar.gz', 'zip'))) {
 		$branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
 		$branch = $releases->$branchName;
 
