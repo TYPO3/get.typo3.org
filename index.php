@@ -7,7 +7,12 @@ $sorryFile = 'sorry.html';
 $releasesFile = 'Data/releases.json';
 $statsFile = 'Data/stats.json';
 
+$maxAgeForReleases = filemtime($releasesFile) + 3600 - time();
+
 if ($_SERVER['REQUEST_URI'] === '/') {
+	// 4 hours
+	header('Content-type: text/html');
+	header('Cache-control: max-age=14400');
 
 	// well... quite rude ending!
 	$template = 'LandingPage/template.html';
@@ -29,7 +34,7 @@ if ($_SERVER['REQUEST_URI'] === '/json') {
 
 	header('Content-type: application/json; charset=utf-8');
 	header('Access-Control-Allow-Origin: *');
-	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($releasesFile) + 3600));
+	header('Cache-control: max-age=' . $maxAgeForReleases);
 	print $content;
 	die();
 }
@@ -41,7 +46,7 @@ if ($_SERVER['REQUEST_URI'] === '/statistics') {
 
 	header('Content-type: application/json; charset=utf-8');
 	header('Access-Control-Allow-Origin: *');
-	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', filemtime($statsFile) + 3600));
+	header('Cache-control: max-age=' . (filemtime($statsFile) + 3600 - time()));
 	print $content;
 	die();
 }
@@ -63,27 +68,31 @@ if (empty($redirectData)) {
 }
 
 if (empty($redirectData)) {
+	header('Content-type: text/html');
+	// 4 hours
+	header('Cache-Control: max-age=14400');
 	// well... quite rude ending!
 	$content = file_get_contents($sorryFile);
 	print $content;
 	die();
 } else {
-	if (
-		strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'wget') === FALSE &&
-		strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'curl') === FALSE
-	) {
-
-		// Write stats
-		writeStats($requestedVersion, $redirectData['version'], $requestedFormat, $statsFile);
-		header('Content-type: application/octet-stream');
-		$fileName = basename($redirectData['url']);
-		header('Content-Disposition: attachment; filename="' . $fileName . '"');
-		readfile($redirectData['url']);
-		die();
-	} else {
+	//if (
+	//	strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'wget') === FALSE &&
+	//	strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'curl') === FALSE
+	//) {
+    //
+	//	// Write stats
+	//	writeStats($requestedVersion, $redirectData['version'], $requestedFormat, $statsFile);
+	//	header('Content-type: application/octet-stream');
+	//	$fileName = basename($redirectData['url']);
+	//	header('Content-Disposition: attachment; filename="' . $fileName . '"');
+	//	readfile($redirectData['url']);
+	//	die();
+	//} else {
+		header('Cache-control: max-age=' . $maxAgeForReleases);
 		header('Location: ' . $redirectData['url']);
 		die();
-	}
+	//}
 }
 
 /**
