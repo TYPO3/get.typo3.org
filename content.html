@@ -28,6 +28,9 @@
 		</p>
 		<pre># Using wget<br>wget get.typo3.org/current --content-disposition
 			<br># Using cURL (e.g., when wget fails with SSL error)<br>curl -L&nbsp;-o&nbsp;typo3_src.tgz get.typo3.org/current</pre>
+		<p>In case you are encountering SSL warnings (host name mismatch), please make sure that you are using a client that
+			supports <a href="https://en.wikipedia.org/wiki/Server_Name_Indication">Server Name Indication (SNI)</a>. This
+			especially affects old versions of <tt>wget</tt> (before version 1.14).</p>
 
 		<h2>TYPO3 CMS - tar.gz</h2>
 
