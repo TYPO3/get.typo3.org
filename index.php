@@ -149,6 +149,7 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 	if ($versionName === 'stable') {
 		$versionName = $releases->latest_stable;
 	} elseif ($versionName == 'dev') {
+		die('"dev" version cannot be used anymore. Please stick to "stable"');
 		$versionName = getDevVersionName($releases);
 	}
 	$versionParts = explode('.', $versionName);
