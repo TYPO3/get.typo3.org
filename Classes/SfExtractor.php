@@ -127,8 +127,8 @@ class SfExtractor {
 				'type' => $this->getType(substr($version, 6)),
 				'checksums' => $this->getCheckSums(substr($version, 6)),
 				'url' => array(
-					'zip' => 'http://get.typo3.org/' . substr($version, 6) . '/zip',
-					'tar' => 'http://get.typo3.org/' . substr($version, 6),
+					'zip' => 'https://get.typo3.org/' . substr($version, 6) . '/zip',
+					'tar' => 'https://get.typo3.org/' . substr($version, 6),
 				),
 			);
 		}
