@@ -96,7 +96,6 @@ class SfExtractor {
 		//$summary['latest_deprecated'] = $summary['6.1']['latest'];
 
 		// Supported branches
-		$summary['6.2']['active'] = TRUE;
 		$summary['7']['active'] = TRUE;
 		$summary['8']['active'] = TRUE;
 
