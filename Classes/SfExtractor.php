@@ -89,10 +89,10 @@ class SfExtractor {
 		# @todo check if "latest_old_stable" is still needed - not working anymore after the 6.0 jump.
 		//$parts = explode('.', $latestStable);
 		//$branchOldStable = join('.', array($parts[0], $parts[1] - 1));
-		$branchOldStable = '6.2';
+		$branchOldStable = '7';
 		$summary['latest_old_stable'] = $summary[$branchOldStable]['latest'];
-		$summary['latest_lts'] = $summary['7']['latest'];
-		$summary['latest_old_lts'] = $summary['6.2']['latest'];
+		$summary['latest_lts'] = $summary['8']['latest'];
+		$summary['latest_old_lts'] = $summary['7']['latest'];
 		//$summary['latest_deprecated'] = $summary['6.1']['latest'];
 
 		// Supported branches
