@@ -169,11 +169,6 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 
 		$version = $branch->releases->$versionName->version;
 
-		// Versions 3.3.0 and 3.5.0 was packed as tgz and not tar.gz and we got no zip package here
-		if ($version === '3.5.0' || $version === '3.3.0') {
-			$format = 'tgz';
-		}
-
 		if ($version !== NULL) {
 			// TYPO3 6.2 does not have some packages anymore
 			$legacyPackages = array('introductionpackage', 'governmentpackage', 'blankpackage', 'dummy');
@@ -183,7 +178,7 @@ function getSourceForgeRedirect($versionName, $format, $releasesFile) {
 				return getSourceForgeRedirect($fallbackPackage, $format, $releasesFile);
 			}
 			$result = array(
-				'url' => 'http://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20' . $version . '/' . $package . '-' . $version . '.' . $format,
+				'url' => 'https://typo3.azureedge.net/typo3/' . $version . '/' . $package . '-' . $version . '.' . $format,
 				'version' => $version,
 				'format' => $format
 			);
