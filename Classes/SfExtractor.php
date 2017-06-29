@@ -75,7 +75,7 @@ class SfExtractor {
 				$summary[$branch]['stable'] = $release['version'];
 			}
 
-			if (preg_match('/^7\.[0-9]+\.[0-9]+$/', $release['version'])) {
+			if (preg_match('/^8\.[0-9]+\.[0-9]+$/', $release['version'])) {
 				if (version_compare($release['version'], $latestStable, '>')) {
 					$latestStable = $release['version'];
 				}
