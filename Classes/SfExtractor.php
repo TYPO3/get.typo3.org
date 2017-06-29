@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2011-2015 Xavier Perseguers <xavier@causal.ch>, Causal Sàrl
+ *  (c) 2011-2017 Xavier Perseguers <xavier@causal.ch>, Causal Sàrl
  *
  *  All rights reserved
  *
@@ -27,14 +27,14 @@
  * SourceForge.net TYPO3 version extractor.
  *
  * @author      Xavier Perseguers <xavier@causal.ch>
- * @copyright   2011-2015 Causal Sàrl
+ * @copyright   2011-2017 Causal Sàrl
  * @license     http://www.gnu.org/copyleft/gpl.html
  */
 class SfExtractor {
 
-	const SF_URL = 'http://sourceforge.net/projects/typo3/files/TYPO3%20Source%20and%20Dummy/';
+	const SF_URL = 'https://sourceforge.net/projects/typo3/files/TYPO3%20Source%20and%20Dummy/';
 
-	const WIKI_URL = 'http://wiki.typo3.org/TYPO3_CMS_%s';
+	const WIKI_URL = 'https://wiki.typo3.org/TYPO3_CMS_%s';
 
 	/**
 	 * @return array
