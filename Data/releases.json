@@ -3,16 +3,16 @@
     "releases": {
       "8.7.3": {
         "version": "8.7.3",
-        "date": "2017-07-04 08:07:15 UTC",
+        "date": "2017-07-04 10:09:15 UTC",
         "type": "regular",
         "checksums": {
           "tar": {
-            "md5": "7cb84da2971b02141c0de697b0b7a3bd",
-            "sha1": "bf10480c20a98011895b2b624183bd7e9f61a7a6"
+            "md5": "08a4cc862960d2c338dee3002c889c2f",
+            "sha1": "399ac40fb19cc5a76d63e74341e4633f3ca6e923"
           },
           "zip": {
-            "md5": "063b89719809379c9f4e4d99016202e7",
-            "sha1": "4fbf52a7e3ab559bbdc5ad9e382baf241c280d22"
+            "md5": "2376524ae5cec9612c4e560fc1b9918c",
+            "sha1": "332ccc573127ea85a978d27e9d3c7bae0530f1b2"
           }
         },
         "url": {
@@ -390,16 +390,16 @@
     "releases": {
       "7.6.20": {
         "version": "7.6.20",
-        "date": "2017-07-04 08:01:47 UTC",
+        "date": "2017-07-04 10:12:15 UTC",
         "type": "regular",
         "checksums": {
           "tar": {
-            "md5": "8736a63aa7bac253281725b68b6c5372",
-            "sha1": "9d2a1567c7fdc76a84427a52e31e8c31ae6d624e"
+            "md5": "209b54f99c65d732c0986642aac3d224",
+            "sha1": "dfcb72f5b1f46de0af70f2530f16e93b2b6b293b"
           },
           "zip": {
-            "md5": "d9287f036084ed030c117afbc0f8cb59",
-            "sha1": "ded82dc37dee7fc67693445e9255cb8b3b177474"
+            "md5": "104fcf77be61414f58bc082be66fe476",
+            "sha1": "0eb4add8c7c3e5cad0b5ed47e3a56d83da6a2dc7"
           }
         },
         "url": {
@@ -1823,7 +1823,7 @@
     },
     "latest": "6.2.31",
     "stable": "6.2.31",
-    "active": true
+    "active": false
   },
   "6.1": {
     "releases": {
