@@ -1,6 +1,25 @@
 {
   "8": {
     "releases": {
+      "8.7.4": {
+        "version": "8.7.4",
+        "date": "2017-07-25 16:47:27 UTC",
+        "type": "regular",
+        "checksums": {
+          "tar": {
+            "md5": "0fb8bf984c8e4356911810b6e53a2616",
+            "sha1": "1129c740796aabbf2efbc5e43f892debe7e1d583"
+          },
+          "zip": {
+            "md5": "b4722d739570987d369bc7d3c37aa6a9",
+            "sha1": "328c95529731a3db7ebeab6c2e304e33b1c4dbfc"
+          }
+        },
+        "url": {
+          "zip": "https:\/\/get.typo3.org\/8.7.4\/zip",
+          "tar": "https:\/\/get.typo3.org\/8.7.4"
+        }
+      },
       "8.7.3": {
         "version": "8.7.3",
         "date": "2017-07-04 10:09:15 UTC",
@@ -388,6 +407,25 @@
   },
   "7": {
     "releases": {
+      "7.6.21": {
+        "version": "7.6.21",
+        "date": "2017-07-25 16:57:55 UTC",
+        "type": "regular",
+        "checksums": {
+          "tar": {
+            "md5": "b9202ce2b1221954c21ade9ade5b6af0",
+            "sha1": "a207b993604d1dd822a1396df0e6a4f654606670"
+          },
+          "zip": {
+            "md5": "b6332af09af62f065bdd4c41acc3fb0b",
+            "sha1": "b698c4cef84c7b0cd05f6096b7df16107711104a"
+          }
+        },
+        "url": {
+          "zip": "https:\/\/get.typo3.org\/7.6.21\/zip",
+          "tar": "https:\/\/get.typo3.org\/7.6.21"
+        }
+      },
       "7.6.20": {
         "version": "7.6.20",
         "date": "2017-07-04 10:12:15 UTC",
