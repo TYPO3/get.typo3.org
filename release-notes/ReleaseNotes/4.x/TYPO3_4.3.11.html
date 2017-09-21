@@ -1,0 +1,59 @@
+<h1 id="release-notes-for-typo3-4.3.11">Release Notes for TYPO3 4.3.11</h1>
+<p>This document contains information about TYPO3 version 4.3.11 which was released on February 23, 2011.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bugfixes only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>3294cd3937d6b09d7786d3596138a26e  dummy-4.3.11.tar.gz
+5e701f944065f73946e764a79ae0fb96  dummy-4.3.11.zip
+44587ce69cd89b7ec8493c76f2888fc2  typo3_src-4.3.11.tar.gz
+14f7a0ec5cd3cae9370c5e463f322aa9  typo3_src-4.3.11.zip
+be01675f4fd115b7e9d4ea2f4ae103e6  typo3_src+dummy-4.3.11.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The usual upgrading procedure applies; no database updates are necessary.</p>
+<h2 id="changelog">Changelog</h2>
+<pre><code>2011-02-23  Oliver Hader  &lt;oliver.hader@typo3.org&gt;
+
+    * Release of TYPO3 4.3.11
+
+2011-02-23  Thorsten Kahler  &lt;thorsten.kahler@dkd.de&gt;
+
+    * Fixed bug #17501: User setup - pressing return creates installtool file (Thanks to Steffen Kamper)
+
+2011-02-22  Stanislas Rolland  &lt;typo3@sjbr.ca&gt;
+
+    * Fixed bug #17695: htmlArea RTE: Removing format may remove content
+
+2011-02-11  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #16534: Exception message for missing memcache wrong
+    * Fixed bug #15721: Memcache::delete() without timeout param causes loss of memcache server in pool (Thanks to Michiel Ross)
+
+2011-02-02  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #17087: BE user password not changable via setup module with &quot;saltedpasswords&quot; (Thanks to Marcus Krause)
+
+2011-01-21  Stanislas Rolland  &lt;typo3@sjbr.ca&gt;
+
+    * Fixed bug #17140: htmlArea RTE: In WebKit, RTE inserts incorrect link if text is double-clicked
+    * Updated htmlArea RTE version to 1.8.14
+    * Fixed bug #17160: htmlArea RTE: Link editing problems in Internet Explorer
+
+2011-01-11  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #16967: [Caching framework] Remove not exising &quot;GlobalsBackend&quot; from config_default.php
+
+2011-01-09  Stanislas Rolland  &lt;typo3@sjbr.ca&gt;
+
+    * Fixed bug #13695: Image output in frontend is not xhtml valid
+
+2011-01-05  Steffen Kamper  &lt;steffen@typo3.org&gt;
+
+    * Fixed bug #16900: [Cache] Filebackend fails on windows
+
+2010-12-30  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #15034: Login to backend fails with IPv6 Address as HTTP_HOST (Thanks to Roland Schenke)
+    * Fixed bug #10480: Add missing header in auto_respond_msg (Thanks to Christian Buelter)</code></pre>
+<p><Category:ReleaseNotes/TYPO3_4.3.x> <a href="Category:TYPO3_4.3" title="wikilink">Category:TYPO3 4.3</a> <Category:2011></p>

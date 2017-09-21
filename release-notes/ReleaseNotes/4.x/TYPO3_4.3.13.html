@@ -1,0 +1,31 @@
+<h1 id="release-notes-for-typo3-4.3.13">Release Notes for TYPO3 4.3.13</h1>
+<p>This document contains information about TYPO3 version 4.3.13 which was released on August 16, 2011.</p>
+<h2 id="news">News</h2>
+<p>This release is a maintenance releases and contains bugfixes only.</p>
+<h2 id="notes">Notes</h2>
+<p>This release aims to fix two regressions that have been introduced with the provious releases at end of July 2011:</p>
+<ul>
+<li><a href="https://forge.typo3.org/issues/28536">#28536</a>: The JavaScript command of popup windows in the frontend has been encoded twice.</li>
+<li><a href="https://forge.typo3.org/issues/28847">#28847</a>: The fontTag security fix lead to a breaking change, if the default TypoScript for lib.stdheader has been modified. A compatibility fix has been integrated to have a secure fallback, if the fontTag property was customized (see <a href="http://buzz.typo3.org/teams/security/article/breaking-changes-in-the-latest-typo3-security-release/">this blog article</a> to get more information).</li>
+</ul>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>6a73776f089aabc5464c4730e741e872  blankpackage-4.3.13.tar.gz
+d1b37f4d0674ce0e0cd48cfbfeaf260f  blankpackage-4.3.13.zip
+1ba4301fe4db54d8fc89eff8f27f4945  dummy-4.3.13.tar.gz
+ee3acb13408ff8dbc14bf47450b71f25  dummy-4.3.13.zip
+e501ec853b7de2abf8385cd24baf93c3  typo3_src+dummy-4.3.13.zip
+36367b8b26d2e97e224715350df60070  typo3_src-4.3.13.tar.gz
+f49a6e68edc494ee090fcd8e572ccf9e  typo3_src-4.3.13.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changelog">Changelog</h2>
+<pre><code>2011-08-16  ae3c49c            [RELEASE] Release of TYPO3 4.3.13 (TYPO3 v4 Release Team)
+2011-08-12  e6febd7  #28847    [BUGFIX] Maintain compatibility with changed headline rendering (Helmut Hummel)
+2011-08-03  d0f08cd  #26876    [BUGFIX] Unprivileged backend user can read arbitrarily from database (Helmut Hummel)
+2011-07-31  25f5a87            [BUGFIX] htmlArea RTE not loading with Safari 5.1 (Stanislas Rolland)
+2011-07-30  2ba1620  #28536    [BUGFIX] JSwindow-typolink URLs are encoded twice (Helmut Hummel)
+2011-07-27  6380111            [TASK] Set TYPO3 version to 4.3.13-dev (TYPO3 v4 Release Team)
+2011-07-27  bf3b11f            [RELEASE] Release of TYPO3 4.3.12 (TYPO3 v4 Release Team)</code></pre>
+<p><Category:ReleaseNotes/TYPO3_4.3.x> <a href="Category:TYPO3_4.3" title="wikilink">Category:TYPO3 4.3</a> <Category:2011></p>

@@ -1,0 +1,16 @@
+{
+    "name": "psychomieze/md-converter",
+    "type": "library",
+    "license": "GPL-v3",
+    "authors": [
+        {
+            "name": "Susanne Moog",
+            "email": "susanne.moog@typo3.com"
+        }
+    ],
+    "require": {
+        "ondrs/pandoc-php": "^0.1.0",
+        "vlucas/phpdotenv": "^2.4",
+        "symfony/finder": "^3.3"
+    }
+}

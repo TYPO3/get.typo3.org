@@ -1,0 +1,102 @@
+<h1 id="release-notes-for-typo3-cms-8.7.5">Release Notes for TYPO3 CMS 8.7.5</h1>
+<p>This document contains information about TYPO3 CMS 8.7.5 which was released on September 5th, 2017.</p>
+<h2 id="news">News</h2>
+<p>This release is a combined bug fix and security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Find more details in the security bulletins:</p>
+<ul>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-004/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-004/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-005/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-005/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-006/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-006/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-007/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-007/</a></li>
+</ul>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="sha256-checksums">SHA256 checksums</h2>
+<pre><code>c4d1dea5ab6cff3780a3337dc31903696478695559dc9d186f532e8b080a176b  typo3_src-8.7.5.tar.gz
+1f71d861b73b24443b52e9f6459cd5062030fe25afe8fb72641e1ebeec0531ee  typo3_src-8.7.5.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.<br />
+It might be required to clear all caches; the “important actions” section in the TYPO3 Install Tool offers the accordant possibility to do so.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_CMS_8.7.4" title="wikilink">8.7.4</a>:</p>
+<p><code>* 9fc9dcfbf5 [RELEASE] Release of TYPO3 8.7.5</code><br />
+<code>* 218ecd55b1 [TASK] Apply CGL fixes</code><br />
+<code>* 65afaac0ce [BUGFIX] Add composer dependencies to individual packages</code><br />
+<code>* 2d37f5f8a8 [SECURITY] Disallow pht as file extension</code><br />
+<code>* 2c6228c5ab [SECURITY] Remove version from default User-Agent</code><br />
+<code>* c7769dbe60 [SECURITY] Respect permissions of storages in a file collection</code><br />
+<code>* 41297d168a [SECURITY] Escape record title in RecordsOverview</code><br />
+<code>* b415df9fc3 [TASK] Synchronize composer.json with ext_emconf.php</code><br />
+<code>* 4a92569292 [BUGFIX] Remove wrong &lt;/td&gt; tag in AbstractLinkBrowser</code><br />
+<code>* 8d355f5479 [TASK] Improve performance of Fluid TemplatePaths</code><br />
+<code>* 90d5dca2e0 [TASK] Fix broken validation translation form docs</code><br />
+<code>* 6b12babacf [TASK] Remove suhosin checks</code><br />
+<code>* 79f7759a66 [TASK] Improve exception for invalid transOrigPointerField</code><br />
+<code>* 913b86aba7 [TASK] Upgrade version of D3.js to version 4.10.0</code><br />
+<code>* 45349907c4 [TASK] Fix broken identifier in form docs</code><br />
+<code>* ce48791a52 [BUGFIX] EXT:form - use configured finisher identifiers for translations</code><br />
+<code>* 22a2093258 [BUGFIX] Prevent command exit status overflow to non-error status</code><br />
+<code>* d45abc0d08 [TASK] Update typo3/testing-framework to 1.1.2</code><br />
+<code>* c61f99f261 [BUGFIX] Use proper key name in db config</code><br />
+<code>* c762b3871e [TASK] Update CKEditor to 4.7.2</code><br />
+<code>* de67a5ed7e [BUGFIX] Always show input field for empty link fields</code><br />
+<code>* 9e88b3078f [BUGFIX] Make extbase language handling consistent with TYPO3 v7</code><br />
+<code>* 5c249c6732 [BUGFIX] Extbase distinct query result handling</code><br />
+<code>* 70bcd648fe [TASK] Cleanup .gitignore</code><br />
+<code>* 5296b0707f [TASK] Update php-cs-fixer to 2.5.0</code><br />
+<code>* a87bd76b21 [TASK] Let GeneralUtility::makeInstance() throw exception on unknown class</code><br />
+<code>* 540ae0e205 [TASK] CGL fixes after upgrade to php-cs-fixer 1.4</code><br />
+<code>* d919fbd244 [BUGFIX] Mark not set Install Tool password as secure</code><br />
+<code>* a3604d2ab8 [BUGFIX] Throw exception if encryption key is not set</code><br />
+<code>* 8a6a6cc56d [!!!][TASK] Extension manager: Drop &quot;Download SQL Dump&quot;</code><br />
+<code>* 56e71a4485 [TASK] travis-ci: Execute unit test only</code><br />
+<code>* ba870dc1e4 [TASK] travis-ci: Less parallel jobs</code><br />
+<code>* 2737c968c5 [TASK] Remove file Tests/Functional/Fixtures/Frontend/request.tpl</code><br />
+<code>* 2f0c95248d [TASK] Update typo3/testing-framework to 1.1.1</code><br />
+<code>* f11c33e481 [TASK] Update dev dependencies</code><br />
+<code>* cd3dbbae3c [TASK] Functional tests for translated tt_content rendering in Extbase</code><br />
+<code>* c949e715ca [TASK] Remove non existing param from checkForUpdate</code><br />
+<code>* cd54154cc9 [TASK] travis-ci: Split functional tests into more parts</code><br />
+<code>* 93c2062279 [BUGFIX] Catch error due to invalid record in Linkvalidator scheduler task</code><br />
+<code>* 4d103fe540 [BUGFIX] Fix SQL error when bookmarking a sys_file_metadata record</code><br />
+<code>* e8ec374c76 [BUGFIX] Prevent XSS in scheduler extension</code><br />
+<code>* 4fcaf7ff03 [TASK] Change upper limits for endtime of various records</code><br />
+<code>* 41fc5209c7 [BUGFIX] Fix hide and delete button in SysAction-&gt;RecordList</code><br />
+<code>* 45bdf473b2 [BUGFIX] Prevent XSS in PageLayoutController</code><br />
+<code>* 086add632a [BUGFIX] Drop sorting in COUNT() query in list module</code><br />
+<code>* 7267e0d938 [TASK] Remove leftover code for db_mountpoints in ActionTask</code><br />
+<code>* 01aac908e1 [BUGFIX] Correct type of argument passed to BackendUtility::viewOnClick</code><br />
+<code>* ed11f88aaa [BUGFIX] Use DriverInterface instead AbstractDriver for method signature</code><br />
+<code>* 79d1315c59 [BUGFIX] Changes indentation in new page wizard</code><br />
+<code>* 374fe5c699 [BUGFIX] Extend Lowlevel lost_files to accept customPath</code><br />
+<code>* 0075ee57bb [BUGFIX] Do not allow users to edit doktypes without permissions</code><br />
+<code>* 332cfca98c [BUGFIX] Implode array values in SaveToDatabaseFinisher</code><br />
+<code>* 3cab6c2d51 [BUGFIX] YouTubeRenderer &quot;controls&quot; option</code><br />
+<code>* 5e5c0ec7cb [TASK] Allow to override RTE config presets via PageTS</code><br />
+<code>* b988ba844c [BUGFIX] _LOCAL_LANG overwrite via TypoScript with nested keys</code><br />
+<code>* a3c0b791d4 [TASK] Cover rendering of hidden tt_content with functional tests</code><br />
+<code>* dfd3c0a5ad [BUGFIX] Filter http/verify option for guzzle to boolean</code><br />
+<code>* 5ab1098e84 [BUGFIX] Do not render &lt;li&gt; in section menu when CE has no header</code><br />
+<code>* ab8a0e3831 [BUGFIX] EXT:form - fix templateRootPaths support for email finishers</code><br />
+<code>* 6a480e998c [BUGFIX] Set anchor in all preview links of content elements</code><br />
+<code>* 65059997c0 [BUGFIX] parseInt values before comparison for Fluid be.widget.paginate</code><br />
+<code>* e3db31ba8d [BUGFIX] Allow translating content on MSSQL</code><br />
+<code>* 7e51baf692 [BUGFIX] Let all toplevel exceptions extend the core exception</code><br />
+<code>* 38aab43565 [TASK] Add cglFixMyCommit.bat</code><br />
+<code>* 6546955f1f [BUGFIX] Add sorting to group by for SQL compatibility</code><br />
+<code>* 91ec692af2 [TASK] Move install tool entry point to typo3/install.php</code><br />
+<code>* e1a90ee3ff [BUGFIX] New values created by AddController are added correctly</code><br />
+<code>* 860374afa1 [BUGFIX] Update FAL metadata if file is added with REPLACE method</code><br />
+<code>* c50564aa8e [BUGFIX] Do not detect single select fields as relation</code><br />
+<code>* 02666a5d20 [BUGFIX] Change order of tablename and alias in restriction container</code><br />
+<code>* 99c144a396 [TASK] Extract cli binary into separate package</code><br />
+<code>* 66fae5ed9c [BUGFIX] Jump Links in indexed_search Template</code><br />
+<code>* 19c2016b2b [BUGFIX] Install tool fatal errors at select database action</code><br />
+<code>* 65b7caba07 [BUGFIX] Prevent PHP warning on entering an empty install tool password</code><br />
+<code>* 197a5b1d4d [BUGFIX] Catch error in GeneralUtility::validEmail and GeneralUtility:isValidUrl</code><br />
+<code>* 62bf3ddb99 [BUGFIX] Add conflicts to core extensions' composer.json</code><br />
+<code>* 4d9fd9b6e2 [TASK] Max path length checker</code><br />
+<code>* 33361c533c [BUGFIX] Always hide the loading spinner of System Information</code><br />
+<code>* 6083dad502 [TASK] Set TYPO3 version to 8.7.5-dev</code><br />
+<Category:ReleaseNotes/TYPO3_8.x> <a href="Category:TYPO3_8" title="wikilink">Category:TYPO3 8</a> <Category:2017></p>

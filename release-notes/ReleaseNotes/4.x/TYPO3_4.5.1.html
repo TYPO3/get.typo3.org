@@ -1,0 +1,202 @@
+<h1 id="release-notes-for-typo3-4.5.1">Release Notes for TYPO3 4.5.1</h1>
+<p>This document contains information about TYPO3 version 4.5.1 which was released on February 23, 2011.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bugfixes only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>b91e93d98e4f7bad0636788689eb179c  dummy-4.5.1.tar.gz
+cb5e7afbd349d5d2b9a65b14ec577c68  dummy-4.5.1.zip
+6b7012da6953010673d9990d9bf0ca9e  typo3_src-4.5.1.tar.gz
+884d832ae93023b9506df7eb67f91f05  typo3_src-4.5.1.zip
+4b1cfd122125029827e99ec7ca3295cc  typo3_src+dummy-4.5.1.zip
+28027c7a6bb707ff006000b5912ab089  introductionpackage-4.5.1.tar.gz
+632782f0d38298980cadb9f7445cbf3f  introductionpackage-4.5.1.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is an ordered list of what was fixed since 4.5.0:</p>
+<h3 id="pagetree">Pagetree</h3>
+<ul>
+<li>Fixed bug #17520: Pagetree - Locked records are not indicated anymore (Thanks to Stefan Galinski)</li>
+<li>Fixed bug #17702: Directly open “inline edit” of page title after creating a new page with drag and drop in the pagetree (Thanks to Stefan Galinski)</li>
+<li>Fixed bug #17452: options.hideRecords.pages is ignored in page tree (Thanks to Andreas Kiessling)</li>
+<li>Fixed bug #17457: Pagetree - User Mount Points are always expanded</li>
+<li>Fixed bug #17479: javascript error after contextmenu -&gt; delete a page</li>
+<li>Fixed bug #17407: Pagetree cause endless loop in ExtJS events</li>
+<li>Fixed bug #17434: Pagetree: when start edit, the text should be selected</li>
+<li>Fixed bug #17406: Pagetree Editor remains with empty value</li>
+</ul>
+<h3 id="extjs-extdirect">ExtJS / ExtDirect</h3>
+<ul>
+<li>Fixed bug #17502: ExtDirect Exception: “Error parsing json response: null”</li>
+<li>Fixed bug #17500: Improve error handling in ExtDirect router (Thanks to Helmut Hummel)</li>
+<li>Fixed bug #17464: ExtDirectCode is added twice</li>
+<li>Fixed bug #17057: StateProvider values not respected</li>
+</ul>
+<h3 id="t3lib_mail-api">t3lib_mail API</h3>
+<ul>
+<li>Fixed bug #17574: defaultMailFromName not used when defaultMailFromAddress is used in mailform (Thanks to Jigal van Hemert)</li>
+<li>Fixed bug #17314: Swift_RfcComplianceException is always thrown in t3lib_formmail when forceReturnPath=1 is set</li>
+<li>Fixed bug #17531: htmlMail - Can't send mails on port based systems with Swiftmailer substitution</li>
+<li>Fixed bug #17518: Content type “mailform” no longer accepts list of addresses for “Recipient List” (also fixed function description in t3lib_mail_SwiftMailerAdapter)</li>
+</ul>
+<h3 id="install-tool">Install Tool</h3>
+<ul>
+<li>Fixed bug #17511: tx_install_session::write doesn't fix permissions</li>
+<li>Fixed bug #17374: implode() issues in Install Tool</li>
+</ul>
+<h3 id="extension-manager">Extension Manager</h3>
+<ul>
+<li>Fixed bug #17701: Generated t3x might be corrupted</li>
+<li>corrected initial settings with no saved extension configuration</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13180">F#13180</a> Hardcoded Labels for Extension State and in menu “Filters”</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13183">F#13183</a> Saving Settings uses hardcoded labels</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13179">F#13179</a> Order in “Udate EM_CONF” is not ideal</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13181">F#13181</a> Unreplaced variable in headline when editing a repository</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13182">F#13182</a> Updating a repository gives wrong flash message</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13178">F#13178</a> GUI partly hidden with 1024x768 pixels and less</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13177">F#13177</a> Button “Refresh” in Extension &gt; Details &gt; Files misses tooltip</li>
+<li>Many fixes for FileEditor</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13164">F#13164</a> EM GUI does not use translations</li>
+<li>Fixed file saving, file diff, prepared file creation/moveing</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/17538">F#17538</a>: EM gets instantiated before XCLASS definition (Thanks to Jesper Paardekooper)</li>
+<li>Prompt for save with new file load</li>
+<li>Small fixes for init configuration in fileeditor</li>
+<li>Prevent file actions before a file is loaded</li>
+<li>Simplified codemirror configuration</li>
+<li>Use mixed parser for php files for correct parsing</li>
+<li>fix docPath in link generation for documentation</li>
+<li>remote list should show installed extensions without search</li>
+<li>log saving of ext files in be-log</li>
+<li>Mark filename red when file content changed</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/11487">F#11487</a> Edit Files - Download not implemented</li>
+<li>Adjusted tooltips for filter</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/15019">F#15019</a>: Extension Manager does not free the DB result with sql_free_result</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/17363">F#17363</a>: Legacy extension manager does not allow to change category of configuration anymore</li>
+<li>StateProvider for file tree adjusted</li>
+<li>Prevent single click in translations while fetching languages</li>
+<li>StateProvider for file tree added</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/11862">F#11862</a> Updating translations fails</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12799">F#12799</a> Problem with Planer Task</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12812">F#12812</a> State destroys the columns menu in repository list</li>
+<li>CSS - fixed links in grid header menus</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12556">F#12556</a> Upload comment not uploaded</li>
+<li>CSS: remove border from filter trigger icons, cancel item displaced</li>
+<li>remote list: do not deliver all data with empty search</li>
+<li>CGL cleanups</li>
+<li>CSS for filetree folder icons removed (use standard), filter with typo3 icons</li>
+<li>Render settings and labels after the hook for easy additions</li>
+<li>Implemented Hook to allow extensions to plug in the gui</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/17450">F#17450</a> path to Documentation for sysextensions is wrong (Thanks to Simon Schaufelberger)</li>
+<li>Fixed double form tag in configuration forms (Thanks to Helmut Hummel)</li>
+</ul>
+<h3 id="linkvalidator">Linkvalidator</h3>
+<ul>
+<li>Fixed Bug <a href="https://forge.typo3.org/issues/12649">F#12649</a>: Linkvalidator: Split up analyzeRecord()</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12652">F#12652</a>: Linkvalidator: If none of the link types are marked to be checked, all of them are checked</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12650">F#12650</a>: Linkvalidator: tx_linkvalidator_tasks_validator: exec() is too long</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12454">F#12454</a>: Linkvalidator: Use setting “defaultMailFromName” and “defaultMailFromAddress”</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12517">F#12517</a>: Linkvalidator: Replace exec_SELECTgetRows with exec_SELECTgetSingleRow whenever a single record is expected (thanks to Jo Hasenau)</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12549">F#12549</a>: Linkvalidator: Unify capitalization of language labels</li>
+</ul>
+<h3 id="dbal">DBAL</h3>
+<ul>
+<li>Fixed bug #17399: Install Tool “COMPARE” fails to update mysql Tables</li>
+<li>Fixed bug #17327: Alter table in install tool does not work</li>
+</ul>
+<h3 id="workspaces">Workspaces</h3>
+<ul>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12457">F#12457</a>: Split view und grid don't use StateProvider yet</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/12855">F#12855</a>: Generate preview link visible in Live-Workspace and on non-content pages</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13074">F#13074</a>: missing cache_frontend configuration</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13098">F#13098</a>: Hide sys_workspace_stage in list view (Thanks to Andreas Kiessling)</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13003">F#13003</a>: singleIndex rows not showing up due to browser security violations</li>
+<li>Fixed bug <a href="https://forge.typo3.org/issues/13002">F#13002</a>: singleIndex page much have invalid workspace id</li>
+</ul>
+<h3 id="imagemagick">ImageMagick</h3>
+<ul>
+<li>Fixed bug #16656: ImageMagick does not work with quotes in exec() path on Windows</li>
+</ul>
+<h3 id="backend">Backend</h3>
+<ul>
+<li>Update codemirror to recent version 0.9.4</li>
+<li>Fixed bug #17719: Move donation popup to about module (thanks to Steffen Kamper)</li>
+<li>Fixed bug #16636: Suggest wizard does not work with drop-down select fields</li>
+<li>Fixed bug #17715: Wrong variable name used in recycler (Thanks to Peter Beernink)</li>
+<li>Fixed bug #14224: Redirect URL for backend login is lost when entering wrong information (Thanks to Reinhard Führicht)</li>
+<li>Fixed bug #15771: Docheader (save, save+view, save+close etc) missing</li>
+<li>Fixed bug #17564: Red question marks in QuickEdit instead of icons (Thanks to Jürgen Ettmueller)</li>
+<li>Fixed bug #17541: cookies are not required in CLI mode / cookieSecure blocks cli</li>
+<li>Fixed bug #17501: User setup - pressing return creates installtool file</li>
+<li>Fixed bug #17087: BE user password not changable via setup module with “saltedpasswords” (Thanks to Marcus Krause)</li>
+<li>Fixed bug #17413: ExtJs Theme - use grey folder items for tree by default</li>
+<li>Fixed bug #17493: Filelist misses open folder icon</li>
+<li>Fixed bug #17411: DatePicker middle selector not readable</li>
+<li>Fixed bug #17402: Error page should use TYPO3_copyright_year constant (Thanks to Johannes Feustel)</li>
+</ul>
+<h3 id="development">Development</h3>
+<ul>
+<li>Fixed bug #16890: tcaTree in flexforms still breaks</li>
+<li>Fixed bug #17478: Wrong behaviour of “$TYPO3_CONF_VARS['SYS']['sqlDebug'] = TRUE” (since #15425)</li>
+</ul>
+<h3 id="admin-panel">Admin Panel</h3>
+<ul>
+<li>Fixed bug #17708: wrong link in adminpanel: edit page properties (Thanks to Bjoern Pedersen)</li>
+<li>Fixed bug #17684: Admin Panel renders invalid markup (Thanks to Markus Klein)</li>
+<li>Fixed bug #17436: typo in class.tslib_adminpanel.php (Thanks to Bjoern Pedersen)</li>
+</ul>
+<h3 id="frontend-typoscript">Frontend / TypoScript</h3>
+<ul>
+<li>Fixed bug #17483: GifBuilder - meaningfulTempFilePrefix can cause invalid image urls</li>
+<li>Fixed bug #16902: Fatal error in tslib_content_text (Thanks to Jo Hasenau)</li>
+<li>Fixed bug #17428: Parsetime comment is inserted BEFORE !doctype and html tag (Thanks to Georg Ringer)</li>
+<li>Fixed bug #17371: Typo in MEDIA renders wrong height</li>
+<li>Fixed bug #17372: stdWrap .current and .setContentToCurrent do not return content</li>
+<li>Fixed bug #17422: cObj-&gt;FORM() wasn't processing the $formData parameter (Thanks to Hubertus Golf)</li>
+<li>Fixed bug #17385: Restore proper behavior of LOAD_REGISTER (Thanks to Jo Hasenau)</li>
+<li>Fixed bug #17553: css_styled_content ext_tables.php links to wrong static file for TYPO3 4.4</li>
+<li>Fixed bug #12230: Function tslib_cObj::crop() is not fully multibyte safe (Thanks to Vladimir Podkovanov)</li>
+<li>Fixed bug #17507: Extension using stdWrap hooks are broken due to stdWrap refactoring (Thank also to Jo Hasenau)</li>
+<li>Fixed bug #17351: PHP_SCRIPT_EXT/INT in 4.5 doesn't work (Thanks to Jo Hasenau)</li>
+<li>Fixed bug #17360: beforeWrap/afterWrap properties of TMENUITEM not working anymore (Thanks to Jo Hasenau)</li>
+</ul>
+<h3 id="rtehtmlarea">RTEhtmlarea</h3>
+<ul>
+<li>Fixed bug #17695: htmlArea RTE: Removing format may remove content</li>
+<li>Fixed bug #17669: htmlArea RTE: Dialogue window positioning properties not honoured</li>
+<li>Fixed bug #17676: htmlArea RTE: Some combo stores are loaded twice</li>
+<li>Fixed bug #17677: htmlArea RTE: Classes configuration is loaded twice</li>
+<li>Fixed bug #17616: htmlArea RTE: Link dialogue doesn't open when anchor class is set with double quotes</li>
+<li>Fixed bug #17587: htmlArea RTE: RTE should not be enabled on Android</li>
+<li>Fixed bug #17373: Standalone images in RTE-enabled field not rendered in frontend</li>
+<li>Fixed bug #17349: htmlArea RTE: JS error when using “Edit element”</li>
+<li>Fixed bug #17438: htmlArea RTE: non-xhtml markup in image dialogue (Thanks to Georg Ringer)</li>
+</ul>
+<h3 id="t3editor">T3editor</h3>
+<ul>
+<li>Fixed bug #17653: t3editor: wrong size calculation in Chrome for the code completion window (Thanks to Stephan Petzl)</li>
+<li>Fixed bug #17654: t3editor: some code completion descriptions have &quot; entities instead of real quotes (thanks to Christian Kartnig)</li>
+</ul>
+<h3 id="backwards-compatibility">Backwards compatibility</h3>
+<ul>
+<li>Fixed bug #16891: showpic.php causes a fatal error if parameters GET variable is not an array (Thanks to Helmut Hummel)</li>
+<li>Fixed bug #17412: PHP Warning in class.t3lib_matchcondition_abstract.php (Thanks to Sven Jürgens)</li>
+<li>Fixed bug #17355: Dependencies in sysext 'version' and 'workspaces'</li>
+<li>Fixed bug #17244: Error Message while Updating 4.4.6 &gt; 4.5</li>
+<li>Fixed bug #12998: Icons for Word documents missing (Thanks to Tobias Schäfer)</li>
+</ul>
+<h3 id="performance-caching">Performance / Caching</h3>
+<ul>
+<li>Fixed bug #17672: CSH - each label fires one request</li>
+<li>Fixed bug #17592: ExtDirect API calls are splitted in single requests and slows down page loading</li>
+<li>Fixed bug #16534: Exception message for missing memcache wrong</li>
+<li>Fixed bug #15721: Memcache::delete() without timeout param causes loss of memcache server in pool (Thanks to Michiel Ross)</li>
+</ul>
+<h3 id="security-tokens-login">Security / Tokens / Login</h3>
+<ul>
+<li>Fixed bug #17383: Open forms cannot be saved after “Relogin” (Security Token errors) (Thanks to Helmut Hummel)</li>
+<li>Fixed bug #17498: The refresh login dialogue is shown even if the session already timed out (Thanks to Helmut Hummel)</li>
+<li>Fixed bug #17490: After introducing the locking in #17289 no CSRF token will ever be deleted (Thanks to Helmut Hummel)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.5.x> <a href="Category:TYPO3_4.5" title="wikilink">Category:TYPO3 4.5</a> <Category:2011></p>

@@ -1,0 +1,83 @@
+<h1 id="release-notes-for-typo3-4.5.12">Release Notes for TYPO3 4.5.12</h1>
+<p>This document contains information about TYPO3 version 4.5.12 which was released on March 6th 2012.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bug fixes only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>8d2c4836f37df12c48834e428503781f  blankpackage-4.5.12.tar.gz
+801407f91ce2c2bd24ab3afdf6ede86e  blankpackage-4.5.12.zip
+cbeffb05651a771ee264c1405440c750  dummy-4.5.12.tar.gz
+51dfe48b9226dfc3ebff088d85dcf9c7  dummy-4.5.12.zip
+e2ae84fce0dcb1040f7d1bb6377f1bae  introductionpackage-4.5.12.tar.gz
+0b5e7c5ad1ffa4095ac6d87d1e1c406c  introductionpackage-4.5.12.zip
+c5dc66138e36ea5f5c943fe459153f96  typo3_src+dummy-4.5.12.zip
+1f2076e858b82441f4de40efe56ca7ad  typo3_src-4.5.12.tar.gz
+98942c288e60a984b1cab455c65bff48  typo3_src-4.5.12.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_4.5.11" title="wikilink">4.5.11</a>:</p>
+<ul>
+<li>[RELEASE] Release of TYPO3 4.5.12</li>
+<li>[BUGFIX] Media element does not recognize short YouTube links (<a href="https://forge.typo3.org/issues/33089">#33089</a>)</li>
+<li>[BUGFIX] Add the title and increase width of the multiple select boxes (<a href="https://forge.typo3.org/issues/32732">#32732</a>)</li>
+<li>[BUGFIX] Misleading error with empty USER_INT (<a href="https://forge.typo3.org/issues/23347">#23347</a>)</li>
+<li>[BUGFIX] tslib_pibase: Outdated PHPDoc comment for pi_loadLL() (<a href="https://forge.typo3.org/issues/33160">#33160</a>)</li>
+<li>[TASK] Remove typo3/logomenu.php (<a href="https://forge.typo3.org/issues/34427">#34427</a>)</li>
+<li>[BUGFIX] PHP Warning when moving a record (<a href="https://forge.typo3.org/issues/34135">#34135</a>)</li>
+<li>[BUGFIX] EM: make update window modal (<a href="https://forge.typo3.org/issues/29593">#29593</a>)</li>
+<li>[BUGFIX] Content rendering: Definition lists in RTE are wrapped in p (<a href="https://forge.typo3.org/issues/25083">#25083</a>)</li>
+<li>[BUGFIX] Don't save form protection error messages in session (<a href="https://forge.typo3.org/issues/30272">#30272</a>)</li>
+<li>[BUGFIX] TCE: error message if no label has been set in TCA (<a href="https://forge.typo3.org/issues/17947">#17947</a>)</li>
+<li>[BUGFIX] getAllowedItems called with one parameter too much (<a href="https://forge.typo3.org/issues/34030">#34030</a>)</li>
+<li>[BUGFIX] Scheduler BE module fails to load due to autoloader issues (<a href="https://forge.typo3.org/issues/33116">#33116</a>)</li>
+<li>[TASK] Additional unit tests for t3lib_div::mkdir and mkdir_deep</li>
+<li>[BUGFIX] htmlArea RTE: Target of localized string may be empty (<a href="https://forge.typo3.org/issues/33897">#33897</a>)</li>
+<li>[BUGFIX] htmlArea RTE: Default skin inconsistent with ExtJS xtheme-blue (<a href="https://forge.typo3.org/issues/33889">#33889</a>)</li>
+<li>[BUGFIX][t3editor] (De-)Activating does not work in Chrome (<a href="https://forge.typo3.org/issues/33515">#33515</a>)</li>
+<li>[BUGFIX] Sorting of localized records is wrong after copying (<a href="https://forge.typo3.org/issues/30469">#30469</a>)</li>
+<li>[BUGFIX] Sporadic memcache error on server load (<a href="https://forge.typo3.org/issues/30162">#30162</a>)</li>
+<li>[BUGFIX] IRRE translation links shouldn't be shown if no parent (<a href="https://forge.typo3.org/issues/32073">#32073</a>)</li>
+<li>[BUGFIX] Confusing error message in reports module (<a href="https://forge.typo3.org/issues/32650">#32650</a>)</li>
+<li>[BUGFIX] Resetting of input field to default when having a range fails (<a href="https://forge.typo3.org/issues/28298">#28298</a>)</li>
+<li>[BUGFIX] IRRE: Selected items remain in selector with foreign_unique (<a href="https://forge.typo3.org/issues/21102">#21102</a>)</li>
+<li>[BUGFIX] RTE: Removing div from formatblock selector may not workspaces (<a href="https://forge.typo3.org/issues/33457">#33457</a>)</li>
+<li>[BUGFIX] htmlArea RTE: CSS class names are lowercase in WebKit (<a href="https://forge.typo3.org/issues/32408">#32408</a>)</li>
+<li>[BUGFIX] saltedpasswords update task only updates 42 records (<a href="https://forge.typo3.org/issues/31252">#31252</a>)</li>
+<li>[BUGFIX] Bookmarks to pages don't work (<a href="https://forge.typo3.org/issues/30352">#30352</a>)</li>
+<li>[TASK] Disable compression for inlineJs in Backend (<a href="https://forge.typo3.org/issues/29498">#29498</a>)</li>
+<li>[BUGFIX] Prevent duplicate stdWrap for media content (<a href="https://forge.typo3.org/issues/25277">#25277</a>)</li>
+<li>[BUGFIX] Release locked records during logout (<a href="https://forge.typo3.org/issues/20211">#20211</a>)</li>
+<li>[BUGFIX] Prevent compression of scripts that use ajax.php (<a href="https://forge.typo3.org/issues/24274">#24274</a>)</li>
+<li>[BUGFIX] “Show page” does not use a proper URL scheme (<a href="https://forge.typo3.org/issues/31959">#31959</a>)</li>
+<li>[TASK] Reports module uses internal data of salted passwords (<a href="https://forge.typo3.org/issues/32136">#32136</a>)</li>
+<li>[BUGFIX] RTE: Some toolbar elements may not be correctly initialized (<a href="https://forge.typo3.org/issues/33637">#33637</a>)</li>
+<li>[BUGFIX] Encoding error in TCEforms inline JavaScript (<a href="https://forge.typo3.org/issues/32422">#32422</a>)</li>
+<li>[BUGFIX] t3lib_div::validPathStr() fails on certain file names (<a href="https://forge.typo3.org/issues/32046">#32046</a>)</li>
+<li>[BUGFIX] htmlArea RTE: Changing the text color to black does not work (<a href="https://forge.typo3.org/issues/32877">#32877</a>)</li>
+<li>[BUGFIX] htmlArea RTE: Firefox may report error when setting a color (<a href="https://forge.typo3.org/issues/33644">#33644</a>)</li>
+<li>[BUGFIX] RTE Text indicator does not work in Firefox in TYPO3 4.5 (<a href="https://forge.typo3.org/issues/33642">#33642</a>)</li>
+<li>[BUGFIX] RTE: Some toolbar elements may not be correctly initialized (<a href="https://forge.typo3.org/issues/33637">#33637</a>)</li>
+<li>[BUGFIX] Context menu of page translation doesn't work in languages view (<a href="https://forge.typo3.org/issues/27052">#27052</a>)</li>
+<li>Revert “[BUGFIX] Scheduler BE module fails to load due to autoloader issues”</li>
+<li>[BUGFIX] Reports module shows unnecessary info text (<a href="https://forge.typo3.org/issues/32580">#32580</a>)</li>
+<li>[BUGFIX] Scheduler BE module fails to load due to autoloader issues (<a href="https://forge.typo3.org/issues/33116">#33116</a>)</li>
+<li>[BUGFIX] Broken datepicker on unsaved flexform sections (<a href="https://forge.typo3.org/issues/23843">#23843</a>)</li>
+<li>[BUGFIX] TYPO3 prompts to select position when there are no pages (<a href="https://forge.typo3.org/issues/32111">#32111</a>)</li>
+<li>[BUGFIX] Unlimited memory limit handling in system status report (<a href="https://forge.typo3.org/issues/32231">#32231</a>)</li>
+<li>[BUGFIX] Warnings in BE when using “Find filename” (<a href="https://forge.typo3.org/issues/21591">#21591</a>)</li>
+<li>[BUGFIX] spriteManager for Clear RTE Cache icon (<a href="https://forge.typo3.org/issues/32892">#32892</a>)</li>
+<li>[TASK] Improve debugTrail() to better handle includes (<a href="https://forge.typo3.org/issues/31300">#31300</a>)</li>
+<li>[BUGFIX] htmlArea RTE: Some attributes wrongly unset by “Edit element” (<a href="https://forge.typo3.org/issues/33466">#33466</a>)</li>
+<li>[BUGFIX] Misinterpretation of memory_limit setting in install tool (<a href="https://forge.typo3.org/issues/20069">#20069</a>)</li>
+<li>[BUGFIX] Marker not removed from file module (<a href="https://forge.typo3.org/issues/33455">#33455</a>)</li>
+<li>[TASK] Set TYPO3 version to 4.5.12-dev</li>
+</ul>
+<h3 id="workspaces">workspaces</h3>
+<ul>
+<li>[TASK] Update version to 4.5.12</li>
+<li>[BUGFIX] Records with same UID but different tables are not shown (<a href="https://forge.typo3.org/issues/34546">#34546</a>)</li>
+<li>[TASK] Cannot translate workspace preview link generation (<a href="https://forge.typo3.org/issues/34145">#34145</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.5.x> <a href="Category:TYPO3_4.5" title="wikilink">Category:TYPO3 4.5</a> <Category:2012></p>

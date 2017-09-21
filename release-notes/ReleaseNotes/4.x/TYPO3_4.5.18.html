@@ -1,0 +1,58 @@
+<h1 id="release-notes-for-typo3-4.5.18">Release Notes for TYPO3 4.5.18</h1>
+<p>This document contains information about TYPO3 version 4.5.18 which was released on August 8th 2012.</p>
+<h2 id="news">News</h2>
+<p>This release is a bug fix release.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>4fc5feef78a503ad1e88af2bfa09acbd  blankpackage-4.5.18.tar.gz
+0aec3c37e3511ecbaf4fbb6a937e0429  blankpackage-4.5.18.zip
+8542e122256f39261ad63bd84144a98f  dummy-4.5.18.tar.gz
+86e729cfda71c593d55196d5ba743096  dummy-4.5.18.zip
+7d438d8e760634dc61ccca0d112b0cd7  introductionpackage-4.5.18.tar.gz
+804e87c1e4832320711d4d2c19bae2c2  introductionpackage-4.5.18.zip
+ea49ad6d13aa3a5a519aca6cbed03904  typo3_src+dummy-4.5.18.zip
+fb6aee4d7820f40e7ca2c9848450bc30  typo3_src-4.5.18.tar.gz
+dac3dae6fd2fbab6cd60b02a62291735  typo3_src-4.5.18.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_4.5.17" title="wikilink">4.5.17</a>:</p>
+<ul>
+<li>[RELEASE] Release of TYPO3 4.5.18</li>
+<li>[BUGFIX] Pass $fieldName when processing FlexForm DS in t3lib_transferData (<a href="https://forge.typo3.org/issues/39527">#39527</a>)</li>
+<li>[BUGFIX] t3lib_db - expects parameter 1 to be resource, boolean given (<a href="https://forge.typo3.org/issues/39509">#39509</a>)</li>
+<li>[BUGFIX] Suggest Wizard crashes in Frontend Editing (<a href="https://forge.typo3.org/issues/25079">#25079</a>)</li>
+<li>[BUGFIX] unlink issues warnings for lock files (<a href="https://forge.typo3.org/issues/32282">#32282</a>)</li>
+<li>[BUGFIX] IRRE childs don't expand in Internet Explorer (<a href="https://forge.typo3.org/issues/38849">#38849</a>)</li>
+<li>[BUGFIX] t3lib_db::exec_SELECTgetRows method annotation (<a href="https://forge.typo3.org/issues/39417">#39417</a>)</li>
+<li>[BUGFIX] Properly check disabled versioning within tcemain (<a href="https://forge.typo3.org/issues/33625">#33625</a>)</li>
+<li>[BUGFIX] PHP warnings may show up in the List module (<a href="https://forge.typo3.org/issues/22152">#22152</a>)</li>
+<li>[BUGFIX] Shell command arguments are not escaped (<a href="https://forge.typo3.org/issues/31278">#31278</a>)</li>
+<li>[BUGFIX] RTE transformation transforms LF/CR between div and hr into space (<a href="https://forge.typo3.org/issues/26815">#26815</a>)</li>
+<li>[BUGFIX] Exclude E_STRICT on PHP 5.4 and unify error reporting (<a href="https://forge.typo3.org/issues/38691">#38691</a>)</li>
+<li>[TASK] Always return a boolean in t3lib_div::validPathStr (<a href="https://forge.typo3.org/issues/38604">#38604</a>)</li>
+<li>[TASK] Improve error message of “broken rootline” (<a href="https://forge.typo3.org/issues/33082">#33082</a>)</li>
+<li>[BUGFIX] Formmail doesn't always use correct character set (<a href="https://forge.typo3.org/issues/28684">#28684</a>)</li>
+<li>[BUGFIX] $_EXTCONF was not filled in ext_tables.php (<a href="https://forge.typo3.org/issues/38927">#38927</a>)</li>
+<li>[BUGFIX] stdWrap numRows fails due to wrong SELECT clause (<a href="https://forge.typo3.org/issues/34152">#34152</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] QT movies prefixed abusively in Media CE (<a href="https://forge.typo3.org/issues/39026">#39026</a>)</li>
+<li>[BUGFIX] Send sane HTTP response in showpic on error (<a href="https://forge.typo3.org/issues/39052">#39052</a>)</li>
+<li>[BUGFIX] Unnecessary warning in css_styled_content (division by zero) (<a href="https://forge.typo3.org/issues/36777">#36777</a>)</li>
+<li>[BUGFIX] datepicker does not set current time as default (<a href="https://forge.typo3.org/issues/33629">#33629</a>)</li>
+<li>[BUGFIX] Drag&amp;Drop inside the root page of the pagetree isn't possible (<a href="https://forge.typo3.org/issues/24626">#24626</a>)</li>
+<li>[BUGFIX] Check if user is allowed to paste page to pagetree (<a href="https://forge.typo3.org/issues/33546">#33546</a>)</li>
+<li>[BUGFIX] Add rootline workspace overlay for backend_layouts. (<a href="https://forge.typo3.org/issues/36313">#36313</a>)</li>
+<li>[BUGFIX] accessibilityWrap ignores simple value (<a href="https://forge.typo3.org/issues/38791">#38791</a>)</li>
+<li>[BUG] t3lib_div::getFilesInDir order differs from order in File list (<a href="https://forge.typo3.org/issues/18771">#18771</a>)</li>
+<li>[BUGFIX] RTE: Importing google webfonts breaks style sheet parsing (<a href="https://forge.typo3.org/issues/36316">#36316</a>)</li>
+<li>[BUGFIX] E_DEPRECATED does not exist in PHP 5.2 (<a href="https://forge.typo3.org/issues/38645">#38645</a>)</li>
+<li>[BUGFIX] RTE spellcheck issue on Windows server (<a href="https://forge.typo3.org/issues/36438">#36438</a>)</li>
+<li>[TASK] Set TYPO3 version to 4.5.18-dev</li>
+</ul>
+<h3 id="extbase">extbase</h3>
+<ul>
+<li>[BUGFIX] Don't create caches twice (<a href="https://forge.typo3.org/issues/37641">#37641</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.5.x> <a href="Category:TYPO3_4.5" title="wikilink">Category:TYPO3 4.5</a> <Category:2012></p>

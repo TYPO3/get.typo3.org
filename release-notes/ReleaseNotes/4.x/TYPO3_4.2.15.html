@@ -1,0 +1,51 @@
+<h1 id="release-notes-for-typo3-4.2.15">Release Notes for TYPO3 4.2.15</h1>
+<p>This document contains information about TYPO3 version 4.2.15 which was released on October 6, 2010.</p>
+<h2 id="news">News</h2>
+<p>This release is a combined bugfix and security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Due to several security issues found in the TYPO3 Core, there was a combined release of TYPO3 4.2.15, 4.3.7 and 4.4.4.<br />
+Find more details in the security bulletin: <a href="https://typo3.org/teams/security/security-bulletins/typo3-sa-2010-020/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-sa-2010-020/</a></p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>ab4028fbf28be87c40de4a032bc6b06d  dummy-4.2.15.tar.gz
+6bc61a98ea226a19f873ff86b5421796  dummy-4.2.15.zip
+4411919947516dff193e22e21d9be977  typo3_src-4.2.15.tar.gz
+c31979410e4cc3c4733c3609175ea264  typo3_src-4.2.15.zip
+b594d592ca5c886207d599aadd57ade6  typo3_src+dummy-4.2.15.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The usual upgrading procedure applies; no database updates are necessary.</p>
+<h2 id="changelog">Changelog</h2>
+<pre><code>2010-10-06  Oliver Hader  &lt;oliver@typo3.org&gt;
+
+    * Release of TYPO3 4.2.15
+
+2010-10-06  Oliver Hader  &lt;oliver@typo3.org&gt;
+
+    * Fixed bug #13650: Information disclosure in sys_actions (DB mount, usergroups) (thanks to Georg Ringer)
+    * Fixed bug #15461: RemoveXSS exposes XSS vulnerability for double encoded characters (thanks to Marcus Krause)
+    * Fixed bug #15728: Extension Manager allows to download arbitrary files beyond PATH_site or rootpath (thanks to Marcus Krause)
+    * Fixed bug #15729: Sysext setup&#39;s user simulation is susceptible to XSS (thanks to Marcus Krause)
+    * Fixed bug #15733: Admin Panel is susceptible to XSS (thanks to Helmut Hummel)
+    * Fixed bug #15898: It is (still) possible to download arbitrary files through the jumpurl feature (thanks to Helmut Hummel and Marcus Krause)
+
+2010-09-24  Steffen Gebert  &lt;steffen@steffen-gebert.de&gt;
+
+    * Fixed bug #5983: Undefined variable is used in t3lib_BEfunc::exec_foreign_table_where_query
+
+2010-09-24  Ernesto Baschny  &lt;ernst@cron-it.de&gt;
+
+    * Fixed bug #15653: Only show upload comments that are newer than installed version in update function of EM
+
+2010-09-19  Oliver Hader  &lt;oliver@typo3.org&gt;
+
+    * Fixed bug #8260: Update Wizard in install tool force temp-configuration files and load configuration twice
+
+2010-09-19  Benjamin Mack  &lt;benni@typo3.org&gt;
+
+    * Fixed bug #3908: DisplayCond =&gt; VERSION:IS:false always returns true (Thanks to Daniel Poetzinger)
+
+2010-08-12  Steffen Kamper  &lt;steffen@typo3.org&gt;
+
+    * Fixed bug #3819: t3lib_div::getIndpEnv(&#39;TYPO3_DOCUMENT_ROOT&#39;) delivers wrong value in Backend</code></pre>
+<p><Category:ReleaseNotes/TYPO3_4.2.x> <a href="Category:TYPO3_4.2" title="wikilink">Category:TYPO3 4.2</a> <Category:2010></p>

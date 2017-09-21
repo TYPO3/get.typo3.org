@@ -1,0 +1,132 @@
+<h1 id="release-notes-for-typo3-cms-6.2.1">Release Notes for TYPO3 CMS 6.2.1</h1>
+<p>This document contains information about TYPO3 CMS 6.2.1 which was released on April 16th, 2014.</p>
+<h2 id="news">News</h2>
+<p>This release is a bug fix release.</p>
+<h2 id="notes">Notes</h2>
+<p>This is part of a combined release of TYPO3 CMS 4.5.33, 4.7.18, 6.0.13, 6.1.8 and 6.2.1.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>c0b26d2ff257536c5b8367f853951113  typo3_src-6.2.1.tar.gz
+e9e536e8d8ce6bf1f8a5c6ae744cbc7f  typo3_src-6.2.1.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since 6.2.0:</p>
+<h3 id="important">Important</h3>
+<ul>
+<li>[FEATURE] Provide API to add cached TCA changes (<a href="https://forge.typo3.org/issues/57942">#57942</a>)</li>
+<li>[FEATURE] Introduce signal in loadBaseTca (<a href="https://forge.typo3.org/issues/57863">#57863</a>)</li>
+<li>[SECURITY] Prevent XSS in scheduler form (<a href="https://forge.typo3.org/issues/57603">#57603</a>)</li>
+</ul>
+<h3 id="compatibility">Compatibility</h3>
+<ul>
+<li>[TASK] Updates prototype and scriptaculous, fixing IE9+ issues (<a href="https://forge.typo3.org/issues/51768">#51768</a>)</li>
+<li>[BUGFIX] Properly detect HHVM with fastcgi (<a href="https://forge.typo3.org/issues/57785">#57785</a>)</li>
+<li>[BUGFIX] Use last result line of identify command (<a href="https://forge.typo3.org/issues/56574">#56574</a>)</li>
+<li>[BUGFIX] Enable backend login for Internet Explorer 8 users (<a href="https://forge.typo3.org/issues/56988">#56988</a>)</li>
+</ul>
+<h3 id="performance">Performance</h3>
+<ul>
+<li>[BUGFIX] Don't run processIncludes more than once (<a href="https://forge.typo3.org/issues/54903">#54903</a>)</li>
+</ul>
+<h3 id="file-abstraction-layer">File Abstraction Layer</h3>
+<ul>
+<li>[TASK] Release file and folder permission check (<a href="https://forge.typo3.org/issues/57354">#57354</a>)</li>
+<li>[BUGFIX] ResourceStorage does not sanitize folder/file name (<a href="https://forge.typo3.org/issues/57681">#57681</a>)</li>
+<li>[CLEANUP] Clean up comments and error messages in ResourceStorage (<a href="https://forge.typo3.org/issues/57871">#57871</a>)</li>
+<li>[BUGFIX] FAL: Prevent invalid NULL value on metadata creation (<a href="https://forge.typo3.org/issues/57495">#57495</a>)</li>
+<li>[BUGFIX] Use return values of array_map in local driver (<a href="https://forge.typo3.org/issues/57415">#57415</a>)</li>
+<li>[BUGFIX] CSC: file references not working with image compression (<a href="https://forge.typo3.org/issues/57346">#57346</a>)</li>
+</ul>
+<h3 id="dbal-databaseconnection">DBAL / DatabaseConnection</h3>
+<ul>
+<li>[BUGFIX] DBAL sql_fetch_* must return boolean or array (<a href="https://forge.typo3.org/issues/57957">#57957</a>)</li>
+<li>[BUGFIX] Run scheduler from cli fails on DBAL (<a href="https://forge.typo3.org/issues/57246">#57246</a>)</li>
+<li>[BUGFIX] sql_free_result does not work with all allowed types (<a href="https://forge.typo3.org/issues/50378">#50378</a>)</li>
+</ul>
+<h3 id="importer-exporter">Importer / Exporter</h3>
+<ul>
+<li>[BUGFIX] impexp has to use module dispatcher (<a href="https://forge.typo3.org/issues/57873">#57873</a>)</li>
+<li>[BUGFIX] Fix impexp for importing exports from version 4.x (<a href="https://forge.typo3.org/issues/52593">#52593</a>)</li>
+</ul>
+<h3 id="install-tool-extension-manager-distributions">Install Tool / Extension Manager / Distributions</h3>
+<ul>
+<li>[BUGFIX] Improve database scheme updater (<a href="https://forge.typo3.org/issues/57421">#57421</a>)</li>
+<li>[BUGFIX] Fix relative path calculations in EM (<a href="https://forge.typo3.org/issues/57327">#57327</a>)</li>
+<li>[BUGFIX] Extension update fails if needed by other extensions (<a href="https://forge.typo3.org/issues/57264">#57264</a>)</li>
+<li>[BUGFIX] Update for sys_file_metadata returns SQL error (<a href="https://forge.typo3.org/issues/57420">#57420</a>)</li>
+<li>[BUGFIX] Install Tool-FAL metadata migration fails for big sets (<a href="https://forge.typo3.org/issues/57103">#57103</a>)</li>
+<li>[BUGFIX] Install tool update wizards show html tags in error message (<a href="https://forge.typo3.org/issues/57285">#57285</a>)</li>
+<li>[BUGFIX] Fix initial file import in EM (<a href="https://forge.typo3.org/issues/57312">#57312</a>)</li>
+<li>[BUGFIX] TceformsUpdateWizard shows up too often (<a href="https://forge.typo3.org/issues/57497">#57497</a>)</li>
+<li>[TASK] TceformsUpdateWizard: Throw exception if database query fails (<a href="https://forge.typo3.org/issues/57572">#57572</a>)</li>
+<li>[BUGFIX] Backup of LocalConfiguration.php missing on update (<a href="https://forge.typo3.org/issues/57458">#57458</a>)</li>
+<li>[BUGFIX] Remove the need of PackageStates.php in tests (<a href="https://forge.typo3.org/issues/57490">#57490</a>)</li>
+</ul>
+<h3 id="api-tca">API / TCA</h3>
+<ul>
+<li>[BUGFIX] TCA tree fail to load with IRRE (<a href="https://forge.typo3.org/issues/39035">#39035</a>)</li>
+<li>[BUGFIX] Set maxLevels of generated sys_category TCA (<a href="https://forge.typo3.org/issues/57750">#57750</a>)</li>
+<li>[BUGFIX] BE ignores l10n_mode for record titles (<a href="https://forge.typo3.org/issues/33499">#33499</a>)</li>
+<li>[BUGFIX] Do not reset Page Renderer on partial rendering (<a href="https://forge.typo3.org/issues/57294">#57294</a>)</li>
+<li>[BUGFIX] Check if lock directory is writable (<a href="https://forge.typo3.org/issues/57463">#57463</a>)</li>
+<li>[BUGFIX] Check default salting method first (<a href="https://forge.typo3.org/issues/54833">#54833</a>)</li>
+<li>[BUGFIX] Check WorkspaceEnabled for MM field related table (<a href="https://forge.typo3.org/issues/57291">#57291</a>)</li>
+</ul>
+<h3 id="backend">Backend</h3>
+<ul>
+<li>[TASK] Remove hardcoded module name in AbstractDatabaseRecordList (<a href="https://forge.typo3.org/issues/55314">#55314</a>)</li>
+<li>[BUGFIX] Admin users should ignore user mounts (<a href="https://forge.typo3.org/issues/57587">#57587</a>)</li>
+<li>[BUGFIX] T3editor description loading (<a href="https://forge.typo3.org/issues/57708">#57708</a>)</li>
+<li>[BUGFIX] User settings do not obey setup.override (<a href="https://forge.typo3.org/issues/57690">#57690</a>)</li>
+<li>[TASK] Return to “Admin Tools &gt; User Admin” when exiting simulated BE User (<a href="https://forge.typo3.org/issues/22020">#22020</a>)</li>
+<li>[BUGFIX] Fetch RSA public key by Ajax before login (<a href="https://forge.typo3.org/issues/37421">#37421</a>)</li>
+<li>[BUGFIX] Add correctly escaped css selectors for js (<a href="https://forge.typo3.org/issues/56874">#56874</a>)</li>
+</ul>
+<h3 id="frontend">Frontend</h3>
+<ul>
+<li>[BUGFIX] Add available jQuery version to PageRenderer (<a href="https://forge.typo3.org/issues/57466">#57466</a>)</li>
+<li>[BUGFIX] Improve the admin panel (<a href="https://forge.typo3.org/issues/57579">#57579</a>)</li>
+<li>[BUGFIX] Marker missing for page.includeCSSLibs (<a href="https://forge.typo3.org/issues/57467">#57467</a>)</li>
+<li>[BUGFIX] Allow user defined locales to work with TSFE-&gt;sL() (<a href="https://forge.typo3.org/issues/53973">#53973</a>)</li>
+<li>[BUGFIX] Respect config.debug setting for displaying parsetime (<a href="https://forge.typo3.org/issues/57365">#57365</a>)</li>
+<li>[BUGFIX] Load adminPanel styles for FE editing (<a href="https://forge.typo3.org/issues/55896">#55896</a>)</li>
+</ul>
+<h3 id="extbase">Extbase</h3>
+<ul>
+<li>[BUGFIX] Make Extbase Cli\RequestBuilder a Singleton (<a href="https://forge.typo3.org/issues/57591">#57591</a>)</li>
+<li>[BUGFIX] Extbase: Follow up foreign_match_fields not fully supported (<a href="https://forge.typo3.org/issues/47694">#47694</a>)</li>
+<li>[BUGFIX] Correctly apply Extbase validator options and add tests (<a href="https://forge.typo3.org/issues/52208">#52208</a>)</li>
+<li>[BUGFIX] Make Extbase EnvironmentService a Singleton (<a href="https://forge.typo3.org/issues/57518">#57518</a>)</li>
+<li>[BUGFIX] Make Typo3DbQueryParser a Singleton (<a href="https://forge.typo3.org/issues/57338">#57338</a>)</li>
+</ul>
+<h3 id="testing">Testing</h3>
+<ul>
+<li>[BUGFIX] Tests: Namespaced usage of vfsStream (<a href="https://forge.typo3.org/issues/57872">#57872</a>)</li>
+<li>[BUGFIX] Fix incomplete mocking in ExtensionManagementUtilityTest (<a href="https://forge.typo3.org/issues/57700">#57700</a>)</li>
+<li>[TASK] Activate all packages in unit tests (<a href="https://forge.typo3.org/issues/57487">#57487</a>)</li>
+<li>[TASK] Avoid sysLog calls in MailUtilityTest (<a href="https://forge.typo3.org/issues/57676">#57676</a>)</li>
+</ul>
+<h3 id="cleanups">Cleanups</h3>
+<ul>
+<li>[CLEANUP] Category related tests cleanup (<a href="https://forge.typo3.org/issues/57949">#57949</a>)</li>
+<li>[CLEANUP] Remove unused [BE][usePHPFileFunctions] option (<a href="https://forge.typo3.org/issues/57921">#57921</a>)</li>
+<li>[BUGFIX] Do not unset() PageRenderer class members (<a href="https://forge.typo3.org/issues/57920">#57920</a>)</li>
+<li>[CLEANUP] Remove unnecessary <span class="citation">@todo</span> annotations (<a href="https://forge.typo3.org/issues/57865">#57865</a>)</li>
+<li>[CLEANUP] ImportExportController code style (<a href="https://forge.typo3.org/issues/57855">#57855</a>)</li>
+<li>[CLEANUP] Improve comments in TypoScriptFrontendController (<a href="https://forge.typo3.org/issues/57814">#57814</a>)</li>
+<li>[TASK] Improve comments and phpdoc blocks in PageRepository (<a href="https://forge.typo3.org/issues/57859">#57859</a>)</li>
+<li>[CLEANUP] Fix length of comments to meet CGL (<a href="https://forge.typo3.org/issues/57819">#57819</a>)</li>
+<li>[CLEANUP] Error handling classes (<a href="https://forge.typo3.org/issues/57661">#57661</a>)</li>
+<li>[CLEANUP] Remove deprecated filemount functions in BE_USER (<a href="https://forge.typo3.org/issues/56772">#56772</a>)</li>
+<li>[CLEANUP] Code style of authentication classes (<a href="https://forge.typo3.org/issues/57788">#57788</a>)</li>
+<li>[TASK] Improve deprecation msg of GeneralUtility method (<a href="https://forge.typo3.org/issues/57499">#57499</a>)</li>
+<li>[CLEANUP] Remove option “edit_wideDocument” (<a href="https://forge.typo3.org/issues/57295">#57295</a>)</li>
+<li>[TASK] Readd search string in module “Configuration” (<a href="https://forge.typo3.org/issues/57486">#57486</a>)</li>
+<li>[TASK] Web&gt;Page Search: Remove duplicate CSS (<a href="https://forge.typo3.org/issues/57451">#57451</a>)</li>
+<li>[TASK] Remove space in Page module notification (<a href="https://forge.typo3.org/issues/57449">#57449</a>)</li>
+<li>[TASK] Cleanup ChangeLog from duplicate lines</li>
+<li>[BUGFIX] PHP warning due to missing preg_quote (<a href="https://forge.typo3.org/issues/55662">#55662</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_6.2.x> <a href="Category:TYPO3_6.2" title="wikilink">Category:TYPO3 6.2</a> <Category:2014></p>

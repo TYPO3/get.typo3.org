@@ -1,0 +1,70 @@
+<h1 id="release-notes-for-typo3-4.7.2">Release Notes for TYPO3 4.7.2</h1>
+<p>This document contains information about TYPO3 version 4.7.2 which was released on July 4th 2012.</p>
+<h2 id="news">News</h2>
+<p>This release is a combined bug fix and security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Due to security issues found in the TYPO3 Core, there was a combined release of TYPO3 4.5.17, 4.6.10 and 4.7.2.<br />
+Find more details in the security bulletin: <a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2012-003/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2012-003/</a></p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>6dfe85bfb0bab5c1997cff5d7e450b39  blankpackage-4.7.2.tar.gz
+1d4d8a8497b2a9629487a6bc0288162d  blankpackage-4.7.2.zip
+5b5a594801353965f71f98d0c9055693  dummy-4.7.2.tar.gz
+3733d6539361ac1928b744ed53bce917  dummy-4.7.2.zip
+305e320fc67e1285554d7bd04353962b  governmentpackage-4.7.2.tar.gz
+65659119076300b5bfd7b513941d8b1e  governmentpackage-4.7.2.zip
+813a4343851a3722b744478eb6ba1959  introductionpackage-4.7.2.tar.gz
+2b77c530ea5fd9ba52ce7607610f0ba8  introductionpackage-4.7.2.zip
+da5f80432f2da2143985f2d3b0f8565c  typo3_src+dummy-4.7.2.zip
+a71434de279a6ba52d4e8beeaa4353c8  typo3_src-4.7.2.tar.gz
+3129b69e57118432653f073b2f19d4da  typo3_src-4.7.2.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_4.7.1" title="wikilink">4.7.1</a>:</p>
+<ul>
+<li>[RELEASE] Release of TYPO3 4.7.2</li>
+<li>[SECURITY] XSS in swfupload (<a href="https://forge.typo3.org/issues/38578">#38578</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[TASK] Update version number to 4.7.2</li>
+<li>[BUGFIX] Remove t3ver_swapmode code blocks (<a href="https://forge.typo3.org/issues/38608">#38608</a>)</li>
+<li>[BUGFIX] RTE: Enable dialogue window resizing in IE (<a href="https://forge.typo3.org/issues/38617">#38617</a>)</li>
+<li>[BUGFIX] In IE9, RTE does not work correctly in compat modes IE8/IE7 (<a href="https://forge.typo3.org/issues/38574">#38574</a>)</li>
+<li>Revert “[BUGFIX] In IE9, RTE does not work correctly in compat modes IE8/IE7”</li>
+<li>Change-Id: I2df4da14249e1a79cba8b772f3091401180706a1</li>
+<li>[BUGFIX] In IE9, RTE does not work correctly in compat modes IE8/IE7 (<a href="https://forge.typo3.org/issues/38574">#38574</a>)</li>
+<li>[BUGFIX] Add missing link to travis script (<a href="https://forge.typo3.org/issues/38567">#38567</a>)</li>
+<li>[BUGFIX] IRRE records can't be expanded without an hidden field (<a href="https://forge.typo3.org/issues/37615">#37615</a>)</li>
+<li>[BUGFIX] TSFE-&gt;additionalFooterData for USER_INT (<a href="https://forge.typo3.org/issues/29254">#29254</a>)</li>
+<li>[TASK] Activate travis build for 4.7 (<a href="https://forge.typo3.org/issues/38567">#38567</a>)</li>
+<li>[BUGFIX] Add rootline workspace overlay for backend_layouts. (<a href="https://forge.typo3.org/issues/36313">#36313</a>)</li>
+<li>[BUGFIX] Check if user is allowed to paste page to pagetree (<a href="https://forge.typo3.org/issues/33546">#33546</a>)</li>
+<li>[BUGFIX] TCEForms.Suggest wizard in IRRE records (<a href="https://forge.typo3.org/issues/27020">#27020</a>)</li>
+<li>[BUGFIX] Custom HTML tags no longer malformed in IE (<a href="https://forge.typo3.org/issues/34786">#34786</a>)</li>
+<li>[BUGFIX] Remove a rather dubious unit test for Redis cache backend (<a href="https://forge.typo3.org/issues/38511">#38511</a>)</li>
+<li>[BUGFIX] Page tree unit test fails if pages don't exist (<a href="https://forge.typo3.org/issues/38503">#38503</a>)</li>
+<li>[BUGFIX] Icon for save action in scheduler should be save-close (<a href="https://forge.typo3.org/issues/36344">#36344</a>)</li>
+<li>[BUGFIX] Fix unit test failure if gif compress is disabled (<a href="https://forge.typo3.org/issues/38501">#38501</a>)</li>
+<li>[BUGFIX] VariableFrontend initializeObject not called (<a href="https://forge.typo3.org/issues/35915">#35915</a>)</li>
+<li>[BUGFIX] Remove class of td if “No CSS styles for this table” is set (<a href="https://forge.typo3.org/issues/37618">#37618</a>)</li>
+<li>[BUGFIX] Markers (%s) are not replaced in TCEmain error messages (<a href="https://forge.typo3.org/issues/36290">#36290</a>)</li>
+<li>[BUGFIX] Fatal error in configuration ($BE_USER-&gt;uc) (<a href="https://forge.typo3.org/issues/33444">#33444</a>)</li>
+<li>[TASK] Add travis configuration file (<a href="https://forge.typo3.org/issues/38357">#38357</a>)</li>
+<li>[BUGFIX] Drag&amp;Drop inside the root page of the pagetree isn't possible (<a href="https://forge.typo3.org/issues/24626">#24626</a>)</li>
+<li>[BUGFIX] Reports: Wrong indication for saltedpasswords (<a href="https://forge.typo3.org/issues/36093">#36093</a>)</li>
+<li>[BUGFIX] Declaration of tx_rtehtmlarea_base::drawRTE() not compatible (<a href="https://forge.typo3.org/issues/37541">#37541</a>)</li>
+<li>[BUGFIX] Ensure $output is used as string (<a href="https://forge.typo3.org/issues/36194">#36194</a>)</li>
+<li>[BUGFIX] RTE link insertion issues with IE9 (<a href="https://forge.typo3.org/issues/38300">#38300</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] Wrong margin calculation for Text/Image (<a href="https://forge.typo3.org/issues/36541">#36541</a>)</li>
+<li>[BUGFIX] Properly load existing usergroups in task (<a href="https://forge.typo3.org/issues/36300">#36300</a>)</li>
+<li>[BUGFIX] Exclude E_STRICT from exceptionalErrors (<a href="https://forge.typo3.org/issues/35154">#35154</a>)</li>
+<li>[BUGFIX] Correct Path Calculation in Cardlayout (<a href="https://forge.typo3.org/issues/36308">#36308</a>)</li>
+<li>[BUGFIX] Unnecessary warning in css_styled_content (division by zero) (<a href="https://forge.typo3.org/issues/36777">#36777</a>)</li>
+<li>[BUGFIX] Fix refactoring regression in imagecopyresized (<a href="https://forge.typo3.org/issues/36947">#36947</a>)</li>
+<li>[BUGFIX] Hide the field “Selected Pages” for menu type “Sitemap” (<a href="https://forge.typo3.org/issues/35944">#35944</a>)</li>
+<li>BUGFIX] Illegal string offset (<a href="https://forge.typo3.org/issues/37553">#37553</a>)</li>
+<li>[TASK] Set TYPO3 version to 4.7.2-dev</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.7.x> <a href="Category:TYPO3_4.7" title="wikilink">Category:TYPO3 4.7</a> <Category:2012></p>

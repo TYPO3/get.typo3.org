@@ -1,0 +1,15 @@
+<h1 id="release-notes-for-typo3-3.8.1">RELEASE NOTES FOR TYPO3 3.8.1</h1>
+<p>This page contains all important 3.8.1 specific information.</p>
+<h3 id="trouble-with-showpic.php">Trouble with showpic.php</h3>
+<p>Important notice for all sites that use click-enlarge image popups: Because of a change in showpic.php, all temporary images need to be cleared. You will need to delete all files inside typo3temp/ after the upgrade, otherwise you will get a “wrong parameters” error in the popup window.</p>
+<h3 id="using-config.baseurl">Using config.baseURL</h3>
+<p>In previous versions it was possible to set “config.baseURL = 1” so the &lt;base href=“...”&gt; tag was set automatically. Due to security issues this behaviour is disabled since version 3.8.1. Setting config.baseURL to a correct URL is absolutely necessary now to make relative links work. If you have used this feature to serve content for different domains it's possible to use <a href="https://docs.typo3.org/typo3cms/TyposcriptReference/Conditions/Index.html">conditions</a> instead.</p>
+<p>Example:</p>
+<p><code>config.baseURL = my.domain.tld</code><br />
+<code>[globalString = ENV:HTTP_HOST=sub1.domain.tld]</code><br />
+<code>config.baseURL = </code><a href="http://sub1.domain.tld/"><code>http://sub1.domain.tld/</code></a><br />
+<code>[global]</code><br />
+<code>[globalString = ENV:HTTP_HOST=sub2.domain.tld]</code><br />
+<code>config.baseURL = </code><a href="http://sub2.domain.tld/"><code>http://sub2.domain.tld/</code></a><br />
+<code>[global]</code></p>
+<p><Category:ReleaseNotes/TYPO3_3.8.x></p>

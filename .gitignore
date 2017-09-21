@@ -1,3 +1,5 @@
 .idea
 Data/*.json
 !Data/releases.json
+vendor
+/Build/MdConverter/.env

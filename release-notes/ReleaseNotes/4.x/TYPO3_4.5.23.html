@@ -1,0 +1,63 @@
+<h1 id="release-notes-for-typo3-4.5.23">Release Notes for TYPO3 4.5.23</h1>
+<p>This document contains information about TYPO3 version 4.5.23 which was released on February 14th 2013.</p>
+<h2 id="news">News</h2>
+<p>This release is a bug fix release only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>32878935d2857f7d7ac11579b765c281  blankpackage-4.5.23.tar.gz
+4bf734861eb5adbc31f899e80a7d4944  blankpackage-4.5.23.zip
+b4c5d4c887e0ec98f08da997757bb413  dummy-4.5.23.tar.gz
+b2bed05dae92936dfd6a3bcd902de4f9  dummy-4.5.23.zip
+b6dcaf762224570f6b84b60aa43764be  introductionpackage-4.5.23.tar.gz
+fb9f1f74be276937fdc64a59f9a10a5c  introductionpackage-4.5.23.zip
+545e4cdf772d04f411992621edc95307  typo3_src+dummy-4.5.23.zip
+6a59f05839815109dec21a6e769ca54e  typo3_src-4.5.23.tar.gz
+3fd6bde829d1901fe2e42f78bdac5a7a  typo3_src-4.5.23.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_4.5.22" title="wikilink">4.5.22</a>:</p>
+<ul>
+<li>[RELEASE] Release of TYPO3 4.5.23</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] t3lib_iconWorks must check if array exists before using it (<a href="https://forge.typo3.org/issues/24248">#24248</a>)</li>
+<li>[BUGFIX] BE user switch impossible when in adminOnly mode (<a href="https://forge.typo3.org/issues/32686">#32686</a>)</li>
+<li>[BUGFIX] Excludefieds must exclude admin only tables (<a href="https://forge.typo3.org/issues/34460">#34460</a>)</li>
+<li>[BUGFIX] TypoLink: absolute urls when installed in subfolder (<a href="https://forge.typo3.org/issues/33214">#33214</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX][Cache][PDO] Duplicate cache entry possible (<a href="https://forge.typo3.org/issues/34129">#34129</a>)</li>
+<li>[BUGFIX] IE9 compatibility clear cache menu (<a href="https://forge.typo3.org/issues/36364">#36364</a>)</li>
+<li>[BUGFIX] Hook call modifyDBRow in ContentContentObject (<a href="https://forge.typo3.org/issues/44416">#44416</a>)</li>
+<li>[BUGFIX] Fix misspelling in RTE meta menu (<a href="https://forge.typo3.org/issues/43886">#43886</a>)</li>
+<li>[BUGFIX] load TCA before manipulation (<a href="https://forge.typo3.org/issues/38505">#38505</a>)</li>
+<li>[TASK] DataHandler::getAutoVersionId() should be public (<a href="https://forge.typo3.org/issues/45050">#45050</a>)</li>
+<li>[BUGFIX] Load date-time picker in scheduler module (<a href="https://forge.typo3.org/issues/31027">#31027</a>)</li>
+<li>[BUGFIX] Quick Edit triggers warnings of missing key uid (<a href="https://forge.typo3.org/issues/42845">#42845</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] Fix warnings in em on tab Maintenance (<a href="https://forge.typo3.org/issues/39680">#39680</a>)</li>
+<li>[BUGFIX] Correct TCA inclusion for uploads rendering (<a href="https://forge.typo3.org/issues/44145">#44145</a>)</li>
+<li>[BUGFIX] Update description on changed error reporting defaults (<a href="https://forge.typo3.org/issues/38240">#38240</a>)</li>
+<li>[BUGFIX] Fix typos in stdWrap_crop description (<a href="https://forge.typo3.org/issues/43919">#43919</a>)</li>
+<li>[BUGFIX] Apc Cache backend has side effects (<a href="https://forge.typo3.org/issues/38135">#38135</a>)</li>
+<li>[BUGFIX] Invalid call to t3lib_TCEmain::processRemapStack() (<a href="https://forge.typo3.org/issues/44301">#44301</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] Suggest wizard is behind form inputs (<a href="https://forge.typo3.org/issues/42092">#42092</a>)</li>
+<li>[BUGFIX] phpdoc: $urlParameters can be a string (<a href="https://forge.typo3.org/issues/44263">#44263</a>)</li>
+<li>[BUGFIX] FE session records are never removed (<a href="https://forge.typo3.org/issues/34964">#34964</a>)</li>
+<li>[BUGFIX] INTincScript_loadJSCode() causes PHP warnings (<a href="https://forge.typo3.org/issues/32278">#32278</a>)</li>
+<li>[BUGFIX] Enable the RTE with WebKit version 534 on iOS and Android (<a href="https://forge.typo3.org/issues/43603">#43603</a>)</li>
+<li>[BUGFIX] Remove HTML in RuntimeException from sysext 'install' (<a href="https://forge.typo3.org/issues/38472">#38472</a>)</li>
+<li>[BUGFIX] Fix wrong column title in web&gt;list for field colpos (<a href="https://forge.typo3.org/issues/25113">#25113</a>)</li>
+<li>[BUGFIX] SqlParser: trim all kinds of whitespaces (<a href="https://forge.typo3.org/issues/43470">#43470</a>)</li>
+<li>[TASK] Remove typo3.pageModule.js (<a href="https://forge.typo3.org/issues/43459">#43459</a>)</li>
+<li>[BUGFIX] Installer: Reference images wrong (<a href="https://forge.typo3.org/issues/42292">#42292</a>)</li>
+<li>[BUGFIX] Page Information shows incorrect number of total hits (<a href="https://forge.typo3.org/issues/41608">#41608</a>)</li>
+<li>[BUGFIX] Old logo on “Install Tool is locked” page (<a href="https://forge.typo3.org/issues/42908">#42908</a>)</li>
+<li>[TASK] openid: Update php-openid to 2.2.2 (<a href="https://forge.typo3.org/issues/42236">#42236</a>)</li>
+<li>[TASK] Group excludefields by table (<a href="https://forge.typo3.org/issues/34098">#34098</a>)</li>
+<li>[BUGFIX] Hide version selector if workspaces are used (<a href="https://forge.typo3.org/issues/43264">#43264</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[TASK] Set TYPO3 version to 4.5.23-dev</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.5.x> <a href="Category:TYPO3_4.5" title="wikilink">Category:TYPO3 4.5</a> <Category:2013></p>
