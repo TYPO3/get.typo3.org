@@ -44,10 +44,10 @@ class ReleaseNotes
      */
     private function getAllReleaseNoteNames(): array
     {
-        $directories = Finder::create()->directories()->in($this->releaseNotesDir);
+        $directories = Finder::create()->directories()->in($this->releaseNotesDir)->sortByName();
         $result = [];
         foreach ($directories as $directory) {
-            $dir = $directory->getRealPath() . '\\';
+            $dir = $directory->getRealPath() . DIRECTORY_SEPARATOR;
             $files = Finder::create()->files()->in($dir)->name('*.html')->sortByName();
             $fileNames = [];
             foreach ($files as $file) {

@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_URI'] === '/') {
 
 	$output = str_replace('###CONTENT###', $content, $output);
 	$output = str_replace('../', '/LandingPage/', $output);
+	$output = str_replace('release-notes/typo3-62-release-notes/index.html', '/release-notes/', $output);
 
 	print $output;
 	die();
