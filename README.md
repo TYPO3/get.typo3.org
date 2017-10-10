@@ -2,11 +2,12 @@
 
 ## Generating new release notes HTML
 
-- Write release notes as .md file
+- Write release notes as .md file (in release-notes/ReleaseNotes)
 - have pandoc installed
-- add pandoc path to .env file
+- add pandoc path to .env file (see .env.tmpl)
 - do composer install in Build/MdConverter 
-- call php Build/MdConverter/ConvertReleaseNotes
+- call php Build/MdConverter/ConvertReleaseNotes from project root
+- wait.
 
 
 ## Release-Notes sub-sites
