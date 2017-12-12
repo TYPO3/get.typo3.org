@@ -1,6 +1,53 @@
 {
+  "9": {
+    "releases": {
+      "9.0.0": {
+        "version": "9.0.0",
+        "date": "2017-12-12 16:48:22 UTC",
+        "type": "regular",
+        "checksums": {
+          "tar": {
+            "sha1": "57a4337f2d469fe0d8998acc6f8c5b252dcc9821",
+            "sha256": "37df972a3bca0b6a2fdcf8f3323763dfe9f9b38004547117e28dac22dec9200b"
+          },
+          "zip": {
+            "sha1": "d07d4a9c7bbf04c9b3de3a791accecd149184955",
+            "sha256": "04009f1b22234663e9862d7df6d19cf8296137b912aaf71085153bedaa0528d3"
+          }
+        },
+        "url": {
+          "zip": "https:\/\/get.typo3.org\/9.0.0\/zip",
+          "tar": "https:\/\/get.typo3.org\/9.0.0"
+        }
+      }
+    },
+    "latest": "9.0.0",
+    "stable": "9.0.0",
+    "active": true
+  },
   "8": {
     "releases": {
+      "8.7.9": {
+        "version": "8.7.9",
+        "date": "2017-12-12 16:09:50 UTC",
+        "type": "regular",
+        "checksums": {
+          "tar": {
+            "md5": "0230b28eca4d1467be01baadb5efbf84",
+            "sha1": "4b219dc7a9cd49897d66ed47cedae00e92a1a5b7",
+            "sha256": "bfccc7194b2ed9378699a760797fa2d129119abcb7f00a4be8b3233eabb86da0"
+          },
+          "zip": {
+            "md5": "88f5523b9c082e46179e932c0045aed4",
+            "sha1": "1677a33d1aee581a52ed70131bebc55e4f4a2a7f",
+            "sha256": "9aeedb9f3c52bd982839f095bcc0d244c81484dafa3fb971dfdfaf428c492110"
+          }
+        },
+        "url": {
+          "zip": "https:\/\/get.typo3.org\/8.7.9\/zip",
+          "tar": "https:\/\/get.typo3.org\/8.7.9"
+        }
+      },
       "8.7.8": {
         "version": "8.7.8",
         "date": "2017-10-10 16:07:35 UTC",
@@ -477,8 +524,8 @@
         }
       }
     },
-    "latest": "8.7.8",
-    "stable": "8.7.8",
+    "latest": "8.7.9",
+    "stable": "8.7.9",
     "active": true
   },
   "7": {
@@ -5673,8 +5720,8 @@
     "stable": "3.3.0",
     "active": false
   },
-  "latest_stable": "8.7.8",
-  "latest_old_stable": "7.6.23",
-  "latest_lts": "8.7.8",
+  "latest_stable": "9.0.0",
+  "latest_old_stable": "8.7.9",
+  "latest_lts": "8.7.9",
   "latest_old_lts": "7.6.23"
 }
