@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController
 {
 
-    protected $releaseNotesDir = __DIR__ . '/../../ReleaseNotes/';
+    protected $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
     protected $releasesJsonFile = __DIR__ . '/../../Data/releases.json';
 
     public function showAction(Application $app)
