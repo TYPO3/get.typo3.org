@@ -28,9 +28,9 @@
 
     <div class="container-fluid b_container">
         <div class="container b_container--downloads">
-            <div class="col-md-7 b_text__col">
+            <div class="col-md-12 b_text__col">
                 <h2 class="b_headline">Downloads</h2>
-                <p>The old stable version with Long Term Support (LTS). It will have full support until April 2017 and
+                <p class="col-md-7">The old stable version with Long Term Support (LTS). It will have full support until April 2017 and
                     security bugfixes until November 2018.</p>
                 <div class="b_link-list">
                     <a href="{{ path('release-notes-for-version', {'folder': '7.x', 'version': '7.6.23'}) }}" class="b_link"><i class="material-icons b_icon--link">keyboard_arrow_right</i>Release
@@ -39,6 +39,9 @@
                         Guide</a>
                     <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/7.6/" class="b_link"><i class="material-icons b_icon--link">keyboard_arrow_right</i>Getting
                         started</a>
+                    <a href="https://typo3.azureedge.net/typo3/7.6.23/README.md" class="b_link"><i
+                                class="material-icons b_icon--link">keyboard_arrow_right</i>Download README (incl.
+                        signatures)</a>
                 </div>
             </div>
 
@@ -186,6 +189,20 @@ curl -L -o typo3_src.tgz get.typo3.org/7
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid b_container">
+        <div class="container">
+            <div class="col-md-12 b_text__col">
+                <h2 class="b_headline">Package Signatures - Verifying integrity of releases</h2>
+                <p>
+                    TYPO3 Release Packages (the downloadable tarballs and zip files) as well as Git tags are signed
+                    using PGP signatures during the automated release process. Besides that, MD5 and SHA2-256 hashes are
+                    being generated for these files. Find more details on verifying signatures and hashes in the
+                    <a href="https://docs.typo3.org/typo3cms/drafts/github/TYPO3Incubator/InfrastructureGuide/Releases/">infrastructure guide</a>.
+                </p>
             </div>
         </div>
     </div>
