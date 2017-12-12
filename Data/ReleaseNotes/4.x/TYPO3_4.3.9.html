@@ -1,0 +1,143 @@
+<h1 id="release-notes-for-typo3-4.3.9">Release Notes for TYPO3 4.3.9</h1>
+<p>This document contains information about TYPO3 version 4.3.9 which was released on December 16, 2010.</p>
+<h2 id="news">News</h2>
+<p>This release is a combined bugfix and security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Due to several security issues found in the TYPO3 Core, there was a combined release of TYPO3 4.2.16, 4.3.9 and 4.4.5.<br />
+Find more details in the security bulletin: <a href="https://typo3.org/teams/security/security-bulletins/typo3-sa-2010-022/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-sa-2010-022/</a></p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>1abeee37e26cbd3b61a4dabb6a0ed540  dummy-4.3.9.tar.gz
+239ae71edace3d8aa0b9bd16d929b1cc  dummy-4.3.9.zip
+fd17e827bc9fdc55e967c6a6d741b2a8  typo3_src-4.3.9.tar.gz
+3b9b0f8897d10b420aff321930e00b06  typo3_src-4.3.9.zip
+9e794e872c2a96dd79fec90806a67838  typo3_src+dummy-4.3.9.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The usual upgrading procedure applies; no database updates are necessary.</p>
+<h2 id="changelog">Changelog</h2>
+<pre><code>2010-12-16  Oliver Hader  &lt;oliver.hader@typo3.org&gt;
+
+    * Release of TYPO3 4.3.9
+
+2010-12-16  Oliver Hader  &lt;oliver@typo3.org&gt;
+
+    * Fixed bug #14402: XSS in Install tool (thanks to Benjamin Mack)
+    * Fixed bug #16590: t3lib_TSparser::checkIncludeLines() does not check files to be included (thanks to Fabrizio Branca)
+    * Fixed bug #15737: quoteStrForLike does not properly escape strings in sql_mode NO_BACKSLASH_ESCAPES
+    * Fixed bug #16653: SQL injection problem in class.db_list.inc (thanks to Jigal van Hemert)
+    * Fixed bug #15735: FORM content object is susceptible to XSS (thanks to Benjamin Mack)
+    * Fixed bug #16362: Directory traversal attack in em_unzip
+    * Fixed bug #16485: Cross-Site Scripting in showpic functionality
+    * Fixed bug #16593: It is possible to bypass &#39;verifyFilenameAgainstDenyPattern&#39;
+    * Follow-up to bug #16593: Added unit tests
+
+2010-12-01  Oliver Hader  &lt;oliver@typo3.org&gt;
+
+    * Fixed bug #16604: Changes in workspace are not shown automatically in pagetree
+    * Fixed bug #15495: Pagetree fails to reload
+
+2010-11-30  Xavier Perseguers  &lt;typo3@perseguers.ch&gt;
+
+    * Fixed bug #16501: DBAL does not support multi-column indexes in create table queries
+
+2010-11-30  Steffen Kamper  &lt;steffen@typo3.org&gt;
+
+    * Fixed bug #16614: common.js resets TYPO3 namespace (Thanks to Peter Kühn)
+
+2010-11-26  Francois Suter  &lt;francois@typo3.org&gt;
+
+    * Fixed bug #16573: Register count_MENUOBJ is not properly initialized
+
+2010-11-26  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #16321: [scheduler] Numeric zero for representation of weekday sunday is not accepted (Thanks to Marcus Krause)
+    * Fixed bug #16582: [Caching framework] Remove misleading memcached configuration example from config_default
+    * Fixed bug #16317: [scheduler] Valid values generated from cron command does not contain integers only (Thanks to Marcus Krause)
+
+2010-11-25  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #16319: [scheduler] CronCmd class variable &quot;values&quot; does not contain integers only (Thanks to Marcus Krause)
+
+2010-11-25  Jigal van Hemert &lt;jigal@xs4all.nl&gt;
+
+    * Fixed bug #16322: Incorrect regexp in substituteMarkerArray
+
+2010-11-24  Stanislas Rolland  &lt;typo3@sjbr.ca&gt;
+
+    * Fixed bug #16124: htmlArea RTE: Links are incorrectly updated in Google Chrome
+
+2010-11-23  Steffen Ritter  &lt;typo3@steffen-ritter.net&gt;
+
+    * Fixed bug #16517: t3lib_beFunc::getRecordWSOL() does not use it&#39;s param $useDeleteClause in else branch
+
+2010-11-12  Ernesto Baschny  &lt;ernst@cron-it.de&gt;
+
+    * Fixed bug #15456: Changes made by ColorPicker Wizard are not saved (Thanks to Tobias Hoevelborn)
+
+2010-11-11  Stanislas Rolland  &lt;typo3@sjbr.ca&gt;
+
+    * Fixed bug #16314: Incorrect use of is_dir in class.tx_rtehtmlarea_clearrtecache.php (Thanks to Juergen Deisenroth)
+
+2010-11-11  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #16352: [saltedpasswords] Login with bulk updated passwords from t3sec_saltedpw not working (Thanks to Marcus Krause)
+
+2010-11-06  Steffen Kamper  &lt;steffen@typo3.org&gt;
+
+    * Fixed bug #16214: Bug: Change value of Media(Flash) parameter (Thanks to Janos Thiele)
+
+2010-11-05  Steffen Gebert  &lt;steffen@steffen-gebert.de&gt;
+
+    * Fixed bug #16130: buggy initialization of flash uploader when only certain file extensions are allowed (Thanks to Andreas Kiessling)
+
+2010-11-04  Xavier Perseguers  &lt;typo3@perseguers.ch&gt;
+
+    * Fixed bug #15656: indexed_search: Template corrections of #14130 not applied to the CSS template (Thanks to Lorenz Ulrich)
+
+2010-11-03  Steffen Kamper  &lt;steffen@typo3.org&gt;
+
+    * Fixed bug #15995: Bug: doktype limitation is not applied to alternative page languages (pages_language_overlay) (Thanks to Andreas Kiessling)
+
+2010-10-29  Christian Kuhn  &lt;lolli@schwarzbu.ch&gt;
+
+    * Fixed bug #15551: [IRRE] Open all child records when opening parent records (Thanks to Sebastian Fischer)
+    * Fixed bug #16140: [reports] PHP warning on missing array in reports system extension (Thanks to Rudi Meyer)
+
+2010-10-29  Ernesto Baschny  &lt;ernst@cron-it.de&gt;
+
+    * Fixed bug #16155: t3lib_db::INSERTquery misses a space when generering the INSERT INTO statement
+
+2010-10-27  Steffen Gebert  &lt;steffen@steffen-gebert.de&gt;
+
+    * Fixed bug #15503: Improve t3lib_userAuth::getCookie() (Thanks to Michael Bürgi)
+
+2010-10-18  Stanislas Rolland  &lt;typo3@sjbr.ca&gt;
+
+    * Fixed bug #16050: htmlArea RTE: Backspacing in empty editing area may raise js error
+    * Updated htmlArea RTE version to 1.8.13
+
+2010-10-18  Xavier Perseguers  &lt;typo3@perseguers.ch&gt;
+
+    * Fixed bug #1318: &#39;removeTag&#39; does not remove closing tags
+
+2010-10-17  Stanislas Rolland  &lt;typo3@sjbr.ca&gt;
+
+    * Fixed bug #15657: IRRE: Foreign selector with groupdb won&#39;t add new items (Thanks to Thomas Maroschik)
+
+2010-10-17  Benjamin Mack  &lt;benni@typo3.org&gt;
+
+    * Fixed bug #16022: Size calculation function can only deal with integers
+
+2010-10-15  Benjamin Mack  &lt;benni@typo3.org&gt;
+
+    * Fixed bug #16005: Live workspace does not respect move-to-placeholders
+
+2010-10-15 Steffen Kamper  &lt;steffen@typo3.org&gt;
+
+    * Fixed bug #15993: Bug: Felogin shouldn&#39;t show the permalogin form controls when permalogin is set to &quot;forced on&quot; in install tool
+
+2010-10-14  Benjamin Mack  &lt;benni@typo3.org&gt;
+
+    * Fixed bug #103: No Plain-text List Option</code></pre>
+<p><Category:ReleaseNotes/TYPO3_4.3.x> <a href="Category:TYPO3_4.3" title="wikilink">Category:TYPO3 4.3</a> <Category:2010></p>

@@ -1,0 +1,72 @@
+Release Notes for TYPO3 4.5.15
+==============================
+
+This document contains information about TYPO3 version 4.5.15 which was
+released on April 17th 2012.
+
+News
+----
+
+This release is a combined bug fix and security release.
+
+Notes
+-----
+
+Due to security issues found in the TYPO3 Core, there was a combined
+release of TYPO3 4.4.15, 4.5.15 and 4.6.8.\
+Find more details in the security bulletin:
+<https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2012-002/>
+
+Download
+--------
+
+<https://typo3.org/download/>
+
+MD5 checksums
+-------------
+
+    ffaff2b443ffaf9b790a33ab38dae4a6  blankpackage-4.5.15.tar.gz
+    3134c53b88062d68c987ead7e8fa2822  blankpackage-4.5.15.zip
+    bef5afc5aa74ab3e86944c0fa126e938  dummy-4.5.15.tar.gz
+    6235234465e287eb72ef6f7cb2237bc3  dummy-4.5.15.zip
+    74f6b06823bfa589ec335068756b1031  introductionpackage-4.5.15.tar.gz
+    ad0f965f1e76bfd35f6eeabdca92e33b  introductionpackage-4.5.15.zip
+    4c3b20799aa1e8fe63871e73ae842a5a  typo3_src+dummy-4.5.15.zip
+    527f3b78421fffb9d5c2f5fc62a544b6  typo3_src-4.5.15.tar.gz
+    df3c0ec798c70181fbb3f152838bddc2  typo3_src-4.5.15.zip
+
+Upgrading
+---------
+
+The [usual upgrading
+procedure](https://docs.typo3.org/typo3cms/InstallationGuide/) applies.
+**Database updates are required** as mentioned in
+<https://forge.typo3.org/issues/36238>!
+
+Changes
+-------
+
+Here is a list of what was fixed since
+[4.5.14](TYPO3_4.5.14 "wikilink"):
+
+    2012-04-17  7bd7fa7                  [RELEASE] Release of TYPO3 4.5.15 (TYPO3 v4 Release Team)
+    2012-04-17  34cd65d  #34348          [SECURITY] XSS in exception handler (Oliver Klee)
+    2012-04-17  03ed1e3                  [TASK] Raise submodule pointer (TYPO3 v4 Release Team)
+    2012-04-15  bd08193  #36027          [BUGFIX] Localisation update doesn't work (Sebastian Fischer)
+    2012-04-14  455c288  #34742          [TASK] Change hardcoded URL to constant (dkd-egerer Sascha Egerer)
+    2012-04-13  d92797c  #24884          [BUGFIX] Saving Page Tree states issues in large environments (cybercraft)
+    2012-04-12  89232cd  #35202          [BUGFIX] Fix the unit tests to work with PHPUnit 3.6 (Oliver Klee)
+    2012-04-12  573c480  #34860,#33685   [BUGFIX] Results from live search and opendocs can't be opened (Stefan Galinski)
+    2012-04-12  df51e20  #35897          [BUGFIX] Failing test in caching framework memcache backend (Christian Kuhn)
+    2012-04-11  174d81f  #35847          [BUGFIX] t3lib_div::getUrl() providing wrong error information (Ingo Renner)
+    2012-04-11  8d9854c  #35272          [BUGFIX] Enable XClassing of t3lib_install by replacing new (Kay Strobach)
+    2012-04-10  d5b2b13  #35257          [BUGFIX] ext_icon.gif for EXT:impexp (Georg Ringer)
+    2012-04-08  f9fe38e  #34695          [BUGFIX] missing parameter for implode (Jigal van Hemert)
+    2012-04-05  c49f742  #31831          [BUGFIX] "Allowed excludefields" misses non-tt_content FlexForms (Kai Vogel)
+    2012-03-29  2a25362  #34625          [BUGFIX] preg_spliti should be preg_split (Georg Ringer)
+    2012-03-28  a2b1f8c  #25021          [BUGFIX] Creating new pages via drag'n'drop respects page TS (Philipp Kitzberger)
+    2012-03-28  02e366e                  [TASK] Set TYPO3 version to 4.5.15-dev (TYPO3 v4 Release Team)
+    2012-03-28  c6c9859                  [RELEASE] Release of TYPO3 4.5.14 (TYPO3 v4 Release Team)
+
+<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
+4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>

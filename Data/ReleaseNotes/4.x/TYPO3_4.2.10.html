@@ -1,0 +1,62 @@
+<h1 id="release-notes-for-typo3-4.2.10">Release Notes for TYPO3 4.2.10</h1>
+<p>This document contains information about TYPO3 version 4.2.10 which was released on October 22, 2009.</p>
+<h2 id="news">News</h2>
+<p>This release is a bugfix release.</p>
+<h2 id="notes">Notes</h2>
+<p>Due to several security issues found in the TYPO3 Core, there was a combined release of TYPO3 4.1.13, 4.2.10 and 4.3.0beta2.<br />
+Find more details in the security bulletin: <a href="https://typo3.org/news/article/multiple-security-issues-found-in-typo3-core-1/" class="uri">https://typo3.org/news/article/multiple-security-issues-found-in-typo3-core-1/</a></p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>8c7f51b692db4123ce08c8f9f866337c  dummy-4.2.10.tar.gz
+70cb78213644af03d54e13047bfb1639  dummy-4.2.10.zip
+b53a1d9faeff6a872efa9104946cdb87  typo3_src-4.2.10.tar.gz
+e600767e695b3b2771623b43dcb6da19  typo3_src-4.2.10.zip
+492e4269223b671dd195b4d533daf3fb  typo3_src+dummy-4.2.10.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The usual upgrading procedure applies; no database updates are necessary.</p>
+<h2 id="changelog">Changelog</h2>
+<pre><code>2009-10-22  Oliver Hader  &lt;oliver@typo3.org&gt;
+
+    * Release of TYPO3 4.2.10
+
+2009-10-22  Ernesto Baschny &lt;ernst@cron-it.de&gt;
+
+    * Security Issue #11664: Updated RemoveXSS code to the latest knowledge in this area (thanks to Jigal van Hemert)
+    * Fixed bug #11586: Potential SQL injection in frontend editing (thanks to Oliver Klee)
+    * Fixed bug #12309: It was possible to gain access to the Install Tool by only knowing the md5 hash of the password.
+    * Fixed bug #12310: Encryption key can be recalculated when using normal mailform when [FE][strictFormmail] == 0 (thanks to Oliver Klee)
+    * Fixed bug #12090: Filenames should be escaped with escapeshellarg before passing them to imagemagick (thanks to Oliver Klee)
+    * Fixed bug #12303: XSS vulnerability due to not proper sanitizing in function t3lib_div::quoteJSvalue (thanks to Oliver Klee)
+    * Fixed bug #12304: Frame inclusion in the backend through alt_mod_frameset (thanks to Oliver Klee)
+    * Fixed bug #12305: XSS vulnerability in view_help.php / tfID parameter (thanks to Oliver Klee)
+    * Fixed bug #12306: XSS vulnerability in module dispatcher
+    * Fixed bug #12307: XSS vulnerability in alt_palette (thanks to Oliver Klee)
+    * Fixed bug #12308: XSS vulnerability in &quot;DB &gt; Full search&quot; functionality
+    * Fixed bug #10501: XSS vulnerability in the install tool (thanks to Oliver Klee)
+
+2009-10-21  Rupert Germann  &lt;rupi@gmx.li&gt;
+
+    * Fixed bug #12280: Error Message while creating empty Folders (thanks to Daniel Schmitzer)
+    * Fixed bug #12300 (Follow-up to 11995): Output compression breaks prompt for keyboard input in CLI scripts
+
+2009-10-21  Steffen Kamper  &lt;info@sk-typo3.de&gt;
+
+    * Fixed bug #12272: Steps disregarded in t3lib_lock (thanks to Dan Osipov)
+
+2009-10-15  Rupert Germann  &lt;rupi@gmx.li&gt;
+
+    * Fixed bug #8728: PHP Warning, if SQL error occurs in class t3lib_db in functions which depend on an existing resultset (thanks to Felix Oertel)
+
+2009-10-11  Rupert Germann  &lt;rupi@gmx.li&gt;
+
+    * Fixed bug #10971: Fatal error in impexp module: Call to a member function includeLLFile() on a non-object (thanks to Andre Steiling)
+
+2009-10-10  Rupert Germann  &lt;rupi@gmx.li&gt;
+
+    * Fixed bug #12129 (follow-up to bug #11986): Translation update broken with activated output compression (thanks to Steffen Gebert)
+
+2009-09-29  Oliver Hader  &lt;oliver@typo3.org&gt;
+
+    * Fixed bug #11433: touch(): Utime failed in install tool (thanks to Steffen Gebert)</code></pre>
+<p><Category:ReleaseNotes/TYPO3_4.2.x> <a href="Category:TYPO3_4.2" title="wikilink">Category:TYPO3 4.2</a> <Category:2009></p>

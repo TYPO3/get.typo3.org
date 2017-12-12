@@ -1,0 +1,36 @@
+<h1 id="release-notes-for-typo3-cms-8.2.1">Release Notes for TYPO3 CMS 8.2.1</h1>
+<p>This document contains information about TYPO3 CMS 8.2.1 which was released on July 19th, 2016.</p>
+<h2 id="news">News</h2>
+<p>This release is a combined bug fix and security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Find more details in the security bulletins:</p>
+<ul>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-014/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-014/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-015/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-015/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-016/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-016/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-017/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-017/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-018/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2016-018/</a></li>
+</ul>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>ec8750cc451c0fffbf1f1a377ddd997b  typo3_src-8.2.1.tar.gz
+e01654e5ad7b46952d9c8eb82890802c  typo3_src-8.2.1.zip</code></pre>
+<h2 id="sha256-checksums">SHA256 checksums</h2>
+<pre><code>812e91130afdc8fe367ebcaf3294b535b8ab20127c1c7279e6fb2a54707b0e91  typo3_src-8.2.1.tar.gz
+8706cbae2d444a79466b23d5548500f4fc096f3d8e05d59f2c2c28b320ac1dee  typo3_src-8.2.1.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.<br />
+It might be required to clear all caches; the “important actions” section in the TYPO3 Install Tool offers the accordant possibility to do so.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_CMS_8.2.0" title="wikilink">8.2.0</a>:</p>
+<pre><code>2ecfc86 [RELEASE] Release of TYPO3 8.2.1
+c51d635 [SECURITY] Link fields accept Javascript code when using URI Data Scheme
+fcd52bc [SECURITY] Prevent persistent username in filesystem
+22f1b23 [SECURITY][FEATURE] Disable import module for non admin users
+6a09d62 [SECURITY] Prevent XSS in IRRE elements
+bd8eded [SECURITY] Escape the link text in EmailViewHelper
+8c5a99c [SECURITY] Prevent XSS in ContentObjectRenderer
+e0fcf4d [SECURITY] Update guzzle to fix CVE-2016-5385
+410ce53 [BUGFIX] Flaky references in TypoScript parsing</code></pre>
+<p><Category:ReleaseNotes/TYPO3_8.x> <a href="Category:TYPO3_8" title="wikilink">Category:TYPO3 8</a> <Category:2016></p>

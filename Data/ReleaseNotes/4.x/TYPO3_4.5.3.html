@@ -1,0 +1,146 @@
+<h1 id="release-notes-for-typo3-4.5.3">Release Notes for TYPO3 4.5.3</h1>
+<p>This document contains information about TYPO3 version 4.5.3 which was released on May 24th, 2011.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bugfixes only. All users of previous 4.5 versions are strongly advised to upgrade.</p>
+<p>Since 4.5.2 the development of TYPO3 is now using Git as a versioning system. Together with this change, a new packaging system was developed which was used to package 4.5.3 (creating the .tar.gz and the .zip files). A small change was done to the introduction package in the tar.gz format, which now contains symlinks pointing to the current typo3_src. This allows more easy switching of the typo3_src pointer later on.</p>
+<p>Please report any packaging error you might encounter to the <a href="https://forge.typo3.org/projects/typo3v4-distribution">Distribution project</a>.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h3 id="md5-checksums">MD5 checksums</h3>
+<pre><code>f736ade0a3effe81be3d7849f68c6443  typo3_src-4.5.3.tar.gz
+c71f6973518bd22a797eed41500ae2ff  typo3_src-4.5.3.zip
+19e28b762b39b6f1c706ab42ab05b683  blankpackage-4.5.3.tar.gz
+86bb82c1cd8b2c0379b24a99d37f2adb  blankpackage-4.5.3.zip
+c0b5bd0af571616ba50687b255910ed0  introductionpackage-4.5.3.tar.gz
+6bc528b30dd8986977bfa8ff45f24727  introductionpackage-4.5.3.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h3 id="scheduler-tasks">Scheduler tasks</h3>
+<p>If you use the Scheduler to have some tasks done automatically, you must adjust the file rights of some files in the TYPO3 Core by hand.<br />
+<a href="https://forge.typo3.org/issues/27029">For more information see here.</a></p>
+<h2 id="changes">Changes</h2>
+<p>Here is an ordered list of what was fixed since 4.5.2:</p>
+<h3 id="user-interface">User interface</h3>
+<ul>
+<li>[BUGFIX] Display correct lost records count in record statistics (Susanne Moog) (<a href="https://forge.typo3.org/issues/25863">25863</a>)</li>
+<li>[BUGFIX] Check for a valid Date object before opening datepicker (Patrick Schriner) (<a href="https://forge.typo3.org/issues/26674">26674</a>)</li>
+<li>[BUGFIX] List module - Fix pointer issue in pagebrowser (Peter Beernink) (<a href="https://forge.typo3.org/issues/20908">20908</a>)</li>
+<li>[BUGFIX] Missing sprite icons in module db check &gt; record statistics (Sven Juergens) (<a href="https://forge.typo3.org/issues/24835">24835</a>)</li>
+<li>[BUGFIX] Using datetime field with datepicker the time information gets lost (Steffen Kamper) (#17596)</li>
+<li>[BUGFIX] Pagetree - Add missing icons for expand/collapse whole branches (Stefan Galinski) (<a href="https://forge.typo3.org/issues/25305">25305</a>)</li>
+<li>[BUGFIX] Wrong display of csh icon and text in new record wizard (sebastian.mueller) (<a href="https://forge.typo3.org/issues/25371">25371</a>)</li>
+<li>[BUGFIX] BE list module fails on some systems with PHP 5.3 (Xavier Perseguers) (<a href="https://forge.typo3.org/issues/25408">25408</a>)</li>
+<li>[BUGFIX] CSH tooltips in TCEforms lack cursor:pointer (Steffen Gebert) (<a href="https://forge.typo3.org/issues/25406">25406</a>)</li>
+<li>[BUGFIX] Performance: Pagetree uses wrong setting for limiting number of rendered page nodes (Oliver Hader) (<a href="https://forge.typo3.org/issues/25431">25431</a>)</li>
+<li>[BUGFIX] CSH not showing “more info” link icon anymore (Steffen Kamper) (#18036)</li>
+<li>[BUGFIX] BE ajax request fails on some systems with php 5.3 (Joh. Feustel) (#17250)</li>
+<li>[BUGFIX] TCEforms palette header is only indented on first tab (Steffen Kamper) (#17789)</li>
+<li>[BUGFIX] Link title of “browse links” have wrong encoded umlauts (Frederic Gaus, Flagbit GmbH &amp; Co. KG) (#17979)</li>
+<li>[BUGFIX] Deleted overlay missing in overlay priorities (Francois Suter) (#17815)</li>
+<li>[BUGFIX] gif-Sprite does not work in IE6 due to error in spriteGenerator (Steffen Ritter)</li>
+<li>[BUGFIX] Pagetree - Selection state incorrect after a cancelled edit (Stefan) (#17828)</li>
+<li>[BUGFIX] pagetree-&gt;expand contextmenu action does not work as expected (Stefan) (#17394)</li>
+<li>[BUGFIX] Wrong label in felogin redirectDisable (Steffen Kamper) (#17466)</li>
+<li>[BUGFIX] Drop the checks for the image file size from the install tool (Oliver) (#17849)</li>
+<li>[BUGFIX] Backend layout wizard uses invalid stylesheet path (Thanks to Markus Klein) (stephenking) (#17776)</li>
+</ul>
+<h3 id="development">Development</h3>
+<ul>
+<li>[BUGFIX] Allow Tx_ as class prefix (Andreas Kiessling) (<a href="https://forge.typo3.org/issues/22594">22594</a>)</li>
+<li>[BUGFIX] TCA tree with maxitems=1 doesn't work (Marco Huber) (<a href="https://forge.typo3.org/issues/25347">25347</a>)</li>
+<li>[BUGFIX] Wrong type hinting in interface tslib_menu_filterMenuPagesHook (Michael Birchler) (<a href="https://forge.typo3.org/issues/25979">25979</a>)</li>
+<li>[BUGFIX] register['count_menuItems'] wrong, if filtered by userfunc (Bjoern Pedersen) (<a href="https://forge.typo3.org/issues/25405">25405</a>)</li>
+<li>[BUGFIX] Visibility of method tx_sysaction_task::fixUsername() (Oliver Hader) (<a href="https://forge.typo3.org/issues/25219">25219</a>)</li>
+<li>[BUGFIX] Disable the TCA Tree if $PA['fieldConf']['config']['readOnly'] is true. (Marco Huber) (<a href="https://forge.typo3.org/issues/25888">25888</a>)</li>
+<li>[BUGFIX] Fix PHP Catchable Fatal Error in t3lib_iconWorks (Sven Luzar) (<a href="https://forge.typo3.org/issues/25402">25402</a>)</li>
+<li>[BUGFIX] Fix path resolution in t3lib_compressor::compressCssFile() (Rens Admiraal) (#18035)</li>
+<li>[BUGFIX] Don't load ExtCore and ExtJS simultaneously (Bjoern Pedersen) (#17994)</li>
+<li>[BUGFIX] tcaTree Interface is not localized (Steffen Ritter) (#17818)</li>
+<li>[BUGFIX] fix t3lib_extMgm::addToAllTCAtypes(..... , 'replace:xxx') (Tolleiv Nietsch) (#17777)</li>
+</ul>
+<h3 id="typoscript">TypoScript</h3>
+<ul>
+<li>[BUGFIX] Fix stdWrap for Click-to-enlarge (Markus Klein) (<a href="https://forge.typo3.org/issues/26757">26757</a>)</li>
+<li>[BUGFIX] Also crop when maxCharacters &lt; first word (Peter Beernink) (<a href="https://forge.typo3.org/issues/25368">25368</a>)</li>
+<li>[BUGFIX] Recursion error in typoscript when including typoscript files (Tobias Liebig) (<a href="https://forge.typo3.org/issues/25374">25374</a>)</li>
+<li>[BUGFIX] PHP_SCRIPT_INT unnecessarily requires parameter scriptSuffix (Steffen Gebert) (<a href="https://forge.typo3.org/issues/25145">25145</a>)</li>
+<li>[BUGFIX] Media obj respect moveJsFromHeaderToFooter (Alexandre Gravel-Raymond) (<a href="https://forge.typo3.org/issues/25258">25258</a>)</li>
+<li>[BUGFIX] Wrong 'target' generation in imagelinkwrap, making the generated page XHTML invalid (Ernesto Baschny) (<a href="https://forge.typo3.org/issues/25311">25311</a>)</li>
+</ul>
+<h3 id="frontend">Frontend</h3>
+<ul>
+<li>[BUGFIX] Flexformfield “Forgot Password Message” in felogin does not work (Steffen Mueller) (<a href="https://forge.typo3.org/issues/23134">23134</a>)</li>
+<li>[BUGFIX] Send header Error 404 in case of page not found errors (Steffen Gebert) (<a href="https://forge.typo3.org/issues/24945">24945</a>)</li>
+<li>[BUGFIX] Setting “Reply-To” fails in formmail (Jigal van Hemert) (#17916)</li>
+<li>[BUGFIX] Pages with Enforce Protocol (SSL) may generate wrong URL (Steffen Ritter) (#17118)</li>
+</ul>
+<h3 id="administration-configuration">Administration / Configuration</h3>
+<ul>
+<li>[BUGFIX] Log out after running garbage collection tests (Christian Kuhn) (<a href="https://forge.typo3.org/issues/26174">26174</a>)</li>
+<li>[BUGFIX] Configuration Tool creates invalid extTables.php file (Markus Klein) (<a href="https://forge.typo3.org/issues/25781">25781</a>)</li>
+<li>[BUGFIX] unzip_path setting is used inconsistently (Rasto Birka) (<a href="https://forge.typo3.org/issues/25470">25470</a>)</li>
+<li>[BUGFIX] Add the storage field to the TCA for sysfolders (Henrik Møller Rasmussen) (<a href="https://forge.typo3.org/issues/25494">25494</a>)</li>
+<li>[BUGFIX] Encryted SMTP does not work (Julian Hofmann)</li>
+<li>[BUGFIX] Changing TCA via Tools-&gt;Configuration breaks TCA (Markus Klein) (#17754)</li>
+<li>[BUGFIX] Import/Export module uses page id as tree depth (Oliver Hader) (#17814)</li>
+<li>[BUGFIX] Compression Level Upgrade Wizard refers to old .htaccess path (Markus Klein) (#17775)</li>
+</ul>
+<h3 id="security">Security</h3>
+<ul>
+<li>[BUGFIX] Abandon one time CSRF tokens (Helmut Hummel) (<a href="https://forge.typo3.org/issues/25359">25359</a>)</li>
+<li>[BUGFIX] Failed backend logins not being logged when saltedpasswords are used (Torben Hansen) (<a href="https://forge.typo3.org/issues/23917">23917</a>)</li>
+<li>[BUGFIX] Additions to fileDenyPattern give security warning in BE (steffenk) (#17817)</li>
+</ul>
+<h3 id="extension-manager">Extension Manager</h3>
+<ul>
+<li>[BUGFIX] EM: Incorrect label ext_details_always_loaded ['SYS'] / ['EXT'] (Bjoern Pedersen) (<a href="https://forge.typo3.org/issues/26354">26354</a>)</li>
+<li>[BUGFIX] Filtering extensions on remote repository does not respect repository selection (Steffen Kamper) (<a href="https://forge.typo3.org/issues/25390">25390</a>)</li>
+<li>[BUGFIX] Fix Extension Download with compressionLevel enabled (Steffen Gebert) (#18029)</li>
+<li>[BUGFIX] Remove superfluous code from Extension Manager (Steffen Kamper) (#17911)</li>
+<li>[BUGFIX] EM update module doesn't accept cache_extension table (Steffen Kamper) (#17907)</li>
+<li>[BUGFIX] EM using filter in filter menu isn't clear enough (Steffen Kamper) (#17892)</li>
+<li>[BUGFIX] New EM, Date of last update not visible due to missing (steffenk) (#17788)</li>
+<li>[BUGFIX] EM locallist, grouping with author (Steffen Kamper) (#17887)</li>
+<li>[BUGFIX] Extension Manager Function “Backup/Delete =&gt; Dump Tables” doesn't work any more (Franz G. Jahn) (#17938)</li>
+<li>[BUGFIX] EM interface for renderHook is missing (steffenk) (#17865)</li>
+<li>[BUGFIX] Typo in top.TYPO3.ModuleMenu (Steffen Gebert) (#17875)</li>
+<li>[BUGFIX] Error 414 - “Request-URI Too Large” when saving file in extension manager (old version) (steffenk) (#17812)</li>
+<li>[BUGFIX] Filtering in repository state does not work (steffenk) (#17787)</li>
+<li>[BUGFIX] Filtering repository list fields are not prefixed with tablename (steffenk) (#17786)</li>
+</ul>
+<h3 id="rtehtmlarea">RTEhtmlarea</h3>
+<ul>
+<li>[TASK] Update RTE manual with description of buttons (stan) (<a href="https://forge.typo3.org/issues/26724">26724</a>)</li>
+</ul>
+<h3 id="workspaces">Workspaces</h3>
+<ul>
+<li>[BUGFIX] Removing child records in a workspace does not work (Oliver Hader) (<a href="https://forge.typo3.org/issues/25352">25352</a>)</li>
+<li>[FEATURE] Add hook to override icon status overlay (Francois Suter) (<a href="https://forge.typo3.org/issues/25765">25765</a>)</li>
+</ul>
+<h3 id="linkvalidator">Linkvalidator</h3>
+<ul>
+<li>[BUGFIX] getUrl creates malformed requests if no path is given (Philipp Gampe) (<a href="https://forge.typo3.org/issues/12225">12225</a>)</li>
+<li>[FEATURE]: Add user-agent header (<a href="https://forge.typo3.org/issues/#13800">#13800</a>)</li>
+<li>[BUGFIX]: Refactor external link, do not follow senseless loop, add user agent (thanks to Daniel Minder) (<a href="https://forge.typo3.org/issues/#13680">#13680</a>)</li>
+<li>[BUGFIX]: Third-party classes cannot be checked due to dynamicConfigFile in TCA (thanks to Jan Philipp Timme) (<a href="https://forge.typo3.org/issues/#13953">#13953</a>)</li>
+<li>[BUGFIX]: Scheduler task does not work at all (Michael Miousse) (<a href="https://forge.typo3.org/issues/#13757">#13757</a>)</li>
+<li>[BUGFIX]: checkhidden has no effect for some configurations (Michael Miousse) (<a href="https://forge.typo3.org/issues/#13828">#13828</a>)</li>
+<li>[BUGFIX]: The info module does not show up in IE 7 and 8 (Michael Miousse) (<a href="https://forge.typo3.org/issues/#26731">#26731</a>)</li>
+<li>[BUGFIX]: Content of Tab is not scrollable (Michael Miousse) (<a href="https://forge.typo3.org/issues/#13368">#13368</a>)</li>
+</ul>
+<h3 id="code-cosmetics-cleanups">Code-Cosmetics / Cleanups</h3>
+<ul>
+<li>[TASK] Remove file SVNreadme.txt (Steffen Gebert)</li>
+<li>[BUG] Constant TYPO3_URL_DONATE defined twice (Xavier Perseguers) (<a href="https://forge.typo3.org/issues/26781">26781</a>)</li>
+<li>[BUGFIX] Typo “tsdWrap” instead of “stdWrap” (Christopher Stelmaszyk) (<a href="https://forge.typo3.org/issues/26500">26500</a>)</li>
+<li>[BUGFIX][TESTS] Fix unit test cropIsMultibyteSafe (Steffen Gebert) (<a href="https://forge.typo3.org/issues/26491">26491</a>)</li>
+<li>[BUGFIX][TESTS] Fix unit test fixPermissionsSetsPermissionsWithRelativeFileReference (Steffen Gebert) (<a href="https://forge.typo3.org/issues/26423">26423</a>)</li>
+<li>[BUGFIX] Fix inconsistent linebreaks in some files (Michael Stucki) (<a href="https://forge.typo3.org/issues/26126">26126</a>)</li>
+<li>[BUGFIX] Replace deprecated assertType in unit tests (Alexander Stehlik) (<a href="https://forge.typo3.org/issues/25090">25090</a>)</li>
+<li>[BUGFIX] remove console.log in pagetree actions.js (Frederic Gaus, Flagbit GmbH &amp; Co. KG) (<a href="https://forge.typo3.org/issues/25721">25721</a>)</li>
+<li>[TASK] PHP closing tag don't exist in some files (Stefano Kowalke) (<a href="https://forge.typo3.org/issues/25436">25436</a>)</li>
+<li>[BUGFIX] Wrong CSS definition for “submit” (Steffen Gebert) (#18043)</li>
+<li>[BUGFIX] Missing initialization of variables (Steffen Kamper) (#17934)</li>
+<li>[TASK] Changed copyright note to current year (Sebastian)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.5.x> <a href="Category:TYPO3_4.5" title="wikilink">Category:TYPO3 4.5</a> <Category:2011></p>

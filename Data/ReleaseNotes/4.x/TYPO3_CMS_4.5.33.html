@@ -1,0 +1,42 @@
+<h1 id="release-notes-for-typo3-cms-4.5.33">Release Notes for TYPO3 CMS 4.5.33</h1>
+<p>This document contains information about TYPO3 CMS 4.5.33 which was released on April 16th, 2014.</p>
+<h2 id="news">News</h2>
+<p>This release is a bug fix release.</p>
+<h2 id="notes">Notes</h2>
+<p>This is part of a combined release of TYPO3 CMS 4.5.33, 4.7.18, 6.0.13, 6.1.8 and 6.2.1.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>4e30179e08ba3452dbbef87bba8d4378  blankpackage-4.5.33.tar.gz
+14c1e33abb20ff417ffa5a586a273936  blankpackage-4.5.33.zip
+f776c236dc8cc3d624c0dcc4e7ca4715  dummy-4.5.33.tar.gz
+6ff99a8602d34eb297118d20e3b000a2  dummy-4.5.33.zip
+445446bf2fc4d71aaff22bd6bffe023f  introductionpackage-4.5.33.tar.gz
+c43f99baaf44605b2290d67b6d9b5e78  introductionpackage-4.5.33.zip
+d4960701a12010e117a824ac3fc7a5ad  typo3_src+dummy-4.5.33.zip
+a715a4660e0128bf4bbe7b8de9ea346d  typo3_src-4.5.33.tar.gz
+e31714cef66460f946b1ef845d29aef2  typo3_src-4.5.33.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_4.5.32" title="wikilink">4.5.32</a>:</p>
+<ul>
+<li>[RELEASE] Release of TYPO3 4.5.33</li>
+<li>[TASK] Updates prototype and scriptaculous, fixing IE9+ issues (<a href="https://forge.typo3.org/issues/51768">#51768</a>)</li>
+<li>[BUGFIX] Use validEmail() instead of deprecated checkEmail() (<a href="https://forge.typo3.org/issues/57934">#57934</a>)</li>
+<li>[BUGFIX] SoftReferenceIndex typolink lacks support for title attributes (<a href="https://forge.typo3.org/issues/56580">#56580</a>)</li>
+<li>[TASK] Integrate default README.txt (<a href="https://forge.typo3.org/issues/57656">#57656</a>)</li>
+<li>[SECURITY] Prevent XSS in scheduler form (<a href="https://forge.typo3.org/issues/57603">#57603</a>)</li>
+<li>[BUGFIX] Revert “[TASK] Use a 401 header if login is not successful” (<a href="https://forge.typo3.org/issues/55966">#55966</a>)</li>
+<li>[BUGFIX] felogin reset password links not clickable (<a href="https://forge.typo3.org/issues/23984">#23984</a>)</li>
+<li>[BUGFIX] Namespace usage in test (<a href="https://forge.typo3.org/issues/55811">#55811</a>)</li>
+<li>[BUGFIX] CSV-Download not working in IE and HTTPS backend (<a href="https://forge.typo3.org/issues/16491">#16491</a>)</li>
+<li>[BUGFIX] DocumentTemplate class inserts inDocStyles twice (<a href="https://forge.typo3.org/issues/55458">#55458</a>)</li>
+<li>[BUGFIX] Invalid constant in the domain redirect function (<a href="https://forge.typo3.org/issues/55350">#55350</a>)</li>
+<li>[BUGFIX] Fix PHP fatal error in be.tableList view helper (<a href="https://forge.typo3.org/issues/54748">#54748</a>)</li>
+<li>[TASK] Change list view delete icon if record is deleted in WS (<a href="https://forge.typo3.org/issues/52554">#52554</a>)</li>
+<li>[BUGFIX] Display relations' titles when TCA label field is type inline (<a href="https://forge.typo3.org/issues/52133">#52133</a>)</li>
+<li>[BUGFIX] Cleanly unset cookies on login in cookie-check (<a href="https://forge.typo3.org/issues/53818">#53818</a>)</li>
+<li>[TASK] Set TYPO3 version to 4.5.33-dev</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.5.x> <a href="Category:TYPO3_4.5" title="wikilink">Category:TYPO3 4.5</a> <Category:2014></p>

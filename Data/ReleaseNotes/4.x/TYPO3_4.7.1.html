@@ -1,0 +1,70 @@
+<h1 id="release-notes-for-typo3-4.7.1">Release Notes for TYPO3 4.7.1</h1>
+<p>This document contains information about TYPO3 version 4.7.1 which was released on May 22nd 2012.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bug fixes only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>bd8af8af81b826263bcf23a554685ad0  blankpackage-4.7.1.tar.gz
+90b9dc27279eeff30f6a7a6b2677d878  blankpackage-4.7.1.zip
+eb759c7e28a303671463bd06dcd8bb4d  dummy-4.7.1.tar.gz
+545baff9d92c108dfd21f2b25f354d5f  dummy-4.7.1.zip
+a3ac1050a7ac84c483bc9f83ddce8fa5  governmentpackage-4.7.1.tar.gz
+893da405ea26baeb328c2600b24847ee  governmentpackage-4.7.1.zip
+75f6749a7e520c1b5fa31a77c2919bfb  introductionpackage-4.7.1.tar.gz
+9baa67c3981960a610d5f649835e6829  introductionpackage-4.7.1.zip
+ad87f8787818ed503510f6c48f53d5fc  typo3_src+dummy-4.7.1.zip
+e0a8674c3d77ba89c00a6be7f3f885b8  typo3_src-4.7.1.tar.gz
+d0b76942b15336fd660d9234223922e7  typo3_src-4.7.1.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_4.7.0" title="wikilink">4.7.0</a>:</p>
+<ul>
+<li>[TASK] Raise version number of sysexts to 4.7.1</li>
+<li>[BUGFIX] Pagetree: Copying large branches duplicates branch (<a href="https://forge.typo3.org/issues/26993">#26993</a>)</li>
+<li>[TASK] Add a comment for the require_once in t3lib_error_ErrorHandler (<a href="https://forge.typo3.org/issues/37335">#37335</a>)</li>
+<li>[BUGFIX] PHP warning when a language pack does not exist (<a href="https://forge.typo3.org/issues/36976">#36976</a>)</li>
+<li>[BUGFIX] DB field names exceed max length with 'zzz_deleted' (<a href="https://forge.typo3.org/issues/33580">#33580</a>)</li>
+<li>[BUGFIX] Regression of “better condition in versionOL of t3lib_tstemplate” (<a href="https://forge.typo3.org/issues/36981">#36981</a>)</li>
+<li>[BUGFIX] Properly quote regexp in Install Tool (<a href="https://forge.typo3.org/issues/35410">#35410</a>)</li>
+<li>[BUGFIX] Wrong DB fields usage in TCEmain (<a href="https://forge.typo3.org/issues/37221">#37221</a>)</li>
+<li>[BUGFIX] Missing bottom margin in the page tree (<a href="https://forge.typo3.org/issues/35182">#35182</a>)</li>
+<li>[BUGFIX] Wrong label reference for backend_layout (<a href="https://forge.typo3.org/issues/37158">#37158</a>)</li>
+<li>[BUGFIX] Re-enable indexed_search $TCA for index_config (<a href="https://forge.typo3.org/issues/32815">#32815</a>)</li>
+<li>[BUGFIX] Pagetree doesn't expands to the last saved state (<a href="https://forge.typo3.org/issues/36459">#36459</a>)</li>
+<li>[BUGFIX] Page cache expiry calculation fails (<a href="https://forge.typo3.org/issues/35684">#35684</a>)</li>
+<li>[BUGFIX] Regression: SQL error inserting tables for statictemplates (<a href="https://forge.typo3.org/issues/34692">#34692</a>)</li>
+<li>[BUGFIX] Custom Swift_Transport impossible (<a href="https://forge.typo3.org/issues/36937">#36937</a>)</li>
+<li>[BUGFIX] Pagetree should expand to the last selected node (<a href="https://forge.typo3.org/issues/25006">#25006</a>)</li>
+<li>[BUGFIX] Slider Wizard value not set when used in a flexform (<a href="https://forge.typo3.org/issues/34012">#34012</a>)</li>
+<li>[BUGFIX] Fix math test on 32 bit systems (<a href="https://forge.typo3.org/issues/36860">#36860</a>)</li>
+<li>[BUGFIX] Wrong query in RecordCollectionRepository (<a href="https://forge.typo3.org/issues/36841">#36841</a>)</li>
+<li>[BUGFIX] Clean up the raster (<a href="https://forge.typo3.org/issues/36197">#36197</a>)</li>
+<li>[BUGFIX] Add trailing slash to PAGEPATH (<a href="https://forge.typo3.org/issues/35216">#35216</a>)</li>
+<li>[BUGFIX] EM: improve action icons alignment (<a href="https://forge.typo3.org/issues/36611">#36611</a>)</li>
+<li>[BUGFIX] EM: misplaced tooltips (<a href="https://forge.typo3.org/issues/36610">#36610</a>)</li>
+<li>[BUGFIX] Path utility resolves incorrect (<a href="https://forge.typo3.org/issues/36385">#36385</a>)</li>
+<li>[BUGFIX] EM: avoid cropping action columns (<a href="https://forge.typo3.org/issues/30900">#30900</a>)</li>
+<li>[BUGFIX] New task button missing after deleting task (<a href="https://forge.typo3.org/issues/36296">#36296</a>)</li>
+<li>[BUGFIX] cropHTML with dash in html element (<a href="https://forge.typo3.org/issues/26915">#26915</a>)</li>
+<li>[BUGFIX] Wrong HTTP protocol in combination with a proxy (<a href="https://forge.typo3.org/issues/36004">#36004</a>)</li>
+<li>[BUGFIX] Remove duplicate domain from FE copyright comment (<a href="https://forge.typo3.org/issues/36164">#36164</a>)</li>
+<li>[BUGFIX] Show phpinfo() header title (<a href="https://forge.typo3.org/issues/34686">#34686</a>)</li>
+<li>[BUGFIX] Hide relations to deleted records (<a href="https://forge.typo3.org/issues/21713">#21713</a>)</li>
+<li>[BUGFIX] IRRE hide/unhide broken (<a href="https://forge.typo3.org/issues/34303">#34303</a>)</li>
+<li>[BUGFIX] Missing static keyword for addFieldsToUserSettings (<a href="https://forge.typo3.org/issues/36399">#36399</a>)</li>
+<li>[BUGFIX] Localize command must preserve type (<a href="https://forge.typo3.org/issues/35361">#35361</a>)</li>
+</ul>
+<h3 id="extbase">extbase</h3>
+<ul>
+<li>[TASK] Update ext_emconf.php</li>
+<li>[BUGFIX] Fix undefined variables in Typo3DBBackend::parseOrderings (<a href="https://forge.typo3.org/issues/34924">#34924</a>)</li>
+</ul>
+<h3 id="linkvalidator">linkvalidator</h3>
+<ul>
+<li>[TASK] Replace Space Indent into Tab indent (CGL Cleanup) (<a href="https://forge.typo3.org/issues/36882">#36882</a>)</li>
+<li>[BUGFIX] Do not pass by reference (2) (<a href="https://forge.typo3.org/issues/36851">#36851</a>)</li>
+<li>[BUGFIX] Do not pass by reference (<a href="https://forge.typo3.org/issues/36676">#36676</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.7.x> <a href="Category:TYPO3_4.7" title="wikilink">Category:TYPO3 4.7</a> <Category:2012></p>

@@ -1,0 +1,56 @@
+<h1 id="release-notes-for-typo3-6.0.6">Release Notes for TYPO3 6.0.6</h1>
+<p>This document contains information about TYPO3 version 6.0.6 which was released on May 24th 2013.</p>
+<h2 id="news">News</h2>
+<p>This release is a bug fix release.</p>
+<h2 id="notes">Notes</h2>
+<p>This is a combined release of TYPO3 CMS 4.5.27, 4.7.12, 6.0.6 and 6.1.1.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>7ea3848c0969b976e7d4119ac083eb79  blankpackage-6.0.6.tar.gz
+48478cc0afa05b6fe747bd3c7c322820  blankpackage-6.0.6.zip
+740c85eb3842885db442a6cf92ca1d1f  dummy-6.0.6.tar.gz
+3458e7065c637851cb12b8eb71960797  dummy-6.0.6.zip
+bd5900bfd6129d0b386baf39238f6242  typo3_src+dummy-6.0.6.zip
+9a46f36a0f16ea3249bcd875e8aed299  typo3_src-6.0.6.tar.gz
+593197dfd9e724358433d984ce2d344e  typo3_src-6.0.6.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies.</p>
+<p>Please note: A minor database schema update was included in this release in order to fix issue <issue>16762</issue>. This is unusual for a patch level release, but we decided to include it anyway with the following rationale:</p>
+<ul>
+<li>New installations get the correct field definition from start (bug fixed).</li>
+<li>Old installations updating to the newest patch level by simply updading the TYPO3 Sources (usual procedure): No change of functionality, nothing breaks. But the bug won't be fixed.</li>
+<li>Old installations which need this bug fixed need to apply the TYPO3 Source Upgrade and do an one time “Database Compare” in the Install Tool afterwards.</li>
+</ul>
+<p>So the last step is optional and only required if you are really hit by this bug and want to have it solved in your existing installation. Most integrations won't be affected by this bug anyway.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_6.0.5" title="wikilink">6.0.5</a>:</p>
+<ul>
+<li>[BUGFIX] file_upload missing back icon (<a href="https://forge.typo3.org/issues/48065">#48065</a>)</li>
+<li>[BUGFIX] Paste button missing in empty folders (<a href="https://forge.typo3.org/issues/48202">#48202</a>)</li>
+<li>[BUGFIX] Processed folder in a sub folder is shown (<a href="https://forge.typo3.org/issues/47019">#47019</a>)</li>
+<li>[BUGFIX] BEfunc getProcessedValue doesn't show record title for “group” (<a href="https://forge.typo3.org/issues/21410">#21410</a>)</li>
+<li>[BUGFIX] Fix double-stdWrapping of GIFBUILDER's TEXT object (<a href="https://forge.typo3.org/issues/41487">#41487</a>)</li>
+<li>[BUGFIX] Empty subpart template if no data given (<a href="https://forge.typo3.org/issues/47935">#47935</a>)</li>
+<li>[BUGFIX] Fix last line in table wizard (<a href="https://forge.typo3.org/issues/16531">#16531</a>)</li>
+<li>[BUGFIX][CONF] Remove unused EM related settings (<a href="https://forge.typo3.org/issues/48179">#48179</a>)</li>
+<li>[BUGFIX] be_users.userMods is too small to hold all modules (<a href="https://forge.typo3.org/issues/16762">#16762</a>)</li>
+<li>[BUGFIX] Can not expand new collapsed IRRE record with RTE field</li>
+<li>[BUGFIX] Fix start of identifier from /./ to / (<a href="https://forge.typo3.org/issues/47705">#47705</a>)</li>
+<li>[BUGFIX] ProcessedFile is persisted in sys_file as well (<a href="https://forge.typo3.org/issues/47211">#47211</a>)</li>
+<li>[BUGFIX] Uppercase CSS tag selectors not supported in some mime types (<a href="https://forge.typo3.org/issues/40501">#40501</a>)</li>
+<li>[BUGFIX] Sorting not respected for backend layout dropdowns (<a href="https://forge.typo3.org/issues/47688">#47688</a>)</li>
+<li>[BUGFIX] Improvement of LanguageCacheClearer (<a href="https://forge.typo3.org/issues/47912">#47912</a>)</li>
+<li>[BUGFIX] Add support for float values to arrayExport (<a href="https://forge.typo3.org/issues/48114">#48114</a>)</li>
+<li>[BUGFIX] Label in list view is not escaped (<a href="https://forge.typo3.org/issues/29409">#29409</a>)</li>
+<li>[TASK] Update PEAR packages (<a href="https://forge.typo3.org/issues/48027">#48027</a>)</li>
+<li>[TASK] Use PHP lint to check for syntax errors on travis</li>
+<li>[BUGFIX] TCA:Suggest wizard doesn't work for select with maxitems=1 (<a href="https://forge.typo3.org/issues/23789">#23789</a>)</li>
+<li>[BUGFIX] Clearing label through TS doesn't work (<a href="https://forge.typo3.org/issues/43959">#43959</a>)</li>
+<li>[BUGFIX] Don't preserve piVars in felogin links (<a href="https://forge.typo3.org/issues/46829">#46829</a>)</li>
+<li>[BUGFIX] Form email validation is case sensitive (<a href="https://forge.typo3.org/issues/43924">#43924</a>)</li>
+<li>[BUGFIX] Resolve asterisk in allowed tables for suggest wizard (<a href="https://forge.typo3.org/issues/21588">#21588</a>)</li>
+<li>[BUGFIX] Context menu for offline storages raises exception (<a href="https://forge.typo3.org/issues/46551">#46551</a>)</li>
+<li>[TASK] Set TYPO3 version to 6.0.6-dev</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_6.0.x> <a href="Category:TYPO3_6.0" title="wikilink">Category:TYPO3 6.0</a> <Category:2013></p>

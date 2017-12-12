@@ -1,0 +1,44 @@
+<h1 id="release-notes-for-typo3-cms-6.1.7">Release Notes for TYPO3 CMS 6.1.7</h1>
+<p>This document contains information about TYPO3 CMS 6.1.7 which was released on December 10th, 2013.</p>
+<h2 id="news">News</h2>
+<p>This release is a security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Due to security issues found in the TYPO3 Core, there was a combined release of TYPO3 4.5.32, 4.7.17, 6.0.12 and 6.1.7.<br />
+Find more details in the security bulletin: <a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2013-004/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2013-004/</a></p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>a03c09e9bf8850d98d7db2c030469feb  blankpackage-6.1.7.tar.gz
+b8070f90c3b7cbbb2d3cfadd0134bace  blankpackage-6.1.7.zip
+5bd2054a24b4b83595f5b4d9008d42d8  dummy-6.1.7.tar.gz
+5c1dbe7e967ba1ea81c5d4b9a098e421  dummy-6.1.7.zip
+4783b306f0188ba3cd9c0dcd7dcc274a  governmentpackage-6.1.7.tar.gz
+f1d607795075772ac52a24b12231b056  governmentpackage-6.1.7.zip
+fd422bb1eb592ac03073ba371022c61c  introductionpackage-6.1.7.tar.gz
+83ecb19d4fdc08e1bdafb167ffbe8cb0  introductionpackage-6.1.7.zip
+16a952424b355a3efbcdac5b836eca86  typo3_src+dummy-6.1.7.zip
+66130b21ce61ef2ff5eafdd28b4ba6e1  typo3_src-6.1.7.tar.gz
+e7e65287615e6d7254e5442f653b6f49  typo3_src-6.1.7.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_6.1.6" title="wikilink">6.1.6</a>:</p>
+<ul>
+<li>[TASK] Set TYPO3 version to 6.1.8-dev</li>
+<li>[RELEASE] Release of TYPO3 6.1.7</li>
+<li>[SECURITY] XSS in header link of all content elements (<a href="https://forge.typo3.org/issues/31206">#31206</a>)</li>
+<li>[SECURITY] XSS in colorpicker wizard (<a href="https://forge.typo3.org/issues/42772">#42772</a>)</li>
+<li>[SECURITY] Prevent editor controlled hmac content (<a href="https://forge.typo3.org/issues/45043">#45043</a>)</li>
+<li>[SECURITY] XSS in backend user adminstration (<a href="https://forge.typo3.org/issues/48691">#48691</a>)</li>
+<li>[SECURITY] Information Disclosure in Wizards (<a href="https://forge.typo3.org/issues/41714">#41714</a>)</li>
+<li>[SECURITY] Fix open redirection in openid extension (<a href="https://forge.typo3.org/issues/54099">#54099</a>)</li>
+<li>[SECURITY] XSS in be_layout wizard (<a href="https://forge.typo3.org/issues/36768">#36768</a>)</li>
+<li>[SECURITY] XSS in beuser VH (<a href="https://forge.typo3.org/issues/47086">#47086</a>)</li>
+<li>[SECURITY] Remove possible XSS from ActionController Error output (<a href="https://forge.typo3.org/issues/54074">#54074</a>)</li>
+<li>[SECURITY] Unsafe unserialize of GET parameter in Add-Wizard (<a href="https://forge.typo3.org/issues/54073">#54073</a>)</li>
+<li>[BUGFIX] ClientUtility does not detect Internet Explorer 11 (<a href="https://forge.typo3.org/issues/54124">#54124</a>)</li>
+<li>[BUGFIX] Add missing namespacing for calling GeneralUtility (<a href="https://forge.typo3.org/issues/54117">#54117</a>)</li>
+<li>[BUGFIX] ext:adodb Restrict connection wizard to admins (<a href="https://forge.typo3.org/issues/42651">#42651</a>)</li>
+<li>[TASK] Set TYPO3 version to 6.1.7-dev</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_6.1.x> <a href="Category:TYPO3_6.1" title="wikilink">Category:TYPO3 6.1</a> <Category:2013></p>

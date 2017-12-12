@@ -1,0 +1,41 @@
+<h1 id="release-notes-for-typo3-4.4.8">Release Notes for TYPO3 4.4.8</h1>
+<p>This document contains information about TYPO3 version 4.4.8 which was released on May 24th, 2011.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bugfixes only. All users of previous 4.4 versions are strongly advised to upgrade.</p>
+<p>Starting with this release, we will no longer supply an Introduction Package for the old stable release (4.4). Introduction Package will be build only for the current stable release (4.5) and the current development version (4.6).</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h3 id="md5-checksums">MD5 checksums</h3>
+<pre><code>d66dfb291914823879a01ccef59e0bdf  typo3_src-4.4.8.tar.gz
+a1d50452f005478cd7b94800cf85f762  typo3_src-4.4.8.zip
+b58eaa4b8afe02e06aff0fa3fc6fd7ac  blankpackage-4.4.8.tar.gz
+24cbaacda9e79eeadee8a638e4751f7f  blankpackage-4.4.8.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h3 id="scheduler-tasks">Scheduler tasks</h3>
+<p>If you use the Scheduler to have some tasks done automatically, you must adjust the file rights of some files in the TYPO3 Core by hand.<br />
+<a href="https://forge.typo3.org/issues/27029">For more information see here.</a></p>
+<h2 id="changes">Changes</h2>
+<p>Here is an ordered list of what was fixed since 4.4.7:</p>
+<ul>
+<li>[BUGFIX] Display correct lost records count in record statistics (Susanne Moog) (<a href="https://forge.typo3.org/issues/25863">25863</a>)</li>
+<li>[TASK] Remove file SVNreadme.txt (Steffen Gebert)</li>
+<li>[BUGFIX] Wrong type hinting in interface tslib_menu_filterMenuPagesHook (Michael Birchler) (<a href="https://forge.typo3.org/issues/25979">25979</a>)</li>
+<li>[BUGFIX] List module - Fix pointer issue in pagebrowser (Peter Beernink) (<a href="https://forge.typo3.org/issues/20908">20908</a>)</li>
+<li>[BUGFIX] meaningfulTempFilePrefix generates bad file names in some cases (Dmitry Dulepov) (<a href="https://forge.typo3.org/issues/25316">25316</a>)</li>
+<li>[BUGFIX] Missing sprite icons in module db check &gt; record statistics (Sven Juergens) (<a href="https://forge.typo3.org/issues/24835">24835</a>)</li>
+<li>[BUGFIX] Flexformfield “Forgot Password Message” in felogin does not work (Steffen Mueller) (<a href="https://forge.typo3.org/issues/23134">23134</a>)</li>
+<li>[BUGFIX] Save and view triggers preview of wrong page (Francois Suter) (<a href="https://forge.typo3.org/issues/24376">24376</a>)</li>
+<li>[BUGFIX] Visibility of method tx_sysaction_task::fixUsername() (Oliver Hader) (<a href="https://forge.typo3.org/issues/25219">25219</a>)</li>
+<li>[BUGFIX] Using datetime field with datepicker the time information gets lost (Steffen Kamper) (#17596)</li>
+<li>[FEATURE] add .gitignore for common file exclusions (Peter Niederlag(office))</li>
+<li>[BUGFIX] Configuration Tool creates invalid extTables.php file (Markus Klein) (<a href="https://forge.typo3.org/issues/25781">25781</a>)</li>
+<li>[BUGFIX] BE ajax request fails on some systems with php 5.3 (Joh. Feustel) (#17250)</li>
+<li>[BUGFIX] Wrong CSS definition for “submit” (Steffen Gebert) (#18043)</li>
+<li>[BUGFIX] link title with wrong encoded umlauts (Frederic Gaus, Flagbit GmbH &amp; Co. KG) (#17979)</li>
+<li>[BUGFIX] Deleted overlay missing in overlay priorities (Francois Suter) (#17815)</li>
+<li>[BUGFIX] Drop the checks for the image file size from the install tool (Oliver Klee) (#17849)</li>
+<li>[BUGFIX] Install Tool doing Fatal error when APC PHP module is loaded (no session is stored) (baschny) (#17732)</li>
+<li>[BUGFIX] Flexform inputfields remain empty (Thanks to Andreas Kiessling) (steffenk) (#16788)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.4.x> <a href="Category:TYPO3_4.4" title="wikilink">Category:TYPO3 4.4</a> <Category:2011></p>

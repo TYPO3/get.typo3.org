@@ -1,0 +1,72 @@
+<h1 id="release-notes-for-typo3-6.0.2">Release Notes for TYPO3 6.0.2</h1>
+<p>This document contains information about TYPO3 version 6.0.2 which was released on February 14th 2013.</p>
+<h2 id="news">News</h2>
+<p>This release is a bug fix release only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>e61f9433278266d4d5bc2d52efda06f9  blankpackage-6.0.2.tar.gz
+3408123f29c7d550ccc4ad52f980f098  blankpackage-6.0.2.zip
+ddafc3525ba3f890e364100b841cfcd3  dummy-6.0.2.tar.gz
+53b4b1bbbd899f7ea44388fb34b0b511  dummy-6.0.2.zip
+ff37e3d1a84e5d3009b33ad30af2e2f4  governmentpackage-6.0.2.tar.gz
+b6839fcb87a655399c1a4c9c7e88a51a  governmentpackage-6.0.2.zip
+aa38852b5b7f3ae3c9ef72b2d05b7c4d  introductionpackage-6.0.2.tar.gz
+1410321d1b76c936c97d46ff236387b3  introductionpackage-6.0.2.zip
+848cf9a8b2ea05f3e1ace971d5bed388  typo3_src+dummy-6.0.2.zip
+ba0102330a08f9dcd330efca97234280  typo3_src-6.0.2.tar.gz
+75ab14b99495848b4a7610dcd9db5c35  typo3_src-6.0.2.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_6.0.1" title="wikilink">6.0.1</a>:</p>
+<ul>
+<li>[RELEASE] Release of TYPO3 6.0.2</li>
+<li>[BUGFIX] L10n fallback does not work for TS labels (<a href="https://forge.typo3.org/issues/44099">#44099</a>)</li>
+<li>[BUGFIX] L10n fallback does not work for ExtJS in BE (<a href="https://forge.typo3.org/issues/44273">#44273</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] Allow “en” as language key (<a href="https://forge.typo3.org/issues/42084">#42084</a>)</li>
+<li>[BUGFIX] FAL: file properties are not updated (<a href="https://forge.typo3.org/issues/44585">#44585</a>)</li>
+<li>[TASK] Remove not used viewhelper in beuser (<a href="https://forge.typo3.org/issues/45338">#45338</a>)</li>
+<li>[BUGFIX] Exception when scheduling “at” execution time (<a href="https://forge.typo3.org/issues/45265">#45265</a>)</li>
+<li>[BUGFIX] Processed files get corrupted when regenerated (<a href="https://forge.typo3.org/issues/45308">#45308</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX][Cache][PDO] Duplicate cache entry possible (<a href="https://forge.typo3.org/issues/34129">#34129</a>)</li>
+<li>[BUGFIX][Cache] Method parameter CGL fixes (<a href="https://forge.typo3.org/issues/45257">#45257</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] Crash after file upload on Windows without finfo (<a href="https://forge.typo3.org/issues/37440">#37440</a>)</li>
+<li>[BUGFIX] Wrong SQL statements in TCA for sys_category (<a href="https://forge.typo3.org/issues/44911">#44911</a>)</li>
+<li>[BUGFIX] Additional extTables script might not exist (<a href="https://forge.typo3.org/issues/45122">#45122</a>)</li>
+<li>[BUGFIX] Misspelling in scheduler documentation (<a href="https://forge.typo3.org/issues/33936">#33936</a>)</li>
+<li>[BUGFIX] tools_dbint needs to be called via mod.php (<a href="https://forge.typo3.org/issues/45112">#45112</a>)</li>
+<li>[BUGFIX] IE9 compatibility clear cache menu (<a href="https://forge.typo3.org/issues/36364">#36364</a>)</li>
+<li>[BUGFIX] Hook call modifyDBRow in ContentContentObject (<a href="https://forge.typo3.org/issues/44416">#44416</a>)</li>
+<li>[BUGFIX] Install tool documentation default installTollPassword (<a href="https://forge.typo3.org/issues/44682">#44682</a>)</li>
+<li>[BUGFIX] Labels for grouping bookmarks are missing (<a href="https://forge.typo3.org/issues/44691">#44691</a>)</li>
+<li>[BUGFIX] Fix misspelling in RTE meta menu (<a href="https://forge.typo3.org/issues/43886">#43886</a>)</li>
+<li>[BUGFIX] Impossible to save the TCA configuration (<a href="https://forge.typo3.org/issues/44331">#44331</a>)</li>
+<li>[BUGFIX] load TCA before manipulation (<a href="https://forge.typo3.org/issues/38505">#38505</a>)</li>
+<li>[BUGFIX] Restore support for Update script (<a href="https://forge.typo3.org/issues/43244">#43244</a>)</li>
+<li>[BUGFIX] Misspelled class name FrontendUserAuthtenication (<a href="https://forge.typo3.org/issues/43464">#43464</a>)</li>
+<li>[BUGFIX] add check for empty form values in FORM View (<a href="https://forge.typo3.org/issues/28606">#28606</a>)</li>
+<li>[BUGFIX] StorageRepository must respect 'deleted' flag (<a href="https://forge.typo3.org/issues/44630">#44630</a>)</li>
+<li>[BUGFIX] Remove delete button for sys_file (<a href="https://forge.typo3.org/issues/45065">#45065</a>)</li>
+<li>[CLEANUP] Cleanup calls and docheaders in Core/Classes/Resource (<a href="https://forge.typo3.org/issues/44476">#44476</a>)</li>
+<li>[TASK] Remove EXT:lang FormEngineBasedCheckboxGroupViewHelper (<a href="https://forge.typo3.org/issues/44527">#44527</a>)</li>
+<li>[TASK] DataHandler::getAutoVersionId() should be public (<a href="https://forge.typo3.org/issues/45050">#45050</a>)</li>
+<li>[BUGFIX] Remove save and new button for sys_file (<a href="https://forge.typo3.org/issues/45044">#45044</a>)</li>
+<li>[BUGFIX] ext:aboutmodules broken link to ext:reports (<a href="https://forge.typo3.org/issues/40218">#40218</a>)</li>
+<li>[BUGFIX] displayWarningMessages uses wrong returnUrl (<a href="https://forge.typo3.org/issues/44537">#44537</a>)</li>
+<li>[BUGFIX] LocalConfiguration extListArray should be written without keys (<a href="https://forge.typo3.org/issues/44938">#44938</a>)</li>
+<li>[BUGFIX] Reset legacy fields if no relations are found (<a href="https://forge.typo3.org/issues/44988">#44988</a>)</li>
+<li>[BUGFIX] Add missing labels for Extension Manager (<a href="https://forge.typo3.org/issues/44941">#44941</a>)</li>
+<li>[BUGFIX] Compatibility fix for get_html_translation_table() (<a href="https://forge.typo3.org/issues/39287">#39287</a>)</li>
+<li>[BUGFIX] Remove obsolete flushByTags() from wincache (<a href="https://forge.typo3.org/issues/44937">#44937</a>)</li>
+<li>[BUGFIX] Register suite integrity tests again (<a href="https://forge.typo3.org/issues/44936">#44936</a>)</li>
+<li>[TASK] Set TYPO3 version to 6.0.2-dev</li>
+</ul>
+<h3 id="extbase">extbase</h3>
+<ul>
+<li>[BUGFIX] Add foreign_match_fields support for one-to-x relations (<a href="https://forge.typo3.org/issues/45337">#45337</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_6.0.x> <a href="Category:TYPO3_6.0" title="wikilink">Category:TYPO3 6.0</a> <Category:2013></p>

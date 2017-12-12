@@ -1,0 +1,42 @@
+<h1 id="release-notes-for-typo3-4.0.7">RELEASE NOTES FOR TYPO3 4.0.7</h1>
+<p>This document contains information about TYPO3 version 4.0.7 which was released on July 16, 2007.</p>
+<h2 id="news">News</h2>
+<p>In this release some bugs and issues have been adressed which might be of relevance in many installations:</p>
+<ul>
+<li>Page-TSconfig now works together with Workspaces (Bug #2544)</li>
+<li>gzip content encoding is now compatible with IE7 (Bug #4623)</li>
+<li>The colorpicker wizard now works in flex forms (Bug #2052)</li>
+<li>The page-type external url has been improved to prevent breaking links in the frontend (Bug #209)</li>
+</ul>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a> <a href="http://sourceforge.net/project/showfiles.php?group_id=20391&amp;package_id=14557&amp;release_id=523613" class="uri">http://sourceforge.net/project/showfiles.php?group_id=20391&amp;package_id=14557&amp;release_id=523613</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>53c1b857fed1b2eba4970fac2264d02d  dummy-4.0.7.tar.gz
+c01a38569cfed31a5bdf78a3ff762eb3  dummy-4.0.7.zip
+71b455b5ea559eb949b27e84f88d8a20  typo3_src+dummy-4.0.7.zip
+e09b04db5bddbd833bbd067b5d53e24d  typo3_src-4.0.7.tar.gz
+4c0471b3655fe8687e2693e67c8a3d6d  typo3_src-4.0.7.zip</code></pre>
+<p>Source: <a href="http://sourceforge.net/project/shownotes.php?release_id=523613&amp;group_id=20391" class="uri">http://sourceforge.net/project/shownotes.php?release_id=523613&amp;group_id=20391</a></p>
+<h2 id="upgrading">Upgrading</h2>
+<p>Nothing special to do.</p>
+<h2 id="changelog">Changelog</h2>
+<p><changelog>2007-07-16 Michael Stucki michael@typo3.org</p>
+<p><code>   * Release of TYPO3 4.0.7</code><br />
+<code>   * Fixed possible XSS in workspace/version modules (requires valid BE login / patch by Christian Kuhn)</code><br />
+<code>   * Removed possible display of phpinfo() (requires bug in extension to be unveiled)</code></p>
+<p>2007-07-16 Martin Kutschker martin.t.kutschker@blackbox.net</p>
+<p><code>   * Fixed bug #3834: possible abuse of t3lib_formmail</code><br />
+<code>   * IPmaskList check is triggered in CLI mode (thanks to Tobias Rohrle)</code></p>
+<p>2007-07-06 Michael Stucki michael@typo3.org</p>
+<p><code>   * Fixed bug #3544: RTE-config in PageTS-config not loaded when in draft-workspace</code><br />
+<code>   * Fixed bug #4917: Wrong links inside mounted page with overlay (thanks to Melanie Meyer / Franz Ripfel)</code></p>
+<p>2007-07-02 Oliver Hader oh@inpublica.de</p>
+<p><code>   * Fixed bug #4623: Content encoding with x-gzip not possible in IE7</code></p>
+<p>2007-05-10 Thorsten Kahler thorsten.kahler@dkd.de</p>
+<p><code>   * Fixed bug #209: require field URL in page-type </code>“<code>External`` ``URL</code>”</p>
+<p>2007-05-09 Andreas Otto andreas.otto@dkd.de</p>
+<p><code>   * Fixed bug #2052: Color picker does not work properly in flex forms. Thanks to David Bruehlmeier for providing a patch and a testcase.</code></p>
+<p>2007-04-28 Andreas Otto andreas.otto@dkd.de</p>
+<p><code>   * Fixed bug #3649: Call to a member function formWidth() on object $GLOBALS['TBE_TEMPLATE'] instead on $GLOBALS['SOBE'].</code></p>
+<p></changelog></p>
+<p><Category:ReleaseNotes/TYPO3_4.0.x> <a href="Category:TYPO3_4.0" title="wikilink">Category:TYPO3 4.0</a> <Category:2007></p>

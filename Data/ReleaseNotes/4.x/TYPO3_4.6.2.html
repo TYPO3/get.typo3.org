@@ -1,0 +1,37 @@
+<h1 id="release-notes-for-typo3-4.6.2">Release Notes for TYPO3 4.6.2</h1>
+<p>This document contains information about TYPO3 version 4.6.2 which was released on December 16th 2011.</p>
+<h2 id="news">News</h2>
+<p>This release is a combined bug fix and security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Due to security issues found in the TYPO3 Core, there was a combined release of TYPO3 <a href="TYPO3_4.5.9" title="wikilink">4.5.9</a> and 4.6.2.<br />
+Find more details in the security bulletin: <a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2011-004/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2011-004/</a></p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>58dcdf46118ff65dd6a24c89ffd8a71d  blankpackage-4.6.2.tar.gz
+44d6ef9e67e00bdec948031012c38116  blankpackage-4.6.2.zip
+8ce396432793133d0e317c04db0fe7f8  dummy-4.6.2.tar.gz
+8e2a5c052290de0342dcb1e3227edbc1  dummy-4.6.2.zip
+1669b0c929c4ebef267edb2c9532ef2a  introductionpackage-4.6.2.tar.gz
+008cc395472c520d409f97c4f9b2e656  introductionpackage-4.6.2.zip
+533d7a247e95241aee90d43bdf2fcc30  typo3_src+dummy-4.6.2.zip
+bc56852e5927e295cd17a0b2d74c10e0  typo3_src-4.6.2.tar.gz
+8b2009c7a64c63ddccd253400a91e633  typo3_src-4.6.2.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li>[SECURITY][BUGFIX] Remote Command Execution in Workspace Abstract Controller (<a href="https://forge.typo3.org/issues/32571">#32571</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[BUGFIX] RTE not loading in IE when content css file does not exist (<a href="https://forge.typo3.org/issues/29899">#29899</a>)</li>
+<li>[TASK] Add CSS Class to special input types in FORM (<a href="https://forge.typo3.org/issues/30851">#30851</a>)</li>
+<li>[BUGFIX] Install Tool shows internal MySQL databases (<a href="https://forge.typo3.org/issues/19278">#19278</a>)</li>
+<li>[BUGFIX] Disabled ImageMagick throws Exception (<a href="https://forge.typo3.org/issues/32433">#32433</a>)</li>
+<li>[TASK] Integrate system extension linkvalidator as submodule (<a href="https://forge.typo3.org/issues/32075">#32075</a>)</li>
+<li>[BUGFIX] Add possibility to use Wizards-&gt;Suggest in FlexForms (<a href="https://forge.typo3.org/issues/22231">#22231</a>)</li>
+<li>[BUGFIX] RTE doesn't allow to create links around images in IE8 (<a href="https://forge.typo3.org/issues/30631">#30631</a>)</li>
+<li>[BUGFIX][SECURITY] XSS vulnerability in BE-User Admin module (<a href="https://forge.typo3.org/issues/32040">#32040</a>)</li>
+<li>[BUGFIX] Respect linkVars for generating the cHash (<a href="https://forge.typo3.org/issues/32025">#32025</a>)</li>
+<li>[BUGFIX] Core calls deprecated ADMCMD_preview() (<a href="https://forge.typo3.org/issues/31290">#31290</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.6.x> <a href="Category:TYPO3_4.6" title="wikilink">Category:TYPO3 4.6</a> <Category:2011></p>

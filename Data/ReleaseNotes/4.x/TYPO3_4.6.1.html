@@ -1,0 +1,80 @@
+<h1 id="release-notes-for-typo3-4.6.1">Release Notes for TYPO3 4.6.1</h1>
+<p>This document contains information about TYPO3 version 4.6.1 which was released on November 22th 2011.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bug fixes only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>d93b40429a4f1d465d3d170088144484  blankpackage-4.6.1.tar.gz                                                         
+e8fae19cb7370315c3014689a58afcb9  blankpackage-4.6.1.zip                                                            
+bce779dd5d503bb40013ad6459234b31  dummy-4.6.1.tar.gz                                                                
+27e431a1171688f363a6ea13c09c86b2  dummy-4.6.1.zip                                                                   
+7ad19e71cc342a0ce22298c77c0904d1  introductionpackage-4.6.1.tar.gz                                                  
+d083eed933c394b758b749e956db5aa1  introductionpackage-4.6.1.zip                                                     
+f4be286a12ace6783001835d7a600e94  typo3_src+dummy-4.6.1.zip                                                         
+10a14728a3d50971fce6b304521ba6a1  typo3_src-4.6.1.tar.gz                                                            
+2088caa4357cd823ec143e52714d1c50  typo3_src-4.6.1.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since 4.6.0:</p>
+<h3 id="backend">Backend</h3>
+<ul>
+<li>[BUGFIX] Log date picker broken (<a href="https://forge.typo3.org/issues/31450">#31450</a>)</li>
+<li>[BUGFIX] Options checkboxes are hidden in BE admin user form (<a href="https://forge.typo3.org/issues/30492">#30492</a>)</li>
+</ul>
+<h3 id="dbal">DBAL</h3>
+<ul>
+<li>[TASK] Update ADOdb library to version 5.14 (<a href="https://forge.typo3.org/issues/31486">#31486</a>)</li>
+<li>[TASK][!!!] Replaces die() calls with RuntimeException (<a href="https://forge.typo3.org/issues/31826">#31826</a>)</li>
+</ul>
+<h3 id="extbase">Extbase</h3>
+<ul>
+<li>[BUGFIX] Make SignalSlot Dispatcher a singleton (<a href="https://forge.typo3.org/issues/31950">#31950</a>)</li>
+<li>[BUGFIX] DateTime properties are not mapped correctly (<a href="https://forge.typo3.org/issues/31345">#31345</a>)</li>
+<li>[BUGFIX] Make changed action resolving backwards compatible (<a href="https://forge.typo3.org/issues/31322">#31322</a>)</li>
+</ul>
+<p>Further reading: <a href="https://git.typo3.org/TYPO3v4/CoreProjects/MVC/extbase.git?a=blob;f=ChangeLog.txt;hb=extbase_1-4">Extension's ChangeLog</a></p>
+<h3 id="extension-manager">Extension Manager</h3>
+<ul>
+<li>[BUGFIX] EM: Confusing error message when uploading an extension to TER that is not registered (<a href="https://forge.typo3.org/issues/31309">#31309</a>)</li>
+</ul>
+<h3 id="fluid">Fluid</h3>
+<ul>
+<li>[BUGFIX] TextboxViewHelper does not return anything (<a href="https://forge.typo3.org/issues/31331">#31331</a>)</li>
+<li>[BUGFIX] Fix version dependency for extbase</li>
+<li>[BUGFIX] Fix PHP Warnings in Unit Tests</li>
+</ul>
+<p>Further reading: <a href="https://git.typo3.org/TYPO3v4/CoreProjects/MVC/fluid.git?a=blob;f=ChangeLog.txt;hb=fluid_1-4">Extension's ChangeLog</a></p>
+<h3 id="form">Form</h3>
+<ul>
+<li>[BUGFIX] Handling file upload fields is broken (<a href="https://forge.typo3.org/issues/31085">#31085</a>)</li>
+</ul>
+<h3 id="install-tool">Install Tool</h3>
+<ul>
+<li>[BUGFIX] Install tool stays open if ENABLE_INSTALL_TOOL is not writable (<a href="https://forge.typo3.org/issues/29674">#29674</a>)</li>
+</ul>
+<h3 id="labelslocalization">Labels/Localization</h3>
+<ul>
+<li>[BUGFIX] alt_doc.php uses deleted alternative page languages for translations (<a href="https://forge.typo3.org/issues/31379">#31379</a>)</li>
+<li>[BUGFIX] Disambiguate labels in exclude fields list (<a href="https://forge.typo3.org/issues/25236">#25236</a>)</li>
+<li>[BUGFIX] XLIFF: Invalid handling of overlays for unavailable language (<a href="https://forge.typo3.org/issues/31353">#31353</a>)</li>
+<li>[BUGFIX] Empty text with non-localizable label key (<a href="https://forge.typo3.org/issues/31347">#31347</a>)</li>
+</ul>
+<h3 id="tca">TCA</h3>
+<ul>
+<li>[BUGFIX][!!!] Slider wizard misuses “max” property (<a href="https://forge.typo3.org/issues/31724">#31724</a>)</li>
+</ul>
+<h3 id="workspaces-versioning">Workspaces &amp; Versioning</h3>
+<ul>
+<li>[BUGFIX] Error after hide/show element in list module (<a href="https://forge.typo3.org/issues/20598">#20598</a>)</li>
+</ul>
+<h3 id="other-bugstasks">Other Bugs/Tasks</h3>
+<ul>
+<li>[BUGFIX] Error in the pageNotFound_handling with USER_FUNCTION (<a href="https://forge.typo3.org/issues/31839">#31839</a>)</li>
+<li>[BUGFIX] Vimeo mediawizardprovider needs new syntax (<a href="https://forge.typo3.org/issues/31661">#31661</a>)</li>
+<li>[BUGFIX] magic_quotes_gpc does not exist anymore in PHP 5.4 (<a href="https://forge.typo3.org/issues/30083">#30083</a>)</li>
+<li>[TASK] Add missing tslib_content_abstract::getContentObject() (<a href="https://forge.typo3.org/issues/30994">#30994</a>)</li>
+<li>[BUGFIX] JS error on initialization of RTE extension plugin (<a href="https://forge.typo3.org/issues/31498">#31498</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.6.x> <a href="Category:TYPO3_4.6" title="wikilink">Category:TYPO3 4.6</a> <Category:2011></p>

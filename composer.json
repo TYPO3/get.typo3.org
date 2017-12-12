@@ -1,0 +1,25 @@
+{
+    "name": "t3o/gettypo3org",
+    "license": "GPL-v2+",
+    "authors": [
+        {
+            "name": "Susanne Moog",
+            "email": "susanne.moog@typo3.com"
+        },
+        {
+            "name": "Benni Mack",
+            "email": "benni@typo3.org"
+        }
+    ],
+    "require": {
+        "symfony/twig-bridge": "^3.3",
+        "silex/silex": "^2.2",
+        "vlucas/phpdotenv": "^2.4",
+        "symfony/finder": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "T3O\\GetTypo3Org\\": "src"
+        }
+    }
+}

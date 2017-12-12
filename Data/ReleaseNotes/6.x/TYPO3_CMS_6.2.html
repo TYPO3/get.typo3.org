@@ -1,0 +1,185 @@
+<h1 id="typo3-cms-6.2-lts-technical-release-notes">TYPO3 CMS 6.2 LTS Technical Release Notes</h1>
+<p>This document contains information about TYPO3 CMS version 6.2 which was released on March, 25th 2014.</p>
+<h2 id="system-requirements">System Requirements</h2>
+<p>The system requirements:</p>
+<ul>
+<li>PHP &gt;5.3.7 up to 5.6 (PHP 5.4 or later recommended)</li>
+<li>MySQL 5.1 up to 5.6 or compatible (no “strict mode”)</li>
+</ul>
+<p>Note that MySQL “strict mode” is currently not supported by TYPO3. If your MySQL server is configured with either STRICT_TRANS_TABLES or STRICT_ALL_TABLES (especially true with MySQL 5.6, as this is a new default), you need to configure setDBinit in the Install Tool.</p>
+<h2 id="installing">Installing</h2>
+<h3 id="upgrading">Upgrading</h3>
+<p>Smooth migration from LTS to LTS</p>
+<p>Many existing TYPO3 installations still run TYPO3 4.5, which will still be supported until 2015. The CMS team has made an effort to make migrating from 4.5 to 6.2 as easy as possible. The newly created Install Tool provides several new Upgrade Wizards. A compatibility check extension (smoothmigration) was created to allow integrators to check their existing installations for compatibility issues and fix the most common problems prior to upgrading. On top of that, the included backwards compatibility layer provides smooth migration for extension developers. Extensions which were built to work with 4.5 only need little to no adaptation to work with both 4.5 and 6.2.</p>
+<p>A <a href="https://docs.typo3.org/typo3cms/InstallationGuide/UpgradeLTS/Index.html">documentation about the LTS to LTS migration</a> is available online. Expect other tips and information to be added and linked through this Wiki during the next future.</p>
+<h3 id="new-installations">New installations</h3>
+<h3 id="compatibility">Compatibility</h3>
+<p>Since TYPO3 6.0, the core makes use of namespaces. To keep compatibility with older extensions, a compatibility layer is in place. Calls for Core classes like t3lib_div will still work exactly the same as before, as the compatibility layer makes sure that old class names are aliased to the new namespaced ones. Extension developers that do not need to support TYPO3 4.x anymore are highly encouraged to use the namespaced classes from now on. Extension that still support TYPO3 4.x can use the old class names, but should remove all “requires” (for core classes) in their code. The autoloading (available since 4.3) will load the required classes.</p>
+<p>We removed some long obsolete and not supported settings and also it's usage: GFX/im_mask_temp_ext_noloss (#52012), GFX/im_combine_filename (#52011), BE/TSconfigConditions (#52013), GFX/im_no_effects (#52010), GFX/im_imvMaskState and GFX/im_negate_mask (#52088). With this, we also officially removed support for ImageMagick 4 and 5 in the code.</p>
+<ul>
+<li>PHP warnings now by default are “exceptional errors”, so in Dev Mode they throw an Exception!</li>
+<li>Directories t3lib and tslib have been removed.</li>
+<li>Removed PHP constant PATH_t3lib.</li>
+<li>Moved ExtJS- &amp; JavaScript files from t3lib to typo3.</li>
+</ul>
+<h4 id="smooth-migration-extension">Smooth Migration Extension</h4>
+<ul>
+<li>Extension in TER: <a href="https://extensions.typo3.org/extension/smoothmigration/" class="uri">https://extensions.typo3.org/extension/smoothmigration/</a></li>
+<li>Project page: <a href="https://forge.typo3.org/projects/typo3cms-smoothmigration" class="uri">https://forge.typo3.org/projects/typo3cms-smoothmigration</a></li>
+</ul>
+<h1 id="changes-and-improvements">Changes and improvements</h1>
+<p>This will list all changes and improvements between TYPO3 6.1 and 6.2. For changes until 6.1, consult the previous <a href=":Category:ReleaseNotes" class="uri" title="wikilink">:Category:ReleaseNotes</a>.</p>
+<h2 id="file-abstraction-layer-2.0">File Abstraction Layer 2.0</h2>
+<p>The File Abstraction Layer (FAL) which was introduced with TYPO3 6.0 provides a unified interface for the core and extensions to handle files, regardless of where they are stored (locally or in the cloud, i.e. on Amazon S3 or Dropbox). FAL was improved for the latest release, in order to provide the missing features and stability.</p>
+<p>Working with files in the backend was never easier: a new drag &amp; drop upload functionality makes it easy to upload files to the file list or attach them directly to content elements.</p>
+<ul>
+<li>drag &amp; drop upload in filelist and content elements</li>
+<li>filemetadata extension for common meta data fields</li>
+<li>translatable meta data</li>
+<li>missing files handling (in content elements and report module)</li>
+<li>fine grained file/directory permissions for BE users</li>
+</ul>
+<h3 id="breaking-changes">Breaking Changes</h3>
+<ul>
+<li>The Driver API was improved and is not compatible with 6.0 and 6.1. Check out the <a href="https://git.typo3.org/Packages/TYPO3.CMS.git/blob/HEAD:/typo3/sysext/core/Classes/Resource/Driver/DriverInterface.php">new Driver Interface</a>.</li>
+<li>The available signal slots were improved and reworked for a consistent and complete coverage. Classname is `` TYPO3\\CMS\\Core\\Resource\\ResourceStorage``, and check out the <a href="https://git.typo3.org/Packages/TYPO3.CMS.git/blob/HEAD:/typo3/sysext/core/Classes/Resource/ResourceStorageInterface.php">list of available FAL signals</a>.</li>
+</ul>
+<h2 id="distribution-management">Distribution Management</h2>
+<p>TYPO3 6.2 introduces the concept of Distributions. The core now is shipped only as a blank installation. The user can post-install a configured distribution through the newly introduced distribution management. The official Introduction Package will be shipped using this technique. It also allows third party developers, agencies or hosting companies to create and share their own distributions with the community.</p>
+<ul>
+<li>See <a href="https://wiki.typo3.org/Blueprints/DistributionManagement" class="uri">https://wiki.typo3.org/Blueprints/DistributionManagement</a></li>
+</ul>
+<h2 id="backend-admin">Backend / Admin</h2>
+<h3 id="documentation-module">Documentation Module</h3>
+<p>Now all TYPO3 documentation (from the Core, Extensions and optionally for third party documentation, can be centrally managed by the new documentation module.</p>
+<h3 id="scheduler">Scheduler</h3>
+<ul>
+<li>Introduction of task groups</li>
+<li>Allow to describe tasks</li>
+</ul>
+<h3 id="workspaces">Workspaces</h3>
+<ul>
+<li>Editors/users can define who to notify about a change</li>
+<li>Tab “All” is now visible to all users</li>
+<li>Several fixes in regard of versioning inline relational records (IRRE) and Many to Many (MM) relation records.</li>
+</ul>
+<h3 id="other-improvements">Other improvements</h3>
+<ul>
+<li>Doc types can be excluded per BE user in the page tree (options.pageTree.excludeDoktypes = 254)</li>
+<li>Modules can be hidden in backend (options.hideModules = file, help)</li>
+<li>Alternative domain for backend preview can be configured: TCEMAIN.viewDomain = example.com</li>
+<li>A new CLI command to install and uninstall extensions by key (#51629), i.e.</li>
+</ul>
+<!-- -->
+<pre><code>php typo3/cli_dispatch.phpsh extbase extension:install news</code></pre>
+<h2 id="frontend-integrator">Frontend / Integrator</h2>
+<h3 id="responsive-image-rendering">Responsive Image Rendering</h3>
+<ul>
+<li><a href="https://typo3.org/news/article/responsive-image-rendering-in-typo3-cms-62/" class="uri">https://typo3.org/news/article/responsive-image-rendering-in-typo3-cms-62/</a></li>
+</ul>
+<h3 id="backend-mobile-preview">Backend Mobile Preview</h3>
+<ul>
+<li>Configuration through <a href="https://docs.typo3.org/typo3cms/TSconfigReference/latest/PageTsconfig/Mod/Index.html#pagewebview">mod.web_view.previewFrameWidths</a>.</li>
+</ul>
+<h3 id="backend-layouts">Backend Layouts</h3>
+<p>Backend layout data provider interface allows extensions to provide their own backend layout. See <a href="https://github.com/georgringer/belayout_fileprovider">an example from Georg on how this can be used</a>. Data providers need to be implement ``TYPO3\CMS\Backend\View\BackendLayout\DataProviderInterface`` and are registered with:</p>
+<pre><code>$GLOBALS[&#39;TYPO3_CONF_VARS&#39;][&#39;SC_OPTIONS&#39;][&#39;BackendLayoutDataProvider&#39;][$_EXTKEY] = &#39;Classname&#39;;</code></pre>
+<p>A ``DataProviderContext`` object is used to transport submitted data (e.g. table or field name) to the accordant data providers.</p>
+<ul>
+<li>Backend layouts now support conditions</li>
+</ul>
+<h3 id="form-wizard">Form Wizard</h3>
+<ul>
+<li>Form wizard now got a redirect processor</li>
+</ul>
+<h3 id="categories">Categories</h3>
+<ul>
+<li>Category based HMENU
+<ul>
+<li>menu of pages</li>
+<li>menu of content elements</li>
+</ul></li>
+<li>Categories are now sortable in the backend</li>
+<li>It is now possible to restrict visibility of categories for BE users and groups</li>
+</ul>
+<h3 id="typoscript">TypoScript</h3>
+<ul>
+<li>Recursive INCLUDE_TYPOSCRIPT</li>
+<li>Relative paths in INCLUDE_TYPOSCRIPT files possible</li>
+<li>New strPad method to stdWrap</li>
+<li>_DEFAULT_PI_VARS now has stdWrap power</li>
+<li>New getData functionality debug:register and debug:page to dump the values from TSFE in the frontend</li>
+<li>stdWrap's “replacement” method now supports optionSplit</li>
+<li>File links file metadata can be accessed through register:description, register:titleText and register:altText</li>
+<li>Two registers added to cObject FILES: FILE_NUM_CURRENT and FILES_COUNT</li>
+<li>FILES now supports .begin and .maxItems properties</li>
+<li>HMENU of type “category” added</li>
+<li>Property “categories” allows the access to categories for the cObject RECORDS</li>
+<li>Condition userFunc accepts multiple arguments now. I.e. [userFunc = user_function(argument1, argument2, ...)]</li>
+<li>Application Context can be used in conditions ([applicationContext = Development/Debugging, Development/Profiling])</li>
+<li>Condition to check for devIP: [IP = devIP]</li>
+<li>.select new property .includeRecordsWithoutDefaultTranslation</li>
+<li>CONTENT.table any table could be used, instead of only prefixed ones with “pages_”, “tt_”, “tx_”, “ttx_”, “fe_”, “user_” or “static_”.</li>
+</ul>
+<h3 id="frontend">Frontend</h3>
+<ul>
+<li>HTTP response includes header Content-length by default now</li>
+<li>felogin: New option “showForgotPassword” to disable/enable “forgot password” option per plugin instance</li>
+<li>indexed_search: Result list has stdWrap-properties (option: plugin.tx_indexedsearch.resultlist_stdWrap)</li>
+</ul>
+<h2 id="for-developers">For Developers</h2>
+<h3 id="package-management">Package Management</h3>
+<p>Introducing the concept of Package Management brings interoperability with the whole world of Composer based PHP libraries and TYPO3 Flow packages to the TYPO3 CMS eco-system. The Package Management implements PSR-0 auto-loading, supports Vendor Namespaces and allows TYPO3 CMS installations to load and make use of native TYPO3 Flow packages. On top of that, it is now possible to natively load Composer based libraries. This means that TYPO3 CMS 6.2 provides a base for creating PHP applications of the future. The feature-set of the Package Management will be further improved in the next releases of TYPO3 CMS.</p>
+<p>See <a href="https://wiki.typo3.org/Blueprints/Packagemanager" class="uri">https://wiki.typo3.org/Blueprints/Packagemanager</a>.</p>
+<ul>
+<li>``$TYPO3_CONF['EXT']['extListArray']`` was removed from ``typo3conf/LocalConfiguration.php``</li>
+<li>Upon first hit, content of file ``typo3conf/LocalConfiguration.php`` is copied to ``typo3conf/LocalConfiguration.beforePackageStatesMigration.php`` as a backup and can be deleted savely after successful upgrade.</li>
+<li>New file ``typo3conf/PackageStates.php`` contains:
+<ul>
+<li>status of package (active/inactive)</li>
+<li>extension location in filesystem</li>
+</ul></li>
+<li>If file ``PackageStates.php`` is missing, it will be (re-)created, containing all extensions, and only activated those with “protected” flag in ``composer.json``</li>
+<li>Extensions in the following directories are automatically detected:
+<ul>
+<li>typo3/sysext/</li>
+<li>typo3/ext/</li>
+<li>typo3/contrib/</li>
+<li>typo3conf/ext/</li>
+<li>Packages/ (recursive)</li>
+</ul></li>
+</ul>
+<p>Logging API is now fully compatible with <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md">PSR-3</a>. This means that integrating third party components which require Psr\Log\LoggerInterface is now fully supported.</p>
+<ul>
+<li>TCA: displayCond new options BIT and !BIT to check bitwise in multi-valued fields</li>
+<li>On the API side, we now allow multiple category fields per table (#51921)</li>
+<li>PHP warnings now by default are “exceptional errors”, so in Dev Mode they throw an Exception!</li>
+</ul>
+<h3 id="extbase">Extbase</h3>
+<p>See a <a href="https://forge.typo3.org/projects/typo3v4-mvc/wiki/Breaking_Changes">list of breaking Extbase changes</a>.</p>
+<ul>
+<li>Extbase allows recursive validation (#6893). Note that in certain situations this can be a breaking change, please stay up to date by following the list of Extbase/Fluid breaking changes, maintained by the Extbase team.</li>
+<li>The team also improved some ViewHelpers: The BE module ViewHelper was improved to allow loading more than one CSS/JS files and other new goodies (#49749). Already in use by the Extension Manager, Language and Reports Module. There is now a new Switch-ViewHelper (#48653) and one to display file sizes (#49139).</li>
+</ul>
+<h3 id="deprecation">Deprecation</h3>
+<p>We continue to clean up the core by removing deprecated methods, finishing the move to namespaces and tweaking the core to be maintainable for the long support period that we will offer with 6.2.</p>
+<ul>
+<li>Removed all deprecated “dummy” files in t3lib/*.php and other places.</li>
+</ul>
+<h4 id="adapting-to-empty-t3lib-tslib">Adapting to empty t3lib / tslib</h4>
+<p>Note that removing the *.php files from t3lib and tslib (and others, i.e. typo3/template.php) is a major breaking change! The files were deprecated in 6.0 (with the move to namespaced versions) and removing them now will force many extensions to be adapted. We will provide detailed upgrade information and “checklists” soon - through the project “LTS Smooth Upgrade”.</p>
+<p>The recommended way of loading TYPO3 Core files is to use “auto-loading”. It can easily be solved by removing all “require” and “require_once” for Core files (in t3lib or tslib). Note that this works with TYPO3 as low as TYPO3 4.3, so you don't have to worry about compatibility with older TYPO3 versions.</p>
+<p>The compatibility class alias layer will still be included in 6.2 LTS, meaning there will still be a classes with the old names (i.e. “t3lib_div”). The only difference is that it's no longer supported to require the file (in that case t3lib/class.t3lib_div.php) anymore, because the file has been deleted.</p>
+<h4 id="adapting-to-removed-typo3browse_links.php">Adapting to removed typo3/browse_links.php</h4>
+<p>This script has been replaced with the wizard_element_browser wizard. You will need to adapt your URL and replace : <PHP>'browse_links.php?var1=data1&amp;var2=data2&amp;...'</PHP> with : <PHP>\TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl('wizard_element_browser') . '&amp;var1=data1&amp;var2=data2&amp;...'</PHP></p>
+<h4 id="other-removals">Other removals</h4>
+<ul>
+<li>Dropped unmaintained extension tsconfig_help</li>
+<li>Moved template files from typo3/templates/ to their final destination inside the respective system extensions</li>
+</ul>
+<h2 id="security">Security</h2>
+<p>The former optional extension saltedpasswords is now installed by default, securing the passwords of backend users and the Install Tool. Improved protection against cross-site request forgery (CSRF) was implemented in nearly all backend modules.</p>
+<ul>
+<li>OpenID improvements: Wizard to configure URL</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_6.2.x> <a href="Category:TYPO3_6.2" title="wikilink">Category:TYPO3 6.2</a> <Category:2014></p>

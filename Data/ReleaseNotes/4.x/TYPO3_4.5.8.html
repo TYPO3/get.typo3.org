@@ -1,0 +1,61 @@
+<h1 id="release-notes-for-typo3-4.5.8">Release Notes for TYPO3 4.5.8</h1>
+<p>This document contains information about TYPO3 version 4.5.8 which was released on November 22th 2011.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bug fixes only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="md5-checksums">MD5 checksums</h2>
+<pre><code>d1bcea6a7c3dca2a027e799bbab3654d  blankpackage-4.5.8.tar.gz
+96b38edb285f9e02afe0c06ad9cc017a  blankpackage-4.5.8.zip
+ef58c04f9a596b76f20f4fc7c792d1c8  dummy-4.5.8.tar.gz
+eeb2b95bb0eaeebf75f5a23acdeb3f70  dummy-4.5.8.zip
+7d4c1dfb9629bb96b3bbcff85abb091b  introductionpackage-4.5.8.tar.gz
+2a56f897ef7a693ba455505fb737ee3a  introductionpackage-4.5.8.zip
+c58e09d73dc3166528682a64f6058744  typo3_src+dummy-4.5.8.zip
+e6e77e6407ae3f05981a7a973c078846  typo3_src-4.5.8.tar.gz
+c8794bc22e080d7ef9a9c7f1a1bc1bec  typo3_src-4.5.8.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.</p>
+<h2 id="changelog">Changelog</h2>
+<h3 id="dbal">DBAL</h3>
+<ul>
+<li>[TASK] Update ADOdb library to version 5.14 (<a href="https://forge.typo3.org/issues/31486">#31486</a>)</li>
+<li>[TASK][!!!] Replaces die() calls with RuntimeException (<a href="https://forge.typo3.org/issues/31826">#31826</a>)</li>
+</ul>
+<h3 id="other-bugstasks">Other Bugs/Tasks</h3>
+<ul>
+<li>[BUGFIX] Error in the pageNotFound_handling with USER_FUNCTION (<a href="https://forge.typo3.org/issues/31839">#31839</a>)</li>
+<li>[BUGFIX] Vimeo mediawizardprovider needs new syntax (<a href="https://forge.typo3.org/issues/31661">#31661</a>)</li>
+<li>[BUGFIX] magic_quotes_gpc does not exist anymore in PHP 5.4 (<a href="https://forge.typo3.org/issues/30083">#30083</a>)</li>
+<li>[BUGFIX] Multiple values not displayed for simple items lists (<a href="https://forge.typo3.org/issues/31374">#31374</a>)</li>
+<li>[BUGFIX] Error after hide/show element in list module (<a href="https://forge.typo3.org/issues/20598">#20598</a>)</li>
+<li>[BUGFIX] RTE doesn't allow to create links around images in IE8 (<a href="https://forge.typo3.org/issues/30631">#30631</a>)</li>
+<li>[BUGFIX] Recycler: Wrong placed brackets (<a href="https://forge.typo3.org/issues/28835">#28835</a>)</li>
+<li>[BUGFIX] Live search does not find all tables (<a href="https://forge.typo3.org/issues/31760">#31760</a>)</li>
+<li>[BUGFIX] Extension configuration of saltedpasswords broken (<a href="https://forge.typo3.org/issues/31501">#31501</a>)</li>
+<li>[BUGFIX] Deprecation warning with disabled ImageMagick (<a href="https://forge.typo3.org/issues/31596">#31596</a>)</li>
+<li>[BUGFIX] Disambiguate labels in exclude fields list (<a href="https://forge.typo3.org/issues/25236">#25236</a>)</li>
+<li>[TASK] Add missing tslib_content_abstract::getContentObject() (<a href="https://forge.typo3.org/issues/30994">#30994</a>)</li>
+<li>[BUGFIX] Options checkboxes are hidden in BE admin user form (<a href="https://forge.typo3.org/issues/30492">#30492</a>)</li>
+<li>[BUGFIX] Fix typo in class.t3lib_div.php (<a href="https://forge.typo3.org/issues/26351">#26351</a>)</li>
+<li>[BUGFIX] Preview message causes javascript errors (<a href="https://forge.typo3.org/issues/30897">#30897</a>)</li>
+<li>[BUGFIX] Install tool stays open if ENABLE_INSTALL_TOOL is not writable (<a href="https://forge.typo3.org/issues/29674">#29674</a>)</li>
+<li>[BUGFIX] EM: Confusing error message when uploading an extension to TER that is not registered (<a href="https://forge.typo3.org/issues/31309">#31309</a>)</li>
+<li>[CLEANUP] Remove code duplication in saltedpasswords (<a href="https://forge.typo3.org/issues/29157">#29157</a>)</li>
+<li>[BUGFIX] showAccessRestrictedPages doesn't replace links to restricted subpages (<a href="https://forge.typo3.org/issues/15984">#15984</a>)</li>
+<li>[TASK] Raise submodule pointer</li>
+<li>[TASK] Update INSTALL.txt</li>
+<li>[BUGFIX] Incorrect display of Flexform UTF8 labels (<a href="https://forge.typo3.org/issues/28952">#28952</a>)</li>
+<li>[BUGFIX] TCA: Suggest wizard doesn't work in wizard_edit popup (<a href="https://forge.typo3.org/issues/28930">#28930</a>)</li>
+<li>[BUGFIX] FlexForm field selector missing (<a href="https://forge.typo3.org/issues/30768">#30768</a>)</li>
+<li>[BUGFIX] Fatal Error in Page Tree filter (<a href="https://forge.typo3.org/issues/28297">#28297</a>)</li>
+<li>[BUGFIX] Fix misleading SQL error message in TCEforms (<a href="https://forge.typo3.org/issues/16306">#16306</a>)</li>
+<li>[BUGFIX] Check for rsaauth being usable (<a href="https://forge.typo3.org/issues/31178">#31178</a>)</li>
+<li>[BUGFIX] Leading and trailing blanks can't be edited by the RTE (<a href="https://forge.typo3.org/issues/16217">#16217</a>)</li>
+<li>[BUGFIX] Enable “0” as token for TypoScript split function (<a href="https://forge.typo3.org/issues/31062">#31062</a>)</li>
+<li>[BUGFIX] impexp links to invalid EM path (<a href="https://forge.typo3.org/issues/31173">#31173</a>)</li>
+<li>[BUGFIX] Improve check for started session in rsaauth (<a href="https://forge.typo3.org/issues/30270">#30270</a>)</li>
+<li>[BUGFIX] Limit workspace access checks if extension not used (<a href="https://forge.typo3.org/issues/30870">#30870</a>)</li>
+<li>[BUGFIX] date expects parameter 2 to be long, string given (<a href="https://forge.typo3.org/issues/30931">#30931</a>)</li>
+</ul>
+<p><Category:ReleaseNotes/TYPO3_4.5.x> <a href="Category:TYPO3_4.5" title="wikilink">Category:TYPO3 4.5</a> <Category:2011></p>
