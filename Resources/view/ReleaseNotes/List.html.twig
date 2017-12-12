@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-        <select onchange="if (this.value) window.location.href= {{ path('root') }} + this.value;"
+        <select onchange="if (this.value) window.location.href= '{{ path('root') }}release-notes/' + this.value;"
                 style="margin-bottom:1.5em;">
             <option value="">-- SELECT VERSION --</option>
             {% for version,entry in result %}
