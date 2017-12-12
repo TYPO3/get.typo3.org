@@ -54,6 +54,8 @@
                     <p><b>The upcoming LTS 9 release </b>is scheduled for fall 2018.</p>
                     <p>Once released, it will get 3 years of important and security fixes from the day of the release.</p>
                     <p>Until the final release several sprint releases will be published. Adopters are encouraged to use each of those release on the way to TYPO3 v9 LTS. Stay tuned for more information on <a href="https://typo3.org/typo3-cms/roadmap/">roadmap.</a></p>
+                    <a href="{{ path('version', {'version': 9}) }}"
+                       class="btn btn-primary b_btn--version">Get Version 9 Sprint Release</a>
                 </div>
                 <div class="col-md-6 b_text__col">
                     <h2>Older Releases</h2>
@@ -66,8 +68,6 @@
                             <select class="form-control b_form__select"
                                     onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
                                 <option selected>Choose a version</option>
-                                <option value="9">TYPO3 v9</option>
-                                <option value="8">TYPO3 v8</option>
                                 <option value="7">TYPO3 v7</option>
                             </select>
                         </div>
