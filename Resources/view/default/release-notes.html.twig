@@ -6,7 +6,7 @@
         <img src="{{ path('root') }}assets/Gett3o/Assets/keyvisual_image.png" alt="" class="b_keyvisual__image">
         <div class="b_keyvisual__info">
             <h1>Release Notes</h1>
-            <h3>TYPO3 {{ version |replace({'TYPO3_CMS_': ''}) }}</h3>
+            <h3>TYPO3 {{ version |replace({'TYPO3_CMS_': '', 'TYPO3_': ''}) }}</h3>
         </div>
     </div>
 
@@ -20,11 +20,11 @@
                     <div class="col-sm-4">
                         <select onchange="if (this.value) window.location.href= '{{ path('root') }}release-notes/' + this.value;"
                                 style="margin-bottom:1.5em;">
-                            <option value="">-- SELECT VERSION --</option>
+                            <option value="">select a version</option>
                             {% for version,entry in result %}
                                 <optgroup label="{{ version }}">
                                     {% for note in entry %}
-                                        <option value="{{ version }}/{{ note }}">{{ note | replace({'_CMS_': ' '}) }}</option>
+                                        <option value="{{ version }}/{{ note }}">{{ note | replace({'_CMS_': ' ', '_': ' '}) }}</option>
                                     {% endfor %}
                                 </optgroup>
                             {% endfor %}
