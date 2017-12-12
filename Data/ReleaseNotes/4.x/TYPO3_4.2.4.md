@@ -275,6 +275,3 @@ Changelog
     2008-11-12  Stanislas Rolland  typo3@sjbr.ca
 
         * Fixed bug #9755: Incorrect initialization sequence in class browse_links
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2009>

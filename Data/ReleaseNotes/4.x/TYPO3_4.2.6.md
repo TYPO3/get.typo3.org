@@ -122,7 +122,3 @@ Changelog
 
         * Fixed bug #9965: htmlArea RTE: IE jumps down to last RTE input
         * Fixed bug #9785: htmlArea RTE: Disabling images in RTE still leaves the toolbar button
-
-[Category:ReleaseNotes/TYPO3
-4.2.x](Category:ReleaseNotes/TYPO3_4.2.x "wikilink") [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2009>

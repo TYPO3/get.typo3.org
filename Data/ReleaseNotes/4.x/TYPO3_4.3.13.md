@@ -58,6 +58,3 @@ Changelog
     2011-07-30  2ba1620  #28536    [BUGFIX] JSwindow-typolink URLs are encoded twice (Helmut Hummel)
     2011-07-27  6380111            [TASK] Set TYPO3 version to 4.3.13-dev (TYPO3 v4 Release Team)
     2011-07-27  bf3b11f            [RELEASE] Release of TYPO3 4.3.12 (TYPO3 v4 Release Team)
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2011>

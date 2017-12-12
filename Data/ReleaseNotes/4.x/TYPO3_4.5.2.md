@@ -84,5 +84,4 @@ Here is an ordered list of what was fixed since 4.5.1:
     “Settings” tab needs more space
 -   Fixed bug \#17701: Regression: Generated t3x are corrupted
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

@@ -230,5 +230,4 @@ Here is a list of what was fixed since 6.2.0:
 -   \[BUGFIX\] PHP warning due to missing preg\_quote
     ([\#55662](https://forge.typo3.org/issues/55662))
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

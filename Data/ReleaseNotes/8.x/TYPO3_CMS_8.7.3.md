@@ -65,5 +65,4 @@ Here is a list of what was fixed since
 `* e58eacdacf [BUGFIX] Fix checking config.metaCharset with uppercase letters`\
 `* 246f156933 [TASK] Set TYPO3 version to 8.7.3-dev`
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

@@ -70,5 +70,4 @@ Here is a list of what was fixed since
     2012-10-16  528c8bc                  [TASK] Set TYPO3 version to 4.6.14-dev (TYPO3 Release Team)
     2012-10-16  2c03804                  [RELEASE] Release of TYPO3 4.6.13 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

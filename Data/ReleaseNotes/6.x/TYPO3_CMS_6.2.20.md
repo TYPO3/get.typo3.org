@@ -80,5 +80,4 @@ Here is a list of what was fixed since
     2016-02-25  8060388  #73243          [BUGFIX] Stage buttons shown in frontend without user being repsonsible (Oliver Hader)
     2016-02-23  5bea0c5                  [TASK] Set TYPO3 version to 6.2.20-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

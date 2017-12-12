@@ -50,5 +50,4 @@ Here is a list of what was fixed since
     2012-11-11  dc4ccbd  #42850          [TASK] Fix TYPO3 logos (Helmut Hummel)
     2012-11-10  6757b85  #42812          [BUGFIX] #42812 Most checkboxes (like Extended View) are not working (Michael Späth)
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

@@ -52,5 +52,4 @@ Here is a list of what was fixed since
     2013-02-14  950182d                  [TASK] Set TYPO3 version to 4.6.17-dev (TYPO3 Release Team)
     2013-02-14  298ad79                  [RELEASE] Release of TYPO3 4.6.16 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2013>
+

@@ -122,6 +122,3 @@ Changelog
 `   * Fixed bug #6996: Versioning in clickmenu was unavailable for non-admins due to a problem of an earlier bugfix #4160 (Thanks to Helmut Hummel for the correction)`
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2008>

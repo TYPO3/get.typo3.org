@@ -170,5 +170,4 @@ Here is a list of what was fixed since
     2015-04-16  1afe2a2  #66251          [BUGFIX] indexed_search: use correct TS settings in extbase plugin (Tymoteusz Motylewski)
     2015-04-16  6081baf                  [TASK] Set TYPO3 version to 6.2.13-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2015>
+

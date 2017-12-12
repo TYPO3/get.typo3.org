@@ -164,6 +164,3 @@ Changelog
     2010-10-14  Benjamin Mack  <benni@typo3.org>
 
         * Fixed bug #103: No Plain-text List Option
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

@@ -53,7 +53,3 @@ Changelog
 `   * Fixed bug #7123: Select wizard doesn't work in Safari (Thanks to IsmaÃ«l Bidau)`
 
 </changelog>
-
-[Category:ReleaseNotes/TYPO3
-4.1.x](Category:ReleaseNotes/TYPO3_4.1.x "wikilink") [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2009>

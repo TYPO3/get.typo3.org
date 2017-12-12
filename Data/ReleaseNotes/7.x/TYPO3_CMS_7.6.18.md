@@ -50,5 +50,4 @@ Here is a list of what was fixed since
     2017-04-18  03de833                  [TASK] Set TYPO3 version to 7.6.18-dev (Oliver Hader)
     2017-04-18  74f5bb4                  [RELEASE] Release of TYPO3 7.6.17 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

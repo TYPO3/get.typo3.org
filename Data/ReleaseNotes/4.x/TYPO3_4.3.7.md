@@ -62,6 +62,3 @@ Changelog
     2010-09-30  Steffen Gebert  <steffen@steffen-gebert.de>
 
         * Fixed bug #12889: fe_adminLib.inc usages deprecated function split() (Thanks to Steffen Kamper)
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

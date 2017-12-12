@@ -228,5 +228,4 @@ Here is a list of what was fixed since
     2015-12-21  82aecf9  #72117          [FOLLOWUP][BUGFIX] Accept \Throwable in ExceptionHandlerInterface (Benni Mack)
     2015-12-21  43c4d8c                  [TASK] Set TYPO3 version to 7.6.3-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

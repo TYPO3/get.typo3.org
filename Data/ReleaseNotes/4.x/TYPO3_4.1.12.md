@@ -134,6 +134,3 @@ tags in expanded mount root in module file &gt; filelist
 `   * Fixed bug #10417: Remove debugging code from sysext t3skin (thanks to Markus Krause)`
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2009>

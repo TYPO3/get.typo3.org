@@ -77,5 +77,4 @@ Here is a list of what was fixed since
     535958b8b4 [BUGFIX] Use real BE user for logging user setting changes
     505d1dcfb6 [TASK] Set TYPO3 version to 7.6.19-dev
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

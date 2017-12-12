@@ -116,5 +116,4 @@ Here is a list of what was fixed since [6.0.8](TYPO3_6.0.8 "wikilink"):
     2013-07-31  07f3578  #43631          [BUGFIX] RTE wizard can't "save document and view page" (Stanislas Rolland)
     2013-07-30  2b2aa1d                  [TASK] Set TYPO3 version to 6.0.9-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2013>
+

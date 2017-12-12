@@ -73,5 +73,4 @@ Here is a list of what was fixed since
     ([\#43631](https://forge.typo3.org/issues/43631))
 -   \[TASK\] Set TYPO3 version to 4.7.15-dev
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2013>
+

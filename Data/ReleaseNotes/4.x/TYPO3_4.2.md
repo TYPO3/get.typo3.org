@@ -2469,6 +2469,3 @@ Changelog
         * Replace all TINYTEXT columns with VARCHAR(255)
         * Change index "parent" of fe_user to (pid,username) and drop the index "pid"
         * Quote table names in admin_get_XXX() functions of t3lib_db
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2008>

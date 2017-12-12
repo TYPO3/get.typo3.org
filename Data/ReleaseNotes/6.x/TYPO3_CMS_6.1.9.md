@@ -68,5 +68,4 @@ Here is a list of what was fixed since
     2014-04-25  8cf4f78  #58180          [BUGFIX] Database query error for non-workspaces tables (Oliver Hader)
     2014-04-16  a4f013a                  [TASK] Set TYPO3 version to 6.1.9-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2014>
+

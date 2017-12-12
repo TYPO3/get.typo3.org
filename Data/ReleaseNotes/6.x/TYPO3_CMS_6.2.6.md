@@ -91,5 +91,4 @@ Here is a list of what was fixed since
     2014-09-23  103e017  #58367          [BUGFIX] Do not check file extension on local file (Alexander Opitz)
     2014-09-23  6f30381                  [TASK] Set TYPO3 version to 6.2.6-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

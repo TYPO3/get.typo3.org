@@ -54,5 +54,4 @@ Here is a list of what was fixed since
     2015-12-16  2b1e896  #72263          [BUGFIX] Empty row in table content element shows &amp;nbsp; (Wouter Wolters)
     2015-12-15  ae2de3c                  [TASK] Set TYPO3 version to 6.2.17-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2015>
+

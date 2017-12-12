@@ -238,5 +238,4 @@ Here is a list of what was fixed since 6.2.1:
 -   \[BUGFIX\] Always convert webroot to unix styled path
     ([\#58559](https://forge.typo3.org/issues/58559))
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

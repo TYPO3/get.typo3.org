@@ -79,5 +79,4 @@ Here is a list of what was fixed since
     ([\#42651](https://forge.typo3.org/issues/42651))
 -   \[TASK\] Set TYPO3 version to 6.0.12-dev
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2013>
+

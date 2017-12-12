@@ -74,5 +74,4 @@ Here is a list of what was fixed since
     2014-11-27  32c8ba2  #63372          [CLEANUP] StandaloneViewTest needs some love (Markus Klein)
     2014-11-27  fdec403                  [TASK] Set TYPO3 version to 6.2.8-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

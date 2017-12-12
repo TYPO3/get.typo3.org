@@ -141,5 +141,4 @@ Here is a list of what was fixed since
     2013-09-12  903046f  #51891          [BUGFIX] Call to undefined method setTemplateFile (Wouter Wolters)
     2013-09-12  fa15b67                  [TASK] Set TYPO3 version to 6.0.11-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2013>
+

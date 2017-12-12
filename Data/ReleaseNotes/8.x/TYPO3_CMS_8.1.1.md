@@ -60,5 +60,4 @@ Here is a list of what was fixed since
     0833bae [RELEASE] Release of TYPO3 8.1.1
     404f09d [SECURITY] Validate complete referring request
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2016>
+

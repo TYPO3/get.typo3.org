@@ -98,6 +98,3 @@ Changelog
 
         * Release of TYPO3 4.0.2
         * Fixed a tiny security problem in indexed search (for details, see https://typo3.org/teams/security/security-bulletins/typo3-20060911-1/)
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2006>

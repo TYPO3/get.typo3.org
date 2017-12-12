@@ -87,5 +87,4 @@ Here is an ordered list of what was fixed since 4.4.7:
 -   \[BUGFIX\] Flexform inputfields remain empty (Thanks to Andreas
     Kiessling) (steffenk) (\#16788)
 
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2011>
+

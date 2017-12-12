@@ -102,5 +102,4 @@ Here is a list of what was fixed since
 `* 1071e0304b [BUGFIX] Import Fluid namespace in Step layout of install tool`\
 `* 87d75ebe1f [TASK] Set TYPO3 version to 8.7.4-dev`
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

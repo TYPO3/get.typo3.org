@@ -93,6 +93,3 @@ Changelog
     2010-07-29  Dmitry Dulepov  <dmitry@typo3.org>
 
         * Fixed bug #13427: t3lib_div::cleanOutputBuffers() might loop forever (thanks to Stephan Seitz and Steffen Gebert)
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2010>

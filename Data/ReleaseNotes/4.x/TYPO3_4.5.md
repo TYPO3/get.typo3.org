@@ -728,5 +728,4 @@ Download
 `b941e53c4e47f440f7e31f58f5a8c08c  introductionpackage-4.5.0.tar.gz`\
 `b117ee4149bc6cd8367d18e926810f08  introductionpackage-4.5.0.zip`
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

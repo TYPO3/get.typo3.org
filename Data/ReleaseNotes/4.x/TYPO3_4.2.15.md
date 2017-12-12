@@ -72,6 +72,3 @@ Changelog
     2010-08-12  Steffen Kamper  <steffen@typo3.org>
 
         * Fixed bug #3819: t3lib_div::getIndpEnv('TYPO3_DOCUMENT_ROOT') delivers wrong value in Backend
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2010>

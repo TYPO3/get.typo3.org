@@ -74,5 +74,4 @@ Here is a list of what was fixed since
 -   \[BUGFIX\] Cleanly unset cookies on login in cookie-check
     ([\#53818](https://forge.typo3.org/issues/53818))
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2014>
+

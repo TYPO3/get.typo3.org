@@ -46,5 +46,4 @@ Upgrading
 Changes
 -------
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2014>
+

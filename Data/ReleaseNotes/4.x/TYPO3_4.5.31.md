@@ -69,5 +69,4 @@ Here is a list of what was fixed since
     2013-09-12  70ce540  #51803          [TASK] Use a 401 header if login is not successful (Georg Ringer)
     2013-09-12  ec0e720                  [TASK] Set TYPO3 version to 4.5.31-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2013>
+

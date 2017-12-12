@@ -582,5 +582,4 @@ Download
 `9959cacc6ff08ae9c5d12670ec7feaca  typo3_src-4.6.0.tar.gz`\
 `20b8e24316abb0386689b228c9a776ed  typo3_src-4.6.0.zip`
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2011>
+

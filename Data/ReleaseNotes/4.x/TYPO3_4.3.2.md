@@ -205,6 +205,3 @@ Changelog
     2010-01-15  Francois Suter  <francois@typo3.org>
 
         * Fixed bug #11815: Saving translation settings in EM: strcmp() throws warning with PHP5.3 (Thanks to Steffen Gebert, Stefan Geith and Rupert Germann)
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

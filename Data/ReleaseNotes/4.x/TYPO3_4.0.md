@@ -1512,6 +1512,3 @@ This list contains all features und bugfixes from 4-dev to 4.0.1
             - Convert linebreaks to spaces instead of deleting them
             - Wrap a-tags that contain a style attribute with a span-tag
             - Honor setting RTE.default.proc.HTMLparser_db.xhtml_cleaning=1
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2006>

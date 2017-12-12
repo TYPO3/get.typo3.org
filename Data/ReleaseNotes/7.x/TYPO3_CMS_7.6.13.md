@@ -100,5 +100,4 @@ Here is a list of what was fixed since
     2016-11-01  a35745e  #78517          [BUGFIX] Always log exception data if file handling fails (Markus Klein)
     2016-11-01  74b0865                  [TASK] Set TYPO3 version to 7.6.13-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

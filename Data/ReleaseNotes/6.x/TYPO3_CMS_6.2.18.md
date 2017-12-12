@@ -83,5 +83,4 @@ Here is a list of what was fixed since
     2015-12-23  141cd7d  #72047          [BUGFIX] Fix NumberRangeValidator using startRange and endRange (Stephan Großberndt)
     2015-12-21  eb1eb09                  [TASK] Set TYPO3 version to 6.2.18-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

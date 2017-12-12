@@ -74,5 +74,4 @@ Here is a list of what was fixed since
     2014-05-07  9da1f2c                  [TASK] Add PHP 5.6 as travis-ci environment (Christian Kuhn)
     2014-05-06  e4c1376                  [TASK] Set TYPO3 version to 6.2.3-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

@@ -127,5 +127,4 @@ Here is a list of what was fixed since [4.7.7](TYPO3_4.7.7 "wikilink"):
     ([\#33700](https://forge.typo3.org/issues/33700))
 -   \[TASK\] Set TYPO3 version to 4.7.8-dev
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2013>
+

@@ -51,5 +51,4 @@ Here is a list of what was fixed since
     2014-12-10  e8cd85e                  [RELEASE] Release of TYPO3 7.0.1 (TYPO3 Release Team)
     2014-12-02  97d2ee0                  [TASK] Set TYPO3 version to 7.0.1-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2014>
+

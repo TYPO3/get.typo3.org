@@ -31,5 +31,3 @@ Example:
 `[globalString = ENV:HTTP_HOST=sub2.domain.tld]`\
 `config.baseURL = `[`http://sub2.domain.tld/`](http://sub2.domain.tld/)\
 `[global]`
-
-<Category:ReleaseNotes/TYPO3_3.8.x>

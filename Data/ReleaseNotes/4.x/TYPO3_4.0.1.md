@@ -10,6 +10,3 @@ See also: [Upgrade guide](Upgrade "wikilink") [Release notes for TYPO3
 
 Please also see the files 'NEWS.txt', 'RELEASE\_NOTES.txt' and
 'ChangeLog' in the root directory of the distribution.
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2006>

@@ -106,5 +106,4 @@ Here is a list of what was fixed since
 -   \[BUGFIX\] Don't create caches twice
     ([\#37641](https://forge.typo3.org/issues/37641))
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

@@ -50,5 +50,4 @@ Here is a list of what was fixed since
     2016-05-01  9100aae  #75947          [BUGFIX] Allow maxitem=1 in TCA treeSelect again (Alexander Bigga)
     2016-04-26  034e97b                  [TASK] Set TYPO3 version to 6.2.23-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

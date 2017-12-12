@@ -109,5 +109,4 @@ Here is a list of what was fixed since [6.0.5](TYPO3_6.0.5 "wikilink"):
     ([\#46551](https://forge.typo3.org/issues/46551))
 -   \[TASK\] Set TYPO3 version to 6.0.6-dev
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2013>
+

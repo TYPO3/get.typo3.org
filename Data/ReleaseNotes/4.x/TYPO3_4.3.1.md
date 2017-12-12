@@ -213,6 +213,3 @@ Changelog
     2009-11-30  Steffen Kamper  <info@sk-typo3.de>
 
         * Fixed bug #12541: Unescaped & in urls of list module
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

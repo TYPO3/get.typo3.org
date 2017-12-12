@@ -70,5 +70,4 @@ Here is a list of what was fixed since [4.6.7](TYPO3_4.6.7 "wikilink"):
     2012-03-28  25f666b                  [TASK] Set TYPO3 version to 4.6.8-dev (TYPO3 v4 Release Team)
     2012-03-28  ab955f2                  [RELEASE] Release of TYPO3 4.6.7 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

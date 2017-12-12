@@ -108,5 +108,4 @@ Here is a list of what was fixed since
     2015-02-27  b66a0f0  #64253          [BUGFIX] Set correct workspace ID when updating referenceIndex for files (Markus Klösges)
     2015-02-26  b6b6da3                  [TASK] Set TYPO3 version to 6.2.11-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2015>
+

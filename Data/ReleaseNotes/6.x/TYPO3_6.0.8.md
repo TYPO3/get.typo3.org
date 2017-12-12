@@ -75,5 +75,4 @@ Here is a list of what was fixed since [6.0.7](TYPO3_6.0.7 "wikilink"):
     2013-07-25  cfa053f  #50410          [TASK] Revise typo3/sysext/README.txt (Wouter Wolters)
     2013-07-23  74b4a73                  [TASK] Set TYPO3 version to 6.0.8-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2013>
+

@@ -86,6 +86,3 @@ Here is a list of what was fixed since
     ([\#27230](https://forge.typo3.org/issues/27230))
 -   \[BUGFIX\] getAllowedItems called with one parameter too much
     ([\#34030](https://forge.typo3.org/issues/34030))
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2012>

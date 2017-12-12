@@ -113,5 +113,4 @@ Changelog
 -   \[BUGFIX\] date expects parameter 2 to be long, string given
     ([\#30931](https://forge.typo3.org/issues/30931))
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

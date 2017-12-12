@@ -63,5 +63,4 @@ Here is a list of what was fixed since
     e0fcf4d [SECURITY] Update guzzle to fix CVE-2016-5385
     410ce53 [BUGFIX] Flaky references in TypoScript parsing
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2016>
+

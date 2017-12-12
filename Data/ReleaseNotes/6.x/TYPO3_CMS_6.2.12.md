@@ -123,5 +123,4 @@ Here is a list of what was fixed since
     2015-03-18  0a6dfcd  #65806          [TASK] Improve deprecation message of raw query result (Christian Kuhn)
     2015-03-17  5d2c0b3                  [TASK] Set TYPO3 version to 6.2.12-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2015>
+

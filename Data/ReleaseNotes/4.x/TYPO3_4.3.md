@@ -4250,6 +4250,3 @@ Changelog
     2008-04-26  Ingo Renner  <ingo@typo3.org>
 
         * Removed redundant files from t3editor
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2009>

@@ -89,5 +89,4 @@ Here is a list of what was fixed since
     2014-05-22  420b5c8  #59022          [BUGFIX] Fix failing unit tests for HTTP host check in CLI mode (Helmut Hummel)
     2014-05-22  2b0b9ad                  [TASK] Set TYPO3 version to 6.1.10-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2014>
+

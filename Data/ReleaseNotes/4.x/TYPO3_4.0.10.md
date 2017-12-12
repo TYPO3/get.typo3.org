@@ -63,6 +63,3 @@ Changelog
 `   * Fixed bug #8784: htmlArea RTE 1.3.9 (TYPO3 4.0.9) and 1.2.2 (TYPO3 3.8.1) do not work correcty in Firefox 3`
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2009>

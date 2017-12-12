@@ -99,6 +99,3 @@ Changelog
 `   * List module did not use BACK_PATH in many calls to TYPO3 functions, which made imposible to reuse List module classes in extensions`
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2007>

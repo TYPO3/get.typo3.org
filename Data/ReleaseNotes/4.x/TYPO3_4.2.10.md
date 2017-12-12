@@ -83,6 +83,3 @@ Changelog
     2009-09-29  Oliver Hader  <oliver@typo3.org>
 
         * Fixed bug #11433: touch(): Utime failed in install tool (thanks to Steffen Gebert)
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2009>

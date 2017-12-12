@@ -120,5 +120,4 @@ Here is a list of what was fixed since
 -   \[BUGFIX\] Version record array is sorted twice
     ([\#35165](https://forge.typo3.org/issues/35165))
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

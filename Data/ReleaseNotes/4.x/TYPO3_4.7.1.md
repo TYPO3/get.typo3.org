@@ -125,5 +125,4 @@ Here is a list of what was fixed since [4.7.0](TYPO3_4.7.0 "wikilink"):
 -   \[BUGFIX\] Do not pass by reference
     ([\#36676](https://forge.typo3.org/issues/36676))
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2012>
+

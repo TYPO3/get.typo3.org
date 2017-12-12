@@ -66,5 +66,4 @@ Changelog
     2011-12-16  ff97731                  [TASK] Set TYPO3 version to 4.5.10-dev (TYPO3 v4 Release Team)
     2011-12-16  07255f5                  [RELEASE] Release of TYPO3 4.5.9 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

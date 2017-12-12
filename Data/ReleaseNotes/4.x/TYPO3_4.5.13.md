@@ -102,5 +102,4 @@ Here is a list of what was fixed since
 -   \[BUGFIX\] Nested IRRE elements are not removed
     ([\#34556](https://forge.typo3.org/issues/34556))
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

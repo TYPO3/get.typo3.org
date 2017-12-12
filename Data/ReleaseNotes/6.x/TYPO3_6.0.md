@@ -3233,5 +3233,4 @@ Changes since TYPO3 4.7.0
 
 ### Features, Tasks and Cleanup
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2012>
+

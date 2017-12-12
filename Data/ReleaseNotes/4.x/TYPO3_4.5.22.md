@@ -56,5 +56,4 @@ Here is a list of what was fixed since
     2012-11-10  6757b85  #42812          [BUGFIX] #42812 Most checkboxes (like Extended View) are not working (Michael Späth)
     2012-11-08  9587d6f                  [TASK] Set TYPO3 version to 4.5.22-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

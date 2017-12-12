@@ -132,5 +132,4 @@ Here is a list of what was fixed since
     2016-09-13  8bfcf19  #77937          [BUGFIX] DataHandler should inherit $isImporting (Georg Ringer)
     2016-09-13  eb58462                  [TASK] Set TYPO3 version to 7.6.12-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

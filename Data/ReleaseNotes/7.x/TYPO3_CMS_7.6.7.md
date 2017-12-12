@@ -85,5 +85,4 @@ Here is a list of what was fixed since
     2016-04-26  1c87b5d  #72883          [TASK] Replace colored icons with action icons (Frank Nägler)
     2016-04-26  8b6293b                  [TASK] Set TYPO3 version to 7.6.7-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

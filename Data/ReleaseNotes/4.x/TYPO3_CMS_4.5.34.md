@@ -60,5 +60,4 @@ Here is a list of what was fixed since
     6ffdcee 2014-04-25 | [BUGFIX] Solve stackoverflow in prototype in IE8  (Jigal van Hemert)
     5d6a16e 2014-04-16 | [TASK] Set TYPO3 version to 4.5.34-dev  (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2014>
+

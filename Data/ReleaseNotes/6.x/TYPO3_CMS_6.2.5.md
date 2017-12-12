@@ -173,5 +173,4 @@ Here is a list of what was fixed since
     2014-07-08  5a11bbe  #59587          [BUGFIX] Too many tags by identifier in CacheBackends (Alexander Opitz)
     2014-07-08  1eebd0b                  [TASK] Set TYPO3 version to 6.2.5-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

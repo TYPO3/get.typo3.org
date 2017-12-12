@@ -73,5 +73,4 @@ Here is a list of what was fixed since [4.6.5](TYPO3_4.6.5 "wikilink"):
 -   \[BUGFIX\] Nested IRRE elements are not removed
     ([\#34556](https://forge.typo3.org/issues/34556))
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

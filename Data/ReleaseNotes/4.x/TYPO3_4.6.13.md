@@ -176,5 +176,4 @@ Here is a list of what was fixed since
 
 -   \[TASK\] Update version number to 4.6.13
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

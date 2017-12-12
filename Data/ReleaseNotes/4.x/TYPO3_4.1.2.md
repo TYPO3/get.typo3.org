@@ -187,6 +187,3 @@ Changelog
     2007-04-04 Andreas Otto &lt;andreas.otto@dkd.de&gt;
 
         * Fixed bug #5411: A directory handle was not correclty used.
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2007>

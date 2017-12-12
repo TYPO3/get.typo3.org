@@ -154,5 +154,4 @@ Here is a list of what was fixed since
     2016-05-24  ba40520  #76098          [BUGFIX] Adds missing tablename sys_language in fetchOriginLanguage function (Marvin Dettinger)
     2016-05-24  7d77b0b                  [TASK] Set TYPO3 version to 7.6.10-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

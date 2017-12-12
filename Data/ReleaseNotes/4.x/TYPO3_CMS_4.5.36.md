@@ -52,5 +52,4 @@ Here is a list of what was fixed since
     2014-08-23  3f3c45e  #60199          [BUGFIX] Collect correct information on elements in page (Jigal van Hemert)
     2014-07-08  cd486c4                  [TASK] Set TYPO3 version to 4.5.36-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2014>
+

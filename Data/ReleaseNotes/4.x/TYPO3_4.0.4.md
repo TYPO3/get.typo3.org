@@ -38,6 +38,3 @@ Changelog
     2006-12-07  Franz Holzinger  &lt;kontakt@fholzinger.com&gt;
 
         * Fixed bug #4555: double posts in tt_board did not get detected because of unintended conversion into a negative integer
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2006>

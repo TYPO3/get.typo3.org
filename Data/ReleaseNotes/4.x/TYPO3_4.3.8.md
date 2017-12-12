@@ -61,6 +61,3 @@ Changelog
     2010-10-06  Steffen Kamper  <steffen@typo3.org>
 
         * Fixed bug #15917: Parse error in Adminpanel in 4.3.7 (Thanks to Ingo Schmitt)
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

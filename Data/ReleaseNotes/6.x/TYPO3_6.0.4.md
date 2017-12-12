@@ -54,5 +54,4 @@ Here is a list of what was fixed since [6.0.3](TYPO3_6.0.3 "wikilink"):
     2013-03-06  bb0dc58                  [TASK] Set TYPO3 version to 6.0.4-dev (TYPO3 Release Team)
     2013-03-06  1398455                  [RELEASE] Release of TYPO3 6.0.3 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2013>
+

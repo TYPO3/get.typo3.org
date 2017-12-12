@@ -53,5 +53,4 @@ Here is a list of what was fixed since [4.7.6](TYPO3_4.7.6 "wikilink"):
     2012-11-11  4ea6cf6  #42850          [TASK] Fix TYPO3 logos (Helmut Hummel)
     2012-11-10  0b15d64  #42812          [BUGFIX] getFuncCheck must quotes wrong (Michael Späth)
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2012>
+

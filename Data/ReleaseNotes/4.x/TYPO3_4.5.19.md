@@ -62,5 +62,4 @@ Here is a list of what was fixed since
     2012-08-08  7f17bf6                  [TASK] Set TYPO3 version to 4.5.19-dev (TYPO3 Release Team)
     2012-08-08  2d73b5d                  [RELEASE] Release of TYPO3 4.5.18 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

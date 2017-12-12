@@ -56,6 +56,3 @@ Here is a list of what was fixed since
     2014-05-22  b907b64  #56458          [SECURITY] Fix insecure unserialize in colorpicker (Helmut Hummel)
     2014-05-22  c39bca9  #54526          [SECURITY] Remove charts.swf to get rid of XSS vulnerability (Helmut Hummel)
     2014-04-16  53b74d7                  [TASK] Set TYPO3 version to 4.7.19-dev (TYPO3 Release Team)
-
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2014>

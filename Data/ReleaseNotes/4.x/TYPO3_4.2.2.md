@@ -364,6 +364,3 @@ Changelog
     2008-06-13  Oliver Hader  <oliver@typo3.org>
 
       * Fixed bug #8239: Wrong parameter order for strpos in t3lib_div::getHostname
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2008>

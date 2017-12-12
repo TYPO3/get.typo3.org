@@ -122,5 +122,4 @@ Here is a list of what was fixed since [4.6.6](TYPO3_4.6.6 "wikilink"):
 -   \[BUGFIX\] Version record array is sorted twice
     ([\#35165](https://forge.typo3.org/issues/35165))
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

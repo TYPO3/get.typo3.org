@@ -70,6 +70,3 @@ Changelog
     2010-12-17  Francois Suter  <francois.suter@typo3.org>
 
         * Fixed bug #16470: Scheduler fails to calculateNextValue a turn of the year (thanks to Tobias Hövelborn and Christian Kuhn)
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

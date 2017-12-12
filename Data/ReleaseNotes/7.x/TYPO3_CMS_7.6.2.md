@@ -94,5 +94,4 @@ Here is a list of what was fixed since
     2015-12-16  954d8af  #72246          [BUGFIX] Use correct severity in FAL flash messages (Daniel Goerz)
     2015-12-15  87b3c1d                  [TASK] Set TYPO3 version to 7.6.2-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2015>
+

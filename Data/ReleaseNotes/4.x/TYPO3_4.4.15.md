@@ -52,6 +52,3 @@ Here is a list of what was fixed since
     2012-04-05  5f92036  #17910          [BUGFIX] Error when editing a record with additionalPreviewLanguage and an deleted l18n_parent (Andreas Wolf)
     2012-03-28  caef753                  [TASK] Set TYPO3 version to 4.4.15-dev (TYPO3 v4 Release Team)
     2012-03-28  6d33e3c                  [RELEASE] Release of TYPO3 4.4.14 (TYPO3 v4 Release Team)
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2012>

@@ -99,6 +99,3 @@ Changelog
     2008-10-08  Stanislas Rolland  <typo3@sjbr.ca>
 
         * Fixed bug #9516: htmlARea RTE: Move link tags to head
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2008>

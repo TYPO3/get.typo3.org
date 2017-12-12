@@ -483,6 +483,3 @@ Changelog
     2010-04-10  Stanislas Rolland  <typo3@sjbr.ca>
 
         * Fixed bug #14060: htmlArea RTE: Some table operations configuration may cause js error
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

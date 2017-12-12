@@ -56,5 +56,4 @@ Here is a list of what was fixed since
     2014-12-08  5c267d2  #62967          [BUGFIX] Exclude CDATA from t3lib_parsehtml->XHTML_clean (Nicole Cordes)
     2014-11-27  60be4f6                  [TASK] Set TYPO3 version to 4.5.39-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2014>
+

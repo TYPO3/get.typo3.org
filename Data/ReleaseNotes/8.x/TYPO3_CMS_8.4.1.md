@@ -56,5 +56,4 @@ Here is a list of what was fixed since
     06ee1e4 [BUGFIX] Use page uid instead of alias for cHash calculation
     62ac289 [BUGFIX] Bind the cHash to the id of the "real" page
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2016>
+

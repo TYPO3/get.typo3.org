@@ -57,5 +57,4 @@ Changes
     -   [Deprecation
         Changes](https://docs.typo3.org/typo3cms/extensions/core/8-dev/Changelog/8.3/Index.html#deprecation)
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2016>
+

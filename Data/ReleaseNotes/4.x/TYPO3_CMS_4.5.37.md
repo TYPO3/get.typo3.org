@@ -54,5 +54,4 @@ Here is a list of what was fixed since
     2014-10-14  5c8081a  #53682          [TASK] Optimize speed for instantiating class with arguments (Helmut Hummel)
     2014-09-23  9bae63e                  [TASK] Set TYPO3 version to 4.5.37-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2014>
+

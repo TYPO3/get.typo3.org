@@ -55,5 +55,4 @@ Here is a list of what was fixed since
     2013-07-25  b7a108e  #50410          [TASK] Revise typo3/sysext/README.txt (Wouter Wolters)
     2013-07-23  c1af96c                  [TASK] Set TYPO3 version to 4.5.29-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2013>
+

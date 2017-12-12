@@ -57,6 +57,3 @@ Changelog
     2010-08-02  Oliver Hader  <oliver@typo3.org>
 
         * Fixed bug #15289: Element-Browser page tree has HSC'ed <span> elements
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2010>

@@ -248,6 +248,3 @@ Changelog
     2010-02-23  Stanislas Rolland  <typo3@sjbr.ca>
 
         * Fixed bug #13479: Jump to end of text when inserting paragraph
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

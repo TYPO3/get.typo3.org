@@ -92,6 +92,3 @@ Changelog
     2011-04-16  b2014fd  #23134    [BUGFIX] Flexformfield "Forgot Password Message" in felogin does not work (Steffen Mueller)
     2011-04-11  c02c720            [FEATURE] add .gitignore for common file exclusions (Peter Niederlag(office))
     2011-02-23  ebe9886            Updating version number to  4.3.12-dev after release of 4.3.11 (ohader)
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2011>

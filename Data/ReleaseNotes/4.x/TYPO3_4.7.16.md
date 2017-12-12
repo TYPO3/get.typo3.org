@@ -64,5 +64,4 @@ Here is a list of what was fixed since
     2013-09-26  e06f05a  #34886          [BUGFIX] CF FileBackend unlimited lifetime support (Dominique Feyer)
     2013-09-12  e786c9c                  [TASK] Set TYPO3 version to 4.7.16-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2013>
+

@@ -353,5 +353,4 @@ implemented in nearly all backend modules.
 
 -   OpenID improvements: Wizard to configure URL
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

@@ -203,5 +203,4 @@ Here is a list of what was fixed since [4.6.4](TYPO3_4.6.4 "wikilink"):
 -   \[TASK\] Cannot translate workspace preview link generation
     ([\#34145](https://forge.typo3.org/issues/34145))
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

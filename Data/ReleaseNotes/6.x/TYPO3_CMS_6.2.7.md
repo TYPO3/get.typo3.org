@@ -134,5 +134,4 @@ Here is a list of what was fixed since
     2014-10-23  ded8651  #51936          [BUGFIX] Make ContentSlide work correctly if last element is empty (Robert Vock)
     2014-10-22  a947db5                  [TASK] Set TYPO3 version to 6.2.7-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

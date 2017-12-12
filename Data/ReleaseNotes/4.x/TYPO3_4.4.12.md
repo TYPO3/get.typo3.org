@@ -76,6 +76,3 @@ Changelog
     ([\#29274](https://forge.typo3.org/issues/29274))
 -   \[BUGFIX\] Fix backpath for add wizards in IRRE records (Backport
     fix from master) ([\#29770](https://forge.typo3.org/issues/29770))
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2011>

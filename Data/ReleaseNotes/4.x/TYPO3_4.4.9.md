@@ -98,5 +98,4 @@ Changelog
     2011-05-24  2583ac6            [TASK] Set TYPO3 version to 4.4.9-dev (TYPO3 v4 Release Team)
     2011-05-24  89468b4            [RELEASE] Release of TYPO3 4.4.8 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2011>
+

@@ -86,5 +86,4 @@ Here is a list of what was fixed since
 -   \[BUGFIX\] Resolve asterisk in allowed tables for suggest wizard
     ([\#21588](https://forge.typo3.org/issues/21588))
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2013>
+

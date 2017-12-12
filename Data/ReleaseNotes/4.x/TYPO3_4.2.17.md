@@ -50,6 +50,3 @@ Changelog
     2010-12-23  Jigal van Hemert <jigal@xs4all.nl>
 
         * Fixed bug #16825: Fatal error in lang.php (thanks to Georg Ringer)
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2010>

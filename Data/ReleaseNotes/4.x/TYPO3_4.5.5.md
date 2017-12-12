@@ -78,5 +78,4 @@ Changelog
     2011-07-27  9f5d362            [TASK] Set TYPO3 version to 4.5.5-dev (TYPO3 v4 Release Team)
     2011-07-27  440818d            [RELEASE] Release of TYPO3 4.5.4 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

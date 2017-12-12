@@ -57,5 +57,4 @@ Here is a list of what was fixed since
     2014-12-17  583d1bf  #59186          [BUGFIX] Add case insensitive flag to trustedHostsPattern (Dietrich Heise)
     2014-12-10  b2c673b                  [TASK] Set TYPO3 version to 4.5.40-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2015>
+

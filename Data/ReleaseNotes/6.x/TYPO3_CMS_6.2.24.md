@@ -53,5 +53,4 @@ Here is a list of what was fixed since
     2016-05-24  c10db60  #76231,#76256   [SECURITY] Validate complete referring request (Helmut Hummel)
     2016-05-17  070e747                  [TASK] Set TYPO3 version to 6.2.24-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

@@ -37,6 +37,3 @@ Changelog
 `   * (major) Fixed bug #6924: t3lib_div::readLLXMLfile does not use localized content anymore `
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2007>
