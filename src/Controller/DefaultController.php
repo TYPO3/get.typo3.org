@@ -75,7 +75,7 @@ class DefaultController
             $version = $result[$folder][0];
         }
         $current = @file_get_contents($this->releaseNotesDir . $folder . '/' . $version . '.html');
-        $html = $app['twig']->render('default/release-notes.html.twig', ['result' => $result, 'current' => $current]);
+        $html = $app['twig']->render('default/release-notes.html.twig', ['version' => $version, 'result' => $result, 'current' => $current]);
         return new Response($html);
     }
 
@@ -111,7 +111,6 @@ class DefaultController
         $content = $app['twig']->render($templateName);
         return new Response($content);
     }
-
 
     /**
      * @param string $versionName
