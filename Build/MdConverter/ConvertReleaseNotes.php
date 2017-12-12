@@ -11,7 +11,7 @@ $pandoc = new \Pandoc\Pandoc(
 );
 
 $finder = new \Symfony\Component\Finder\Finder();
-$files = $finder->files()->in(__DIR__ . '/../../release-notes/ReleaseNotes/*/')->name('*.md');
+$files = $finder->files()->in(__DIR__ . '/../../Data/ReleaseNotes/*/')->name('*.md');
 
 foreach ($files as $file) {
     $content = $file->getContents();
