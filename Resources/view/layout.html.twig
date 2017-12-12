@@ -5,8 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet"
-          href="https://extensions.typo3.org/typo3conf/ext/t3olayout/Resources/Public/Css/main.min.css">
+    <link rel="stylesheet" href="{{ path('root') }}assets/Css/main.min.css">
     <link rel="stylesheet" href="{{ path('root') }}assets/Css/download.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -42,7 +41,7 @@
             </div>
         </div>
         <div class="main-header__bottom">
-            <div class="logo"><a href="/" title="Go to the start page" target="_top" class="logoLink" id="headerLogo"><img src="https://extensions.typo3.org/typo3conf/ext/t3olayout/Resources/Public/Images/Template/typo3_nomargins.svg" alt="TYPO3 Logo" title="Go to the start page"></a></div>
+            <div class="logo"><a href="/" title="Go to the start page" target="_top" class="logoLink" id="headerLogo"><img src="{{ path('root') }}assets/Images/Template/typo3_nomargins.svg" alt="TYPO3 Logo" title="Go to the start page"></a></div>
             <div class="main-nav">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <button class="navbar-toggler ml-auto main-nav__burger js__main-nav__burger">
@@ -91,7 +90,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="logo">
-                        <img src="https://extensions.typo3.org/typo3conf/ext/t3olayout/Resources/Public/Images/Template/typo3_nomargins.svg">
+                        <img src="{{ path('root') }}assets/Images/Template/typo3_nomargins.svg">
                     </div>
                     <div class="socialButtons">
                         <a class="fa fa-facebook" href="https://www.facebook.com/typo3/?fref=ts" aria-hidden="true"></a>
