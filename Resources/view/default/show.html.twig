@@ -1,10 +1,15 @@
 {% extends "Layouts/layout.html.twig" %}
 
 {% block content %}
-    <div class="imagebox">
+    <div class="container-fluid b_keyvisual">
         <img src="{{ path('root') }}assets/Gett3o/Assets/keyvisual_image.png" alt="" class="b_keyvisual__image">
-        <span class="imagebox-desc"><b>Get TYPO3</b><br/>Download or try TYPO3 now!</span>
+        <div class="b_keyvisual__info">
+            <h1>Get TYPO3</h1>
+            <h3>Download or try TYPO3 now!</h3>
+        </div>
     </div>
+
+
 
     <div class="container-fluid b_container b_container--grey">
         <div class="container b_container__version">
