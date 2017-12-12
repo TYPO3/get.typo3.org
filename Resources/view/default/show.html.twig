@@ -9,8 +9,6 @@
         </div>
     </div>
 
-
-
     <div class="container-fluid b_container b_container--grey">
         <div class="container b_container__version">
             <h2 class="b_headline">Choose a version</h2>
@@ -50,40 +48,39 @@
 
     <div class="container-fluid b_container">
         <div class="container b_container__release">
-            <div class="col-md-7 b_text__col">
-                <p><b>The upcoming LTS 9 release </b>is scheduled for fall 2018.
-                    Once released, it will get 3 years of important and security fixes from the day of the release.
-                    Until the final release several sprint releases will be published. Adopters are encouraged to use
-                    each of those release on the way to TYPO3 v9 LTS. Stay tuned for more information on <a href="https://typo3.org/typo3-cms/roadmap/">roadmap.</a>
-                </p>
-            </div>
-            <div class="col-md-7 b_text__col">
-                <h2 class="b_headline">Older Releases</h2>
-                <p>6.2 LTS and everything below is no longer supported by the TYPO3 Core Team, consider upgrading
-                    or extending support by <a href="https://typo3.com/services/extended-support/">TYPO3 GmbH</a>.
-                    For information about older releases, choose a version here to get to the version page.
-
-
-                <form class="b_form--version" action="">
-                    <div class="form-group b_form__group">
-                        <select class="form-control b_form__select"
-                                onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
-                            <option selected></option>
-                            <option value="9">TYPO3 9</option>
-                            <option value="8">TYPO3 8</option>
-                            <option value="7">TYPO3 7</option>
-                        </select>
-                    </div>
-                </form>
+            <div class="row">
+                <div class="col-md-6 b_text__col">
+                    <h2>Bleeding Edge</h2>
+                    <p><b>The upcoming LTS 9 release </b>is scheduled for fall 2018.</p>
+                    <p>Once released, it will get 3 years of important and security fixes from the day of the release.</p>
+                    <p>Until the final release several sprint releases will be published. Adopters are encouraged to use each of those release on the way to TYPO3 v9 LTS. Stay tuned for more information on <a href="https://typo3.org/typo3-cms/roadmap/">roadmap.</a></p>
+                </div>
+                <div class="col-md-6 b_text__col">
+                    <h2>Older Releases</h2>
+                    <p>6.2 LTS and everything below is no longer supported by the TYPO3 Core Team, consider upgrading
+                        or extending support by <a href="https://typo3.com/services/extended-support/">TYPO3 GmbH</a>.
+                        For information about older releases, choose a version here to get to the version page.
+                    </p>
+                    <form class="b_form--version" action="">
+                        <div class="form-group b_form__group">
+                            <select class="form-control b_form__select"
+                                    onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
+                                <option selected>Choose a version</option>
+                                <option value="9">TYPO3 v9</option>
+                                <option value="8">TYPO3 v8</option>
+                                <option value="7">TYPO3 v7</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-
     <div class="container-fluid b_container b_container--grey">
         <div class="container">
-            <div class="col-md-7 b_text__col ">
-                <h2 class="b_headline">Try it online</h2>
+            <div class="col-md-7 b_text__col">
+                <h2>Try it online</h2>
                 <p>Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
                     based infrastructures to get started as quick as possible.</p>
             </div>
