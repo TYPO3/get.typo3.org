@@ -30,6 +30,8 @@ class DefaultController
 
     public function showAction(Application $app)
     {
+        $releaseNotes = new \T3O\GetTypo3Org\Service\ReleaseNotes();
+        $result = $releaseNotes->getAllReleaseNoteNames();
         $content = $app['twig']->render('default/show.html.twig', ['result' => $result]);
         return new Response($content);
     }
@@ -39,6 +41,7 @@ class DefaultController
      * /json
      *
      * @param Application $app
+     *
      * @return Response
      */
     public function jsonAction(Application $app)
@@ -74,26 +77,34 @@ class DefaultController
         return $app->redirect($redirectData['url']);
     }
 
+    public function showVersionAction(Application $app, int $version)
+    {
+        $templateName = 'default/download' . $version . '.html.twig';
+        $content = $app['twig']->render($templateName);
+        return new Response($content);
+    }
+
 
     /**
      * @param string $versionName
      * @param string $format
      * @param string $releasesFile
+     *
      * @return array
      */
     private function getSourceForgeRedirect($versionName, $format, $releasesFile)
     {
-        $packageFiles = array(
+        $packageFiles = [
             // slug (url part) => filename (without Extensions, url-encoded)
             'typo3_src' => 'typo3_src',
             'typo3_src_dummy' => 'typo3_src%2Bdummy',
             'dummy' => 'dummy',
             'introduction' => 'introductionpackage',
             'government' => 'governmentpackage',
-            'blank' => 'blankpackage'
-        );
+            'blank' => 'blankpackage',
+        ];
 
-        $result = array();
+        $result = [];
         $releases = json_decode(file_get_contents($releasesFile));
         // defaults
         $package = 'typo3_src';
@@ -135,10 +146,10 @@ class DefaultController
         $versionParts = explode('.', $versionName);
 
         $isValidVersion = !empty($versionParts)
-            && ((int)$versionParts[0] >= 7 || count($versionParts) > 1);
+                          && ((int)$versionParts[0] >= 7 || count($versionParts) > 1);
 
         // Make sure we can retrieve a product release
-        if ($isValidVersion && in_array($format, array('tar.gz', 'zip'))) {
+        if ($isValidVersion && in_array($format, ['tar.gz', 'zip'])) {
             $branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
             if (!isset($releases->$branchName)) {
                 return null;
@@ -154,17 +165,24 @@ class DefaultController
 
             if ($version !== null) {
                 // TYPO3 6.2 does not have some packages anymore
-                $legacyPackages = array('introductionpackage', 'governmentpackage', 'blankpackage', 'dummy');
+                $legacyPackages = ['introductionpackage', 'governmentpackage', 'blankpackage', 'dummy'];
                 if (version_compare($version, '6.2.0', '>=') && in_array($package, $legacyPackages)) {
                     $flippedPackageFiles = array_flip($packageFiles);
                     $fallbackPackage = $flippedPackageFiles[$package] . '-6.1.7';
                     return $this->getSourceForgeRedirect($fallbackPackage, $format, $releasesFile);
                 }
-                $result = array(
-                    'url' => 'https://typo3.azureedge.net/typo3/' . $version . '/' . $package . '-' . $version . '.' . $format,
+                $result = [
+                    'url' => 'https://typo3.azureedge.net/typo3/' .
+                             $version .
+                             '/' .
+                             $package .
+                             '-' .
+                             $version .
+                             '.' .
+                             $format,
                     'version' => $version,
-                    'format' => $format
-                );
+                    'format' => $format,
+                ];
             }
         }
         return $result;
@@ -174,11 +192,12 @@ class DefaultController
      * @param string $versionName
      * @param string $format
      * @param string $releasesFile
+     *
      * @return array
      */
     private function getFedextRedirect($versionName, $format, $releasesFile)
     {
-        $result = array();
+        $result = [];
         if ($versionName === 'bootstrap') {
             $releases = json_decode(file_get_contents($releasesFile));
             $result['url'] = sprintf('http://cdn.fedext.net/%spackage.%s', $versionName, $format);

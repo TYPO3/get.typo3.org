@@ -21,10 +21,11 @@ $app['finder'] = function () {
 // Routing
 $app->match('/', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::showAction')->bind('root');
 $app->match('/json', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::jsonAction');
+$app->match('/version/{version}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::showVersionAction')->bind('version');
 $app->match('/{requestedVersion}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::downloadAction');
 $app->match('/{requestedVersion}/{requestedFormat}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::downloadAction');
 $app->match('/release-notes/', '\\T3O\\GetTypo3Org\\Controller\\ReleaseNotes::showAction');
-$app->match('/release-notes/{folder}/{version}', '\\T3O\\GetTypo3Org\\Controller\\ReleaseNotes::showAction');
+$app->match('/release-notes/{folder}/{version}', '\\T3O\\GetTypo3Org\\Controller\\ReleaseNotes::showAction')->bind('release-notes-for-version');
 $app->error(function (\Exception $e, \Symfony\Component\HttpFoundation\Request $request, $code) {
     return new \Symfony\Component\HttpFoundation\Response('Sorry, the requested package was not found.');
 });

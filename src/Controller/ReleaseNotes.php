@@ -21,12 +21,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ReleaseNotes
 {
-
     protected $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
 
-    public function showAction(Application $app, string $folder = '', string $version = '')
+    public function showAction(Application $app, string $folder = '', string $version = ''): Response
     {
-        $result = $this->getAllReleaseNoteNames();
+        $releaseNotes = new \T3O\GetTypo3Org\Service\ReleaseNotes();
+        $result = $releaseNotes->getAllReleaseNoteNames();
         if ($folder === '' && $version === '') {
             $folder = key($result);
             $version = $result[$folder][0];
@@ -36,24 +36,4 @@ class ReleaseNotes
         return new Response($html);
     }
 
-    /**
-     * @return array
-     */
-    private function getAllReleaseNoteNames(): array
-    {
-        $directories = Finder::create()->directories()->in($this->releaseNotesDir)->sortByName();
-        $result = [];
-        foreach ($directories as $directory) {
-            $dir = $directory->getRealPath() . DIRECTORY_SEPARATOR;
-            $files = Finder::create()->files()->in($dir)->name('*.html')->sortByName();
-            $fileNames = [];
-            foreach ($files as $file) {
-                $fileNames[] = $file->getBasename('.html');
-            }
-            natsort($fileNames);
-            $result[$directory->getBaseName()] = array_reverse($fileNames);
-        }
-        $result = array_reverse($result);
-        return $result;
-    }
 }
