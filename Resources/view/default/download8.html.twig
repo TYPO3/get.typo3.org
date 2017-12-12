@@ -11,21 +11,23 @@
     </div>
 
     <div class="container-fluid b_container b_container--grey b_container--slim">
-        <form class="" action="">
-            <div class="form-group row">
-                <label>
-                    <strong>Go to another version:</strong>
-                </label>
-                <div class="col-sm-4">
-                    <select class="form-control b_form__select"
-                            onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
-                        <option value="9">TYPO3 9</option>
-                        <option value="8" selected>TYPO3 8</option>
-                        <option value="7">TYPO3 7</option>
-                    </select>
+        <div class="container b_container__download-version">
+            <form class="" action="">
+                <div class="form-group row">
+                    <label>
+                        <strong>Go to another version:</strong>
+                    </label>
+                    <div class="col-sm-4">
+                        <select class="form-control b_form__select"
+                                onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
+                            <option value="9">TYPO3 9</option>
+                            <option value="8" selected>TYPO3 8</option>
+                            <option value="7">TYPO3 7</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
     <div class="container-fluid b_container">
@@ -50,30 +52,27 @@
                     <div class="b_accordion-header-wrap" data-toggle="collapse"
                          data-parent="#exampleAccordion" href="#exampleAccordion1" aria-expanded="true"
                          aria-controls="exampleAccordion1">
-                        <b><p class="b_accordion-header">
-                                Composer
-                            </p></b>
+                        <p class="b_accordion-header">
+                            <strong>Set up a new project via composer</strong>
+                        </p>
                         <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
                         <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
                     </div>
                     <div id="exampleAccordion1" class="collapse" role="tabpanel">
                         <p class="mb-3 b_accordion__content">
-                            <pre>composer create-project typo3/cms-base-distribution CmsBaseDistribution</pre>
+                            <pre>composer create-project typo3/cms-base-distribution my-new-project 8.7</pre>
                         </p>
                     </div>
                 </div>
                 <div class="item b_accordion-item" data-toggle="collapse" data-parent="#exampleAccordion"
                      href="#exampleAccordion2" aria-expanded="false" aria-controls="exampleAccordion2">
                     <div class="b_accordion-header-wrap">
-
-                        <b><p class="b_accordion-header">
-                                wget/curl
-                            </p></b>
+                        <p class="b_accordion-header">
+                            <strong>Download via wget/curl</strong>
+                        </p>
                         <p class="b_accordion-header"></p>
                         <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
                         <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
-
-
                     </div>
                     <div id="exampleAccordion2" class="collapse" role="tabpanel">
                         <p class="mb-3 b_accordion__content">
@@ -93,15 +92,12 @@ curl -L -o typo3_src.tgz get.typo3.org/current
                 <div class="item b_accordion-item" data-toggle="collapse" data-parent="#exampleAccordion"
                      href="#exampleAccordion3" aria-expanded="false" aria-controls="exampleAccordion3">
                     <div class="b_accordion-header-wrap">
-
-                        <b><p class="b_accordion-header">
-                                source
-                            </p></b>
+                        <p class="b_accordion-header">
+                            <strong>Download from Source (GIT)</strong>
+                        </p>
                         <p class="b_accordion-header"></p>
                         <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
                         <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
-
-
                     </div>
                     <div id="exampleAccordion3" class="collapse" role="tabpanel">
                         <p class="mb-3 b_accordion__content">
@@ -112,14 +108,11 @@ curl -L -o typo3_src.tgz get.typo3.org/current
                 <div class="item b_accordion-item" data-toggle="collapse" data-parent="#exampleAccordion"
                      href="#exampleAccordion4" aria-expanded="false" aria-controls="exampleAccordion4">
                     <div class="b_accordion-header-wrap">
-
-                        <b><p class="b_accordion-header">
-                                Package Download
-                            </p></b>
+                        <p class="b_accordion-header">
+                            <strong>Package Download (tar.gz / zip file)</strong>
+                        </p>
                         <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
                         <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
-
-
                     </div>
                     <div id="exampleAccordion4" class="collapse" role="tabpanel">
                         <p class="mb-3 b_accordion__content">
@@ -170,7 +163,6 @@ curl -L -o typo3_src.tgz get.typo3.org/current
                         </tr>
                         </tbody>
                     </table>
-
                     <h4 class="b_headline-table">Client</h4>
                     <table class="table b_table">
                         <tbody>

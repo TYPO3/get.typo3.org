@@ -28,8 +28,6 @@
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
-    display: flex;
-    flex-direction: column;
 }
 
 .b_download__label {
