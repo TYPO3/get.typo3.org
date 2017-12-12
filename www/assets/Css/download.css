@@ -1,6 +1,6 @@
 .b_keyvisual__image {
     width: 100%;
-    height: auto;
+    max-height: max-content;
     padding: 0;
 }
 
