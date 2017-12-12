@@ -1,119 +1,132 @@
 {% extends "Layouts/layout.html.twig" %}
 
 {% block content %}
-<div class="container-fluid b_container b_container--grey">
-    <div class="container b_container__version">
-        <h2 class="b_headline">Choose a version</h2>
-        <div class="row">
-            <div class="col-md-6 b_text__col b_flex">
-                <div class="b_version__icon">
-                    <h5 class="b_version__icon-text">8</h5>
-                    <h5 class="b_version__icon-text">LTS</h5>
-                </div>
-                <div class="b_version__info">
-                    <p>The current stable LTS release (for all new projects)
-                        The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.
-                    </p>
-                    <button type="button" href="#" class="btn btn-primary b_btn--version">Get Version 7</button>
-                </div>
-            </div>
-            <div class="col-md-6 b_text__col b_flex">
-                <div class="b_version__icon">
-                    <h5 class="b_version__icon-text">7</h5>
-                    <h5 class="b_version__icon-text">LST</h5>
-                </div>
-                <div class="b_version__info">
-                    <p>
-                        The old stable LTS release (for existing projects)
-                        The old version with Long Term Support (LTS). It will have maintenance and security-related bugfixes until October 2018.
-                    </p>
-                    <button type="button" href="#" class="btn btn-primary b_btn--version">Get Version 8</button>
-                </div>
-            </div>
-        </div>
+    <div class="imagebox">
+        <img src="{{ path('root') }}assets/Gett3o/Assets/keyvisual_image.png" alt="" class="b_keyvisual__image">
+        <span class="imagebox-desc"><b>Get TYPO3</b><br/>Download or try TYPO3 now!</span>
     </div>
-</div>
 
-
-<div class="container-fluid b_container">
-    <div class="container b_container__release">
-        <div class="col-md-7 b_text__col">
-            <p><b>The upcoming LTS 9 release </b>is scheduled for fall 2018.
-                Once released, it will get 3 years of important and security fixes from the day of the release.
-                Until the final release several sprint releases will be published. Adopters are encouraged to use
-                each of those release on the way to TYPO3 v9 LTS. Stay tuned for more information on <a href="#">roadmap.</a>
-            </p>
-        </div>
-        <div class="col-md-7 b_text__col">
-            <h2 class="b_headline">Older Releases</h2>
-            <p><b>Older</b> releases can be found on <a href="#">Sourceforge.net.</a> 6.2 LTS and everything below
-                is no longer supported by the TYPO3 Core Team, consider upgrading or extending support by
-                <a href="#">TYPO3 Inc.</a>.
-                For information about older releases, choose a version here to get to the version page.
-
-
-            <form class="b_form--version" action="">
-                <div class="form-group b_form__group">
-                    <select class="form-control b_form__select">
-                        <option>TYPO3 9.0</option>
-                        <option>TYPO3 8.7.7</option>
-                        <option>TYPO3 7</option>
-                    </select>
-                    <button type="submit" class="btn btn-primary b_btn--form">Go to version page</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="container-fluid b_container b_container--grey">
-    <div class="container">
-        <div class="col-md-7 b_text__col ">
-            <h2 class="b_headline">Try it online</h2>
-            <p>Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
-                based infrastructures to get started as quick as possible.</p>
-        </div>
-        <div class="container">
+    <div class="container-fluid b_container b_container--grey">
+        <div class="container b_container__version">
+            <h2 class="b_headline">Choose a version</h2>
             <div class="row">
-                <div class="col-md-4">
-                    <img src="Assets/bitnami.png" alt="" class="b_try__image">
-                    <p>Bitnami TYPO3 Stack provides a one-click install solution for TYPO3. Download installers and
-                        virtual machines or run your own TYPO3 server in the cloud.</p>
-                    <a href="#" class="b_link"><i class="material-icons b_icon--link">keyboard_arrow_right</i>Go to
-                        Bitnami</a>
+                <div class="col-md-6 b_text__col b_flex">
+                    <div class="b_version__icon">
+                        <h5 class="b_version__icon-text">8</h5>
+                        <h5 class="b_version__icon-text">LTS</h5>
+                    </div>
+                    <div class="b_version__info">
+                        <p>The current stable LTS release (for all new projects)
+                            The latest version with Long Term Support (LTS). It will have full support until October
+                            2018 and security bugfixes until March 2020.
+                        </p>
+                        <a type="button" href="{{ path('version', {'version': 8}) }}"
+                           class="btn btn-primary b_btn--version">Get Version 8</a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <img src="Assets/aws.png" alt="" class="b_try__image">
-                    <p>Debian GNU/Linux based machine images are available on Amazon Web Services (AWS). A „root“
-                        login
-                        via SSH and an administrator account to the backend allow unrestricted access to the server
-                        and
-                        TYPO3. TYPO3 v7, v8 and 9.x sprint releases are available.</p>
-                    <a class="b_link" href="#"><i class="material-icons b_icon--link">keyboard_arrow_right</i>Go to
-                        AWS</a>
-                </div>
-                <div class="col-md-4">
-                    <img src="Assets/platform.png" alt="" class="b_try__image">
-                    <p>Test and Install TYPO3 CMS V8 on Platform.sh. You can find the Platform file on Github.</p>
-                    <a href="#" class="b_link"><i class="material-icons b_icon--link">keyboard_arrow_right</i>Go to
-                        platform.sh</a>
+                <div class="col-md-6 b_text__col b_flex">
+                    <div class="b_version__icon">
+                        <h5 class="b_version__icon-text">7</h5>
+                        <h5 class="b_version__icon-text">LTS</h5>
+                    </div>
+                    <div class="b_version__info">
+                        <p>
+                            The old stable LTS release (for existing projects)
+                            The old version with Long Term Support (LTS). It will have maintenance and security-related
+                            bugfixes until October 2018.
+                        </p>
+                        <a type="button" href="{{ path('version', {'version': 7}) }}"
+                           class="btn btn-primary b_btn--version">Get Version 7</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container-fluid b_container">
-    <div class="container">
-        <div class="col-md-7 b_text__col">
-            <h2 class="b_headline">API</h2>
-            <h5>JSON files</h5>
-            <p>The current stable LTS release (for all new projects)
-                The latest version with Long Term Support (LTS). It will have full support until October 2018 and
-                security bugfixes until March 2020.</p>
-            <a href="#" class="b_link"><i class="material-icons b_icon--link">file_download</i>get.typo3.org/8</a>
+    <div class="container-fluid b_container">
+        <div class="container b_container__release">
+            <div class="col-md-7 b_text__col">
+                <p><b>The upcoming LTS 9 release </b>is scheduled for fall 2018.
+                    Once released, it will get 3 years of important and security fixes from the day of the release.
+                    Until the final release several sprint releases will be published. Adopters are encouraged to use
+                    each of those release on the way to TYPO3 v9 LTS. Stay tuned for more information on <a href="#">roadmap.</a>
+                </p>
+            </div>
+            <div class="col-md-7 b_text__col">
+                <h2 class="b_headline">Older Releases</h2>
+                <p>6.2 LTS and everything below is no longer supported by the TYPO3 Core Team, consider upgrading
+                    or extending support by <a href="https://typo3.com/services/extended-support/">TYPO3 GmbH.</a>.
+                    For information about older releases, choose a version here to get to the version page.
+
+
+                <form class="b_form--version" action="">
+                    <div class="form-group b_form__group">
+                        <select class="form-control b_form__select"
+                                onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
+                            <option selected></option>
+                            <option value="9">TYPO3 9</option>
+                            <option value="8">TYPO3 8</option>
+                            <option value="7">TYPO3 7</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+
+    <div class="container-fluid b_container b_container--grey">
+        <div class="container">
+            <div class="col-md-7 b_text__col ">
+                <h2 class="b_headline">Try it online</h2>
+                <p>Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
+                    based infrastructures to get started as quick as possible.</p>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ path('root') }}assets/Gett3o/Assets/bitnami.png" alt="" class="b_try__image">
+                        <p>Bitnami TYPO3 Stack provides a one-click install solution for TYPO3. Download installers and
+                            virtual machines or run your own TYPO3 server in the cloud.</p>
+                        <a href="https://bitnami.com/stack/typo3" class="b_link"><i class="material-icons b_icon--link">keyboard_arrow_right</i>Go
+                            to
+                            Bitnami</a>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{{ path('root') }}assets/Gett3o/Assets/aws.png" alt="" class="b_try__image">
+                        <p>Debian GNU/Linux based machine images are available on Amazon Web Services (AWS). A „root“
+                            login
+                            via SSH and an administrator account to the backend allow unrestricted access to the server
+                            and
+                            TYPO3. TYPO3 v7, v8 and 9.x sprint releases are available.</p>
+                        <a class="b_link"
+                           href="https://aws.amazon.com/marketplace/seller-profile/?id=3c5e5f3c-d60e-4405-a9ca-aae8abfa3e2b"><i
+                                    class="material-icons b_icon--link">keyboard_arrow_right</i>Go to
+                            AWS</a>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{{ path('root') }}assets/Gett3o/Assets/platform.png" alt="" class="b_try__image">
+                        <p>Test and Install TYPO3 CMS V8 on Platform.sh. You can find the Platform file on Github.</p>
+                        <a href="https://accounts.platform.sh/platform/trial/typo3/setup" class="b_link"><i
+                                    class="material-icons b_icon--link">keyboard_arrow_right</i>Go to
+                            platform.sh</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid b_container">
+        <div class="container">
+            <div class="col-md-7 b_text__col">
+                <h2 class="b_headline">API</h2>
+                <h5>JSON files</h5>
+                <p>The current stable LTS release (for all new projects)
+                    The latest version with Long Term Support (LTS). It will have full support until October 2018 and
+                    security bugfixes until March 2020.</p>
+                <a href="https://get.typo3.org/8" class="b_link"><i
+                            class="material-icons b_icon--link">file_download</i>get.typo3.org/8</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
