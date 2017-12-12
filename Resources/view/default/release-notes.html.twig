@@ -6,7 +6,7 @@
         <img src="{{ path('root') }}assets/Gett3o/Assets/keyvisual_image.png" alt="" class="b_keyvisual__image">
         <div class="b_keyvisual__info">
             <h1>Release Notes</h1>
-            <h3>TYPO3 {{ version }}</h3>
+            <h3>TYPO3 {{ version |replace('TYPO3', '') |replace('_CMS_', '') }}</h3>
         </div>
     </div>
 
@@ -24,7 +24,7 @@
                             {% for version,entry in result %}
                                 <optgroup label="{{ version }}">
                                     {% for note in entry %}
-                                        <option value="{{ version }}/{{ note }}">{{ note }}</option>
+                                        <option value="{{ version }}/{{ note }}">{{ note | replace('_', ' ') | replace(' CMS ', ' ') }}</option>
                                     {% endfor %}
                                 </optgroup>
                             {% endfor %}
