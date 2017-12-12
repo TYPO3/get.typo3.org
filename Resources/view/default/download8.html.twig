@@ -13,16 +13,12 @@
     <div class="container-fluid b_container b_container--grey b_container--slim">
         <div class="container b_container__download-version">
             <label><b>Go to another Version:</b></label>
-            <form class="" action="">
-                <div class="form-group b_download__form-group">
-                    <select class="form-control b_form__select"
-                            onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
-                        <option value="9">TYPO3 9</option>
-                        <option value="8" selected>TYPO3 8</option>
-                        <option value="7">TYPO3 7</option>
-                    </select>
-                </div>
-            </form>
+                <select class="form-control b_form__select"
+                        onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
+                    <option value="9">TYPO3 9</option>
+                    <option value="8" selected>TYPO3 8</option>
+                    <option value="7">TYPO3 7</option>
+                </select>
         </div>
     </div>
 
