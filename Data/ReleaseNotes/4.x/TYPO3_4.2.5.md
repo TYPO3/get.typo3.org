@@ -72,7 +72,3 @@ Changelog
     2009-01-20  Steffen Kamper  info@sk-typo3.de
 
         * Fixed bug #9345: Bug: CSV export includes _CLIPBOARD_ in header row (thanks to Christian Kuhn)
-
-[Category:ReleaseNotes/TYPO3
-4.2.x](Category:ReleaseNotes/TYPO3_4.2.x "wikilink") [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2009>

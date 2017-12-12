@@ -55,5 +55,4 @@ Here is a list of what was fixed since
     2016-09-23  5b6f9fc  #77877          [BUGFIX] Correct show configuration in newContentElement wizard (Nicole Cordes)
     2016-09-13  2c19670                  [TASK] Set TYPO3 version to 6.2.28-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

@@ -72,5 +72,4 @@ Here is a list of what was fixed since
     2016-04-13  4e1103b  #75531          [BUGFIX] Prevent fatal error when uploading file with invalid filename (Arjen Hoekema)
     2016-04-12  047d5a0                  [TASK] Set TYPO3 version to 7.6.6-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

@@ -320,6 +320,3 @@ and replace it by
 
 That's it. Your TYPO3 4.1.8 should now work in an PHP4-only
 environement.
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2009>

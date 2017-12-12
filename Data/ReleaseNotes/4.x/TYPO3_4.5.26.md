@@ -99,5 +99,4 @@ Here is a list of what was fixed since
     2013-03-07  bd26345                  [TASK] Set TYPO3 version to 4.5.26-dev (TYPO3 Release Team)
     2013-03-07  c1e10c1                  [RELEASE] Release of TYPO3 4.5.25 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2013>
+

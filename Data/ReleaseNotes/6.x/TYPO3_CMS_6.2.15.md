@@ -176,5 +176,4 @@ Here is a list of what was fixed since
     2015-07-01  03b5260  #67227          [TASK] Raise severity for stale lock file (Bernhard Kraft)
     2015-07-01  af7fad3                  [TASK] Set TYPO3 version to 6.2.15-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2015>
+

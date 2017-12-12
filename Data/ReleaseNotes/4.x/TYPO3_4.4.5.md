@@ -325,6 +325,3 @@ Changelog
     2010-10-06  Steffen Kamper  <steffen@typo3.org>
 
         * Fixed bug #15784: Resolve errors in tslib_content
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2010>

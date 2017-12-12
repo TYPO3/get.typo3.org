@@ -60,5 +60,4 @@ Here is a list of what was fixed since
     2014-07-08  072f355  #59587          [BUGFIX] Too many tags by identifier in CacheBackends (Alexander Opitz)
     2014-07-08  36debe4                  [TASK] Set TYPO3 version to 6.1.11-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2014>
+

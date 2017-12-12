@@ -156,5 +156,4 @@ Here is a list of what was fixed since
     2016-07-19  04d039d  #76232          [BUGFIX] Throw empty table name exception in TCE GroupElement (Petra Arentzen)
     2016-07-19  0525c47                  [TASK] Set TYPO3 version to 7.6.11-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

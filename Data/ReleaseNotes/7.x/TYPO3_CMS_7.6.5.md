@@ -201,5 +201,4 @@ Here is a list of what was fixed since
     2016-02-23  b64b310  #73529          [BUGFIX] Check correctly if showitem key exists in TcaMigration (Wouter Wolters)
     2016-02-23  d7efa48                  [TASK] Set TYPO3 version to 7.6.5-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

@@ -56,6 +56,3 @@ Here is a list of what was fixed since 4.4.12:
     ([\#28916](https://forge.typo3.org/issues/28916))
 -   \[BUGFIX\]\[SECURITY\] XSS vulnerability in BE-User Admin module
     ([\#32040](https://forge.typo3.org/issues/32040))
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2012>

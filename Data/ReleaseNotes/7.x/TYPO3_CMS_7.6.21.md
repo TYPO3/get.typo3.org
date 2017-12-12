@@ -49,5 +49,4 @@ Here is a list of what was fixed since
 `* 156334149a [BUGFIX] Add TER replacements for extracted extensions`\
 `* 92fa10d9b2 [TASK] Set TYPO3 version to 7.6.21-dev`
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

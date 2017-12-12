@@ -126,5 +126,4 @@ Here is a list of what was fixed since
 `* 33361c533c [BUGFIX] Always hide the loading spinner of System Information`\
 `* 6083dad502 [TASK] Set TYPO3 version to 8.7.5-dev`\
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

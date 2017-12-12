@@ -56,6 +56,3 @@ Changelog
     2011-08-21  9094c73  #29130    [BUGFIX] Fix security level "normal" for backend login (Helmut Hummel)
     2011-08-16  401b7e7            [TASK] Set TYPO3 version to 4.4.11-dev (TYPO3 v4 Release Team)
     2011-08-16  982793c            [RELEASE] Release of TYPO3 4.4.10 (TYPO3 v4 Release Team)
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2011>

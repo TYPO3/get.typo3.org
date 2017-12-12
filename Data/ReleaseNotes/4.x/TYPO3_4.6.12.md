@@ -69,5 +69,4 @@ Here is a list of what was fixed since
     ([\#23226](https://forge.typo3.org/issues/23226))
 -   \[TASK\] Set TYPO3 version to 4.6.12-dev
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

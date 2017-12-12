@@ -62,5 +62,4 @@ Here is a list of what was fixed since
     2016-11-05  a861b18  #78540          [BUGFIX] Load ext_emconf information in extension installation (Nicole Cordes)
     2016-11-01  0c4a74e                  [TASK] Set TYPO3 version to 6.2.29-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

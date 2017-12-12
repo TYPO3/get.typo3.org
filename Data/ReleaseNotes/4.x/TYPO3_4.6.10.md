@@ -104,5 +104,4 @@ Here is a list of what was fixed since [4.6.9](TYPO3_4.6.9 "wikilink"):
     ([\#37553](https://forge.typo3.org/issues/37553))
 -   \[TASK\] Set TYPO3 version to 4.6.10-dev
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

@@ -114,5 +114,4 @@ Here is a list of what was fixed since
 -   \[TASK\] Raise submodule pointer
 -   \[TASK\] Set TYPO3 version to 4.5.23-dev
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2013>
+

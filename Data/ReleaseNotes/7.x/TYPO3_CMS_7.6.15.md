@@ -110,5 +110,4 @@ Here is a list of what was fixed since
     2016-12-01  8ec5240  #78687          [BUGFIX] Fix wrong indentation of PageTree in MoveElements (Michael Oehlhof)
     2016-11-29  5438e5c                  [TASK] Set TYPO3 version to 7.6.15-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

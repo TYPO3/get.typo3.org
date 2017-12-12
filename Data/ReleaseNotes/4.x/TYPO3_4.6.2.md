@@ -70,5 +70,4 @@ Changelog
 -   \[BUGFIX\] Core calls deprecated ADMCMD\_preview()
     ([\#31290](https://forge.typo3.org/issues/31290))
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2011>
+

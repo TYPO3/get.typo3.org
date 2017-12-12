@@ -50,5 +50,4 @@ Here is a list of what was fixed since
     2016-04-18  aed3061  #73567          [BUGFIX] Ignore cURL proxy header block (Albrecht Köhnlein)
     2016-04-12  0dd0ce1                  [TASK] Set TYPO3 version to 6.2.22-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

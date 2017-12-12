@@ -65,5 +65,4 @@ Here is a list of what was fixed since [4.7.3](TYPO3_4.7.3 "wikilink"):
     2012-08-08  c5e24ad                  [TASK] Set TYPO3 version to 4.7.4-dev (TYPO3 Release Team)
     2012-08-08  136f73b                  [RELEASE] Release of TYPO3 4.7.3 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2012>
+

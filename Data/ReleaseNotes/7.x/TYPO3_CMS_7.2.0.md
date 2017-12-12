@@ -55,5 +55,4 @@ deprecation](TYPO3.CMS/Releases/7.2/Deprecation "wikilink")
 
 [Features](TYPO3.CMS/Releases/7.2/Feature "wikilink")
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2015>
+

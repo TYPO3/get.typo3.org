@@ -280,5 +280,4 @@ Here is an ordered list of what was fixed since 4.5.2:
     (\#17934)
 -   \[TASK\] Changed copyright note to current year (Sebastian)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

@@ -157,5 +157,4 @@ Here is a list of what was fixed since
     2015-09-09  c3fd350  #68585          [BUGFIX] Catch exceptions during extension update check (Nicole Cordes)
     2015-09-08  a74669c                  [TASK] Set TYPO3 version to 6.2.16-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2015>
+

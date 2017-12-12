@@ -63,5 +63,4 @@ Here is a list of what was fixed since
     2016-02-17  438d90a  #58752          [BUGFIX] Remove addQueryStringMethod parameter from widget links (Nicole Cordes)
     2016-02-16  3b53f2f                  [TASK] Set TYPO3 version to 6.2.19-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

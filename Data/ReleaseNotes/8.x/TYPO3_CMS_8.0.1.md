@@ -57,5 +57,4 @@ Here is a list of what was fixed since
     cb3c273 [SECURITY] Prevent XSS in SelectMultipleSideBySideElement
     62ccac8 [SECURITY] XSS in TCA type inline
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2016>
+

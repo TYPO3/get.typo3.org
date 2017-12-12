@@ -75,5 +75,4 @@ Here is a list of what was fixed since
     2012-05-22  1d59cbf                  [TASK] Set TYPO3 version to 4.5.17-dev (TYPO3 v4 Release Team)
     2012-05-22  75b2564                  [RELEASE] Release of TYPO3 4.5.16 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

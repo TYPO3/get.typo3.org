@@ -259,5 +259,4 @@ Here is a list of what was fixed since
     6eb73dfbe7 [BUGFIX] Replace old optionSplit method calls
     93d314e264 [TASK] Set TYPO3 version to 8.7.2-dev
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

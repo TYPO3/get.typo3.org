@@ -153,5 +153,4 @@ Changelog
     2011-05-24  5fcc593            [TASK] Set TYPO3 version to 4.5.4-dev (TYPO3 v4 Release Team)
     2011-05-24  ec3452a            [RELEASE] Release of TYPO3 4.5.3 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

@@ -85,5 +85,4 @@ Here is a list of what was fixed since
     ([\#25157](https://forge.typo3.org/issues/25157))
 -   \[TASK\] Set TYPO3 version to 4.5.32-dev
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2013>
+

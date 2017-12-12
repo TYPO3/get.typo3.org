@@ -91,5 +91,4 @@ Changelog
     2011-08-16  dc7888a            [TASK] Set TYPO3 version to 4.5.6-dev (TYPO3 v4 Release Team)
     2011-08-16  a4ce9ef            [RELEASE] Release of TYPO3 4.5.5 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

@@ -49,6 +49,3 @@ Changelog
 `   * Fixed bug #10417: Remove debugging code from sysext t3skin (thanks to Markus Krause)`
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2009>

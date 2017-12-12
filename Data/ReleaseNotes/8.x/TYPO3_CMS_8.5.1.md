@@ -52,5 +52,4 @@ Here is a list of what was fixed since
     37ad006 [RELEASE] Release of TYPO3 8.5.1
     c7e1ce9 [SECURITY] Protect Mailtransport
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

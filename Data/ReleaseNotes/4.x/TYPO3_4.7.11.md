@@ -100,5 +100,4 @@ Here is a list of what was fixed since
     2013-03-07  e9dfc07                  [TASK] Set TYPO3 version to 4.7.11-dev (TYPO3 Release Team)
     2013-03-07  67ee5e6                  [RELEASE] Release of TYPO3 4.7.10 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2013>
+

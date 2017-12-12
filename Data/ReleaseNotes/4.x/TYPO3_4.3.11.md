@@ -75,6 +75,3 @@ Changelog
 
         * Fixed bug #15034: Login to backend fails with IPv6 Address as HTTP_HOST (Thanks to Roland Schenke)
         * Fixed bug #10480: Add missing header in auto_respond_msg (Thanks to Christian Buelter)
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2011>

@@ -71,5 +71,4 @@ Here is a list of what was fixed since
     2015-06-22  fe9339b  #67586          [TASK] Add basic unit tests for ContentObjectRenderer::typoLink (Nicole Cordes)
     2015-06-15  667dc92                  [TASK] Set TYPO3 version to 7.3.1-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2015>
+

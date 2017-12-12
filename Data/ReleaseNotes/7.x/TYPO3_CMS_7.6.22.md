@@ -74,5 +74,4 @@ Here is a list of what was fixed since
 `* ab2cd1fa43 [BUGFIX] Catch error in GeneralUtility::validEmail and GeneralUtility:isValidUrl`\
 `* 442b1e1bad [TASK] Set TYPO3 version to 7.6.22-dev`
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

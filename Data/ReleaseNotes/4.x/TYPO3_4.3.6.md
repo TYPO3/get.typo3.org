@@ -192,6 +192,3 @@ Changelog
     2010-08-07  Christian Kuhn  <lolli@schwarzbu.ch>
 
         * Fixed bug #15386: [Caching framework] Remove needless constant in cache manager
-
-<Category:ReleaseNotes/TYPO3_4.3.x> [Category:TYPO3
-4.3](Category:TYPO3_4.3 "wikilink") <Category:2010>

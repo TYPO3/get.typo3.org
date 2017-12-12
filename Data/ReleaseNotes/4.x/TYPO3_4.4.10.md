@@ -60,6 +60,3 @@ Changelog
     2011-07-29  34b1e70            [BUGFIX] htmlArea RTE not loading with Safari 5.1 (Stanislas Rolland)
     2011-07-27  1efb49b            [TASK] Set TYPO3 version to 4.4.10-dev (TYPO3 v4 Release Team)
     2011-07-27  439f3f0            [RELEASE] Release of TYPO3 4.4.9 (TYPO3 v4 Release Team)
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2011>

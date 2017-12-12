@@ -63,5 +63,4 @@ Here is a list of what was fixed since
     2016-07-19  95c3944  #77098          [BUGFIX] Prepend current path to versionNumberInFilename RewriteRule (Marco Huber)
     2016-07-19  95f1113                  [TASK] Set TYPO3 version to 6.2.27-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

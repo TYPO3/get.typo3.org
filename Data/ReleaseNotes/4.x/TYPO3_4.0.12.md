@@ -37,7 +37,3 @@ Changelog
 `   * Fixed bug #10298: Various XSS issues in the BE user admin module (thanks to Jelmer de Hen and Dmitry Dulepov)`
 
 </changelog>
-
-[Category:ReleaseNotes/TYPO3
-4.0.x](Category:ReleaseNotes/TYPO3_4.0.x "wikilink") [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2009>

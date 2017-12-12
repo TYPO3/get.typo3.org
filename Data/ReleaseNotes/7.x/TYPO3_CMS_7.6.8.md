@@ -56,5 +56,4 @@ Here is a list of what was fixed since
     2016-05-18  1a0902c  #76102          [TASK] Make driver registry TCA change cacheable (Helmut Hummel)
     2016-05-17  1fe5a17                  [TASK] Set TYPO3 version to 7.6.8-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

@@ -50,5 +50,4 @@ Here is a list of what was fixed since
     2014-12-10  31518c9  #63615          [BUGFIX] Memory consumption in DataHandler->processClearCacheQueue (Stephan Großberndt)
     2014-12-08  e4438c4                  [TASK] Set TYPO3 version to 6.2.9-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2014>
+

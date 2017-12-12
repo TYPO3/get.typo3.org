@@ -57,5 +57,4 @@ Here is a list of what was fixed since
     2014-05-23  81e31f1  #58484          [BUGFIX] SoftReferenceIndex support for more values in class attribute (Marc Bastian Heinrichs)
     2014-05-22  dd2d0ad                  [TASK] Set TYPO3 version to 4.5.35-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2014>
+

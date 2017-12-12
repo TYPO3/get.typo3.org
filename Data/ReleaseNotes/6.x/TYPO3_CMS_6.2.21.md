@@ -48,5 +48,4 @@ Here is a list of what was fixed since
     2016-04-12  5645614  #75541          [BUGFIX] Add missing bracket in EXT:rtehtmlarea to fix syntax error (Andreas Fernandez)
     2016-04-12  c236b4d                  [TASK] Set TYPO3 version to 6.2.21-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

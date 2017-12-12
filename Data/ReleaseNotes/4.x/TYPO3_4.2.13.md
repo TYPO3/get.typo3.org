@@ -204,6 +204,3 @@ Changelog
     2010-02-24  Steffen Kamper  <info@sk-typo3.de>
 
         * Fixed bug #13637: [EM] Upload to TER is broken
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2010>

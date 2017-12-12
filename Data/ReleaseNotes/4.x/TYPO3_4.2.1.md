@@ -36,6 +36,3 @@ Changelog
 `       * security bugfix`
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2008>

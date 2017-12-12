@@ -66,6 +66,3 @@ Changelog
     2010-07-28  Oliver Hader  <oliver@typo3.org>
 
         * Fixed bug #15260: Use of undefined method t3lib_div::sanitizeLocalUrl()
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2010>

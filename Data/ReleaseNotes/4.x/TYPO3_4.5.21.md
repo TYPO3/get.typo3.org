@@ -70,5 +70,4 @@ Here is a list of what was fixed since
     2012-10-16  19163bb                  [TASK] Set TYPO3 version to 4.5.21-dev (TYPO3 Release Team)
     2012-10-16  9419c2c                  [RELEASE] Release of TYPO3 4.5.20 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

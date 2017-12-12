@@ -86,5 +86,4 @@ Here is a list of what was fixed since
 `* 1dc387b26c [TASK] Set TYPO3 version to 8.7.7-dev`\
 `* 034255b075 [BUGFIX] Prevent empty sorting field to be quoted and put into an array`
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

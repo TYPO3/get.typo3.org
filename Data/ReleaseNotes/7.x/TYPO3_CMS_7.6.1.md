@@ -332,5 +332,4 @@ Here is a list of what was fixed since
     2015-11-11  9130829  #71475          [BUGFIX] Make buttons after file search working again (Wouter Wolters)
     2015-11-10  874a64c                  [TASK] Set TYPO3 version to 7.6.1-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2015>
+

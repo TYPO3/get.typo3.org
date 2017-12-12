@@ -368,6 +368,3 @@ Changelog
 
         * Fixed bug #15386: [Caching framework] Remove needless constant in cache manager
         * Fixed bug #14971: Unit test for sanitizeLocalUrl fails on installations inside a subdirectory (thanks to Stefan Galinski & Pascal Jungblut)
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2010>

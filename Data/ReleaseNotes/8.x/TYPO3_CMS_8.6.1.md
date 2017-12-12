@@ -55,5 +55,4 @@ Here is a list of what was fixed since
     61dd8f4328 [SECURITY] Prevent login of restricted users
     1c5765398a [BUGFIX] Don't update passwords if left untouched
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

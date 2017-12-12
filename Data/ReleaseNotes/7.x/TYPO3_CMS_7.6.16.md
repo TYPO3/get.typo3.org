@@ -128,5 +128,4 @@ Here is a list of what was fixed since
     2017-01-03  a041188  #78822          [BUGFIX] Documentation of sessionTimeout (Alexander Opitz)
     2017-01-03  1bc921f                  [TASK] Set TYPO3 version to 7.6.16-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

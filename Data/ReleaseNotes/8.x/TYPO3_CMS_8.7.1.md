@@ -82,5 +82,4 @@ Here is a list of what was fixed since
     b98f364163 [BUGFIX] Adapt fluid_styled_content paths in initial page
     a845c52c8b [TASK] Set TYPO3 version to 8.7.1-dev
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

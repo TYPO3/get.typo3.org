@@ -92,5 +92,4 @@ Here is a list of what was fixed since [4.7.2](TYPO3_4.7.2 "wikilink"):
     ([\#38657](https://forge.typo3.org/issues/38657))
 -   \[TASK\] Set TYPO3 version to 4.7.3-dev
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2012>
+

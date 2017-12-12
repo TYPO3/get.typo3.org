@@ -77,5 +77,4 @@ Here is a list of what was fixed since [4.6.3](TYPO3_4.6.3 "wikilink"):
 -   \[BUGFIX\] locallangXMLOverride is broken since the switch to XLIFF
     ([\#32573](https://forge.typo3.org/issues/32573))
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2012>
+

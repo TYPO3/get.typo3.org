@@ -56,7 +56,3 @@ Changelog
 `   * Fixed bug #10204: PHP error due to `“`public`` ``static`”` keywords in PHP4 in t3lib_div::generateRandomBytes() (thanks to Marcus Krause)`
 
 </changelog>
-
-[Category:ReleaseNotes/TYPO3
-4.1.x](Category:ReleaseNotes/TYPO3_4.1.x "wikilink") [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2009>

@@ -25,6 +25,3 @@ Changelog
 ---------
 
 See [TYPO3 4.2.8](TYPO3_4.2.8 "wikilink").
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2009>

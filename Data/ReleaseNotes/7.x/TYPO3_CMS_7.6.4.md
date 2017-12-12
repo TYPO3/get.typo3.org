@@ -102,5 +102,4 @@ Here is a list of what was fixed since
     2016-02-16  f0c8b1a  #73489          [BUGFIX] Use correct palettes for pages.media sys_file_references (Benni Mack)
     2016-02-16  9ace247                  [TASK] Set TYPO3 version to 7.6.4-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

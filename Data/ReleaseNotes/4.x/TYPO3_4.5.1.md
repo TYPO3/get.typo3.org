@@ -318,5 +318,4 @@ Here is an ordered list of what was fixed since 4.5.0:
 -   Fixed bug \#17490: After introducing the locking in \#17289 no CSRF
     token will ever be deleted (Thanks to Helmut Hummel)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

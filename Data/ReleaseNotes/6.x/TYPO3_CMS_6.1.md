@@ -647,5 +647,4 @@ Changes since TYPO3 CMS 6.0.0
     2012-11-27  ac3c16a                  [TASK] Set TYPO3 version to 6.0.1-dev (TYPO3 Release Team)
     2012-11-27  59b7d46                  [RELEASE] Release of TYPO3 6.0.0 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2013>
+

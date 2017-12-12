@@ -328,6 +328,3 @@ Changelog
     2009-02-11  Stanislas Rolland  <typo3@sjbr.ca>
 
         * Fixed bug #9805: RTE and DAM element browsers show wrong colours
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2009>

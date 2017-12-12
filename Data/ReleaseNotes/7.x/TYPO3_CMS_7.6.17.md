@@ -88,5 +88,4 @@ Here is a list of what was fixed since
     2017-02-28  cb59e3f  #79644          [BUGFIX] Set file size to 0 instead to string in ImportExport (Georg Ringer)
     2017-02-28  89ff91a                  [TASK] Set TYPO3 version to 7.6.17-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

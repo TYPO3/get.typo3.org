@@ -48,5 +48,4 @@ Here is a list of what was fixed since
 `* ebd05707b7 [TASK] Add functional tests for rendering translated tt_content with FAL`\
 `* 27a077079c [TASK] Set TYPO3 version to 8.7.6-dev`
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2017>
+

@@ -50,5 +50,4 @@ Here is a list of what was fixed since
     2016-11-23  6d06a9b  #76118,#78775   [TASK] Loosen Symfony components version constraint (Mathias Brodala)
     2016-11-22  522271f                  [TASK] Set TYPO3 version to 7.6.14-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

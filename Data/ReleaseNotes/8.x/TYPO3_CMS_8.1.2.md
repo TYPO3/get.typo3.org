@@ -56,5 +56,4 @@ Here is a list of what was fixed since
     e272331 [BUGFIX] Allow non critical request arguments with @
     a5a0a6b [TASK] Set TYPO3 version to 8.1.2-dev
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2016>
+

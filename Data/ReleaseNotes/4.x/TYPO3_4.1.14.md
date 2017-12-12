@@ -120,6 +120,3 @@ Changelog
     2009-10-29  Ernesto Baschny  <ernst@cron-it.de>
 
         * Fixed bug #12371: Warning issued on first load of install tool with open_basedir set
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2010>

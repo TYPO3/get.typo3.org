@@ -137,6 +137,3 @@ Changelog
     2007-10-26  Stanislas Rolland  &lt;stanislas.rolland@fructifor.ca&gt;
 
         * Fixed bug 5031: htmlArea RTE incorrectly processes col tags and default proc options disallow col and colgroup tags
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2007>

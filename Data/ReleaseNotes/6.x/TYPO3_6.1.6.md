@@ -151,5 +151,4 @@ Here is a list of what was fixed since [6.1.5](TYPO3_6.1.5 "wikilink"):
     2013-09-12  ddf74b0  #51891          [BUGFIX] Call to undefined method setTemplateFile (Wouter Wolters)
     2013-09-12  66ad5e7                  [TASK] Set TYPO3 version to 6.1.6-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2013>
+

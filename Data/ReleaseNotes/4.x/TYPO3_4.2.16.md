@@ -69,6 +69,3 @@ Changelog
     2010-10-11  Steffen Kamper  <steffen@typo3.org>
 
         * Fixed bug #12376: typo3temp got filled with thousands of javascript_* files (Thanks to Georg Ringer)
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2010>

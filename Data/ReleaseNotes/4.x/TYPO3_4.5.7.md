@@ -92,5 +92,4 @@ Workspaces:
     ba04cfb          [BUGFIX] Make workspace change visible for editors
     1fd6a00          [BUGFIX] Cleanup splitview JavaScript
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

@@ -78,5 +78,4 @@ Changelog
 -   \[BUGFIX\] Multiple values not displayed for simple items lists
     ([\#31374](https://forge.typo3.org/issues/31374))
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2011>
+

@@ -64,5 +64,4 @@ Here is a list of what was fixed since
     2016-12-03  b927c7b  #77097          [BUGFIX] Reset FormViewHelper on execution (Helmut Hummel)
     2016-11-22  f40917e                  [TASK] Set TYPO3 version to 6.2.30-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2017>
+

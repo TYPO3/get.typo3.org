@@ -284,5 +284,4 @@ Here is a list of what was fixed since [6.1.7](TYPO3_6.1.7 "wikilink"):
 -   \[BUGFIX\] Cleanly unset cookies on login in cookie-check
     ([\#53818](https://forge.typo3.org/issues/53818))
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2014>
+

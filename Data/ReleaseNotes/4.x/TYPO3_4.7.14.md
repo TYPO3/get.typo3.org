@@ -54,5 +54,4 @@ Here is a list of what was fixed since
     2013-07-25  71c3262  #50410          [TASK] Revise typo3/sysext/README.txt (Wouter Wolters)
     2013-07-23  1710919                  [TASK] Set TYPO3 version to 4.7.14-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2013>
+

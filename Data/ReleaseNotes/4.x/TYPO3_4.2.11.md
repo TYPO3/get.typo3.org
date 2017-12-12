@@ -158,6 +158,3 @@ Changelog
     2009-10-28  Dmitry Dulepov  <dmitry.dulepov@gmail.com>
 
         * Fixed bug #9795: Default values have no labels in the multiple select control inside the flexform
-
-<Category:ReleaseNotes/TYPO3_4.2.x> [Category:TYPO3
-4.2](Category:TYPO3_4.2 "wikilink") <Category:2010>

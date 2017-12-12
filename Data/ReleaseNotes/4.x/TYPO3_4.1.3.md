@@ -145,6 +145,3 @@ Changelog
     2007-08-06  Martin Kutschker  &lt;martin.t.kutschker@blackbox.net&gt;
 
         * Fixed bug #5941: Log reason of failure on DB connect
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2007>

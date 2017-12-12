@@ -68,5 +68,4 @@ Here is a list of what was fixed since
     2012-03-28  02e366e                  [TASK] Set TYPO3 version to 4.5.15-dev (TYPO3 v4 Release Team)
     2012-03-28  c6c9859                  [RELEASE] Release of TYPO3 4.5.14 (TYPO3 v4 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2012>
+

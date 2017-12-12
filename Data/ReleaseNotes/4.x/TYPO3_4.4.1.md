@@ -307,6 +307,3 @@ Changelog
         * Fixed bug #14857: Reports Module: Wrong icon and a styling problem (Thanks to Georg Ringer)
         * Fixed bug #14834: About module need padding
         * Fixed bug #14844: Milliseconds on logout (Thanks to Georg Ringer)
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2010>

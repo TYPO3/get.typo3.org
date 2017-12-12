@@ -48,5 +48,4 @@ Here is a list of what was fixed since
     2016-05-24  4d26d1e  #76278          [BUGFIX] Allow non critical request arguments with @ (Helmut Hummel)
     2016-05-24  b736365                  [TASK] Set TYPO3 version to 7.6.9-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2016>
+

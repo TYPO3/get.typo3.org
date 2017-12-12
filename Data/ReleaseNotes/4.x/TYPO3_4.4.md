@@ -343,5 +343,4 @@ News
           about 90% which results in a blasting fast Backend. For details about the
           new Icon Sprite API, have a look at t3lib/class.t3lib_iconworks.php.
 
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2010>
+

@@ -134,5 +134,4 @@ Here is a list of what was fixed since [6.1.0](TYPO3_6.1.0 "wikilink"):
 -   \[BUGFIX\] InlineSettings broken if extJs not loaded
     ([\#38879](https://forge.typo3.org/issues/38879))
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2013>
+

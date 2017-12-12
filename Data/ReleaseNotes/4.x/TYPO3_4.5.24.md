@@ -57,5 +57,4 @@ Here is a list of what was fixed since
     2013-02-14  98153a5                  [TASK] Set TYPO3 version to 4.5.24-dev (TYPO3 Release Team)
     2013-02-14  73e6f37                  [RELEASE] Release of TYPO3 4.5.23 (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2013>
+

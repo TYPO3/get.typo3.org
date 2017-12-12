@@ -80,5 +80,4 @@ Changelog
 -   \[BUGFIX\] Log date picker broken
     ([\#31450](https://forge.typo3.org/issues/31450))
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2011>
+

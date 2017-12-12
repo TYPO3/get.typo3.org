@@ -55,6 +55,3 @@ Here is a list of what was fixed since
     2014-06-05  f731fc3  #59059          [BUGFIX] New content elements are always stored on pid 0 (Markus Klein)
     2014-06-03  d9d2dd1  #59034          [BUGFIX] Fix double ? in eID url for encryption key (Markus Klein)
     2014-05-22  854cca5                  [TASK] Set TYPO3 version to 4.7.20-dev (TYPO3 Release Team)
-
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2014>

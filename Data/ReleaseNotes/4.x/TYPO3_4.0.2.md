@@ -86,6 +86,3 @@ Changelog
         * Release of TYPO3 4.0.1
         * Updates to NEWS.txt (thanks to Martin Kutschker)
         * Changed version requirements for t3skin (problems in combination with TYPO3 4.0.1)
-
-<Category:ReleaseNotes/TYPO3_4.0.x> [Category:TYPO3
-4.0](Category:TYPO3_4.0 "wikilink") <Category:2006>

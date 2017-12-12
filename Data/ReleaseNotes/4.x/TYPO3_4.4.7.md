@@ -196,6 +196,3 @@ Changelog
     2010-12-28  Steffen Gebert  <steffen@steffen-gebert.de>
 
         * Fixed bug #16093: Media content object with selection of "HTML Embed Element" does not respect dimension settings (Thanks to Simon Schaufelberger)
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2011>

@@ -82,6 +82,3 @@ Changelog
     2007-03-12  Michael Stucki  &lt;michael@typo3.org&gt;
 
         * Change copyright information in typo3/index.php (no real change, just replace the hardcoded years with the "TYPO3_copyright_year" constant)
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2007>

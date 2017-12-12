@@ -125,5 +125,4 @@ ChangeLog](https://git.typo3.org/TYPO3v4/CoreProjects/MVC/fluid.git?a=blob;f=Cha
 -   \[BUGFIX\] JS error on initialization of RTE extension plugin
     ([\#31498](https://forge.typo3.org/issues/31498))
 
-<Category:ReleaseNotes/TYPO3_4.6.x> [Category:TYPO3
-4.6](Category:TYPO3_4.6 "wikilink") <Category:2011>
+

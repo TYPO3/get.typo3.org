@@ -54,5 +54,4 @@ Here is a list of what was fixed since
     3cdc329 [!!!][SECURITY] Mitigate potential cache flooding
     3ebce66 [SECURITY] Fix select_key XSS in PageLayoutView
 
-<Category:ReleaseNotes/TYPO3_8.x> [Category:TYPO3
-8](Category:TYPO3_8 "wikilink") <Category:2016>
+

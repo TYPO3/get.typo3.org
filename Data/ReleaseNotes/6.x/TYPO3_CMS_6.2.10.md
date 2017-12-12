@@ -264,5 +264,4 @@ Here is a list of what was fixed since
     2014-12-10  b4d5497  #59129          [BUGFIX] Placeholder attribute without useOrOverridePlaceholder (Alexander Stehlik)
     2014-12-10  cfdfcfa                  [TASK] Set TYPO3 version to 6.2.10-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2015>
+

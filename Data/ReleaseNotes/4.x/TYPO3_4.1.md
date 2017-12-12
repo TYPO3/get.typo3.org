@@ -1049,6 +1049,3 @@ tag around search word
 `   * Fix bugtracker issue #3172: MIME type determination crashing (HEAD request)`
 
 </changelog>
-
-<Category:ReleaseNotes/TYPO3_4.1.x> [Category:TYPO3
-4.1](Category:TYPO3_4.1 "wikilink") <Category:2007>

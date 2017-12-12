@@ -1051,5 +1051,4 @@ Changes since TYPO3 4.6.0
     to TER that is not registered
     ([\#31309](https://forge.typo3.org/issues/31309))
 
-<Category:ReleaseNotes/TYPO3_4.7.x> [Category:TYPO3
-4.7](Category:TYPO3_4.7 "wikilink") <Category:2012>
+

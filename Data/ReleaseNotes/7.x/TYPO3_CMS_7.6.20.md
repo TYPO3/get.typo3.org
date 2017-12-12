@@ -44,5 +44,4 @@ Here is a list of what was fixed since
 `` * e4c0a1b726 [BUGFIX] Fix namespace of `SaltedPasswordsUtility` in documentation ``\
 `* 5fcc996dfd [TASK] Set TYPO3 version to 7.6.20-dev`
 
-<Category:ReleaseNotes/TYPO3_7.x> [Category:TYPO3
-7](Category:TYPO3_7 "wikilink") <Category:2017>
+

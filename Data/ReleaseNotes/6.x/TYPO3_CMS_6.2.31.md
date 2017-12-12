@@ -66,5 +66,4 @@ Here is a list of what was fixed since
     2017-01-03  5631d83  #78822          [BUGFIX] Documentation of sessionTimeout (Anja Leichsenring)
     2017-01-03  96f08d1                  [TASK] Set TYPO3 version to 6.2.31-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2017>
+

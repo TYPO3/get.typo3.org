@@ -128,5 +128,4 @@ Here is a list of what was fixed since [6.0.1](TYPO3_6.0.1 "wikilink"):
 -   \[BUGFIX\] Add foreign\_match\_fields support for one-to-x relations
     ([\#45337](https://forge.typo3.org/issues/45337))
 
-<Category:ReleaseNotes/TYPO3_6.0.x> [Category:TYPO3
-6.0](Category:TYPO3_6.0 "wikilink") <Category:2013>
+

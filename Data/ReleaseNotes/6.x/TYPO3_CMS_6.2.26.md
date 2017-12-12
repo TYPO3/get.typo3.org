@@ -70,5 +70,4 @@ Here is a list of what was fixed since
     2016-05-27  cd88856  #60173          [BUGFIX] Re-enables fileDenyPattern check for admin users (Torben Hansen)
     2016-05-24  49f9044                  [TASK] Set TYPO3 version to 6.2.26-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.2.x> [Category:TYPO3
-6.2](Category:TYPO3_6.2 "wikilink") <Category:2016>
+

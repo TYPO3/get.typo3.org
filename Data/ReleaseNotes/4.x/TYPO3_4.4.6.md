@@ -88,6 +88,3 @@ Changelog
     2010-12-17  Ingo Renner  <ingo@typo3.org>
 
         * Fixed issue #16764: Insufficient information about which class is failing to implement interfaces in tslib_cObj->start()
-
-<Category:ReleaseNotes/TYPO3_4.4.x> [Category:TYPO3
-4.4](Category:TYPO3_4.4 "wikilink") <Category:2010>

@@ -55,5 +55,4 @@ Here is a list of what was fixed since
     2014-10-22  a62c19e  #62391          [BUGFIX] Ensure PHP 5.2 compatibility in makeInstance (Helmut Hummel)
     2014-10-22  4534943                  [TASK] Set TYPO3 version to 4.5.38-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_4.5.x> [Category:TYPO3
-4.5](Category:TYPO3_4.5 "wikilink") <Category:2014>
+

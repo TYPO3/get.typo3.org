@@ -55,5 +55,4 @@ Here is a list of what was fixed since
     2014-09-30  5cb8ac8  #61982          [BUGFIX] Fix search mode switcher of indexed_search (Markus Klein)
     2014-09-23  5bd5ce1                  [TASK] Set TYPO3 version to 6.1.12-dev (TYPO3 Release Team)
 
-<Category:ReleaseNotes/TYPO3_6.1.x> [Category:TYPO3
-6.1](Category:TYPO3_6.1 "wikilink") <Category:2014>
+
