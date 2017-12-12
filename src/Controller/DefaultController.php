@@ -57,6 +57,34 @@ class DefaultController
         return new Response($content);
     }
 
+
+    /**
+     * Display release notes for a version
+     *
+     * @param Application $app
+     * @param string $folder
+     * @param string $version
+     * @return Response
+     */
+    public function releaseNotesAction(Application $app, string $folder = '', string $version = ''): Response
+    {
+        $releaseNotes = new \T3O\GetTypo3Org\Service\ReleaseNotes();
+        $result = $releaseNotes->getAllReleaseNoteNames();
+        if ($folder === '' && $version === '') {
+            $folder = key($result);
+            $version = $result[$folder][0];
+        }
+        $current = @file_get_contents($this->releaseNotesDir . $folder . '/' . $version . '.html');
+        $html = $app['twig']->render('default/release-notes.html.twig', ['result' => $result, 'current' => $current]);
+        return new Response($html);
+    }
+
+    /**
+     * @param Application $app
+     * @param string $requestedVersion
+     * @param string $requestedFormat
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function downloadAction(Application $app, $requestedVersion = 'stable', $requestedFormat = 'tar.gz')
     {
         $maxAgeForReleases = filemtime($this->releasesJsonFile) + 3600 - time();

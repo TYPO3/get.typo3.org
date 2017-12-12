@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="container-fluid b_keyvisual">
+        <img src="{{ path('root') }}assets/Gett3o/Assets/keyvisual_image.png" alt="" class="b_keyvisual__image">
+        <div class="b_keyvisual__info">
+            <h1>Release Notes</h1>
+            <h3>TYPO3 {{ version }}</h3>
+        </div>
+    </div>
+
+    <div class="container-fluid b_container b_container--grey b_container--slim">
+        <div class="container b_container__download-version">
+            <form class="" action="">
+                <div class="form-group row">
+                    <label>
+                        <strong>Go to another version:</strong>
+                    </label>
+                    <div class="col-sm-4">
+                        <select onchange="if (this.value) window.location.href= '{{ path('root') }}release-notes/' + this.value;"
+                                style="margin-bottom:1.5em;">
+                            <option value="">-- SELECT VERSION --</option>
+                            {% for version,entry in result %}
+                                <optgroup label="{{ version }}">
+                                    {% for note in entry %}
+                                        <option value="{{ version }}/{{ note }}">{{ note }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container-fluid b_container">
+        <div class="container b_container--downloads">
+            <div class="col-md-12 b_text__col">
+                {{ current|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
