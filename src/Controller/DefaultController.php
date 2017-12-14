@@ -51,10 +51,11 @@ class DefaultController
 
         $content = file_get_contents($releasesFile);
 
-        header('Content-type: application/json; charset=utf-8');
-        header('Access-Control-Allow-Origin: *');
-        header('Cache-control: max-age=' . $maxAgeForReleases);
-        return new Response($content);
+        $headers = [];
+        $headers[] = 'Content-type: application/json';
+        $headers[] = 'Access-Control-Allow-Origin: *';
+        $headers[] = 'Cache-control: max-age=' . $maxAgeForReleases;
+        return new Response($content, 200, $headers);
     }
 
 
