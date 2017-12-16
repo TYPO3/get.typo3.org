@@ -18,6 +18,11 @@
     bottom: 0;
 }
 
+.b_keyvisual__info a {
+    color: #333333;
+    text-decoration: underline;
+}
+
 .b_container {
     padding-top: 2.188rem;
     padding-bottom: 2.188rem;
@@ -258,6 +263,27 @@ span.ter-ext-state-expiremental {
 
 .card {
     padding: 0;
+}
+
+.card-padding {
+    padding: 0 1.25rem;
+}
+
+.card-padding .card-img-top {
+    max-width: 50%;
+    margin: 0 auto;
+    padding-top: .75rem;
+}
+
+.card-padding .card-body {
+    padding: .75rem 0;
+}
+.card-padding .card-footer {
+    padding: .75rem 0;
+}
+
+.card-footer {
+    background-color: initial;
 }
 
 /*
