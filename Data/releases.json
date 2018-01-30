@@ -1,6 +1,25 @@
 {
   "9": {
     "releases": {
+      "9.1.0": {
+        "version": "9.1.0",
+        "date": "2018-01-30 15:44:52 UTC",
+        "type": "regular",
+        "checksums": {
+          "tar": {
+            "sha1": "3a277826d716eb4e82a36a2200deefd76d15378c",
+            "sha256": "138c8ec6b7f80e7dce5f9ac9d24edaf7c3a87fef0c02258b86c5273886db0841"
+          },
+          "zip": {
+            "sha1": "680b263e6de11f3e74af453193f7c43d99cfcdfe",
+            "sha256": "012d8c858691aefe4da0224bf76543187e112a3b7696eb65e236d18a9481631e"
+          }
+        },
+        "url": {
+          "zip": "https:\/\/get.typo3.org\/9.1.0\/zip",
+          "tar": "https:\/\/get.typo3.org\/9.1.0"
+        }
+      },
       "9.0.0": {
         "version": "9.0.0",
         "date": "2017-12-12 16:48:22 UTC",
@@ -21,8 +40,8 @@
         }
       }
     },
-    "latest": "9.0.0",
-    "stable": "9.0.0",
+    "latest": "9.1.0",
+    "stable": "9.1.0",
     "active": true
   },
   "8": {
@@ -5720,7 +5739,7 @@
     "stable": "3.3.0",
     "active": false
   },
-  "latest_stable": "9.0.0",
+  "latest_stable": "9.1.0",
   "latest_old_stable": "8.7.9",
   "latest_lts": "8.7.9",
   "latest_old_lts": "7.6.23"
