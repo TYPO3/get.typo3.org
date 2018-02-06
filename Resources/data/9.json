@@ -7,7 +7,7 @@
     "major": 9,
     "lts": null,
     "folder": "9.x",
-    "releaseNotes": "TYPO3_CMS_9_1_0",
+    "releaseNotes": "TYPO3_CMS_9.1.0",
     "speaking": "TYPO3 v9"
   },
   "systemRequirements": {
