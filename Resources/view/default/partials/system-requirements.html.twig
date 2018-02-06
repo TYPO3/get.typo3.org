@@ -1,0 +1,77 @@
+<div class="container-fluid b_container b_container--grey">
+    <div class="container">
+        <div class="col-md-7 b_text__col ">
+            <h2 class="b_headline">System Requirements</h2>
+            <h4 class="b_headline-table">Server</h4>
+            <table class="table b_table">
+                <tbody>
+                <tr>
+                    <th scope="row">Operating System</th>
+                    <td>Unix (e.g. Linux), Windows or Mac</td>
+                </tr>
+                <tr>
+                    <th scope="row">Webserver</th>
+                    <td>Apache (recommended), IIS, NGINX</td>
+                </tr>
+                <tr>
+                    <th scope="row">Middleware</th>
+                    <td>PHP Version > {{ systemRequirements.php.min }} < {{ systemRequirements.php.max }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Database</th>
+                    <td>
+                        {% for dbms,constraints in systemRequirements.database %}
+                            {% if constraints.min and constraints.max %}
+                                {{ dbms }} Version > {{ constraints.min }} < {{ constraints.max }}
+                                <br/>
+                            {% elseif constraints.min %}
+                                {{ dbms }} Version > {{ constraints.min }}
+                                <br/>
+                            {% elseif constraints.max %}
+                                {{ dbms }} Version  < {{ constraints.max }}
+                                <br/>
+                            {% else %}
+                                {{ dbms }}
+                                <br/>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Hardware</th>
+                    <td>at least {{ systemRequirements.hardware.ram.min }} MB of RAM</td>
+                </tr>
+                <tr>
+                    <th scope="row">Recommended</th>
+                    <td>GraphicsMagick (standalone) or ImageMagick
+                        GDlib/Freetype (compiled with PHP)
+                        zlib (compiled with PHP)
+                        Apache with mod_gzip/mod_deflate/mod_rewrite
+                        A PHP-Cache (e.g. APCu / PHP-Accelerator / OPcache
+                        / Zend Accelerator, UNIX/Linux only)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4 class="b_headline-table">Client</h4>
+            <table class="table b_table">
+                <tbody>
+                <tr>
+                    <th scope="row">Required</th>
+                    <td>Any graphical browser on any operating system</td>
+                </tr>
+                <tr>
+                    <th scope="row">Recommended</th>
+                    {% set browsers = systemRequirements.client %}
+                    <td>Google Chrome ({{ browsers.chrome.min }}), Mozilla Firefox ({{ browsers.firefox.min }}), Apple
+                        Safari
+                        ({{ browsers.safari.min }}), Microsoft Edge ({{ browsers.edge.min }}), Microsoft Internet
+                        Explorer ({{ browsers.ie.min }}+)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

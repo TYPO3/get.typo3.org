@@ -1,0 +1,19 @@
+<div class="container-fluid b_container b_container--grey b_container--slim">
+    <div class="container b_container__download-version">
+        <form class="" action="">
+            <div class="form-group row">
+                <label>
+                    <strong>Go to another version:</strong>
+                </label>
+                <div class="col-sm-4">
+                    <select class="form-control b_form__select"
+                            onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
+                        <option value="9" {{ (version == 9) ? 'selected' : '' }}>TYPO3 v9</option>
+                        <option value="8" {{ (version == 8) ? 'selected' : '' }}>TYPO3 v8</option>
+                        <option value="7" {{ (version == 7) ? 'selected' : '' }}>TYPO3 v7</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

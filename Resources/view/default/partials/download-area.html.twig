@@ -1,0 +1,109 @@
+<div class="container-fluid b_container">
+    <div class="container b_container--downloads">
+        <div class="col-md-12 b_text__col">
+            <h2 class="b_headline">Downloads</h2>
+            <p class="col-md-7">{{ description }}</p>
+            <div class="b_link-list">
+                <a href="{{ path('release-notes-for-version', {'folder': version.folder, 'version': version.releaseNotes }) }}"
+                   class="b_link"><i class="material-icons b_icon--link">keyboard_arrow_right</i>Release
+                    Notes</a>
+                <a href="https://docs.typo3.org/typo3cms/InstallationGuide/{{ version.lts }}/" class="b_link"><i
+                            class="material-icons b_icon--link">keyboard_arrow_right</i>Installation
+                    Guide</a>
+                <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/{{ version.lts }}/" class="b_link"><i
+                            class="material-icons b_icon--link">keyboard_arrow_right</i>Getting
+                    started</a>
+                <a href="https://typo3.azureedge.net/typo3/{{ version.full }}/README.md" class="b_link"><i
+                            class="material-icons b_icon--link">keyboard_arrow_right</i>Download README (incl.
+                    signatures)</a>
+            </div>
+        </div>
+
+        <div id="exampleAccordion" data-children=".item">
+            <div class="item b_accordion-item">
+                <div class="b_accordion-header-wrap" data-toggle="collapse"
+                     data-parent="#exampleAccordion" href="#exampleAccordion1" aria-expanded="true"
+                     aria-controls="exampleAccordion1">
+                    <p class="b_accordion-header">
+                        <strong>Set up a new project via composer</strong>
+                    </p>
+                    <p class="b_accordion-header">Using the command line</p>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
+                </div>
+                <div id="exampleAccordion1" class="collapse" role="tabpanel">
+                    <p class="mb-3 b_accordion__content">
+                    {% if version.major == 9 %}
+                        <pre>composer require typo3/minimal</pre>
+                    {% else %}
+                        <pre>composer create-project typo3/cms-base-distribution my-new-project {{ version.lts }}</pre>
+                    {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="item b_accordion-item">
+                <div class="b_accordion-header-wrap" data-toggle="collapse" data-parent="#exampleAccordion"
+                     href="#exampleAccordion2" aria-expanded="false" aria-controls="exampleAccordion2">
+                    <p class="b_accordion-header">
+                        <strong>Download via wget/curl</strong>
+                    </p>
+                    <p class="b_accordion-header">Useful directly on your server</p>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
+                </div>
+                <div id="exampleAccordion2" class="collapse" role="tabpanel">
+                    <p class="mb-3 b_accordion__content">
+                    <pre>
+# Using wget
+wget --content-disposition get.typo3.org/{{ version.major }}
+
+# Using cURL (e.g., when wget fails with SSL error)
+curl -L -o typo3_src.tgz get.typo3.org/{{ version.major }}
+                            </pre>
+                    In case you are encountering SSL warnings (host name mismatch), please make sure that you are
+                    using a client that supports Server Name Indication (SNI). This especially affects old versions
+                    of wget (before version 1.14).
+                    </p>
+                </div>
+            </div>
+            <div class="item b_accordion-item">
+                <div class="b_accordion-header-wrap" data-toggle="collapse" data-parent="#exampleAccordion"
+                     href="#exampleAccordion3" aria-expanded="false" aria-controls="exampleAccordion3">
+                    <p class="b_accordion-header">
+                        <strong>Download from Source (GIT)</strong>
+                    </p>
+                    <p class="b_accordion-header">For developing on TYPO3 Core (e.g. bugfixes)</p>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
+                </div>
+                <div id="exampleAccordion3" class="collapse" role="tabpanel">
+                    <p class="mb-3 b_accordion__content">
+                    <pre>git clone https://github.com/TYPO3/TYPO3.CMS</pre>
+                    </p>
+                </div>
+            </div>
+            <div class="item b_accordion-item">
+                <div class="b_accordion-header-wrap" data-toggle="collapse" data-parent="#exampleAccordion"
+                     href="#exampleAccordion4" aria-expanded="false" aria-controls="exampleAccordion4">
+                    <p class="b_accordion-header">
+                        <strong>Package Download (tar.gz / zip file)</strong>
+                    </p>
+                    <p class="b_accordion-header">The <em>classic</em> way</p>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
+                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
+                </div>
+                <div id="exampleAccordion4" class="collapse" role="tabpanel">
+                    <p class="mb-3 b_accordion__content">
+                        <a href="https://get.typo3.org/{{ version.major }}" class="b_link"><i
+                                    class="material-icons b_icon--link">file_download</i>get.typo3.org/{{ version.major }}
+                        </a>
+                        <a href="https://get.typo3.org/{{ version.major }}/zip" class="b_link"><i
+                                    class="material-icons b_icon--link">file_download</i>get.typo3.org/{{ version.major }}
+                            /zip</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'default/partials/system-requirements.html.twig' %}
+</div>

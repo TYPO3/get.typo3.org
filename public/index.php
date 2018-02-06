@@ -27,6 +27,7 @@ $app->match('/{requestedVersion}/{requestedFormat}', '\\T3O\\GetTypo3Org\\Contro
 $app->match('/release-notes/', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::releaseNotesAction');
 $app->match('/release-notes/{folder}/{version}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::releaseNotesAction')->bind('release-notes-for-version');
 $app->error(function (\Exception $e, \Symfony\Component\HttpFoundation\Request $request, $code) {
+    throw $e;
     return new \Symfony\Component\HttpFoundation\Response('Sorry, the requested package was not found.');
 });
 $app->run();

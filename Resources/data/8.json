@@ -1,0 +1,58 @@
+{
+  "title": "TYPO3 8 LTS",
+  "subtitle": "The current stable LTS release (for all new projects)",
+  "description": "The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.",
+  "version": {
+    "full": "8.7.9",
+    "major": 8,
+    "lts": 8.7,
+    "folder": "8.x",
+    "releaseNotes": "TYPO3_CMS_8_7_9",
+    "speaking": "TYPO3 8 LTS"
+
+  },
+  "systemRequirements": {
+    "php": {
+      "min": 7.0,
+      "max": 7.2
+    },
+    "database": {
+      "mysql": {
+        "min": 5.0,
+        "max": 5.7
+      },
+      "postgres": {
+        "min": null,
+        "max": null
+      },
+      "sqlsrv": {
+        "min": null,
+        "max": null
+      }
+    },
+    "hardware": {
+      "ram": {
+        "min": 256
+      }
+    },
+    "client": {
+      "chrome": {
+        "min": "latest"
+      },
+      "firefox": {
+        "min": "latest"
+      },
+      "safari": {
+        "min": "latest"
+      },
+      "edge": {
+        "min": "latest"
+      },
+      "ie": {
+        "min": 11
+      }
+    }
+  },
+  "releaseDate": "2017-04-04",
+  "maintainedUntil": "2020-03-31"
+}

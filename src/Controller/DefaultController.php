@@ -108,8 +108,12 @@ class DefaultController
 
     public function showVersionAction(Application $app, int $version)
     {
-        $templateName = 'default/download' . $version . '.html.twig';
-        $content = $app['twig']->render($templateName);
+        $templateName = 'default/download.html.twig';
+        $jsonPath = __DIR__ . '/../../Resources/data/' . $version . '.json';
+        $jsonPath = str_replace(['/','\\'], DIRECTORY_SEPARATOR, $jsonPath);
+        $jsonPath = realpath($jsonPath);
+        $data = json_decode(file_get_contents($jsonPath), true);
+        $content = $app['twig']->render($templateName, $data);
         return new Response($content);
     }
 
