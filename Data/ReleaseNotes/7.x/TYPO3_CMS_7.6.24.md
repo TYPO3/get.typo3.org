@@ -1,0 +1,116 @@
+Release Notes for TYPO3 CMS 7.6.24
+==================================
+
+This document contains information about TYPO3 CMS 7.6.24 which was
+released on February 6th, 2018.
+
+News
+----
+
+This version is a maintenance release and contains bug fixes only.
+
+Download
+--------
+
+<https://typo3.org/download/>
+
+SHA256 checksums
+----------------
+
+    b5fa30d528498cb6ce2249f287d91a38af283487cd8fe09d1f3c18275e93d0a1  typo3_src-7.6.24.tar.gz
+    b4bcc2f63260d982195b545f357408fdcf7f28f68393fd31576cb22b94cf3a0f  typo3_src-7.6.24.zip
+
+Upgrading
+---------
+
+The [usual upgrading
+procedure](https://docs.typo3.org/typo3cms/InstallationGuide/) applies.
+No database updates are necessary.\
+It might be required to clear all caches; the “important actions”
+section in the TYPO3 Install Tool offers the accordant possibility to do
+so.
+
+Changes
+-------
+
+Here is a list of what was fixed since
+[7.6.23](TYPO3_CMS_7.6.23 "wikilink"):
+
+```
+ * 9c6b662095 [RELEASE] Release of TYPO3 7.6.24
+ * 923ce4ca61 [BUGFIX] Replace calls to the deprecated PHP function each()
+ * 245f0a9f1e [BUGFIX] Invalid session token on creating content element in admin panel
+ * c68492159a [BUGFIX] Properly check serialized_executions to avoid PHP 7.2 warnings
+ * 07ef36303e [TASK] Move changing preview processing config to processing service
+ * e23014b815 [BUGFIX] Use correct default value for field data_page_reg1
+ * 1186d42f09 [FEATURE] Support pecl-memcached in MemcachedBackend
+ * a0b8d94ef1 [TASK] Update composer.json license definition
+ * 63ca02683d [BUGFIX] Improve exception output for ImageService
+ * 587e83cc36 [BUGFIX] impexp: Wrong FAL references after import
+ * 6f4ab27577 [BUGFIX] Make empty $GLOBALS[&#039;TBE_MODULES_EXT&#039;] traversable
+ * 26f68b8ae8 [BUGFIX] Prevent javascript error in backend
+ * e26fcb2a34 [BUGFIX] Use strict flag in signalslot dispatcher
+ * 3d60a51f1b [TASK] Update copyright year in documentation to 2018
+ * f43df3f9a2 [BUGFIX] Correct permissions for root page setting up empty site
+ * 9a20b83308 [BUGFIX] Fix PHP 7.2 issues in EXT:lowlevel
+ * 3b290e493e [FOLLOWUP][BUGFIX] Add `controlsList` as known additional attribute
+ * 61eaad5dda [BUGFIX] Add `controlsList` as known additional attribute
+ * 254f082d11 [TASK] Changelog docs: Review and add tags
+ * eb46761f80 [BUGFIX] Only select current file when editing metadata
+ * 1443a9edf7 [BUGFIX] Use correct path and add missing labels in TCA of extensionmanager
+ * 57df0ac701 [BUGFIX] AdminPanelView tries to count null value
+ * 67100c9e1c [TASK] Changelog docs: Update Howto.rst
+ * f2b9c8c8f6 [TASK] v7 Changelog: Add a missing forge reference
+ * e9233a820c [TASK] v7 Changelog: Further fixes and alignments with master
+ * c6ae177b39 [TASK] v7 Changelog: Fix compile warnings, update 7.6.x/ Index.rst
+ * 9d0a087bf0 [BUGFIX] EXT:scheduler: Update Documentation version
+ * 5898cbb049 [BUGFIX] Replace PHP 7.2 deprecated each()
+ * 8d72714819 [BUGFIX] Read TER XML entity value complete
+ * 8bf396dfa9 [BUGFIX] Make recycler PHP 7.2 compatible
+ * f7cafe6e96 [BUGFIX] Do not reprocess image preview when empty configuration is passed
+ * c889b7dbcb [BUGFIX] Use correct path variable on Windows
+ * e1334f7b9f [FOLLOWUP][BUGFIX] Make category tree filterable for editors
+ * ac6878a3c9 [BUGFIX] Output correct max upload size
+ * 240ab82677 [TASK] Consistenly update to 2.8.x branch of Symfony packages
+ * 1bcee0fc80 [CLEANUP] Add class-imports in Extbase Persistence classes
+ * 17e03567b2 [TASK] bamboo v7: Include php 7.2 in test suite
+ * bd518ac6c3 [TASK] Update typo3/cms-composer-installers from 1.3.1 to 1.3.2
+ * ddf55b63bb [TASK] Update php-cs-fixer from 2.0.0 to 2.2.x
+ * 5e9e30f19a [BUGFIX] fluid: Harden CountViewHelper
+ * 1a98b14c8c [BUGFIX] Incomplete mocks in fluid tests
+ * 20182ea16b [BUGFIX] Unit tests: Define TYPO3_REQUESTTYPE
+ * 004193a611 [BUGFIX] Undefined constant ADODB_ASSOC_CASE
+ * db0607da1b [BUGFIX] Undefined constant OCI_COMMIT_ON_SUCCESS
+ * ecb9e856bc [TASK] Update phpdocumentor/type-resolver from 0.2 to 0.2.1
+ * df7ed4032e [BUGFIX] Use of undefined constant E_DEBUG
+ * 92b586c6c1 [BUGFIX] PreparedStatement: count() must be an array or countable
+ * e0ff86ab68 [BUGFIX] phpunit: Update comparator from 1.2.2 to 1.2.4
+ * 48d5a5e2a5 [BUGFIX] Implicit constant to string cast in unit test case
+ * 85030908ad [BUGFIX] Fix wrong reference to language file in FileList class
+ * 7c5c26eb2a [BUGFIX] Make category tree filterable for editors with category mounts
+ * f8ecea0010 [BUGFIX] Prevent catchable error during workspace publishing
+ * d1105723f0 [BUGFIX] Failing task &quot;Fileadmin garbage collection&quot;
+ * 49fc343cbf [BUGFIX] Send correct Cache-Control header if no client side caching
+ * c856e042d0 [BUGFIX] bamboo: Label parsing
+ * c860dbf070 [FOLLOWUP][BUGFIX] Spaces between attributes in boolean fields
+ * c4dd18857b [BUGFIX] backend formfields: Make boolean fields UI working in Edge/IE
+ * ad3bbbc5f5 [BUGFIX] Fix class name of success button in the install tool
+ * 9ef9c10b8a [BUGFIX] Show deleted page actions in record history
+ * 6bf0b30a23 [BUGFIX] ConstantEditor: Make boolean fields UI working in Edge/IE
+ * 432862d4e2 [BUGFIX] Add workspace overlay for translated page title
+ * 9098e357ce [BUGFIX] Handle returnUrl for access module
+ * 4113ced9c6 [BUGFIX] Access module preselects owner/group when changed via AJAX
+ * 35b8be8419 [BUGFIX] Add missing image for workspace preview
+ * 0e5ec28bc4 [BUGFIX] Fix link rendering in li tag
+ * 9aa50fcf3c [BUGFIX] CSC Header CE does not respect lib.parseTarget configuration
+ * 78e7f98950 [BUGFIX] Fix declaration of injectView in install tool
+ * 33b504f151 [FOLLOWUP][BUGFIX] IRRE: Check if TCA[&#039;ctrl&#039;][&#039;languageField&#039;] is set
+ * 63434d791d [BUGFIX] Configuration-&gt;&quot;Use regular expression&quot;
+ * 59fb2adf86 [BUGFIX] Add page uid to rte module urls for correct TSconfig loading
+ * d8a786c7b7 [BUGFIX] Correct an always-true if statement in GeneralUtility::mkdir_deep
+ * ebad63466a [TASK] bamboo-specs: Upgrade to 6.1
+ * 6d794e4a69 [TASK] Increase size of domain name field
+ * 71509e0514 [BUGFIX] Fix broken redis tests
+ * 8a87c8074c [BUGFIX] Do not allow users to edit doktypes without permissions
+ * a08373c9af [TASK] Set TYPO3 version to 7.6.24-dev
+```
