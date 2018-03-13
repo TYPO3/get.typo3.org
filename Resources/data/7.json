@@ -3,11 +3,11 @@
   "subtitle": "The old stable LTS release (for existing projects)",
   "description": "The old stable version with Long Term Support (LTS). It will have full support until April 2017 and security bugfixes until November 2018.",
   "version": {
-    "full": "7.6.24",
+    "full": "7.6.25",
     "major": 7,
     "lts": 7.6,
     "folder": "7.x",
-    "releaseNotes": "TYPO3_CMS_7.6.24",
+    "releaseNotes": "TYPO3_CMS_7.6.25",
     "speaking": "TYPO3 7 LTS"
 
   },
