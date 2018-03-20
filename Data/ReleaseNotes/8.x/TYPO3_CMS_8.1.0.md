@@ -48,13 +48,13 @@ Changes
 -------
 
 -   [8.1
-    ChangeLog](https://docs.typo3.org/typo3cms/extensions/core/8-dev/Changelog/8.1/Index.html)
-    -   [Features](https://docs.typo3.org/typo3cms/extensions/core/8-dev/Changelog/8.1/Index.html#features)
+    ChangeLog](https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/8.1/Index.html)
+    -   [Features](https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/8.1/Index.html#features)
     -   [Important
-        Changes](https://docs.typo3.org/typo3cms/extensions/core/8-dev/Changelog/8.1/Index.html#important)
+        Changes](https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/8.1/Index.html#important)
     -   [Breaking
-        Changes](https://docs.typo3.org/typo3cms/extensions/core/8-dev/Changelog/8.1/Index.html#breaking-changes)
+        Changes](https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/8.1/Index.html#breaking-changes)
     -   [Deprecation
-        Changes](https://docs.typo3.org/typo3cms/extensions/core/8-dev/Changelog/8.1/Index.html#deprecation)
+        Changes](https://docs.typo3.org/typo3cms/extensions/core/latest/Changelog/8.1/Index.html#deprecation)
 
 
