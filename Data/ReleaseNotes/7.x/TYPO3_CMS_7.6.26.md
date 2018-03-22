@@ -14,7 +14,7 @@ Download
 
 <https://typo3.org/download/>
 
-SHA256 checksums
+Checksums
 ----------------
 
     966a2fb0ef08b15218e2579d631e461c  typo3_src-7.6.26.tar.gz
