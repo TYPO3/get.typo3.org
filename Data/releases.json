@@ -46,6 +46,27 @@
   },
   "8": {
     "releases": {
+      "8.7.12": {
+        "version": "8.7.12",
+        "date": "2018-03-22 11:36:39 UTC",
+        "type": "regular",
+        "checksums": {
+          "tar": {
+            "md5": "e835f454229b1077c9042f1bae4d46c7",
+            "sha1": "185f3796751a903554a03378634a438beeef966e",
+            "sha256": "77c3589161bea9d2c30e5d3d944443ba64b56813314ac2511b830e37d3297881"
+          },
+          "zip": {
+            "md5": "e5736ca3b3725966a4528a0c53fc849f",
+            "sha1": "eba49b9033da52d98f48876e97ed090a0c5593e0",
+            "sha256": "7aad3f5864256f3f989c0378cec8bb729e728b30adb25e55ae713d8e682ef72b"
+          }
+        },
+        "url": {
+          "zip": "https:\/\/get.typo3.org\/8.7.12\/zip",
+          "tar": "https:\/\/get.typo3.org\/8.7.12"
+        }
+      },
       "8.7.11": {
         "version": "8.7.11",
         "date": "2018-03-13 12:45:47 UTC",
@@ -585,12 +606,33 @@
         }
       }
     },
-    "latest": "8.7.11",
-    "stable": "8.7.11",
+    "latest": "8.7.12",
+    "stable": "8.7.12",
     "active": true
   },
   "7": {
     "releases": {
+      "7.6.26": {
+        "version": "7.6.26",
+        "date": "2018-03-22 11:19:06 UTC",
+        "type": "regular",
+        "checksums": {
+          "tar": {
+            "md5": "966a2fb0ef08b15218e2579d631e461c",
+            "sha1": "c1603e36bbbe7c12d7f5e4bf565f9531494f87a5",
+            "sha256": "a197ebe73cfcf848122e9392b52dc624cd401dd63202952810f4bd7344cb3ad0"
+          },
+          "zip": {
+            "md5": "4825fcac248650edef47d39c9fe40c86",
+            "sha1": "dd766062f33d104f1224477267f68e66a88fbc8a",
+            "sha256": "68dc352fccecd210fe8057d50133bdaea82df7daf175d24d5d357b3e4ede9764"
+          }
+        },
+        "url": {
+          "zip": "https:\/\/get.typo3.org\/7.6.26\/zip",
+          "tar": "https:\/\/get.typo3.org\/7.6.26"
+        }
+      },
       "7.6.25": {
         "version": "7.6.25",
         "date": "2018-03-13 12:58:48 UTC",
@@ -1261,8 +1303,8 @@
         }
       }
     },
-    "latest": "7.6.25",
-    "stable": "7.6.25",
+    "latest": "7.6.26",
+    "stable": "7.6.26",
     "active": true
   },
   "6.2": {
@@ -5824,7 +5866,7 @@
     "active": false
   },
   "latest_stable": "9.1.0",
-  "latest_old_stable": "8.7.11",
-  "latest_lts": "8.7.11",
-  "latest_old_lts": "7.6.25"
+  "latest_old_stable": "8.7.12",
+  "latest_lts": "8.7.12",
+  "latest_old_lts": "7.6.26"
 }
