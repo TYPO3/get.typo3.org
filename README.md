@@ -16,3 +16,6 @@
 - add web server config to redirect release-notes/* to release-notes/index.php
 - do a composer install in release-notes/
 - enjoy
+
+
+`git log 8.7.11..8.7.12 --pretty=format:"* %cd %h %s (%an)" --date=short`

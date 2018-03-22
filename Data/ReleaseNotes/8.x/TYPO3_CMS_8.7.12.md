@@ -40,31 +40,31 @@ Here is a list of what was fixed since
 [8.7.11](TYPO3_CMS_8.7.11):
 
 ```
- * 9e6040c33d [RELEASE] Release of TYPO3 8.7.12
- * 00ff302556 Revert "[BUGFIX] Test ifBlank with strlen again"
- * 31075b95d3 Revert "[BUGFIX] Simulate submit button for rsaauth form submit"
- * 9500d1d580 Revert "[BUGFIX] Trigger submit of RSA encrypted form properly"
- * 65973b5edd [TASK] add missing "HTTP/1.1 308 Permanent Redirect" to HttpUtility
- * 1cb45290d8 [BUGFIX] Rename sub-property thousand_sep of numberFormat
- * 8bbc425d58 [BUGFIX] Fix typo in TCA of be_users
- * c6a630bcd0 [BUGFIX] Move Doctrine custom type init back to ConnectionPool
- * 87aa901120 [BUGFIX] Respect automaticInstallation setting in extension manager
- * d4f1d55972 [BUGFIX] Make line height configurable for Gifbuilder
- * c12fe3c17c [BUGFIX] Test ifBlank with strlen again
- * 99e81190f3 [TASK] Correct QuerySettingsInterface RespectSysLanguage comments
- * b2408cca82 [BUGFIX] Prevent type converters from being registered multiple times
- * a812bacc25 [TASK] Remove irc notification from travis.yml
- * 309826dac9 [BUGFIX] Upgrade Wizard must work also on records marked as deleted
- * 8bcd58a219 [BUGFIX] Trigger submit of RSA encrypted form properly
- * 3fbbae18cb [BUGFIX] checkIntegrityCsvFixtures.php displays error reason
- * 733a40879d [BUGFIX] Cast return value of postProcessDatabaseInsert to integer
- * 284411c142 [BUGFIX] Restore getUrl support for list of headers
- * 031dd2c77d [BUGFIX] Unbind load event after page tree refresh
- * 3f00395749 [BUGFIX] LinkHandler creates wrong TS configuration
- * 360aa5082c [BUGFIX] Apply potential changes after form editor save operation
- * d1ad6e5dc2 [BUGFIX] Accept configuration for external plugins from presets in ckeditor
- * 9752c7b3ba [BUGFIX] Correct path to translation in ReplaceFile template
- * 58e987e579 [BUGFIX] Correctly reference sys_file_metadata.language in TCA
- * 5b4110221a [BUGFIX] Make hidden records searchable in top search
- * 56df051a7e [TASK] Set TYPO3 version to 8.7.12-dev
+ * 2018-03-22 9e6040c33d [RELEASE] Release of TYPO3 8.7.12 (Oliver Hader)
+ * 2018-03-22 00ff302556 Revert "[BUGFIX] Test ifBlank with strlen again" (Oliver Hader)
+ * 2018-03-21 31075b95d3 Revert "[BUGFIX] Simulate submit button for rsaauth form submit" (Oliver Hader)
+ * 2018-03-21 9500d1d580 Revert "[BUGFIX] Trigger submit of RSA encrypted form properly" (Oliver Hader)
+ * 2018-03-20 65973b5edd [TASK] add missing "HTTP/1.1 308 Permanent Redirect" to HttpUtility (Stephan Jorek)
+ * 2018-03-20 1cb45290d8 [BUGFIX] Rename sub-property thousand_sep of numberFormat (Stefan Froemken)
+ * 2018-03-19 8bbc425d58 [BUGFIX] Fix typo in TCA of be_users (Georg Ringer)
+ * 2018-03-19 c6a630bcd0 [BUGFIX] Move Doctrine custom type init back to ConnectionPool (Alexander Stehlik)
+ * 2018-03-19 87aa901120 [BUGFIX] Respect automaticInstallation setting in extension manager (Nicole Cordes)
+ * 2018-03-17 d4f1d55972 [BUGFIX] Make line height configurable for Gifbuilder (Tymoteusz Motylewski)
+ * 2018-03-17 c12fe3c17c [BUGFIX] Test ifBlank with strlen again (Stefan Froemken)
+ * 2018-03-17 99e81190f3 [TASK] Correct QuerySettingsInterface RespectSysLanguage comments (Tymoteusz Motylewski)
+ * 2018-03-16 b2408cca82 [BUGFIX] Prevent type converters from being registered multiple times (Romain Canon)
+ * 2018-03-16 a812bacc25 [TASK] Remove irc notification from travis.yml (Christian Kuhn)
+ * 2018-03-16 309826dac9 [BUGFIX] Upgrade Wizard must work also on records marked as deleted (Christian Toffolo)
+ * 2018-03-16 8bcd58a219 [BUGFIX] Trigger submit of RSA encrypted form properly (Andreas Fernandez)
+ * 2018-03-15 3fbbae18cb [BUGFIX] checkIntegrityCsvFixtures.php displays error reason (Markus Klein)
+ * 2018-03-15 733a40879d [BUGFIX] Cast return value of postProcessDatabaseInsert to integer (Susanne Moog)
+ * 2018-03-15 284411c142 [BUGFIX] Restore getUrl support for list of headers (Felix Buenemann)
+ * 2018-03-15 031dd2c77d [BUGFIX] Unbind load event after page tree refresh (Andreas Fernandez)
+ * 2018-03-15 3f00395749 [BUGFIX] LinkHandler creates wrong TS configuration (Stefan Froemken)
+ * 2018-03-15 360aa5082c [BUGFIX] Apply potential changes after form editor save operation (Ralf Zimmermann)
+ * 2018-03-15 d1ad6e5dc2 [BUGFIX] Accept configuration for external plugins from presets in ckeditor (Marcus Schwemer)
+ * 2018-03-15 9752c7b3ba [BUGFIX] Correct path to translation in ReplaceFile template (Wouter Wolters)
+ * 2018-03-14 58e987e579 [BUGFIX] Correctly reference sys_file_metadata.language in TCA (Christian Heindl)
+ * 2018-03-14 5b4110221a [BUGFIX] Make hidden records searchable in top search (Georg Ringer)
+ * 2018-03-13 56df051a7e [TASK] Set TYPO3 version to 8.7.12-dev (Oliver Hader)
 ```

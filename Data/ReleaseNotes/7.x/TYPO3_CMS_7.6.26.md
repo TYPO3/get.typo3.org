@@ -41,8 +41,8 @@ Here is a list of what was fixed since
 [7.6.25](TYPO3_CMS_7.6.25):
 
 ```
- * 61c65c01ba [RELEASE] Release of TYPO3 7.6.26
- * 7b6231ec01 Revert "[BUGFIX] Simulate submit button for rsaauth form submit"
- * 8f13a59d03 [BUGFIX] Respect automaticInstallation setting in extension manager
- * 9550fcbd98 [TASK] Set TYPO3 version to 7.6.26-dev
+ * 2018-03-22 61c65c01ba [RELEASE] Release of TYPO3 7.6.26 (Oliver Hader)
+ * 2018-03-21 7b6231ec01 Revert "[BUGFIX] Simulate submit button for rsaauth form submit" (Oliver Hader)
+ * 2018-03-19 8f13a59d03 [BUGFIX] Respect automaticInstallation setting in extension manager (Nicole Cordes)
+ * 2018-03-13 9550fcbd98 [TASK] Set TYPO3 version to 7.6.26-dev (Oliver Hader)
 ```
