@@ -1,0 +1,42 @@
+<h1 id="release-notes-for-typo3-cms-8.7.3">Release Notes for TYPO3 CMS 8.7.3</h1>
+<p>This document contains information about TYPO3 CMS 8.7.3 which was released on July 4th, 2017.</p>
+<h2 id="news">News</h2>
+<p>This version is a maintenance release and contains bug fixes only.</p>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="sha256-checksums">SHA256 checksums</h2>
+<pre><code>f354b2abb6a694e4dc521fa19936097a4acde504edadee86cfdc2b20ca0153bd  typo3_src-8.7.3.tar.gz
+4eeb380601b1b90166cee3bcf6e60431d953e5c48a8eef0cae5a30502de515d8  typo3_src-8.7.3.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.<br />
+It might be required to clear all caches; the “important actions” section in the TYPO3 Install Tool offers the accordant possibility to do so.</p>
+<p>Make sure to clear your browser caches and App Data after upgrading.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_CMS_8.7.2" title="wikilink">8.7.2</a>:</p>
+<p><code>* 0356a94c3e [RELEASE] Release of TYPO3 8.7.3</code><br />
+<code>* 143de0e330 [TASK] Upgade CKEDITOR to 4.7.1</code><br />
+<code>* abf8691c23 [BUGFIX] Make sure correct data types are passed around in RefIndex</code><br />
+<code>* 981a5b11b8 [BUGFIX] Remove not working CDATA usage in JS template file</code><br />
+<code>* 0e005cccee [BUGFIX] Fix typo in &quot;Recently updated pages&quot; menu description</code><br />
+<code>* c162474a1b [BUGFIX] Copying workspace version record fails</code><br />
+<code>* 307b375281 [BUGFIX] Allow whitespaces in list of file extensions</code><br />
+<code>* 4d1eb1537b [BUGFIX] Correct the replace section of sysext:lang</code><br />
+<code>* d658d52d70 [TASK] Have LICENSE.txt in all core exts</code><br />
+<code>* 121dbbddb7 [BUGFIX] Initialize uploadfolder key for TCA group file_reference</code><br />
+<code>* b3316347ac [BUGFIX] Fully initialize ContentObjectRenderer in HtmlViewHelper</code><br />
+<code>* a7859e5df4 [BUGFIX] Fix namespace of PHPUnit exception</code><br />
+<code>* 2ecb3e86ce [BUGFIX] iconIdentifier for custom system information panel items</code><br />
+<code>* 82255e4488 [BUGFIX] travis-ci: Have DE locale</code><br />
+<code>* 1238d43c6e [TASK] typo3/testing-framework 1.1 brings phpunit 6.2</code><br />
+<code>* 0021961a46 [TASK] Update some require-dev dependencies</code><br />
+<code>* b71c2b6e38 [TASK] bamboo: Run 8.7 after master nightly</code><br />
+<code>* 4889b0ede5 [TASK] bamboo 8.7 test specs and pgsql install test</code><br />
+<code>* f849ec43ed [TASK] Raise testing-framework to 1.0.9</code><br />
+<code>* 985774eb4f [BUGFIX] Add missing frontend context check when fetching view configuration</code><br />
+<code>* ee2b45ed79 [TASK] Functional test for tt_content rendering</code><br />
+<code>* a8e7c54aa0 [TASK] Raise typo3/testing-framework to 1.0.8</code><br />
+<code>* 81d208cf5e [BUGFIX] Fix namespace of `SaltedPasswordsUtility` in documentation</code><br />
+<code>* 7efc3141e0 [BUGFIX] Stabilize a flaky unit test</code><br />
+<code>* e58eacdacf [BUGFIX] Fix checking config.metaCharset with uppercase letters</code><br />
+<code>* 246f156933 [TASK] Set TYPO3 version to 8.7.3-dev</code></p>
+<p><Category:ReleaseNotes/TYPO3_8.x> <a href="Category:TYPO3_8" title="wikilink">Category:TYPO3 8</a> <Category:2017></p>

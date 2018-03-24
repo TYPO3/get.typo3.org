@@ -1,0 +1,8 @@
+{% if current.releaseNotes.upgradingInstructions %}
+    <div class="container">
+        <div class="col-md-12 b_text__col">
+            <h2>Upgrading</h2>
+            {{ current.releaseNotes.upgradingInstructions|parsedown|raw }}
+        </div>
+    </div>
+{% endif %}

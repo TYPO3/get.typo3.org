@@ -1,33 +1,41 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use App\CacheKernel;
+use App\Kernel;
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\HttpFoundation\Request;
 
-$app = new Silex\Application();
-$app['debug'] = true;
-$app['locale'] = 'en';
+require __DIR__.'/../vendor/autoload.php';
 
-$app->register(
-    new Silex\Provider\TwigServiceProvider(),
-    [
-        'twig.path' => __DIR__ . '/../Resources/view/',
-        ''
-    ]
-);
+// The check is to ensure we don't use .env in production
+if (!isset($_SERVER['APP_ENV'])) {
+    if (!class_exists(Dotenv::class)) {
+        throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
+    }
+    (new Dotenv())->load(__DIR__.'/../.env');
+}
 
-$app['finder'] = function () {
-    return new Symfony\Component\Finder\Finder();
-};
+$env = $_SERVER['APP_ENV'] ?? 'dev';
+$debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== $env));
 
-// Routing
-$app->match('/', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::showAction')->bind('root');
-$app->match('/json', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::jsonAction');
-$app->match('/version/{version}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::showVersionAction')->bind('version');
-$app->match('/{requestedVersion}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::downloadAction');
-$app->match('/{requestedVersion}/{requestedFormat}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::downloadAction');
-$app->match('/release-notes/', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::releaseNotesAction');
-$app->match('/release-notes/{folder}/{version}', '\\T3O\\GetTypo3Org\\Controller\\DefaultController::releaseNotesAction')->bind('release-notes-for-version');
-$app->error(function (\Exception $e, \Symfony\Component\HttpFoundation\Request $request, $code) {
-    throw $e;
-    return new \Symfony\Component\HttpFoundation\Response('Sorry, the requested package was not found.');
-});
-$app->run();
+if ($debug) {
+    umask(0000);
+
+    Debug::enable();
+}
+
+if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? false) {
+    Request::setTrustedProxies(explode(',', $trustedProxies), Request::HEADER_X_FORWARDED_ALL ^ Request::HEADER_X_FORWARDED_HOST);
+}
+
+if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
+    Request::setTrustedHosts(explode(',', $trustedHosts));
+}
+
+$kernel = new Kernel($env, $debug);
+$kernel = new CacheKernel($kernel);
+$request = Request::createFromGlobals();
+$response = $kernel->handle($request);
+$response->send();
+$kernel->terminate($request, $response);

@@ -1,0 +1,43 @@
+<div class="container-fluid b_container b_container--grey">
+    <div class="container">
+        <div class="col-md-7 b_text__col ">
+            <h2 class="b_headline">System Requirements</h2>
+            <h4 class="b_headline-table">Server</h4>
+            <table class="table b_table">
+                <tbody>
+                <tr>
+                    <th scope="row">Operating System</th>
+                    <td>Unix (e.g. Linux), Windows or Mac</td>
+                </tr>
+                <tr>
+                    <th scope="row">Webserver</th>
+                    <td>Apache (recommended), IIS, NGINX</td>
+                </tr>
+                {% for category,element in systemRequirements|groupByCategory %}
+                    <tr>
+                        <th scope="row">{{ category|title }}</th>
+                        <td>
+                            {% for entry in element %}
+                                {{ entry.name|title }}
+                                {% if entry.min %}
+                                    >= {{ entry.min }}
+                                    {% if (entry.name == 'ram') %}
+                                        MB
+                                    {% endif %}
+                                {% else %}
+                                    {% if (category == 'client') %}
+                                        (latest)
+                                    {% endif %}
+                                {% endif %}
+                                {% if entry.max %}
+                                    <= {{ entry.max }}
+                                {% endif %}<br/>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

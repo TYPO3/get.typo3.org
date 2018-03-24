@@ -1,0 +1,50 @@
+<h1 id="release-notes-for-typo3-cms-7.6.22">Release Notes for TYPO3 CMS 7.6.22</h1>
+<p>This document contains information about TYPO3 CMS 7.6.22 which was released on September 5th, 2017.</p>
+<h2 id="news">News</h2>
+<p>This release is a combined bug fix and security release.</p>
+<h2 id="notes">Notes</h2>
+<p>Find more details in the security bulletins:</p>
+<ul>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-005/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-005/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-006/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-006/</a></li>
+<li><a href="https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-007/" class="uri">https://typo3.org/teams/security/security-bulletins/typo3-core/typo3-core-sa-2017-007/</a></li>
+</ul>
+<h2 id="download">Download</h2>
+<p><a href="https://typo3.org/download/" class="uri">https://typo3.org/download/</a></p>
+<h2 id="sha256-checksums">SHA256 checksums</h2>
+<pre><code>b9b9332cdfd7a51c815aa7c58f606b446bb1653d0e851a57e2c5f693aa87b4a8  typo3_src-7.6.22.tar.gz
+33917e6680d366775321f52681052908e908a9bf600a5df597f2528fcdb97ddd  typo3_src-7.6.22.zip</code></pre>
+<h2 id="upgrading">Upgrading</h2>
+<p>The <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">usual upgrading procedure</a> applies. No database updates are necessary.<br />
+It might be required to clear all caches; the “important actions” section in the TYPO3 Install Tool offers the accordant possibility to do so.</p>
+<h2 id="changes">Changes</h2>
+<p>Here is a list of what was fixed since <a href="TYPO3_CMS_7.6.21" title="wikilink">7.6.21</a>:</p>
+<p><code>* ce56e13bf3 [RELEASE] Release of TYPO3 7.6.22</code><br />
+<code>* 82774856e9 [TASK] Apply CGL fixes</code><br />
+<code>* 9c18546e58 [SECURITY] Disallow pht as file extension</code><br />
+<code>* b979433972 [SECURITY] Remove version from default User-Agent</code><br />
+<code>* 9d429b0a15 [SECURITY] Respect permissions of storages in a file collection</code><br />
+<code>* e08b48fcf7 [SECURITY] Update moment.js and moment-timezone.js</code><br />
+<code>* 43b1d7a8b2 [SECURITY] Patch jQuery core to mitigate XSS possibility</code><br />
+<code>* 7d6354d9a0 [BUGFIX] Check if LocalConfiguration.php is writable</code><br />
+<code>* d8b99acfb2 [BUGFIX] Prevent command exit status overflow to non-error status</code><br />
+<code>* 27f9631eb8 [TASK] Functional tests for translated tt_content rendering in Extbase</code><br />
+<code>* f95c5c6105 [BUGFIX] Throw exception if encryption key is not set</code><br />
+<code>* 3b18631236 [TASK] travis-ci: Less parallel jobs</code><br />
+<code>* a548b360de [TASK] travis-ci: Split functional tests into more parts</code><br />
+<code>* 79ced4a452 [BUGFIX] Fix SQL error when bookmarking a sys_file_metadata record</code><br />
+<code>* bed4ceb6ad [BUGFIX] Prevent XSS in scheduler extension</code><br />
+<code>* 68a178816e [BUGFIX] Prevent XSS in PageLayoutController</code><br />
+<code>* 38eb30d6dc [BUGFIX] Use DriverInterface instead AbstractDriver for method signature</code><br />
+<code>* 0137bc561d [BUGFIX] Changes indentation in new page wizard</code><br />
+<code>* 9d3aa8618b [BUGFIX] Set language uid for inline children by default</code><br />
+<code>* e60db69d10 [BUGFIX] YouTubeRenderer &quot;controls&quot; option</code><br />
+<code>* 654ff849eb [TASK] Cover rendering of hidden tt_content with functional tests</code><br />
+<code>* 6d258d9767 [BUGFIX] Readd used fields in css_styled_content</code><br />
+<code>* 7059448b24 [BUGFIX] Update FAL metadata if file is added with REPLACE method</code><br />
+<code>* 1b4d3184c5 [TASK] Functional test for tt_content rendering</code><br />
+<code>* 2a618d4754 [BUGFIX] Fix folder element browser expand/collapse</code><br />
+<code>* 7e7498364b [TASK] Fix reST syntax in core 7.6 changelogs</code><br />
+<code>* ab2cd1fa43 [BUGFIX] Catch error in GeneralUtility::validEmail and GeneralUtility:isValidUrl</code><br />
+<code>* 442b1e1bad [TASK] Set TYPO3 version to 7.6.22-dev</code></p>
+<p><Category:ReleaseNotes/TYPO3_7.x> <a href="Category:TYPO3_7" title="wikilink">Category:TYPO3 7</a> <Category:2017></p>

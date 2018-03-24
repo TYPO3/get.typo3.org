@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace T3O\GetTypo3Org\Service;
+namespace App\Service;
 
 use Symfony\Component\Finder\Finder;
 

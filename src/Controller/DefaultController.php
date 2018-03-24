@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace T3O\GetTypo3Org\Controller;
+namespace App\Controller;
 
 /*
  * This file is part of the TYPO3 project.
@@ -16,116 +16,159 @@ namespace T3O\GetTypo3Org\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Silex\Application;
+use App\Entity\MajorVersion;
+use App\Entity\Release;
+use App\Service\LegacyDataService;
+use App\Service\ReleaseNotes;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Cache\Simple\FilesystemCache;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Regular content and download pages
  */
-class DefaultController
+class DefaultController extends Controller
 {
 
     protected $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
     protected $releasesJsonFile = __DIR__ . '/../../Data/releases.json';
+    /**
+     * @var \App\Service\LegacyDataService
+     */
+    private $legacyDataService;
 
-    public function showAction(Application $app)
+    public function __construct(LegacyDataService $legacyDataService)
     {
-        $releaseNotes = new \T3O\GetTypo3Org\Service\ReleaseNotes();
-        $result = $releaseNotes->getAllReleaseNoteNames();
-        $content = $app['twig']->render('default/show.html.twig', ['result' => $result]);
-        return new Response($content);
+        $this->legacyDataService = $legacyDataService;
+    }
+
+    /**
+     * @Route("/", methods={"GET"}, name="root")
+     * @Cache(expires="tomorrow", public=true)
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function show(Request $request)
+    {
+        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $majorVersionRepository->findAllActive();
+        $response = $this->render('default/show.html.twig', ['majorVersions' => $majorVersions]);
+        $response->setEtag(md5(serialize($majorVersions)));
+        $response->isNotModified($request);
+        return $response;
     }
 
     /**
      * Outputs the JSON file
      * /json
+     * Legacy end point
      *
-     * @param Application $app
-     *
+     * @Route("/json", methods={"GET"})
      * @return Response
      */
-    public function jsonAction(Application $app)
+    public function releaseJson(): Response
     {
-        $releasesFile = $this->releasesJsonFile;
-        $maxAgeForReleases = filemtime($this->releasesJsonFile) + 3600 - time();
-
-        $content = file_get_contents($releasesFile);
-
+        $maxAgeForReleases = 3600;
+        $content = $this->legacyDataService->getReleaseJson();
         $headers = [
             'Content-type' => 'application/json',
             'Access-Control-Allow-Origin' => '*',
-            'Cache-control' => 'max-age=' . $maxAgeForReleases
-	];
+            'Cache-control' => 'max-age=' . $maxAgeForReleases,
+        ];
         return new Response($content, 200, $headers);
     }
 
 
     /**
      * Display release notes for a version
+     * @Cache(expires="tomorrow", public=true)
+     * @Route("/release-notes", methods={"GET"}, name="release-notes")
+     * @Route("/release-notes/{version}", methods={"GET"}, name="release-notes-for-version")
+     * @Route("/release-notes/{folder}/{version}", methods={"GET"}, name="legacy-release-notes-for-version")
      *
-     * @param Application $app
-     * @param string $folder
      * @param string $version
      * @return Response
      */
-    public function releaseNotesAction(Application $app, string $folder = '', string $version = ''): Response
+    public function releaseNotes(string $version = '', Request $request): Response
     {
-        $releaseNotes = new \T3O\GetTypo3Org\Service\ReleaseNotes();
-        $result = $releaseNotes->getAllReleaseNoteNames();
-        if ($folder === '' && $version === '') {
-            $folder = key($result);
-            $version = $result[$folder][0];
+        $version = str_replace('TYPO3_CMS_', '', $version);
+
+        /** @var \App\Repository\MajorVersionRepository $mVersionRepo */
+        $mVersionRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majors = $mVersionRepo->findAllGroupedByMajor();
+
+        $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
+        $release = $releaseRepository->findOneBy(['version' => $version]);
+        $data = ['result' => $majors, 'current' => $release];
+        $response = $this->render('default/release-notes.html.twig', $data);
+        $response->setEtag(md5(serialize($data)));
+        $response->isNotModified($request);
+        return $response;
+    }
+
+
+    /**
+     * @Route("/version/{version}", methods={"GET"}, name="version")
+     * @Cache(expires="tomorrow", public=true)
+     * @param int $version
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showVersion(int $version, Request $request): Response
+    {
+        $templateName = 'default/download.html.twig';
+        /** @var \App\Repository\MajorVersionRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data = $repository->findOneBy(['version' => $version]);
+        if ($data instanceof MajorVersion) {
+            $data = $data->toArray();
         }
-        $current = @file_get_contents($this->releaseNotesDir . $folder . '/' . $version . '.html');
-        $html = $app['twig']->render('default/release-notes.html.twig', ['version' => $version, 'result' => $result, 'current' => $current]);
-        return new Response($html);
+        $response = $this->render($templateName, $data);
+        $response->setEtag(md5(serialize($data)));
+        $response->isNotModified($request);
+        return $response;
     }
 
     /**
-     * @param Application $app
+     * @Route("/{requestedVersion}", methods={"GET"}, name="specificversion")
+     * @Route("/{requestedVersion}/{requestedFormat}",
+     *     methods={"GET"},
+     *     name="versionandformat",
+     *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+\\.\\d+)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip)?$#'"
+     * )
      * @param string $requestedVersion
      * @param string $requestedFormat
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function downloadAction(Application $app, $requestedVersion = 'stable', $requestedFormat = 'tar.gz')
+    public function download($requestedVersion = 'stable', $requestedFormat = 'tar.gz')
     {
-        $maxAgeForReleases = filemtime($this->releasesJsonFile) + 3600 - time();
         if ($requestedVersion === 'current') {
             $requestedVersion = 'stable';
         }
 
         // Get information about version to download
-        $redirectData = $this->getSourceForgeRedirect($requestedVersion, $requestedFormat, $this->releasesJsonFile);
+        $redirectData = $this->getSourceForgeRedirect($requestedVersion, $requestedFormat);
         if (empty($redirectData)) {
-            $redirectData = $this->getFedextRedirect($requestedVersion, $requestedFormat, $this->releasesJsonFile);
+            $redirectData = $this->getFedextRedirect($requestedVersion, $requestedFormat);
         }
 
-        if (empty($redirectData)) {
-            $app->abort(404);
+        if (!isset($redirectData['url'])) {
+            throw $this->createNotFoundException();
         }
-        header('Cache-control: max-age=' . $maxAgeForReleases);
-        return $app->redirect($redirectData['url']);
+        header('Cache-control: max-age=3600');
+        return $this->redirect($redirectData['url']);
     }
 
-    public function showVersionAction(Application $app, int $version)
-    {
-        $templateName = 'default/download.html.twig';
-        $jsonPath = __DIR__ . '/../../Resources/data/' . $version . '.json';
-        $jsonPath = str_replace(['/','\\'], DIRECTORY_SEPARATOR, $jsonPath);
-        $jsonPath = realpath($jsonPath);
-        $data = json_decode(file_get_contents($jsonPath), true);
-        $content = $app['twig']->render($templateName, $data);
-        return new Response($content);
-    }
 
     /**
      * @param string $versionName
      * @param string $format
-     * @param string $releasesFile
-     *
      * @return array
      */
-    private function getSourceForgeRedirect($versionName, $format, $releasesFile)
+    private function getSourceForgeRedirect($versionName, $format)
     {
         $packageFiles = [
             // slug (url part) => filename (without Extensions, url-encoded)
@@ -138,7 +181,8 @@ class DefaultController
         ];
 
         $result = [];
-        $releases = json_decode(file_get_contents($releasesFile));
+        $content = $this->legacyDataService->getReleaseJson();
+        $releases = json_decode($content);
         // defaults
         $package = 'typo3_src';
 
@@ -173,7 +217,7 @@ class DefaultController
         // named version detection
         if ($versionName === 'stable') {
             $versionName = $releases->latest_stable;
-        } elseif ($versionName == 'dev') {
+        } elseif ($versionName === 'dev') {
             die('"dev" version cannot be used anymore. Please stick to "stable"');
         }
         $versionParts = explode('.', $versionName);
@@ -202,7 +246,7 @@ class DefaultController
                 if (version_compare($version, '6.2.0', '>=') && in_array($package, $legacyPackages)) {
                     $flippedPackageFiles = array_flip($packageFiles);
                     $fallbackPackage = $flippedPackageFiles[$package] . '-6.1.7';
-                    return $this->getSourceForgeRedirect($fallbackPackage, $format, $releasesFile);
+                    return $this->getSourceForgeRedirect($fallbackPackage, $format);
                 }
                 $result = [
                     'url' => 'https://typo3.azureedge.net/typo3/' .
@@ -225,14 +269,13 @@ class DefaultController
      * @param string $versionName
      * @param string $format
      * @param string $releasesFile
-     *
      * @return array
      */
-    private function getFedextRedirect($versionName, $format, $releasesFile)
+    private function getFedextRedirect($versionName, $format)
     {
         $result = [];
         if ($versionName === 'bootstrap') {
-            $releases = json_decode(file_get_contents($releasesFile));
+            $releases = json_decode($this->legacyDataService->getReleaseJson());
             $result['url'] = sprintf('http://cdn.fedext.net/%spackage.%s', $versionName, $format);
             $result['format'] = $format;
             $result['version'] = $releases->latest_stable;

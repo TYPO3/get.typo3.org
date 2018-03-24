@@ -1,0 +1,13 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+{% include 'default/partials/key-visual.html.twig' with {'title': title, 'subtitle': subtitle, 'small': '1'} %}
+
+{% include 'default/partials/version-selector.twig' %}
+
+{% include 'default/partials/download-area.html.twig' %}
+
+{% include 'default/partials/package-signatures.html.twig' %}
+
+{% endblock %}

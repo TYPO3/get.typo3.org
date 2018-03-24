@@ -1,0 +1,18 @@
+<div class="container b_container--downloads">
+    <div class="col-md-12 b_text__col">
+        {% if current.tarPackage.sha256sum %}
+            <h2>SHA256 Checksums</h2>
+            <pre>
+{{ current.tarPackage.sha256sum }} typo3_src-{{ current.version }}.tar.gz
+{{ current.zipPackage.sha256sum }} typo3_src-{{ current.version }}.zip
+                </pre>
+        {% endif %}
+        {% if current.tarPackage.sha1sum %}
+            <h2>SHA1 Checksums</h2>
+            <pre>
+{{ current.tarPackage.sha1sum }} typo3_src-{{ current.version }}.tar.gz
+{{ current.zipPackage.sha1sum }} typo3_src-{{ current.version }}.zip
+                </pre>
+        {% endif %}
+    </div>
+</div>

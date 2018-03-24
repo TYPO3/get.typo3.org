@@ -4,6 +4,13 @@
     padding: 0;
 }
 
+.b_keyvisual__image__small {
+    width: 100%;
+    height: 15rem;
+    padding: 0;
+    object-fit: cover;
+}
+
 .b_keyvisual {
     padding: 0;
     position: relative;
@@ -235,6 +242,12 @@ th {
         bottom: 75px;
         max-width: 600px;
     }
+
+    .b_keyvisual__small .b_keyvisual__info {
+        left: 75px;
+        bottom: 15px;
+        max-width: 600px;
+    }
     .b_container__download-version {
         flex-direction: row;
     }
@@ -261,6 +274,7 @@ span.ter-ext-state-expiremental {
 
 .card {
     padding: 0;
+    height: auto;
 }
 
 .card-padding {
@@ -282,6 +296,10 @@ span.ter-ext-state-expiremental {
 
 .card-footer {
     background-color: initial;
+}
+
+.card .card-title {
+    color: #333;
 }
 
 /*
@@ -311,4 +329,31 @@ span.ter-ext-state-expiremental {
 
 .input-group-btn:not(:first-child) > .btn, .input-group-btn:not(:first-child) > .btn-group {
     z-index: 0;
+}
+
+code {
+    color: #333;
+}
+
+.change {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.change-important {
+    color: #6610f2 !important;
+    font-weight: bold;
+}
+
+.change-bugfix {
+    color: #721c24;
+}
+
+.change-security {
+    color: #ff0051;
+    font-weight: bold;
+}
+
+.change-release,
+.change-feature {
+    color: #1c7430;
 }

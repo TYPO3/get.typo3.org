@@ -1,5 +1,14 @@
-.idea
-Data/*.json
-!Data/releases.json
-vendor
-/Build/MdConverter/.env
+
+.idea/
+
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
+/vendor/
+/Build/MdConverter/vendor/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+###< phpunit/phpunit ###
