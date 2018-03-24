@@ -5,11 +5,12 @@ security:
             memory:
                 users:
                     release-team:
-                        password: $argon2i$v=19$m=1024,t=2,p=2$UkhnUExRMC9HbnRQVUdTUA$yCStRhe5luPralZvfkj+GB7Vc84WfyGn24zFY7HGBmI
+                        password: $2y$15$enKo8VPgw7nd07YcIfPaZOUwfWd.S6Rz0GcaPJXkf3br8NFejkmuq
                         roles: 'ROLE_ADMIN'
     encoders:
         Symfony\Component\Security\Core\User\User:
-            algorithm: argon2i
+            algorithm: bcrypt
+            cost: 15
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
