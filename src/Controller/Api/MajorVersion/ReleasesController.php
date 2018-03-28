@@ -6,6 +6,7 @@ namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
 use App\Entity\MajorVersion;
+use App\Entity\Release;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -106,6 +107,51 @@ class ReleasesController extends AbstractController
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
+        $response = new JsonResponse($json, 200, [], true);
+        $response->setEtag(md5($json));
+        $response->isNotModified($request);
+        return $response;
+    }
+
+    /**
+     * Get latest security release of a major version
+     * @Route("/latest/security", methods={"GET"})
+     * @Cache(expires="tomorrow", public=true)
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns data on latest TYPO3 security release of a major version",
+     *     @SWG\Schema(
+     *     @Model(type=\App\Entity\Release::class, groups={"data"})
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Version is not numeric"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Version not found."
+     * )
+     * @SWG\Tag(name="major")
+     * @SWG\Tag(name="release")
+     *
+     * @param null|string $version Specific TYPO3 Version to fetch
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
+    {
+        $this->checkMajorVersionFormat($version);
+        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
+        $release = $releaseRepo->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => 'DESC']);
+        if (null === $release) {
+            $json = json_encode([]);
+        } else {
+            $json = $this->serializer->serialize(
+                $release,
+                'json',
+                SerializationContext::create()->setGroups(['data'])
+            );
+        }
         $response = new JsonResponse($json, 200, [], true);
         $response->setEtag(md5($json));
         $response->isNotModified($request);
