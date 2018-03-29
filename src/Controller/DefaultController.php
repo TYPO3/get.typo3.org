@@ -86,6 +86,7 @@ class DefaultController extends Controller
      * Display release notes for a version
      * @Cache(expires="tomorrow", public=true)
      * @Route("/release-notes", methods={"GET"}, name="release-notes")
+     * @Route("/release-notes/", methods={"GET"})
      * @Route("/release-notes/{version}", methods={"GET"}, name="release-notes-for-version")
      * @Route("/release-notes/{folder}/{version}", methods={"GET"}, name="legacy-release-notes-for-version")
      *
@@ -101,7 +102,12 @@ class DefaultController extends Controller
         $majors = $mVersionRepo->findAllGroupedByMajor();
 
         $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
-        $release = $releaseRepository->findOneBy(['version' => $version]);
+        if ($version === '') {
+            $release = $releaseRepository->findOneBy([], ['version' => 'DESC']);
+            return $this->redirectToRoute('release-notes-for-version', ['version' => $release->getVersion()]);
+        } else {
+            $release = $releaseRepository->findOneBy(['version' => $version]);
+        }
         $data = ['result' => $majors, 'current' => $release];
         $response = $this->render('default/release-notes.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
