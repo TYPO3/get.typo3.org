@@ -67,7 +67,7 @@
   },
   "scripts": {
     "auto-scripts": {
-      "cache:clear": "symfony-cmd",
+      "cache:clear --no-optional-warmers": "symfony-cmd",
       "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
     },
     "post-install-cmd": [
