@@ -189,7 +189,7 @@ class ReleaseController extends AbstractController
             $em->persist($release);
             $em->flush();
 
-            return new JsonResponse([], Response::HTTP_NO_CONTENT, [], true);
+            return new JsonResponse([], Response::HTTP_NO_CONTENT);
         }
         throw new BadRequestHttpException('Missing or malformed body.');
     }
