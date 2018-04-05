@@ -110,7 +110,7 @@ class ReleaseController extends AbstractController
      *     name="release",
      *     in="body",
      *     required=true,
-     *     @Model(type=\App\Entity\Release::class, groups={"data"})
+     *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
