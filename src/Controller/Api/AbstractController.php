@@ -12,6 +12,8 @@ use Doctrine\Common\Util\Inflector;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,11 +75,18 @@ class AbstractController extends Controller
         $metadata = $em->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = Inflector::tableize($field);
+            if(is_array($data)) {
+                $data = $this->flat($data);
+            }
             if (array_key_exists($fieldName, $data)) {
-                if (isset($metadata->fieldMappings[$fieldName]['type']) &&
-                    $metadata->fieldMappings[$fieldName]['type'] === 'datetime'
-                ) {
-                    $data[$fieldName] = new \DateTime($data[$fieldName]);
+                if (isset($metadata->fieldMappings[$fieldName]['type'])) {
+                    {
+                        switch ($metadata->fieldMappings[$fieldName]['type']) {
+                            case 'datetime':
+                                $data[$fieldName] = new \DateTime($data[$fieldName]);
+                                break;
+                        }
+                    }
                 }
                 //careful! setters are not being called! Inflection is up to you if you need it!
                 $metadata->setFieldValue($baseObject, $field, $data[$fieldName]);
@@ -136,6 +145,22 @@ class AbstractController extends Controller
             $matches
         );
         return ((int)$success === 1);
+    }
+
+    protected function flat(array $array, string $prefix = '')
+    {
+        $result = [];
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result = array_merge(
+                    $result,
+                    $this->flat($value, $prefix . $key . '.')
+                );
+            } else {
+                $result[$prefix . $key] = $value;
+            }
+        }
+        return $result;
     }
 
 }
