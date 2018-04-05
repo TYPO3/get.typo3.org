@@ -74,6 +74,11 @@ class AbstractController extends Controller
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = Inflector::tableize($field);
             if (array_key_exists($fieldName, $data)) {
+                if (isset($metadata->fieldMappings[$fieldName]['type']) &&
+                    $metadata->fieldMappings[$fieldName]['type'] === 'datetime'
+                ) {
+                    $data[$fieldName] = new \DateTime($data[$fieldName]);
+                }
                 //careful! setters are not being called! Inflection is up to you if you need it!
                 $metadata->setFieldValue($baseObject, $field, $data[$fieldName]);
             }
