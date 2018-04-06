@@ -13,7 +13,7 @@
                             <option value="">Go to another version</option>
                             {% for version,entry in result %}
                                 <optgroup label="{{ version|replace({'.0000': ''}) }}">
-                                    {% for note in entry.releases %}
+                                    {% for note in entry.releases|sortByVersion %}
                                         <option value="{{ note.version }}">{{ note.version }}</option>
                                     {% endfor %}
                                 </optgroup>
