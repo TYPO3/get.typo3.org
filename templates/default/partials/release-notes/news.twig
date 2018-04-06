@@ -1,14 +1,13 @@
 {% if current.releaseNotes.news or current.releaseNotes.newslink %}
-    <div class="container b_container--downloads">
-        <div class="col-md-12 b_text__col">
-            <h2>News</h2>
-            {% if current.releaseNotes.news %}
-                {{ current.releaseNotes.news|parsedown|raw }}
-            {% endif %}
-            {% if current.releaseNotes.newslink %}
-                <a href="{{ current.releaseNotes.newslink }}" class="btn btn-primary">Read TYPO3
-                    v{{ current.version }} Release News</a>
-            {% endif %}
-        </div>
+    <div class="container b_container b_container--large">
+        <h2>News</h2>
+        {% if current.releaseNotes.news %}
+            {{ current.releaseNotes.news|parsedown|raw }}
+        {% endif %}
+        {% if current.releaseNotes.newslink %}
+            <a href="{{ current.releaseNotes.newslink }}" class="btn btn-primary">
+                Read TYPO3 v{{ current.version }} Release News
+            </a>
+        {% endif %}
     </div>
 {% endif %}

@@ -1,8 +1,6 @@
 {% if current.releaseNotes.changes %}
-    <div class="container b_container--downloads">
-        <div class="col-md-12 b_text__col">
-            <h2>Changes</h2>
-                {{ current.releaseNotes.changes|parsedown|changehighlighter|raw }}
-        </div>
+    <div class="container b_container b_container--large">
+        <h2>Changes</h2>
+        {{ current.releaseNotes.changes|parsedown|changehighlighter|raw }}
     </div>
 {% endif %}
