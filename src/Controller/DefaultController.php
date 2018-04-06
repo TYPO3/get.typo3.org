@@ -25,6 +25,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -131,6 +132,9 @@ class DefaultController extends Controller
         $data = $repository->findOneBy(['version' => $version]);
         if ($data instanceof MajorVersion) {
             $data = $data->toArray();
+        }
+        if (!$data) {
+          throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
         $response = $this->render($templateName, $data);
         $response->setEtag(md5(serialize($data)));
