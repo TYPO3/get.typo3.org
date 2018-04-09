@@ -3,23 +3,18 @@
 {% block content %}
 
     {% include 'default/partials/key-visual.html.twig' with {'title': 'Release Notes', 'subtitle': 'TYPO3 ' ~ current.version, 'small': '1'} %}
-
-
     {% include 'default/partials/release-notes/version-selector.twig' %}
 
-    <div class="container-fluid b_container">
-        {% if current.releaseNotes.legacyContent %}
-            <div class="container b_container--downloads">
-                <div class="col-md-12 b_text__col">
-                    {{ current.releaseNotes.legacyContent|parsedown|changehighlighter|raw }}
-                </div>
-            </div>
-        {% else %}
-            {% include 'default/partials/release-notes/introduction.twig' %}
-            {% include 'default/partials/release-notes/news.twig' %}
-            {% include 'default/partials/release-notes/checksums.twig' %}
-            {% include 'default/partials/release-notes/upgrading.twig' %}
-            {% include 'default/partials/release-notes/changes.twig' %}
-        {% endif %}
-    </div>
+    {% if current.releaseNotes.legacyContent %}
+        <div class="container b_container b_container--large">
+            {{ current.releaseNotes.legacyContent|parsedown|changehighlighter|raw }}
+        </div>
+    {% else %}
+        {% include 'default/partials/release-notes/introduction.twig' %}
+        {% include 'default/partials/release-notes/news.twig' %}
+        {% include 'default/partials/release-notes/checksums.twig' %}
+        {% include 'default/partials/release-notes/upgrading.twig' %}
+        {% include 'default/partials/release-notes/changes.twig' %}
+    {% endif %}
+
 {% endblock %}
