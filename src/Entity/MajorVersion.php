@@ -128,7 +128,12 @@ class MajorVersion implements \JsonSerializable
     public function getLatestRelease()
     {
         $array = $this->releases->toArray();
-        uksort($array, 'version_compare');
+        usort(
+            $array,
+            function ($a, $b) {
+                return version_compare($b->getVersion(), $a->getVersion());
+            }
+        );
         return reset($array);
     }
 
