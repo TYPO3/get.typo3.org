@@ -188,24 +188,12 @@ class MajorVersion implements \JsonSerializable
         }
         uksort($releaseData, 'version_compare');
         $desc = array_reverse($releaseData);
-        $latest = $this->getLatestReleaseVersion($releaseData);
+        $latest = $this->getLatestRelease();
         return [
             'releases' => $desc,
-            'latest' => $latest,
-            'stable' => $latest,
+            'latest' => $latest ? $latest->getVersion() : '',
+            'stable' => $latest ? $latest->getVersion() : '',
             'active' => $this->isActive(),
         ];
-    }
-
-    /**
-     * @param $releaseData
-     * @return string
-     */
-    private function getLatestReleaseVersion(array $releaseData): string
-    {
-        end($releaseData);
-        $latest = key($releaseData);
-        reset($releaseData);
-        return $latest;
     }
 }

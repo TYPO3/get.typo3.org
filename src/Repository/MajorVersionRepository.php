@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-
+use App\Entity\MajorVersion;
+use App\Entity\Release;
 use Doctrine\ORM\EntityRepository;
 
 class MajorVersionRepository extends EntityRepository
@@ -35,7 +36,6 @@ class MajorVersionRepository extends EntityRepository
     {
         $all = $this->findAll();
         $data = [];
-        /** @var \App\Entity\MajorVersion $version */
         foreach ($all as $version) {
             $data[$this->formatVersion($version->getVersion())] = $version;
         }
@@ -50,9 +50,9 @@ class MajorVersionRepository extends EntityRepository
         $qb->setMaxResults(1)->orderBy('m.version', 'DESC');
         $res = $qb->getQuery()->execute();
         $latestMajor = array_pop($res);
-        $releases = $latestMajor->getReleases();
-        $latestStable = $releases->first();
-        $latestOldStable = $releases->next();
+        $releases = $this->majorVersionDescending($latestMajor);
+        $latestStable = $releases[0];
+        $latestOldStable = $releases[1];
         return [
             'latest_stable' => $latestStable->getVersion(),
             'latest_old_stable' => $latestOldStable->getVersion(),
@@ -73,8 +73,11 @@ class MajorVersionRepository extends EntityRepository
         $res = $qb->getQuery()->execute();
         $latestLts = array_pop($res);
         $latestOldLts = array_pop($res);
-        $latest = $latestLts->getReleases()->first();
-        $latestOld = $latestOldLts->getReleases()->first();
+
+        $latestLtsReleases = $this->majorVersionDescending($latestLts);
+        $latestOldLtsReleases = $this->majorVersionDescending($latestOldLts);
+        $latest = $latestLtsReleases[0];
+        $latestOld = $latestOldLtsReleases[0];
         return [
             'latest_lts' => $latest->getVersion(),
             'latest_old_lts' => $latestOld->getVersion(),
@@ -104,4 +107,21 @@ class MajorVersionRepository extends EntityRepository
         return $version;
     }
 
+    /**
+     * @param MajorVersion $majorVersion
+     * @return Release[]
+     */
+    private function majorVersionDescending(MajorVersion $majorVersion): array
+    {
+        $releases = $majorVersion->getReleases()->toArray();
+
+        usort(
+            $releases,
+            function (Release $a, Release $b) {
+                return version_compare($b->getVersion(), $a->getVersion());
+            }
+        );
+
+        return $releases;
+    }
 }
