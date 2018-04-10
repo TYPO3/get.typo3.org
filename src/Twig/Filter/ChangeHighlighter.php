@@ -19,7 +19,7 @@ class ChangeHighlighter extends AbstractExtension
 
     public function highlightChanges(string $changeList): string
     {
-        $pattern = '#^(?:<li>)(?<content>[a-f0-9]{10}.*?(?<important>\[!!!\])?\[(?<type>[A-Z!]+)\].*<\/li>)$#m';
+        $pattern = '#^(?:<li>)(?<content>(?:\d{4}\-\d{2}\-\d{2}\s)?[a-f0-9]{10}.*?(?<important>\[!!!\])?\[(?<type>[A-Z!]+)\].*<\/li>)$#m';
         return preg_replace_callback(
             $pattern,
             function ($matches) {

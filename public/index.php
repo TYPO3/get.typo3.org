@@ -32,7 +32,7 @@ if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? false) {
 if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
-
+date_default_timezone_set('UTC');
 $kernel = new Kernel($env, $debug);
 $kernel = new CacheKernel($kernel);
 $request = Request::createFromGlobals();
