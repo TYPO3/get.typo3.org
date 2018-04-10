@@ -496,4 +496,5 @@ code {
 .change-release,
 .change-feature {
     color: #1c7430;
+    font-weight: bold;
 }
