@@ -2,4 +2,6 @@ DirectoryIndex index.php
 RewriteEngine On
 Options +FollowSymlinks
 RewriteBase /get/www/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule !\.(js|ico|gif|jpg|jpeg|png|css|pdf|woff|ttf|eot|svg)$ index.php [NC,QSA,L]
