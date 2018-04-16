@@ -9,10 +9,20 @@
         <div class="container b_container b_container--large">
             {{ current.releaseNotes.legacyContent|parsedown|changehighlighter|raw }}
         </div>
+        <div class="container b_container b_container--large">
+            <a href="https://typo3.azureedge.net/typo3/{{ current.version }}/README.md" class="btn btn-primary">
+                Download README (incl. Signatures)
+            </a>
+        </div>
     {% else %}
         {% include 'default/partials/release-notes/introduction.twig' %}
         {% include 'default/partials/release-notes/news.twig' %}
         {% include 'default/partials/release-notes/checksums.twig' %}
+        <div class="container b_container b_container--large">
+            <a href="https://typo3.azureedge.net/typo3/{{ current.version }}/README.md" class="btn btn-primary">
+                Download README (incl. Signatures)
+            </a>
+        </div>
         {% include 'default/partials/release-notes/upgrading.twig' %}
         {% include 'default/partials/release-notes/changes.twig' %}
     {% endif %}
