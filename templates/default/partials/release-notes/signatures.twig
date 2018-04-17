@@ -13,8 +13,8 @@
         </a>
     </p>
     <p>Example of verifying integrity of tar.gz package of current release:</p>
-    <pre>wget --content-disposition gettypo3.local/{{ current.version }}/tar.gz
-wget --content-disposition gettypo3.local/{{ current.version }}/tar.gz.sig
+    <pre>wget --content-disposition get.typo3.org/{{ current.version }}/tar.gz
+wget --content-disposition get.typo3.org/{{ current.version }}/tar.gz.sig
 gpg --verify typo3_src-{{ current.version }}.tar.gz.sig typo3_src-{{ current.version }}.tar.gz</pre>
 </div>
 
