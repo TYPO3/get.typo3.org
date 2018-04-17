@@ -81,7 +81,7 @@ curl -L -o typo3_src.tgz get.typo3.org/{{ version }}</pre>
             </div>
             <div class="item b_accordion-item">
                 <a class="b_accordion-header-wrap collapsed" data-toggle="collapse" data-parent="#downloadAccordion" href="#downloadZip" aria-expanded="false" aria-controls="downloadZip">
-                    <p class="b_accordion-header"><strong>Package Download (tar.gz / zip file)</strong></p>
+                    <p class="b_accordion-header"><strong>Package Download (tar.gz, zip, signatures)</strong></p>
                     <p class="b_accordion-header">The <em>classic</em> way</p>
                     <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
                     <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
@@ -89,11 +89,17 @@ curl -L -o typo3_src.tgz get.typo3.org/{{ version }}</pre>
                 <div id="downloadZip" class="collapse" role="tabpanel">
                     <div class="b_accordion__content">
                         <p>
-                            <a href="https://get.typo3.org/{{ version }}" class="b_link">
-                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}
+                            <a href="https://get.typo3.org/{{ version }}/tar.gz" class="b_link">
+                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/tar.gz
                             </a>
                             <a href="https://get.typo3.org/{{ version }}/zip" class="b_link">
                                 <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/zip
+                            </a>
+                            <a href="https://get.typo3.org/{{ version }}/tar.gz.sig" class="b_link">
+                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/tar.gz.sig - GPG signature
+                            </a>
+                            <a href="https://get.typo3.org/{{ version }}/zip.sig" class="b_link">
+                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/zip.sig - GPG signature
                             </a>
                         </p>
                     </div>

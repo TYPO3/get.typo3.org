@@ -1,0 +1,20 @@
+<div class="container b_container b_container--large">
+    <h2>Package Signatures</h2>
+
+    <p>
+        TYPO3 Release Packages (the downloadable tarballs and zip files) as well as Git tags are signed
+        using PGP signatures during the automated release process. Besides that, MD5 and SHA2-256 hashes are
+        being generated for these files. Find more details on verifying signatures and hashes in the
+        <a href="https://docs.typo3.org/typo3cms/drafts/github/TYPO3Incubator/InfrastructureGuide/Releases/">infrastructure guide</a>.
+    </p>
+    <p>
+        <a href="https://typo3.azureedge.net/typo3/{{ current.version }}/README.md">
+            Download GPG signed release README.md file
+        </a>
+    </p>
+    <p>Example of verifying integrity of tar.gz package of current release:</p>
+    <pre>wget --content-disposition gettypo3.local/{{ current.version }}/tar.gz
+wget --content-disposition gettypo3.local/{{ current.version }}/tar.gz.sig
+gpg --verify typo3_src-{{ current.version }}.tar.gz.sig typo3_src-{{ current.version }}.tar.gz</pre>
+</div>
+

@@ -147,7 +147,7 @@ class DefaultController extends Controller
      * @Route("/{requestedVersion}/{requestedFormat}",
      *     methods={"GET"},
      *     name="versionandformat",
-     *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+\\.\\d+)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip)?$#'"
+     *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+\\.\\d+)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip|tar\\.gz\\.sig|zip\\.sig)?$#'"
      * )
      * @param string $requestedVersion
      * @param string $requestedFormat
@@ -236,7 +236,7 @@ class DefaultController extends Controller
                           && ((int)$versionParts[0] >= 7 || count($versionParts) > 1);
 
         // Make sure we can retrieve a product release
-        if ($isValidVersion && in_array($format, ['tar.gz', 'zip'])) {
+        if ($isValidVersion && in_array($format, ['tar.gz', 'zip', 'tar.gz.sig', 'zip.sig'])) {
             $branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
             if (!isset($releases->$branchName)) {
                 return null;
