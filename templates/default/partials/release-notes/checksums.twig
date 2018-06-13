@@ -1,6 +1,6 @@
 <div class="container b_container b_container--large">
     {% if (current.tarPackage.sha256sum or current.tarPackage.sha1sum) %}
-        <h2>Checksums</h2>
+        <h2>Checksums of TYPO3 {{ current.version }}</h2>
     {% endif %}
     {% if current.tarPackage.sha256sum %}
         <h3>SHA256</h3>

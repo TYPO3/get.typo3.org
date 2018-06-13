@@ -129,10 +129,12 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
         $data = $repository->findOneBy(['version' => $version]);
         if ($data instanceof MajorVersion) {
+            $latestRelease = $data->getLatestRelease();
             $data = $data->toArray();
+            $data['current'] = $latestRelease;
         }
         if (!$data) {
-          throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
         $response = $this->render($templateName, $data);
         $response->setEtag(md5(serialize($data)));
