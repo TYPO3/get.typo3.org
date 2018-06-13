@@ -128,6 +128,11 @@ class Release implements \JsonSerializable
         $this->releaseNotes = $releaseNotes;
     }
 
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     /**
      * Specify data which should be serialized to JSON
      *

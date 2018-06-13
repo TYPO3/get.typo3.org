@@ -143,6 +143,31 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/list/version/{version}", methods={"GET"}, name="list")
+     * @Cache(expires="tomorrow", public=true)
+     * @param int $version
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showVersionListByMajorVersion(int $version, Request $request): Response
+    {
+        $templateName = 'default/list.html.twig';
+        /** @var \App\Repository\MajorVersionRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data = $repository->findOneBy(['version' => $version]);
+        if ($data instanceof MajorVersion) {
+            $data = $data->toArray();
+        }
+        if (!$data) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+        $response = $this->render($templateName, $data);
+        $response->setEtag(md5(serialize($data)));
+        $response->isNotModified($request);
+        return $response;
+    }
+
+    /**
      * @Route("/{requestedVersion}", methods={"GET"}, name="specificversion")
      * @Route("/{requestedVersion}/{requestedFormat}",
      *     methods={"GET"},
