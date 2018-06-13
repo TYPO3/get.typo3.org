@@ -19,10 +19,8 @@ namespace App\Controller;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Service\LegacyDataService;
-use App\Service\ReleaseNotes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -66,8 +64,8 @@ class DefaultController extends Controller
      * Outputs the JSON file
      * /json
      * Legacy end point
-     *
      * @Route("/json", methods={"GET"})
+     *
      * @return Response
      */
     public function releaseJson(): Response
