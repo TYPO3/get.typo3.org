@@ -31,7 +31,7 @@ class LegacyDataService
             $content = json_encode($rep->findAllPreparedForJson());
             // remove version suffix only used for version sorting
             $content = str_replace('.0000', '', $content);
-            $cache->set('releases.json', $content);
+            $cache->set('releases.json', $content, 3600);
         }
         return $content;
     }
