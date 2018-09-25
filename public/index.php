@@ -34,7 +34,7 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
 }
 date_default_timezone_set('UTC');
 $kernel = new Kernel($env, $debug);
-$kernel = new CacheKernel($kernel);
+//$kernel = new CacheKernel($kernel);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

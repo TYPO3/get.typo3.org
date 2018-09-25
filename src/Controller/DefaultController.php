@@ -18,6 +18,7 @@ namespace App\Controller;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -38,10 +39,15 @@ class DefaultController extends Controller
      * @var \App\Service\LegacyDataService
      */
     private $legacyDataService;
+    /**
+     * @var \App\Service\ComposerPackagesService
+     */
+    private $composerPackagesService;
 
-    public function __construct(LegacyDataService $legacyDataService)
+    public function __construct(LegacyDataService $legacyDataService, ComposerPackagesService $composerPackagesService)
     {
         $this->legacyDataService = $legacyDataService;
+        $this->composerPackagesService = $composerPackagesService;
     }
 
     /**
@@ -195,6 +201,23 @@ class DefaultController extends Controller
         }
         header('Cache-control: max-age=3600');
         return $this->redirect($redirectData['url']);
+    }
+
+    /**
+     * @Route("/misc/composer/helper", methods={"GET", "POST"}, name="composer-helper")
+     */
+    public function composerHelper(Request $request): Response
+    {
+        $formBuilder = $this->createFormBuilder();
+        $form = $this->composerPackagesService->buildForm($formBuilder);
+        $templateName = 'default/composer-helper.html.twig';
+        $formData = '';
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+        }
+
+        return $this->render($templateName, ['form' => $form->createView(), 'formData' => $formData]);
     }
 
 

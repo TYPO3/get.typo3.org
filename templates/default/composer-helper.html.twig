@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    {% include 'default/partials/key-visual.html.twig' with {'title': 'Composer Helper', 'subtitle': 'Work in Progress', 'small': '1'} %}
+    <div class="container">
+        {% if formData %}
+                <code>
+                    composer require {% for val,key in formData %}{% if key %}{{ val }} {% endif %}{% endfor %}
+                </code>
+        {% endif %}
+        {{ form_start(form) }}
+            <div class="btn-group-toggle" data-toggle="buttons">
+        {% for child in form.children %}
+            {% if child.vars.name != '_token' and child.vars.name != 'generate' %}
+                {{ form_errors(child) }}
+                <label class="btn btn-outline-secondary">
+                    {{ form_widget(child) }}{{ form_label(child) }}
+                </label>
+                <span id="helpBlock" class="help-block">{{ form_help(child) }}</span>
+                {% endif %}
+        {% endfor %}
+            </div>
+        {{ form_widget(form.generate) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
