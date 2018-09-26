@@ -1,26 +1,41 @@
 {% extends "layout.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('assets/JavaScript/composerHelper.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     {% include 'default/partials/key-visual.html.twig' with {'title': 'Composer Helper', 'subtitle': 'Work in Progress', 'small': '1'} %}
+
     <div class="container">
-        {% if formData %}
-                <code>
-                    composer require {% for val,key in formData %}{% if key %}{{ val }} {% endif %}{% endfor %}
-                </code>
-        {% endif %}
-        {{ form_start(form) }}
-            <div class="btn-group-toggle" data-toggle="buttons">
+        <div class="container b_container">
+            <h2>Select the composer packages</h2>
+        </div>
+
+        <div class="js-composer-helper-console d-none">
+            <pre class="text-wrap">$ composer require <span class="js-composer-helper-packages"></span></pre>
+        </div>
+
+        {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form'}}) }}
         {% for child in form.children %}
             {% if child.vars.name != '_token' and child.vars.name != 'generate' %}
                 {{ form_errors(child) }}
-                <label class="btn btn-outline-secondary">
-                    {{ form_widget(child) }}{{ form_label(child) }}
-                </label>
-                <span id="helpBlock" class="help-block">{{ form_help(child) }}</span>
-                {% endif %}
+                <div class="row">
+                    <div class="btn-group-toggle col-xl-3 col-lg-4" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary align-middle js-composer-package-check-label">
+                            {{ form_widget(child) }}{{ form_label(child) }}
+                        </label>
+                    </div>
+                    <div class="col-xl-9 col-lg-8">
+                        <span id="helpBlock" class="help-block align-middle">{{ form_help(child) }}</span>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
-            </div>
-        {{ form_widget(form.generate) }}
+
         {{ form_end(form) }}
+
     </div>
 {% endblock %}
