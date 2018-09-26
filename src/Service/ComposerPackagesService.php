@@ -183,11 +183,12 @@ class ComposerPackagesService
                     'value' => $package['name'],
                     'label' => $package['name'],
                     'help' => $package['description'],
+                    'attr' => ['class' => 'js-composer-package-check', 'onChange' => 'checkboxChangeEvent()'],
                     'required' => false,
                 ]
             );
         }
-        $builder->add('generate', SubmitType::class, ['label' => 'Generate']);
+
         return $builder->getForm();
     }
 }

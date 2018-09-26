@@ -5,8 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ path('root') }}assets/Css/main.min.css">
-    <link rel="stylesheet" href="{{ path('root') }}assets/Css/download.css">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/Css/main.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/Css/download.css') }}">
+    {% endblock %}
     <title>Download TYPO3</title>
 </head>
 <body>
@@ -366,7 +368,7 @@
                                                 <a href="https://get.typo3.org"
                                                    title="To test the TYPO3 Introduction Package on your local computer, download the sources and install the Introduction Package from a distribution."
                                                    class="sub-nav__list-item_link externallink">Download &amp;
-                                                    Install</a>
+                                                                                                Install</a>
 
 
                                             </li>
@@ -430,7 +432,7 @@
                                             <li class="list-group-item sub-nav__list-item">
                                                 <a href="https://typo3.org/community/contribute/"
                                                    class="sub-nav__list-item_link">Contribute
-                                                    / Get Involved</a>
+                                                                                   / Get Involved</a>
 
 
                                                 <a href="https://typo3.org/community/contribute/"
@@ -442,7 +444,7 @@
                                                     <li class="sub-nav__list-item">
                                                         <a href="https://typo3.org/project/association/membership/"
                                                            class="sub-nav__list-item_link">Become an Association
-                                                            Member</a>
+                                                                                           Member</a>
                                                     </li>
 
                                                     <li class="sub-nav__list-item">
@@ -511,7 +513,7 @@
                                                     <li class="sub-nav__list-item">
                                                         <a href="https://typo3.org/community/values/leadership-code-of-conduct/"
                                                            class="sub-nav__list-item_link">Leadership Code of
-                                                            Conduct</a>
+                                                                                           Conduct</a>
                                                     </li>
 
                                                     <li class="sub-nav__list-item">
@@ -625,7 +627,7 @@
                                                     <li class="sub-nav__list-item">
                                                         <a href="https://typo3.org/certification/certified-integrator/tcci-listing/"
                                                            class="sub-nav__list-item_link externallink">Certified
-                                                            Integrator Listing</a>
+                                                                                                        Integrator Listing</a>
                                                     </li>
 
                                                     <li class="sub-nav__list-item">
@@ -665,7 +667,7 @@
                                                     <li class="sub-nav__list-item">
                                                         <a href="https://typo3.org/certification/developer/certified-developer-listing/"
                                                            class="sub-nav__list-item_link">Certified Developer
-                                                            Listing</a>
+                                                                                           Listing</a>
                                                     </li>
 
                                                     <li class="sub-nav__list-item">
@@ -700,7 +702,7 @@
                                                     <li class="sub-nav__list-item">
                                                         <a href="https://typo3.org/certification/consultant/certified-consultant-listing/"
                                                            class="sub-nav__list-item_link">Certified Consultant
-                                                            Listing</a>
+                                                                                           Listing</a>
                                                     </li>
 
                                                 </ul>
@@ -743,7 +745,7 @@
                                             <li class="list-group-item sub-nav__list-item">
                                                 <a href="https://typo3.com/our-services/find-a-typo3-partner/"
                                                    class="sub-nav__list-item_link externallink">Professional
-                                                    Services</a>
+                                                                                                Services</a>
 
 
                                             </li>
@@ -760,7 +762,7 @@
                                             <li class="list-group-item sub-nav__list-item">
                                                 <a href="https://typo3.com/services/extended-support/"
                                                    class="sub-nav__list-item_link externallink">TYPO3 LTS Extended
-                                                    Support</a>
+                                                                                                Support</a>
 
 
                                             </li>
@@ -769,7 +771,7 @@
                                             <li class="list-group-item sub-nav__list-item">
                                                 <a href="https://typo3.org/help/security-bulletins/"
                                                    class="sub-nav__list-item_link">Security
-                                                    Bulletins</a>
+                                                                                   Bulletins</a>
 
 
                                                 <a href="https://typo3.org/help/security-bulletins/"
@@ -791,7 +793,7 @@
                                                     <li class="sub-nav__list-item">
                                                         <a href="https://typo3.org/help/security-bulletins/public-service-announcements/"
                                                            class="sub-nav__list-item_link">Public Service
-                                                            Announcements</a>
+                                                                                           Announcements</a>
                                                     </li>
 
                                                 </ul>
@@ -816,7 +818,7 @@
                                                     <li class="sub-nav__list-item">
                                                         <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/Introduction/Index.html"
                                                            class="sub-nav__list-item_link externallink">Getting
-                                                            Started</a>
+                                                                                                        Started</a>
                                                     </li>
 
                                                     <li class="sub-nav__list-item">
@@ -1040,13 +1042,13 @@
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/project/association/structure/general-assembly/"
                                        data-level="3">General
-                                        Assembly</a>
+                                                      Assembly</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/project/association/association-projects/"
                                        data-level="3">Association
-                                        Projects</a>
+                                                      Projects</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
@@ -1078,12 +1080,12 @@
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/project/brand/style-guide/" data-level="3">Style
-                                        Guide</a>
+                                                                                                          Guide</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/project/brand/typo3-slidedeck/" data-level="3">TYPO3
-                                        slidedeck</a>
+                                                                                                              slidedeck</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
@@ -1100,12 +1102,12 @@
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/project/press/press-releases/" data-level="3">Press
-                                        Releases</a>
+                                                                                                             Releases</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/project/press/press-photos/" data-level="3">Press
-                                        Photos</a>
+                                                                                                           Photos</a>
                                 </li>
 
                             </ul>
@@ -1126,7 +1128,7 @@
 
 
                                         <p>TYPO3 CMS is an Open Source project&nbsp;managed by the TYPO3
-                                            Association.</p>
+                                           Association.</p>
 
                                     </div>
                                 </div>
@@ -1226,19 +1228,19 @@
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/cms/roadmap/release-news/" data-level="3">Release
-                                        News</a>
+                                                                                                         News</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/cms/roadmap/typo3-8-release-notes/" data-level="3">TYPO3
-                                        8 Release
-                                        Notes</a>
+                                                                                                                  8 Release
+                                                                                                                  Notes</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/cms/roadmap/typo3-7-release-notes/" data-level="3">TYPO3
-                                        7 Release
-                                        Notes</a>
+                                                                                                                  7 Release
+                                                                                                                  Notes</a>
                                 </li>
 
                             </ul>
@@ -1393,8 +1395,8 @@
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/project/association/membership/" data-level="3">Become
-                                        an Association
-                                        Member</a>
+                                                                                                               an Association
+                                                                                                               Member</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
@@ -1477,7 +1479,7 @@
                                         <p>Offer your skills and&nbsp;<a
                                                     href="https://typo3.org/community/contribute-get-involved/"
                                                     target="_blank" rel="noopener">contribute to the project</a>.&nbsp;The community is
-                                            growing&nbsp;and does more than just coding.&nbsp;</p>
+                                           growing&nbsp;and does more than just coding.&nbsp;</p>
 
                                     </div>
                                 </div>
@@ -1607,13 +1609,13 @@
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/certification/editor/certified-editor-listing/"
                                        data-level="3">Certified
-                                        Editor Listing</a>
+                                                      Editor Listing</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/certification/editor/certification-badges/"
                                        data-level="3">Certification
-                                        Badges</a>
+                                                      Badges</a>
                                 </li>
 
                             </ul>
@@ -1634,13 +1636,13 @@
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/certification/integrator/exam-enrollment/"
                                        data-level="3">Exam
-                                        enrollment</a>
+                                                      enrollment</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/certification/integrator/certification-badges/"
                                        data-level="3">Certification
-                                        Badges</a>
+                                                      Badges</a>
                                 </li>
 
                             </ul>
@@ -1656,13 +1658,13 @@
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/certification/developer/certified-developer-listing/"
                                        data-level="3">Certified
-                                        Developer Listing</a>
+                                                      Developer Listing</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/certification/developer/certification-badges/"
                                        data-level="3">Certification
-                                        Badges</a>
+                                                      Badges</a>
                                 </li>
 
                             </ul>
@@ -1678,7 +1680,7 @@
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/certification/consultant/certified-consultant-listing/"
                                        data-level="3">Certified
-                                        Consultant Listing</a>
+                                                      Consultant Listing</a>
                                 </li>
 
                             </ul>
@@ -1700,7 +1702,7 @@
 
 
                                         <p>A global&nbsp;standard for TYPO3 editors, integrators, developers and
-                                            consultants.&nbsp;</p>
+                                           consultants.&nbsp;</p>
 
                                     </div>
                                 </div>
@@ -1794,19 +1796,19 @@
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/help/security-bulletins/typo3-cms/" data-level="3">TYPO3
-                                        CMS</a>
+                                                                                                                  CMS</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/help/security-bulletins/typo3-extensions/"
                                        data-level="3">TYPO3
-                                        Extensions</a>
+                                                      Extensions</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/help/security-bulletins/public-service-announcements/"
                                        data-level="3">Public
-                                        Service Announcements</a>
+                                                      Service Announcements</a>
                                 </li>
 
                             </ul>
@@ -1822,12 +1824,12 @@
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/help/documentation/video-tutorials/" data-level="3">Video
-                                        Tutorials</a>
+                                                                                                                   Tutorials</a>
                                 </li>
 
                                 <li class="list-group-item lvl3">
                                     <a href="https://typo3.org/help/documentation/whats-new/" data-level="3">What's
-                                        New</a>
+                                                                                                             New</a>
                                 </li>
 
                             </ul>
@@ -1944,8 +1946,10 @@
                             <div class="col-md-3">
                             </div>
                             <div class="col-md-3">
-                                <section class="container"><a id="c29"></a><header><h2 class="">Popular links
-                                </h2></header><p><a href="https://extensions.typo3.org/">Extension list</a><br><a href="https://typo3.org/legal-info/">Legal info</a></p></section>
+                                <section class="container"><a id="c29"></a>
+                                    <header><h2 class="">Popular links
+                                        </h2></header>
+                                    <p><a href="https://extensions.typo3.org/">Extension list</a><br><a href="https://typo3.org/legal-info/">Legal info</a></p></section>
                             </div>
                         </div>
                     </div>
@@ -1972,7 +1976,10 @@
     </div>
 </div>
 
-<script src="{{ path('root') }}assets/JavaScript/main.min.js"></script>
+{% block javascripts %}
+    <script src="{{ asset('assets/JavaScript/main.min.js') }}"></script>
+{% endblock %}
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">

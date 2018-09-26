@@ -498,3 +498,7 @@ code {
     color: #1c7430;
     font-weight: bold;
 }
+
+.text-wrap {
+    white-space: normal;
+}
