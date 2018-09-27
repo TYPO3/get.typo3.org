@@ -499,6 +499,22 @@ code {
     font-weight: bold;
 }
 
+.bg-console{
+    background: #ddd;
+}
 .text-wrap {
     white-space: normal;
+}
+.fixedTop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.no-user-selection{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
