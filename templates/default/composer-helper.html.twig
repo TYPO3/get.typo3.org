@@ -10,26 +10,42 @@
     {% include 'default/partials/key-visual.html.twig' with {'title': 'Composer Helper', 'subtitle': 'Work in Progress', 'small': '1'} %}
 
     <div class="container">
-        <div class="container b_container">
+        <div class="b_container">
             <h2>Select the composer packages</h2>
         </div>
+        <div class="position-relative">
 
-        <div class="js-composer-helper-console d-none">
-            <pre class="text-wrap">$ composer require <span class="js-composer-helper-packages"></span></pre>
+            <div class="container">
+                <div class="js-composer-helper-console d-none bg-console">
+                    <pre class="text-wrap bg-console">
+                        <div class="row">
+                            <div class="col-md-6 text-md-right pull-right"><button class="btn btn-light  m-0 js-command-copy-clipboard">copy to clipboard</button></div>
+                            <div class="no-user-selection col-md-6 order-md-first"><h3># paste this into your console</h3></div>
+                            <div class="col-12 mt-4">
+                                <code class="js-composer-command"><span class="no-user-selection">$ </span>composer require <span class="js-composer-helper-packages"></span></code>
+                            </div>
+                        </div>
+                    </pre>
+                </div>
+            </div>
+
         </div>
 
+
         {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form'}}) }}
+        <button class="btn btn-outline-secondary btn-lg js-composer-helper-toggle-all">Toggle all</button>
+        <hr>
         {% for child in form.children %}
             {% if child.vars.name != '_token' and child.vars.name != 'generate' %}
                 {{ form_errors(child) }}
                 <div class="row">
                     <div class="btn-group-toggle col-xl-3 col-lg-4" data-toggle="buttons">
-                        <label class="btn btn-outline-secondary align-middle js-composer-package-check-label">
+                        <label class="btn btn-outline-secondary js-composer-helper-package-button">
                             {{ form_widget(child) }}{{ form_label(child) }}
                         </label>
                     </div>
                     <div class="col-xl-9 col-lg-8">
-                        <span id="helpBlock" class="help-block align-middle">{{ form_help(child) }}</span>
+                        <span id="helpBlock" class="help-block">{{ form_help(child) }}</span>
                     </div>
                 </div>
             {% endif %}
