@@ -1,4 +1,6 @@
 {% extends "layout.html.twig" %}
+{# import "_self" as the form theme #}
+{% form_theme form _self %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -33,21 +35,24 @@
 
 
         {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form'}}) }}
-        <button class="btn btn-outline-secondary btn-lg js-composer-helper-toggle-all">Toggle all</button>
+        {% for bundleName,bundle in bundles %}
+            <button class="btn btn-outline-secondary btn-lg js-composer-helper-toggle-packages" data-packages="{{ bundle }}">{{ bundleName }}</button>
+        {% endfor %}
         <hr>
         {% for child in form.children %}
             {% if child.vars.name != '_token' and child.vars.name != 'generate' %}
                 {{ form_errors(child) }}
-                <div class="row">
-                    <div class="btn-group-toggle col-xl-3 col-lg-4" data-toggle="buttons">
-                        <label class="btn btn-outline-secondary js-composer-helper-package-button">
+                <div class="row border-bottom">
+                    <div class="btn-group-toggle col-xl-3 col-lg-4 align-self-center" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary w-100  js-composer-helper-package-button">
                             {{ form_widget(child) }}{{ form_label(child) }}
                         </label>
                     </div>
-                    <div class="col-xl-9 col-lg-8">
+                    <div class="col-xl-9 col-lg-8 align-self-center">
                         <span id="helpBlock" class="help-block">{{ form_help(child) }}</span>
                     </div>
                 </div>
+                <hr>
             {% endif %}
         {% endfor %}
 
@@ -55,3 +60,15 @@
 
     </div>
 {% endblock %}
+
+{% block form_help %}
+    {%- if help is not empty -%}
+        <p id="{{ id }}_help" class="help-block m-0">
+            {%- if translation_domain is same as(false) -%}
+                {{- help -}}
+            {%- else -%}
+                {{- help|trans({}, translation_domain) -}}
+            {%- endif -%}
+        </p>
+    {%- endif -%}
+{% endblock form_help %}
