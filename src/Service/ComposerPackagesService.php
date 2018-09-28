@@ -230,7 +230,6 @@ class ComposerPackagesService
             'typo3/cms-beuser',
             'typo3/cms-core',
             'typo3/cms-extbase',
-            'typo3/cms-felogin',
             'typo3/cms-filelist',
             'typo3/cms-fluid',
             'typo3/cms-fluid-styled-content',
