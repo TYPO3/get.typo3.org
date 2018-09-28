@@ -518,3 +518,19 @@ code {
     -ms-user-select: none;
     user-select: none;
 }
+.loading--fixed{
+    position: fixed;
+    background: rgba(0,0,0,.5);
+    opacity: 0.90;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 64px;
+    z-index: 2;
+    -webkit-transition: display .5s ease-in;
+    -moz-transition: display .5s ease-in;
+    -o-transition: display .5s ease-in;
+    -ms-transition: display .5s ease-in;
+    transition: display .5s ease-in;
+}
