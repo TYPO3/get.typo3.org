@@ -45,7 +45,7 @@ class ComposerPackagesService
         ],
         [
             'name'        => 'typo3/cms-feedit',
-            'description' => '',
+            'description' => 'Frontend editing for TYPO3',
         ],
         [
             'name'        => 'typo3/cms-felogin',
@@ -230,6 +230,7 @@ class ComposerPackagesService
             'typo3/cms-beuser',
             'typo3/cms-core',
             'typo3/cms-extbase',
+            'typo3/cms-extensionmanager',
             'typo3/cms-filelist',
             'typo3/cms-fluid',
             'typo3/cms-fluid-styled-content',
