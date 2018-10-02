@@ -6,18 +6,46 @@
             <tbody>
             <tr>
                 <th scope="row">Operating System</th>
-                <td>Unix (e.g. Linux), Windows or Mac</td>
+                <td>Linux, Windows or Mac{% if version > 8 %}, or common cloud infrastructure setups{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Webserver</th>
-                <td>Apache (recommended), IIS, NGINX</td>
+                <td>Apache httpd, Nginx, Microsoft IIS{% if version > 8 %}, Caddy Server{% endif %}</td>
             </tr>
             {% for category,element in systemRequirements|groupByCategory %}
                 <tr>
-                    <th scope="row">{{ category|title }}</th>
+                    <th scope="row">
+                        {% if (category == 'php') %}
+                            PHP
+                        {% elseif (category == 'client') %}
+                            Supported Browsers
+                        {% else %}
+                            {{ category|title }}
+                        {% endif %}
+                    </th>
                     <td>
                         {% for entry in element %}
-                            {{ entry.name|title }}
+                            {% if (entry.name == 'php') %}
+                                PHP
+                            {% elseif (entry.name == 'client') %}
+                                {{ entry.name|title }}
+                            {% elseif (entry.name == 'ie') %}
+                                Internet Explorer
+                            {% elseif (entry.name == 'postgres') %}
+                                PostgreSQL
+                            {% elseif (entry.name == 'sqlsrv') %}
+                                Microsoft SQL Server
+                            {% elseif (entry.name == 'mysql') %}
+                                MySQL
+                            {% elseif (entry.name == 'mariadb') %}
+                                MariaDB
+                            {% elseif (entry.name == 'sqlite') %}
+                                SQLite
+                            {% elseif (entry.name == 'ram') %}
+                                RAM
+                            {% else %}
+                                {{ entry.name|title }}
+                            {% endif %}
                             {% if entry.min %}
                                 >= {{ entry.min }}
                                 {% if (entry.name == 'ram') %}

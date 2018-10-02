@@ -25,9 +25,8 @@
                 <div class="card-body__content">
                     {% if version.version == 8 %}
                         <h4 class="card-title">{{ version.title }}</h4>
-                        <p class="card-text">The current stable LTS release (for all new projects)
-                            The latest version with Long Term Support (LTS). It will have full support until October
-                            2018 and security bugfixes until March 2020.
+                        <p class="card-text">The old stable LTS release (for all new projects)
+                            The old version with Long Term Support (LTS). It will have maintenance and security-related bugfixes until March 2020.
                         </p>
                         <ul>
                             <li>Migration to Doctrine DBAL</li>
@@ -36,18 +35,16 @@
                         </ul>
                         <h5>System requirements</h5>
                         <ul>
-                            <li>PHP 7</li>
-                            <li>MySQL 5.0 up to 5.7</li>
-                            <li>(other DBMS supported as well)</li>
+                            <li>PHP 7.0 - PHP 7.2</li>
+                            <li>MySQL / Postgres support</li>
                             <li>Internet Explorer 11 and later</li>
                         </ul>
                         <h5>Current Version</h5>
                     {% elseif version.version == 7 %}
                         <h4 class="card-title">{{ version.title }}</h4>
-                        <p class="card-text">The old stable LTS release (for existing projects)
-                            The old version with Long Term Support (LTS). It will have maintenance and
-                            security-related
-                            bugfixes until October 2018.
+                        <p class="card-text">The legacy stable LTS release
+                            The legacy version with Long Term Support (LTS). It will have maintenance and
+                            security-related bugfixes until October 2018.
                         </p>
                         <ul>
                             <li>Revamped TYPO3 backend</li>
@@ -56,7 +53,7 @@
                         </ul>
                         <h5>System requirements</h5>
                         <ul>
-                            <li>PHP 5.5</li>
+                            <li>PHP 5.5, PHP 7.0 - 7.2</li>
                             <li>MySQL 5.5 up to 5.7</li>
                             <li>Internet Explorer 9 and later</li>
                         </ul>
