@@ -1,7 +1,7 @@
 {
   "title": "TYPO3 8 LTS",
-  "subtitle": "The current stable LTS release (for all new projects)",
-  "description": "The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.",
+  "subtitle": "The old stable LTS release (for existing projects)",
+  "description": "The old stable version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.",
   "version": {
     "full": "8.7.12",
     "major": 8,
