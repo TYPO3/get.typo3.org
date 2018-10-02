@@ -1,14 +1,14 @@
 {
   "title": "TYPO3 v9",
-  "subtitle": "The sprint release (for cutting-edge projects)",
-  "description": "The latest sprint release on the road to 9 LTS which will be released in Fall 2018.",
+  "subtitle": "The current stable LTS release (for all new projects)",
+  "description": "The latest version with Long Term Support (LTS). It will have full support until March 2020 and security bugfixes until October 2021.",
   "version": {
-    "full": "9.1.0",
+    "full": "9.5.0",
     "major": 9,
-    "lts": null,
+    "lts": 9.5,
     "folder": "9.x",
-    "releaseNotes": "TYPO3_CMS_9.1.0",
-    "speaking": "TYPO3 v9"
+    "releaseNotes": "TYPO3_CMS_9.5.0",
+    "speaking": "TYPO3 v9 LTS"
   },
   "systemRequirements": {
     "php": {
@@ -56,6 +56,6 @@
       }
     }
   },
-  "releaseDate": "2018-01-30",
-  "maintainedUntil": null
+  "releaseDate": "2018-10-02",
+  "maintainedUntil": 2021-10-31
 }
