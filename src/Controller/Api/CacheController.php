@@ -7,6 +7,7 @@ namespace App\Controller\Api;
 use App\Entity\MajorVersion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,6 +54,10 @@ class CacheController extends AbstractController
             throw new NotFoundHttpException('Version not found.');
         }
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
+        $filesystemCache = new FilesystemCache();
+        if ($filesystemCache->has('releases.json')) {
+            $filesystemCache->delete('releases.json');
+        }
         return new JsonResponse(['locations' => $purgeUrls]);
     }
 
@@ -101,6 +106,10 @@ class CacheController extends AbstractController
             ),
             $this->generateUrl('release-notes', ['version' => $version], UrlGeneratorInterface::ABSOLUTE_URL),
         ];
+        $filesystemCache = new FilesystemCache();
+        if ($filesystemCache->has('releases.json')) {
+            $filesystemCache->delete('releases.json');
+        }
         return new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]);
     }
 
@@ -112,6 +121,9 @@ class CacheController extends AbstractController
     {
         $args = ['version' => $version];
         $purgeUrls = [
+            $this->generateUrl('root', [],UrlGeneratorInterface::ABSOLUTE_URL),
+            $this->generateUrl('release-notes', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            $this->generateUrl('app_default_releasenotes', [], UrlGeneratorInterface::ABSOLUTE_URL),
             $this->generateUrl('majorVersion_show', $args, UrlGeneratorInterface::ABSOLUTE_URL),
             $this->generateUrl('app_api_majorversion_getmajorreleases', [], UrlGeneratorInterface::ABSOLUTE_URL),
             $this->generateUrl('app_api_majorversion_releases_getreleasesbymajorversion', $args,

@@ -79,11 +79,14 @@ class AbstractController extends Controller
                 $data = $this->flat($data);
             }
             if (array_key_exists($fieldName, $data)) {
-                if (isset($metadata->fieldMappings[$fieldName]['type'])) {
+                if (isset($metadata->fieldMappings[$field]['type'])) {
                     {
-                        switch ($metadata->fieldMappings[$fieldName]['type']) {
+                        switch ($metadata->fieldMappings[$field]['type']) {
                             case 'datetime':
                                 $data[$fieldName] = new \DateTime($data[$fieldName]);
+                                break;
+                            case 'datetime_immutable':
+                                $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
                                 break;
                         }
                     }

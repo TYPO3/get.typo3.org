@@ -70,9 +70,10 @@ class MajorVersionRepository extends EntityRepository
                     $qb->expr()->gte('m.maintainedUntil', $date)
                 )
             );
+        $qb->orderBy('m.maintainedUntil', 'DESC');
         $res = $qb->getQuery()->execute();
-        $latestLts = array_pop($res);
-        $latestOldLts = array_pop($res);
+        $latestLts = array_shift($res);
+        $latestOldLts = array_shift($res);
 
         $latestLtsReleases = $this->majorVersionDescending($latestLts);
         $latestOldLtsReleases = $this->majorVersionDescending($latestOldLts);
