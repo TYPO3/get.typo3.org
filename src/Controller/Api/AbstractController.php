@@ -28,7 +28,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
-class AbstractController extends Controller
+class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     /**
      * @var \JMS\Serializer\Serializer

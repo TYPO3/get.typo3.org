@@ -30,7 +30,6 @@
     "symfony/flex": "^1.0",
     "symfony/form": "^4.0",
     "symfony/framework-bundle": "^4.0",
-    "symfony/lts": "^4@dev",
     "symfony/maker-bundle": "^1.2",
     "symfony/monolog-bundle": "^3.2",
     "symfony/orm-pack": "^1.0",
@@ -41,6 +40,7 @@
     "twig/extensions": "^1.5"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-master",
     "phpunit/phpunit": "^7.0",
     "symfony/dotenv": "^4.0",
     "symfony/profiler-pack": "^1.0"

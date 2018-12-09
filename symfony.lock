@@ -212,6 +212,9 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
+    },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.1"
     },
@@ -272,6 +275,9 @@
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.2"
+    },
     "symfony/debug": {
         "version": "v4.0.6"
     },
@@ -328,9 +334,6 @@
     },
     "symfony/intl": {
         "version": "v4.1.4"
-    },
-    "symfony/lts": {
-        "version": "4-dev"
     },
     "symfony/maker-bundle": {
         "version": "1.0",
@@ -407,15 +410,6 @@
     "symfony/stopwatch": {
         "version": "v4.0.6"
     },
-    "symfony/translation": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
-        }
-    },
     "symfony/twig-bridge": {
         "version": "v4.0.6"
     },
@@ -433,6 +427,9 @@
     },
     "symfony/var-dumper": {
         "version": "v4.0.6"
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.1"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

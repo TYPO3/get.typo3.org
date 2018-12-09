@@ -21,7 +21,7 @@ use App\Entity\Release;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +31,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Regular content and download pages
  */
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
 
     protected $releaseNotesDir  = __DIR__ . '/../../Data/ReleaseNotes/';
