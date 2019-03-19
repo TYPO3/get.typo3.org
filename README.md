@@ -4,8 +4,9 @@ Symfony 4 application for release notes, download redirects and JSON API for rel
 
 # Installation
 
-- composer install
-- edit .env vars from .env.dist
+- execute `composer install`
+- edit `.env` vars from `.env.dist`
+- execute `php ./bin/console doctrine:schema:create` to create database schema
 
 # Migrate old data
 Reads all old json files into database
