@@ -16,7 +16,7 @@
 <div class="container b_container b_container--large b_container__release">
     <div class="card-deck">
         {% for version in majorVersions|reverse %}
-        {% if version.version == 9 %}
+        {% if version.version == 10 %}
         <div class="card text-white bg-dark">
         {% else %}
         <div class="card">
@@ -40,26 +40,19 @@
                             <li>Internet Explorer 11 and later</li>
                         </ul>
                         <h5>Current Version</h5>
-                    {% elseif version.version == 7 %}
-                        <h4 class="card-title">{{ version.title }}</h4>
-                        <p class="card-text">The legacy stable LTS release
-                            The legacy version with Long Term Support (LTS). It will have maintenance and
-                            security-related bugfixes until October 2018.
-                        </p>
-                        <ul>
-                            <li>Revamped TYPO3 backend</li>
-                            <li>Better performance and stability</li>
-                            <li>Improved media handling</li>
-                        </ul>
-                        <h5>System requirements</h5>
-                        <ul>
-                            <li>PHP 5.5, PHP 7.0 - 7.2</li>
-                            <li>MySQL 5.5 up to 5.7</li>
-                            <li>Internet Explorer 9 and later</li>
-                        </ul>
-                        <h5>Current Version</h5>
+                    {% elseif version.version == 10 %}
+                        <h4 class="card-title text-white">The upcoming LTS 10 release</h4>
+                        <p class="card-text">is scheduled for spring 2020.</p>
+                        <p class="card-text">Once the LTS version is released, updates and security fixes
+                            will be provided for three years.</p>
+                        <p class="card-text">Until the LTS release is launched, adopters are encouraged to
+                            install and use each of the sprint releases that are made available as we
+                            work towards the final release.</p>
+                        <p class="card-text">Stay tuned for more information on our <a
+                                    href="https://typo3.org/typo3-cms/roadmap/">roadmap.</a></p>
+                        <h5 class="text-white">Current Version</h5>
                     {% else %}
-                        <h4 class="card-title text-white">TYPO3 9 LTS</h4>
+                        <h4 class="card-title">TYPO3 9 LTS</h4>
                         <p class="card-text">"You're the one that I want!"</p>
                         <p class="card-text">The current stable LTS release (for all new projects).
                             The latest version with Long Term Support (LTS). It will have full support
@@ -69,13 +62,13 @@
                             <li>SEO out of the box</li>
                             <li>Easier and faster site building</li>
                         </ul>
-                        <h5 class="text-white">System requirements</h5>
+                        <h5>System requirements</h5>
                         <ul>
                             <li>PHP 7.2 or later</li>
                             <li>MySQL 5.5+ / MariaDB / Postgres / SQLite support</li>
                             <li>Internet Explorer 11 and later</li>
                         </ul>
-                        <h5 class="text-white">Current Version</h5>
+                        <h5>Current Version</h5>
                     {% endif %}
                     <ul>
                         <li>Version: {{ version.latestRelease.version }}</li>
