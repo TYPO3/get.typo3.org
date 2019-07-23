@@ -212,6 +212,9 @@
     "psr/log": {
         "version": "1.0.2"
     },
+    "psr/simple-cache": {
+        "version": "1.0.1"
+    },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },

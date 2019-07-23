@@ -52,10 +52,10 @@ class MajorVersionRepository extends EntityRepository
         $latestMajor = array_pop($res);
         $releases = $this->majorVersionDescending($latestMajor);
         $latestStable = $releases[0];
-        $latestOldStable = $releases[1];
+        $latestOldStable = $releases[1] ?? null;
         return [
             'latest_stable' => $latestStable->getVersion(),
-            'latest_old_stable' => $latestOldStable->getVersion(),
+            'latest_old_stable' => $latestOldStable ? $latestOldStable->getVersion() : null,
         ];
     }
 
@@ -99,7 +99,7 @@ class MajorVersionRepository extends EntityRepository
     {
         $version = (string)$version;
         if (\strpos($version, '.') === false) {
-            if (\in_array((int)$version, [7, 8, 9], true)) {
+            if (\in_array((int)$version, [7, 8, 9, 10, 11, 12, 13], true)) {
                 $version .= '.0000';
             } else {
                 $version .= '.0';
