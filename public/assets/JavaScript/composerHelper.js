@@ -115,8 +115,7 @@ const vanillaAjaxForm = function(form) {
  */
 const checkboxChangeEvent = function() {
     const form = document.getElementById('js-composer-helper-form');
-    const event = new Event('submit');
-    form.dispatchEvent(event);
+    vanillaAjaxForm(form);
 };
 
 const copyCommandToClipboard = function() {
