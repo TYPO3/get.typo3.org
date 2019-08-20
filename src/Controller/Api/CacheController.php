@@ -7,7 +7,7 @@ namespace App\Controller\Api;
 use App\Entity\MajorVersion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Cache\Simple\FilesystemCache;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,7 +54,7 @@ class CacheController extends AbstractController
             throw new NotFoundHttpException('Version not found.');
         }
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
-        $filesystemCache = new FilesystemCache();
+        $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
         if ($filesystemCache->has('releases.json')) {
             $filesystemCache->delete('releases.json');
         }
@@ -106,10 +106,8 @@ class CacheController extends AbstractController
             ),
             $this->generateUrl('release-notes', ['version' => $version], UrlGeneratorInterface::ABSOLUTE_URL),
         ];
-        $filesystemCache = new FilesystemCache();
-        if ($filesystemCache->has('releases.json')) {
-            $filesystemCache->delete('releases.json');
-        }
+        $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
+        $filesystemCache->delete('releases.json');
         return new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]);
     }
 
