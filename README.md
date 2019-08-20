@@ -2,7 +2,14 @@
 
 Symfony 4 application for release notes, download redirects and JSON API for releases.
 
-# Installation
+# Installation with .ddev
+
+- edit `.env` vars from `.env.dist`
+- ddev start
+- ddev ssh
+- `php ./bin/console doctrine:schema:create`
+
+# Manual Installation
 
 - execute `composer install`
 - edit `.env` vars from `.env.dist`
