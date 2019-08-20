@@ -1,4 +1,4 @@
-APIVersion: v1.10.0
+APIVersion: v1.10.2
 name: get.typo3.org
 type: php
 docroot: public
@@ -16,8 +16,8 @@ use_dns_when_possible: true
 timezone: ""
 
 
-# This config.yaml was created with ddev version v1.10.0 
-# webimage: drud/ddev-webserver:v1.10.0
+# This config.yaml was created with ddev version v1.10.2 
+# webimage: drud/ddev-webserver:v1.10.2
 # dbimage: drud/ddev-dbserver:v1.10.0-10.2
 # dbaimage: drud/phpmyadmin:v1.10.0
 # bgsyncimage: drud/ddev-bgsync:v1.10.0
