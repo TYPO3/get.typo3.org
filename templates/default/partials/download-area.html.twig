@@ -40,14 +40,10 @@
                 </a>
                 <div id="downloadComposer" class="collapse" role="tabpanel">
                     <div class="b_accordion__content">
-                        {% if version == 9 %}
-                            <pre>composer require typo3/minimal</pre>
-                        {% else %}
-                            <pre>composer create-project typo3/cms-base-distribution my-new-project {{ lts }}</pre>
-                        {% endif %}
+                        <pre>composer create-project typo3/cms-base-distribution my-new-project {{ lts }}</pre>
+                        <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="https://get.typo3.org/misc/composer/helper" title="Composer helper">get.typo3.org/misc/composer/helper</a></p>
                     </div>
                 </div>
-                <p>If your are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 on this website: <a href="https://get.typo3.org/misc/composer/helper" title="Composer helper">get.typo3.org/misc/composer/helper</a></p>
             </div>
             <div class="item b_accordion-item">
                 <a class="b_accordion-header-wrap collapsed" data-toggle="collapse" data-parent="#downloadAccordion" href="#downloadCurl" aria-expanded="false" aria-controls="downloadCurl">
