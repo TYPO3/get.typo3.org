@@ -59,7 +59,7 @@
 wget --content-disposition https://get.typo3.org/{{ version }}
 
 # Using cURL (e.g., when wget fails with SSL error)
-curl -L -o typo3_src.tgz get.typo3.org/{{ version }}</pre>
+curl -L -o typo3_src.tgz https://get.typo3.org/{{ version }}</pre>
                         <p>
                             In case you are encountering SSL warnings (host name mismatch), please make sure that you are
                             using a client that supports Server Name Indication (SNI). This especially affects old versions
