@@ -7,7 +7,7 @@
 
     {% if current.releaseNotes.legacyContent %}
         <div class="container b_container b_container--large">
-            {{ current.releaseNotes.legacyContent|parsedown|changehighlighter|raw }}
+            {{ current.releaseNotes.legacyContent|escape('html')|parsedown|changehighlighter|raw }}
         </div>
         {% include 'default/partials/release-notes/signatures.twig' %}
     {% else %}

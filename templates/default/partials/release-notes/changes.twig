@@ -1,6 +1,6 @@
 {% if current.releaseNotes.changes %}
     <div class="container b_container b_container--large">
         <h2>Changes</h2>
-        {{ current.releaseNotes.changes|parsedown|changehighlighter|raw }}
+        {{ current.releaseNotes.changes|escape('html')|parsedown|changehighlighter|raw }}
     </div>
 {% endif %}
