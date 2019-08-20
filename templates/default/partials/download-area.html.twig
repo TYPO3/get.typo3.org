@@ -18,11 +18,13 @@
                     <i class="material-icons b_icon--link">keyboard_arrow_right</i> Getting started
                 </a>
             </li>
+            {% if latestRelease.version >= 7 %}
             <li>
                 <a href="https://typo3.azureedge.net/typo3/{{ latestRelease.version }}/README.md" class="b_link">
                     <i class="material-icons b_icon--link">keyboard_arrow_right</i> Download README (incl. signatures)
                 </a>
             </li>
+            {% endif %}
             <li>
                 <a href="{{ path('list', { 'version': version }) }}" class="b_link">
                     <i class="material-icons b_icon--link">keyboard_arrow_right</i> See all releases

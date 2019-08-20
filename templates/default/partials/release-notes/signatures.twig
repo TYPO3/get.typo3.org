@@ -1,3 +1,4 @@
+{% if current.version  >= 7  %}
 <div class="container b_container b_container--large">
     <h2>Package Signatures</h2>
 
@@ -17,4 +18,4 @@
 wget --content-disposition https://get.typo3.org/{{ current.version }}/tar.gz.sig
 gpg --verify typo3_src-{{ current.version }}.tar.gz.sig typo3_src-{{ current.version }}.tar.gz</pre>
 </div>
-
+{% endif %}
