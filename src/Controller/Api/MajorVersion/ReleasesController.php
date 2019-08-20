@@ -98,6 +98,7 @@ class ReleasesController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
+        /** @var MajorVersion $major */
         $major = $releaseRepo->findOneBy(['version' => $version]);
         if (null === $major) {
             throw new NotFoundHttpException('Version not found.');
