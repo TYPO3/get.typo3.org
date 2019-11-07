@@ -21,7 +21,7 @@ jobs:
         composer --version
     - name: Install
       run: |
-        composer install
+        composer install --no-progress
     - name: Lint
       run: |
         composer test:php:lint
