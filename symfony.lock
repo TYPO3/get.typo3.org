@@ -215,6 +215,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.0"
     },
+    "overtrue/phplint": {
+        "version": "1.1.9"
+    },
     "paragonie/random_compat": {
         "version": "v2.0.11"
     },
