@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": "^7.1.3",
+    "php": ">=7.2.0",
     "ext-iconv": "*",
     "ext-sqlite3": "*",
     "erusev/parsedown": "^1.7",
