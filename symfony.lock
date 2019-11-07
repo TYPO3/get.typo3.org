@@ -2,6 +2,9 @@
     "composer/ca-bundle": {
         "version": "1.1.4"
     },
+    "composer/semver": {
+        "version": "1.5.0"
+    },
     "composer/xdebug-handler": {
         "version": "1.3.3"
     },
@@ -76,6 +79,18 @@
     },
     "exsyst/swagger": {
         "version": "v0.4.0"
+    },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.2",
+            "ref": "cc05ab6abf6894bddb9bbd6a252459010ebe040b"
+        },
+        "files": [
+            ".php_cs.dist"
+        ]
     },
     "guzzlehttp/guzzle": {
         "version": "6.3.0"
@@ -215,6 +230,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.0"
     },
+    "overtrue/phplint": {
+        "version": "1.1.9"
+    },
     "paragonie/random_compat": {
         "version": "v2.0.11"
     },
@@ -223,6 +241,9 @@
     },
     "phar-io/version": {
         "version": "1.0.1"
+    },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"

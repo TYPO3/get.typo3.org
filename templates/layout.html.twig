@@ -7,57 +7,18 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('assets/Css/main.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/Css/download.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/Css/universe.css') }}">
     {% endblock %}
     <title>Download TYPO3</title>
+    <script src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
+    <script type="module" src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/typo3-universe.js"></script>
 </head>
 <body>
+<typo3-universe active="download">
+    <div style="display: block; height: 44px;"></div>
+</typo3-universe>
 <div class="page-container mx-auto">
-
     <header class="container-fluid main-header">
-        <div class="row clearfix main-header__top">
-            <div class="col-12 pull-right">
-                <div class="container m-auto text-right">
-
-                    <ul class="navbar-nav main-nav__list main-nav__meta-nav">
-
-                        <li class="main-nav__meta-nav_item">
-                            <a href="https://typo3.org/cms/download/">
-
-                                <img class="main-nav__meta-nav_item-icon img-fluid"
-                                     src="/assets/Gett3o/Assets/TYPO3_installation.svg"
-                                     width="61" height="53" alt="">
-
-                                Install TYPO3
-                            </a>
-                        </li>
-
-                        <li class="main-nav__meta-nav_item">
-                            <a href="https://extensions.typo3.org">
-
-                                <img class="main-nav__meta-nav_item-icon img-fluid"
-                                     src="/assets/Gett3o/Assets/TYPO3_extension.svg"
-                                     width="64" height="53" alt="">
-
-                                Extensions
-                            </a>
-                        </li>
-
-                        <li class="main-nav__meta-nav_item">
-                            <a href="https://typo3.org/help/documentation/">
-
-                                <img class="main-nav__meta-nav_item-icon img-fluid"
-                                     src="/assets/Gett3o/Assets/TYPO3_doku.svg"
-                                     width="55" height="54" alt="">
-
-                                Documentation
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-            </div>
-        </div>
         <div class="main-header__bottom">
             <div class="container m-auto">
 
@@ -840,44 +801,6 @@
                                     </li>
 
                                 </ul>
-
-                                <ul class="navbar-nav main-nav__list main-nav__meta-nav">
-
-                                    <li class="main-nav__meta-nav_item">
-                                        <a href="https://typo3.org/cms/download/">
-
-                                            <img class="main-nav__meta-nav_item-icon img-fluid"
-                                                 src="/assets/Gett3o/Assets/TYPO3_installation.svg"
-                                                 width="61" height="53" alt="">
-
-                                            Install TYPO3
-                                        </a>
-                                    </li>
-
-                                    <li class="main-nav__meta-nav_item">
-                                        <a href="https://extensions.typo3.org">
-
-                                            <img class="main-nav__meta-nav_item-icon img-fluid"
-                                                 src="/assets/Gett3o/Assets/TYPO3_extension.svg"
-                                                 width="64" height="53" alt="">
-
-                                            Extensions
-                                        </a>
-                                    </li>
-
-                                    <li class="main-nav__meta-nav_item">
-                                        <a href="https://typo3.org/help/documentation/">
-
-                                            <img class="main-nav__meta-nav_item-icon img-fluid"
-                                                 src="/assets/Gett3o/Assets/TYPO3_doku.svg"
-                                                 width="55" height="54" alt="">
-
-                                            Documentation
-                                        </a>
-                                    </li>
-
-                                </ul>
-
                             </div>
                         </div>
                     </nav>

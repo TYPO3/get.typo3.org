@@ -1,6 +1,13 @@
 <?php
 declare(strict_types=1);
 
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
@@ -9,9 +16,7 @@ use Doctrine\Common\Util\Inflector;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
@@ -60,7 +65,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         $metadata = $em->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = Inflector::tableize($field);
-            if(is_array($data)) {
+            if (is_array($data)) {
                 $data = $this->flat($data);
             }
             if (array_key_exists($fieldName, $data)) {
@@ -132,7 +137,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
             $version,
             $matches
         );
-        return ((int)$success === 1);
+        return (int)$success === 1;
     }
 
     protected function flat(array $array, string $prefix = '')
@@ -150,5 +155,4 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         }
         return $result;
     }
-
 }

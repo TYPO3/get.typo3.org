@@ -1,6 +1,13 @@
 <?php
 declare(strict_types=1);
 
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace App\Entity\Embeddables;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -52,7 +59,6 @@ class ReleaseNotes
      */
     private $legacyContent;
 
-
     public function getNewsLink()
     {
         return $this->newsLink;
@@ -77,5 +83,4 @@ class ReleaseNotes
     {
         return $this->legacyContent;
     }
-
 }

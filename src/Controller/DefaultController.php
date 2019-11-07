@@ -1,20 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller;
-
 /*
- * This file is part of the TYPO3 project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+ * This file is part of the package t3o/gettypo3org.
  *
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
+ * LICENSE file that was distributed with this source code.
  */
+
+namespace App\Controller;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
@@ -33,7 +27,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DefaultController extends AbstractController
 {
-
     protected $releaseNotesDir  = __DIR__ . '/../../Data/ReleaseNotes/';
     protected $releasesJsonFile = __DIR__ . '/../../Data/releases.json';
     /**

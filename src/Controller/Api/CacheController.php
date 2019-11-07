@@ -1,17 +1,22 @@
 <?php
 declare(strict_types=1);
 
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace App\Controller\Api;
 
-
 use App\Entity\MajorVersion;
+use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -119,20 +124,28 @@ class CacheController extends AbstractController
     {
         $args = ['version' => $version];
         $purgeUrls = [
-            $this->generateUrl('root', [],UrlGeneratorInterface::ABSOLUTE_URL),
+            $this->generateUrl('root', [], UrlGeneratorInterface::ABSOLUTE_URL),
             $this->generateUrl('release-notes', [], UrlGeneratorInterface::ABSOLUTE_URL),
             $this->generateUrl('app_default_releasenotes', [], UrlGeneratorInterface::ABSOLUTE_URL),
             $this->generateUrl('majorVersion_show', $args, UrlGeneratorInterface::ABSOLUTE_URL),
             $this->generateUrl('app_api_majorversion_getmajorreleases', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('app_api_majorversion_releases_getreleasesbymajorversion', $args,
-                UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('app_api_majorversion_releases_getlatestreleasebymajorversion', $args,
-                UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('app_api_majorversion_releases_getlatestreleasecontentbymajorversion', $args,
-                UrlGeneratorInterface::ABSOLUTE_URL),
+            $this->generateUrl(
+                'app_api_majorversion_releases_getreleasesbymajorversion',
+                $args,
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
+            $this->generateUrl(
+                'app_api_majorversion_releases_getlatestreleasebymajorversion',
+                $args,
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
+            $this->generateUrl(
+                'app_api_majorversion_releases_getlatestreleasecontentbymajorversion',
+                $args,
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
             $this->generateUrl('root', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ];
         return $purgeUrls;
     }
-
 }
