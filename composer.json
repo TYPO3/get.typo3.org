@@ -1,7 +1,7 @@
 {
   "type": "project",
   "name": "t3o/gettypo3org",
-  "license": "GPL-v2+",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Susanne Moog",
