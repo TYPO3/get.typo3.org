@@ -1,5 +1,6 @@
-
+.ddev/commands/
 .idea/
+.vscode/
 
 ###> symfony/framework-bundle ###
 .env
