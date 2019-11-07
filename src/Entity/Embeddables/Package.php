@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace App\Entity\Embeddables;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -39,7 +46,6 @@ class Package implements \JsonSerializable
      * @SWG\Property(example="1e34187712269aa556413d2529b950c0dbff17cc95160cf316de07a3c85ce859")
      */
     private $sha256sum;
-
 
     /**
      * @return mixed

@@ -42,6 +42,7 @@
     "twig/extensions": "^1.5"
   },
   "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.16",
     "overtrue/phplint": "^1.1",
     "phpunit/phpunit": "^7.0",
     "rector/rector": "^0.5.10",
@@ -73,6 +74,9 @@
     "symfony/polyfill-php56": "*"
   },
   "scripts": {
+    "test:php:cgl": [
+      "php-cs-fixer --diff -v fix"
+    ],
     "test:php:lint": [
       "phplint"
     ],
@@ -80,6 +84,7 @@
       "phpunit -c phpunit.xml.dist"
     ],
     "test": [
+      "@test:php:cgl",
       "@test:php:lint",
       "@test:php:unit"
     ],

@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Symfony\Component\Validator\Constraints as Assert;
 use Swagger\Annotations as SWG;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -103,7 +109,6 @@ class Requirement implements \JsonSerializable
     {
         return $this->max;
     }
-
 
     /**
      * Specify data which should be serialized to JSON

@@ -1,8 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Api\MajorVersion;
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
+namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
 use App\Entity\MajorVersion;

@@ -28,4 +28,7 @@ jobs:
     - name: Unit Tests
       run: |
         composer test:php:unit
+    - name: CGL
+      run: |
+        composer test:php:cgl
 

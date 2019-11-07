@@ -1,8 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service;
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
+namespace App\Service;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
@@ -11,7 +17,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class CacheWarmupService implements CacheWarmerInterface
@@ -65,7 +70,6 @@ class CacheWarmupService implements CacheWarmerInterface
      */
     public function warmUp($cacheDir): void
     {
-
         $routesWithoutArguments = [
             'root',
             'app_api_majorversion_getmajorreleases',
@@ -110,7 +114,6 @@ class CacheWarmupService implements CacheWarmerInterface
         }
         return $promise ?? null;
     }
-
 
     private function warmUpActiveMajorVersions(): void
     {

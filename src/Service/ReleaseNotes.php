@@ -1,6 +1,13 @@
 <?php
 declare(strict_types=1);
 
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace App\Service;
 
 use Symfony\Component\Finder\Finder;
@@ -8,7 +15,6 @@ use Symfony\Component\Finder\Finder;
 class ReleaseNotes
 {
     protected $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
-
 
     /**
      * @return array
