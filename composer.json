@@ -6,7 +6,8 @@
     {
       "name": "Susanne Moog",
       "email": "susanne.moog@typo3.com"
-    }, {
+    },
+    {
       "name": "Benni Mack",
       "email": "benni@typo3.org"
     }
@@ -48,10 +49,11 @@
     "symfony/profiler-pack": "^1.0"
   },
   "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true,
     "preferred-install": {
       "*": "dist"
-    },
-    "sort-packages": true
+    }
   },
   "autoload": {
     "psr-4": {
