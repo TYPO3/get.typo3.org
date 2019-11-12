@@ -32,20 +32,30 @@ class MajorVersionRepository extends EntityRepository
 
     public function findAllPreparedForJson()
     {
-        $data = $this->findAllGroupedByMajor(true);
+        $data = $this->findCommunityVersionsGroupedByMajor();
         $data = array_merge($data, $this->findStableReleases());
         $data = array_merge($data, $this->findLtsReleases());
         return $data;
     }
 
-    public function findAllGroupedByMajor(bool $excludeElts = false): array
+    public function findAllGroupedByMajor(): array
     {
         $all = $this->findAll();
         $data = [];
         foreach ($all as $version) {
-            if ($excludeElts) {
-                $version = $this->removeEltsReleases($version);
-            }
+            $data[$this->formatVersion($version->getVersion())] = $version;
+        }
+        uksort($data, 'version_compare');
+        $data = array_reverse($data);
+        return $data;
+    }
+
+    public function findCommunityVersionsGroupedByMajor(): array
+    {
+        $all = $this->findAll();
+        $data = [];
+        foreach ($all as $version) {
+            $version = $this->removeEltsReleases($version);
             $data[$this->formatVersion($version->getVersion())] = $version;
         }
         uksort($data, 'version_compare');
