@@ -44,7 +44,7 @@ class MajorVersionRepository extends EntityRepository
         $data = [];
         foreach ($all as $version) {
             if ($excludeElts) {
-                $version->removeEltsReleases();
+                $version = $this->removeEltsReleases($version);
             }
             $data[$this->formatVersion($version->getVersion())] = $version;
         }
@@ -133,5 +133,18 @@ class MajorVersionRepository extends EntityRepository
         );
 
         return $releases;
+    }
+
+    /**
+     * @param MajorVersion $majorVersion
+     * @return MajorVersion
+     */
+    private function removeEltsReleases(MajorVersion $majorVersion): MajorVersion
+    {
+        $majorVersion->setReleases($majorVersion->getReleases()->filter(static function (Release $release) {
+            return !$release->isElts();
+        }));
+
+        return $majorVersion;
     }
 }
