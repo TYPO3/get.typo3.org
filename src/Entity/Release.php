@@ -54,6 +54,16 @@ class Release implements \JsonSerializable
     private $type;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @ORM\Column(options={"default": 0})
+     * @var bool
+     * @Serializer\Groups({"data", "content"})
+     * @Assert\Valid
+     * @SWG\Property(example="true")
+     */
+    private $elts;
+
+    /**
      * @ORM\Embedded(class = "App\Entity\Embeddables\Package")
      * @var Package
      * @Serializer\Type("App\Entity\Embeddables\Package")
@@ -88,15 +98,6 @@ class Release implements \JsonSerializable
      * @Assert\Valid
      */
     private $releaseNotes;
-
-    /**
-     * @ORM\Column(type="boolean")
-     * @ORM\Column(options={"default": 0})
-     * @var bool
-     * @Serializer\Groups({"data", "content"})
-     * @Assert\Valid
-     */
-    private $elts;
 
     public function __construct()
     {
