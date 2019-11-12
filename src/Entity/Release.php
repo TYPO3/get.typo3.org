@@ -58,7 +58,7 @@ class Release implements \JsonSerializable
      * @ORM\Column(options={"default": 0})
      * @var bool
      * @Serializer\Groups({"data", "content"})
-     * @Assert\Valid
+     * @Assert\Type("boolean")
      * @SWG\Property(example="true")
      */
     private $elts;
