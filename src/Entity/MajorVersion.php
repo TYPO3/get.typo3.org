@@ -127,6 +127,11 @@ class MajorVersion implements \JsonSerializable
         return $this->version;
     }
 
+    public function setReleases(Collection $releases): void
+    {
+        $this->releases = $releases;
+    }
+
     public function getReleases(): Collection
     {
         return $this->releases;
