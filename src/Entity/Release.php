@@ -90,6 +90,20 @@ class Release implements \JsonSerializable
     private $releaseNotes;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @ORM\Column(options={"default": 0})
+     * @var bool
+     * @Serializer\Groups({"data", "content"})
+     * @Assert\Valid
+     */
+    private $elts;
+
+    public function __construct()
+    {
+        $this->elts = false;
+    }
+
+    /**
      * @return string
      */
     public function getVersion(): string
@@ -138,6 +152,16 @@ class Release implements \JsonSerializable
     public function getType(): string
     {
         return $this->type;
+    }
+
+    public function setElts(bool $elts): void
+    {
+        $this->elts = $elts;
+    }
+
+    public function isElts(): bool
+    {
+        return $this->elts;
     }
 
     /**
