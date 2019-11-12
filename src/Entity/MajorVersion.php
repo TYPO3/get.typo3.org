@@ -132,6 +132,13 @@ class MajorVersion implements \JsonSerializable
         return $this->releases;
     }
 
+    public function getReleasesWithoutElts(): Collection
+    {
+        return $this->releases->filter(static function (Release $release) {
+            return !$release->isElts();
+        });
+    }
+
     public function getTitle(): string
     {
         return $this->title;

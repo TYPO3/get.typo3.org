@@ -120,7 +120,7 @@ class MajorVersionRepository extends EntityRepository
      */
     private function majorVersionDescending(MajorVersion $majorVersion): array
     {
-        $releases = $majorVersion->getReleases()->toArray();
+        $releases = $majorVersion->getReleasesWithoutElts()->toArray();
 
         usort(
             $releases,
