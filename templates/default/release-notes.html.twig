@@ -1,5 +1,5 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}TYPO3 {{ current.version }} Release Notes{% endblock %}
 {% block content %}
 
     {% include 'default/partials/key-visual.html.twig' with {'title': 'Release Notes', 'subtitle': 'TYPO3 ' ~ current.version, 'small': '1'} %}

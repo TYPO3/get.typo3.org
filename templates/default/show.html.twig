@@ -1,155 +1,188 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}Download TYPO3{% endblock %}
 {% block content %}
-<div class="container-fluid b_keyvisual">
-    <img src="{{ path('root') }}assets/Gett3o/Assets/keyvisual_image.png" alt="" class="b_keyvisual__image">
-    <div class="b_keyvisual__info">
-        <h1>Get TYPO3</h1>
-        <h3><a href="#download">Download</a> or <a href="#try-online">try</a> TYPO3 now!</h3>
-    </div>
-</div>
 
-<a name="download"></a>
-<div class="container b_container b_container--large">
-    <h2>Choose a version</h2>
-</div>
-<div class="container b_container b_container--large b_container__release">
-    <div class="card-deck">
-        {% for version in majorVersions|reverse %}
-        {% if version.version == 10 %}
-        <div class="card text-white bg-dark">
-        {% else %}
-        <div class="card">
-        {% endif %}
-            <div class="card-body">
-                <div class="card-body__content">
-                    {% if version.version == 8 %}
-                        <h4 class="card-title">{{ version.title }}</h4>
-                        <p class="card-text">The old stable LTS release (for existing projects)
-                            The old version with Long Term Support (LTS). It will have maintenance and security-related bugfixes until March 2020.
-                        </p>
-                        <ul>
-                            <li>Migration to Doctrine DBAL</li>
-                            <li>Improved image cropping</li>
-                            <li>New rich text editor</li>
-                        </ul>
-                        <h5>System requirements</h5>
-                        <ul>
-                            <li>PHP 7.0 or later</li>
-                            <li>MySQL 5.5+ / MariaDB / Postgres support</li>
-                            <li>Internet Explorer 11 and later</li>
-                        </ul>
-                        <h5>Current Version</h5>
-                    {% elseif version.version == 10 %}
-                        <h4 class="card-title text-white">TYPO3 10</h4>
-                        <p class="card-text">TYPO3 v10 LTS is scheduled to be released in April 2020.</p>
-                        <p class="card-text">Updates and security fixes will be provided for three years starting from the release date.</p>
-                        <p class="card-text">We encourage users and agencies to install and use the v10 sprint releases until the LTS release is available.</p>
-                        <p class="card-text">Further details about the releases and release dates are available in the
-                            <a href="https://typo3.org/typo3-cms/roadmap/">roadmap</a>.</p>
-                        <h5 class="text-white">Current Version</h5>
-                    {% else %}
-                        <h4 class="card-title">TYPO3 9 LTS</h4>
-                        <p class="card-text">"You're the one that I want!"</p>
-                        <p class="card-text">The current stable LTS release (for all new projects).
-                            The latest version with Long Term Support (LTS). It will have full support
-                            until April 2020 and security bug fixes until September 2021.</p>
-                        <ul>
-                            <li>Native URL Routing</li>
-                            <li>SEO out of the box</li>
-                            <li>Easier and faster site building</li>
-                        </ul>
-                        <h5>System requirements</h5>
-                        <ul>
-                            <li>PHP 7.2 or later</li>
-                            <li>MySQL 5.5+ / MariaDB / Postgres / SQLite support</li>
-                            <li>Internet Explorer 11 and later</li>
-                        </ul>
-                        <h5>Current Version</h5>
-                    {% endif %}
-                    <ul>
-                        <li>Version: {{ version.latestRelease.version }}</li>
-                        <li>Release Date: {{ version.latestRelease.date|date("Y-m-d") }}</li>
-                    </ul>
+<div id="carousel-visual" class="carousel carousel-small carousel-fade slide pointer-event" data-interval="20000" data-wrap="true" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="item active carousel-item carousel-item-type carousel-item-type-text" data-itemno="0" style="background-color: #313131;">
+            <div class="carousel-backgroundimage-container">
+                <div id="carousel-backgroundimage-visual" class="carousel-backgroundimage carousel-backgroundimage-fade">
+                    <style>#carousel-backgroundimage-visual { background-image: url('{{ asset("assets/Images/keyvisual.png") }}'); }</style>
                 </div>
             </div>
-            <div class="card-footer border-top-0">
-                <a href="{{ path('version', {'version': version.version}) }}"
-                   class="btn btn-primary btn-block b_btn--version">Get version {{ version.version }}</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-<div class="container b_container b_container--large">
-    <h4>Older versions</h4>
-    <p>7.6 LTS, 6.2 LTS and everything below is no longer supported by the TYPO3 Core Team, consider upgrading
-        or extending support by <a href="https://typo3.com/services/extended-support/">TYPO3 GmbH</a>.
-    </p>
-</div>
-
-<a name="try-online"></a>
-<div class="bg-light">
-    <div class="container b_container b_container--large">
-        <h2>Try it online</h2>
-        <p>
-            Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
-            based infrastructures to get started as quick as possible.
-        </p>
-    </div>
-    <div class="container b_container b_container--large">
-        <div class="card-deck">
-            <div class="card card-padding">
-                <img class="b_try__image card-img-top" src="{{ path('root') }}assets/Gett3o/Assets/bitnami.png"
-                     alt="Bitnami">
-                <div class="card-body">
-                    <p class="card-text">
-                        Bitnami TYPO3 Stack provides a one-click install solution for TYPO3. Download installers
-                        and
-                        virtual machines or run your own TYPO3 server in the cloud.
-                    </p>
-                </div>
-                <div class="card-footer border-top-0">
-                    <a href="https://bitnami.com/stack/typo3" class="btn btn-primary btn-block b_btn--version">Go
-                        to Bitnami</a>
-                </div>
-            </div>
-            <div class="card card-padding">
-                <img class="b_try__image card-img-top" src="{{ path('root') }}assets/Gett3o/Assets/aws.png"
-                     alt="AWS">
-                <div class="card-body">
-                    <p class="card-text">Ready-to-use machine images with TYPO3 pre-installed and pre-configured.
-                        A &quot;root&quot; login via SSH and an administrator account to the TYPO3 backend allow
-                        unrestricted access to the server and CMS. TYPO3 v7, v8, v9 LTS and v10 sprint releases
-                        are available.
-                    </p>
-                </div>
-                <div class="card-footer border-top-0">
-                    <a href="https://aws.amazon.com/marketplace/seller-profile/?id=3c5e5f3c-d60e-4405-a9ca-aae8abfa3e2b"
-                       class="btn btn-primary btn-block b_btn--version">Go to AWS Marketplace</a>
-                </div>
-            </div>
-            <div class="card card-padding">
-                <img class="b_try__image card-img-top" src="{{ path('root') }}assets/Gett3o/Assets/platform.png"
-                     alt="platform.sh">
-                <div class="card-body">
-                    <p class="card-text">Test and Install TYPO3 CMS V8 on Platform.sh. You can find the Platform
-                        file on Github.</p>
-                </div>
-                <div class="card-footer border-top-0">
-                    <a href="https://accounts.platform.sh/platform/trial/typo3/setup"
-                       class="btn btn-primary btn-block b_btn--version">Go to platform.sh</a>
+            <div class="carousel-content">
+                <div class="valign" style="color: #FFFFFF;">
+                    <div class="vcontainer">
+                        <div class="carousel-text-inner">
+                            <div class="carousel-item-bodytext">
+                                <h1 class="carousel-item-header none text-center">Build Blazingly&nbsp;Fast, Flexible&nbsp;Websites</h1>
+                                <p class="mt-4 lead text-center">
+                                    <a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>
+                                    <a href="#try-online" class="btn btn-lg btn-default">Try TYPO3</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container b_container b_container--large">
-        <h5>JSON Release files</h5>
-        <p>
-            In case you want to build your own API to download certain versions of TYPO3, feel free to use
-            our <a href="https://get.typo3.org/json">JSON releases file</a>.
-        </p>
+</div>
+
+<div id="download" class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
+            <h3 class="mb-3 text-center">Current Versions</h3>
+            <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
+                {% for version in majorVersions|reverse %}
+                <div class="card-group-element-item">
+                    <div class="card{% if loop.first %} card-inverse{% endif %}">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ version.title }}</h4>
+                            {% if version.version == 10 %}
+                                <p><strong>TYPO3 v10 LTS is scheduled to be released in April 2020.</strong></p>
+                                <p>Updates and security fixes will be provided for three years starting from the release date.
+                                    We encourage users and agencies to install and use the v10 sprint releases until the LTS release is available.
+                                    Further details about the releases and release dates are available in the
+                                    <a href="https://typo3.org/typo3-cms/roadmap/">roadmap</a>.</p>
+                            {% else %}
+                                <p>{{ version.description }}</p>
+                            {% endif %}
+
+                            {% if version.version == 8 %}
+                                <ul class="list-check">
+                                    <li>Migration to Doctrine DBAL</li>
+                                    <li>Improved image cropping</li>
+                                    <li>New rich text editor</li>
+                                </ul>
+                            {% elseif version.version == 9 %}
+                                <ul class="list-check">
+                                    <li>Native URL Routing</li>
+                                    <li>SEO out of the box</li>
+                                    <li>Easier and faster site building</li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer">
+                            <h5>System requirements</h3>
+                            <ul class="list-info">
+                                {% if version.version == 10 %}
+                                    <li>PHP 7.2 or later</li>
+                                    <li>MySQL 5.5+ / MariaDB / Postgres / SQLite support</li>
+                                    <li>Modern Browsers</li>
+                                {% elseif version.version == 9 %}
+                                    <li>PHP 7.2 or later</li>
+                                    <li>MySQL 5.5+ / MariaDB / Postgres / SQLite support</li>
+                                    <li>Internet Explorer 11 and later</li>
+                                {% elseif version.version == 8 %}
+                                    <li>PHP 7.0 or later</li>
+                                    <li>MySQL 5.5+ / MariaDB / Postgres support</li>
+                                    <li>Internet Explorer 11 and later</li>
+                                {% endif %}
+                            </ul>
+                            <h5>Current Version</h5>
+                            <ul class="list-unstyled">
+                                <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
+                                <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
+                            </ul>
+                            {% set btnClass = 'default' %}
+                            {% if version.version == 10 %}
+                                {% set btnClass = 'primary' %}
+                            {% endif %}
+                            <a href="{{ path('version', {'version': version.version}) }}"
+                                class="btn btn-{{ btnClass }}">Get version {{ version.version }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="frame frame-indent frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner text-center">
+            <h3>Extended Long Term Support</h3>
+            <p>7.6 LTS, 6.2 LTS and everything below is no longer supported by the TYPO3 Core Team, consider upgrading
+                or extending support by <a href="https://typo3.com/services/extended-support/">TYPO3 GmbH</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="try-online" class="frame frame-indent frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner text-center">
+
+            <h3>Try it online</h3>
+            <p>
+                Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
+                based infrastructures to get started as quick as possible.
+            </p>
+
+        </div>
+    </div>
+</div>
+<div class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
+
+            <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
+                <div class="card-group-element-item">
+                    <div class="card">
+                        <div class="card-img-top">
+                            <img src="{{ asset('assets/Images/try/bitnami.png') }}" alt="Bitnami">
+                        </div>
+                        <div class="card-body">
+                            <p>Bitnami TYPO3 Stack provides a one-click install solution for TYPO3. Download installers
+                                and virtual machines or run your own TYPO3 server in the cloud.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://bitnami.com/stack/typo3" class="btn btn-primary">
+                                <span class="btn-text">Go to Bitnami</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-group-element-item">
+                    <div class="card">
+                        <div class="card-img-top">
+                            <img src="{{ asset('assets/Images/try/aws.png') }}" alt="AWS">
+                        </div>
+                        <div class="card-body">
+                            <p>Ready-to-use machine images with TYPO3 pre-installed and pre-configured.
+                                A &quot;root&quot; login via SSH and an administrator account to the TYPO3 backend allow
+                                unrestricted access to the server and CMS. TYPO3 v7, v8, v9 LTS and v10 sprint releases
+                                are available.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://aws.amazon.com/marketplace/seller-profile/?id=3c5e5f3c-d60e-4405-a9ca-aae8abfa3e2b" class="btn btn-primary">
+                                <span class="btn-text">Go to AWS Marketplace</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-group-element-item">
+                    <div class="card">
+                        <div class="card-img-top">
+                            <img src="{{ asset('assets/Images/try/platform.png') }}" alt="platform.sh">
+                        </div>
+                        <div class="card-body">
+                            <p>Test and Install TYPO3 CMS V8 on Platform.sh. You can find the Platform
+                                file on Github.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://accounts.platform.sh/platform/trial/typo3/setup" class="btn btn-primary">
+                                <span class="btn-text">Go to platform.sh</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}

@@ -1,117 +1,154 @@
-    <div class="container b_container--large">
-        <h1 class="h2">Downloads</h1>
-        <p>{{ description }}</p>
+<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
 
-        <ul class="list-unstyled">
-            <li>
-                <a href="{{ path('release-notes-for-version', {'version': latestRelease.version }) }}" class="b_link">
-                    <i class="material-icons b_icon--link">keyboard_arrow_right</i> Release Notes
-                </a>
-            </li>
-            <li>
-                <a href="https://docs.typo3.org/typo3cms/InstallationGuide/" class="b_link">
-                    <i class="material-icons b_icon--link">keyboard_arrow_right</i> Installation Guide
-                </a>
-            </li>
-            <li>
-                <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/" class="b_link">
-                    <i class="material-icons b_icon--link">keyboard_arrow_right</i> Getting started
-                </a>
-            </li>
-            {% if latestRelease.version >= 7 %}
-            <li>
-                <a href="https://typo3.azureedge.net/typo3/{{ latestRelease.version }}/README.md" class="b_link">
-                    <i class="material-icons b_icon--link">keyboard_arrow_right</i> Download README (incl. signatures)
-                </a>
-            </li>
-            {% endif %}
-            <li>
-                <a href="{{ path('list', { 'version': version }) }}" class="b_link">
-                    <i class="material-icons b_icon--link">keyboard_arrow_right</i> See all releases
-                </a>
-            </li>
-        </ul>
+            <h1 class="h2">Downloads</h1>
+            <p>{{ description }}</p>
+            <ul class="list-link">
+                <li>
+                    <a href="{{ path('release-notes-for-version', {'version': latestRelease.version }) }}">Release Notes</a>
+                </li>
+                <li>
+                    <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">Installation Guide</a>
+                </li>
+                <li>
+                    <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/">Getting started</a>
+                </li>
+                {% if latestRelease.version >= 7 %}
+                <li>
+                    <a href="https://typo3.azureedge.net/typo3/{{ latestRelease.version }}/README.md">Download README (incl. signatures)</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('list', { 'version': version }) }}">See all releases</a>
+                </li>
+            </ul>
 
-        <div id="downloadAccordion" data-children=".item">
-            <div class="item b_accordion-item">
-                <a class="b_accordion-header-wrap collapsed" data-toggle="collapse" data-parent="#downloadAccordion" href="#downloadComposer" aria-expanded="true" aria-controls="downloadComposer">
-                    <p class="b_accordion-header"><strong>Set up a new project via composer</strong></p>
-                    <p class="b_accordion-header">Using the command line</p>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
-                </a>
-                <div id="downloadComposer" class="collapse" role="tabpanel">
-                    <div class="b_accordion__content">
-                        {% if lts %}
-                            <pre>composer create-project typo3/cms-base-distribution my-new-project ^{{ lts }}</pre>
-                        {% else %}
-                            <pre>composer create-project typo3/cms-base-distribution my-new-project</pre>
-                        {% endif %}
-                        <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="https://get.typo3.org/misc/composer/helper" title="Composer helper">get.typo3.org/misc/composer/helper</a></p>
+        </div>
+    </div>
+</div>
+<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
+            <div class="accordion" id="accordion-download">
+                <div class="accordion-item card">
+                    <div class="accordion-header card-header" id="accordion-heading-composer">
+                        <h4 class="accordion-title">
+                            <a href="#accordion-composer" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-composer">
+                                <span class="accordion-title-link-text">
+                                    Set up a new project via composer
+                                    <br><small>Using the command line</small>
+                                </span>
+                                <span class="accordion-title-link-state"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="accordion-composer" class="accordion-collapse collapse" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
+                        <div class="accordion-body card-body">
+                            <div class="accordion-content">
+                                <div class="accordion-content-item accordion-content-text">
+
+                                    {% if lts %}
+                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ lts }}</code></pre>
+                                    {% else %}
+                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project</code></pre>
+                                    {% endif %}
+                                    <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="https://get.typo3.org/misc/composer/helper" title="Composer helper">get.typo3.org/misc/composer/helper</a></p>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item b_accordion-item">
-                <a class="b_accordion-header-wrap collapsed" data-toggle="collapse" data-parent="#downloadAccordion" href="#downloadCurl" aria-expanded="false" aria-controls="downloadCurl">
-                    <p class="b_accordion-header"><strong>Download via wget/curl</strong></p>
-                    <p class="b_accordion-header">Useful directly on your server</p>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
-                </a>
-                <div id="downloadCurl" class="collapse" role="tabpanel">
-                    <div class="b_accordion__content">
-                        <pre>
-# Using wget
-wget --content-disposition https://get.typo3.org/{{ version }}
+                <div class="accordion-item card">
+                    <div class="accordion-header card-header" id="accordion-heading-curl">
+                        <h4 class="accordion-title">
+                            <a href="#accordion-curl" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-curl">
+                                <span class="accordion-title-link-text">
+                                    Download via wget/curl
+                                    <br><small>Useful directly on your server</small>
+                                </span>
+                                <span class="accordion-title-link-state"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="accordion-curl" class="accordion-collapse collapse" aria-labelledby="accordion-heading-curl" data-parent="#accordion-download">
+                        <div class="accordion-body card-body">
+                            <div class="accordion-content">
+                                <div class="accordion-content-item accordion-content-text">
+                                    <strong>Using wget</strong>
+                                    <pre>wget --content-disposition https://get.typo3.org/{{ version }}</pre>
+                                    <strong>Using cURL (e.g., when wget fails with SSL error)</strong>
+                                    <pre>curl -L -o typo3_src.tgz https://get.typo3.org/{{ version }}</pre>
+                                    <p>
+                                        In case you are encountering SSL warnings (host name mismatch), please make sure that you are
+                                        using a client that supports Server Name Indication (SNI). This especially affects old versions
+                                        of wget (before version 1.14).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item card">
+                    <div class="accordion-header card-header" id="accordion-heading-git">
+                        <h4 class="accordion-title">
+                            <a href="#accordion-git" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-git">
+                                <span class="accordion-title-link-text">
+                                    Download from Source (GIT)
+                                    <br><small>For developing on TYPO3 Core (e.g. bugfixes)</small>
+                                </span>
+                                <span class="accordion-title-link-state"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="accordion-git" class="accordion-collapse collapse" aria-labelledby="accordion-heading-git" data-parent="#accordion-download">
+                        <div class="accordion-body card-body">
+                            <div class="accordion-content">
+                                <div class="accordion-content-item accordion-content-text">
+                                    <pre>git clone https://github.com/TYPO3/TYPO3.CMS</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item card">
+                    <div class="accordion-header card-header" id="accordion-heading-zip">
+                        <h4 class="accordion-title">
+                            <a href="#accordion-zip" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-zip">
+                                <span class="accordion-title-link-text">
+                                    Package Download (tar.gz, zip, signatures)
+                                    <br><small>The <em>classic</em> way</small>
+                                </span>
+                                <span class="accordion-title-link-state"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="accordion-zip" class="accordion-collapse collapse" aria-labelledby="accordion-heading-zip" data-parent="#accordion-download">
+                        <div class="accordion-body card-body">
+                            <div class="accordion-content">
+                                <div class="accordion-content-item accordion-content-text">
+                                    <ul class="list-link">
+                                        <li>
+                                            <a href="https://get.typo3.org/{{ version }}/tar.gz">get.typo3.org/{{ version }}/tar.gz</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://get.typo3.org/{{ version }}/zip">get.typo3.org/{{ version }}/zip</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://get.typo3.org/{{ version }}/tar.gz.sig">get.typo3.org/{{ version }}/tar.gz.sig - GPG signature</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://get.typo3.org/{{ version }}/zip.sig">get.typo3.org/{{ version }}/zip.sig - GPG signature</a>
+                                        </li>
 
-# Using cURL (e.g., when wget fails with SSL error)
-curl -L -o typo3_src.tgz https://get.typo3.org/{{ version }}</pre>
-                        <p>
-                            In case you are encountering SSL warnings (host name mismatch), please make sure that you are
-                            using a client that supports Server Name Indication (SNI). This especially affects old versions
-                            of wget (before version 1.14).
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="item b_accordion-item">
-                <a class="b_accordion-header-wrap collapsed" data-toggle="collapse" data-parent="#downloadAccordion" href="#downloadGit" aria-expanded="false" aria-controls="downloadGit">
-                    <p class="b_accordion-header"><strong>Download from Source (GIT)</strong></p>
-                    <p class="b_accordion-header">For developing on TYPO3 Core (e.g. bugfixes)</p>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
-                </a>
-                <div id="downloadGit" class="collapse" role="tabpanel">
-                    <div class="b_accordion__content">
-                        <pre>git clone https://github.com/TYPO3/TYPO3.CMS</pre>
-                    </div>
-                </div>
-            </div>
-            <div class="item b_accordion-item">
-                <a class="b_accordion-header-wrap collapsed" data-toggle="collapse" data-parent="#downloadAccordion" href="#downloadZip" aria-expanded="false" aria-controls="downloadZip">
-                    <p class="b_accordion-header"><strong>Package Download (tar.gz, zip, signatures)</strong></p>
-                    <p class="b_accordion-header">The <em>classic</em> way</p>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-open">add_circle</i>
-                    <i class="material-icons b_icon--accordion b_icon--accordion-close">remove_circle</i>
-                </a>
-                <div id="downloadZip" class="collapse" role="tabpanel">
-                    <div class="b_accordion__content">
-                        <p>
-                            <a href="https://get.typo3.org/{{ version }}/tar.gz" class="b_link">
-                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/tar.gz
-                            </a>
-                            <a href="https://get.typo3.org/{{ version }}/zip" class="b_link">
-                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/zip
-                            </a>
-                            <a href="https://get.typo3.org/{{ version }}/tar.gz.sig" class="b_link">
-                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/tar.gz.sig - GPG signature
-                            </a>
-                            <a href="https://get.typo3.org/{{ version }}/zip.sig" class="b_link">
-                                <i class="material-icons b_icon--link">file_download</i> get.typo3.org/{{ version }}/zip.sig - GPG signature
-                            </a>
-                        </p>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

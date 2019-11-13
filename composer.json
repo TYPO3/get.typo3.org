@@ -19,6 +19,7 @@
     "erusev/parsedown": "^1.7",
     "guzzlehttp/guzzle": "^6.3",
     "jms/serializer-bundle": "3.0",
+    "knplabs/knp-menu-bundle": "^2.3",
     "nelmio/api-doc-bundle": "^3.1",
     "nelmio/cors-bundle": "^1.5",
     "nelmio/security-bundle": "^2.5",

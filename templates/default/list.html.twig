@@ -1,5 +1,5 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}List of Releases for TYPO3 v{{ version }}{% endblock %}
 {% block content %}
 
     {% include 'default/partials/key-visual.html.twig' with {'title': title, 'subtitle': subtitle, 'small': '1'} %}
@@ -8,15 +8,9 @@
         <h2>List of Releases for TYPO3 v{{ version }}</h2>
         <table>
             <tr>
-                <th>
-                    Version
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                    Type
-                </th>
+                <th>Version</th>
+                <th>Date</th>
+                <th>Type</th>
             </tr>
             {% for release in releases|sortByVersion %}
                 {% if release.type == "security" %}
