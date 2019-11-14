@@ -258,8 +258,7 @@ class ComposerPackagesService
             'typo3/cms-setup',
             'typo3/cms-tstemplate',
             'typo3/cms-viewpage',
-        ],
-        'clear selection' => [],
+        ]
     ];
 
     public function buildForm(FormBuilderInterface $builder): FormInterface
@@ -269,11 +268,12 @@ class ComposerPackagesService
                 str_replace('/', '-', $package['name']),
                 CheckboxType::class,
                 [
-                    'value'    => $package['name'],
-                    'label'    => $package['name'],
-                    'help'     => $package['description'],
-                    'attr'     => ['class' => 'js-composer-package-check', 'onChange' => 'checkboxChangeEvent()'],
-                    'required' => false,
+                    'value'         => $package['name'],
+                    'label'         => $package['name'],
+                    'help'          => $package['description'],
+                    'label_attr'    => ['class' => 'checkbox-custom'],
+                    'attr'          => ['class' => 'js-composer-package-check', 'onChange' => 'checkboxChangeEvent()'],
+                    'required'      => false,
                 ]
             );
         }

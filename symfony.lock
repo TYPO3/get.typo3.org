@@ -164,6 +164,12 @@
             "ref": "fe60ce509ef04a3f40da96e3979bc8d9b13b2372"
         }
     },
+    "knplabs/knp-menu": {
+        "version": "2.6.0"
+    },
+    "knplabs/knp-menu-bundle": {
+        "version": "v2.3.0"
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },

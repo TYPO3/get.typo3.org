@@ -1,7 +1,7 @@
 nelmio_api_doc:
     documentation:
         info:
-            title: Get.typo3.org
+            title: get.typo3.org
             description: REST API for getting information about TYPO3 releases
             version: 1.0.0
         securityDefinitions:

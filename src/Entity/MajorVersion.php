@@ -142,6 +142,21 @@ class MajorVersion implements \JsonSerializable
         return $this->title;
     }
 
+    public function getSubtitle(): string
+    {
+        return $this->subtitle;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getReleaseDate(): \DateTimeImmutable
+    {
+        return $this->releaseDate;
+    }
+
     public function getLatestRelease()
     {
         $array = $this->releases->toArray();

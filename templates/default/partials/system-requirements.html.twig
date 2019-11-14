@@ -1,70 +1,73 @@
-<div class="bg-light">
-    <div class="container b_container b_container--large" id="system-requirements">
-        <h2>System Requirements</h2>
-        <h3 class="h4">Server</h3>
-        <p>For the full list of system requirements as well as installation instructions see the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/In-depth/SystemRequirements/Index.html" rel="noopener,noreferrer">Installation guide</a></p>
-        <table class="table">
-            <tbody>
-            <tr>
-                <th scope="row">Operating System</th>
-                <td>Linux, Windows or Mac{% if version > 8 %}, or common cloud infrastructure setups{% endif %}</td>
-            </tr>
-            <tr>
-                <th scope="row">Webserver</th>
-                <td>Apache httpd, Nginx, Microsoft IIS{% if version > 8 %}, Caddy Server{% endif %}</td>
-            </tr>
-            {% for category,element in systemRequirements|groupByCategory %}
+<div id="system-requirements" class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
+
+            <h2>System Requirements</h2>
+            <p>For the full list of system requirements as well as installation instructions see the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/In-depth/SystemRequirements/Index.html" rel="noopener,noreferrer">Installation guide</a></p>
+            <table class="table">
+                <tbody>
                 <tr>
-                    <th scope="row">
-                        {% if (category == 'php') %}
-                            PHP
-                        {% elseif (category == 'client') %}
-                            Supported Browsers
-                        {% else %}
-                            {{ category|title }}
-                        {% endif %}
-                    </th>
-                    <td>
-                        {% for entry in element %}
-                            {% if (entry.name == 'php') %}
-                                PHP
-                            {% elseif (entry.name == 'client') %}
-                                {{ entry.name|title }}
-                            {% elseif (entry.name == 'ie') %}
-                                Internet Explorer
-                            {% elseif (entry.name == 'postgres') %}
-                                PostgreSQL
-                            {% elseif (entry.name == 'sqlsrv') %}
-                                Microsoft SQL Server
-                            {% elseif (entry.name == 'mysql') %}
-                                MySQL
-                            {% elseif (entry.name == 'mariadb') %}
-                                MariaDB
-                            {% elseif (entry.name == 'sqlite') %}
-                                SQLite
-                            {% elseif (entry.name == 'ram') %}
-                                RAM
-                            {% else %}
-                                {{ entry.name|title }}
-                            {% endif %}
-                            {% if entry.min %}
-                                >= {{ entry.min }}
-                                {% if (entry.name == 'ram') %}
-                                    MB
-                                {% endif %}
-                            {% else %}
-                                {% if (category == 'client') %}
-                                    (latest)
-                                {% endif %}
-                            {% endif %}
-                            {% if entry.max %}
-                                <= {{ entry.max }}
-                            {% endif %}<br/>
-                        {% endfor %}
-                    </td>
+                    <th scope="row">Operating System</th>
+                    <td>Linux, Windows or Mac{% if version > 8 %}, or common cloud infrastructure setups{% endif %}</td>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                <tr>
+                    <th scope="row">Webserver</th>
+                    <td>Apache httpd, Nginx, Microsoft IIS{% if version > 8 %}, Caddy Server{% endif %}</td>
+                </tr>
+                {% for category,element in systemRequirements|groupByCategory %}
+                    <tr>
+                        <th scope="row">
+                            {% if (category == 'php') %}
+                                PHP
+                            {% elseif (category == 'client') %}
+                                Supported Browsers
+                            {% else %}
+                                {{ category|title }}
+                            {% endif %}
+                        </th>
+                        <td>
+                            {% for entry in element %}
+                                {% if (entry.name == 'php') %}
+                                    PHP
+                                {% elseif (entry.name == 'client') %}
+                                    {{ entry.name|title }}
+                                {% elseif (entry.name == 'ie') %}
+                                    Internet Explorer
+                                {% elseif (entry.name == 'postgres') %}
+                                    PostgreSQL
+                                {% elseif (entry.name == 'sqlsrv') %}
+                                    Microsoft SQL Server
+                                {% elseif (entry.name == 'mysql') %}
+                                    MySQL
+                                {% elseif (entry.name == 'mariadb') %}
+                                    MariaDB
+                                {% elseif (entry.name == 'sqlite') %}
+                                    SQLite
+                                {% elseif (entry.name == 'ram') %}
+                                    RAM
+                                {% else %}
+                                    {{ entry.name|title }}
+                                {% endif %}
+                                {% if entry.min %}
+                                    >= {{ entry.min }}
+                                    {% if (entry.name == 'ram') %}
+                                        MB
+                                    {% endif %}
+                                {% else %}
+                                    {% if (category == 'client') %}
+                                        (latest)
+                                    {% endif %}
+                                {% endif %}
+                                {% if entry.max %}
+                                    <= {{ entry.max }}
+                                {% endif %}<br/>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>

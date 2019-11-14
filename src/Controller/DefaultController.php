@@ -54,6 +54,7 @@ class DefaultController extends AbstractController
     {
         $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
         $majorVersions = $majorVersionRepository->findAllActive();
+
         $response = $this->render('default/show.html.twig', ['majorVersions' => $majorVersions]);
         $response->setEtag(md5(serialize($majorVersions)));
         $response->isNotModified($request);
