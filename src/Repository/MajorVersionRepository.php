@@ -30,6 +30,22 @@ class MajorVersionRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
 
+    public function findAllActiveElts()
+    {
+        $dateFrom = (new \DateTimeImmutable())->modify('-3 years')->format('Y-m-d');
+        $dateTo = (new \DateTimeImmutable())->format('Y-m-d');
+        $qb = $this->createQueryBuilder('m');
+        $qb->where(
+            $qb->expr()->andX(
+                $qb->expr()->gt('m.maintainedUntil', ':dateFrom'),
+                $qb->expr()->lt('m.maintainedUntil', ':dateTo')
+            )
+        );
+        $qb->setParameter('dateFrom', $dateFrom);
+        $qb->setParameter('dateTo', $dateTo);
+        return $qb->getQuery()->execute();
+    }
+
     public function findAllPreparedForJson()
     {
         $data = $this->findCommunityVersionsGroupedByMajor();

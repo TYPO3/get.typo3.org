@@ -100,13 +100,59 @@
     </div>
 </div>
 
+<div class="frame frame-indent frame-ruler-before frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner text-center">
+            <h3>Past Versions with Extended Long&nbsp;Term&nbsp;Support</h3>
+            <p>With TYPO3 CMS, you made the right choice. Now benefit from a total of 6 years of support per version.</p>
+            <p>3 years of free support by the TYPO3 core team and the community.<br>3 further years of vendor support with ELTS by TYPO3 GmbH.</p>
+        </div>
+    </div>
+</div>
+
+<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
+
+            <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
+
+                <div class="card-group-element-item">
+                    <img src="{{ asset("assets/Images/elts.svg") }}" class="img-fluid" width="200" style="display: block; margin: 0 auto;" />
+                </div>
+                {% for version in eltsVersions %}
+                <div class="card-group-element-item">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ version.title }}</h4>
+                        </div>
+                        <div class="card-footer">
+                            <h5>Suppored Until</h5>
+                            <ul class="list-unstyled">
+                                <li>Free: <strong>{{ version.maintainedUntil|date("Y-m-d") }}</strong></li>
+                                <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
+                            </ul>
+                            <h5>Current Version</h5>
+                            <ul class="list-unstyled">
+                                <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
+                                <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
+                            </ul>
+                            <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a> <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-default">See ELTS {{ version.version }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="frame frame-indent frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner text-center">
-            <h3>Extended Long Term Support</h3>
-            <p>7.6 LTS, 6.2 LTS and everything below is no longer supported by the TYPO3 Core Team, consider upgrading
-                or extending support by <a href="https://typo3.com/services/extended-support/">TYPO3 GmbH</a>.
-            </p>
+            <p><strong>Extended Long Term Support prolongs security and compliance support for your expired LTS version,
+                and keeps you legally compliant and up-to-date. ELTS support runs for a total of 3 years per version,
+                starting seamlessly on the day official community support for a given LTS version ends.</strong></p>
         </div>
     </div>
 </div>

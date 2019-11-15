@@ -152,6 +152,16 @@ class MajorVersion implements \JsonSerializable
         return $this->description;
     }
 
+    public function getMaintainedUntil(): \DateTimeImmutable
+    {
+        return $this->maintainedUntil;
+    }
+
+    public function getEltsUntil(): \DateTimeImmutable
+    {
+        return $this->maintainedUntil->modify('+3 years');
+    }
+
     public function getReleaseDate(): \DateTimeImmutable
     {
         return $this->releaseDate;
