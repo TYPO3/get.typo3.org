@@ -8,19 +8,26 @@
         <div class="frame-container">
             <div class="frame-inner">
                 <form action="">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="">{{ title }}</span>
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">{{ title }}</span>
+                                </div>
+                                <select class="form-control custom-select"
+                                    onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
+                                    <option>Choose a different version</option>
+                                    <option value="10">TYPO3 v10</option>
+                                    <option value="9">TYPO3 v9</option>
+                                    <option value="8">TYPO3 v8</option>
+                                    <option value="7">TYPO3 v7</option>
+                                    <option value="6.2">TYPO3 v6.2</option>
+                                </select>
+                            </div>
                         </div>
-                        <select class="form-control custom-select"
-                            onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
-                            <option>Choose a different version</option>
-                            <option value="10">TYPO3 v10</option>
-                            <option value="9">TYPO3 v9</option>
-                            <option value="8">TYPO3 v8</option>
-                            <option value="7">TYPO3 v7</option>
-                            <option value="6.2">TYPO3 v6.2</option>
-                        </select>
+                        <div class="col-sm-auto mt-2 mt-sm-0">
+                            <a href="{{ path('list', {'version': version}) }}" class="btn btn-primary">All v{{ version }} Releases</a>
+                        </div>
                     </div>
                 </form>
             </div>
