@@ -80,6 +80,11 @@
                                     <li>Internet Explorer 11 and later</li>
                                 {% endif %}
                             </ul>
+                            <h5>Supported Until</h5>
+                            <ul class="list-unstyled">
+                                <li>Free: <strong>{{ version.maintainedUntil|date("Y-m-d") }}</strong></li>
+                                <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
+                            </ul>
                             <h5>Current Version</h5>
                             <ul class="list-unstyled">
                                 <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
