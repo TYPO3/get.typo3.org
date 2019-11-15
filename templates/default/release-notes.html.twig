@@ -3,29 +3,7 @@
 {% block content %}
 
     {% include 'default/partials/key-visual.html.twig' with {'title': 'Release Notes', 'subtitle': 'TYPO3 ' ~ current.version, 'small': '1'} %}
-
-    <div class="frame frame-small frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                <form action="">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="">{{ title }}</span>
-                        </div>
-                        <select class="form-control custom-select"
-                            onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
-                            <option>Choose a different version</option>
-                            <option value="10">TYPO3 v10</option>
-                            <option value="9">TYPO3 v9</option>
-                            <option value="8">TYPO3 v8</option>
-                            <option value="7">TYPO3 v7</option>
-                            <option value="6.2">TYPO3 v6.2</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {% include 'default/partials/release-notes/version-selector.twig' %}
 
     {% if current.releaseNotes.legacyContent %}
         <div class="container b_container b_container--large">
