@@ -33,7 +33,7 @@
     <div class="frame-container">
         <div class="frame-inner">
             <h3 class="mb-3 text-center">Current Versions</h3>
-            <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
+            <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ communityVersions|length }}">
                 {% for version in communityVersions %}
                 <div class="card-group-element-item">
                     <div class="card{% if loop.first %} card-inverse{% endif %}">
@@ -119,7 +119,7 @@
     <div class="frame-container">
         <div class="frame-inner">
 
-            <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
+            <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ eltsVersions|length + 1 }}">
 
                 <div class="card-group-element-item">
                     <img src="{{ asset("assets/Images/elts.svg") }}" class="img-fluid" width="200" style="display: block; margin: 0 auto;" />
