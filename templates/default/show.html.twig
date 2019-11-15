@@ -17,7 +17,7 @@
                             <div class="carousel-item-bodytext">
                                 <h1 class="carousel-item-header none text-center">Build Blazingly&nbsp;Fast, Flexible&nbsp;Websites</h1>
                                 <p class="mt-4 lead text-center">
-                                    <a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>
+                                    {% if communityVersions|length > 0 %}<a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>{% endif %}
                                     <a href="#try-online" class="btn btn-lg btn-default">Try TYPO3</a>
                                 </p>
                             </div>
@@ -29,6 +29,7 @@
     </div>
 </div>
 
+{% if communityVersions|length > 0 %}
 <div id="download" class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
@@ -104,7 +105,9 @@
         </div>
     </div>
 </div>
+{% endif %}
 
+{% if eltsVersions|length > 0 %}
 <div class="frame frame-indent frame-ruler-before frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner text-center">
@@ -114,13 +117,10 @@
         </div>
     </div>
 </div>
-
 <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
-
             <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ eltsVersions|length + 1 }}">
-
                 <div class="card-group-element-item">
                     <img src="{{ asset("assets/Images/elts.svg") }}" class="img-fluid" width="200" style="display: block; margin: 0 auto;" />
                 </div>
@@ -147,11 +147,9 @@
                 </div>
                 {% endfor %}
             </div>
-
         </div>
     </div>
 </div>
-
 <div class="frame frame-indent frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner text-center">
@@ -161,6 +159,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <div id="try-online" class="frame frame-indent frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
