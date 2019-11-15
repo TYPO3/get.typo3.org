@@ -6,8 +6,12 @@
     {% include 'default/partials/release-notes/version-selector.twig' %}
 
     {% if current.releaseNotes.legacyContent %}
-        <div class="container b_container b_container--large">
-            {{ current.releaseNotes.legacyContent|escape('html')|parsedown|changehighlighter|raw }}
+        <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+            <div class="frame-container">
+                <div class="frame-inner">
+                    {{ current.releaseNotes.legacyContent|escape('html')|parsedown|changehighlighter|raw }}
+                </div>
+            </div>
         </div>
         {% include 'default/partials/release-notes/signatures.twig' %}
     {% else %}
