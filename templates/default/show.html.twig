@@ -34,7 +34,7 @@
         <div class="frame-inner">
             <h3 class="mb-3 text-center">Current Versions</h3>
             <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
-                {% for version in majorVersions|reverse %}
+                {% for version in communityVersions %}
                 <div class="card-group-element-item">
                     <div class="card{% if loop.first %} card-inverse{% endif %}">
                         <div class="card-body">

@@ -213,6 +213,12 @@ class MajorVersion implements \JsonSerializable
         return null === $this->maintainedUntil || (new \DateTimeImmutable() <= $this->maintainedUntil);
     }
 
+    public function isElts(): bool
+    {
+        return ((new \DateTimeImmutable())->modify('-3 years') > $this->maintainedUntil)
+            && ((new \DateTimeImmutable()) < $this->maintainedUntil);
+    }
+
     /**
      * Specify data which should be serialized to JSON
      *
@@ -235,6 +241,7 @@ class MajorVersion implements \JsonSerializable
             'latest' => $latest ? $latest->getVersion() : '',
             'stable' => $latest ? $latest->getVersion() : '',
             'active' => $this->isActive(),
+            'elts' => $this->isElts(),
         ];
     }
 }

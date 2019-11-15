@@ -53,17 +53,17 @@ class DefaultController extends AbstractController
     public function show(Request $request)
     {
         $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $majorVersions = $majorVersionRepository->findAllActive();
+        $communityVersions = $majorVersionRepository->findAllActiveCommunity();
         $eltsVersions = $majorVersionRepository->findAllActiveElts();
 
         $response = $this->render(
             'default/show.html.twig',
             [
-                'majorVersions' => $majorVersions,
+                'communityVersions' => $communityVersions,
                 'eltsVersions' => $eltsVersions
             ]
         );
-        $response->setEtag(md5(serialize($majorVersions)));
+        $response->setEtag(md5(serialize($communityVersions) . serialize($eltsVersions)));
         $response->isNotModified($request);
         return $response;
     }
