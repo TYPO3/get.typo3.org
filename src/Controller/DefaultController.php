@@ -124,11 +124,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/version/{version}", methods={"GET"}, name="version")
      * @Cache(expires="tomorrow", public=true)
-     * @param int $version
+     * @param float $version
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showVersion(int $version, Request $request): Response
+    public function showVersion(float $version, Request $request): Response
     {
         $templateName = 'default/download.html.twig';
         /** @var \App\Repository\MajorVersionRepository $repository */
@@ -151,11 +151,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/list/version/{version}", methods={"GET"}, name="list")
      * @Cache(expires="tomorrow", public=true)
-     * @param int $version
+     * @param float $version
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showVersionListByMajorVersion(int $version, Request $request): Response
+    public function showVersionListByMajorVersion(float $version, Request $request): Response
     {
         $templateName = 'default/list.html.twig';
         /** @var \App\Repository\MajorVersionRepository $repository */
