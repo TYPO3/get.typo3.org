@@ -4,26 +4,38 @@
 
     {% include 'default/partials/key-visual.html.twig' with {'title': title, 'subtitle': subtitle, 'small': '1'} %}
     {% include 'default/partials/version-selector.twig' %}
-    <div class="container b_container b_container--large">
-        <h2>List of Releases for TYPO3 v{{ version }}</h2>
-        <table>
-            <tr>
-                <th>Version</th>
-                <th>Date</th>
-                <th>Type</th>
-            </tr>
-            {% for release in releases|sortByVersion %}
-                {% if release.type == "security" %}
-                    <tr style="background:#ffd8e4;">
-                {% else %}
-                    <tr>
-                {% endif %}
-                <td>{{ release.version }}</td>
-                <td>{{ release.date | date("d.m.Y") }}</td>
-                <td>{{ release.type }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+
+    <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+        <div class="frame-container">
+            <div class="frame-inner">
+
+                <h2>List of Releases for TYPO3 v{{ version }}</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Version</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for release in releases|sortByVersion %}
+                            {% if release.type == "security" %}
+                                <tr style="background:#ffd8e4;">
+                            {% else %}
+                                <tr>
+                            {% endif %}
+                            <td>{{ release.version }}</td>
+                            <td>{{ release.date | date("d.m.Y") }}</td>
+                            <td>{{ release.type }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
+
 
 {% endblock %}
