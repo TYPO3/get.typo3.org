@@ -84,7 +84,7 @@
     "test:php:unit": [
       "phpunit -c phpunit.xml.dist --testsuite \"Unit Test Suite\""
     ],
-    "t3g:test:php:functional": [
+    "test:php:functional": [
       "phpunit -c phpunit.xml.dist --testsuite \"Functional Test Suite\""
     ],
     "test": [

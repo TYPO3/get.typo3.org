@@ -28,6 +28,9 @@ jobs:
     - name: Unit Tests
       run: |
         composer test:php:unit
+    - name: Functional Tests
+      run: |
+        composer test:php:functional
     - name: CGL
       run: |
         composer test:php:cgl
