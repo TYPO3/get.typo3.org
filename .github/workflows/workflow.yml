@@ -49,5 +49,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: logs
-        path: var/logs
+        path: var/log
 
