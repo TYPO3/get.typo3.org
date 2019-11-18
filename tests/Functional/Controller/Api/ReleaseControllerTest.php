@@ -32,6 +32,6 @@ class ReleaseControllerTest extends ApiCase
         $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
         $response = $this->createReleaseFromJson('Json/Release-10.0.0.json');
         $this->assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        $this->assertSame(['status' => 'success', 'Location' => '/v1/api/major/10.0.0'], json_decode($response->getContent(), true));
+        $this->assertSame(['status' => 'success', 'Location' => '/v1/api/release/10.0.0'], json_decode($response->getContent(), true));
     }
 }
