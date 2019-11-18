@@ -82,12 +82,16 @@
       "phplint"
     ],
     "test:php:unit": [
-      "phpunit -c phpunit.xml.dist"
+      "phpunit -c phpunit.xml.dist --testsuite \"Unit Test Suite\""
+    ],
+    "t3g:test:php:functional": [
+      "phpunit -c phpunit.xml.dist --testsuite \"Functional Test Suite\""
     ],
     "test": [
       "@test:php:cgl",
       "@test:php:lint",
-      "@test:php:unit"
+      "@test:php:unit",
+      "@test:php:functional"
     ],
     "auto-scripts": {
       "cache:clear --no-optional-warmers": "symfony-cmd",
