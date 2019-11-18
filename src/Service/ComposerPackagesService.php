@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -261,8 +262,39 @@ class ComposerPackagesService
         ]
     ];
 
+    protected static $versions = [
+        [
+            'name' => 'No version specified',
+            'value' => ''
+        ],        [
+            'name' => 'Any version - *',
+            'value' => '*'
+        ],
+        [
+            'name' => 'TYPO3 10.1',
+            'value' => '^10.1'
+        ],
+        [
+            'name' => 'TYPO3 9.5 LTS',
+            'value' => '^9.5'
+        ],
+    ];
+
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
+        $versionChoices = [
+            'choices'  => [
+            ],
+            'required'   => false,
+        ];
+        foreach (self::$versions as $version) {
+            $versionChoices['choices'][$version['name']] = $version['value'];
+        }
+        $builder->add('typo3_version',
+                ChoiceType::class,
+                $versionChoices
+        );
+
         foreach (self::$packages as $package) {
             $builder->add(
                 str_replace('/', '-', $package['name']),
