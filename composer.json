@@ -76,16 +76,16 @@
   },
   "scripts": {
     "test:php:cgl": [
-      "php-cs-fixer --diff -v fix"
+      "php-cs-fixer --diff -v fix --format=junit > var/log/php-cs-fixer.xml"
     ],
     "test:php:lint": [
       "phplint"
     ],
     "test:php:unit": [
-      "phpunit -c phpunit.xml.dist --testsuite \"Unit Test Suite\""
+      "phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-unit.xml --testsuite \"Unit Test Suite\""
     ],
     "test:php:functional": [
-      "phpunit -c phpunit.xml.dist --testsuite \"Functional Test Suite\""
+      "phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-functional.xml --testsuite \"Functional Test Suite\""
     ],
     "test": [
       "@test:php:cgl",
