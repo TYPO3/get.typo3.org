@@ -26,9 +26,9 @@ jobs:
     - uses: actions/cache@v1
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: composer-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.php }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          composer-
+          ${{ runner.php }}-composer-
     - name: Install
       run: |
         composer install --no-progress
