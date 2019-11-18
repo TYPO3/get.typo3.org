@@ -13,11 +13,9 @@ use App\Tests\Functional\AbstractCase;
 
 class DefaultControllerTest extends AbstractCase
 {
-    public function testSomething()
+    public function testDefaultRoute()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/');
-
+        $this->client->request('GET', '/');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Build Blazingly');
     }
