@@ -146,9 +146,6 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
-    "jetbrains/phpstorm-stubs": {
-        "version": "v2019.2"
-    },
     "jms/metadata": {
         "version": "1.6.0"
     },
@@ -235,6 +232,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.0"
+    },
+    "ondram/ci-detector": {
+        "version": "3.1.1"
     },
     "overtrue/phplint": {
         "version": "1.1.9"
