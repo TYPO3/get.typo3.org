@@ -57,7 +57,7 @@ class DefaultController extends AbstractController
         $eltsVersions = $majorVersionRepository->findAllActiveElts();
 
         $response = $this->render(
-            'default/show.html.twig',
+            'default/root.html.twig',
             [
                 'communityVersions' => $communityVersions,
                 'eltsVersions' => $eltsVersions
@@ -130,7 +130,7 @@ class DefaultController extends AbstractController
      */
     public function showVersion(float $version, Request $request): Response
     {
-        $templateName = 'default/download.html.twig';
+        $templateName = 'default/version.html.twig';
         /** @var \App\Repository\MajorVersionRepository $repository */
         $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
         $data = $repository->findOneBy(['version' => $version]);
