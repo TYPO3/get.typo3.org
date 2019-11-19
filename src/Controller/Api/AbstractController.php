@@ -106,7 +106,10 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
     protected function getMajorVersionByReleaseVersion(string $version): MajorVersion
     {
-        $majorVersion = substr($version, 0, strpos($version, '.'));
+        $majorVersion = substr($version, 0, strrpos($version, '.'));
+        if ((float)$majorVersion >= 7) {
+            $majorVersion = substr($version, 0, strpos($version, '.'));
+        }
         $mventity = $this->getDoctrine()->getManager()->getRepository(MajorVersion::class)->findOneBy(
             ['version' => $majorVersion]
         );
