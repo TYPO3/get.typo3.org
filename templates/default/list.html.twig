@@ -36,8 +36,8 @@
             <div class="frame-inner">
 
                 <h2>List of Releases for TYPO3 v{{ version }}</h2>
-                <table class="table">
-                    <thead>
+                <table class="table table-borderless">
+                    <thead class="thead-light">
                         <tr>
                             <th>Version</th>
                             <th>Date</th>
@@ -48,14 +48,24 @@
                     <tbody>
                         {% for release in releases|sortByVersion %}
                             {% if release.type == "security" %}
-                                <tr style="background:#ffd8e4;">
+                                <tr class="table-danger">
                             {% else %}
                                 <tr>
                             {% endif %}
-                                <td>{{ release.version }}</td>
+                                <td>
+                                    {% if release.elts %}
+                                        <strong>ELTS</strong>
+                                    {% endif %}
+                                    {{ release.version }}
+                                </td>
                                 <td>{{ release.date | date("d.m.Y") }}</td>
                                 <td>{{ release.type }}</td>
-                                <td><a href="{{ path('release-notes-for-version', {'version': release.version}) }}">Show</a></td>
+                                <td>
+                                    <a href="{{ path('release-notes-for-version', {'version': release.version}) }}" class="btn btn-sm btn-default">Show</a>
+                                    {% if release.elts %}
+                                        <a href="https://typo3.com/elts" class="btn btn-sm btn-primary">Buy ELTS</a>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
