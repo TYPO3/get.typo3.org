@@ -230,6 +230,7 @@ class DefaultController extends AbstractController
             $formData = $form->getData();
             $keys = preg_replace('/^(typo3)-/', '$1/', \array_keys($formData));
             $formData = array_combine($keys, $formData);
+            $formData = $this->composerPackagesService->cleanPackagesForVersions($formData);
         }
 
         return new JsonResponse(['status' => $formData]);
