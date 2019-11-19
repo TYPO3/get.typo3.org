@@ -53,10 +53,10 @@
                                 <tr>
                             {% endif %}
                                 <td>
+                                    {{ release.version }}
                                     {% if release.elts %}
                                         <strong>ELTS</strong>
                                     {% endif %}
-                                    {{ release.version }}
                                 </td>
                                 <td>{{ release.date | date("d.m.Y") }}</td>
                                 <td>{{ release.type }}</td>
