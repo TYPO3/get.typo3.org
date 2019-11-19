@@ -1,12 +1,12 @@
 {% extends "layout.html.twig" %}
-{% block title %}Download TYPO3 {{ majorVersion.current.version }}{% endblock %}
+{% block title %}Download TYPO3 {{ currentVersion.current.version }}{% endblock %}
 {% block content %}
 
     {% include 'default/partials/key-visual.html.twig' with {
-        'title': majorVersion.title ~ ' (' ~ majorVersion.current.version ~ ')',
-        'subtitle': majorVersion.subtitle,
+        'title': currentVersion.title ~ ' (' ~ currentVersion.current.version ~ ')',
+        'subtitle': currentVersion.subtitle,
         'small': '1'
-    }%}
+    } only %}
 
     <div class="frame frame-small frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
         <div class="frame-container">
@@ -16,7 +16,7 @@
                         <div class="col-sm-auto">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">{{ majorVersion.title }}</span>
+                                    <span class="input-group-text" id="">{{ currentVersion.title }}</span>
                                 </div>
                                 <select class="form-control custom-select"
                                     onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="col-sm-auto mt-2 mt-sm-0">
-                            <a href="{{ path('list', {'version': majorVersion.version}) }}" class="btn btn-primary">All v{{ majorVersion.version }} Releases</a>
+                            <a href="{{ path('list', {'version': currentVersion.version}) }}" class="btn btn-primary">All v{{ currentVersion.version }} Releases</a>
                         </div>
                     </div>
                 </form>
@@ -36,8 +36,8 @@
         </div>
     </div>
 
-    {% include 'default/partials/download-area.html.twig' with majorVersion only %}
-    {% include 'default/partials/system-requirements.html.twig' with majorVersion only %}
-    {% include 'default/partials/package-signatures.html.twig' with majorVersion only %}
+    {% include 'default/partials/download-area.html.twig' with currentVersion only %}
+    {% include 'default/partials/system-requirements.html.twig' with currentVersion only %}
+    {% include 'default/partials/package-signatures.html.twig' with currentVersion only %}
 
 {% endblock %}

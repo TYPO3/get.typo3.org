@@ -134,13 +134,13 @@ class DefaultController extends AbstractController
         /** @var \App\Repository\MajorVersionRepository $repository */
         $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
         $data['activeVersions'] = $repository->findAllActive();
-        $data['majorVersion'] = $repository->findOneBy(['version' => $version]);
-        if ($data['majorVersion'] instanceof MajorVersion) {
-            $latestRelease = $data['majorVersion']->getLatestRelease();
-            $data['majorVersion'] = $data['majorVersion']->toArray();
-            $data['majorVersion']['current'] = $latestRelease;
+        $data['currentVersion'] = $repository->findOneBy(['version' => $version]);
+        if ($data['currentVersion'] instanceof MajorVersion) {
+            $latestRelease = $data['currentVersion']->getLatestRelease();
+            $data['currentVersion'] = $data['currentVersion']->toArray();
+            $data['currentVersion']['current'] = $latestRelease;
         }
-        if (!$data['majorVersion']) {
+        if (!$data['currentVersion']) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
         $response = $this->render($templateName, $data);
@@ -161,11 +161,12 @@ class DefaultController extends AbstractController
         $templateName = 'default/list.html.twig';
         /** @var \App\Repository\MajorVersionRepository $repository */
         $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data = $repository->findOneBy(['version' => $version]);
-        if ($data instanceof MajorVersion) {
-            $data = $data->toArray();
+        $data['activeVersions'] = $repository->findAllActive();
+        $data['currentVersion'] = $repository->findOneBy(['version' => $version]);
+        if ($data['currentVersion'] instanceof MajorVersion) {
+            $data['currentVersion'] = $data['currentVersion']->toArray();
         }
-        if (!$data) {
+        if (!$data['currentVersion']) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
         $response = $this->render($templateName, $data);

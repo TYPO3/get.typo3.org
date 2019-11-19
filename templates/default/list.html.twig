@@ -1,8 +1,12 @@
 {% extends "layout.html.twig" %}
-{% block title %}List of Releases for TYPO3 v{{ version }}{% endblock %}
+{% block title %}List of Releases for TYPO3 v{{ currentVersion.version }}{% endblock %}
 {% block content %}
 
-    {% include 'default/partials/key-visual.html.twig' with {'title': title, 'subtitle': subtitle, 'small': '1'} %}
+    {% include 'default/partials/key-visual.html.twig' with {
+        'title': currentVersion.title,
+        'subtitle': currentVersion.subtitle,
+        'small': '1'
+    } only %}
 
     <div class="frame frame-small frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
         <div class="frame-container">
@@ -12,16 +16,14 @@
                         <div class="col-sm-auto">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">{{ title }}</span>
+                                    <span class="input-group-text" id="">{{ currentVersion.title }}</span>
                                 </div>
                                 <select class="form-control custom-select"
                                     onchange="if (this.value) window.location.href= '{{ path('root') }}list/version/' + this.value;">
                                     <option>Choose a different version</option>
-                                    <option value="10">TYPO3 v10</option>
-                                    <option value="9">TYPO3 v9</option>
-                                    <option value="8">TYPO3 v8</option>
-                                    <option value="7">TYPO3 v7</option>
-                                    <option value="6.2">TYPO3 v6.2</option>
+                                    {% for activeVersion in activeVersions %}
+                                    <option value="{{ activeVersion.version }}">{{ activeVersion.title }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -35,7 +37,7 @@
         <div class="frame-container">
             <div class="frame-inner">
 
-                <h2>List of Releases for TYPO3 v{{ version }}</h2>
+                <h2>List of Releases for {{ currentVersion.title }}</h2>
                 <table class="table table-borderless">
                     <thead class="thead-light">
                         <tr>
@@ -46,7 +48,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for release in releases|sortByVersion %}
+                        {% for release in currentVersion.releases|sortByVersion %}
                             {% if release.type == "security" %}
                                 <tr class="table-danger">
                             {% else %}
