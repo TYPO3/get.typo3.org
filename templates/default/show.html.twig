@@ -87,10 +87,14 @@
                                 <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
                             </ul>
                             <h5>Current Version</h5>
-                            <ul class="list-unstyled">
-                                <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
-                                <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
-                            </ul>
+                            {% if version.latestRelease %}
+                                <ul class="list-unstyled">
+                                    <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
+                                    <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
+                                </ul>
+                            {% else %}
+                                <p>No version available.</p>
+                            {% endif %}
                             {% set btnClass = 'default' %}
                             {% if version.version == 10 %}
                                 {% set btnClass = 'primary' %}
@@ -137,11 +141,15 @@
                                 <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
                             </ul>
                             <h5>Current Version</h5>
-                            <ul class="list-unstyled">
-                                <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
-                                <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
-                            </ul>
-                            <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a> <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-default">See ELTS {{ version.version }}</a>
+                            {% if version.latestRelease %}
+                                <ul class="list-unstyled">
+                                    <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
+                                    <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
+                                </ul>
+                                <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a> <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-default">See ELTS {{ version.version }}</a>
+                            {% else %}
+                                <p>No version available.</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
