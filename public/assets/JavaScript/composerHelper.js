@@ -8,50 +8,22 @@ document.addEventListener("DOMContentLoaded", function() {
         return false;
     });
 
-    fixedScrollOutputContainer(form);
     copyCommandToClipboard();
 
     bundlePackages(allComposerPackages);
 });
 
-/**
- * sets the container to fixed if it is about to scroll out of the viewport.
- * @param form
- */
-const fixedScrollOutputContainer = function(form) {
-    let ticking = false;
-    const outputContainer = document.getElementsByClassName('js-composer-helper-console');
-    const z = getContainerPosition(outputContainer[0]);
-
-    window.addEventListener('scroll', function(e) {
-        if(!ticking) {
-            window.requestAnimationFrame(function() {
-                if(this.scrollY !== 0 && this.scrollY >= z) {
-                    const pos = outputContainer[0].getBoundingClientRect();
-                    form.style.marginTop = pos.height + 'px';
-                    outputContainer[0].classList.add('fixedTop');
-                } else {
-                    form.style.marginTop = '0';
-                    outputContainer[0].classList.remove('fixedTop');
-                }
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-};
 const bundlePackages = function(allComposerPackages) {
-    const bundles = document.getElementsByClassName('js-composer-helper-toggle-packages');
-    Array.from(bundles).forEach(bundle => {
-        bundle.addEventListener('click', function(event) {
-            const packages = JSON.parse(this.dataset.packages);
-            uncheckAll(allComposerPackages);
-            Object.keys(packages).forEach(index => {
-                const input = document.querySelectorAll('input[name="form[' + packages[index] + ']"]')[0];
-                input.checked = true;
-                input.parentElement.classList.add('active');
-            });
-        })
+    const form = document.getElementById('js-composer-helper-form');
+    form.addEventListener('click', function(e) {
+        if (!e.target.matches('.js-composer-helper-toggle-packages')) return;
+        const packages = JSON.parse(e.target.dataset.packages);
+        uncheckAll(allComposerPackages);
+        Object.keys(packages).forEach(index => {
+            const input = document.querySelectorAll('input[name="form[' + packages[index] + ']"]')[0];
+            input.checked = true;
+            input.parentElement.classList.add('active');
+        });
     });
 };
 const checkAll = function(elementArray) {
