@@ -34,7 +34,7 @@
                 <div class="accordion-item card">
                     <div class="accordion-header card-header" id="accordion-heading-composer">
                         <h4 class="accordion-title">
-                            <a href="#accordion-composer" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-composer">
+                            <a href="#accordion-composer" class="accordion-title-link" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-composer">
                                 <span class="accordion-title-link-text">
                                     Set up a new project via composer
                                     <br><small>Using the command line</small>
@@ -43,7 +43,7 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="accordion-composer" class="accordion-collapse collapse" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
+                    <div id="accordion-composer" class="accordion-collapse collapse show" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
                         <div class="accordion-body card-body">
                             <div class="accordion-content">
                                 <div class="accordion-content-item accordion-content-text">
@@ -51,7 +51,7 @@
                                     {% if lts %}
                                         <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ lts }}</code></pre>
                                     {% else %}
-                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project</code></pre>
+                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ version }}</code></pre>
                                     {% endif %}
                                     <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="https://get.typo3.org/misc/composer/helper" title="Composer helper">get.typo3.org/misc/composer/helper</a></p>
 
