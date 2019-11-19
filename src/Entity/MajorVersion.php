@@ -96,6 +96,7 @@ class MajorVersion implements \JsonSerializable
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Serializer\Groups({"data", "content", "patch"})
+     * @SWG\Property(example=8.7)
      * @var float
      */
     private $lts;
