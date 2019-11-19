@@ -133,13 +133,14 @@ class DefaultController extends AbstractController
         $templateName = 'default/version.html.twig';
         /** @var \App\Repository\MajorVersionRepository $repository */
         $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data = $repository->findOneBy(['version' => $version]);
-        if ($data instanceof MajorVersion) {
-            $latestRelease = $data->getLatestRelease();
-            $data = $data->toArray();
-            $data['current'] = $latestRelease;
+        $data['activeVersions'] = $repository->findAllActive();
+        $data['majorVersion'] = $repository->findOneBy(['version' => $version]);
+        if ($data['majorVersion'] instanceof MajorVersion) {
+            $latestRelease = $data['majorVersion']->getLatestRelease();
+            $data['majorVersion'] = $data['majorVersion']->toArray();
+            $data['majorVersion']['current'] = $latestRelease;
         }
-        if (!$data) {
+        if (!$data['majorVersion']) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
         $response = $this->render($templateName, $data);

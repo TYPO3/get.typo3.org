@@ -14,7 +14,7 @@
                     <th scope="row">Webserver</th>
                     <td>Apache httpd, Nginx, Microsoft IIS{% if version > 8 %}, Caddy Server{% endif %}</td>
                 </tr>
-                {% for category,element in systemRequirements|groupByCategory %}
+                {% for category,element in requirements|groupByCategory %}
                     <tr>
                         <th scope="row">
                             {% if (category == 'php') %}
