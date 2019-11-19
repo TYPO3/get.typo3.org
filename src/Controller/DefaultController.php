@@ -103,9 +103,9 @@ class DefaultController extends AbstractController
     {
         $version = str_replace('TYPO3_CMS_', '', $version);
 
-        /** @var \App\Repository\MajorVersionRepository $mVersionRepo */
-        $mVersionRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $majors = $mVersionRepo->findAllGroupedByMajor();
+        /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
+        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majors = $majorVersionRepository->findAllGroupedByMajor();
 
         $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
         if ($version === '') {

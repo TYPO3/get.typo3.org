@@ -81,11 +81,13 @@
                                     <li>Internet Explorer 11 and later</li>
                                 {% endif %}
                             </ul>
+                            <hr>
                             <h5>Supported Until</h5>
                             <ul class="list-unstyled">
                                 <li>Free: <strong>{{ version.maintainedUntil|date("Y-m-d") }}</strong></li>
                                 <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
                             </ul>
+                            <hr>
                             <h5>Current Version</h5>
                             {% if version.latestRelease %}
                                 <ul class="list-unstyled">
@@ -140,6 +142,7 @@
                                 <li>Free: <strong>{{ version.maintainedUntil|date("Y-m-d") }}</strong></li>
                                 <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
                             </ul>
+                            <hr>
                             <h5>Current Version</h5>
                             {% if version.latestRelease %}
                                 <ul class="list-unstyled">
