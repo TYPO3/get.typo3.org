@@ -31,6 +31,7 @@
     <div class="frame-container">
         <div class="frame-inner">
             <div class="accordion" id="accordion-download">
+                {% if latestRelease.version >= 6 %}
                 <div class="accordion-item card">
                     <div class="accordion-header card-header" id="accordion-heading-composer">
                         <h4 class="accordion-title">
@@ -60,6 +61,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <div class="accordion-item card">
                     <div class="accordion-header card-header" id="accordion-heading-curl">
                         <h4 class="accordion-title">
