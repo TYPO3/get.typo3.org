@@ -1,0 +1,36 @@
+{% if elts %}
+    <div class="frame frame-ruler-before frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+        <div class="frame-container">
+            <div class="frame-inner">
+
+                    <h2>Stay secure and up-to-date with TYPO3 ELTS!</h2>
+                    <p>
+                        The TYPO3 community supported {{ title }} from {{ releaseDate.date|date("Y-m-d") }}
+                        until <strong>{{ maintainedUntil|date("Y-m-d") }}</strong>.<br>
+                        <strong>Extend your support now until <u>{{ eltsUntil|date("Y-m-d") }}</u> to
+                        get access to the latest security and compatibility updates for this version.
+                    </p>
+                    <a href="https://typo3.com/elts/" class="btn btn-primary">Learn more about TYPO3 ELTS</a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+        <div class="frame-container">
+            <div class="frame-inner">
+
+                <div class="alert alert-danger">
+                    <h2 class="h4 alert-heading">This version is not supported anymore.</h2>
+                    <p class="mb-0">
+                        The TYPO3 community supported {{ title }} from <strong>{{ releaseDate.date|date("Y-m-d") }}</strong>
+                        until <strong>{{ maintainedUntil|date("Y-m-d") }}</strong>. Please consider updating to a newer version.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endif %}
