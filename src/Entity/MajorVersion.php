@@ -9,6 +9,7 @@
 
 namespace App\Entity;
 
+use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -102,7 +103,7 @@ class MajorVersion implements \JsonSerializable
     private $lts;
 
     public function __construct(
-        int $version,
+        float $version,
         string $title,
         string $subtitle,
         string $description,
@@ -112,15 +113,20 @@ class MajorVersion implements \JsonSerializable
         Collection $releases,
         float $lts
     ) {
-        $this->version = $version;
-        $this->title = $title;
-        $this->subtitle = $subtitle;
-        $this->description = $description;
-        $this->releaseDate = $releaseDate;
-        $this->maintainedUntil = $maintainedUntil;
-        $this->requirements = $requirements;
-        $this->releases = $releases;
-        $this->lts = $lts;
+        $this->setVersion($version);
+        $this->setTitle($title);
+        $this->setSubtitle($subtitle);
+        $this->setDescription($description);
+        $this->setReleaseDate($releaseDate);
+        $this->setMaintainedUntil($maintainedUntil);
+        $this->setRequirements($requirements);
+        $this->setReleases($releases);
+        $this->setLts($lts);
+    }
+
+    public function setVersion(float $version): void
+    {
+        $this->version = (float) VersionUtility::extractMajorVersionNumber($version);
     }
 
     public function getVersion(): float
@@ -138,9 +144,19 @@ class MajorVersion implements \JsonSerializable
         return $this->releases;
     }
 
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function setSubtitle(string $subtitle): void
+    {
+        $this->subtitle = $subtitle;
     }
 
     public function getSubtitle(): string
@@ -148,9 +164,19 @@ class MajorVersion implements \JsonSerializable
         return $this->subtitle;
     }
 
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function setMaintainedUntil(\DateTimeImmutable $maintainedUntil): void
+    {
+        $this->maintainedUntil = $maintainedUntil;
     }
 
     public function getMaintainedUntil(): \DateTimeImmutable
@@ -161,6 +187,11 @@ class MajorVersion implements \JsonSerializable
     public function getEltsUntil(): \DateTimeImmutable
     {
         return $this->maintainedUntil->modify('+3 years');
+    }
+
+    public function setReleaseDate(\DateTimeImmutable $releaseDate): void
+    {
+        $this->releaseDate = $releaseDate;
     }
 
     public function getReleaseDate(): \DateTimeImmutable
@@ -180,44 +211,61 @@ class MajorVersion implements \JsonSerializable
         return reset($array);
     }
 
+    public function setRequirements(Collection $requirements): void
+    {
+        $this->requirements = $requirements;
+    }
+
     public function addRequirement(Requirement $requirement): void
     {
         $this->requirements->add($requirement);
     }
 
-    /**
-     * @param float $version
-     */
-    public function setVersion(float $version): void
+    public function getRequirements(): Collection
     {
-        $this->version = $version;
+        return $this->requirements;
+    }
+
+    public function setLts(float $lts): void
+    {
+        $this->lts = $lts;
+    }
+
+    public function getLts(): float
+    {
+        return $this->lts;
     }
 
     public function toArray(): array
     {
         return [
-            'version' => $this->version,
-            'title' => $this->title,
-            'subtitle' => $this->subtitle,
-            'description' => $this->description,
-            'releaseDate' => $this->releaseDate,
-            'maintainedUntil' => $this->maintainedUntil,
-            'requirements' => $this->requirements,
-            'releases' => $this->releases,
-            'lts' => $this->lts,
-            'latestRelease' => $this->getLatestRelease()
+            'version' => $this->getVersion(),
+            'title' => $this->getTitle(),
+            'subtitle' => $this->getSubtitle(),
+            'description' => $this->getDescription(),
+            'releaseDate' => $this->getReleaseDate(),
+            'maintainedUntil' => $this->getMaintainedUntil(),
+            'requirements' => $this->getRequirements(),
+            'releases' => $this->getReleases(),
+            'lts' => $this->getLts(),
+            'latestRelease' => $this->getLatestRelease(),
+            'active' => $this->isActive(),
+            'elts' => $this->isElts()
         ];
     }
 
     public function isActive(): bool
     {
-        return null === $this->maintainedUntil || (new \DateTimeImmutable() <= $this->maintainedUntil);
+        $dateTime = new \DateTimeImmutable();
+        return null === $this->getMaintainedUntil()
+            || $dateTime <= $this->getMaintainedUntil();
     }
 
     public function isElts(): bool
     {
-        return ((new \DateTimeImmutable())->modify('-3 years') > $this->maintainedUntil)
-            && ((new \DateTimeImmutable()) < $this->maintainedUntil);
+        $dateTime = new \DateTimeImmutable();
+        return $dateTime > $this->getMaintainedUntil()
+            && $dateTime <= $this->getEltsUntil();
     }
 
     /**
@@ -231,7 +279,7 @@ class MajorVersion implements \JsonSerializable
     public function jsonSerialize()
     {
         $releaseData = [];
-        foreach ($this->releases as $release) {
+        foreach ($this->getReleases() as $release) {
             $releaseData[$release->getVersion()] = $release;
         }
         uksort($releaseData, 'version_compare');
