@@ -1,7 +1,5 @@
 {% extends "layout.html.twig" %}
 {% block title %}Composer Helper{% endblock %}
-{# import "_self" as the form theme #}
-{% form_theme form _self %}
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('assets/JavaScript/composerHelper.js') }}"></script>
@@ -42,16 +40,5 @@
             </div>
         </div>
     </div>
-{% endblock %}
 
-{% block form_help %}
-    {%- if help is not empty -%}
-        <p id="{{ id }}_help" class="help-block m-0">
-            {%- if translation_domain is same as(false) -%}
-                {{- help -}}
-            {%- else -%}
-                {{- help|trans({}, translation_domain) -}}
-            {%- endif -%}
-        </p>
-    {%- endif -%}
-{% endblock form_help %}
+{% endblock %}
