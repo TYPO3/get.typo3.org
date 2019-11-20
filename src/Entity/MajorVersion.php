@@ -184,9 +184,9 @@ class MajorVersion implements \JsonSerializable
         return $this->maintainedUntil;
     }
 
-    public function getEltsUntil(): \DateTimeImmutable
+    public function getEltsUntil(): ?\DateTimeImmutable
     {
-        return $this->maintainedUntil->modify('+3 years');
+        return $this->getMaintainedUntil() ? $this->getMaintainedUntil()->modify('+3 years') : null;
     }
 
     public function setReleaseDate(\DateTimeImmutable $releaseDate): void
@@ -245,6 +245,7 @@ class MajorVersion implements \JsonSerializable
             'description' => $this->getDescription(),
             'releaseDate' => $this->getReleaseDate(),
             'maintainedUntil' => $this->getMaintainedUntil(),
+            'eltsUntil' => $this->getEltsUntil(),
             'requirements' => $this->getRequirements(),
             'releases' => $this->getReleases(),
             'lts' => $this->getLts(),
@@ -265,6 +266,7 @@ class MajorVersion implements \JsonSerializable
     {
         $dateTime = new \DateTimeImmutable();
         return $this->getMaintainedUntil() != null
+            && $this->getEltsUntil() != null
             && $dateTime > $this->getMaintainedUntil()
             && $dateTime <= $this->getEltsUntil();
     }

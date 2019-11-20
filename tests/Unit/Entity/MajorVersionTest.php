@@ -26,6 +26,9 @@ class VersionUtilityTest extends TestCase
         $majorVersion = new MajorVersion(...$version);
         $this->assertEquals($expectedResult['version'], $majorVersion->getVersion());
         $this->assertEquals($expectedResult['title'], $majorVersion->getTitle());
+        $this->assertEquals($expectedResult['releaseDate'], $majorVersion->getReleaseDate());
+        $this->assertEquals($expectedResult['maintainedUntil'], $majorVersion->getMaintainedUntil());
+        $this->assertEquals($expectedResult['eltsUntil'], $majorVersion->getEltsUntil());
         $this->assertEquals($expectedResult['active'], $majorVersion->isActive());
         $this->assertEquals($expectedResult['elts'], $majorVersion->isElts());
     }
@@ -42,6 +45,9 @@ class VersionUtilityTest extends TestCase
         $majorVersion = $majorVersion->toArray();
         $this->assertEquals($expectedResult['version'], $majorVersion['version']);
         $this->assertEquals($expectedResult['title'], $majorVersion['title']);
+        $this->assertEquals($expectedResult['releaseDate'], $majorVersion['releaseDate']);
+        $this->assertEquals($expectedResult['maintainedUntil'], $majorVersion['maintainedUntil']);
+        $this->assertEquals($expectedResult['eltsUntil'], $majorVersion['eltsUntil']);
         $this->assertEquals($expectedResult['active'], $majorVersion['active']);
         $this->assertEquals($expectedResult['elts'], $majorVersion['elts']);
     }
@@ -85,6 +91,9 @@ class VersionUtilityTest extends TestCase
                 [
                     'version' => 10,
                     'title' => 'TYPO3 10',
+                    'releaseDate' => $dateTimeToday,
+                    'maintainedUntil' => null,
+                    'eltsUntil' => null,
                     'active' => true,
                     'elts' => false,
                 ]
@@ -104,6 +113,9 @@ class VersionUtilityTest extends TestCase
                 [
                     'version' => 9,
                     'title' => 'TYPO3 9',
+                    'releaseDate' => $dateTimeToday,
+                    'maintainedUntil' => $dateTimeToday->modify('+3 years'),
+                    'eltsUntil' => $dateTimeToday->modify('+6 years'),
                     'active' => true,
                     'elts' => false,
                 ]
@@ -123,6 +135,9 @@ class VersionUtilityTest extends TestCase
                 [
                     'version' => 6.2,
                     'title' => 'TYPO3 6.2',
+                    'releaseDate' => $dateTimeToday->modify('-3 years'),
+                    'maintainedUntil' => $dateTimeToday,
+                    'eltsUntil' => $dateTimeToday->modify('+3 years'),
                     'active' => false,
                     'elts' => true,
                 ]
@@ -142,6 +157,9 @@ class VersionUtilityTest extends TestCase
                 [
                     'version' => 4.5,
                     'title' => 'TYPO3 4.5',
+                    'releaseDate' => $dateTimeToday->modify('-6 years'),
+                    'maintainedUntil' => $dateTimeToday->modify('-3 years'),
+                    'eltsUntil' => $dateTimeToday,
                     'active' => false,
                     'elts' => false,
                 ]
