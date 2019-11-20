@@ -3,7 +3,7 @@
 {% block content %}
 
     {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': currentVersion.title ~ ' (' ~ currentVersion.current.version ~ ')',
+        'title': currentVersion.title ~ ' (' ~ currentVersion.current.version ~ '' ~ ((currentVersion.current.elts) ? ' ELTS') ~ ')',
         'subtitle': currentVersion.subtitle,
         'small': '1'
     } only %}
