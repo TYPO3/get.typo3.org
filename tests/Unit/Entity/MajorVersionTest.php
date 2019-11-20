@@ -70,6 +70,25 @@ class VersionUtilityTest extends TestCase
         $collection = new ArrayCollection();
 
         return [
+            'SPRINT' => [
+                [
+                    10,
+                    'TYPO3 10',
+                    'subtitle',
+                    'description',
+                    $dateTimeToday,
+                    null,
+                    $collection,
+                    $collection,
+                    null
+                ],
+                [
+                    'version' => 10,
+                    'title' => 'TYPO3 10',
+                    'active' => true,
+                    'elts' => false,
+                ]
+            ],
             'LTS' => [
                 [
                     9.5,

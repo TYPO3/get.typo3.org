@@ -108,10 +108,10 @@ class MajorVersion implements \JsonSerializable
         string $subtitle,
         string $description,
         \DateTimeImmutable $releaseDate,
-        \DateTimeImmutable $maintainedUntil,
+        ?\DateTimeImmutable $maintainedUntil,
         Collection $requirements,
         Collection $releases,
-        float $lts
+        ?float $lts
     ) {
         $this->setVersion($version);
         $this->setTitle($title);
@@ -174,12 +174,12 @@ class MajorVersion implements \JsonSerializable
         return $this->description;
     }
 
-    public function setMaintainedUntil(\DateTimeImmutable $maintainedUntil): void
+    public function setMaintainedUntil(?\DateTimeImmutable $maintainedUntil): void
     {
         $this->maintainedUntil = $maintainedUntil;
     }
 
-    public function getMaintainedUntil(): \DateTimeImmutable
+    public function getMaintainedUntil(): ?\DateTimeImmutable
     {
         return $this->maintainedUntil;
     }
@@ -226,12 +226,12 @@ class MajorVersion implements \JsonSerializable
         return $this->requirements;
     }
 
-    public function setLts(float $lts): void
+    public function setLts(?float $lts): void
     {
         $this->lts = $lts;
     }
 
-    public function getLts(): float
+    public function getLts(): ?float
     {
         return $this->lts;
     }
@@ -264,7 +264,8 @@ class MajorVersion implements \JsonSerializable
     public function isElts(): bool
     {
         $dateTime = new \DateTimeImmutable();
-        return $dateTime > $this->getMaintainedUntil()
+        return $this->getMaintainedUntil() != null
+            && $dateTime > $this->getMaintainedUntil()
             && $dateTime <= $this->getEltsUntil();
     }
 
