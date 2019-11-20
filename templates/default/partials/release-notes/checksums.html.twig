@@ -1,21 +1,21 @@
+{% if (current.tarPackage.sha256sum or current.tarPackage.sha1sum) %}
 <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
-    {% if (current.tarPackage.sha256sum or current.tarPackage.sha1sum) %}
-        <h2>Checksums of TYPO3 {{ current.version }}</h2>
-    {% endif %}
-    {% if current.tarPackage.sha256sum %}
-        <h3>SHA256</h3>
-        <pre>
+            <h2>Checksums of TYPO3 {{ current.version }}</h2>
+            {% if current.tarPackage.sha256sum %}
+            <h3>SHA256</h3>
+            <pre>
 {{ current.tarPackage.sha256sum }} typo3_src-{{ current.version }}.tar.gz
 {{ current.zipPackage.sha256sum }} typo3_src-{{ current.version }}.zip</pre>
-    {% endif %}
-    {% if current.tarPackage.sha1sum %}
-        <h3>SHA1</h3>
-        <pre>
+            {% endif %}
+            {% if current.tarPackage.sha1sum %}
+            <h3>SHA1</h3>
+            <pre>
 {{ current.tarPackage.sha1sum }} typo3_src-{{ current.version }}.tar.gz
 {{ current.zipPackage.sha1sum }} typo3_src-{{ current.version }}.zip</pre>
-    {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
+{% endif %}

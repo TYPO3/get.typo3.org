@@ -3,8 +3,8 @@
 {% block content %}
 
     {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': 'Release Notes',
-        'subtitle': 'TYPO3 ' ~ current.version,
+        'title': 'TYPO3 ' ~ current.version,
+        'subtitle': 'Release Notes',
         'small': '1'
     } only %}
     {% include 'default/partials/release-notes/version-selector.html.twig' %}

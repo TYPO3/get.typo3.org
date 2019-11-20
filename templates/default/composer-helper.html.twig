@@ -27,7 +27,6 @@
     <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
         <div class="frame-container">
             <div class="frame-inner">
-
                 {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form', class: 'composer-helper-form'}}) }}
                 <div class="mb-5">
                     {% for bundleName,bundle in bundles %}
@@ -36,7 +35,6 @@
                     <button class="btn btn-default js-composer-helper-toggle-packages" data-packages="[]">Reset</button>
                 </div>
                 {{ form_end(form) }}
-
             </div>
         </div>
     </div>
