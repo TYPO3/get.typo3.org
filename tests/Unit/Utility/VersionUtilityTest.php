@@ -32,6 +32,9 @@ class VersionUtilityTest extends TestCase
     public function extractMajorVersionNumberTestDataProvider(): array
     {
         return [
+            ['10.10.10.10', 10],
+            [4.5, 4.5],
+            ['4.5', 4.5],
             ['4.5.35', 4.5],
             ['6.2.0', 6.2],
             ['6.99.99', 6.99],

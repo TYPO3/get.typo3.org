@@ -14,14 +14,11 @@ class VersionUtility
 {
     public static function extractMajorVersionNumber(string $version): float
     {
-        if (strpos($version, '.') === false && is_numeric($version)) {
-            return (float) $version;
-        }
-        $majorVersion = substr($version, 0, strrpos($version, '.'));
-        if ((float)$majorVersion >= 7) {
-            $majorVersion = substr($version, 0, strpos($version, '.'));
-        }
-        return (float) $majorVersion;
+        $versionData = explode('.', trim($version));
+        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int) $versionData[0] : 0;
+        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) && $versionData[0] < 7 ? (int) $versionData[1] : 0;
+        array_splice($versionData, 2);
+        return (float) implode('.', $versionData);
     }
 
     public static function isValidSemverVersion(string $version): bool
