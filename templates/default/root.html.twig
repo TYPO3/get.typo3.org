@@ -149,7 +149,11 @@
                                     <li>Version: <strong>{{ version.latestRelease.version }}{% if version.latestRelease.elts %} ELTS{% endif %}</strong></li>
                                     <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
                                 </ul>
-                                <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a> <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-default">See ELTS {{ version.version }}</a>
+                                <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a>
+                                <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-default">
+                                    {% if version.latestRelease.elts %}See ELTS{% else %}Get version{% endif %}
+                                    {{ version.version }}
+                                </a>
                             {% else %}
                                 <p>No version available.</p>
                             {% endif %}
