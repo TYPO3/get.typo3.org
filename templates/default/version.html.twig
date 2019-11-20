@@ -2,7 +2,7 @@
 {% block title %}Download TYPO3 {{ currentVersion.current.version }}{% endblock %}
 {% block content %}
 
-    {% include 'default/partials/key-visual.html.twig' with {
+    {% include 'default/partials/general/key-visual.html.twig' with {
         'title': currentVersion.title ~ ' (' ~ currentVersion.current.version ~ ')',
         'subtitle': currentVersion.subtitle,
         'small': '1'
