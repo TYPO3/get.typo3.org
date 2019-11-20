@@ -36,8 +36,9 @@
         </div>
     </div>
 
-    {% include 'default/partials/download-area.html.twig' with currentVersion only %}
-    {% include 'default/partials/system-requirements.html.twig' with currentVersion only %}
-    {% include 'default/partials/package-signatures.html.twig' with currentVersion only %}
+    {% include 'default/partials/version/intro.html.twig' with currentVersion only %}
+    {% include 'default/partials/version/download.html.twig' with currentVersion only %}
+    {% include 'default/partials/version/system-requirements.html.twig' with currentVersion only %}
+    {% include 'default/partials/version/package-signatures.html.twig' with currentVersion only %}
 
 {% endblock %}

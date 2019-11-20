@@ -1,0 +1,26 @@
+<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
+
+            <h1 class="h2">Downloads</h1>
+            <p>{{ description }}</p>
+            <ul class="list-link">
+                <li>
+                    <a href="{{ path('release-notes-for-version', {'version': latestRelease.version }) }}">Release Notes</a>
+                </li>
+                <li>
+                    <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">Installation Guide</a>
+                </li>
+                <li>
+                    <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/">Getting started</a>
+                </li>
+                {% if latestRelease.version >= 7 %}
+                <li>
+                    <a href="https://typo3.azureedge.net/typo3/{{ latestRelease.version }}/README.md">Download README (incl. signatures)</a>
+                </li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+</div>
