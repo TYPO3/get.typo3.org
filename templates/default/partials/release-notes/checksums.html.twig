@@ -1,4 +1,4 @@
-{% if (current.tarPackage.sha256sum or current.tarPackage.sha1sum) %}
+{% if (current.tarPackage.sha256sum or current.tarPackage.md5sum or current.tarPackage.sha1sum) %}
 <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
@@ -14,6 +14,12 @@
             <pre>
 {{ current.tarPackage.sha1sum }} typo3_src-{{ current.version }}.tar.gz
 {{ current.zipPackage.sha1sum }} typo3_src-{{ current.version }}.zip</pre>
+            {% endif %}
+            {% if current.tarPackage.sha1sum %}
+            <h3>MD5</h3>
+            <pre>
+{{ current.tarPackage.md5sum }} typo3_src-{{ current.version }}.tar.gz
+{{ current.zipPackage.md5sum }} typo3_src-{{ current.version }}.zip</pre>
             {% endif %}
         </div>
     </div>
