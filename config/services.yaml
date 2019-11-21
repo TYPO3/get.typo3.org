@@ -36,3 +36,7 @@ services:
                 name: 'knp_menu.menu_builder'
                 method: 'mainDefault'
                 alias: 'main-default'
+            -
+                name: 'knp_menu.menu_builder'
+                method: 'mainSecondary'
+                alias: 'main-secondary'

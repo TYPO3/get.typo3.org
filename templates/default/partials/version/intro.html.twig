@@ -7,12 +7,6 @@
                 <li>
                     <a href="{{ path('release-notes-for-version', {'version': latestRelease.version }) }}">Release Notes</a>
                 </li>
-                <li>
-                    <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">Installation Guide</a>
-                </li>
-                <li>
-                    <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/">Getting started</a>
-                </li>
                 {% if latestRelease.version >= 7 %}
                 <li>
                     <a href="https://typo3.azureedge.net/typo3/{{ latestRelease.version }}/README.md">Download README (incl. signatures)</a>

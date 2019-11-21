@@ -54,7 +54,6 @@ class MenuBuilder
     public function mainDefault(array $options)
     {
         $menu = $this->factory->createItem('root');
-
         $menu->addChild(
             'root',
             [
@@ -62,7 +61,6 @@ class MenuBuilder
                 'label' => 'Download'
             ]
         );
-
         $menu->addChild(
             'release-notes',
             [
@@ -70,7 +68,6 @@ class MenuBuilder
                 'label' => 'Release Notes'
             ]
         );
-
         $menu->addChild(
             'composer-helper',
             [
@@ -78,7 +75,6 @@ class MenuBuilder
                 'label' => 'Composer Helper'
             ]
         );
-
         $menu->addChild(
             'api',
             [
@@ -86,7 +82,30 @@ class MenuBuilder
                 'label' => 'REST API'
             ]
         );
+        return $menu;
+    }
 
+    /**
+     * @param array $options
+     * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
+     */
+    public function mainSecondary(array $options)
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->addChild(
+            'install',
+            [
+                'uri' => 'https://docs.typo3.org/typo3cms/InstallationGuide/',
+                'label' => 'Installation Guide'
+            ]
+        );
+        $menu->addChild(
+            'gettingstarted',
+            [
+                'uri' => 'https://docs.typo3.org/typo3cms/GettingStartedTutorial/',
+                'label' => 'Getting Started'
+            ]
+        );
         return $menu;
     }
 }
