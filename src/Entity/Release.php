@@ -105,9 +105,11 @@ class Release implements \JsonSerializable
         $this->elts = false;
     }
 
-    /**
-     * @return string
-     */
+    public function setVersion($version): void
+    {
+        $this->version = $version;
+    }
+
     public function getVersion(): string
     {
         return $this->version;
@@ -118,9 +120,11 @@ class Release implements \JsonSerializable
         return $this->releaseNotes;
     }
 
-    /**
-     * @return \DateTime
-     */
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date;
+    }
+
     public function getDate(): \DateTime
     {
         return $this->date;
