@@ -1,0 +1,99 @@
+<?php
+
+/*
+ * This file is part of the package t3o/gettypo3org.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+namespace App\DataFixtures;
+
+use App\Entity\MajorVersion;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
+
+class MajorVersionFixtures extends Fixture
+{
+    const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
+    const MAJOR_VERSION_LTS = 'majorversion-lts';
+    const MAJOR_VERSION_ELTS = 'majorversion-elts';
+    const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
+
+    public function load(ObjectManager $manager)
+    {
+        $versions = $this->getData();
+        foreach ($versions as $key => $version) {
+            $majorVersion = new MajorVersion(
+                $version['version'],
+                $version['title'],
+                $version['subtitle'],
+                $version['description'],
+                $version['releaseDate'],
+                $version['maintainedUntil'],
+                $version['requirements'],
+                $version['releases'],
+                $version['lts']
+            );
+            $manager->persist($majorVersion);
+            $this->addReference($key, $majorVersion);
+        }
+
+        $manager->flush();
+    }
+
+    protected function getData(): array
+    {
+        $faker = \Faker\Factory::create();
+        $dateTimeToday = new \DateTimeImmutable();
+        $collection = new ArrayCollection();
+
+        return [
+            self::MAJOR_VERSION_SPRINT => [
+                'version' => 10,
+                'title' => 'TYPO3 10',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeToday,
+                'maintainedUntil' => null,
+                'requirements' => $collection,
+                'releases' => $collection,
+                'lts' => null
+            ],
+            self::MAJOR_VERSION_LTS => [
+                'version' => 9.5,
+                'title' => 'TYPO3 9',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeToday,
+                'maintainedUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                'requirements' => $collection,
+                'releases' => $collection,
+                'lts' => 9.5
+            ],
+            self::MAJOR_VERSION_ELTS => [
+                'version' => 6.2,
+                'title' => 'TYPO3 6.2',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeToday->modify('-3 years'),
+                'maintainedUntil' => $dateTimeToday->modify('-1 day'),
+                'requirements' => $collection,
+                'releases' => $collection,
+                'lts' => 6.2
+            ],
+            self::MAJOR_VERSION_OUTDATED => [
+                'version' => 4.5,
+                'title' => 'TYPO3 4.5',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeToday->modify('-6 years'),
+                'maintainedUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day'),
+                'requirements' => $collection,
+                'releases' => $collection,
+                'lts' => 4.5
+            ]
+        ];
+    }
+}
