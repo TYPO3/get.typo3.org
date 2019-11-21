@@ -14,6 +14,7 @@ use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
+use App\Utility\VersionUtility;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -122,28 +123,50 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/download", methods={"GET"})
+     * @Route("/download/", methods={"GET"}, name="download")
+     * @Route("/version", methods={"GET"})
+     * @Route("/version/", methods={"GET"})
      * @Route("/version/{version}", methods={"GET"}, name="version")
      * @Cache(expires="tomorrow", public=true)
-     * @param float $version
+     *
+     * @param string $version
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showVersion(float $version, Request $request): Response
+    public function showVersion(string $version = '', Request $request): Response
     {
-        $templateName = 'default/version.html.twig';
-        /** @var \App\Repository\MajorVersionRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data['activeVersions'] = $repository->findAllActive();
-        $data['currentVersion'] = $repository->findOneBy(['version' => $version]);
-        if ($data['currentVersion'] instanceof MajorVersion) {
-            $latestRelease = $data['currentVersion']->getLatestRelease();
-            $data['currentVersion'] = $data['currentVersion']->toArray();
-            $data['currentVersion']['current'] = $latestRelease;
+        $version = str_replace('TYPO3_CMS_', '', $version);
+
+        /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
+        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data['activeVersions'] = $majorVersionRepository->findAllActive();
+
+        if ($version === '') {
+            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => 'DESC']);
+            return $this->redirectToRoute('version', ['version' => $majorVersion->getVersion()]);
         }
-        if (!$data['currentVersion']) {
+
+        $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
+        $data['currentVersion'] = $majorVersionRepository->findOneBy(['version' => $majorVersionNumber]);
+        if (!$data['currentVersion'] instanceof MajorVersion) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
-        $response = $this->render($templateName, $data);
+
+        if (VersionUtility::isValidSemverVersion($version)) {
+            $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releaseRepository->findOneBy(['version' => $version]);
+        } else {
+            $release = $data['currentVersion']->getLatestRelease();
+        }
+        if (!$release instanceof Release) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        $data['currentVersion'] = $data['currentVersion']->toArray();
+        $data['currentVersion']['current'] = $release;
+
+        $response = $this->render('default/version.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
         return $response;

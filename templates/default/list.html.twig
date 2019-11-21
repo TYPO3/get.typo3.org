@@ -61,6 +61,8 @@
                                     <a href="{{ path('release-notes-for-version', {'version': release.version}) }}" class="btn btn-sm btn-default">Release Notes</a>
                                     {% if release.elts %}
                                         <a href="https://typo3.com/elts" class="btn btn-sm btn-primary">Buy ELTS</a>
+                                    {% else %}
+                                        <a href="{{ path('version', {'version': release.version}) }}" class="btn btn-sm btn-default">Download</a>
                                     {% endif %}
                                 </td>
                             </tr>

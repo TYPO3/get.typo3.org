@@ -3,7 +3,7 @@
         <div class="frame-inner">
             <h1 class="h2">Download</h1>
             <div class="accordion" id="accordion-download">
-                {% if latestRelease.version >= 6 %}
+                {% if current.version >= 6 %}
                 <div class="accordion-item card">
                     <div class="accordion-header card-header" id="accordion-heading-composer">
                         <h4 class="accordion-title">
@@ -51,9 +51,9 @@
                             <div class="accordion-content">
                                 <div class="accordion-content-item accordion-content-text">
                                     <strong>Using wget</strong>
-                                    <pre>wget --content-disposition https://get.typo3.org/{{ version }}</pre>
+                                    <pre>wget --content-disposition https://get.typo3.org/{{ current.version }}</pre>
                                     <strong>Using cURL (e.g., when wget fails with SSL error)</strong>
-                                    <pre>curl -L -o typo3_src.tgz https://get.typo3.org/{{ version }}</pre>
+                                    <pre>curl -L -o typo3_src.tgz https://get.typo3.org/{{ current.version }}</pre>
                                     <p>
                                         In case you are encountering SSL warnings (host name mismatch), please make sure that you are
                                         using a client that supports Server Name Indication (SNI). This especially affects old versions
@@ -104,17 +104,19 @@
                                 <div class="accordion-content-item accordion-content-text">
                                     <ul class="list-link">
                                         <li>
-                                            <a href="https://get.typo3.org/{{ version }}/tar.gz">get.typo3.org/{{ version }}/tar.gz</a>
+                                            <a href="https://get.typo3.org/{{ current.version }}/tar.gz">get.typo3.org/{{ current.version }}/tar.gz</a>
                                         </li>
                                         <li>
-                                            <a href="https://get.typo3.org/{{ version }}/zip">get.typo3.org/{{ version }}/zip</a>
+                                            <a href="https://get.typo3.org/{{ current.version }}/zip">get.typo3.org/{{ current.version }}/zip</a>
+                                        </li>
+                                        {% if version >= 7 %}
+                                        <li>
+                                            <a href="https://get.typo3.org/{{ current.version }}/tar.gz.sig">get.typo3.org/{{ current.version }}/tar.gz.sig - GPG signature</a>
                                         </li>
                                         <li>
-                                            <a href="https://get.typo3.org/{{ version }}/tar.gz.sig">get.typo3.org/{{ version }}/tar.gz.sig - GPG signature</a>
+                                            <a href="https://get.typo3.org/{{ current.version }}/zip.sig">get.typo3.org/{{ current.version }}/zip.sig - GPG signature</a>
                                         </li>
-                                        <li>
-                                            <a href="https://get.typo3.org/{{ version }}/zip.sig">get.typo3.org/{{ version }}/zip.sig - GPG signature</a>
-                                        </li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>

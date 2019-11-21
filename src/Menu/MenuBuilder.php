@@ -57,7 +57,7 @@ class MenuBuilder
         $menu->addChild(
             'root',
             [
-                'route' => 'root',
+                'route' => 'download',
                 'label' => 'Download'
             ]
         );
