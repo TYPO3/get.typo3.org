@@ -105,7 +105,7 @@ class VersionUtilityTest extends TestCase
                     'subtitle',
                     'description',
                     $dateTimeToday,
-                    $dateTimeToday->modify('+3 years'),
+                    $dateTimeToday->modify('+3 years')->modify('-1 day'),
                     $collection,
                     $collection,
                     9.5
@@ -114,8 +114,8 @@ class VersionUtilityTest extends TestCase
                     'version' => 9,
                     'title' => 'TYPO3 9',
                     'releaseDate' => $dateTimeToday,
-                    'maintainedUntil' => $dateTimeToday->modify('+3 years'),
-                    'eltsUntil' => $dateTimeToday->modify('+6 years'),
+                    'maintainedUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                    'eltsUntil' => $dateTimeToday->modify('+6 years')->modify('-1 day'),
                     'active' => true,
                     'elts' => false,
                 ]
@@ -127,7 +127,7 @@ class VersionUtilityTest extends TestCase
                     'subtitle',
                     'description',
                     $dateTimeToday->modify('-3 years'),
-                    $dateTimeToday,
+                    $dateTimeToday->modify('-1 day'),
                     $collection,
                     $collection,
                     6.2
@@ -136,8 +136,8 @@ class VersionUtilityTest extends TestCase
                     'version' => 6.2,
                     'title' => 'TYPO3 6.2',
                     'releaseDate' => $dateTimeToday->modify('-3 years'),
-                    'maintainedUntil' => $dateTimeToday,
-                    'eltsUntil' => $dateTimeToday->modify('+3 years'),
+                    'maintainedUntil' => $dateTimeToday->modify('-1 day'),
+                    'eltsUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
                     'active' => false,
                     'elts' => true,
                 ]
@@ -149,7 +149,7 @@ class VersionUtilityTest extends TestCase
                     'subtitle',
                     'description',
                     $dateTimeToday->modify('-6 years'),
-                    $dateTimeToday->modify('-3 years'),
+                    $dateTimeToday->modify('-3 years')->modify('-1 day'),
                     $collection,
                     $collection,
                     4.5
@@ -158,8 +158,8 @@ class VersionUtilityTest extends TestCase
                     'version' => 4.5,
                     'title' => 'TYPO3 4.5',
                     'releaseDate' => $dateTimeToday->modify('-6 years'),
-                    'maintainedUntil' => $dateTimeToday->modify('-3 years'),
-                    'eltsUntil' => $dateTimeToday,
+                    'maintainedUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day'),
+                    'eltsUntil' => $dateTimeToday->modify('-1 day'),
                     'active' => false,
                     'elts' => false,
                 ]
