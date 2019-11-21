@@ -11,6 +11,7 @@ namespace App\Entity;
 
 use App\Entity\Embeddables\Package;
 use App\Entity\Embeddables\ReleaseNotes;
+use App\Enum\ReleaseTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
@@ -49,7 +50,7 @@ class Release implements \JsonSerializable
      * @ORM\Column(type="string")
      * @var string
      * @Serializer\Groups({"data"})
-     * @Assert\Choice({"regular", "development", "security"})
+     * @Assert\Choice(callback={"App\Enum\ReleaseTypeEnum", "getAvailableTypes"})
      */
     private $type;
 
@@ -148,6 +149,14 @@ class Release implements \JsonSerializable
     public function setReleaseNotes(ReleaseNotes $releaseNotes): void
     {
         $this->releaseNotes = $releaseNotes;
+    }
+
+    public function setType(string $type): void
+    {
+        if (!in_array($type, ReleaseTypeEnum::getAvailableTypes())) {
+            throw new \InvalidArgumentException('Invalid type');
+        }
+        $this->type = $type;
     }
 
     public function getType(): string
