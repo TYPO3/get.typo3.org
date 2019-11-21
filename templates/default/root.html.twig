@@ -94,15 +94,16 @@
                                     <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
                                     <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
                                 </ul>
+                                {% set btnClass = 'default' %}
+                                {% if version.version == 10 %}
+                                    {% set btnClass = 'primary' %}
+                                {% endif %}
+                                <a href="{{ path('version', {'version': version.version}) }}"
+                                    class="btn btn-{{ btnClass }}">Get version {{ version.version }}</a>
                             {% else %}
                                 <p>No version available.</p>
                             {% endif %}
-                            {% set btnClass = 'default' %}
-                            {% if version.version == 10 %}
-                                {% set btnClass = 'primary' %}
-                            {% endif %}
-                            <a href="{{ path('version', {'version': version.version}) }}"
-                                class="btn btn-{{ btnClass }}">Get version {{ version.version }}</a>
+
                         </div>
                     </div>
                 </div>
