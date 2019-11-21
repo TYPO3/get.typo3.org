@@ -105,7 +105,7 @@ class Release implements \JsonSerializable
         $this->elts = false;
     }
 
-    public function setVersion($version): void
+    public function setVersion(string $version): void
     {
         $this->version = $version;
     }
