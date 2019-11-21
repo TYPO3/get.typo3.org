@@ -54,16 +54,11 @@
                             {% else %}
                                 <tr>
                             {% endif %}
-                                <td>
-                                    {{ release.version }}
-                                    {% if release.elts %}
-                                        <strong>ELTS</strong>
-                                    {% endif %}
-                                </td>
+                                <td>{{ release.version }} {% if release.elts %}ELTS{% endif %}</td>
                                 <td>{{ release.date | date("d.m.Y") }}</td>
                                 <td>{{ release.type }}</td>
                                 <td>
-                                    <a href="{{ path('release-notes-for-version', {'version': release.version}) }}" class="btn btn-sm btn-default">Show</a>
+                                    <a href="{{ path('release-notes-for-version', {'version': release.version}) }}" class="btn btn-sm btn-default">Release Notes</a>
                                     {% if release.elts %}
                                         <a href="https://typo3.com/elts" class="btn btn-sm btn-primary">Buy ELTS</a>
                                     {% endif %}
