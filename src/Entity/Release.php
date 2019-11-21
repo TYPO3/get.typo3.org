@@ -131,9 +131,19 @@ class Release implements \JsonSerializable
         return $this->majorVersion;
     }
 
+    public function setTarPackage(Package $tarPackage): void
+    {
+        $this->tarPackage = $tarPackage;
+    }
+
     public function getTarPackage(): Package
     {
         return $this->tarPackage;
+    }
+
+    public function setZipPackage(Package $zipPackage): void
+    {
+        $this->zipPackage = $zipPackage;
     }
 
     public function getZipPackage(): Package
