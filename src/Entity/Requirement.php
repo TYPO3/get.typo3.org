@@ -9,6 +9,7 @@
 
 namespace App\Entity;
 
+use App\Enum\RequirementCategoryEnum;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
@@ -41,7 +42,7 @@ class Requirement implements \JsonSerializable
      * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="database")
-     * @Assert\Choice({"php", "database", "hardware", "client"})
+     * @Assert\Choice(callback={"App\Enum\RequirementCategoryEnum", "getAvailableOptions"})
      */
     private $category;
 
@@ -78,9 +79,14 @@ class Requirement implements \JsonSerializable
      */
     private $max;
 
-    /**
-     * @return string
-     */
+    public function setCategory(string $category): void
+    {
+        if (!in_array($category, RequirementCategoryEnum::getAvailableOptions())) {
+            throw new \InvalidArgumentException('Invalid category');
+        }
+        $this->category = $category;
+    }
+
     public function getCategory(): string
     {
         return $this->category;
