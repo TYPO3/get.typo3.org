@@ -115,7 +115,12 @@ class Release implements \JsonSerializable
         return $this->version;
     }
 
-    public function getReleaseNotes()
+    public function setReleaseNotes(ReleaseNotes $releaseNotes): void
+    {
+        $this->releaseNotes = $releaseNotes;
+    }
+
+    public function getReleaseNotes(): ReleaseNotes
     {
         return $this->releaseNotes;
     }
@@ -158,11 +163,6 @@ class Release implements \JsonSerializable
     public function setMajorVersion(MajorVersion $majorVersion): void
     {
         $this->majorVersion = $majorVersion;
-    }
-
-    public function setReleaseNotes(ReleaseNotes $releaseNotes): void
-    {
-        $this->releaseNotes = $releaseNotes;
     }
 
     public function setType(string $type): void

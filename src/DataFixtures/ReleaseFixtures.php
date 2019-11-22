@@ -10,6 +10,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Embeddables\Package;
+use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Enum\ReleaseTypeEnum;
@@ -58,6 +59,21 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             );
             $release->setTarPackage($package);
             $release->setZipPackage($package);
+
+            $releaseNotes = new ReleaseNotes();
+            $releaseNotes->setNewsLink($faker->url);
+            $releaseNotes->setNews($faker->paragraph($faker->numberBetween(1, 6)));
+            $releaseNotes->setUpgradingInstructions($faker->paragraph($faker->numberBetween(0, 1)));
+
+            $changelogTypes = ['TASK', 'BUGFIX', 'FEATURE'];
+            $changelog = [];
+            $changelog[] = '2019-10-30 7254d67918 [RELEASE] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name . ')';
+            for ($changeIteration = 0; $changeIteration < $faker->numberBetween(5, 50); $changeIteration++) {
+                $changelog[] = '2019-10-30 7254d67918 [' . $faker->randomElement($changelogTypes) . '] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name . ')';
+            }
+            $releaseNotes->setChanges(' * ' . implode("\n * ", $changelog));
+            $release->setReleaseNotes($releaseNotes);
+
             if ($majorVersion->getMaintainedUntil() && $date > $majorVersion->getMaintainedUntil()) {
                 $release->setElts(true);
             }
