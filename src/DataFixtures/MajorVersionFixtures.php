@@ -43,11 +43,20 @@ class MajorVersionFixtures extends Fixture
         $manager->flush();
     }
 
+    public function getVersions(): array
+    {
+        return [
+            self::MAJOR_VERSION_SPRINT,
+            self::MAJOR_VERSION_LTS,
+            self::MAJOR_VERSION_ELTS,
+            self::MAJOR_VERSION_OUTDATED,
+        ];
+    }
+
     protected function getData(): array
     {
         $faker = \Faker\Factory::create();
         $dateTimeToday = new \DateTimeImmutable();
-        $collection = new ArrayCollection();
 
         return [
             self::MAJOR_VERSION_SPRINT => [
@@ -57,8 +66,8 @@ class MajorVersionFixtures extends Fixture
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday,
                 'maintainedUntil' => null,
-                'requirements' => $collection,
-                'releases' => $collection,
+                'requirements' => new ArrayCollection(),
+                'releases' => new ArrayCollection(),
                 'lts' => null
             ],
             self::MAJOR_VERSION_LTS => [
@@ -68,8 +77,8 @@ class MajorVersionFixtures extends Fixture
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday,
                 'maintainedUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
-                'requirements' => $collection,
-                'releases' => $collection,
+                'requirements' => new ArrayCollection(),
+                'releases' => new ArrayCollection(),
                 'lts' => 9.5
             ],
             self::MAJOR_VERSION_ELTS => [
@@ -79,8 +88,8 @@ class MajorVersionFixtures extends Fixture
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday->modify('-3 years'),
                 'maintainedUntil' => $dateTimeToday->modify('-1 day'),
-                'requirements' => $collection,
-                'releases' => $collection,
+                'requirements' => new ArrayCollection(),
+                'releases' => new ArrayCollection(),
                 'lts' => 6.2
             ],
             self::MAJOR_VERSION_OUTDATED => [
@@ -90,8 +99,8 @@ class MajorVersionFixtures extends Fixture
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday->modify('-6 years'),
                 'maintainedUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day'),
-                'requirements' => $collection,
-                'releases' => $collection,
+                'requirements' => new ArrayCollection(),
+                'releases' => new ArrayCollection(),
                 'lts' => 4.5
             ]
         ];
