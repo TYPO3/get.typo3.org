@@ -79,7 +79,7 @@ class MenuBuilder
             'api',
             [
                 'route' => 'app.swagger_ui',
-                'label' => 'REST API'
+                'label' => 'API'
             ]
         );
         return $menu;
@@ -104,6 +104,13 @@ class MenuBuilder
             [
                 'uri' => 'https://docs.typo3.org/typo3cms/GettingStartedTutorial/',
                 'label' => 'Getting Started'
+            ]
+        );
+        $menu->addChild(
+            'elts',
+            [
+                'uri' => 'https://typo3.com/elts',
+                'label' => 'ELTS'
             ]
         );
         return $menu;
