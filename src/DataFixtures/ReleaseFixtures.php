@@ -56,7 +56,7 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 
             $release = new Release();
             $release->setVersion($version);
-            $release->setType($faker->randomElement(ReleaseTypeEnum::getAvailableTypes()));
+            $release->setType($faker->randomElement(ReleaseTypeEnum::getAvailableOptions()));
             $release->setDate($date);
             $release->setMajorVersion($majorVersion);
             $package = new Package(
@@ -71,7 +71,6 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             $releaseNotes->setNewsLink($faker->url);
             $releaseNotes->setNews($faker->paragraph($faker->numberBetween(1, 6)));
             $releaseNotes->setUpgradingInstructions($faker->paragraph($faker->numberBetween(0, 1)));
-
             $changelogTypes = ['TASK', 'BUGFIX', 'FEATURE'];
             $changelog = [];
             $changelog[] = '2019-10-30 7254d67918 [RELEASE] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name . ')';

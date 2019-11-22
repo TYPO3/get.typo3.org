@@ -12,30 +12,30 @@ namespace App\Enum;
 
 class ReleaseTypeEnum
 {
-    const TYPE_REGULAR = 'regular';
-    const TYPE_DEVELOPMENT = 'development';
-    const TYPE_SECURITY = 'security';
+    const OPTION_REGULAR = 'regular';
+    const OPTION_DEVELOPMENT = 'development';
+    const OPTION_SECURITY = 'security';
 
     protected static $typeName = [
-        self::TYPE_REGULAR => 'Regular',
-        self::TYPE_DEVELOPMENT => 'Development',
-        self::TYPE_SECURITY => 'Security',
+        self::OPTION_REGULAR => 'Regular',
+        self::OPTION_DEVELOPMENT => 'Development',
+        self::OPTION_SECURITY => 'Security',
     ];
 
-    public static function getTypeName(string $typeShortName): string
+    public static function getName(string $option): string
     {
-        if (!isset(static::$typeName[$typeShortName])) {
-            return "Unknown type ($typeShortName)";
+        if (!isset(static::$optionNames[$option])) {
+            return "Unknown option ($option)";
         }
-        return static::$typeName[$typeShortName];
+        return static::$optionNames[$option];
     }
 
-    public static function getAvailableTypes(): array
+    public static function getAvailableOptions(): array
     {
         return [
-            self::TYPE_REGULAR,
-            self::TYPE_DEVELOPMENT,
-            self::TYPE_SECURITY,
+            self::OPTION_REGULAR,
+            self::OPTION_DEVELOPMENT,
+            self::OPTION_SECURITY,
         ];
     }
 }

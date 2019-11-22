@@ -50,7 +50,7 @@ class Release implements \JsonSerializable
      * @ORM\Column(type="string")
      * @var string
      * @Serializer\Groups({"data"})
-     * @Assert\Choice(callback={"App\Enum\ReleaseTypeEnum", "getAvailableTypes"})
+     * @Assert\Choice(callback={"App\Enum\ReleaseTypeEnum", "getAvailableOptions"})
      */
     private $type;
 
@@ -167,7 +167,7 @@ class Release implements \JsonSerializable
 
     public function setType(string $type): void
     {
-        if (!in_array($type, ReleaseTypeEnum::getAvailableTypes())) {
+        if (!in_array($type, ReleaseTypeEnum::getAvailableOptions())) {
             throw new \InvalidArgumentException('Invalid type');
         }
         $this->type = $type;
