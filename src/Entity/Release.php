@@ -18,7 +18,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ReleaseRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ReleaseRepository")
  */
 class Release implements \JsonSerializable
 {
