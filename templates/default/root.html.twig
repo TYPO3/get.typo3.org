@@ -37,7 +37,7 @@
             <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ communityVersions|length }}">
                 {% for version in communityVersions %}
                 <div class="card-group-element-item">
-                    <div class="card{% if loop.first %} card-inverse{% endif %}">
+                    <div id="download-community-{{ loop.index }}" class="card{% if loop.first %} card-inverse{% endif %}">
                         <div class="card-body">
                             <h4 class="card-title">{{ version.title }}</h4>
                             {% if version.version == 10 %}
@@ -117,7 +117,7 @@
 {% endif %}
 
 {% if eltsVersions|length > 0 %}
-<div class="frame frame-indent frame-ruler-before frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+<div id="download-elts" class="frame frame-indent frame-ruler-before frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner text-center">
             <h3>Past Versions with Extended Long&nbsp;Term&nbsp;Support</h3>
@@ -135,7 +135,7 @@
                 </div>
                 {% for version in eltsVersions %}
                 <div class="card-group-element-item">
-                    <div class="card">
+                    <div id="download-elts-{{ loop.index }}" class="card">
                         <div class="card-body">
                             <h4 class="card-title">{{ version.title }}</h4>
                         </div>

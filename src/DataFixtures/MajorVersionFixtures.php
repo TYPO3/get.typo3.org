@@ -43,7 +43,7 @@ class MajorVersionFixtures extends Fixture
         $manager->flush();
     }
 
-    public function getVersions(): array
+    public static function getVersions(): array
     {
         return [
             self::MAJOR_VERSION_SPRINT,

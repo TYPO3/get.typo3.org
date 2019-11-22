@@ -9,13 +9,27 @@
 
 namespace App\Tests\Functional;
 
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Panther\PantherTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class AbstractCase extends PantherTestCase
+abstract class AbstractCase extends PantherTestCase
 {
     protected $client = null;
+
+    /**
+     * @var ORMExecutor
+     */
+    private $fixtureExecutor;
+
+    /**
+     * @var ContainerAwareLoader
+     */
+    private $fixtureLoader;
 
     public function setUp(): void
     {
@@ -38,5 +52,32 @@ class AbstractCase extends PantherTestCase
 
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
+    }
+
+    protected function addFixture(FixtureInterface $fixture)
+    {
+        $this->getFixtureLoader()->addFixture($fixture);
+    }
+
+    protected function executeFixtures()
+    {
+        $this->getFixtureExecutor()->execute($this->getFixtureLoader()->getFixtures());
+    }
+
+    private function getFixtureExecutor(): ORMExecutor
+    {
+        if (!$this->fixtureExecutor) {
+            $entityManager = self::$kernel->getContainer()->get('doctrine')->getManager();
+            $this->fixtureExecutor = new ORMExecutor($entityManager, new ORMPurger($entityManager));
+        }
+        return $this->fixtureExecutor;
+    }
+
+    private function getFixtureLoader(): ContainerAwareLoader
+    {
+        if (!$this->fixtureLoader) {
+            $this->fixtureLoader = new ContainerAwareLoader(self::$kernel->getContainer());
+        }
+        return $this->fixtureLoader;
     }
 }
