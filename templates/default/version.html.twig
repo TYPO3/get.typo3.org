@@ -39,7 +39,6 @@
     {% if currentVersion.active == false %}
         {% include 'default/partials/version/inactive.html.twig' with currentVersion only %}
     {% endif %}
-
     {% include 'default/partials/version/intro.html.twig' with currentVersion only %}
     {% include 'default/partials/version/download.html.twig' with currentVersion only %}
     {% include 'default/partials/version/system-requirements.html.twig' with currentVersion only %}
