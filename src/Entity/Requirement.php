@@ -29,14 +29,6 @@ class Requirement implements \JsonSerializable
     private $version;
 
     /**
-     * @param \App\Entity\MajorVersion $version
-     */
-    public function setVersion(MajorVersion $version): void
-    {
-        $this->version = $version;
-    }
-
-    /**
      * @ORM\Id
      * @ORM\Column(type="string")
      * @var string
@@ -45,14 +37,6 @@ class Requirement implements \JsonSerializable
      * @Assert\Choice(callback={"App\Enum\RequirementCategoryEnum", "getAvailableOptions"})
      */
     private $category;
-
-    /**
-     * @return \App\Entity\MajorVersion|string
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
 
     /**
      * @ORM\Id
@@ -79,6 +63,16 @@ class Requirement implements \JsonSerializable
      */
     private $max;
 
+    public function setVersion(MajorVersion $version): void
+    {
+        $this->version = $version;
+    }
+
+    public function getVersion(): MajorVersion
+    {
+        return $this->version;
+    }
+
     public function setCategory(string $category): void
     {
         if (!in_array($category, RequirementCategoryEnum::getAvailableOptions())) {
@@ -92,25 +86,31 @@ class Requirement implements \JsonSerializable
         return $this->category;
     }
 
-    /**
-     * @return string
-     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return float
-     */
+    public function setMin(?float $min): void
+    {
+        $this->min = $min;
+    }
+
     public function getMin(): ?float
     {
         return $this->min;
     }
 
-    /**
-     * @return float
-     */
+    public function setMax(?float $max): void
+    {
+        $this->max = $max;
+    }
+
     public function getMax(): ?float
     {
         return $this->max;
