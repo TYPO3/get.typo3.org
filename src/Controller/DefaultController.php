@@ -207,19 +207,24 @@ class DefaultController extends AbstractController
      * )
      * @param string $requestedVersion
      * @param string $requestedFormat
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function download($requestedVersion = 'stable', $requestedFormat = 'tar.gz')
+    public function download(Request $request, $requestedVersion = 'stable', $requestedFormat = 'tar.gz')
     {
         if ($requestedVersion === 'current') {
             $requestedVersion = 'stable';
         }
 
+        if (VersionUtility::isValidSemverVersion($requestedVersion)) {
+            $release = $this->getDoctrine()->getRepository(Release::class)
+                ->findOneBy(['version' => $requestedVersion]);
+            if ($release !== null && $release->isElts()) {
+                return $this->createEltsVersionResponse($request, $release);
+            }
+        }
+
         // Get information about version to download
         $redirectData = $this->getSourceForgeRedirect($requestedVersion, $requestedFormat);
-        if (empty($redirectData)) {
-            $redirectData = $this->getFedextRedirect($requestedVersion, $requestedFormat);
-        }
 
         if (!isset($redirectData['url'])) {
             throw $this->createNotFoundException();
@@ -370,21 +375,35 @@ class DefaultController extends AbstractController
         return $result;
     }
 
-    /**
-     * @param string $versionName
-     * @param string $format
-     * @param string $releasesFile
-     * @return array
-     */
-    private function getFedextRedirect($versionName, $format)
+    protected function createEltsVersionResponse(Request $request, Release $release): Response
     {
-        $result = [];
-        if ($versionName === 'bootstrap') {
-            $releases = json_decode($this->legacyDataService->getReleaseJson());
-            $result['url'] = sprintf('http://cdn.fedext.net/%spackage.%s', $versionName, $format);
-            $result['format'] = $format;
-            $result['version'] = $releases->latest_stable;
+        $statusCode = 402;
+        $statusMessage = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
+        $acceptHeader = $request->headers->get('Accept');
+        $response = new Response();
+        $response->setStatusCode($statusCode);
+        if (strpos($acceptHeader, 'application/json') !== false) {
+            $response->setContent(json_encode([
+                'status' => $statusCode,
+                'message' => $statusMessage
+            ]));
+            $response->headers->set('Content-Type', 'application/json');
+        } else if (strpos($acceptHeader, 'text/html') !== false) {
+            $response = $this->render(
+                'default/elts.html.twig',
+                [
+                    'release' => $release,
+                ]
+            );
+        } else {
+            $response->setContent(chr(10) . $statusMessage . chr(10) . chr(10));
         }
-        return $result;
+        return $response;
+    }
+
+    protected function parseLink(string $text): string
+    {
+        $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
+        return preg_replace($url, '<a href="$0" target="_blank" rel="noreferrer">$0</a>', $text);
     }
 }

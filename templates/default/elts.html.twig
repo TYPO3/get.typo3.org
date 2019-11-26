@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+{% block title %}Download TYPO3 ELTS {{ release.version }}{% endblock %}
+{% block content %}
+
+    {% include 'default/partials/general/key-visual.html.twig' with {
+        'title': 'ELTS version requested',
+        'subtitle': 'The version you requested is only available as an Extended Long Term Support (ELTS) version.',
+        'small': '1'
+    } only %}
+
+    <div class="frame frame-small frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+        <div class="frame-container">
+            <div class="frame-inner">
+                <h1 class="h2">How to get access to an ELTS version?</h1>
+                <p>
+                    You can buy an ELTS license, for more information please visit:
+                </p>
+                <ul class="list-link">
+                    <li>
+                        <a href="https://typo3.com/elts" target="_blank" rel="noreferrer">https://typo3.com/elts</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
