@@ -1,5 +1,5 @@
 {% extends "layout.html.twig" %}
-{% block title %}Download TYPO3 {{ currentVersion.current.version }}{% endblock %}
+{% block title %}Download TYPO3 {{ currentVersion.current.version }}{{ ((currentVersion.current.elts) ? ' ELTS') }}{% endblock %}
 {% block content %}
 
     {% include 'default/partials/general/key-visual.html.twig' with {
@@ -39,9 +39,10 @@
     {% if currentVersion.active == false %}
         {% include 'default/partials/version/inactive.html.twig' with currentVersion only %}
     {% endif %}
-    {% include 'default/partials/version/intro.html.twig' with currentVersion only %}
+    {% include 'default/partials/version/release-information.html.twig' with currentVersion only %}
     {% include 'default/partials/version/download.html.twig' with currentVersion only %}
     {% include 'default/partials/version/system-requirements.html.twig' with currentVersion only %}
     {% include 'default/partials/version/package-signatures.html.twig' with currentVersion only %}
+    {% include 'default/partials/version/checksums.html.twig' with currentVersion only %}
 
 {% endblock %}

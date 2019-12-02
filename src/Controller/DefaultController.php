@@ -102,20 +102,37 @@ class DefaultController extends AbstractController
      */
     public function releaseNotes(string $version = '', Request $request): Response
     {
+        $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
 
         /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
         $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $majors = $majorVersionRepository->findAllGroupedByMajor();
+        $data['groupedVersions'] = $majorVersionRepository->findAllGroupedByMajor();
 
-        $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
         if ($version === '') {
-            $release = $releaseRepository->findOneBy([], ['version' => 'DESC']);
-            return $this->redirectToRoute('release-notes-for-version', ['version' => $release->getVersion()]);
-        } else {
-            $release = $releaseRepository->findOneBy(['version' => $version]);
+            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => 'DESC']);
+            return $this->redirectToRoute('release-notes-for-version', ['version' => $majorVersion->getVersion()]);
         }
-        $data = ['result' => $majors, 'current' => $release];
+
+        $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
+        $data['currentVersion'] = $majorVersionRepository->findOneBy(['version' => $majorVersionNumber]);
+        if (!$data['currentVersion'] instanceof MajorVersion) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        if (VersionUtility::isValidSemverVersion($version)) {
+            $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releaseRepository->findOneBy(['version' => $version]);
+        } else {
+            $release = $data['currentVersion']->getLatestRelease();
+        }
+        if (!$release instanceof Release) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        $data['currentVersion'] = $data['currentVersion']->toArray();
+        $data['currentVersion']['current'] = $release;
+
         $response = $this->render('default/release-notes.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
@@ -136,6 +153,7 @@ class DefaultController extends AbstractController
      */
     public function showVersion(string $version = '', Request $request): Response
     {
+        $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
 
         /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
@@ -388,7 +406,7 @@ class DefaultController extends AbstractController
                 'message' => $statusMessage
             ]));
             $response->headers->set('Content-Type', 'application/json');
-        } else if (strpos($acceptHeader, 'text/html') !== false) {
+        } elseif (strpos($acceptHeader, 'text/html') !== false) {
             $response = $this->render(
                 'default/elts.html.twig',
                 [

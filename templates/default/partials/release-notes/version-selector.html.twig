@@ -6,11 +6,11 @@
                     <div class="col-sm-auto">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="">Version {{ current.version }}</span>
+                                <span class="input-group-text" id="">Version {{ currentVersion.current.version }}</span>
                             </div>
                             <select class="form-control b_form__select custom-select" onchange="if (this.value) window.location.href= '{{ path('root') }}release-notes/' + this.value;">
                                 <option value="">Go to another version</option>
-                                {% for version,entry in result %}
+                                {% for version,entry in groupedVersions %}
                                     <optgroup label="{{ version|replace({'.0000': ''}) }}">
                                         {% for note in entry.releases|sortByVersion %}
                                             <option value="{{ note.version }}">{{ note.version }}</option>

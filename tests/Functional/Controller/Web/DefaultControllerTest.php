@@ -118,4 +118,79 @@ class DefaultControllerTest extends AbstractCase
         $this->assertSelectorExists('#notice-outdated');
         $this->assertSelectorNotExists('#accordion-download');
     }
+
+    /**
+     * @test
+     */
+    public function webReleaseNotesRedirect()
+    {
+        $this->client->request('GET', '/release-notes');
+        $this->assertResponseRedirects();
+        $this->assertSelectorTextContains('a', '/release-notes/10');
+    }
+
+    /**
+     * @test
+     */
+    public function weReleaseNotesSprint()
+    {
+        $this->client->request('GET', '/release-notes/10');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', '10.0.5');
+    }
+
+    /**
+     * @test
+     */
+    public function webReleaseNotesSpecific()
+    {
+        $this->client->request('GET', '/release-notes/10.0.0');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', '10.0.0');
+        $this->assertSelectorNotExists('#notice-elts');
+    }
+
+    /**
+     * @test
+     */
+    public function webReleaseNotesElts()
+    {
+        $this->client->request('GET', '/release-notes/6.2');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', '6.2.23 ELTS');
+        $this->assertSelectorExists('#notice-elts');
+    }
+
+    /**
+     * @test
+     */
+    public function webReleaseNotesBeforeElts()
+    {
+        $this->client->request('GET', '/release-notes/6.2.0');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', '6.2.0');
+        $this->assertSelectorExists('#notice-elts');
+    }
+
+    /**
+     * @test
+     */
+    public function webReleaseNotesOutdated()
+    {
+        $this->client->request('GET', '/release-notes/4.5.0');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', '4.5.0');
+        $this->assertSelectorExists('#notice-outdated');
+    }
+
+    /**
+     * @test
+     */
+    public function webReleaseNotesOutdatedElts()
+    {
+        $this->client->request('GET', '/release-notes/4.5');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', '4.5.23 ELTS');
+        $this->assertSelectorExists('#notice-outdated');
+    }
 }
