@@ -24,7 +24,7 @@ php ./bin/console doctrine:migrations:migrate
 # Import Fixtures
 
 ```
-php /bin/console doctrine:fixtures:load
+php ./bin/console doctrine:fixtures:load
 ```
 
 # Testing
