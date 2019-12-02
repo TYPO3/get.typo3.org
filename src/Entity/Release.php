@@ -22,8 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Release implements \JsonSerializable
 {
-    private $baseUrl = 'https://get.typo3.org/';
-
     /**
      * Version in a semver/version_compare compatible format
      *
@@ -207,8 +205,8 @@ class Release implements \JsonSerializable
                 'zip' => $this->zipPackage,
             ],
             'url' => [
-                'zip' => $this->baseUrl . $this->version . '/zip',
-                'tar' => $this->baseUrl . $this->version,
+                'zip' => getenv('BASE_URL') . '/' . $this->version . '/zip',
+                'tar' => getenv('BASE_URL') . '/' . $this->version,
             ],
         ];
     }

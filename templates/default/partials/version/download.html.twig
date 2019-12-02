@@ -30,7 +30,7 @@
                                     {% else %}
                                         <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ version }}</code></pre>
                                     {% endif %}
-                                    <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="https://get.typo3.org/misc/composer/helper" title="Composer helper">get.typo3.org/misc/composer/helper</a></p>
+                                    <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="{{ path('composer-helper') }}" title="Composer Helper">Compoer Helper</a></p>
 
                                 </div>
                             </div>
@@ -55,9 +55,9 @@
                             <div class="accordion-content">
                                 <div class="accordion-content-item accordion-content-text">
                                     <strong>Using wget</strong>
-                                    <pre>wget --content-disposition https://get.typo3.org/{{ current.version }}</pre>
+                                    <pre>wget --content-disposition {{ baseUrl }}/{{ current.version }}</pre>
                                     <strong>Using cURL (e.g., when wget fails with SSL error)</strong>
-                                    <pre>curl -L -o typo3_src.tgz https://get.typo3.org/{{ current.version }}</pre>
+                                    <pre>curl -L -o typo3_src.tgz {{ baseUrl }}/{{ current.version }}</pre>
                                     <p>
                                         In case you are encountering SSL warnings (host name mismatch), please make sure that you are
                                         using a client that supports Server Name Indication (SNI). This especially affects old versions
@@ -108,17 +108,17 @@
                                 <div class="accordion-content-item accordion-content-text">
                                     <ul class="list-link">
                                         <li>
-                                            <a href="https://get.typo3.org/{{ current.version }}/tar.gz">get.typo3.org/{{ current.version }}/tar.gz</a>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/tar.gz">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz</a>
                                         </li>
                                         <li>
-                                            <a href="https://get.typo3.org/{{ current.version }}/zip">get.typo3.org/{{ current.version }}/zip</a>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/zip">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip</a>
                                         </li>
                                         {% if version >= 7 %}
                                         <li>
-                                            <a href="https://get.typo3.org/{{ current.version }}/tar.gz.sig">get.typo3.org/{{ current.version }}/tar.gz.sig - GPG signature</a>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/tar.gz.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz.sig - GPG signature</a>
                                         </li>
                                         <li>
-                                            <a href="https://get.typo3.org/{{ current.version }}/zip.sig">get.typo3.org/{{ current.version }}/zip.sig - GPG signature</a>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/zip.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip.sig - GPG signature</a>
                                         </li>
                                         {% endif %}
                                     </ul>
