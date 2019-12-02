@@ -1,4 +1,4 @@
-# Get.typo3.org
+# get.typo3.org
 
 Symfony 4 application for release notes, download redirects and JSON API for releases.
 
