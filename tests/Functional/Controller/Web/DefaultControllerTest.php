@@ -13,6 +13,7 @@ use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\AbstractCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultControllerTest extends AbstractCase
 {
@@ -192,5 +193,14 @@ class DefaultControllerTest extends AbstractCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', '4.5.23 ELTS');
         $this->assertSelectorExists('#notice-outdated');
+    }
+
+    /**
+     * @test
+     */
+    public function webDownloadEltsVersion()
+    {
+        $this->client->request('GET', '/6.2.23');
+        $this->assertResponseStatusCodeSame(Response::HTTP_PAYMENT_REQUIRED);
     }
 }

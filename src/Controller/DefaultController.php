@@ -395,11 +395,10 @@ class DefaultController extends AbstractController
 
     protected function createEltsVersionResponse(Request $request, Release $release): Response
     {
-        $statusCode = 402;
+        $statusCode = Response::HTTP_PAYMENT_REQUIRED;
         $statusMessage = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
         $acceptHeader = $request->headers->get('Accept');
         $response = new Response();
-        $response->setStatusCode($statusCode);
         if (strpos($acceptHeader, 'application/json') !== false) {
             $response->setContent(json_encode([
                 'status' => $statusCode,
@@ -416,6 +415,7 @@ class DefaultController extends AbstractController
         } else {
             $response->setContent(chr(10) . $statusMessage . chr(10) . chr(10));
         }
+        $response->setStatusCode($statusCode);
         return $response;
     }
 
