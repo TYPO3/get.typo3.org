@@ -61,7 +61,7 @@ class CacheController extends AbstractController
         }
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
         $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-        if ($filesystemCache->has('releases.json')) {
+        if ($filesystemCache->hasItem('releases.json')) {
             $filesystemCache->delete('releases.json');
         }
         return (new JsonResponse(['locations' => $purgeUrls]))->setStatusCode(Response::HTTP_ACCEPTED);
