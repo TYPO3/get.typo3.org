@@ -15,6 +15,7 @@ use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -30,7 +31,7 @@ class CacheController extends AbstractController
      * @Route("/majorVersion/{version}")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
-     *     response=204,
+     *     response=202,
      *     description="Successfully purged caches."
      * )
      * @SWG\Response(
@@ -60,10 +61,10 @@ class CacheController extends AbstractController
         }
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
         $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-        if ($filesystemCache->has('releases.json')) {
+        if ($filesystemCache->hasItem('releases.json')) {
             $filesystemCache->delete('releases.json');
         }
-        return new JsonResponse(['locations' => $purgeUrls]);
+        return (new JsonResponse(['locations' => $purgeUrls]))->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -71,7 +72,7 @@ class CacheController extends AbstractController
      * @Route("/release/{version}")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
-     *     response=204,
+     *     response=202,
      *     description="Successfully purged caches."
      * )
      * @SWG\Response(
@@ -113,7 +114,7 @@ class CacheController extends AbstractController
         ];
         $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
         $filesystemCache->delete('releases.json');
-        return new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]);
+        return (new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]))->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
