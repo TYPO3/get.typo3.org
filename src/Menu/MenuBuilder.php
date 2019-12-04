@@ -54,15 +54,13 @@ class MenuBuilder
     public function mainDefault(array $options)
     {
         $menu = $this->factory->createItem('root');
-
         $menu->addChild(
             'root',
             [
-                'route' => 'root',
+                'route' => 'download',
                 'label' => 'Download'
             ]
         );
-
         $menu->addChild(
             'release-notes',
             [
@@ -70,7 +68,6 @@ class MenuBuilder
                 'label' => 'Release Notes'
             ]
         );
-
         $menu->addChild(
             'composer-helper',
             [
@@ -78,15 +75,44 @@ class MenuBuilder
                 'label' => 'Composer Helper'
             ]
         );
-
         $menu->addChild(
             'api',
             [
                 'route' => 'app.swagger_ui',
-                'label' => 'REST API'
+                'label' => 'API'
             ]
         );
+        return $menu;
+    }
 
+    /**
+     * @param array $options
+     * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
+     */
+    public function mainSecondary(array $options)
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->addChild(
+            'install',
+            [
+                'uri' => 'https://docs.typo3.org/typo3cms/InstallationGuide/',
+                'label' => 'Installation Guide'
+            ]
+        );
+        $menu->addChild(
+            'gettingstarted',
+            [
+                'uri' => 'https://docs.typo3.org/typo3cms/GettingStartedTutorial/',
+                'label' => 'Getting Started'
+            ]
+        );
+        $menu->addChild(
+            'elts',
+            [
+                'uri' => 'https://typo3.com/elts',
+                'label' => 'ELTS'
+            ]
+        );
         return $menu;
     }
 }

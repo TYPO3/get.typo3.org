@@ -12,6 +12,7 @@ namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Utility\VersionUtility;
 use Doctrine\Common\Util\Inflector;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -99,14 +100,14 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
      */
     protected function checkVersionFormat(?string $version): void
     {
-        if (!$this->isValidSemverVersion($version)) {
+        if (!VersionUtility::isValidSemverVersion($version)) {
             throw new BadRequestHttpException('version malformed.');
         }
     }
 
     protected function getMajorVersionByReleaseVersion(string $version): MajorVersion
     {
-        $majorVersion = substr($version, 0, strpos($version, '.'));
+        $majorVersion = VersionUtility::extractMajorVersionNumber($version);
         $mventity = $this->getDoctrine()->getManager()->getRepository(MajorVersion::class)->findOneBy(
             ['version' => $majorVersion]
         );
@@ -128,16 +129,6 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
             throw new NotFoundHttpException();
         }
         return $releases;
-    }
-
-    protected function isValidSemverVersion(string $version): bool
-    {
-        $success = preg_match(
-            "/^(\d+\.\d+\.\d+)(?:-?([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/",
-            $version,
-            $matches
-        );
-        return (int)$success === 1;
     }
 
     protected function flat(array $array, string $prefix = '')

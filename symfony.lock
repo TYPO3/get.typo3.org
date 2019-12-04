@@ -26,6 +26,9 @@
     "doctrine/common": {
         "version": "v2.8.1"
     },
+    "doctrine/data-fixtures": {
+        "version": "1.4.0"
+    },
     "doctrine/dbal": {
         "version": "v2.6.3"
     },
@@ -40,6 +43,18 @@
     },
     "doctrine/doctrine-cache-bundle": {
         "version": "1.3.2"
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "fc52d86631a6dfd9fdf3381d0b7e3df2069e51b3"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
+        ]
     },
     "doctrine/doctrine-migrations-bundle": {
         "version": "1.2",
@@ -80,6 +95,9 @@
     "exsyst/swagger": {
         "version": "v0.4.0"
     },
+    "facebook/webdriver": {
+        "version": "1.7.1"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -91,6 +109,9 @@
         "files": [
             ".php_cs.dist"
         ]
+    },
+    "fzaninotto/faker": {
+        "version": "v1.9.0"
     },
     "guzzlehttp/guzzle": {
         "version": "6.3.0"
@@ -146,9 +167,6 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
-    "jetbrains/phpstorm-stubs": {
-        "version": "v2019.2"
-    },
     "jms/metadata": {
         "version": "1.6.0"
     },
@@ -172,9 +190,6 @@
     },
     "monolog/monolog": {
         "version": "1.23.0"
-    },
-    "myclabs/deep-copy": {
-        "version": "1.7.0"
     },
     "nelmio/api-doc-bundle": {
         "version": "3.0",
@@ -236,17 +251,14 @@
     "ocramius/proxy-manager": {
         "version": "2.2.0"
     },
+    "ondram/ci-detector": {
+        "version": "3.1.1"
+    },
     "overtrue/phplint": {
         "version": "1.1.9"
     },
     "paragonie/random_compat": {
         "version": "v2.0.11"
-    },
-    "phar-io/manifest": {
-        "version": "1.0.1"
-    },
-    "phar-io/version": {
-        "version": "1.0.1"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -260,9 +272,6 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
-    "phpspec/prophecy": {
-        "version": "1.7.5"
-    },
     "phpstan/phpdoc-parser": {
         "version": "0.3.5"
     },
@@ -271,30 +280,6 @@
     },
     "phpstan/phpstan-phpunit": {
         "version": "0.11.2"
-    },
-    "phpunit/php-code-coverage": {
-        "version": "6.0.1"
-    },
-    "phpunit/php-file-iterator": {
-        "version": "1.4.5"
-    },
-    "phpunit/php-text-template": {
-        "version": "1.2.1"
-    },
-    "phpunit/php-timer": {
-        "version": "2.0.0"
-    },
-    "phpunit/php-token-stream": {
-        "version": "3.0.0"
-    },
-    "phpunit/phpunit": {
-        "version": "4.7",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.7",
-            "ref": "c276fa48d4713de91eb410289b3b1834acb7e403"
-        }
     },
     "phpunit/phpunit-mock-objects": {
         "version": "6.0.1"
@@ -323,38 +308,8 @@
     "roave/security-advisories": {
         "version": "dev-master"
     },
-    "sebastian/code-unit-reverse-lookup": {
-        "version": "1.0.1"
-    },
-    "sebastian/comparator": {
-        "version": "2.1.3"
-    },
     "sebastian/diff": {
         "version": "3.0.0"
-    },
-    "sebastian/environment": {
-        "version": "3.1.0"
-    },
-    "sebastian/exporter": {
-        "version": "3.1.0"
-    },
-    "sebastian/global-state": {
-        "version": "2.0.0"
-    },
-    "sebastian/object-enumerator": {
-        "version": "3.0.3"
-    },
-    "sebastian/object-reflector": {
-        "version": "1.1.1"
-    },
-    "sebastian/recursion-context": {
-        "version": "3.0.0"
-    },
-    "sebastian/resource-operations": {
-        "version": "1.0.0"
-    },
-    "sebastian/version": {
-        "version": "2.0.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "4.0",
@@ -367,6 +322,9 @@
     },
     "symfony/asset": {
         "version": "v4.0.6"
+    },
+    "symfony/browser-kit": {
+        "version": "v4.3.8"
     },
     "symfony/cache": {
         "version": "v4.0.6"
@@ -386,6 +344,9 @@
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
     },
+    "symfony/css-selector": {
+        "version": "v4.3.8"
+    },
     "symfony/debug": {
         "version": "v4.0.6"
     },
@@ -394,6 +355,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.0.6"
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.3.8"
     },
     "symfony/dotenv": {
         "version": "v4.0.6"
@@ -433,6 +397,12 @@
             "version": "3.3",
             "ref": "60ac64d0ec3f8e92bda67567eff5a313a359c94b"
         }
+    },
+    "symfony/http-client": {
+        "version": "v4.3.8"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v1.1.8"
     },
     "symfony/http-foundation": {
         "version": "v4.0.6"
@@ -475,6 +445,25 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.5"
+    },
+    "symfony/panther": {
+        "version": "v0.6.0"
+    },
+    "symfony/phpunit-bridge": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "b0582341f1df39aaf3a9a866cdbe49937da35984"
+        },
+        "files": [
+            ".env.test",
+            "bin/phpunit",
+            "config/bootstrap.php",
+            "phpunit.xml.dist",
+            "tests/.gitignore"
+        ]
     },
     "symfony/polyfill-ctype": {
         "version": "v1.9.0"
@@ -536,6 +525,9 @@
     "symfony/stopwatch": {
         "version": "v4.0.6"
     },
+    "symfony/test-pack": {
+        "version": "v1.0.6"
+    },
     "symfony/translation-contracts": {
         "version": "v1.1.5"
     },
@@ -574,9 +566,6 @@
     },
     "symplify/package-builder": {
         "version": "v6.0.5"
-    },
-    "theseer/tokenizer": {
-        "version": "1.1.0"
     },
     "twig/extensions": {
         "version": "1.0",

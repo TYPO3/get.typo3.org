@@ -1,22 +1,33 @@
 {% extends "layout.html.twig" %}
-{% block title %}TYPO3 {{ current.version }} Release Notes{% endblock %}
+{% block title %}TYPO3 {{ currentVersion.current.version }}{{ ((currentVersion.current.elts) ? ' ELTS') }} Release Notes{% endblock %}
 {% block content %}
 
-    {% include 'default/partials/key-visual.html.twig' with {'title': 'Release Notes', 'subtitle': 'TYPO3 ' ~ current.version, 'small': '1'} %}
-    {% include 'default/partials/release-notes/version-selector.twig' %}
+    {% include 'default/partials/general/key-visual.html.twig' with {
+        'title': 'TYPO3 ' ~ currentVersion.current.version ~ '' ~ ((currentVersion.current.elts) ? ' ELTS'),
+        'subtitle': 'Release Notes',
+        'small': '1'
+    } only %}
+    {% include 'default/partials/release-notes/version-selector.html.twig' %}
 
-    {% if current.releaseNotes.legacyContent %}
-        <div class="container b_container b_container--large">
-            {{ current.releaseNotes.legacyContent|escape('html')|parsedown|changehighlighter|raw }}
+    {% if currentVersion.active == false %}
+        {% include 'default/partials/version/inactive.html.twig' with currentVersion only %}
+    {% endif %}
+    {% if currentVersion.current.releaseNotes.legacyContent %}
+        <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+            <div class="frame-container">
+                <div class="frame-inner">
+                    {{ currentVersion.current.releaseNotes.legacyContent|escape('html')|parsedown|changehighlighter|raw }}
+                </div>
+            </div>
         </div>
-        {% include 'default/partials/release-notes/signatures.twig' %}
+        {% include 'default/partials/version/signatures.html.twig' with currentVersion only %}
     {% else %}
-        {% include 'default/partials/release-notes/introduction.twig' %}
-        {% include 'default/partials/release-notes/news.twig' %}
-        {% include 'default/partials/release-notes/checksums.twig' %}
-        {% include 'default/partials/release-notes/signatures.twig' %}
-        {% include 'default/partials/release-notes/upgrading.twig' %}
-        {% include 'default/partials/release-notes/changes.twig' %}
+        {% include 'default/partials/release-notes/release-notes.html.twig' with currentVersion only %}
+        {% include 'default/partials/version/news.html.twig' with currentVersion only %}
+        {% include 'default/partials/version/checksums.html.twig' with currentVersion only %}
+        {% include 'default/partials/version/signatures.html.twig' with currentVersion only %}
+        {% include 'default/partials/version/upgrading.html.twig' with currentVersion only %}
+        {% include 'default/partials/version/changes.html.twig' with currentVersion only %}
     {% endif %}
 
 {% endblock %}

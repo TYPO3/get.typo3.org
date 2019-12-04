@@ -1,14 +1,16 @@
 {% extends "layout.html.twig" %}
 {% block title %}Composer Helper{% endblock %}
-{# import "_self" as the form theme #}
-{% form_theme form _self %}
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('assets/JavaScript/composerHelper.js') }}"></script>
 {% endblock %}
 {% block content %}
 
-    {% include 'default/partials/key-visual.html.twig' with {'title': 'Composer Helper', 'subtitle': '', 'small': '1'} %}
+    {% include 'default/partials/general/key-visual.html.twig' with {
+        'title': 'Composer Helper',
+        'subtitle': '',
+        'small': '1'
+    } only %}
 
     <div class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
         <div class="frame-container">
@@ -25,7 +27,6 @@
     <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
         <div class="frame-container">
             <div class="frame-inner">
-
                 {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form', class: 'composer-helper-form'}}) }}
                 <div class="mb-5">
                     {% for bundleName,bundle in bundles %}
@@ -34,20 +35,8 @@
                     <button class="btn btn-default js-composer-helper-toggle-packages" data-packages="[]">Reset</button>
                 </div>
                 {{ form_end(form) }}
-
             </div>
         </div>
     </div>
-{% endblock %}
 
-{% block form_help %}
-    {%- if help is not empty -%}
-        <p id="{{ id }}_help" class="help-block m-0">
-            {%- if translation_domain is same as(false) -%}
-                {{- help -}}
-            {%- else -%}
-                {{- help|trans({}, translation_domain) -}}
-            {%- endif -%}
-        </p>
-    {%- endif -%}
-{% endblock form_help %}
+{% endblock %}

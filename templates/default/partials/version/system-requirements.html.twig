@@ -1,7 +1,6 @@
 <div id="system-requirements" class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
-
             <h2>System Requirements</h2>
             <p>For the full list of system requirements as well as installation instructions see the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/In-depth/SystemRequirements/Index.html" rel="noopener,noreferrer">Installation guide</a></p>
             <table class="table">
@@ -14,7 +13,7 @@
                     <th scope="row">Webserver</th>
                     <td>Apache httpd, Nginx, Microsoft IIS{% if version > 8 %}, Caddy Server{% endif %}</td>
                 </tr>
-                {% for category,element in systemRequirements|groupByCategory %}
+                {% for category,element in requirements|groupByCategory %}
                     <tr>
                         <th scope="row">
                             {% if (category == 'php') %}
@@ -67,7 +66,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>

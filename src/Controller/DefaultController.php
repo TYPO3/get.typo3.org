@@ -14,6 +14,7 @@ use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
+use App\Utility\VersionUtility;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -53,10 +54,17 @@ class DefaultController extends AbstractController
     public function show(Request $request)
     {
         $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $majorVersions = $majorVersionRepository->findAllActive();
+        $communityVersions = $majorVersionRepository->findAllActiveCommunity();
+        $eltsVersions = $majorVersionRepository->findAllActiveElts();
 
-        $response = $this->render('default/show.html.twig', ['majorVersions' => $majorVersions]);
-        $response->setEtag(md5(serialize($majorVersions)));
+        $response = $this->render(
+            'default/root.html.twig',
+            [
+                'communityVersions' => $communityVersions,
+                'eltsVersions' => $eltsVersions
+            ]
+        );
+        $response->setEtag(md5(serialize($communityVersions) . serialize($eltsVersions)));
         $response->isNotModified($request);
         return $response;
     }
@@ -94,20 +102,37 @@ class DefaultController extends AbstractController
      */
     public function releaseNotes(string $version = '', Request $request): Response
     {
+        $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
 
-        /** @var \App\Repository\MajorVersionRepository $mVersionRepo */
-        $mVersionRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $majors = $mVersionRepo->findAllGroupedByMajor();
+        /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
+        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data['groupedVersions'] = $majorVersionRepository->findAllGroupedByMajor();
 
-        $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
         if ($version === '') {
-            $release = $releaseRepository->findOneBy([], ['version' => 'DESC']);
-            return $this->redirectToRoute('release-notes-for-version', ['version' => $release->getVersion()]);
-        } else {
-            $release = $releaseRepository->findOneBy(['version' => $version]);
+            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => 'DESC']);
+            return $this->redirectToRoute('release-notes-for-version', ['version' => $majorVersion->getVersion()]);
         }
-        $data = ['result' => $majors, 'current' => $release];
+
+        $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
+        $data['currentVersion'] = $majorVersionRepository->findOneBy(['version' => $majorVersionNumber]);
+        if (!$data['currentVersion'] instanceof MajorVersion) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        if (VersionUtility::isValidSemverVersion($version)) {
+            $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releaseRepository->findOneBy(['version' => $version]);
+        } else {
+            $release = $data['currentVersion']->getLatestRelease();
+        }
+        if (!$release instanceof Release) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        $data['currentVersion'] = $data['currentVersion']->toArray();
+        $data['currentVersion']['current'] = $release;
+
         $response = $this->render('default/release-notes.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
@@ -115,27 +140,51 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/download", methods={"GET"})
+     * @Route("/download/", methods={"GET"}, name="download")
+     * @Route("/version", methods={"GET"})
+     * @Route("/version/", methods={"GET"})
      * @Route("/version/{version}", methods={"GET"}, name="version")
      * @Cache(expires="tomorrow", public=true)
-     * @param int $version
+     *
+     * @param string $version
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showVersion(int $version, Request $request): Response
+    public function showVersion(string $version = '', Request $request): Response
     {
-        $templateName = 'default/download.html.twig';
-        /** @var \App\Repository\MajorVersionRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data = $repository->findOneBy(['version' => $version]);
-        if ($data instanceof MajorVersion) {
-            $latestRelease = $data->getLatestRelease();
-            $data = $data->toArray();
-            $data['current'] = $latestRelease;
+        $data = [];
+        $version = str_replace('TYPO3_CMS_', '', $version);
+
+        /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
+        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data['activeVersions'] = $majorVersionRepository->findAllActive();
+
+        if ($version === '') {
+            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => 'DESC']);
+            return $this->redirectToRoute('version', ['version' => $majorVersion->getVersion()]);
         }
-        if (!$data) {
+
+        $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
+        $data['currentVersion'] = $majorVersionRepository->findOneBy(['version' => $majorVersionNumber]);
+        if (!$data['currentVersion'] instanceof MajorVersion) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
-        $response = $this->render($templateName, $data);
+
+        if (VersionUtility::isValidSemverVersion($version)) {
+            $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releaseRepository->findOneBy(['version' => $version]);
+        } else {
+            $release = $data['currentVersion']->getLatestRelease();
+        }
+        if (!$release instanceof Release) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        $data['currentVersion'] = $data['currentVersion']->toArray();
+        $data['currentVersion']['current'] = $release;
+
+        $response = $this->render('default/version.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
         return $response;
@@ -144,20 +193,21 @@ class DefaultController extends AbstractController
     /**
      * @Route("/list/version/{version}", methods={"GET"}, name="list")
      * @Cache(expires="tomorrow", public=true)
-     * @param int $version
+     * @param float $version
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showVersionListByMajorVersion(int $version, Request $request): Response
+    public function showVersionListByMajorVersion(float $version, Request $request): Response
     {
         $templateName = 'default/list.html.twig';
         /** @var \App\Repository\MajorVersionRepository $repository */
         $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data = $repository->findOneBy(['version' => $version]);
-        if ($data instanceof MajorVersion) {
-            $data = $data->toArray();
+        $data['activeVersions'] = $repository->findAllActive();
+        $data['currentVersion'] = $repository->findOneBy(['version' => $version]);
+        if ($data['currentVersion'] instanceof MajorVersion) {
+            $data['currentVersion'] = $data['currentVersion']->toArray();
         }
-        if (!$data) {
+        if (!$data['currentVersion']) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
         $response = $this->render($templateName, $data);
@@ -175,19 +225,24 @@ class DefaultController extends AbstractController
      * )
      * @param string $requestedVersion
      * @param string $requestedFormat
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function download($requestedVersion = 'stable', $requestedFormat = 'tar.gz')
+    public function download(Request $request, $requestedVersion = 'stable', $requestedFormat = 'tar.gz')
     {
         if ($requestedVersion === 'current') {
             $requestedVersion = 'stable';
         }
 
+        if (VersionUtility::isValidSemverVersion($requestedVersion)) {
+            $release = $this->getDoctrine()->getRepository(Release::class)
+                ->findOneBy(['version' => $requestedVersion]);
+            if ($release !== null && $release->isElts()) {
+                return $this->createEltsVersionResponse($request, $release);
+            }
+        }
+
         // Get information about version to download
         $redirectData = $this->getSourceForgeRedirect($requestedVersion, $requestedFormat);
-        if (empty($redirectData)) {
-            $redirectData = $this->getFedextRedirect($requestedVersion, $requestedFormat);
-        }
 
         if (!isset($redirectData['url'])) {
             throw $this->createNotFoundException();
@@ -338,21 +393,35 @@ class DefaultController extends AbstractController
         return $result;
     }
 
-    /**
-     * @param string $versionName
-     * @param string $format
-     * @param string $releasesFile
-     * @return array
-     */
-    private function getFedextRedirect($versionName, $format)
+    protected function createEltsVersionResponse(Request $request, Release $release): Response
     {
-        $result = [];
-        if ($versionName === 'bootstrap') {
-            $releases = json_decode($this->legacyDataService->getReleaseJson());
-            $result['url'] = sprintf('http://cdn.fedext.net/%spackage.%s', $versionName, $format);
-            $result['format'] = $format;
-            $result['version'] = $releases->latest_stable;
+        $statusCode = Response::HTTP_PAYMENT_REQUIRED;
+        $statusMessage = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
+        $acceptHeader = $request->headers->get('Accept');
+        $response = new Response();
+        if (strpos($acceptHeader, 'application/json') !== false) {
+            $response->setContent(json_encode([
+                'status' => $statusCode,
+                'message' => $statusMessage
+            ]));
+            $response->headers->set('Content-Type', 'application/json');
+        } elseif (strpos($acceptHeader, 'text/html') !== false) {
+            $response = $this->render(
+                'default/elts.html.twig',
+                [
+                    'release' => $release,
+                ]
+            );
+        } else {
+            $response->setContent(chr(10) . $statusMessage . chr(10) . chr(10));
         }
-        return $result;
+        $response->setStatusCode($statusCode);
+        return $response;
+    }
+
+    protected function parseLink(string $text): string
+    {
+        $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
+        return preg_replace($url, '<a href="$0" target="_blank" rel="noreferrer">$0</a>', $text);
     }
 }

@@ -481,9 +481,10 @@ class ComposerPackagesService
         foreach (self::$versions as $version) {
             $versionChoices['choices'][$version['name']] = $version['value'];
         }
-        $builder->add('typo3_version',
-                ChoiceType::class,
-                array_merge($versionChoices, ['label' => 'TYPO3 Version'])
+        $builder->add(
+            'typo3_version',
+            ChoiceType::class,
+            array_merge($versionChoices, ['label' => 'TYPO3 Version'])
         );
 
         foreach (self::$packages as $package) {

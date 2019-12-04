@@ -1,40 +1,17 @@
-<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+
+<div id="version-download" class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
-
-            <h1 class="h2">Downloads</h1>
-            <p>{{ description }}</p>
-            <ul class="list-link">
-                <li>
-                    <a href="{{ path('release-notes-for-version', {'version': latestRelease.version }) }}">Release Notes</a>
-                </li>
-                <li>
-                    <a href="https://docs.typo3.org/typo3cms/InstallationGuide/">Installation Guide</a>
-                </li>
-                <li>
-                    <a href="https://docs.typo3.org/typo3cms/GettingStartedTutorial/">Getting started</a>
-                </li>
-                {% if latestRelease.version >= 7 %}
-                <li>
-                    <a href="https://typo3.azureedge.net/typo3/{{ latestRelease.version }}/README.md">Download README (incl. signatures)</a>
-                </li>
-                {% endif %}
-                <li>
-                    <a href="{{ path('list', { 'version': version }) }}">See all releases</a>
-                </li>
-            </ul>
-
-        </div>
-    </div>
-</div>
-<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
+            <h2>Download</h2>
+            {% if current.elts %}
+            <p>Sources for this version are only available if you have an active subscription to <a href="https://typo3.com/elts/">TYPO3 ELTS</a>.</p>
+            {% else %}
             <div class="accordion" id="accordion-download">
+                {% if current.version >= 6 %}
                 <div class="accordion-item card">
                     <div class="accordion-header card-header" id="accordion-heading-composer">
                         <h4 class="accordion-title">
-                            <a href="#accordion-composer" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-composer">
+                            <a href="#accordion-composer" class="accordion-title-link" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-composer">
                                 <span class="accordion-title-link-text">
                                     Set up a new project via composer
                                     <br><small>Using the command line</small>
@@ -43,7 +20,7 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="accordion-composer" class="accordion-collapse collapse" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
+                    <div id="accordion-composer" class="accordion-collapse collapse show" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
                         <div class="accordion-body card-body">
                             <div class="accordion-content">
                                 <div class="accordion-content-item accordion-content-text">
@@ -51,15 +28,16 @@
                                     {% if lts %}
                                         <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ lts }}</code></pre>
                                     {% else %}
-                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project</code></pre>
+                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ version }}</code></pre>
                                     {% endif %}
-                                    <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="https://get.typo3.org/misc/composer/helper" title="Composer helper">get.typo3.org/misc/composer/helper</a></p>
+                                    <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="{{ path('composer-helper') }}" title="Composer Helper">Compoer Helper</a></p>
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 <div class="accordion-item card">
                     <div class="accordion-header card-header" id="accordion-heading-curl">
                         <h4 class="accordion-title">
@@ -77,9 +55,9 @@
                             <div class="accordion-content">
                                 <div class="accordion-content-item accordion-content-text">
                                     <strong>Using wget</strong>
-                                    <pre>wget --content-disposition https://get.typo3.org/{{ version }}</pre>
+                                    <pre>wget --content-disposition {{ baseUrl }}/{{ current.version }}</pre>
                                     <strong>Using cURL (e.g., when wget fails with SSL error)</strong>
-                                    <pre>curl -L -o typo3_src.tgz https://get.typo3.org/{{ version }}</pre>
+                                    <pre>curl -L -o typo3_src.tgz {{ baseUrl }}/{{ current.version }}</pre>
                                     <p>
                                         In case you are encountering SSL warnings (host name mismatch), please make sure that you are
                                         using a client that supports Server Name Indication (SNI). This especially affects old versions
@@ -130,18 +108,19 @@
                                 <div class="accordion-content-item accordion-content-text">
                                     <ul class="list-link">
                                         <li>
-                                            <a href="https://get.typo3.org/{{ version }}/tar.gz">get.typo3.org/{{ version }}/tar.gz</a>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/tar.gz">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz</a>
                                         </li>
                                         <li>
-                                            <a href="https://get.typo3.org/{{ version }}/zip">get.typo3.org/{{ version }}/zip</a>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/zip">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip</a>
+                                        </li>
+                                        {% if version >= 7 %}
+                                        <li>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/tar.gz.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz.sig - GPG signature</a>
                                         </li>
                                         <li>
-                                            <a href="https://get.typo3.org/{{ version }}/tar.gz.sig">get.typo3.org/{{ version }}/tar.gz.sig - GPG signature</a>
+                                            <a href="{{ baseUrl }}/{{ current.version }}/zip.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip.sig - GPG signature</a>
                                         </li>
-                                        <li>
-                                            <a href="https://get.typo3.org/{{ version }}/zip.sig">get.typo3.org/{{ version }}/zip.sig - GPG signature</a>
-                                        </li>
-
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -149,6 +128,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

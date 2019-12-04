@@ -17,7 +17,7 @@
                             <div class="carousel-item-bodytext">
                                 <h1 class="carousel-item-header none text-center">Build Blazingly&nbsp;Fast, Flexible&nbsp;Websites</h1>
                                 <p class="mt-4 lead text-center">
-                                    <a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>
+                                    {% if communityVersions|length > 0 %}<a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>{% endif %}
                                     <a href="#try-online" class="btn btn-lg btn-default">Try TYPO3</a>
                                 </p>
                             </div>
@@ -29,14 +29,15 @@
     </div>
 </div>
 
+{% if communityVersions|length > 0 %}
 <div id="download" class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
             <h3 class="mb-3 text-center">Current Versions</h3>
-            <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
-                {% for version in majorVersions|reverse %}
+            <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ communityVersions|length }}">
+                {% for version in communityVersions %}
                 <div class="card-group-element-item">
-                    <div class="card{% if loop.first %} card-inverse{% endif %}">
+                    <div id="download-community-{{ loop.index }}" class="card{% if loop.first %} card-inverse{% endif %}">
                         <div class="card-body">
                             <h4 class="card-title">{{ version.title }}</h4>
                             {% if version.version == 10 %}
@@ -80,17 +81,31 @@
                                     <li>Internet Explorer 11 and later</li>
                                 {% endif %}
                             </ul>
-                            <h5>Current Version</h5>
+                            <hr>
+                            {% if version.maintainedUntil %}
+                            <h5>Supported Until</h5>
                             <ul class="list-unstyled">
-                                <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
-                                <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
+                                <li>Free: <strong>{{ version.maintainedUntil|date("Y-m-d") }}</strong></li>
+                                <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
                             </ul>
-                            {% set btnClass = 'default' %}
-                            {% if version.version == 10 %}
-                                {% set btnClass = 'primary' %}
+                            <hr>
                             {% endif %}
-                            <a href="{{ path('version', {'version': version.version}) }}"
-                                class="btn btn-{{ btnClass }}">Get version {{ version.version }}</a>
+                            <h5>Current Version</h5>
+                            {% if version.latestRelease %}
+                                <ul class="list-unstyled">
+                                    <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
+                                    <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
+                                </ul>
+                                {% set btnClass = 'default' %}
+                                {% if version.version == 10 %}
+                                    {% set btnClass = 'primary' %}
+                                {% endif %}
+                                <a href="{{ path('version', {'version': version.version}) }}"
+                                    class="btn btn-{{ btnClass }}">Get version {{ version.version }}</a>
+                            {% else %}
+                                <p>No version available.</p>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
@@ -99,17 +114,72 @@
         </div>
     </div>
 </div>
+{% endif %}
 
-<div class="frame frame-indent frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+{% if eltsVersions|length > 0 %}
+<div id="download-elts" class="frame frame-indent frame-ruler-before frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner text-center">
-            <h3>Extended Long Term Support</h3>
-            <p>7.6 LTS, 6.2 LTS and everything below is no longer supported by the TYPO3 Core Team, consider upgrading
-                or extending support by <a href="https://typo3.com/services/extended-support/">TYPO3 GmbH</a>.
-            </p>
+            <h3>Past Versions with Extended Long&nbsp;Term&nbsp;Support</h3>
+            <p>With TYPO3 CMS, you made the right choice. Now benefit from a total of 6 years of support per version.</p>
+            <p>3 years of free support by the TYPO3 core team and the community.<br>3 further years of vendor support with ELTS by TYPO3 GmbH.</p>
         </div>
     </div>
 </div>
+<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner">
+            <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ eltsVersions|length + 1 }}">
+                <div class="card-group-element-item">
+                    <img src="{{ asset("assets/Images/elts.svg") }}" class="img-fluid" width="200" style="display: block; margin: 0 auto;" />
+                </div>
+                {% for version in eltsVersions %}
+                <div class="card-group-element-item">
+                    <div id="download-elts-{{ loop.index }}" class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ version.title }}</h4>
+                        </div>
+                        <div class="card-footer">
+                            {% if version.maintainedUntil %}
+                            <h5>Supported Until</h5>
+                            <ul class="list-unstyled">
+                                <li>Free: <strong>{{ version.maintainedUntil|date("Y-m-d") }}</strong></li>
+                                <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
+                            </ul>
+                            <hr>
+                            {% endif %}
+                            <h5>Current Version</h5>
+                            {% if version.latestRelease %}
+                                <ul class="list-unstyled">
+                                    <li>Version: <strong>{{ version.latestRelease.version }}{% if version.latestRelease.elts %} ELTS{% endif %}</strong></li>
+                                    <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
+                                </ul>
+                                <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a>
+                                <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-default">
+                                    {% if version.latestRelease.elts %}See ELTS{% else %}Get version{% endif %}
+                                    {{ version.version }}
+                                </a>
+                            {% else %}
+                                <p>No version available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="frame frame-indent frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+    <div class="frame-container">
+        <div class="frame-inner text-center">
+            <p><strong>Extended Long Term Support prolongs security and compliance support for your expired LTS version,
+                and keeps you legally compliant and up-to-date. ELTS support runs for a total of 3 years per version,
+                starting seamlessly on the day official community support for a given LTS version ends.</strong></p>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div id="try-online" class="frame frame-indent frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">

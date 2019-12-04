@@ -11,18 +11,17 @@ namespace App\Entity;
 
 use App\Entity\Embeddables\Package;
 use App\Entity\Embeddables\ReleaseNotes;
+use App\Enum\ReleaseTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ReleaseRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ReleaseRepository")
  */
 class Release implements \JsonSerializable
 {
-    private $baseUrl = 'https://get.typo3.org/';
-
     /**
      * Version in a semver/version_compare compatible format
      *
@@ -49,7 +48,7 @@ class Release implements \JsonSerializable
      * @ORM\Column(type="string")
      * @var string
      * @Serializer\Groups({"data"})
-     * @Assert\Choice({"regular", "development", "security"})
+     * @Assert\Choice(callback={"App\Enum\ReleaseTypeEnum", "getAvailableOptions"})
      */
     private $type;
 
@@ -104,22 +103,31 @@ class Release implements \JsonSerializable
         $this->elts = false;
     }
 
-    /**
-     * @return string
-     */
+    public function setVersion(string $version): void
+    {
+        $this->version = $version;
+    }
+
     public function getVersion(): string
     {
         return $this->version;
     }
 
-    public function getReleaseNotes()
+    public function setReleaseNotes(ReleaseNotes $releaseNotes): void
+    {
+        $this->releaseNotes = $releaseNotes;
+    }
+
+    public function getReleaseNotes(): ReleaseNotes
     {
         return $this->releaseNotes;
     }
 
-    /**
-     * @return \DateTime
-     */
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date;
+    }
+
     public function getDate(): \DateTime
     {
         return $this->date;
@@ -130,9 +138,19 @@ class Release implements \JsonSerializable
         return $this->majorVersion;
     }
 
+    public function setTarPackage(Package $tarPackage): void
+    {
+        $this->tarPackage = $tarPackage;
+    }
+
     public function getTarPackage(): Package
     {
         return $this->tarPackage;
+    }
+
+    public function setZipPackage(Package $zipPackage): void
+    {
+        $this->zipPackage = $zipPackage;
     }
 
     public function getZipPackage(): Package
@@ -145,9 +163,12 @@ class Release implements \JsonSerializable
         $this->majorVersion = $majorVersion;
     }
 
-    public function setReleaseNotes(ReleaseNotes $releaseNotes): void
+    public function setType(string $type): void
     {
-        $this->releaseNotes = $releaseNotes;
+        if (!in_array($type, ReleaseTypeEnum::getAvailableOptions())) {
+            throw new \InvalidArgumentException('Invalid type');
+        }
+        $this->type = $type;
     }
 
     public function getType(): string
@@ -184,8 +205,8 @@ class Release implements \JsonSerializable
                 'zip' => $this->zipPackage,
             ],
             'url' => [
-                'zip' => $this->baseUrl . $this->version . '/zip',
-                'tar' => $this->baseUrl . $this->version,
+                'zip' => getenv('BASE_URL') . '/' . $this->version . '/zip',
+                'tar' => getenv('BASE_URL') . '/' . $this->version,
             ],
         ];
     }

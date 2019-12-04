@@ -21,21 +21,23 @@ use Symfony\Component\Routing\RouterInterface;
 
 class CacheWarmupService implements CacheWarmerInterface
 {
-
     /**
      * @var \Symfony\Component\Routing\Router
      */
     private $router;
+
     /**
      * @var \Doctrine\ORM\EntityManagerInterface
      */
     private $entityManager;
+
     /**
      * @var \GuzzleHttp\Client
      */
     private $client;
 
     private $baseUrl;
+
     /**
      * @var \Psr\Log\LoggerInterface
      */

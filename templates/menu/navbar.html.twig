@@ -154,11 +154,7 @@
 {# icon #}
 {% block icon %}
     {% if item.getExtra('icon') %}
-        {% if item.getExtra('fab') %}
-            <span class="nav-item-icon"><i class="fab fa-{{ item.getExtra('icon') }}"></i></span>
-        {% else %}
-            <span class="nav-item-icon"><i class="fa fa-{{ item.getExtra('icon') }}"></i></span>
-        {% endif %}
+        <span class="nav-item-icon"><svg class="fontawesome" role="img"><use xlink:href="{{ asset('assets/Svg/fontawesome.symbols.svg#' ~ item.getExtra('icon')) }}"></use></svg></span>
     {% endif %}
 {% endblock %}
 

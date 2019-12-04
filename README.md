@@ -1,25 +1,40 @@
-# Get.typo3.org
+# get.typo3.org
 
 Symfony 4 application for release notes, download redirects and JSON API for releases.
 
 # Installation with .ddev
 
-- edit `.env` vars from `.env.dist`
-- ddev start
-- ddev ssh
-- `php ./bin/console doctrine:schema:create`
+1. edit `.env` vars from `.env.dist`
+2. ddev start
+3. ddev ssh
+4. `php ./bin/console doctrine:schema:create`
 
 # Manual Installation
 
-- execute `composer install`
-- edit `.env` vars from `.env.dist`
-- execute `php ./bin/console doctrine:schema:create` to create database schema
+1. execute `composer install`
+2. edit `.env` vars from `.env.dist`
+3. execute `php ./bin/console doctrine:schema:create` to create database schema
 
-# Migrate old data
-Reads all old json files into database
+# Database Migration
 
-- `php ./bin/console doctrine:migrations:migrate`
-- `php ./Build/import.php`
+```
+php ./bin/console doctrine:migrations:migrate
+```
+
+# Import Fixtures
+
+```
+php ./bin/console doctrine:fixtures:load
+```
+
+# Testing
+
+```
+composer test:php:cgl
+composer test:php:lint
+composer test:php:unit
+composer test:php:functional
+```
 
 # Troubleshooting
 

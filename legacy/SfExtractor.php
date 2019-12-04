@@ -128,8 +128,8 @@ class SfExtractor {
 				'type' => $this->getType(substr($version, 6)),
 				'checksums' => $this->getCheckSums(substr($version, 6)),
 				'url' => array(
-					'zip' => 'https://get.typo3.org/' . substr($version, 6) . '/zip',
-					'tar' => 'https://get.typo3.org/' . substr($version, 6),
+					'zip' => getenv('BASE_URL') . '/' . substr($version, 6) . '/zip',
+					'tar' => getenv('BASE_URL') . '/' . substr($version, 6),
 				),
 			);
 		}

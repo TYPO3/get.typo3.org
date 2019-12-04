@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.1/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="config/bootstrap.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -15,6 +15,7 @@
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
         <!-- define your env variables for the test env here -->
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled=1" />
 
         <!-- ###+ nelmio/cors-bundle ### -->
         <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost:?[0-9]*$"/>
@@ -22,8 +23,11 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Unit Test Suite">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Functional Test Suite">
+            <directory>tests/Functional</directory>
         </testsuite>
     </testsuites>
 

@@ -1,3 +1,4 @@
+{% if (current.tarPackage.sha256sum or current.tarPackage.md5sum or current.tarPackage.sha1sum) %}
 <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
     <div class="frame-container">
         <div class="frame-inner">
@@ -11,5 +12,4 @@
         </div>
     </div>
 </div>
-
-{% include 'default/partials/release-notes/checksums.twig' %}
+{% endif %}

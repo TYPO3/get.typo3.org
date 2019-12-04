@@ -13,6 +13,7 @@
     }
   ],
   "require": {
+    "ext-json": "*",
     "php": ">=7.2.0",
     "ext-iconv": "*",
     "ext-sqlite3": "*",
@@ -33,7 +34,6 @@
     "symfony/flex": "^1.0",
     "symfony/form": "^4.0",
     "symfony/framework-bundle": "^4.0",
-    "symfony/maker-bundle": "^1.2",
     "symfony/monolog-bundle": "^3.2",
     "symfony/orm-pack": "^1.0",
     "symfony/security-bundle": "^4.0",
@@ -43,15 +43,23 @@
     "twig/extensions": "^1.5"
   },
   "require-dev": {
+    "doctrine/doctrine-fixtures-bundle": "^3.3",
     "friendsofphp/php-cs-fixer": "^2.16",
+    "fzaninotto/faker": "^1.9",
     "overtrue/phplint": "^1.1",
-    "phpunit/phpunit": "^7.0",
     "rector/rector": "^0.5.10",
     "roave/security-advisories": "dev-master",
+    "symfony/browser-kit": "^4.0",
+    "symfony/css-selector": "^4.0",
     "symfony/dotenv": "^4.0",
-    "symfony/profiler-pack": "^1.0"
+    "symfony/maker-bundle": "^1.14",
+    "symfony/panther": "^0.6.0",
+    "symfony/phpunit-bridge": "^4.3",
+    "symfony/profiler-pack": "^1.0",
+    "symfony/test-pack": "^1.0"
   },
   "config": {
+    "bin-dir": "bin",
     "sort-packages": true,
     "optimize-autoloader": true,
     "preferred-install": {
@@ -76,18 +84,22 @@
   },
   "scripts": {
     "test:php:cgl": [
-      "php-cs-fixer --diff -v fix"
+      "php-cs-fixer --diff -v fix --format=junit > var/log/php-cs-fixer.xml"
     ],
     "test:php:lint": [
       "phplint"
     ],
     "test:php:unit": [
-      "phpunit -c phpunit.xml.dist"
+      "simple-phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-unit.xml --testsuite \"Unit Test Suite\""
+    ],
+    "test:php:functional": [
+      "simple-phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-functional.xml --testsuite \"Functional Test Suite\""
     ],
     "test": [
       "@test:php:cgl",
       "@test:php:lint",
-      "@test:php:unit"
+      "@test:php:unit",
+      "@test:php:functional"
     ],
     "auto-scripts": {
       "cache:clear --no-optional-warmers": "symfony-cmd",

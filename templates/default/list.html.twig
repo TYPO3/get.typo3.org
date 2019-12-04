@@ -1,29 +1,77 @@
 {% extends "layout.html.twig" %}
-{% block title %}List of Releases for TYPO3 v{{ version }}{% endblock %}
+{% block title %}List of Releases for TYPO3 v{{ currentVersion.version }}{% endblock %}
 {% block content %}
 
-    {% include 'default/partials/key-visual.html.twig' with {'title': title, 'subtitle': subtitle, 'small': '1'} %}
-    {% include 'default/partials/version-selector.twig' %}
-    <div class="container b_container b_container--large">
-        <h2>List of Releases for TYPO3 v{{ version }}</h2>
-        <table>
-            <tr>
-                <th>Version</th>
-                <th>Date</th>
-                <th>Type</th>
-            </tr>
-            {% for release in releases|sortByVersion %}
-                {% if release.type == "security" %}
-                    <tr style="background:#ffd8e4;">
-                {% else %}
-                    <tr>
-                {% endif %}
-                <td>{{ release.version }}</td>
-                <td>{{ release.date | date("d.m.Y") }}</td>
-                <td>{{ release.type }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+    {% include 'default/partials/general/key-visual.html.twig' with {
+        'title': currentVersion.title,
+        'subtitle': currentVersion.subtitle,
+        'small': '1'
+    } only %}
+
+    <div class="frame frame-small frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+        <div class="frame-container">
+            <div class="frame-inner">
+                <form action="">
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">{{ currentVersion.title }}</span>
+                                </div>
+                                <select class="form-control custom-select"
+                                    onchange="if (this.value) window.location.href= '{{ path('root') }}list/version/' + this.value;">
+                                    <option>Choose a different version</option>
+                                    {% for activeVersion in activeVersions %}
+                                    <option value="{{ activeVersion.version }}">{{ activeVersion.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
+        <div class="frame-container">
+            <div class="frame-inner">
+
+                <h2>List of Releases for {{ currentVersion.title }}</h2>
+                <table class="table table-borderless">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Version</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for release in currentVersion.releases|sortByVersion %}
+                            {% if release.type == "security" %}
+                                <tr class="table-danger">
+                            {% else %}
+                                <tr>
+                            {% endif %}
+                                <td>{{ release.version }} {% if release.elts %}ELTS{% endif %}</td>
+                                <td>{{ release.date | date("d.m.Y") }}</td>
+                                <td>{{ release.type }}</td>
+                                <td>
+                                    <a href="{{ path('release-notes-for-version', {'version': release.version}) }}" class="btn btn-sm btn-default">Release Notes</a>
+                                    {% if release.elts %}
+                                        <a href="https://typo3.com/elts" class="btn btn-sm btn-primary">Buy ELTS</a>
+                                    {% else %}
+                                        <a href="{{ path('version', {'version': release.version}) }}" class="btn btn-sm btn-default">Download</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
 
 {% endblock %}

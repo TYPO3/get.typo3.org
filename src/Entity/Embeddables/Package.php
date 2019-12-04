@@ -50,6 +50,14 @@ class Package implements \JsonSerializable
     /**
      * @return mixed
      */
+    public function getMd5sum(): ?string
+    {
+        return $this->md5sum;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getSha1sum(): ?string
     {
         return $this->sha1sum;

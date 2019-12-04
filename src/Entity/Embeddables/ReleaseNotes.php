@@ -59,27 +59,52 @@ class ReleaseNotes
      */
     private $legacyContent;
 
-    public function getNewsLink()
+    public function setNewsLink(string $newsLink)
+    {
+        $this->newsLink = $newsLink;
+    }
+
+    public function getNewsLink(): ?string
     {
         return $this->newsLink;
     }
 
-    public function getNews()
+    public function setNews(string $news)
+    {
+        $this->news = $news;
+    }
+
+    public function getNews(): ?string
     {
         return $this->news;
     }
 
-    public function getUpgradingInstructions()
+    public function setUpgradingInstructions(string $upgradingInstructions)
+    {
+        $this->upgradingInstructions = $upgradingInstructions;
+    }
+
+    public function getUpgradingInstructions(): ?string
     {
         return $this->upgradingInstructions;
     }
 
-    public function getChanges()
+    public function setChanges(string $changes)
+    {
+        $this->changes = $changes;
+    }
+
+    public function getChanges(): ?string
     {
         return $this->changes;
     }
 
-    public function getLegacyContent()
+    public function setLegacyContent(string $legacyContent)
+    {
+        $this->legacyContent = $legacyContent;
+    }
+
+    public function getLegacyContent(): ?string
     {
         return $this->legacyContent;
     }
