@@ -5,11 +5,11 @@
             <p>{{ description }}</p>
             <ul class="list-link">
                 <li>
-                    <a href="{{ path('release-notes-for-version', {'version': latestRelease.version }) }}">Release Notes</a>
+                    <a href="{{ path('release-notes-for-version', {'version': current.version }) }}">Release Notes</a>
                 </li>
-                {% if latestRelease.version >= 7 %}
+                {% if current.version >= 7 and not current.elts %}
                 <li>
-                    <a href="https://typo3.azureedge.net/typo3/{{ latestRelease.version }}/README.md">Download README (incl. signatures)</a>
+                    <a href="https://typo3.azureedge.net/typo3/{{ current.version }}/README.md">Download README (incl. signatures)</a>
                 </li>
                 {% endif %}
             </ul>
