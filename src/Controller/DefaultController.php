@@ -252,6 +252,24 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/misc/composer", methods={"GET"}, name="composer")
+     */
+    public function composer(): Response
+    {
+        $formBuilder = $this->createFormBuilder();
+        $templateName = 'default/composer.html.twig';
+        $form = $this->composerPackagesService->buildForm($formBuilder);
+
+        return $this->render(
+            $templateName,
+            [
+                'form'    => $form->createView(),
+                'bundles' => $this->composerPackagesService->getBundles()
+            ]
+        );
+    }
+
+    /**
      * @Route("/misc/composer/helper", methods={"GET", "POST"}, name="composer-helper")
      */
     public function composerHelper(): Response

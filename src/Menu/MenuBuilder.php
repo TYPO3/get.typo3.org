@@ -39,6 +39,13 @@ class MenuBuilder extends TemplateMenuBuider
             ]
         );
         $menu->addChild(
+            'composer',
+            [
+                'route' => 'composer',
+                'label' => 'Composer'
+            ]
+        );
+        $menu->addChild(
             'composer-helper',
             [
                 'route' => 'composer-helper',
