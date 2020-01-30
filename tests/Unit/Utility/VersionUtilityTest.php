@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of the package t3o/gettypo3org.
@@ -33,7 +34,6 @@ class VersionUtilityTest extends TestCase
     {
         return [
             ['10.10.10.10', 10],
-            [4.5, 4.5],
             ['4.5', 4.5],
             ['4.5.35', 4.5],
             ['6.2.0', 6.2],
@@ -67,8 +67,7 @@ class VersionUtilityTest extends TestCase
             ['6.2.0', true],
             ['6.99.99-dev', true],
             ['7.6.12', true],
-            ['10.abc.99', false],
-            [true, false]
+            ['10.abc.99', false]
         ];
     }
 }
