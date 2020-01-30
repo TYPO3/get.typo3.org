@@ -38,18 +38,25 @@ class MenuBuilder extends TemplateMenuBuider
                 'label' => 'Release Notes'
             ]
         );
-        $menu->addChild(
+        $composer = $menu->addChild(
             'composer',
             [
-                'route' => 'composer',
+                'route' => 'composer-repository',
                 'label' => 'Composer'
             ]
         );
-        $menu->addChild(
+        $composer->addChild(
+            'composer-repository',
+            [
+                'route' => 'composer-repository',
+                'label' => 'Repository'
+            ]
+        );
+        $composer->addChild(
             'composer-helper',
             [
                 'route' => 'composer-helper',
-                'label' => 'Composer Helper'
+                'label' => 'Helper'
             ]
         );
         $menu->addChild(
