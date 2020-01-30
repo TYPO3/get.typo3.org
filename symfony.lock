@@ -212,26 +212,23 @@
             "ref": "65726efb67ff51d89de38195bc0d230fa811f64d"
         }
     },
-    "nette/bootstrap": {
-        "version": "v3.0.0"
+    "nette/application": {
+        "version": "v3.0.4"
     },
-    "nette/di": {
-        "version": "v3.0.1"
+    "nette/component-model": {
+        "version": "v3.0.0"
     },
     "nette/finder": {
         "version": "v2.5.0"
     },
-    "nette/neon": {
-        "version": "v3.0.0"
-    },
-    "nette/php-generator": {
-        "version": "v3.2.3"
+    "nette/http": {
+        "version": "v3.0.3"
     },
     "nette/robot-loader": {
         "version": "v3.2.0"
     },
-    "nette/schema": {
-        "version": "v1.0.0"
+    "nette/routing": {
+        "version": "v3.0.0"
     },
     "nette/utils": {
         "version": "v3.0.1"
@@ -253,6 +250,9 @@
     },
     "paragonie/random_compat": {
         "version": "v2.0.11"
+    },
+    "php": {
+        "version": "7.2"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -564,8 +564,23 @@
     "symfony/yaml": {
         "version": "v4.0.6"
     },
+    "symplify/auto-bind-parameter": {
+        "version": "v7.2.2"
+    },
+    "symplify/autowire-array-parameter": {
+        "version": "v7.2.2"
+    },
     "symplify/package-builder": {
         "version": "v6.0.5"
+    },
+    "symplify/set-config-resolver": {
+        "version": "v7.2.2"
+    },
+    "symplify/smart-file-system": {
+        "version": "v7.2.2"
+    },
+    "tracy/tracy": {
+        "version": "v2.7.2"
     },
     "twig/extensions": {
         "version": "1.0",
