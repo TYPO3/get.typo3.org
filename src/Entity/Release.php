@@ -60,7 +60,7 @@ class Release implements \JsonSerializable
      * @Assert\Type("boolean")
      * @SWG\Property(example="true")
      */
-    private $elts;
+    private $elts = false;
 
     /**
      * @ORM\Embedded(class = "App\Entity\Embeddables\Package")
