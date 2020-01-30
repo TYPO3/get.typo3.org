@@ -256,17 +256,9 @@ class DefaultController extends AbstractController
      */
     public function composerRepository(): Response
     {
-        $formBuilder = $this->createFormBuilder();
         $templateName = 'default/composer-repository.html.twig';
-        $form = $this->composerPackagesService->buildForm($formBuilder);
 
-        return $this->render(
-            $templateName,
-            [
-                'form'    => $form->createView(),
-                'bundles' => $this->composerPackagesService->getBundles()
-            ]
-        );
+        return $this->render($templateName);
     }
 
     /**

@@ -3,7 +3,7 @@
 {% block content %}
 
     {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': 'Composer',
+        'title': 'Composer Repository',
         'subtitle': '',
         'small': '1'
     } only %}
@@ -11,100 +11,36 @@
     <div class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
         <div class="frame-container">
             <div class="frame-inner">
-                <h2>TYPO3 Extension Composer Repository</h2>
-                <h3>What Is It?</h3>
-                <p>This is a <a href="https://getcomposer.org/">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://typo3.org/extensions/repository/">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer.</p>
+                <h2>What Is It?</h2>
+                <p>TYPO3 offers a <a href="https://getcomposer.org/">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer.</p>
                 <p>This repository includes only the following TYPO3 CMS extensions:</p>
                 <ul>
-                    <li>All TYPO3 Extensions that are uploaded to TER, including insecure versions.
+                    <li>All TYPO3 extensions that are uploaded to TER, including insecure versions.
                         <ul>
                             <li>Insecure versions are marked in th extra section with &quot;extra&quot;&quot;typo3/ter&quot;&quot;reviewstate&quot; = &quot;insecure&quot; in the composer extra section</li>
                             <li>All these extensions are in the <code>typo3-ter/</code> composer namespace</li>
                         </ul>
                     </li>
                 </ul>
-                <p>You can <a href="https://composer.typo3.org/satis.html">list and search for</a> available extension packages.</p>
+                <p>You can <a href="https://composer.typo3.org/satis.html" target="_blank">list and search for</a> available extension packages.</p>
                 <p>Please note, that some extension authors already published their extensions on <a href="https://packagist.org/">Packagist</a>. If this is the case, prefer to use these, rather than this repository.</p>
+
                 <h2>How to use it?</h2>
                 <p>As a quick way to use Composer, the Base Distribution can be downloaded. It is assuming you have Composer already <a href="https://getcomposer.org/download/">installed</a>
-                on your system:</p>
-                <pre><code># Download Base Distribution and install latest TYPO3 LTS release (currently 9.5)
-                composer create-project typo3/cms-base-distribution CmsBaseDistribution ^9
+                on your system. Detailed informations are available in the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/QuickInstall/Composer/Index.html">TYPO3 Documentation</a>.</p>
 
-                # Download Base Distribution and install latest TYPO3 sprint release
-                composer create-project typo3/cms-base-distribution CmsBaseDistribution</code></pre>
-                <p>As a second step, we are going to add additional packages. The commands must be run from inside the <code>CmsBaseDistribution</code> directory.</p>
-                <pre><code># Add a CMS extension into typo3conf/ext.
-                composer require typo3-ter/static-info-tables
-
-                # Add a package from outside the TYPO3 world
-                composer require monolog/monolog
-
-                # Personalize your composer.json file to your needs.
-                edit composer.json</code></pre>
-                <p>Using composer to install TYPO3 CMS is fairly simple, you just need to include the custom composer repository into your composer.json.
-                After you have done this, you can require TER extensions with the usual <a href="https://getcomposer.org/doc/04-schema.md#version">composer versioning format</a>.</p>
-                <p>In the example below, this will always get you the most current 8.7.x core of TYPO3 CMS, the most current version of news (including possible dependency!).
-                <strong>Pay attention to replace underscores &quot;_&quot; by a dash &quot;-&quot; in the extension key</strong>. As example, extension <strong>&quot;tt_news&quot; will be &quot;tt-news&quot;</strong> in the composer.json.</p>
-                <pre><code>{
-                    "repositories": [
-                        {
-                            "type": "composer",
-                            "url": "https://composer.typo3.org/"
-                        }
-                    ],
-                    "require": {
-                        "typo3/cms": "^8.7",
-                        "typo3-ter/static-info-tables": "^6.4.3"
-                    },
-                    "extra": {
-                        "typo3/cms": {
-                            "cms-package-dir": "{$vendor-dir}/typo3/cms",
-                            "web-dir": "web"
-                        }
-                    }
-                }</code></pre>
                 <h2>Add your own composer.json file</h2>
                 <p>It is encouraged to add your own <code>composer.json</code> file in your extension to be on the good side, as TYPO3 CMS will rely more and more on Composer to handle
-                dependencies. The file must be placed at the root of your extension and must look like as follows:</p>
-                <pre><code>{
-                    "name": "vendor-name/my-ext-key",
-                    "type": "typo3-cms-extension",
-                    "description": "My description comes here",
-                    "homepage": "https://example.com",
-                    "license": ["GPL-2.0+"],
-                    "keywords": ["TYPO3 CMS", "foo bar"],
-                    "support": {
-                        "issues": "https://forge.typo3.org/projects/extension-my_ext_key"
-                    },
-                    "require": {
-                        "typo3/cms-core": "^7.6.0 || ^8.7.0"
-                    },
-                    "autoload": {
-                        "psr-4": {
-                            "VendorName\\MyExtKey\\": "Classes/"
-                        }
-                    },
-                    "replace": {
-                        "my_ext_key": "self.version",
-                        "typo3-ter/my-ext-key": "self.version"
-                    },
-                    "extra": {
-                        "typo3/cms": {
-                            "extension-key": "my_ext_key"
-                        }
-                    }
-                }</code></pre>
-                <p>The <code>vendor-name</code> must be one of yours. It must not be &quot;typo3&quot; which is reserved for Core extensions.
-                There are some <a href="https://wiki.typo3.org/Namespaces#Does_and_don.27ts_for_developers">conventions notes</a> available in the TYPO3 Wiki related to namespaces.</p>
+                dependencies. The file must be placed at the root of your extension, follow the instructions of the <a href="https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html">TYPO3 Documentation</a>.</p>
+
                 <h2>Extensions on Packagist</h2>
                 <p>Once you added a composer.json file, it is highly recommended to register your extensions on <a href="https://packagist.org/">Packagist</a>.</p>
                 <p>It is also recommended to include extensions directly from Packagist instead of using this Composer repository. For example, better require <code>georgringer/news</code> than <code>typo3-ter/news</code>, if you want the News extension in your composer installation.</p>
+
                 <h2>How does it work?</h2>
                 <p>A few times a day we crawl the TYPO3 Extension Repository.
                 We process all ext_emconf.php's to calculate the dependencies.
                 We generate the metadata (packages.json), needed by composer to find the right downloads which will be downloaded from the TER eventually.</p>
-                <pre><code>[4]: https://git.typo3.org/Sites/ComposerTypo3Org.git</code></pre>
             </div>
         </div>
     </div>
