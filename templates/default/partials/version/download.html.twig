@@ -1,134 +1,129 @@
+{% frame with { id: 'version-download' } %}
+    <h2>Download</h2>
+    {% if current.elts %}
+    <p>Sources for this version are only available if you have an active subscription to <a href="https://typo3.com/elts/">TYPO3 ELTS</a>.</p>
+    {% else %}
+    <div class="accordion" id="accordion-download">
+        {% if current.version >= 6 %}
+        <div class="accordion-item card">
+            <div class="accordion-header card-header" id="accordion-heading-composer">
+                <h4 class="accordion-title">
+                    <a href="#accordion-composer" class="accordion-title-link" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-composer">
+                        <span class="accordion-title-link-text">
+                            Set up a new project via composer
+                            <br><small>Using the command line</small>
+                        </span>
+                        <span class="accordion-title-link-state"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="accordion-composer" class="accordion-collapse collapse show" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
+                <div class="accordion-body card-body">
+                    <div class="accordion-content">
+                        <div class="accordion-content-item accordion-content-text">
 
-<div id="version-download" class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-            <h2>Download</h2>
-            {% if current.elts %}
-            <p>Sources for this version are only available if you have an active subscription to <a href="https://typo3.com/elts/">TYPO3 ELTS</a>.</p>
-            {% else %}
-            <div class="accordion" id="accordion-download">
-                {% if current.version >= 6 %}
-                <div class="accordion-item card">
-                    <div class="accordion-header card-header" id="accordion-heading-composer">
-                        <h4 class="accordion-title">
-                            <a href="#accordion-composer" class="accordion-title-link" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-composer">
-                                <span class="accordion-title-link-text">
-                                    Set up a new project via composer
-                                    <br><small>Using the command line</small>
-                                </span>
-                                <span class="accordion-title-link-state"></span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="accordion-composer" class="accordion-collapse collapse show" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
-                        <div class="accordion-body card-body">
-                            <div class="accordion-content">
-                                <div class="accordion-content-item accordion-content-text">
+                            {% if lts %}
+                                <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ lts }}</code></pre>
+                            {% else %}
+                                <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ version }}</code></pre>
+                            {% endif %}
+                            <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a></p>
 
-                                    {% if lts %}
-                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ lts }}</code></pre>
-                                    {% else %}
-                                        <pre><code>composer create-project typo3/cms-base-distribution my-new-project ^{{ version }}</code></pre>
-                                    {% endif %}
-                                    <p>If you are experienced with composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a></p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                <div class="accordion-item card">
-                    <div class="accordion-header card-header" id="accordion-heading-curl">
-                        <h4 class="accordion-title">
-                            <a href="#accordion-curl" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-curl">
-                                <span class="accordion-title-link-text">
-                                    Download via wget/curl
-                                    <br><small>Useful directly on your server</small>
-                                </span>
-                                <span class="accordion-title-link-state"></span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="accordion-curl" class="accordion-collapse collapse" aria-labelledby="accordion-heading-curl" data-parent="#accordion-download">
-                        <div class="accordion-body card-body">
-                            <div class="accordion-content">
-                                <div class="accordion-content-item accordion-content-text">
-                                    <strong>Using wget</strong>
-                                    <pre>wget --content-disposition {{ baseUrl }}/{{ current.version }}</pre>
-                                    <strong>Using cURL (e.g., when wget fails with SSL error)</strong>
-                                    <pre>curl -L -o typo3_src.tgz {{ baseUrl }}/{{ current.version }}</pre>
-                                    <p>
-                                        In case you are encountering SSL warnings (host name mismatch), please make sure that you are
-                                        using a client that supports Server Name Indication (SNI). This especially affects old versions
-                                        of wget (before version 1.14).
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item card">
-                    <div class="accordion-header card-header" id="accordion-heading-git">
-                        <h4 class="accordion-title">
-                            <a href="#accordion-git" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-git">
-                                <span class="accordion-title-link-text">
-                                    Download from Source (GIT)
-                                    <br><small>For developing on TYPO3 Core (e.g. bugfixes)</small>
-                                </span>
-                                <span class="accordion-title-link-state"></span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="accordion-git" class="accordion-collapse collapse" aria-labelledby="accordion-heading-git" data-parent="#accordion-download">
-                        <div class="accordion-body card-body">
-                            <div class="accordion-content">
-                                <div class="accordion-content-item accordion-content-text">
-                                    <pre>git clone https://github.com/TYPO3/TYPO3.CMS</pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item card">
-                    <div class="accordion-header card-header" id="accordion-heading-zip">
-                        <h4 class="accordion-title">
-                            <a href="#accordion-zip" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-zip">
-                                <span class="accordion-title-link-text">
-                                    Package Download (tar.gz, zip, signatures)
-                                    <br><small>The <em>classic</em> way</small>
-                                </span>
-                                <span class="accordion-title-link-state"></span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="accordion-zip" class="accordion-collapse collapse" aria-labelledby="accordion-heading-zip" data-parent="#accordion-download">
-                        <div class="accordion-body card-body">
-                            <div class="accordion-content">
-                                <div class="accordion-content-item accordion-content-text">
-                                    <ul class="list-link">
-                                        <li>
-                                            <a href="{{ baseUrl }}/{{ current.version }}/tar.gz">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ baseUrl }}/{{ current.version }}/zip">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip</a>
-                                        </li>
-                                        {% if version >= 7 %}
-                                        <li>
-                                            <a href="{{ baseUrl }}/{{ current.version }}/tar.gz.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz.sig - GPG signature</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ baseUrl }}/{{ current.version }}/zip.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip.sig - GPG signature</a>
-                                        </li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
+        <div class="accordion-item card">
+            <div class="accordion-header card-header" id="accordion-heading-curl">
+                <h4 class="accordion-title">
+                    <a href="#accordion-curl" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-curl">
+                        <span class="accordion-title-link-text">
+                            Download via wget/curl
+                            <br><small>Useful directly on your server</small>
+                        </span>
+                        <span class="accordion-title-link-state"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="accordion-curl" class="accordion-collapse collapse" aria-labelledby="accordion-heading-curl" data-parent="#accordion-download">
+                <div class="accordion-body card-body">
+                    <div class="accordion-content">
+                        <div class="accordion-content-item accordion-content-text">
+                            <strong>Using wget</strong>
+                            <pre>wget --content-disposition {{ baseUrl }}/{{ current.version }}</pre>
+                            <strong>Using cURL (e.g., when wget fails with SSL error)</strong>
+                            <pre>curl -L -o typo3_src.tgz {{ baseUrl }}/{{ current.version }}</pre>
+                            <p>
+                                In case you are encountering SSL warnings (host name mismatch), please make sure that you are
+                                using a client that supports Server Name Indication (SNI). This especially affects old versions
+                                of wget (before version 1.14).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item card">
+            <div class="accordion-header card-header" id="accordion-heading-git">
+                <h4 class="accordion-title">
+                    <a href="#accordion-git" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-git">
+                        <span class="accordion-title-link-text">
+                            Download from Source (GIT)
+                            <br><small>For developing on TYPO3 Core (e.g. bugfixes)</small>
+                        </span>
+                        <span class="accordion-title-link-state"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="accordion-git" class="accordion-collapse collapse" aria-labelledby="accordion-heading-git" data-parent="#accordion-download">
+                <div class="accordion-body card-body">
+                    <div class="accordion-content">
+                        <div class="accordion-content-item accordion-content-text">
+                            <pre>git clone https://github.com/TYPO3/TYPO3.CMS</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item card">
+            <div class="accordion-header card-header" id="accordion-heading-zip">
+                <h4 class="accordion-title">
+                    <a href="#accordion-zip" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="false" aria-controls="accordion-zip">
+                        <span class="accordion-title-link-text">
+                            Package Download (tar.gz, zip, signatures)
+                            <br><small>The <em>classic</em> way</small>
+                        </span>
+                        <span class="accordion-title-link-state"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="accordion-zip" class="accordion-collapse collapse" aria-labelledby="accordion-heading-zip" data-parent="#accordion-download">
+                <div class="accordion-body card-body">
+                    <div class="accordion-content">
+                        <div class="accordion-content-item accordion-content-text">
+                            <ul class="list-link">
+                                <li>
+                                    <a href="{{ baseUrl }}/{{ current.version }}/tar.gz">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz</a>
+                                </li>
+                                <li>
+                                    <a href="{{ baseUrl }}/{{ current.version }}/zip">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip</a>
+                                </li>
+                                {% if version >= 7 %}
+                                <li>
+                                    <a href="{{ baseUrl }}/{{ current.version }}/tar.gz.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz.sig - GPG signature</a>
+                                </li>
+                                <li>
+                                    <a href="{{ baseUrl }}/{{ current.version }}/zip.sig">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip.sig - GPG signature</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    {% endif %}
+{% endframe %}

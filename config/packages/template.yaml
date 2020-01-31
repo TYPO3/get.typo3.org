@@ -1,0 +1,17 @@
+template:
+    application:
+        name: 'get.typo3.org'
+        platformkey: download
+        copyright:
+            author: TYPO3 Association
+            url: https://typo3.org
+        routes:
+            home: root
+            privacy: https://typo3.org/privacy-policy
+            legal: https://typo3.org/legal-notice
+        menu:
+            class: App\Menu\MenuBuilder
+        assets:
+            encore_entrypoint: app
+        theme:
+            use_logo: true

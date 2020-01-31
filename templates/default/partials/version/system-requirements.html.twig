@@ -1,9 +1,9 @@
-<div id="system-requirements" class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-            <h2>System Requirements</h2>
-            <p>For the full list of system requirements as well as installation instructions see the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/In-depth/SystemRequirements/Index.html" rel="noopener,noreferrer">Installation guide</a></p>
-            <table class="table">
+{% frame with { id: 'system-requirements', color: 'light' } %}
+    <h2>System Requirements</h2>
+    <p>For the full list of system requirements as well as installation instructions see the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/In-depth/SystemRequirements/Index.html" rel="noopener,noreferrer">Installation guide</a></p>
+    <div class="card">
+        <div class="datatable">
+            <table class="datatable-table">
                 <tbody>
                 <tr>
                     <th scope="row">Operating System</th>
@@ -68,4 +68,4 @@
             </table>
         </div>
     </div>
-</div>
+{% endframe %}

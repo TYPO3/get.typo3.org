@@ -10,50 +10,20 @@ declare(strict_types=1);
 
 namespace App\Menu;
 
-use Knp\Menu\FactoryInterface;
-use Knp\Menu\Matcher\MatcherInterface;
-use Knp\Menu\MenuFactory;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
 
 /**
  * MenuBuilder
  */
-class MenuBuilder
+class MenuBuilder extends TemplateMenuBuider
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
-     * @var MenuFactory
-     */
-    private $factory;
-
-    /**
-     * @var MatcherInterface
-     */
-    private $matcher;
-
-    /**
-     * @param ContainerInterface $container
-     * @param FactoryInterface $factory
-     */
-    public function __construct(
-        ContainerInterface $container,
-        FactoryInterface $factory
-    ) {
-        $this->container = $container;
-        $this->factory = $factory;
-    }
-
     /**
      * @param array $options
      * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
      */
     public function mainDefault(array $options)
     {
-        $menu = $this->factory->createItem('root');
+        $menu = parent::mainDefault($options);
         $menu->addChild(
             'root',
             [
@@ -89,9 +59,9 @@ class MenuBuilder
      * @param array $options
      * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
      */
-    public function mainSecondary(array $options)
+    public function mainProfile(array $options)
     {
-        $menu = $this->factory->createItem('root');
+        $menu = parent::mainProfile($options);
         $menu->addChild(
             'install',
             [

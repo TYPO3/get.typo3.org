@@ -13,9 +13,9 @@
     }
   ],
   "require": {
-    "ext-json": "*",
     "php": ">=7.2.0",
     "ext-iconv": "*",
+    "ext-json": "*",
     "ext-sqlite3": "*",
     "erusev/parsedown": "^1.7",
     "guzzlehttp/guzzle": "^6.3",
@@ -40,6 +40,7 @@
     "symfony/twig-bundle": "^4.4",
     "symfony/validator": "^4.4",
     "symfony/yaml": "^4.4",
+    "t3g/symfony-template-bundle": "^2.0",
     "twig/extensions": "^1.5"
   },
   "require-dev": {
@@ -63,6 +64,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "preferred-install": {
+      "t3g/*": "source",
       "*": "dist"
     }
   },
@@ -103,7 +105,7 @@
     ],
     "auto-scripts": {
       "cache:clear --no-optional-warmers": "symfony-cmd",
-      "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
     },
     "post-install-cmd": [
       "@auto-scripts"

@@ -1,14 +1,10 @@
-<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-            <h1>Release Notes for TYPO3 CMS {{ current.version }}</h1>
-            <p>
-                This document contains information about TYPO3 CMS {{ current.version }} which was
-                released on {{ current.date|date("d.m.Y") }}.
-            </p>
-            <a href="{{ path('version', {'version': current.version }) }}" class="btn btn-primary">
-                Get TYPO3 v{{ current.version }} now
-            </a>
-        </div>
-    </div>
-</div>
+{% frame %}
+    <h1>Release Notes for TYPO3 CMS {{ current.version }}</h1>
+    <p>
+        This document contains information about TYPO3 CMS {{ current.version }} which was
+        released on {{ current.date|date("d.m.Y") }}.
+    </p>
+    <a href="{{ path('version', {'version': current.version }) }}" class="btn btn-primary">
+        Get TYPO3 v{{ current.version }} now
+    </a>
+{% endframe %}

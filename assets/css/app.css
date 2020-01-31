@@ -1,0 +1,73 @@
+.card-inverse {
+    background-color: #313131;
+    color: #ffffff;
+}
+
+
+pre {
+    border-radius: 2px;
+    padding: 1rem;
+    background-color: rgba(0,0,0,0.05);
+}
+
+
+.no-user-selection {
+    user-select: none;
+}
+
+
+.composer-helper-form .custom-control {
+    width: 250px;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+.composer-helper-form .custom-control-label {
+    font-weight: bold;
+}
+.composer-helper-form .help-block {
+    padding-left: 1.5rem;
+}
+@media (min-width: 576px) {
+    .composer-helper-form .form-group {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+
+.changelog ul {
+    list-style: none;
+    padding: 0;
+}
+.changelog .change {
+    font-family: monospace;
+}
+.changelog .change-feature,
+.changelog .change-release {
+    color: #28a745;
+    font-weight: bold;
+}
+.changelog .change-bugfix {
+    color: #007bff;
+}
+
+
+.frame .swagger-ui .col {
+    width: initial;
+}
+.frame .swagger-ui .wrapper {
+    padding: 0;
+}
+.frame .swagger-ui .info {
+    margin: 0;
+}
+.frame .swagger-ui .wrapper .col-12 {
+    padding: 0;
+}
+.frame .swagger-ui .scheme-container {
+    box-shadow: none;
+    padding: 0;
+}
+.frame .swagger-ui .auth-wrapper .authorize {
+    margin-right: 0;
+}

@@ -1,12 +1,8 @@
 {% if current.releaseNotes.changes %}
-<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-            <h2>Changes</h2>
-            <div class="changelog">
-                {{ current.releaseNotes.changes|escape('html')|parsedown|changehighlighter|raw }}
-            </div>
+    {% frame %}
+        <h2>Changes</h2>
+        <div class="changelog">
+            {{ current.releaseNotes.changes|escape('html')|parsedown|changehighlighter|raw }}
         </div>
-    </div>
-</div>
+    {% endframe %}
 {% endif %}

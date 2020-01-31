@@ -12,6 +12,16 @@ jobs:
         php: ['7.2', '7.3']
     steps:
     - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: "12.x"
+    - name: Install Node Dependencies
+      run: |
+        yarn install
+    - name: Build Frontend
+      run: |
+        yarn build
     - name: Set up PHP Version
       run: |
         sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
@@ -30,7 +40,7 @@ jobs:
         key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ matrix.php }}-composer-
-    - name: Install
+    - name: Install PHP Dependencies
       run: |
         composer install --no-progress
     - name: Lint

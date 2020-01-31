@@ -1,40 +1,35 @@
-{% extends "layout.html.twig" %}
+{% extends 'layout.html.twig' %}
 {% block title %}Download TYPO3 {{ currentVersion.current.version }}{{ ((currentVersion.current.elts) ? ' ELTS') }}{% endblock %}
-{% block content %}
+{% block body %}
 
-    {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': currentVersion.title ~ ' (' ~ currentVersion.current.version ~ '' ~ ((currentVersion.current.elts) ? ' ELTS') ~ ')',
-        'subtitle': currentVersion.subtitle,
-        'small': '1'
-    } only %}
+    {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <h1>{{ currentVersion.title }} ({{ currentVersion.current.version }}{{ (currentVersion.current.elts) ? ' ELTS' }})</h1>
+        <p class="lead">{{ currentVersion.subtitle }}</p>
+    {% endframe %}
 
-    <div class="frame frame-small frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                <form action="">
-                    <div class="row">
-                        <div class="col-sm-auto">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">{{ currentVersion.title }}</span>
-                                </div>
-                                <select class="form-control custom-select"
-                                    onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
-                                    <option>Choose a different version</option>
-                                    {% for activeVersion in activeVersions %}
-                                    <option value="{{ activeVersion.version }}">{{ activeVersion.title }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+    {% frame with { color: 'light', size: 'small' } %}
+        <form action="">
+            <div class="row">
+                <div class="col-sm-auto">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">{{ currentVersion.title }}</span>
                         </div>
-                        <div class="col-sm-auto mt-2 mt-sm-0">
-                            <a href="{{ path('list', {'version': currentVersion.version}) }}" class="btn btn-primary">All v{{ currentVersion.version }} Releases</a>
-                        </div>
+                        <select class="form-control custom-select"
+                            onchange="if (this.value) window.location.href= '{{ path('root') }}version/' + this.value;">
+                            <option>Choose a different version</option>
+                            {% for activeVersion in activeVersions %}
+                            <option value="{{ activeVersion.version }}">{{ activeVersion.title }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                </form>
+                </div>
+                <div class="col-sm-auto mt-2 mt-sm-0">
+                    <a href="{{ path('list', {'version': currentVersion.version}) }}" class="btn btn-primary">All v{{ currentVersion.version }} Releases</a>
+                </div>
             </div>
-        </div>
-    </div>
+        </form>
+    {% endframe %}
 
     {% if currentVersion.active == false %}
         {% include 'default/partials/version/inactive.html.twig' with currentVersion only %}
