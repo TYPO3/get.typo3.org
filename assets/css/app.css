@@ -16,6 +16,15 @@ pre {
 }
 
 
+.deprecated {
+    background-color: #d9534f;
+    border-radius: 2px;
+    color: #ffffff;
+    margin: 2rem 0;
+    padding: 1rem;
+}
+
+
 .composer-helper-form .custom-control {
     width: 250px;
     max-width: 100%;

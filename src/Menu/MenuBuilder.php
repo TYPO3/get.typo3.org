@@ -41,15 +41,8 @@ class MenuBuilder extends TemplateMenuBuider
         $composer = $menu->addChild(
             'composer',
             [
-                'route' => 'composer-repository',
+                'route' => 'composer',
                 'label' => 'Composer'
-            ]
-        );
-        $composer->addChild(
-            'composer-repository',
-            [
-                'route' => 'composer-repository',
-                'label' => 'Repository'
             ]
         );
         $composer->addChild(
@@ -57,6 +50,13 @@ class MenuBuilder extends TemplateMenuBuider
             [
                 'route' => 'composer-helper',
                 'label' => 'Helper'
+            ]
+        );
+        $composer->addChild(
+            'composer-repository',
+            [
+                'route' => 'composer-repository',
+                'label' => 'Repository'
             ]
         );
         $menu->addChild(

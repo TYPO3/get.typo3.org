@@ -1,48 +1,50 @@
 {% extends "layout.html.twig" %}
-{% block title %}Composer{% endblock %}
-{% block content %}
+{% block title %}Composer Repository{% endblock %}
+{% block body %}
 
-    {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': 'Composer Repository',
-        'subtitle': '',
-        'small': '1'
-    } only %}
+    {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <h1>Composer Repository</h1>
+        <p class="lead">
+            <a href="https://packagist.org/explore/?type=typo3-cms-extension" class="btn btn-lg btn-primary" target="_blank" rel="noopener">Extensions on Packagist</a>
+            <a href="#usage" class="btn btn-lg btn-default">Use composer.typo3.org</a>
+        </p>
+    {% endframe %}
 
-    <div class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                <h2>What Is It?</h2>
-                <p>TYPO3 offers a <a href="https://getcomposer.org/">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer.</p>
-                <p>This repository includes only the following TYPO3 CMS extensions:</p>
+    {% frame with { color: 'light' } %}
+        <h2>What Is It?</h2>
+        <p>TYPO3 offers a <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer.</p>
+        <p class="deprecated">Please note, the usage of this composer repository is deprecated. Instead use the extensions published on Packagist, which is prefered. As fall back for not published extensions you can use this repository.</p>
+        <p>This repository includes only the following TYPO3 CMS extensions:</p>
+        <ul>
+            <li>All TYPO3 extensions that are uploaded to TER, including insecure versions.
                 <ul>
-                    <li>All TYPO3 extensions that are uploaded to TER, including insecure versions.
-                        <ul>
-                            <li>Insecure versions are marked in th extra section with &quot;extra&quot;&quot;typo3/ter&quot;&quot;reviewstate&quot; = &quot;insecure&quot; in the composer extra section</li>
-                            <li>All these extensions are in the <code>typo3-ter/</code> composer namespace</li>
-                        </ul>
-                    </li>
+                    <li>Insecure versions are marked in th extra section with &quot;extra&quot;&quot;typo3/ter&quot;&quot;reviewstate&quot; = &quot;insecure&quot; in the composer extra section</li>
+                    <li>All these extensions are in the <code>typo3-ter/</code> composer namespace</li>
                 </ul>
-                <p>You can <a href="https://composer.typo3.org/satis.html" target="_blank">list and search for</a> available extension packages.</p>
-                <p>Please note, that some extension authors already published their extensions on <a href="https://packagist.org/">Packagist</a>. If this is the case, prefer to use these, rather than this repository.</p>
+            </li>
+        </ul>
+        <p>You can <a href="https://composer.typo3.org/satis.html" target="_blank" rel="noopener">list and search for</a> available extension packages.</p>
+    {% endframe %}
 
-                <h2>How to use it?</h2>
-                <p>As a quick way to use Composer, the Base Distribution can be downloaded. It is assuming you have Composer already <a href="https://getcomposer.org/download/">installed</a>
-                on your system. Detailed informations are available in the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/QuickInstall/Composer/Index.html">TYPO3 Documentation</a>.</p>
+    {% frame with { id: 'usage' } %}
+        <h2>How to use it?</h2>
+        <p>To enable the usage of the TYPO3 Composer Repository for your project, you have to modify the <code>composer.json</code>.</p>
+        <p>Run the following command:</p>
+        <pre>composer config repositories.typo3 '{"type": "composer", "url": "https://composer.typo3.org/"}'</pre>
+        <p>Or manually add this lines:</p>
+        <pre>"repositories": [
+    {
+        "type": "composer",
+        "url": "https://composer.typo3.org/"
+    }
+]</pre>
+    {% endframe %}
 
-                <h2>Add your own composer.json file</h2>
-                <p>It is encouraged to add your own <code>composer.json</code> file in your extension to be on the good side, as TYPO3 CMS will rely more and more on Composer to handle
-                dependencies. The file must be placed at the root of your extension, follow the instructions of the <a href="https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html">TYPO3 Documentation</a>.</p>
-
-                <h2>Extensions on Packagist</h2>
-                <p>Once you added a composer.json file, it is highly recommended to register your extensions on <a href="https://packagist.org/">Packagist</a>.</p>
-                <p>It is also recommended to include extensions directly from Packagist instead of using this Composer repository. For example, better require <code>georgringer/news</code> than <code>typo3-ter/news</code>, if you want the News extension in your composer installation.</p>
-
-                <h2>How does it work?</h2>
-                <p>A few times a day we crawl the TYPO3 Extension Repository.
-                We process all ext_emconf.php's to calculate the dependencies.
-                We generate the metadata (packages.json), needed by composer to find the right downloads which will be downloaded from the TER eventually.</p>
-            </div>
-        </div>
-    </div>
+    {% frame %}
+        <h2>How does it work?</h2>
+        <p>A few times a day we crawl the TYPO3 Extension Repository.
+        We process all ext_emconf.php's to calculate the dependencies.
+        We generate the metadata (packages.json), needed by composer to find the right downloads which will be downloaded from the TER eventually.</p>
+    {% endframe %}
 
 {% endblock %}
