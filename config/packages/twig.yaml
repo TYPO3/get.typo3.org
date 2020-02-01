@@ -5,3 +5,6 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     globals:
         baseUrl: '%env(BASE_URL)%'
+        packagist:
+            search: https://packagist.org/explore/?type=typo3-cms-extension
+            submit: https://packagist.org/packages/submit

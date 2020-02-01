@@ -5,9 +5,9 @@
     {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
         <h1>TYPO3 and Composer</h1>
         <p class="lead">
-            <a href="composer/helper" class="btn btn-lg btn-primary">Build Your TYPO3</a>
-            <a href="https://packagist.org/explore/?type=typo3-cms-extension" class="btn btn-lg btn-default" target="_blank" rel="noopener">Extensions on Packagist</a>
-            <a href="composer/repository" class="btn btn-lg btn-default">TYPO3 Composer Repository</a>
+            <a href="{{ path('composer-helper') }}" class="btn btn-lg btn-primary">Build Your TYPO3</a>
+            <a href="{{ packagist.search }}" class="btn btn-lg btn-default" target="_blank" rel="noopener">Extensions on Packagist</a>
+            <a href="{{ path('composer-repository') }}" class="btn btn-lg btn-default">TYPO3 Composer Repository</a>
         </p>
     {% endframe %}
 
@@ -16,13 +16,13 @@
         <p>As a quick way to use Composer, the Base Distribution can be downloaded. It is assuming you have Composer already <a href="https://getcomposer.org/download/" target="_blank" rel="noopener">installed</a>
         on your system. Detailed informations are available in the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/QuickInstall/Composer/Index.html">TYPO3 Documentation</a>.</p>
         <p>For an easy customized setup of the core extensions for your project's <code>composer.json</code>, use the <a href="composer/helper">TYPO3 Composer Helper</a>.</p>
-        <p>It is recommended to include extensions directly from <a href="https://packagist.org/explore/?type=typo3-cms-extension" target="_blank" rel="noopener">Packagist</a> instead of using the <a href="composer/repository">TYPO3 Composer Repository</a>. For example, better require <code>georgringer/news</code> than <code>typo3-ter/news</code>, if you want the News extension in your composer installation.</p>
+        <p>It is recommended to include extensions directly from <a href="{{ packagist.search }}" target="_blank" rel="noopener">Packagist</a> instead of using the <a href="composer/repository">TYPO3 Composer Repository</a>. For example, better require <code>georgringer/news</code> than <code>typo3-ter/news</code>, if you want the News extension in your composer installation.</p>
     {% endframe %}
 
     {% frame %}
         <h2>Add composer.json to your extensions</h2>
         <p>It is encouraged to add your own <code>composer.json</code> file in your extension to be on the good side, as TYPO3 CMS will rely more and more on Composer to handle dependencies. The file must be placed at the root of your extension, follow the instructions of the <a href="https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html">TYPO3 Documentation</a>.</p>
-        <p>Once you added a composer.json file, it is highly recommended to register your extensions on <a href="https://packagist.org/packages/submit" target="_blank" rel="noopener">Packagist</a>.</p>
+        <p>Once you added a composer.json file, it is highly recommended to register your extensions on <a href="{{ packagist.submit }}" target="_blank" rel="noopener">Packagist</a>.</p>
     {% endframe %}
 
 {% endblock %}
