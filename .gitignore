@@ -5,7 +5,6 @@
 !/bin/
 /bin/*
 !/bin/console
-/node_modules/
 
 ###> symfony/framework-bundle ###
 .env
@@ -29,3 +28,4 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+node_modules
