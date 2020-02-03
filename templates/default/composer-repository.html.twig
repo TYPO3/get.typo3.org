@@ -1,0 +1,48 @@
+{% extends "layout.html.twig" %}
+{% block title %}Composer Repository{% endblock %}
+{% block body %}
+
+    {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <h1>Composer Repository</h1>
+    {% endframe %}
+
+    {% frame with { color: 'light' } %}
+        <h2>What Is It?</h2>
+        <p>TYPO3 offers a <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer.</p>
+        <p class="deprecated">Please note, the usage of this composer repository is deprecated. Instead use the extensions published on Packagist, which is prefered. As fall back for not published extensions you can use this repository.</p>
+        <p>This repository includes only the following TYPO3 CMS extensions:</p>
+        <ul>
+            <li>All TYPO3 extensions that are uploaded to TER, including insecure versions.
+                <ul>
+                    <li>Insecure versions are marked in th extra section with &quot;extra&quot;&quot;typo3/ter&quot;&quot;reviewstate&quot; = &quot;insecure&quot; in the composer extra section</li>
+                    <li>All these extensions are in the <code>typo3-ter/</code> composer namespace</li>
+                </ul>
+            </li>
+        </ul>
+        <p>You can <a href="https://composer.typo3.org/satis.html" target="_blank" rel="noopener">list and search for</a> available extension packages.</p>
+    {% endframe %}
+
+    {% frame with { id: 'usage' } %}
+        <h2>How to use it?</h2>
+        <p>To enable the usage of the TYPO3 Composer Repository for your project, you have to modify the <code>composer.json</code>.</p>
+        <p>Run the following command:</p>
+        <pre><code class="language-bash">composer config repositories.typo3 '{"type": "composer", "url": "https://composer.typo3.org/"}'</code></pre>
+        <p>Or manually add this lines:</p>
+        <pre><code class="language-json">{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://composer.typo3.org/"
+        }
+    ]
+}</code></pre>
+    {% endframe %}
+
+    {% frame %}
+        <h2>How does it work?</h2>
+        <p>A few times a day we crawl the TYPO3 Extension Repository.
+        We process all ext_emconf.php's to calculate the dependencies.
+        We generate the metadata (packages.json), needed by composer to find the right downloads which will be downloaded from the TER eventually.</p>
+    {% endframe %}
+
+{% endblock %}

@@ -252,6 +252,16 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/misc/composer", methods={"GET"}, name="composer")
+     */
+    public function composer(): Response
+    {
+        $templateName = 'default/composer.html.twig';
+
+        return $this->render($templateName);
+    }
+
+    /**
      * @Route("/misc/composer/helper", methods={"GET", "POST"}, name="composer-helper")
      */
     public function composerHelper(): Response
@@ -267,6 +277,16 @@ class DefaultController extends AbstractController
                 'bundles' => $this->composerPackagesService->getBundles()
             ]
         );
+    }
+
+    /**
+     * @Route("/misc/composer/repository", methods={"GET"}, name="composer-repository")
+     */
+    public function composerRepository(): Response
+    {
+        $templateName = 'default/composer-repository.html.twig';
+
+        return $this->render($templateName);
     }
 
     /**

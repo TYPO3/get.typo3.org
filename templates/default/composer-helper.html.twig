@@ -18,7 +18,7 @@
         </div>
     {% endframe %}
 
-    {% frame %}
+    {% frame with { id: 'packages' } %}
         {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form', class: 'composer-helper-form'}}) }}
         <div class="mb-5">
             {% for bundleName,bundle in bundles %}
