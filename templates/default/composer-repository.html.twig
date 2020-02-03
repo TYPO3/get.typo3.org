@@ -26,14 +26,16 @@
         <h2>How to use it?</h2>
         <p>To enable the usage of the TYPO3 Composer Repository for your project, you have to modify the <code>composer.json</code>.</p>
         <p>Run the following command:</p>
-        <pre>composer config repositories.typo3 '{"type": "composer", "url": "https://composer.typo3.org/"}'</pre>
+        <pre><code class="language-bash">composer config repositories.typo3 '{"type": "composer", "url": "https://composer.typo3.org/"}'</code></pre>
         <p>Or manually add this lines:</p>
-        <pre>"repositories": [
-    {
-        "type": "composer",
-        "url": "https://composer.typo3.org/"
-    }
-]</pre>
+        <pre><code class="language-json">{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://composer.typo3.org/"
+        }
+    ]
+}</code></pre>
     {% endframe %}
 
     {% frame %}
