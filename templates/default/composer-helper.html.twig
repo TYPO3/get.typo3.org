@@ -1,42 +1,32 @@
-{% extends "layout.html.twig" %}
+{% extends 'layout.html.twig' %}
 {% block title %}Composer Helper{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('assets/JavaScript/composerHelper.js') }}"></script>
 {% endblock %}
-{% block content %}
+{% block body %}
 
-    {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': 'Composer Helper',
-        'subtitle': '',
-        'small': '1'
-    } only %}
+    {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <h1>Composer Helper</h1>
+    {% endframe %}
 
-    <div class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                <h2>Select the composer packages</h2>
-                <div class="js-composer-helper-console">
-                    <pre class="text-wrap bg-console"><div class="no-user-selection"># paste this into your console</div><code class="js-composer-command"><span class="no-user-selection">$ </span>composer require <span class="js-composer-helper-packages"></span></code></pre>
-                    <button class="btn btn-dark m-0 js-command-copy-clipboard">copy to clipboard</button>
-                </div>
-            </div>
+    {% frame with { color: 'light' } %}
+        <h2>Select the composer packages</h2>
+        <div class="js-composer-helper-console">
+            <pre class="text-wrap bg-console"><div class="no-user-selection"># paste this into your console</div><code class="js-composer-command"><span class="no-user-selection">$ </span>composer require <span class="js-composer-helper-packages"></span></code></pre>
+            <button class="btn btn-dark m-0 js-command-copy-clipboard">copy to clipboard</button>
         </div>
-    </div>
+    {% endframe %}
 
-    <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form', class: 'composer-helper-form'}}) }}
-                <div class="mb-5">
-                    {% for bundleName,bundle in bundles %}
-                        <button class="btn btn-primary js-composer-helper-toggle-packages" data-packages="{{ bundle }}">{{ bundleName }}</button>
-                    {% endfor %}
-                    <button class="btn btn-default js-composer-helper-toggle-packages" data-packages="[]">Reset</button>
-                </div>
-                {{ form_end(form) }}
-            </div>
+    {% frame %}
+        {{ form_start(form, {'action': path('ajax-composer-helper-generate'), 'attr': {'id': 'js-composer-helper-form', class: 'composer-helper-form'}}) }}
+        <div class="mb-5">
+            {% for bundleName,bundle in bundles %}
+                <button class="btn btn-primary js-composer-helper-toggle-packages" data-packages="{{ bundle }}">{{ bundleName }}</button>
+            {% endfor %}
+            <button class="btn btn-default js-composer-helper-toggle-packages" data-packages="[]">Reset</button>
         </div>
-    </div>
+        {{ form_end(form) }}
+    {% endframe %}
 
 {% endblock %}

@@ -7,7 +7,8 @@ Symfony 4 application for release notes, download redirects and JSON API for rel
 1. edit `.env` vars from `.env.dist`
 2. ddev start
 3. ddev ssh
-4. `php ./bin/console doctrine:schema:create`
+4. execute `composer install`
+5. `php ./bin/console doctrine:schema:create`
 
 # Manual Installation
 

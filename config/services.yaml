@@ -29,14 +29,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    App\Menu\MenuBuilder:
-        tags:
-            -
-                name: 'knp_menu.menu_builder'
-                method: 'mainDefault'
-                alias: 'main-default'
-            -
-                name: 'knp_menu.menu_builder'
-                method: 'mainSecondary'
-                alias: 'main-secondary'

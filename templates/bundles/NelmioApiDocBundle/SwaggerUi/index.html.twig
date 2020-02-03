@@ -1,4 +1,4 @@
-{% extends "layout.html.twig" %}
+{% extends 'layout.html.twig' %}
 {% block title %}REST API{% endblock %}
 
 {% block stylesheets %}
@@ -12,7 +12,7 @@
     <script src="{{ asset('bundles/nelmioapidoc/init-swagger-ui.js') }}"></script>
 {% endblock %}
 
-{% block content %}
+{% block body %}
 
     <link rel="stylesheet" href="{{ asset('assets/Css/swagger.css') }}">
     {# json_encode(65) is for JSON_UNESCAPED_SLASHES|JSON_HEX_TAG to avoid JS XSS #}

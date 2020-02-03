@@ -1,24 +1,20 @@
 {% if current.version  >= 7  %}
-<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-            <h2>Package Signatures</h2>
-            <p>
-                TYPO3 Release Packages (the downloadable tarballs and zip files) as well as Git tags are signed
-                using PGP signatures during the automated release process. Besides that, MD5 and SHA2-256 hashes are
-                being generated for these files. Find more details on verifying signatures and hashes in the
-                <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/ReleaseIntegrity/Index.html">infrastructure guide</a>.
-            </p>
-            <p>
-                <a href="https://typo3.azureedge.net/typo3/{{ current.version }}/README.md">
-                    Download GPG signed release README.md file
-                </a>
-            </p>
-            <p>Example of verifying integrity of tar.gz package of current release:</p>
-            <pre>wget --content-disposition {{ baseUrl }}/{{ current.version }}/tar.gz
+    {% frame %}
+        <h2>Package Signatures</h2>
+        <p>
+            TYPO3 Release Packages (the downloadable tarballs and zip files) as well as Git tags are signed
+            using PGP signatures during the automated release process. Besides that, MD5 and SHA2-256 hashes are
+            being generated for these files. Find more details on verifying signatures and hashes in the
+            <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/ReleaseIntegrity/Index.html">infrastructure guide</a>.
+        </p>
+        <p>
+            <a href="https://typo3.azureedge.net/typo3/{{ current.version }}/README.md">
+                Download GPG signed release README.md file
+            </a>
+        </p>
+        <p>Example of verifying integrity of tar.gz package of current release:</p>
+        <pre>wget --content-disposition {{ baseUrl }}/{{ current.version }}/tar.gz
 wget --content-disposition {{ baseUrl }}/{{ current.version }}/tar.gz.sig
 gpg --verify typo3_src-{{ current.version }}.tar.gz.sig typo3_src-{{ current.version }}.tar.gz</pre>
-        </div>
-    </div>
-</div>
+    {% endframe %}
 {% endif %}

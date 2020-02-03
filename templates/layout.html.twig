@@ -1,87 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('assets/Css/frontend.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/Css/additions.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/Css/webfont.css') }}">
-    {% endblock %}
-    <title>{% block title %}{% endblock %} - get.typo3.org</title>
-    <script src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
-    <script type="module" src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/typo3-universe.js"></script>
-</head>
-<body>
-
-    <header class="page-wrapper-header" id="header">
-        <typo3-universe active="download">
-            <div style="display: block; height: 44px; background-color: #313131;"></div>
-        </typo3-universe>
-        <nav class="navbar navbar-mainnavigation navbar-default navbar-has-image">
-            <div class="container">
-                <a class="navbar-brand navbar-brand-image" href="{{ path('root') }}">
-                    <img class="navbar-brand-logo-normal" src="{{ asset('assets/Images/logo.svg') }}" width="100" height="26" alt="TYPO3">
-                </a>
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mainnavigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <nav id="mainnavigation" class="navbar-collapse collapse" role="navigation">
-                    {{ knp_menu_render('main-default', {'template':'menu/navbar.html.twig'}) }}
-                    {{ knp_menu_render('main-secondary', {'template':'menu/navbar.html.twig'}) }}
-                </nav>
-            </div>
-        </nav>
-    </header>
-
-    {% block content "" %}
-
-    <footer class="footer">
-        <div class="section section-small section-orange">
-            <div class="container text-center">
-                <p class="lead">
-                    Do you want to contribute to this website or report feedback?
-                </p>
-                <a class="btn btn-lg btn-darker" href="https://github.com/TYPO3-infrastructure/get.typo3.org/issues" target="_blank" rel="noopener">
-                    Go to our GitHub repository
-                </a>
-            </div>
-        </div>
-        <div class="section section-small section-darker section-border">
-            <div class="container">
-                <ul class="footer-social">
-                    <li>
-                        <a href="https://www.facebook.com/typo3" title="Follow us on Facebook">
-                            <svg class="fontawesome" role="img"><use xlink:href="{{ asset('assets/Svg/fontawesome.symbols.svg#facebook-f') }}"></use></svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/typo3" title="Follow us on Twitter">
-                            <svg class="fontawesome" role="img"><use xlink:href="{{ asset('assets/Svg/fontawesome.symbols.svg#twitter') }}"></use></svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://youtube.com/typo3" title="Follow us on YouTube">
-                            <svg class="fontawesome" role="img"><use xlink:href="{{ asset('assets/Svg/fontawesome.symbols.svg#youtube') }}"></use></svg>
-                        </a>
-                    </li>
-                </ul>
-                <div class="footer-meta">
-                    <div class="footer-meta-copyright">© {{ "now"|date("Y") }} TYPO3 Association.</div>
-                    <ul class="footer-meta-navigation">
-                        <li>
-                            <a href="https://typo3.org/legal-notice/" target="" title="Legal Notice">Legal Notice</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    {% block javascripts %}
-        <script src="{{ asset('assets/JavaScript/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/JavaScript/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('assets/JavaScript/bootstrap.navbar.min.js') }}"></script>
-    {% endblock %}
-
-</body>
-</html>
+{# Wrapper to extend the default layout within the project #}
+{% extends '@Template/layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/Css/additions.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+{% block footer %}
+    {% frame with { color: 'primary' } %}
+        <p class="lead">
+            Do you want to contribute to this website or report feedback?
+        </p>
+        <a class="btn btn-dark" href="https://github.com/TYPO3-infrastructure/get.typo3.org/issues" target="_blank" rel="noopener">
+            Go to our GitHub repository
+        </a>
+    {% endframe %}
+{% endblock %}

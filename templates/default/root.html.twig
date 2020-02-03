@@ -1,39 +1,20 @@
-{% extends "layout.html.twig" %}
+{% extends 'layout.html.twig' %}
 {% block title %}Download TYPO3{% endblock %}
-{% block content %}
+{% block body %}
 
-<div id="carousel-visual" class="carousel carousel-small carousel-fade slide pointer-event" data-interval="20000" data-wrap="true" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="item active carousel-item carousel-item-type carousel-item-type-text" data-itemno="0" style="background-color: #313131;">
-            <div class="carousel-backgroundimage-container">
-                <div id="carousel-backgroundimage-visual" class="carousel-backgroundimage carousel-backgroundimage-fade">
-                    <style>#carousel-backgroundimage-visual { background-image: url('{{ asset("assets/Images/keyvisual.png") }}'); }</style>
-                </div>
-            </div>
-            <div class="carousel-content">
-                <div class="valign" style="color: #FFFFFF;">
-                    <div class="vcontainer">
-                        <div class="carousel-text-inner">
-                            <div class="carousel-item-bodytext">
-                                <h1 class="carousel-item-header none text-center">Build Blazingly&nbsp;Fast, Flexible&nbsp;Websites</h1>
-                                <p class="mt-4 lead text-center">
-                                    {% if communityVersions|length > 0 %}<a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>{% endif %}
-                                    <a href="#try-online" class="btn btn-lg btn-default">Try TYPO3</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <h1>Build Blazingly&nbsp;Fast, Flexible&nbsp;Websites</h1>
+        <p class="lead">
+            {% if communityVersions|length > 0 %}<a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>{% endif %}
+            <a href="#try-online" class="btn btn-lg btn-default">Try TYPO3</a>
+        </p>
+    {% endframe %}
 
-{% if communityVersions|length > 0 %}
-<div id="download" class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-            <h3 class="mb-3 text-center">Current Versions</h3>
+    {% if communityVersions|length > 0 %}
+        {% frame with { center: true } %}
+            <h3>Current Versions</h3>
+        {% endframe %}
+        {% frame with { id: 'download' } %}
             <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ communityVersions|length }}">
                 {% for version in communityVersions %}
                 <div class="card-group-element-item">
@@ -105,30 +86,21 @@
                             {% else %}
                                 <p>No version available.</p>
                             {% endif %}
-
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-        </div>
-    </div>
-</div>
-{% endif %}
+        {% endframe %}
+    {% endif %}
 
-{% if eltsVersions|length > 0 %}
-<div id="download-elts" class="frame frame-indent frame-ruler-before frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner text-center">
+    {% if eltsVersions|length > 0 %}
+        {% frame with { id: 'download-elts', rulerBefore: true, center: true } %}
             <h3>Past Versions with Extended Long&nbsp;Term&nbsp;Support</h3>
             <p>With TYPO3 CMS, you made the right choice. Now benefit from a total of 6 years of support per version.</p>
             <p>3 years of free support by the TYPO3 core team and the community.<br>3 further years of vendor support with ELTS by TYPO3 GmbH.</p>
-        </div>
-    </div>
-</div>
-<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
+        {% endframe %}
+        {% frame %}
             <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ eltsVersions|length + 1 }}">
                 <div class="card-group-element-item">
                     <img src="{{ asset("assets/Images/elts.svg") }}" class="img-fluid" width="200" style="display: block; margin: 0 auto;" />
@@ -167,92 +139,75 @@
                 </div>
                 {% endfor %}
             </div>
-        </div>
-    </div>
-</div>
-<div class="frame frame-indent frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner text-center">
+        {% endframe %}
+        {% frame with { indent: true, center: true } %}
             <p><strong>Extended Long Term Support prolongs security and compliance support for your expired LTS version,
                 and keeps you legally compliant and up-to-date. ELTS support runs for a total of 3 years per version,
                 starting seamlessly on the day official community support for a given LTS version ends.</strong></p>
-        </div>
-    </div>
-</div>
-{% endif %}
+        {% endframe %}
+    {% endif %}
 
-<div id="try-online" class="frame frame-indent frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner text-center">
+    {% frame with { id: 'try-online', color: 'light', indent: true, center: true } %}
+        <h3>Try it online</h3>
+        <p>
+            Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
+            based infrastructures to get started as quick as possible.
+        </p>
+    {% endframe %}
 
-            <h3>Try it online</h3>
-            <p>
-                Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
-                based infrastructures to get started as quick as possible.
-            </p>
-
-        </div>
-    </div>
-</div>
-<div class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-
-            <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
-                <div class="card-group-element-item">
-                    <div class="card">
-                        <div class="card-img-top">
-                            <img src="{{ asset('assets/Images/try/bitnami.png') }}" alt="Bitnami">
-                        </div>
-                        <div class="card-body">
-                            <p>Bitnami TYPO3 Stack provides a one-click install solution for TYPO3. Download installers
-                                and virtual machines or run your own TYPO3 server in the cloud.</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://bitnami.com/stack/typo3" class="btn btn-primary">
-                                <span class="btn-text">Go to Bitnami</span>
-                            </a>
-                        </div>
+    {% frame with { color: 'light' } %}
+        <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
+            <div class="card-group-element-item">
+                <div class="card">
+                    <div class="card-img-top">
+                        <img src="{{ asset('assets/Images/try/bitnami.png') }}" alt="Bitnami">
                     </div>
-                </div>
-                <div class="card-group-element-item">
-                    <div class="card">
-                        <div class="card-img-top">
-                            <img src="{{ asset('assets/Images/try/aws.png') }}" alt="AWS">
-                        </div>
-                        <div class="card-body">
-                            <p>Ready-to-use machine images with TYPO3 pre-installed and pre-configured.
-                                A &quot;root&quot; login via SSH and an administrator account to the TYPO3 backend allow
-                                unrestricted access to the server and CMS. TYPO3 v7, v8, v9 LTS and v10 sprint releases
-                                are available.</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://aws.amazon.com/marketplace/seller-profile/?id=3c5e5f3c-d60e-4405-a9ca-aae8abfa3e2b" class="btn btn-primary">
-                                <span class="btn-text">Go to AWS Marketplace</span>
-                            </a>
-                        </div>
+                    <div class="card-body">
+                        <p>Bitnami TYPO3 Stack provides a one-click install solution for TYPO3. Download installers
+                            and virtual machines or run your own TYPO3 server in the cloud.</p>
                     </div>
-                </div>
-                <div class="card-group-element-item">
-                    <div class="card">
-                        <div class="card-img-top">
-                            <img src="{{ asset('assets/Images/try/platform.png') }}" alt="platform.sh">
-                        </div>
-                        <div class="card-body">
-                            <p>Test and Install TYPO3 CMS V8 on Platform.sh. You can find the Platform
-                                file on Github.</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://accounts.platform.sh/platform/trial/typo3/setup" class="btn btn-primary">
-                                <span class="btn-text">Go to platform.sh</span>
-                            </a>
-                        </div>
+                    <div class="card-footer">
+                        <a href="https://bitnami.com/stack/typo3" class="btn btn-primary">
+                            <span class="btn-text">Go to Bitnami</span>
+                        </a>
                     </div>
                 </div>
             </div>
-
+            <div class="card-group-element-item">
+                <div class="card">
+                    <div class="card-img-top">
+                        <img src="{{ asset('assets/Images/try/aws.png') }}" alt="AWS">
+                    </div>
+                    <div class="card-body">
+                        <p>Ready-to-use machine images with TYPO3 pre-installed and pre-configured.
+                            A &quot;root&quot; login via SSH and an administrator account to the TYPO3 backend allow
+                            unrestricted access to the server and CMS. TYPO3 v7, v8, v9 LTS and v10 sprint releases
+                            are available.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://aws.amazon.com/marketplace/seller-profile/?id=3c5e5f3c-d60e-4405-a9ca-aae8abfa3e2b" class="btn btn-primary">
+                            <span class="btn-text">Go to AWS Marketplace</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-group-element-item">
+                <div class="card">
+                    <div class="card-img-top">
+                        <img src="{{ asset('assets/Images/try/platform.png') }}" alt="platform.sh">
+                    </div>
+                    <div class="card-body">
+                        <p>Test and Install TYPO3 CMS V8 on Platform.sh. You can find the Platform
+                            file on Github.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://accounts.platform.sh/platform/trial/typo3/setup" class="btn btn-primary">
+                            <span class="btn-text">Go to platform.sh</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    {% endframe %}
 
 {% endblock %}

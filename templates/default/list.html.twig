@@ -1,45 +1,39 @@
-{% extends "layout.html.twig" %}
+{% extends 'layout.html.twig' %}
 {% block title %}List of Releases for TYPO3 v{{ currentVersion.version }}{% endblock %}
-{% block content %}
+{% block body %}
 
-    {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': currentVersion.title,
-        'subtitle': currentVersion.subtitle,
-        'small': '1'
-    } only %}
+    {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <h1>{{ currentVersion.title }}</h1>
+        <p class="lead">{{ currentVersion.subtitle }}</p>
+    {% endframe %}
 
-    <div class="frame frame-small frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                <form action="">
-                    <div class="row">
-                        <div class="col-sm-auto">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">{{ currentVersion.title }}</span>
-                                </div>
-                                <select class="form-control custom-select"
-                                    onchange="if (this.value) window.location.href= '{{ path('root') }}list/version/' + this.value;">
-                                    <option>Choose a different version</option>
-                                    {% for activeVersion in activeVersions %}
-                                    <option value="{{ activeVersion.version }}">{{ activeVersion.title }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+    {% frame with { color: 'light', size: 'small' } %}
+        <form action="">
+            <div class="row">
+                <div class="col-sm-auto">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">{{ currentVersion.title }}</span>
                         </div>
+                        <select class="form-control custom-select"
+                            onchange="if (this.value) window.location.href= '{{ path('root') }}list/version/' + this.value;">
+                            <option>Choose a different version</option>
+                            {% for activeVersion in activeVersions %}
+                            <option value="{{ activeVersion.version }}">{{ activeVersion.title }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
+        </form>
+    {% endframe %}
 
-    <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-
-                <h2>List of Releases for {{ currentVersion.title }}</h2>
-                <table class="table table-borderless">
-                    <thead class="thead-light">
+    {% frame %}
+        <h2>List of Releases for {{ currentVersion.title }}</h2>
+        <div class="card">
+            <div class="datatable">
+                <table class="datatable-table">
+                    <thead>
                         <tr>
                             <th>Version</th>
                             <th>Date</th>
@@ -50,28 +44,33 @@
                     <tbody>
                         {% for release in currentVersion.releases|sortByVersion %}
                             {% if release.type == "security" %}
-                                <tr class="table-danger">
+                                <tr class="datatable-severity-danger">
                             {% else %}
                                 <tr>
                             {% endif %}
-                                <td>{{ release.version }} {% if release.elts %}ELTS{% endif %}</td>
+                                <th data-type="title">{{ release.version }} {% if release.elts %}ELTS{% endif %}</th>
                                 <td>{{ release.date | date("d.m.Y") }}</td>
                                 <td>{{ release.type }}</td>
-                                <td>
-                                    <a href="{{ path('release-notes-for-version', {'version': release.version}) }}" class="btn btn-sm btn-default">Release Notes</a>
+                                <td data-type="actions">
+                                    <a class="datatable-action" title="Release Notes" href="{{ path('release-notes-for-version', {'version': release.version}) }}">
+                                        <span class="datatable-action-label">Release Notes</span>
+                                    </a>
                                     {% if release.elts %}
-                                        <a href="https://typo3.com/elts" class="btn btn-sm btn-primary">Buy ELTS</a>
+                                        <a class="datatable-action" title="Buy ELTS" href="https://typo3.com/elts">
+                                            <span class="datatable-action-label">Buy ELTS</span>
+                                        </a>
                                     {% else %}
-                                        <a href="{{ path('version', {'version': release.version}) }}" class="btn btn-sm btn-default">Download</a>
+                                        <a class="datatable-action" title="Download" href="{{ path('version', {'version': release.version}) }}">
+                                            <span class="datatable-action-label">Download</span>
+                                        </a>
                                     {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-
             </div>
         </div>
-    </div>
+    {% endframe %}
 
 {% endblock %}

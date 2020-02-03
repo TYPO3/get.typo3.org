@@ -1,10 +1,6 @@
 {% if current.releaseNotes.upgradingInstructions %}
-<div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-    <div class="frame-container">
-        <div class="frame-inner">
-            <h2>Upgrading</h2>
-            {{ current.releaseNotes.upgradingInstructions|parsedown|raw }}
-        </div>
-    </div>
-</div>
+    {% frame %}
+        <h2>Upgrading</h2>
+        {{ current.releaseNotes.upgradingInstructions|parsedown|raw }}
+    {% endframe %}
 {% endif %}

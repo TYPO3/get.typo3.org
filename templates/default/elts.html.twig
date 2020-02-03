@@ -1,25 +1,20 @@
-{% extends "layout.html.twig" %}
+{% extends 'layout.html.twig' %}
 {% block title %}Download TYPO3 ELTS {{ release.version }}{% endblock %}
-{% block content %}
+{% block body %}
 
-    {% include 'default/partials/general/key-visual.html.twig' with {
-        'title': 'ELTS version requested',
-        'subtitle': 'The version you requested is only available as an Extended Long Term Support (ELTS) version.',
-        'small': '1'
-    } only %}
+    {% frame with { color: 'dark', height: 'small', center: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <h1>ELTS version requested</h1>
+        <p class="lead">The version you requested is only available as an Extended Long Term Support (ELTS) version.</p>
+    {% endframe %}
 
-    <div class="frame frame-default frame-background-light frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                <h1 class="h2">How to get access to an ELTS version?</h1>
-                <p>You can buy an ELTS license, for more information please visit:</p>
-                <ul class="list-link">
-                    <li>
-                        <a href="https://typo3.com/elts" target="_blank" rel="noreferrer">https://typo3.com/elts</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    {% frame with { color: 'light' } %}
+        <h1 class="h2">How to get access to an ELTS version?</h1>
+        <p>You can buy an ELTS license, for more information please visit:</p>
+        <ul class="list-link">
+            <li>
+                <a href="https://typo3.com/elts" target="_blank" rel="noreferrer">https://typo3.com/elts</a>
+            </li>
+        </ul>
+    {% endframe %}
 
 {% endblock %}

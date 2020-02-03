@@ -16,4 +16,6 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
+    T3G\Bundle\TemplateBundle\TemplateBundle::class => ['all' => true],
 ];
