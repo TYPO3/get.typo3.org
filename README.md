@@ -13,8 +13,6 @@ Symfony 4 application for release notes, download redirects and JSON API for rel
 # Manual Installation
 
 1. execute `composer install`
-5. execute `yarn install`
-6. execute `yarn build`
 2. edit `.env` vars from `.env.dist`
 3. execute `php ./bin/console doctrine:schema:create` to create database schema
 
