@@ -1,5 +1,12 @@
 {# Wrapper to extend the default layout within the project #}
 {% extends '@Template/layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/Css/additions.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
 {% block footer %}
     {% frame with { color: 'primary' } %}
         <p class="lead">
