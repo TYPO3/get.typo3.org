@@ -8,9 +8,7 @@ Symfony 4 application for release notes, download redirects and JSON API for rel
 2. ddev start
 3. ddev ssh
 4. execute `composer install`
-5. execute `yarn install`
-6. execute `yarn build`
-7. `php ./bin/console doctrine:schema:create`
+5. `php ./bin/console doctrine:schema:create`
 
 # Manual Installation
 

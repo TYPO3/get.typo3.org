@@ -6961,16 +6961,16 @@
         },
         {
             "name": "t3g/symfony-template-bundle",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3GmbH/symfony-template-bundle.git",
-                "reference": "d5f61561be8baff5d76f21c049a12e2e8ccfd8c0"
+                "reference": "4a65c1f5127e9810861d88ba153c7ba6a518d962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/d5f61561be8baff5d76f21c049a12e2e8ccfd8c0",
-                "reference": "d5f61561be8baff5d76f21c049a12e2e8ccfd8c0",
+                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/4a65c1f5127e9810861d88ba153c7ba6a518d962",
+                "reference": "4a65c1f5127e9810861d88ba153c7ba6a518d962",
                 "shasum": ""
             },
             "require": {
@@ -6978,18 +6978,22 @@
                 "knplabs/knp-paginator-bundle": "^3.0 || ^4.0 || ^5.0",
                 "php": "^7.2",
                 "symfony/asset": "^4.4 || ^5.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0",
                 "symfony/framework-bundle": "^4.4 || ^5.0",
                 "symfony/http-kernel": "^4.4 || ^5.0",
                 "symfony/security-bundle": "^4.4 || ^5.0",
                 "symfony/translation": "^4.4 || ^5.0",
                 "symfony/twig-bundle": "^4.4 || ^5.0",
-                "symfony/webpack-encore-bundle": "^1.7",
                 "twig/twig": "^2.12 || ^3.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.16",
                 "overtrue/phplint": "^1.2",
-                "symfony/phpunit-bridge": "^4.4 | ^5.0"
+                "symfony/phpunit-bridge": "^4.4 | ^5.0",
+                "symfony/webpack-encore-bundle": "^1.7"
+            },
+            "suggest": {
+                "symfony/webpack-encore-bundle": "Needed to support encore entrypoints."
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -7013,7 +7017,7 @@
                 "templates",
                 "typo3"
             ],
-            "time": "2020-01-31T17:33:50+00:00"
+            "time": "2020-02-03T12:15:22+00:00"
         },
         {
             "name": "twig/extensions",
@@ -7137,16 +7141,16 @@
         },
         {
             "name": "ua-parser/uap-php",
-            "version": "v3.9.4",
+            "version": "v3.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ua-parser/uap-php.git",
-                "reference": "8c1e3c6c7698d197368bfaa0d16734c947d94e99"
+                "reference": "67f8f61bc7fc36fcd23dd6526f6ed5e7a32625c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/8c1e3c6c7698d197368bfaa0d16734c947d94e99",
-                "reference": "8c1e3c6c7698d197368bfaa0d16734c947d94e99",
+                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/67f8f61bc7fc36fcd23dd6526f6ed5e7a32625c7",
+                "reference": "67f8f61bc7fc36fcd23dd6526f6ed5e7a32625c7",
                 "shasum": ""
             },
             "require": {
@@ -7190,7 +7194,7 @@
                 }
             ],
             "description": "A multi-language port of Browserscope's user agent parser.",
-            "time": "2020-01-21T09:54:19+00:00"
+            "time": "2020-02-03T09:54:22+00:00"
         },
         {
             "name": "webmozart/assert",

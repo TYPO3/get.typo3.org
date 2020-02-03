@@ -11,7 +11,5 @@ template:
             legal: https://typo3.org/legal-notice
         menu:
             class: App\Menu\MenuBuilder
-        assets:
-            encore_entrypoint: app
         theme:
             use_logo: true
