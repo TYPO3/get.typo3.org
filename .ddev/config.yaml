@@ -12,6 +12,7 @@ additional_fqdns: []
 mariadb_version: "10.2"
 nfs_mount_enabled: false
 provider: default
+omit_containers: [db, dba]
 use_dns_when_possible: true
 timezone: ""
 
