@@ -4,6 +4,9 @@
 !/bin/
 /bin/*
 !/bin/console
+/public/p/*
+/public/packages.json
+/public/satis.html
 
 ###> symfony/framework-bundle ###
 .env
