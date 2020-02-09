@@ -45,7 +45,6 @@ class DefaultController extends AbstractController
         $this->composerPackagesService = $composerPackagesService;
     }
 
-
     /**
      * @Route("/", methods={"GET"}, name="composer-root", condition="context.getHost() matches '/composer.%app.domain%/'")
      */
