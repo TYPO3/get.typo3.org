@@ -13,3 +13,4 @@ template:
             class: App\Menu\MenuBuilder
         theme:
             use_logo: true
+            background: white

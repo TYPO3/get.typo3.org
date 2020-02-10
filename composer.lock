@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "507d51ae7c979949cba7804024c76280",
+    "content-hash": "cc1d9539c77387d939f6da96c0ddde4e",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -6908,16 +6908,16 @@
         },
         {
             "name": "t3g/symfony-template-bundle",
-            "version": "2.0.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3GmbH/symfony-template-bundle.git",
-                "reference": "4a65c1f5127e9810861d88ba153c7ba6a518d962"
+                "reference": "e499faeb24b514adc5598677b4f5c703e7560c2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/4a65c1f5127e9810861d88ba153c7ba6a518d962",
-                "reference": "4a65c1f5127e9810861d88ba153c7ba6a518d962",
+                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/e499faeb24b514adc5598677b4f5c703e7560c2b",
+                "reference": "e499faeb24b514adc5598677b4f5c703e7560c2b",
                 "shasum": ""
             },
             "require": {
@@ -6964,7 +6964,7 @@
                 "templates",
                 "typo3"
             ],
-            "time": "2020-02-03T12:15:22+00:00"
+            "time": "2020-02-10T16:22:10+00:00"
         },
         {
             "name": "twig/extensions",

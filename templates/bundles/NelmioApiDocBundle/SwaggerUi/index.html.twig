@@ -45,13 +45,9 @@
         </defs>
     </svg>
 
-    <div class="frame frame-default frame-background-none frame-no-backgroundimage frame-space-before-none frame-space-after-none">
-        <div class="frame-container">
-            <div class="frame-inner">
-                <div id="swagger-ui" class="api-platform"></div>
-                <div class="text-center">&copy; 2017 <a href="https://api-platform.com">Api-Platform</a></div>
-            </div>
-        </div>
-    </div>
+    {% frame %}
+        <div id="swagger-ui" class="api-platform"></div>
+        <div class="text-center">&copy; 2017 <a href="https://api-platform.com">Api-Platform</a></div>
+    {% endframe %}
 
 {% endblock %}
