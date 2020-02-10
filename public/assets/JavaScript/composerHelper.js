@@ -67,7 +67,7 @@ const vanillaAjaxForm = function(form) {
                     if(response.status[composerPackage] === true) {
                         showOutput = true;
                         if (response.status['typo3_version']) {
-                            composerPackage = composerPackage + ':' + response.status['typo3_version'];
+                            composerPackage = '"' + composerPackage + ':' + response.status['typo3_version'] + '"';
                         }
                         outputContainer.insertAdjacentText('beforeend', ' ' + composerPackage)
                     }
