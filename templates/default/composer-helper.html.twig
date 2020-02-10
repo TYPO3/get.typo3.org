@@ -24,7 +24,7 @@
             {% for bundleName,bundle in bundles %}
                 <button class="btn btn-primary js-composer-helper-toggle-packages" data-packages="{{ bundle }}">{{ bundleName }}</button>
             {% endfor %}
-            <button class="btn btn-default js-composer-helper-toggle-packages" data-packages="[]">Reset</button>
+            <button class="btn btn-light js-composer-helper-toggle-packages" data-packages="[]">Reset</button>
         </div>
         {{ form_end(form) }}
     {% endframe %}

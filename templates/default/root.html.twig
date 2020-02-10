@@ -6,7 +6,7 @@
         <h1>Build Blazingly&nbsp;Fast, Flexible&nbsp;Websites</h1>
         <p class="lead">
             {% if communityVersions|length > 0 %}<a href="#download" class="btn btn-lg btn-primary">Download TYPO3</a>{% endif %}
-            <a href="#try-online" class="btn btn-lg btn-default">Try TYPO3</a>
+            <a href="#try-online" class="btn btn-lg btn-light">Try TYPO3</a>
         </p>
     {% endframe %}
 
@@ -77,7 +77,7 @@
                                     <li>Version: <strong>{{ version.latestRelease.version }}</strong></li>
                                     <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
                                 </ul>
-                                {% set btnClass = 'default' %}
+                                {% set btnClass = 'light' %}
                                 {% if version.version == 10 %}
                                     {% set btnClass = 'primary' %}
                                 {% endif %}
@@ -127,7 +127,7 @@
                                     <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
                                 </ul>
                                 <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a>
-                                <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-default">
+                                <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-light">
                                     {% if version.latestRelease.elts %}See ELTS{% else %}Get version{% endif %}
                                     {{ version.version }}
                                 </a>
