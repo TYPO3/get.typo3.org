@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+# Please report vulnerabilities using the TYPO3 security team address
+Contact: mailto:security@typo3.org
+
+# OpenPGP key
+Encryption: https://typo3.org/fileadmin/t3o_common_storage/keys/B41CC3EF373E0F5C70187FE93BEFBD27C05FBE60.asc
+Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/B41CC3EF373E0F5C70187FE93BEFBD27C05FBE60
+Encryption: openpgp4fpr:B41CC3EF373E0F5C70187FE93BEFBD27C05FBE60
+
+# Preferred language when contacting us
+Preferred-Languages: en
+
+# Canonical URL
+Canonical: https://typo3.org/.well-known/security.txt
+
+# Security and incident handling policy
+Policy: https://typo3.org/community/teams/security/incident-handling
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEYt7scsok31lZaNU265PT69q8o48FAl5BXU4ACgkQ65PT69q8
+o4+fbQ/9E44PwUCycxzWH1yOFn56pxrCmfKdqPOdCugZSVPFxZq0RQtDRGYLJbnX
+G39D8//E9jMJ9NEHjrXka+caRjmf7QPv/L9Sw4b+9vk1ldiokW4vT7oFMFeEv8ei
+stgE9uQhv+YC3+orekO1eYAG3F1DGZ6K8/Eee/upktI5pOEi0RhTNFQtRS+4tjcd
+kaeNG5wl3nhuakGUzf9Dlv9WDneE9CjpiUryRUpcj8fYXEkcxKN3k7B2oRuBEA53
+vunMzegWIeRBQfxXzmNgeibChy2Sdz90vwwzXNMUcOW4VWFzNHW/SIpDgIMbEC8E
+aMm3IMlGmFYLLZGoXz8KL0E8WpibHOypQB/xUvRkMveJ4heta4nL6P0TQS+mXoQW
+moiaqcNdHkzLUYa3n2lyxQgFhWWNPiLG/K4remWmru24hsIPFDzMxrkehDYmJ9Vz
+0HkzG8Gv6i6b5bqbbnjhS4hlw+fBdM49fjDsB0AcleXUr58FMI6Ll4liJacHKkLa
+JfYF3PHrRo/5uqDQ91I/y1Tt5hoBbDAHLk+6UOzHpzSsqYzyE+dKV5F/cutF5DPm
+URECYKT7ipjecjEf8sK3Ey7a1jcZgXqH4OTE/NLWoGPyipupJl4IsMQ+p8LCsgBm
+jrj/oz9wlbC4V0F9zKICWfUOz2RWxi9B3bXwTpWRndAX+2pk7Bk=
+=ACTV
+-----END PGP SIGNATURE-----
