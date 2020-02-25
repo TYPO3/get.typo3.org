@@ -32,7 +32,6 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
             ]
         ],
         [
