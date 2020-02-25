@@ -23,7 +23,9 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-about',
             'description' => 'Shows info about TYPO3, installed extensions and a separate module for available modules.',
             'versions'    => [
-                10, 9, 8
+                10,
+                9,
+                8,
             ]
         ],
         [
@@ -41,7 +43,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -50,7 +52,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -59,7 +61,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -68,7 +70,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -84,42 +86,42 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-extensionmanager',
-            'description' => 'TYPO3 Extension Manager',
+            'description' => 'TYPO3 Extension Manager.',
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-feedit',
-            'description' => 'Frontend editing for TYPO3',
+            'description' => 'Frontend editing for TYPO3.',
             'versions' => [
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-felogin',
-            'description' => 'A template-based plugin to log in Website Users in the Frontend',
+            'description' => 'A template-based plugin to log in Website Users in the Frontend.',
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-filelist',
-            'description' => 'Listing of files in the directory',
+            'description' => 'Listing of files in the directory.',
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -128,7 +130,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -137,7 +139,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -146,16 +148,16 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-form',
-            'description' => 'Form Library, Plugin and Editor',
+            'description' => 'Form Library, Plugin and Editor.',
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -164,7 +166,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -173,7 +175,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -182,16 +184,16 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-info',
-            'description' => 'Shows various infos',
+            'description' => 'Shows various infos.',
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -200,7 +202,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -209,7 +211,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -218,7 +220,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -227,16 +229,16 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-recordlist',
-            'description' => 'List of database-records',
+            'description' => 'List of database-records.',
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -245,7 +247,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -253,7 +255,7 @@ class ComposerPackagesService
             'description' => 'Custom redirects in TYPO3.',
             'versions' => [
                 10,
-                9
+                9,
             ]
         ],
         [
@@ -262,15 +264,15 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-rsaauth',
-            'description' => 'Contains a service to authenticate TYPO3 BE and FE users using private/public key encryption of passwords',
+            'description' => 'Contains a service to authenticate TYPO3 BE and FE users using private/public key encryption of passwords.',
             'versions' => [
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -279,16 +281,16 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-scheduler',
-            'description' => 'The TYPO3 Scheduler let\'s you register tasks to happen at a specific time',
+            'description' => 'The TYPO3 Scheduler let\'s you register tasks to happen at a specific time.',
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -305,7 +307,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -313,7 +315,7 @@ class ComposerPackagesService
             'description' => 'Actions are \'programmed\' admin tasks which can be performed by selected regular users from the Task Center. An action could be creation of backend users, fixed SQL SELECT queries, listing of records, direct edit access to selected records etc.',
             'versions' => [
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -322,7 +324,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -331,15 +333,15 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
             'name'        => 'typo3/cms-taskcenter',
-            'description' => 'The Task Center is the framework for a host of other extensions, see below.',
+            'description' => 'The Task Center is the framework for a host of other extensions.',
             'versions' => [
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -348,7 +350,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -357,7 +359,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
         [
@@ -366,7 +368,7 @@ class ComposerPackagesService
             'versions' => [
                 10,
                 9,
-                8
+                8,
             ]
         ],
     ];
