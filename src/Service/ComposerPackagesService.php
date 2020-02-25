@@ -72,6 +72,13 @@ class ComposerPackagesService
             ]
         ],
         [
+            'name'        => 'typo3/cms-dashboard',
+            'description' => 'Dashboard for TYPO3.',
+            'versions' => [
+                10,
+            ]
+        ],
+        [
             'name'        => 'typo3/cms-extbase',
             'description' => 'A framework to build extensions for TYPO3 CMS.',
             'versions' => [
@@ -372,6 +379,7 @@ class ComposerPackagesService
             'typo3/cms-belog',
             'typo3/cms-beuser',
             'typo3/cms-core',
+            'typo3/cms-dashboard',
             'typo3/cms-extbase',
             'typo3/cms-extensionmanager',
             'typo3/cms-feedit',
@@ -424,6 +432,7 @@ class ComposerPackagesService
             'typo3/cms-belog',
             'typo3/cms-beuser',
             'typo3/cms-core',
+            'typo3/cms-dashboard',
             'typo3/cms-extbase',
             'typo3/cms-extensionmanager',
             'typo3/cms-filelist',
