@@ -467,8 +467,8 @@ class ComposerPackagesService
             'value' => '*'
         ],
         [
-            'name' => 'TYPO3 10.2',
-            'value' => '^10.2'
+            'name' => 'TYPO3 10.3',
+            'value' => '^10.3'
         ],
         [
             'name' => 'TYPO3 9.5 LTS',
