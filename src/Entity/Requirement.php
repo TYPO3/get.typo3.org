@@ -48,16 +48,16 @@ class Requirement implements \JsonSerializable
     private $name;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     * @var float
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="5.5")
      */
     private $min;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     * @var float
+     * @ORM\Column(type="string", nullable=true)
+     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="5.7")
      */
@@ -96,22 +96,22 @@ class Requirement implements \JsonSerializable
         return $this->name;
     }
 
-    public function setMin(?float $min): void
+    public function setMin(?string $min): void
     {
         $this->min = $min;
     }
 
-    public function getMin(): ?float
+    public function getMin(): ?string
     {
         return $this->min;
     }
 
-    public function setMax(?float $max): void
+    public function setMax(?string $max): void
     {
         $this->max = $max;
     }
 
-    public function getMax(): ?float
+    public function getMax(): ?string
     {
         return $this->max;
     }
