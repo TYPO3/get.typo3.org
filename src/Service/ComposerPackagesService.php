@@ -461,23 +461,25 @@ class ComposerPackagesService
 
     protected static $versions = [
         [
-            'name' => 'No version specified',
-            'value' => ''
-        ],        [
-            'name' => 'Any version - *',
-            'value' => '*'
-        ],
-        [
             'name' => 'TYPO3 10.3',
-            'value' => '^10.3'
+            'value' => '^10.3',
         ],
         [
             'name' => 'TYPO3 9.5 LTS',
-            'value' => '^9.5'
+            'value' => '^9.5',
         ],
         [
             'name' => 'TYPO3 8.7 LTS',
-            'value' => '^8.7'
+            'value' => '^8.7',
+        ],
+        [
+            'name' => 'No version specified (lastest version)',
+            'value' => '',
+            'group' => 'Special Versions',
+        ],        [
+            'name' => 'Any version "*" (lastest compatible version, not recommended)',
+            'value' => '*',
+            'group' => 'Special Versions',
         ],
     ];
 
@@ -485,10 +487,11 @@ class ComposerPackagesService
     {
         $versionChoices = [
             'choices'  => [],
-            'required'   => false,
+            'data'     => self::$versions[0]['value'],
+            'required' => true,
         ];
         foreach (self::$versions as $version) {
-            $versionChoices['choices'][$version['name']] = $version['value'];
+            $versionChoices['choices'][isset($version['group']) ? $version['group'] : 'TYPO3 CMS Versions'][$version['name']] = $version['value'];
         }
         $builder->add(
             'typo3_version',
@@ -528,23 +531,26 @@ class ComposerPackagesService
                 }, $packages)
             );
         }
+
         return $sanitizedBundles;
     }
 
     public function cleanPackagesForVersions(array $packages): array
     {
-        if ($packages['typo3_version'] === '^9.5') {
-            $version = 9;
-        } elseif ($packages['typo3_version'] === '^8.7') {
+        if ($packages['typo3_version'] === '^8.7') {
             $version = 8;
+        } elseif ($packages['typo3_version'] === '^9.5') {
+            $version = 9;
         } else {
             $version = 10;
         }
+
         foreach (self::$packages as $package) {
             if (!in_array($version, $package['versions'], true)) {
                 unset($packages[$package['name']]);
             }
         }
+
         return $packages;
     }
 }

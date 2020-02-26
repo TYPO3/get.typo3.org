@@ -62,8 +62,16 @@ const vanillaAjaxForm = function(form) {
                 let outputContainer = document.getElementsByClassName('js-composer-helper-packages')[0];
                 outputContainer.innerHTML = '';
 
+                const allComposerPackages = document.getElementsByClassName('js-composer-package-check');
+                hideAll(allComposerPackages);
+
                 let showOutput = false;
                 Object.keys(response.status).forEach(composerPackage => {
+                    if(typeof response.status[composerPackage] === "boolean") {
+                        const input = document.querySelectorAll('input[name="form[' + composerPackage.replace('/', '-') + ']"]')[0];
+                        input.parentElement.parentElement.classList.remove('hidden');
+                    }
+
                     if(response.status[composerPackage] === true) {
                         showOutput = true;
                         if (response.status['typo3_version']) {
@@ -84,6 +92,12 @@ const vanillaAjaxForm = function(form) {
         }
     };
 };
+const hideAll = function(elementArray) {
+    Array.from(elementArray).forEach(element => {
+        element.parentElement.parentElement.classList.add('hidden');
+    })
+};
+
 
 /**
  * This event is assigned via the onChange attribute since bootstraps data-toggle for checkbox buttons suppresses the change event
