@@ -495,7 +495,7 @@ class ComposerPackagesService
             ChoiceType::class,
             array_merge($versionChoices, [
                 'label'         => 'TYPO3 Version',
-                'label_attr'    => ['class' => 'checkbox-custom'],
+                'label_attr'    => ['class' => 'version-label'],
                 'attr'          => ['class' => 'js-composer-package-version', 'onChange' => 'checkboxChangeEvent()'],
             ])
         );
