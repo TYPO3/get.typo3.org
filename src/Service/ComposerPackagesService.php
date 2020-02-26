@@ -473,11 +473,11 @@ class ComposerPackagesService
             'value' => '^8.7',
         ],
         [
-            'name' => 'No version specified (installs lastest version)',
+            'name' => 'No version specified (installs latest version)',
             'value' => '',
             'group' => self::SPECIAL_VERSIONS,
         ],        [
-            'name' => 'Any version `*` (installs lastest compatible version, not recommended)',
+            'name' => 'Any version `*` (installs latest compatible version, not recommended)',
             'value' => '*',
             'group' => self::SPECIAL_VERSIONS,
         ],
