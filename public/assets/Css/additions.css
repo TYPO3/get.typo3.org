@@ -37,10 +37,6 @@ pre {
 .composer-helper-form .help-block {
     padding-left: 1.5rem;
 }
-.composer-helper-form .form-group.hidden {
-    display: none;
-    visibility: hidden;
-}
 @media (min-width: 576px) {
     .composer-helper-form .form-group {
         display: flex;

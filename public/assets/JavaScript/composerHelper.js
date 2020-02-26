@@ -69,7 +69,7 @@ const vanillaAjaxForm = function(form) {
                 Object.keys(response.status).forEach(composerPackage => {
                     if(typeof response.status[composerPackage] === "boolean") {
                         const input = document.querySelectorAll('input[name="form[' + composerPackage.replace('/', '-') + ']"]')[0];
-                        input.parentElement.parentElement.classList.remove('hidden');
+                        input.parentElement.parentElement.classList.remove('d-none');
                     }
 
                     if(response.status[composerPackage] === true) {
@@ -94,7 +94,7 @@ const vanillaAjaxForm = function(form) {
 };
 const hideAll = function(elementArray) {
     Array.from(elementArray).forEach(element => {
-        element.parentElement.parentElement.classList.add('hidden');
+        element.parentElement.parentElement.classList.add('d-none');
     })
 };
 
