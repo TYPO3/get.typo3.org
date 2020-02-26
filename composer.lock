@@ -6908,16 +6908,16 @@
         },
         {
             "name": "t3g/symfony-template-bundle",
-            "version": "2.1.0",
+            "version": "2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3GmbH/symfony-template-bundle.git",
-                "reference": "e499faeb24b514adc5598677b4f5c703e7560c2b"
+                "reference": "6483d2bfa9e7c1707e11d52b5eac836b166e500f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/e499faeb24b514adc5598677b4f5c703e7560c2b",
-                "reference": "e499faeb24b514adc5598677b4f5c703e7560c2b",
+                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/6483d2bfa9e7c1707e11d52b5eac836b166e500f",
+                "reference": "6483d2bfa9e7c1707e11d52b5eac836b166e500f",
                 "shasum": ""
             },
             "require": {
@@ -6964,7 +6964,7 @@
                 "templates",
                 "typo3"
             ],
-            "time": "2020-02-10T16:22:10+00:00"
+            "time": "2020-02-19T10:01:17+00:00"
         },
         {
             "name": "twig/extensions",
