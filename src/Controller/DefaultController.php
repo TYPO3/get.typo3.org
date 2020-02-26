@@ -280,16 +280,6 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/misc/composer/repository", methods={"GET"}, name="composer-repository")
-     */
-    public function composerRepository(): Response
-    {
-        $templateName = 'default/composer-repository.html.twig';
-
-        return $this->render($templateName);
-    }
-
-    /**
      * @Route("/ajax/composer/helper/generate", methods={"POST"}, name="ajax-composer-helper-generate")
      * @param Request $request
      * @return JsonResponse
@@ -309,6 +299,16 @@ class DefaultController extends AbstractController
         }
 
         return new JsonResponse(['status' => $formData]);
+    }
+
+    /**
+     * @Route("/misc/composer/repository", methods={"GET"}, name="composer-repository")
+     */
+    public function composerRepository(): Response
+    {
+        $templateName = 'default/composer-repository.html.twig';
+
+        return $this->render($templateName);
     }
 
     /**
