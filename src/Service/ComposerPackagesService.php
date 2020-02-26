@@ -473,15 +473,18 @@ class ComposerPackagesService
             'value' => '^8.7',
         ],
         [
-            'name' => 'No version specified (lastest version)',
+            'name' => 'No version specified (installs lastest version)',
             'value' => '',
-            'group' => 'Special Versions',
+            'group' => self::SPECIAL_VERSIONS,
         ],        [
-            'name' => 'Any version "*" (lastest compatible version, not recommended)',
+            'name' => 'Any version `*` (installs lastest compatible version, not recommended)',
             'value' => '*',
-            'group' => 'Special Versions',
+            'group' => self::SPECIAL_VERSIONS,
         ],
     ];
+
+    public const CMS_VERSIONS = 'TYPO3 CMS Versions';
+    public const SPECIAL_VERSIONS = 'Special Version Selectors';
 
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
@@ -491,7 +494,7 @@ class ComposerPackagesService
             'required' => true,
         ];
         foreach (self::$versions as $version) {
-            $versionChoices['choices'][isset($version['group']) ? $version['group'] : 'TYPO3 CMS Versions'][$version['name']] = $version['value'];
+            $versionChoices['choices'][isset($version['group']) ? $version['group'] : self::CMS_VERSIONS][$version['name']] = $version['value'];
         }
         $builder->add(
             'typo3_version',
