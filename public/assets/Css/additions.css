@@ -29,6 +29,11 @@ pre {
 .composer-helper-form .custom-control-label {
     font-weight: bold;
 }
+.composer-helper-form .version-label {
+    font-weight: bold;
+    padding: 0.375rem 0.75rem 0.375rem 0;
+    white-space: nowrap;
+}
 .composer-helper-form .help-block {
     padding-left: 1.5rem;
 }

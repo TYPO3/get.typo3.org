@@ -484,8 +484,7 @@ class ComposerPackagesService
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
         $versionChoices = [
-            'choices'  => [
-            ],
+            'choices'  => [],
             'required'   => false,
         ];
         foreach (self::$versions as $version) {
@@ -494,7 +493,11 @@ class ComposerPackagesService
         $builder->add(
             'typo3_version',
             ChoiceType::class,
-            array_merge($versionChoices, ['label' => 'TYPO3 Version'])
+            array_merge($versionChoices, [
+                'label'         => 'TYPO3 Version',
+                'label_attr'    => ['class' => 'version-label'],
+                'attr'          => ['class' => 'js-composer-package-version', 'onChange' => 'checkboxChangeEvent()'],
+            ])
         );
 
         foreach (self::$packages as $package) {
