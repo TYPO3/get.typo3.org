@@ -59,6 +59,24 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
                 'max' => null,
             ],
             [
+                'category' => RequirementCategoryEnum::OPTION_DATABASE,
+                'name' => 'postgres',
+                'min' => null,
+                'max' => null,
+            ],
+            [
+                'category' => RequirementCategoryEnum::OPTION_DATABASE,
+                'name' => 'sqlsrv',
+                'min' => null,
+                'max' => null,
+            ],
+            [
+                'category' => RequirementCategoryEnum::OPTION_DATABASE,
+                'name' => 'mariadb',
+                'min' => '10',
+                'max' => '10.2.26',
+            ],
+            [
                 'category' => RequirementCategoryEnum::OPTION_HARDWARE,
                 'name' => 'ram',
                 'min' => 256,
