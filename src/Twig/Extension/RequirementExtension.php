@@ -116,11 +116,12 @@ class RequirementExtension extends AbstractExtension
                     ]
                 )
             ) {
-                $digits = max(
+                // Calculate the digits and force range from 2 to 3
+                $digits = min(max(
                     substr_count((string)$requirement->getMin(), '.'),
                     substr_count((string)$requirement->getMax(), '.'),
                     1
-                ) + 1;
+                ), 2) + 1;
             } else {
                 $digits = 1;
             }
