@@ -116,9 +116,17 @@ class RequirementExtension extends AbstractExtension
                     ]
                 )
             ) {
-                $requirement->setMin(VersionUtility::normalize($requirement->getMin()));
-                $requirement->setMax(VersionUtility::normalize($requirement->getMax()));
+                $digits = max(
+                    substr_count((string)$requirement->getMin(), '.'),
+                    substr_count((string)$requirement->getMax(), '.'),
+                    1
+                ) + 1;
+            } else {
+                $digits = 1;
             }
+
+            $requirement->setMin(VersionUtility::normalize($requirement->getMin(), $digits));
+            $requirement->setMax(VersionUtility::normalize($requirement->getMax(), $digits));
         }
     }
 
