@@ -45,6 +45,11 @@ composer test:php:unit
 composer test:php:functional
 ```
 
+## API Dev Access
+
+In the dev context you can authorize your requests with the username `developer`
+and the password `password` by default.
+
 ## Troubleshooting
 
 ### Authorization not working
