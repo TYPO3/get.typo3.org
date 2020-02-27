@@ -1,45 +1,53 @@
 # get.typo3.org
 
-Symfony 4 application for release notes, download redirects and JSON API for releases.
+Symfony 4 application for release notes, download redirects and JSON API for
+releases.
 
-# Installation with .ddev
+## Installation with DDEV Local
+
+Composer installation, database creation or migration are automatically done at
+startup. So simply run
+
+`ddev start`
+
+and start hacking. To head to the project in the browser run
+
+`ddev launch`
+
+## Manual Installation
 
 1. edit `.env` vars from `.env.dist`
-2. ddev start
-3. ddev ssh
-4. execute `composer install`
-5. `php ./bin/console doctrine:schema:create`
-
-# Manual Installation
-
 1. execute `composer install`
-2. edit `.env` vars from `.env.dist`
-3. execute `php ./bin/console doctrine:schema:create` to create database schema
+1. execute `php ./bin/console doctrine:schema:create` to create database schema
 
-# Database Migration
+## Database Migration
 
-```
+```bash
 php ./bin/console doctrine:migrations:migrate
 ```
 
-# Import Fixtures
+## Import Fixtures
 
-```
+```bash
 php ./bin/console doctrine:fixtures:load
 ```
 
-# Testing
+## Testing
 
-```
+For DDEV installations prepend `ddev` before the composer commands.
+
+```bash
+composer test
+
 composer test:php:cgl
 composer test:php:lint
 composer test:php:unit
 composer test:php:functional
 ```
 
-# Troubleshooting
+## Troubleshooting
 
-## Authorization not working
+### Authorization not working
 
 In case authorization does not succeed the reason might be that the web server
 tries to handle the authentication and does not expose the information to the

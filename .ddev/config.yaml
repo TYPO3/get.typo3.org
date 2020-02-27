@@ -12,6 +12,12 @@ additional_fqdns: []
 mariadb_version: "10.2"
 nfs_mount_enabled: false
 provider: default
+hooks:
+  post-start:
+  - composer: install
+  - exec: /mnt/ddev_config/scripts/setup-db
+  pre-start:
+  - exec-host: .ddev/scripts/copy-dotenv
 use_dns_when_possible: true
 timezone: ""
 
