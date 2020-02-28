@@ -20,6 +20,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,18 +108,41 @@ class ListMissingDownloadsCommand extends Command
 
     private function getFixedUrl(string $url, string $release, int $format)
     {
-        if (!$this->checkUrl($url)) {
-            $result = "https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20$release/typo3_src-$release.";
-            $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
+        try {
+            if ($this->checkRedirect($url)) {
+                if ($this->checkUrl($url)) {
+                    return true;
+                } else {
+                    $result = "https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20$release/typo3_src-$release.";
+                    $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
 
-            if (!$this->checkUrl($result)) {
-                $result = 'failed (' . $result . ')';
+                    if (!$this->checkUrl($result)) {
+                        $result = 'failed (' . $result . ')';
+                    }
+
+                    return $result;
+                }
             }
 
-            return $result;
+            return 'redirect failed for ' . $url;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
+    }
 
-        return true;
+    private function checkRedirect(string $url): bool
+    {
+        $client = HttpClient::create();
+
+        try {
+            $client->request('GET', $url, ['max_redirects' => 0]);
+
+            throw new \Exception('something went wrong while calling ' . $url);
+        } catch (RedirectionException $e) {
+            return true;
+        } catch (ClientException $e) {
+            return false;
+        }
     }
 
     private function checkUrl(string $url): bool
