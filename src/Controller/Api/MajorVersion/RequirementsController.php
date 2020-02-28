@@ -32,6 +32,49 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RequirementsController extends AbstractController
 {
     /**
+     * Get TYPO3 major version requirements
+     * @Route("s", methods={"GET"})
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns TYPO3 major version requirements",
+     *     @SWG\Schema(
+     *     @Model(type=\App\Entity\Requirement::class, groups={"data"})
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Version is not numeric."
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Version not found."
+     * )
+     * @SWG\Tag(name="major")
+     * @SWG\Tag(name="requirement")
+     *
+     * @param string $version Specific TYPO3 Version to fetch
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
+    {
+        $this->checkMajorVersionFormat($version);
+        $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
+        $entities = $requirementRepo->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
+        if (null === $entities) {
+            throw new NotFoundHttpException('Version not found.');
+        }
+        $json = $this->serializer->serialize(
+            $entities,
+            'json',
+            SerializationContext::create()->setGroups(['data'])
+        );
+        $response = new JsonResponse($json, 200, [], true);
+        $response->setEtag(md5($json));
+        $response->isNotModified($request);
+        return $response;
+    }
+
+    /**
      * Create new major TYPO3 version requirement
      * @Route("/", methods={"POST"})
      * @Security("has_role('ROLE_ADMIN')")

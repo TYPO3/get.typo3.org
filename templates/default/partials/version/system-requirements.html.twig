@@ -13,7 +13,7 @@
                     <th scope="row">Webserver</th>
                     <td>Apache httpd, Nginx, Microsoft IIS{% if version > 8 %}, Caddy Server{% endif %}</td>
                 </tr>
-                {% for category,element in requirements|groupByCategory %}
+                {% for category,element in requirements|prepareRequirements %}
                     <tr>
                         <th scope="row">
                             {% if (category == 'php') %}
@@ -26,27 +26,7 @@
                         </th>
                         <td>
                             {% for entry in element %}
-                                {% if (entry.name == 'php') %}
-                                    PHP
-                                {% elseif (entry.name == 'client') %}
-                                    {{ entry.name|title }}
-                                {% elseif (entry.name == 'ie') %}
-                                    Internet Explorer
-                                {% elseif (entry.name == 'postgres') %}
-                                    PostgreSQL
-                                {% elseif (entry.name == 'sqlsrv') %}
-                                    Microsoft SQL Server
-                                {% elseif (entry.name == 'mysql') %}
-                                    MySQL
-                                {% elseif (entry.name == 'mariadb') %}
-                                    MariaDB
-                                {% elseif (entry.name == 'sqlite') %}
-                                    SQLite
-                                {% elseif (entry.name == 'ram') %}
-                                    RAM
-                                {% else %}
-                                    {{ entry.name|title }}
-                                {% endif %}
+                                {{ entry.title }}
                                 {% if entry.min %}
                                     >= {{ entry.min }}
                                     {% if (entry.name == 'ram') %}

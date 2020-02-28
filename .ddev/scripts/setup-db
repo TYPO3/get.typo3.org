@@ -1,0 +1,15 @@
+#!/bin/bash
+
+DBFILE=`echo $DATABASE_URL|sed 's@sqlite:\/\/\/%kernel\.project_dir%@'"$WEBSERVER_DOCROOT"'@'`
+
+if [ ! -f $DBFILE ]; then
+    echo "No database found, creating a new one including the fixtures..."
+
+    php ./bin/console doctrine:schema:create
+    php ./bin/console doctrine:migrations:version --add --all
+    php ./bin/console doctrine:fixtures:load
+else
+    echo "Database found, running the migrations..."
+
+    php ./bin/console doctrine:migrations:migrate
+fi

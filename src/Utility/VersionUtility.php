@@ -12,6 +12,21 @@ namespace App\Utility;
 
 class VersionUtility
 {
+    /**
+     * Regex to match pre-release data (sort of).
+     *
+     * Due to backwards compatibility:
+     *   - Instead of enforcing hyphen, an underscore, dot or nothing at all are also accepted.
+     *   - Only stabilities as recognized by Composer are allowed to precede a numerical identifier.
+     *   - Numerical-only pre-release identifiers are not supported, see tests.
+     *
+     *                        |--------------|
+     * [major].[minor].[patch] -[pre-release] +[build-metadata]
+     *
+     * @var string
+     */
+    private static $modifierRegex = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
+
     public static function extractMajorVersionNumber(string $version): float
     {
         $versionData = explode('.', trim($version));
@@ -29,5 +44,21 @@ class VersionUtility
             $matches
         );
         return (int) $success === 1;
+    }
+
+    public static function normalize($version, int $digits = 3)
+    {
+        $version = trim((string)$version);
+
+        // match classical versioning
+        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::$modifierRegex . '$}i', $version, $matches)) {
+            $version = $matches[1];
+
+            for ($i = 2; $i <= $digits; $i++) {
+                $version .= (!empty($matches[$i]) ? $matches[$i] : '.0');
+            }
+        }
+
+        return $version;
     }
 }
