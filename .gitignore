@@ -2,6 +2,7 @@
 .idea/
 .vscode/
 *.cache
+missing-downloads.yaml
 !/bin/
 /bin/*
 !/bin/console
