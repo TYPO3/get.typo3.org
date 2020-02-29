@@ -96,6 +96,32 @@ class MajorVersionRepository extends EntityRepository
         return $data;
     }
 
+    public function findAllComposerSupported()
+    {
+        $qb = $this->createQueryBuilder('m');
+        $qb->where(
+            $qb->expr()->gte('m.version', ':minversion')
+        );
+        $qb->setParameter('minversion', 8);
+        $qb->addOrderBy('m.version', 'DESC');
+        return $qb->getQuery()->execute();
+    }
+
+    public function findLatestLtsComposerSupported()
+    {
+        $qb = $this->createQueryBuilder('m');
+        $qb->where(
+            $qb->expr()->andX(
+                $qb->expr()->isNotNull('m.lts'),
+                $qb->expr()->gte('m.version', ':minversion')
+            )
+        );
+        $qb->setParameter('minversion', 8);
+        $qb->addOrderBy('m.version', 'DESC');
+        $res = $qb->getQuery()->execute();
+        return reset($res);
+    }
+
     private function findStableReleases(): array
     {
         $qb = $this->createQueryBuilder('m');

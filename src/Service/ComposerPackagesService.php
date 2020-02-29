@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\MajorVersion;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -555,43 +557,52 @@ class ComposerPackagesService
         ]
     ];
 
-    protected static $versions = [
-        [
-            'name' => 'TYPO3 10.3',
-            'value' => '^10.3',
-        ],
-        [
-            'name' => 'TYPO3 9.5 LTS',
-            'value' => '^9.5',
-        ],
-        [
-            'name' => 'TYPO3 8.7 LTS',
-            'value' => '^8.7',
-        ],
+    protected static $specialVersions = [
         [
             'name' => 'No version specified (installs latest version)',
             'value' => '',
-            'group' => self::SPECIAL_VERSIONS,
         ],        [
-            'name' => 'Any version `*` (installs latest compatible version, not recommended)',
+            'name' => 'Any version `*` (installs latest compatible version, not recommended, use with caution)',
             'value' => '*',
-            'group' => self::SPECIAL_VERSIONS,
         ],
     ];
 
     public const CMS_VERSIONS = 'TYPO3 CMS Versions';
     public const SPECIAL_VERSIONS = 'Special Version Selectors';
 
+    /**
+     * @var \Doctrine\ORM\EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
+        /** @var \App\Repository\MajorVersionRepository $repository */
+        $repository = $this->entityManager->getRepository(MajorVersion::class);
+
         $versionChoices = [
             'choices'  => [],
-            'data'     => self::$versions[0]['value'],
+            'data'     => $this->getComposerVersionConstraint(
+                $repository->findLatestLtsComposerSupported()->getLatestRelease()->getVersion()
+            ),
             'required' => true,
         ];
-        foreach (self::$versions as $version) {
-            $versionChoices['choices'][isset($version['group']) ? $version['group'] : self::CMS_VERSIONS][$version['name']] = $version['value'];
+
+        $majorVersions = $repository->findAllComposerSupported();
+        foreach ($majorVersions as $version) {
+            $versionChoices['choices'][self::CMS_VERSIONS][$version->getTitle()] =
+                $this->getComposerVersionConstraint($version->getLatestRelease()->getVersion());
         }
+
+        foreach (self::$specialVersions as $version) {
+            $versionChoices['choices'][self::SPECIAL_VERSIONS][$version['name']] = $version['value'];
+        }
+
         $builder->add(
             'typo3_version',
             ChoiceType::class,
@@ -651,5 +662,16 @@ class ComposerPackagesService
         }
 
         return $packages;
+    }
+
+    private function getComposerVersionConstraint(string $version): string
+    {
+        if (\preg_match('/^\d+\.\d+/', $version, $matches)) {
+            $result = '^' . $matches[0];
+        } else {
+            $result = '';
+        }
+
+        return $result;
     }
 }
