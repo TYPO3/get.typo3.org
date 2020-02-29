@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('js-composer-helper-form');
     const allComposerPackages = document.getElementsByClassName('js-composer-package-check');
 
+    vanillaAjaxForm(form);
+
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         vanillaAjaxForm(form);
