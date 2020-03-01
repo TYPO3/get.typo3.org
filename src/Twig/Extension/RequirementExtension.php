@@ -11,8 +11,6 @@ declare(strict_types=1);
 namespace App\Twig\Extension;
 
 use App\Entity\Requirement;
-use App\Enum\RequirementCategoryEnum;
-use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -107,27 +105,7 @@ class RequirementExtension extends AbstractExtension
     private function normalizeVersionHelper(array &$data)
     {
         foreach ($data as &$requirement) {
-            if (
-                \in_array(
-                    $requirement->getCategory(),
-                    [
-                        RequirementCategoryEnum::OPTION_PHP,
-                        RequirementCategoryEnum::OPTION_DATABASE,
-                    ]
-                )
-            ) {
-                // Calculate the digits and force range from 2 to 3
-                $digits = min(max(
-                    substr_count((string)$requirement->getMin(), '.'),
-                    substr_count((string)$requirement->getMax(), '.'),
-                    1
-                ), 2) + 1;
-            } else {
-                $digits = 1;
-            }
-
-            $requirement->setMin(VersionUtility::normalize($requirement->getMin(), $digits));
-            $requirement->setMax(VersionUtility::normalize($requirement->getMax(), $digits));
+            $requirement->normalizeVersions();
         }
     }
 

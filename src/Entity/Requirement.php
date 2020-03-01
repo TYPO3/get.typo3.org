@@ -10,6 +10,7 @@
 namespace App\Entity;
 
 use App\Enum\RequirementCategoryEnum;
+use App\Utility\VersionUtility;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
@@ -164,5 +165,30 @@ class Requirement implements \JsonSerializable
     public function jsonSerialize()
     {
         return [];
+    }
+
+    public function normalizeVersions(): void
+    {
+        if (
+            \in_array(
+                $this->getCategory(),
+                [
+                    RequirementCategoryEnum::OPTION_PHP,
+                    RequirementCategoryEnum::OPTION_DATABASE,
+                ]
+            )
+        ) {
+            // Calculate the digits and force range from 2 to 3
+            $digits = min(max(
+                substr_count((string)$this->min, '.'),
+                substr_count((string)$this->max, '.'),
+                1
+            ), 2) + 1;
+        } else {
+            $digits = 1;
+        }
+
+        $this->setMin(VersionUtility::normalize($this->min, $digits));
+        $this->setMax(VersionUtility::normalize($this->max, $digits));
     }
 }
