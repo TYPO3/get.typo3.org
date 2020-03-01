@@ -138,7 +138,7 @@ class VersionUtilityTest extends TestCase
                     'title' => 'TYPO3 6.2',
                     'releaseDate' => $dateTimeToday->modify('-3 years'),
                     'maintainedUntil' => $dateTimeToday->modify('-1 day'),
-                    'eltsUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                    'eltsUntil' => $dateTimeToday->modify('-1 day')->modify('+3 years'),
                     'active' => false,
                     'elts' => true,
                 ]
@@ -160,7 +160,7 @@ class VersionUtilityTest extends TestCase
                     'title' => 'TYPO3 4.5',
                     'releaseDate' => $dateTimeToday->modify('-6 years'),
                     'maintainedUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day'),
-                    'eltsUntil' => $dateTimeToday->modify('-1 day'),
+                    'eltsUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day')->modify('+3 years'),
                     'active' => false,
                     'elts' => false,
                 ]
