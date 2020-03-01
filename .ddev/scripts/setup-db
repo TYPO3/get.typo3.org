@@ -1,6 +1,13 @@
 #!/bin/bash
 
-DBFILE=`echo $DATABASE_URL|sed 's@sqlite:\/\/\/%kernel\.project_dir%@'"$WEBSERVER_DOCROOT"'@'`
+if [ "$APP_ENV" = "test" ]; then
+    DBFILE=$WEBSERVER_DOCROOT'/var/test.db'
+    test -f $DBFILE && rm $DBFILE && echo 'Database file removed'
+else
+    DBFILE=`echo $DATABASE_URL|sed 's@sqlite:\/\/\/%kernel\.project_dir%@'"$WEBSERVER_DOCROOT"'@'`
+fi
+
+echo 'Database file: '$DBFILE
 
 if [ ! -f $DBFILE ]; then
     echo "No database found, creating a new one including the fixtures..."
