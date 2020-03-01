@@ -135,6 +135,16 @@ class Requirement implements \JsonSerializable
                 return 'RAM';
                 break;
 
+            case RequirementCategoryEnum::OPTION_OS:
+                $version = $this->version->getVersion();
+                return 'Linux, Windows' . ($version > 8 ? ', ' : ' or ') . 'Mac' . ($version > 8 ? ' or common cloud infrastructure setups' : '');
+                break;
+
+            case RequirementCategoryEnum::OPTION_WEBSERVER:
+                $version = $this->version->getVersion();
+                return 'Apache httpd, Nginx' . ($version > 8 ? ', ' : ' or ') . 'Microsoft IIS' . ($this->version->getVersion() > 8 ? ' or Caddy Server' : '');
+                break;
+
             default:
                 return \ucfirst($this->getName());
                 break;
