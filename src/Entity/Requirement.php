@@ -97,6 +97,13 @@ class Requirement implements \JsonSerializable
         return $this->name;
     }
 
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("title")
+     * @Serializer\Groups({"data", "content"})
+     *
+     * @return string
+     */
     public function getTitle(): string
     {
         switch ($this->getName()) {
