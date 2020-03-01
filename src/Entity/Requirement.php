@@ -135,6 +135,34 @@ class Requirement implements \JsonSerializable
     }
 
     public function setMin(?string $min): void
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("constraint")
+     * @Serializer\Groups({"data", "content"})
+     *
+     * @return string
+     */
+    public function getConstraint(): string
+    {
+        if ($this->min) {
+            $this->normalizeVersions();
+
+            $result = '>= ' . $this->min;
+
+            if ($this->name === 'ram') {
+                $result .= ' MB';
+            } elseif ($this->max) {
+                $result .= ' <= ' . $this->max;
+            }
+        } elseif ($this->category === RequirementCategoryEnum::OPTION_CLIENT) {
+            $result = '(latest)';
+        } else {
+            $result = '';
+        }
+
+        return $result;
+    }
+
     {
         $this->min = $min;
     }
