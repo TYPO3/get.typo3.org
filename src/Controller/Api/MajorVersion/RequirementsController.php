@@ -58,13 +58,26 @@ class RequirementsController extends AbstractController
     public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
-        $entities = $requirementRepo->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
+        /** @var \App\Repository\RequirementRepository $requirementRepository */
+        $requirementRepository = $this->getDoctrine()->getRepository(Requirement::class);
+        $entities = $requirementRepository->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
         if (null === $entities) {
             throw new NotFoundHttpException('Version not found.');
         }
+        $entities = array_merge($requirementRepository->getCommonEntities(reset($entities)->getVersion()), $entities);
+        usort($entities, function ($a, $b) {
+            return strcasecmp($a->getTitle(), $b->getTitle());
+        });
+        $grouped = [];
+        foreach ($entities as $entity) {
+            $this->stringAppend($grouped[$entity->getCategory()]['titles'], $entity->getTitle());
+            $this->stringAppend($grouped[$entity->getCategory()]['constraints'], $entity->getConstraint());
+            $this->stringAppend($grouped[$entity->getCategory()]['titlesAndConstraints'], $entity->getTitleAndConstraint());
+            //sort($grouped[$entity->getCategory()]);
+        }
+
         $json = $this->serializer->serialize(
-            $entities,
+            $grouped,
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
@@ -72,6 +85,15 @@ class RequirementsController extends AbstractController
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
+    }
+
+    private function stringAppend(&$string, $value)
+    {
+        if (!empty($string) && !empty($value)) {
+            $string .= ', ';
+        }
+
+        $string .= $value;
     }
 
     /**
