@@ -163,6 +163,18 @@ class Requirement implements \JsonSerializable
         return $result;
     }
 
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("titleAndConstraint")
+     * @Serializer\Groups({"data", "content"})
+     *
+     * @return string
+     */
+    public function getTitleAndConstraint(): string
+    {
+        return trim($this->getTitle() . ' ' . $this->getConstraint());
+    }
+
     {
         $this->min = $min;
     }
