@@ -64,9 +64,11 @@ class Requirement implements \JsonSerializable
      */
     private $max;
 
-    public function setVersion(MajorVersion $version): void
+    public function setVersion(MajorVersion $version): self
     {
         $this->version = $version;
+
+        return $this;
     }
 
     public function getVersion(): MajorVersion
@@ -74,12 +76,14 @@ class Requirement implements \JsonSerializable
         return $this->version;
     }
 
-    public function setCategory(string $category): void
+    public function setCategory(string $category): self
     {
         if (!in_array($category, RequirementCategoryEnum::getAvailableOptions())) {
             throw new \InvalidArgumentException('Invalid category');
         }
         $this->category = $category;
+
+        return $this;
     }
 
     public function getCategory(): string
@@ -87,9 +91,11 @@ class Requirement implements \JsonSerializable
         return $this->category;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
     public function getName(): string
@@ -151,7 +157,6 @@ class Requirement implements \JsonSerializable
         }
     }
 
-    public function setMin(?string $min): void
     /**
      * @Serializer\VirtualProperty
      * @Serializer\SerializedName("constraint")
@@ -192,8 +197,11 @@ class Requirement implements \JsonSerializable
         return trim($this->getTitle() . ' ' . $this->getConstraint());
     }
 
+    public function setMin(?string $min): self
     {
         $this->min = $min;
+
+        return $this;
     }
 
     public function getMin(): ?string
@@ -201,9 +209,11 @@ class Requirement implements \JsonSerializable
         return $this->min;
     }
 
-    public function setMax(?string $max): void
+    public function setMax(?string $max): self
     {
         $this->max = $max;
+
+        return $this;
     }
 
     public function getMax(): ?string
