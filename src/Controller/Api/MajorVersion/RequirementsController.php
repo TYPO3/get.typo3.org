@@ -70,10 +70,7 @@ class RequirementsController extends AbstractController
         });
         $grouped = [];
         foreach ($entities as $entity) {
-            $this->stringAppend($grouped[$entity->getCategory()]['titles'], $entity->getTitle());
-            $this->stringAppend($grouped[$entity->getCategory()]['constraints'], $entity->getConstraint());
-            $this->stringAppend($grouped[$entity->getCategory()]['titlesAndConstraints'], $entity->getTitleAndConstraint());
-            //sort($grouped[$entity->getCategory()]);
+            $this->stringAppend($grouped[$entity->getCategory()], $entity->getTitleAndConstraint());
         }
 
         $json = $this->serializer->serialize(
