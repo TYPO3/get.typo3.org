@@ -54,9 +54,8 @@ jobs:
         name: logs
         path: var/log
     - name: Deploy to Staging
-      uses: contention/action-rsync-deploy@master
-      if: success()
       uses: burnett01/rsync-deployments@4.0
+      if: success()
       with:
         switches: -avzr --delete -exclude="var/"
         remote_host: ${{ secrets.DEPLOY_HOST }}
