@@ -31,7 +31,7 @@ jobs:
           composer-
     - name: Install
       run: |
-        composer install --no-progress
+        composer install --no-progress --no-dev
     - name: Lint
       if: always()
       run: |
