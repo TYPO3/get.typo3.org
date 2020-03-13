@@ -1,0 +1,65 @@
+name: Continuous Deployment Testing
+
+on:
+  push:
+    branches:
+    - testing
+
+jobs:
+  build:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up PHP Version
+      run: |
+        sudo update-alternatives --set php /usr/bin/php7.2
+        php -v
+    - name: Update Composer
+      run: |
+        sudo composer self-update
+        composer --version
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: |
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+    - uses: actions/cache@v1
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          composer-
+    - name: Install
+      run: |
+        composer install --no-progress
+    - name: Lint
+      if: always()
+      run: |
+        composer test:php:lint
+    - name: Unit Tests
+      if: always()
+      run: |
+        composer test:php:unit
+    - name: Functional Tests
+      run: |
+        composer test:php:functional
+    - name: CGL
+      if: always()
+      run: |
+        composer test:php:cgl
+    - name: Archive Logs
+      uses: actions/upload-artifact@v1
+      if: always()
+      with:
+        name: logs
+        path: var/log
+    - name: Deploy to Staging
+      uses: contention/action-rsync-deploy@master
+      if: success()
+      uses: burnett01/rsync-deployments@4.0
+      with:
+        switches: -avzr --delete -exclude="var/"
+        remote_host: ${{ secrets.DEPLOY_HOST }}
+        remote_port: ${{ secrets.DEPLOY_PORT }}
+        remote_user: ${{ secrets.DEPLOY_USER }}
+        remote_key: ${{ secrets.DEPLOY_KEY }}
