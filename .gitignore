@@ -29,30 +29,3 @@ missing-downloads.yaml
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-
-###> OpsOne default config ###
-/log/*
-/tmp/*
-/backup/*
-/cnf/tags
-/.zprofile
-/.profile
-/.zsh_history
-/.zshrc
-/.zshenv
-/.bash_profile
-/.bashrc
-/.viminfo
-/.zcompdump-*
-/.ssh/*
-/.gitconfig
-/.config/htop
-/.selected_editor
-/.my.cnf
-/.mysql_history
-/.cache/*
-/.lnav/*
-/.lesshst
-/.local/share/composer/*
-/.config/composer/*
-###< OpsOne default config ###
