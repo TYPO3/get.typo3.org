@@ -42,8 +42,10 @@ magephp:
       on-deploy:
         - fs/link: { from: "../../../shared/var", to: "var" }
         - fs/link: { from: "../../../shared/.env", to: ".env" }
+        - exec: { cmd: "cp cnf/nginx.conf ../../../cnf/nginx.conf"}
       on-release:
       post-release:
+        - exec: { cmd: "nginx-reload"}
         - exec: { cmd: "php-reload"}
         - exec: { cmd: "rm -rf var/cache"}
         - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction"}
