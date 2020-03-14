@@ -35,6 +35,7 @@ jobs:
       - name: Deployment
         env:
           SSH_AUTH_SOCK: /tmp/ssh-auth.sock
+          APP_ENV: prod
         run: |
           /home/runner/.composer/vendor/bin/mage deploy ${{ steps.environment.outputs.target }}
       - name: Archive Logs
