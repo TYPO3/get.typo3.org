@@ -32,7 +32,7 @@ magephp:
     develop:
       user: gett3otesting
       from: ./
-      host_path: ./
+      host_path: ./deploy/
       releases: 3
       hosts:
         - get.typo3.gilbertsoft.org
