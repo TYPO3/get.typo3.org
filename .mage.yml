@@ -37,7 +37,7 @@ magephp:
       hosts:
         - get.typo3.gilbertsoft.org
       pre-deploy:
-        - exec: { cmd: "echo \"APP_ENV=prod\" >> .env.local"}
+        - exec: { cmd: "cp .env.test .env"}
         - exec: { cmd: "composer install --no-dev --no-progress --optimize-autoloader"}
       on-deploy:
         - fs/link: { from: "./shared/var", to: "var" }
