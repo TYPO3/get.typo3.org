@@ -44,9 +44,7 @@ magephp:
         - fs/link: { from: "../../../shared/.env", to: ".env" }
       on-release:
       post-release:
-        - exec: { cmd: "[ -d ../../../cachetool ] || mkdir -p ../../../cachetool"}
-        - exec: { cmd: "[ -f ../../../cachetool/cachetool.phar ] || curl -o ../../../cachetool/cachetool.phar http://gordalina.github.io/cachetool/downloads/cachetool.phar && chmod +x ../../../cachetool/cachetool.phar"}
-        - exec: { cmd: "php ../../../cachetool/cachetool.phar opcache:reset --fcgi=/var/run/php72-gett3otesting.sock --tmp-dir=../../../cachetool"}
+        - exec: { cmd: "php-reload"}
         - exec: { cmd: "rm -rf var/cache"}
         - exec: { cmd: "php7.2 ./bin/console doctrine:migrations:migrate --no-interaction"}
         - exec: { cmd: "php7.2 ./bin/console cache:warmup"}
