@@ -40,8 +40,8 @@ magephp:
         - exec: { cmd: "cp .env.test .env"}
         - exec: { cmd: "composer install --no-dev --no-progress --optimize-autoloader"}
       on-deploy:
-        - fs/link: { from: "./shared/var", to: "var" }
-        - fs/link: { from: "./shared/.env.local", to: ".env.local" }
+        - fs/link: { from: "../../../shared/var", to: "var" }
+        - fs/link: { from: "../../../shared/.env", to: ".env" }
       on-release:
       post-release:
         - exec: { cmd: "[ -d ../../../cachetool ] || mkdir -p ../../../cachetool"}
