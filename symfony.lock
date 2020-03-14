@@ -510,9 +510,6 @@
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
     },
-    "symfony/security": {
-        "version": "v4.0.6"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -524,6 +521,15 @@
     },
     "symfony/security-core": {
         "version": "v4.0.6"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.0.5"
+    },
+    "symfony/security-guard": {
+        "version": "v4.4.5"
+    },
+    "symfony/security-http": {
+        "version": "v4.4.5"
     },
     "symfony/service-contracts": {
         "version": "v1.1.5"
