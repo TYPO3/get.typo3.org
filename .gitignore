@@ -9,7 +9,7 @@ missing-downloads.yaml
 
 ###> symfony/framework-bundle ###
 .env
-/www/bundles/
+/public/bundles/
 /var/
 /vendor/
 /Build/MdConverter/vendor/
