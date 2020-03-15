@@ -30,12 +30,12 @@ magephp:
     - yarn.lock
   environments:
     develop:
-      user: gett3otesting
+      user: get-dev
       from: ./
       host_path: ./site/mage/
       releases: 3
       hosts:
-        - get.typo3.gilbertsoft.org
+        - get-dev.web01.typo3server.ch
       pre-deploy:
         - exec: { cmd: "cp .env.test .env"}
         - exec: { cmd: "composer install --no-dev --no-progress --optimize-autoloader"}
