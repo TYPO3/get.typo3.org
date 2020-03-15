@@ -110,6 +110,9 @@ class CacheWarmupService implements CacheWarmerInterface
             } else {
                 $options = [];
             }
+            $this->logger->info(\var_export($authUser, true));
+            $this->logger->info(\var_export($authPassword, true));
+            $this->logger->info(\var_export($options, true));
 
             $promise = $this->client->requestAsync('GET', $this->baseUrl . $url, $options);
             $promise->then(
