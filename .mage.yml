@@ -32,7 +32,7 @@ magephp:
     develop:
       user: gett3otesting
       from: ./
-      host_path: ./deploy/
+      host_path: ./site/mage/
       releases: 3
       hosts:
         - get.typo3.gilbertsoft.org
@@ -42,7 +42,7 @@ magephp:
       on-deploy:
         - fs/link: { from: "../../../shared/var", to: "var" }
         - fs/link: { from: "../../../shared/.env", to: ".env" }
-        - exec: { cmd: "cp cnf/nginx.conf ../../../cnf/nginx.conf"}
+        - exec: { cmd: "cp cnf/nginx.conf ../../../../cnf/nginx.conf"}
       on-release:
       post-release:
         - exec: { cmd: "nginx-reload"}
