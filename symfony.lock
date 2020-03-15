@@ -270,10 +270,13 @@
         "version": "1.1.9"
     },
     "php": {
-        "version": "7.4"
+        "version": "7.4.3"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
+    },
+    "php-webdriver/webdriver": {
+        "version": "1.8.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -502,6 +505,9 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.5"
+    },
+    "symfony/panther": {
+        "version": "v0.7.1"
     },
     "symfony/phpunit-bridge": {
         "version": "4.3",
