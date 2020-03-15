@@ -109,7 +109,7 @@ class CacheWarmupService implements CacheWarmerInterface
             $authPassword = getenv('PREVIEW_AUTH_PASSWORD');
 
             $authUser = 'preview';
-            $authPassword = '77_KHB18sr7@';
+            $authPassword = 'U@2C@3t295hb';
 
             if ($authUser && $authPassword) {
                 $options = ['auth' => [$authUser, $authPassword]];
