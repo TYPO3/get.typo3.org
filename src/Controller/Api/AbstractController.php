@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -71,15 +72,13 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
             }
             if (array_key_exists($fieldName, $data)) {
                 if (isset($metadata->fieldMappings[$field]['type'])) {
-                    {
-                        switch ($metadata->fieldMappings[$field]['type']) {
-                            case 'datetime':
-                                $data[$fieldName] = new \DateTime($data[$fieldName]);
-                                break;
-                            case 'datetime_immutable':
-                                $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
-                                break;
-                        }
+                    switch ($metadata->fieldMappings[$field]['type']) {
+                        case 'datetime':
+                            $data[$fieldName] = new \DateTime($data[$fieldName]);
+                            break;
+                        case 'datetime_immutable':
+                            $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
+                            break;
                     }
                 }
                 //careful! setters are not being called! Inflection is up to you if you need it!

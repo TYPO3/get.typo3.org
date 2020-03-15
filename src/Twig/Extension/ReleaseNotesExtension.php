@@ -10,10 +10,6 @@ declare(strict_types=1);
 
 namespace App\Twig\Extension;
 
-use App\Entity\Requirement;
-use App\Enum\RequirementCategoryEnum;
-use App\Utility\VersionUtility;
-use Doctrine\Common\Collections\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
