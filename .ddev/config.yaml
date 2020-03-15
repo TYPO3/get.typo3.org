@@ -18,6 +18,7 @@ hooks:
   - exec: /mnt/ddev_config/scripts/setup-db
   pre-start:
   - exec-host: .ddev/scripts/copy-dotenv
+omit_containers: [db, dba]
 use_dns_when_possible: true
 timezone: ""
 
