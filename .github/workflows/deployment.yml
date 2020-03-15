@@ -35,8 +35,6 @@ jobs:
       - name: Deployment
         env:
           SSH_AUTH_SOCK: /tmp/ssh-auth.sock
-          PREVIEW_AUTH_USER: ${{ secrets.PREVIEW_AUTH_USER }}
-          PREVIEW_AUTH_PASSWORD: ${{ secrets.PREVIEW_AUTH_PASSWORD }}
         run: |
           /home/runner/.composer/vendor/bin/mage deploy ${{ steps.environment.outputs.target }}
       - name: Archive Logs
