@@ -18,5 +18,5 @@ if [ ! -f $DBFILE ]; then
 else
     echo "Database found, running the migrations..."
 
-    php ./bin/console doctrine:migrations:migrate
+    php ./bin/console doctrine:migrations:migrate -n
 fi
