@@ -32,7 +32,7 @@ magephp:
     - symfony.lock
   environments:
     develop:
-      user: get-dev
+      user: get
       from: ./
       host_path: ./site/mage/
       releases: 3
