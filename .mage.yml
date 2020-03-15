@@ -49,5 +49,5 @@ magephp:
         - exec: { cmd: "php-reload"}
         - exec: { cmd: "rm -rf var/cache"}
         - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction"}
-        - exec: { cmd: "php ./bin/console cache:warmup"}
+        - exec: { cmd: "php ./bin/console cache:warmup -vvv"}
       post-deploy:
