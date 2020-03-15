@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.2', '7.3']
+        php: ['7.4']
     steps:
     - uses: actions/checkout@v1
     - name: Set up PHP Version

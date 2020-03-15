@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up PHP Version
         run: |
-          sudo update-alternatives --set php /usr/bin/php7.2
+          sudo update-alternatives --set php /usr/bin/php7.4
       - name: Install Magallanes
         run: |
           composer global require "andres-montanez/magallanes" --no-progress
