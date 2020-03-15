@@ -105,11 +105,8 @@ class CacheWarmupService implements CacheWarmerInterface
     private function makeRequest($url): ?\GuzzleHttp\Promise\PromiseInterface
     {
         try {
-            $authUser = getenv('PREVIEW_AUTH_USER');
-            $authPassword = getenv('PREVIEW_AUTH_PASSWORD');
-
-            $authUser = 'preview';
-            $authPassword = 'U@2C@3t295hb';
+            $authUser = $_ENV['PREVIEW_AUTH_USER'] ?? false;
+            $authPassword = $_ENV['PREVIEW_AUTH_PASSWORD'] ?? false;
 
             if ($authUser && $authPassword) {
                 $options = ['auth' => [$authUser, $authPassword]];
