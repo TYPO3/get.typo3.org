@@ -11,12 +11,16 @@ magephp:
     - .mage
     - .vscode
     - .editorconfig
+    - .env.ddev
+    - .env.dist
+    - .env.test
     - .env.local
     - .mage.yml
     - assets
     - var
     - .php_cs.cache
     - .php_cs.dist
+    - .phplint.yml
     - auth.json
     - phpunit.xml.dist
     - composer.json
