@@ -5,33 +5,31 @@ magephp:
   exclude:
     - .ddev
     - .git
-    - .gitattributes
-    - .gitignore
     - .github
     - .mage
     - .vscode
+    - tests
+    - var
     - .editorconfig
+    - .env
     - .env.ddev
     - .env.dist
     - .env.test
     - .env.local
+    - .gitattributes
+    - .gitignore
     - .mage.yml
-    - assets
-    - var
     - .php_cs.cache
     - .php_cs.dist
+    - .phplint.cache
     - .phplint.yml
-    - auth.json
-    - phpunit.xml.dist
+    - .phpunit.result.cache
     - composer.json
     - composer.lock
-    - node_modules
-    - package.json
+    - LICENSE
+    - phpunit.xml.dist
     - README.md
     - symfony.lock
-    - Build
-    - webpack.config.js
-    - yarn.lock
   environments:
     develop:
       user: get-dev
