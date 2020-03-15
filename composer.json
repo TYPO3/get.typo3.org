@@ -105,10 +105,10 @@
             "phplint"
         ],
         "test:php:unit": [
-            "simple-phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-unit.xml --testsuite \"Unit Test Suite\""
+            "phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-unit.xml --testsuite \"Unit Test Suite\""
         ],
         "test:php:functional": [
-            "simple-phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-functional.xml --testsuite \"Functional Test Suite\""
+            "phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-functional.xml --testsuite \"Functional Test Suite\""
         ],
         "test": [
             "@test:php:cgl",
