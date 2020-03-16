@@ -15,4 +15,4 @@ SHELL=/usr/local/vzscripts/sfoutputtosyslog
 
 #       10      2       *       *       *       <command>
 
-        *       *       *       *       *       /bin/bash -c 'source ~/.profile && ~/site/mage/current/bin/cron-cache-warmup.sh'
+        *       *       *       *       *       /bin/bash -c 'source ~/.zshenv && ~/site/mage/current/bin/cron-cache-warmup.sh'
