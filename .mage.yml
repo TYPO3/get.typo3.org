@@ -51,7 +51,7 @@ magephp:
         - fs/remove: { file: "var/cache", flags: "-rf" }
         - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction" }
         - exec: { cmd: "crontab cnf/cronjobs" }
-        - exec: { cmd: "touch ~/.force-cache-warmup" }
+        - exec: { cmd: "./bin/cron-cache-warmup.sh start" }
       post-deploy:
     production:
       user: get
