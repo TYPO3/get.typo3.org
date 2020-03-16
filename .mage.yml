@@ -13,7 +13,6 @@ magephp:
     - .editorconfig
     - .env
     - .env.ddev
-    - .env.dist
     - .env.test
     - .env.local
     - .gitattributes
