@@ -4,9 +4,6 @@ security:
         in_memory:
             memory:
                 users:
-                    preview:
-                        password: $2y$15$SgeNw0b1gRuwQrZeATT0Fea1EIVhDDLNc18MKZKxFu24UnkeGeKoi
-                        roles: 'ROLE_GUEST'
                     release-team:
                         password: $2y$15$enKo8VPgw7nd07YcIfPaZOUwfWd.S6Rz0GcaPJXkf3br8NFejkmuq
                         roles: 'ROLE_ADMIN'
@@ -28,6 +25,6 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-    access_control:
+    #access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

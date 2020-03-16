@@ -38,7 +38,7 @@ magephp:
       hosts:
         - web01.typo3server.ch
       pre-deploy:
-        - exec: { cmd: "echo \"APP_ENV=prod\" >> .env.local" }
+        - exec: { cmd: "echo \"APP_ENV=staging\" >> .env.local" }
         - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
       on-deploy:
         - fs/link: { from: "../../../shared/var", to: "var" }
