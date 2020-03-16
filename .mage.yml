@@ -39,7 +39,7 @@ magephp:
       hosts:
         - web01.typo3server.ch
       pre-deploy:
-        - exec: { cmd: "echo -e \"CORS_ALLOW_ORIGIN=^https?://get-dev\.web01\.typo3server\.ch:?[0-9]*$\nBASE_URL=https://get-dev.web01.typo3server.ch\n\" >> .env.local" }
+        - exec: { cmd: 'echo -e "CORS_ALLOW_ORIGIN=^https?://get-dev\.web01\.typo3server\.ch:?[0-9]*$\nBASE_URL=https://get-dev.web01.typo3server.ch\n" >> .env.local' }
         - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
         - exec: { cmd: "composer dump-env prod" }
       on-deploy:
