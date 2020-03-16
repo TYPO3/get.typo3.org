@@ -52,4 +52,5 @@ magephp:
         - fs/remove: { file: "var/cache", flags: "-rf" }
         - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction" }
         - exec: { cmd: "php ./bin/console cache:warmup -vvv" }
+        - exec: { cmd: "composer dump-env prod" }
       post-deploy:
