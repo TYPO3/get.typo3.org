@@ -44,10 +44,9 @@ magephp:
         - exec: { cmd: "echo \"BASE_URL=https://get-dev.web01.typo3server.ch\" >> .env.local" }
         - exec: { cmd: "cat .env.local" }
         - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
-        - exec: { cmd: "composer dump-env prod" }
       on-deploy:
         - fs/link: { from: "../../../shared/var", to: "var" }
-        - fs/link: { from: "../../../shared/.env", to: ".env" }
+        - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
         - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
       on-release:
       post-release:
