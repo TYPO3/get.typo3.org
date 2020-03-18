@@ -42,9 +42,9 @@ else
 fi
 if [ -n "$DEBUG" ]
 then
-	/usr/bin/php -d memory_limit=-1 $APP_DIR/package-generator/bin/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors
+	php -d memory_limit=-1 $APP_DIR/package-generator/bin/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors
 else
-	/usr/bin/php -d memory_limit=-1 $APP_DIR/package-generator/bin/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors > /dev/null 2>&1
+	php -d memory_limit=-1 $APP_DIR/package-generator/bin/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors > /dev/null 2>&1
 fi
 # Exchange index
 mv $WEB_DIR/index.html $WEB_DIR/satis.html
