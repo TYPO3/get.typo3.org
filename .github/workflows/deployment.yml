@@ -20,6 +20,8 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add ~/.ssh/deploy_key
       - uses: actions/checkout@v2
+        with:
+          submodules: true
       - name: Set up PHP Version
         run: |
           sudo update-alternatives --set php /usr/bin/php7.4
