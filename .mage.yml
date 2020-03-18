@@ -44,6 +44,7 @@ magephp:
       on-deploy:
         - fs/link: { from: "../../../shared/var", to: "var" }
         - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
+        - fs/link: { from: "../../../shared/satis/p", to: "public/p" }
         - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
       on-release:
       post-release:
