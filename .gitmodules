@@ -1,0 +1,3 @@
+[submodule "satis/package-generator"]
+	path = satis/package-generator
+	url = https://github.com/TYPO3/CmsComposerPackageGenerator.git

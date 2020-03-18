@@ -15,6 +15,7 @@ provider: default
 hooks:
   post-start:
   - composer: install
+  - composer: install -d satis/package-generator
   - exec: /mnt/ddev_config/scripts/setup-db
   pre-start:
   - exec-host: .ddev/scripts/copy-dotenv

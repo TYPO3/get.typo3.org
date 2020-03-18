@@ -3,6 +3,9 @@
 .vscode/
 *.cache
 missing-downloads.yaml
+/public/p/
+/public/packages.json
+/public/satis.html
 !/bin/
 /bin/*
 !/bin/console
