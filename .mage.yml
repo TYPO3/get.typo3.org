@@ -44,7 +44,9 @@ magephp:
       on-deploy:
         - fs/link: { from: "../../../shared/var", to: "var" }
         - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
-        - fs/link: { from: "../../../../shared/satis/p", to: "public/p" }
+        - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
+        - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
+        - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
         - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
       on-release:
       post-release:
@@ -69,7 +71,9 @@ magephp:
       on-deploy:
         - fs/link: { from: "../../../shared/var", to: "var" }
         - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
-        - fs/link: { from: "../../../../shared/satis/p", to: "public/p" }
+        - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
+        - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
+        - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
         - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
       on-release:
       post-release:

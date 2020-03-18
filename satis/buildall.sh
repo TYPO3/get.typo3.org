@@ -16,7 +16,7 @@ fi
 APP_DIR="`dirname \"$0\"`"
 APP_DIR="`( cd \"$APP_DIR\" && pwd )`"
 LOCKFILE=$APP_DIR/lock
-WEB_DIR="`dirname \"$0\"`/../public"
+WEB_DIR="`dirname \"$0\"`/../../../../shared/public"
 WEB_DIR="`( cd \"$WEB_DIR\" && pwd )`"
 
 if [ -f "$LOCKFILE" ]; then
