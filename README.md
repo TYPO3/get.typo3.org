@@ -1,9 +1,7 @@
+# get.typo3.org
+
 ![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg)
 ![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg)
-![CI Development](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=develop)
-![CD Development](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=develop)
-
-# get.typo3.org
 
 Symfony 4 application for release notes, download redirects and JSON API for
 releases.
@@ -128,6 +126,9 @@ Additional configuration for the webserver can be found in the folder `cnf`.
 
 #### Staging / Development
 
+![CI Development](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=develop)
+![CD Development](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=develop)
+
 All pushs to the branch `develop` are automatically deployed to the development
 and staging site at `https://get-dev.web01.typo3server.ch`. This site is
 protected and can be accessed with the following credentials:
@@ -140,6 +141,9 @@ SSH access is possible with the following command:
 `ssh get-dev@web01.typo3server.ch`
 
 #### Production
+
+![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg)
+![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg)
 
 All pushs to the branch `master` are automatically deployed to the production
 site at `https://get.typo3.org` or `https://composer.typo3.org`.
