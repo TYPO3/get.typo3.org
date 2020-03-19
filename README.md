@@ -1,3 +1,8 @@
+![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg)
+![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg)
+![CI Development](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=develop)
+![CD Development](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=develop)
+
 # get.typo3.org
 
 Symfony 4 application for release notes, download redirects and JSON API for
@@ -116,7 +121,7 @@ Currently there are 4 Symfony environments defined:
 
 * dev (for local development)
 * test (for integration testing on Github)
-* staging (for the stating server)
+* staging (for the staging server)
 * prod (for the production server)
 
 Additional configuration for the webserver can be found in the folder `cnf`.
