@@ -105,15 +105,7 @@ class CacheWarmupService implements CacheWarmerInterface
     private function makeRequest($url): ?\GuzzleHttp\Promise\PromiseInterface
     {
         try {
-            if (($authUser = $_ENV['PREVIEW_AUTH_USER'] ?? false) && ($authPassword = $_ENV['PREVIEW_AUTH_PASSWORD'] ?? false)) {
-                $options = ['auth' => [$authUser, $authPassword]];
-            } else {
-                $options = [];
-            }
-
-            $this->logger->info(\var_export($options, true));
-
-            $promise = $this->client->requestAsync('GET', $this->baseUrl . $url, $options);
+            $promise = $this->client->requestAsync('GET', $this->baseUrl . $url);
             $promise->then(
                 function ($response) use ($url) {
                     $this->logger->info('Warmed up ' . $url . ' with status ' . $response->getStatusCode());
