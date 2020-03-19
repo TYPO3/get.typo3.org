@@ -16,7 +16,7 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,7 +84,7 @@ class ReleaseController extends AbstractController
     /**
      * Add new TYPO3 release
      * @Route("/", methods={"POST"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=201,
@@ -149,7 +149,7 @@ class ReleaseController extends AbstractController
     /**
      * Add TYPO3 Release Notes for Version
      * @Route("/{version}/release-notes", methods={"PUT"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=204,
@@ -245,7 +245,7 @@ class ReleaseController extends AbstractController
     /**
      * Update TYPO3 Release
      * @Route("/{version}", methods={"PATCH"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=200,
@@ -307,7 +307,7 @@ class ReleaseController extends AbstractController
 
     /**
      * Delete TYPO3 release
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{version}", methods={"DELETE"})
      * @DocSecurity(name="Basic")
      * @SWG\Response(

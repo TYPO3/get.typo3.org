@@ -15,7 +15,7 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,7 +111,7 @@ class MajorVersionController extends AbstractController
     /**
      * Create new major TYPO3 version
      * @Route("/", methods={"POST"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=201,
@@ -176,7 +176,7 @@ class MajorVersionController extends AbstractController
     /**
      * Update properties of major TYPO3 version
      * @Route("/{version}", methods={"PATCH"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=200,
@@ -234,7 +234,7 @@ class MajorVersionController extends AbstractController
     /**
      * Delete major TYPO3 version
      * @Route("/{version}", methods={"DELETE"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=204,

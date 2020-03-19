@@ -12,7 +12,7 @@ namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/v1/api/cache", methods={"DELETE"})
- * @Security("has_role('ROLE_ADMIN')")
+ * @IsGranted("ROLE_ADMIN")
  */
 class CacheController extends AbstractController
 {
