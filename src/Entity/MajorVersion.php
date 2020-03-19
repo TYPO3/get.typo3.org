@@ -14,7 +14,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MajorVersionRepository")
@@ -63,7 +62,6 @@ class MajorVersion implements \JsonSerializable
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
-     * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
@@ -73,7 +71,6 @@ class MajorVersion implements \JsonSerializable
      * @ORM\Column(type="datetime_immutable")
      * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
-     * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
