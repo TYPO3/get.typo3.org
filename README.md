@@ -133,8 +133,8 @@ All pushs to the branch `develop` are automatically deployed to the development
 and staging site at `https://get-dev.web01.typo3server.ch`. This site is
 protected and can be accessed with the following credentials:
 
-User: `preview`
-Password: `U@2C@3t295hb`
+* User: `preview`
+* Password: `U@2C@3t295hb`
 
 SSH access is possible with the following command:
 
