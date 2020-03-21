@@ -15,5 +15,4 @@ SHELL=/usr/local/vzscripts/sfoutputtosyslog
 
 #       10      2       *       *       *       <command>
 
-        9       *       *       *       *       /bin/bash -c 'source ~/.zshenv && ~/site/mage/current/satis/buildall.sh -q
-        *       *       *       *       *       /bin/bash -c 'source ~/.zshenv && ~/site/mage/current/bin/cron-cache-warmup.sh'
+     10-59/20   *       *       *       *       /bin/bash -c 'source ~/.zshenv && ~/site/mage/current/satis/buildall.sh -q

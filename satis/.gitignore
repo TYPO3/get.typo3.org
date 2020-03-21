@@ -1,0 +1,5 @@
+/bin/
+/build.lock
+/vendor/
+/Web/*
+!/Web/.gitkeep

@@ -1,3 +1,3 @@
-[submodule "satis/package-generator"]
-	path = satis/package-generator
-	url = https://github.com/TYPO3/CmsComposerPackageGenerator.git
+[submodule "satis/packages/CmsComposerPackageGenerator"]
+	path = satis/packages/CmsComposerPackageGenerator
+	url = https://github.com/GsTYPO3/CmsComposerPackageGenerator.git

@@ -1,57 +1,75 @@
 #!/bin/bash
-DEBUG=yes
-if [ "$1" == '-q' ]
-then
+
+# Output options
+if [ "$1" == '-q' ]; then
     DEBUG=
+else
+    DEBUG=yes
 fi
-if [ -n "$DEBUG" ]
-then
+
+if [ -n "$DEBUG" ]; then
     set -x
 fi
 
-if [ -n "$I1S_DDEV_PROJECT" ] ; then
-    APP_DIR=/home/composer/application
-fi
-
+# Calculate directories
 APP_DIR="`dirname \"$0\"`"
 APP_DIR="`( cd \"$APP_DIR\" && pwd )`"
-LOCKFILE=$APP_DIR/lock
-WEB_DIR="`dirname \"$0\"`/../../../../shared/public"
+LOCKFILE=$APP_DIR/build.lock
+
+if [ -n "$IS_DDEV_PROJECT" ]; then
+    WEB_DIR="`dirname \"$0\"`/../public"
+else
+    WEB_DIR="`dirname \"$0\"`/../../../../shared/public"
+fi
+
 WEB_DIR="`( cd \"$WEB_DIR\" && pwd )`"
 
+# Check for already running processes
+CURPID=$(pgrep -n -f ${0##*/})
+
 if [ -f "$LOCKFILE" ]; then
-    # Find out if the process is more than 1 hour old.
+    # Check if the process is more than 1 hour old.
     if [ -n "$(find $LOCKFILE -mmin +60)" ]; then
-        OLDPID=$(pgrep -o -f "buildall.sh")
-        rm -f $LOCKFILE
-        # In this case we assume that it's hanging, the task will be killed.
-        echo "Process $OLDPID seems to be hanging. Killing it." >&2
-        kill $OLDPID
+        OLDPID=$(pgrep -o -f ${0##*/})
+
+        if [ ! $CURPID -eq $OLDPID ]; then
+            # In this case we assume that it's hanging, the task will be killed.
+            echo "Process $OLDPID seems to be hanging. Killing it." >&2
+            kill $OLDPID
+        fi
     else
         echo "Lockfile $LOCKFILE present, skipping…"
         exit 0
     fi
 fi
+
+# Create lock file
 touch $LOCKFILE
-cd $APP_DIR/package-generator
-$APP_DIR/package-generator/Build.sh
-if [ -n "$DEBUG" ]
-then
-    $APP_DIR/package-generator/bin/typo3-cms-package-generator satis:json:create
+
+# Start repository creation
+#BIN_DIR=$APP_DIR/package-generator/bin
+BIN_DIR=$APP_DIR/bin
+
+#cd $APP_DIR/package-generator
+
+#$APP_DIR/package-generator/Build.sh
+
+if [ -n "$DEBUG" ]; then
+    $BIN_DIR/typo3-cms-package-generator extensions:ter:json:create
+    $BIN_DIR/typo3-cms-package-generator satis:json:create
+    php -d memory_limit=-1 $BIN_DIR/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors
 else
-    $APP_DIR/package-generator/bin/typo3-cms-package-generator satis:json:create > /dev/null
+    $BIN_DIR/typo3-cms-package-generator extensions:ter:json:create > /dev/null
+    $BIN_DIR/typo3-cms-package-generator satis:json:create > /dev/null
+    php -d memory_limit=-1 $BIN_DIR/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors > /dev/null
 fi
-if [ -n "$DEBUG" ]
-then
-    php -d memory_limit=-1 $APP_DIR/package-generator/bin/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors
-else
-    php -d memory_limit=-1 $APP_DIR/package-generator/bin/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors > /dev/null 2>&1
-fi
-# Exchange index
+
+# Rename Satis index
 mv $WEB_DIR/index.html $WEB_DIR/satis.html
-#php $APP_DIR/site/index.php > $WEB_DIR/index.html 2> /dev/null
+
+# Remove lock file
 rm -f $LOCKFILE
-if [ -n "$DEBUG" ]
-then
+
+if [ -n "$DEBUG" ]; then
     set -x
 fi
