@@ -30,7 +30,7 @@ magephp:
     - README.md
     - symfony.lock
   environments:
-    develop:
+    develop1:
       user: get-dev
       from: ./
       host_path: ./site/mage/
