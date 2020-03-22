@@ -3,3 +3,4 @@
 /vendor/
 /Web/*
 !/Web/.gitkeep
+/satis.json

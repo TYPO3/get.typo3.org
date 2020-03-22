@@ -50,6 +50,7 @@ touch $LOCKFILE
 #BIN_DIR=$APP_DIR/package-generator/bin
 BIN_DIR=$APP_DIR/bin
 
+cd $APP_DIR
 #cd $APP_DIR/package-generator
 
 #$APP_DIR/package-generator/Build.sh
@@ -57,11 +58,11 @@ BIN_DIR=$APP_DIR/bin
 if [ -n "$DEBUG" ]; then
     $BIN_DIR/typo3-cms-package-generator extensions:ter:json:create
     $BIN_DIR/typo3-cms-package-generator satis:json:create
-    php -d memory_limit=-1 $BIN_DIR/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors
+    php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors
 else
     $BIN_DIR/typo3-cms-package-generator extensions:ter:json:create > /dev/null
     $BIN_DIR/typo3-cms-package-generator satis:json:create > /dev/null
-    php -d memory_limit=-1 $BIN_DIR/satis build $APP_DIR/package-generator/satis.json $WEB_DIR --skip-errors > /dev/null
+    php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors > /dev/null
 fi
 
 # Rename Satis index

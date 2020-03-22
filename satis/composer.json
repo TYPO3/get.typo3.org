@@ -24,7 +24,7 @@
 		{ "type": "path", "url": "packages/*" }
 	],
 	"config": {
-		"bin-dir": "bin/",
+		"bin-dir": "bin",
 		"optimize-autoloader": true,
 		"platform": {
 			"php": "7.4.3"
