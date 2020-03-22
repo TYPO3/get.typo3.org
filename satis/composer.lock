@@ -1438,7 +1438,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/CmsComposerPackageGenerator",
-                "reference": "397ec89a2bee10771658df002e4a506a9809a41f"
+                "reference": "b4ae6988bc80a035bebac61dbee8c38f449fc699"
             },
             "require": {
                 "composer/satis": "dev-master",
@@ -1450,6 +1450,8 @@
                 "symfony/console": "*"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "overtrue/phplint": "^1.2",
                 "symfony/debug-pack": "*",
                 "symfony/maker-bundle": "*",
                 "symfony/test-pack": "*",
@@ -1467,6 +1469,26 @@
             "autoload-dev": {
                 "classmap": [
                     "Tests/"
+                ]
+            },
+            "scripts": {
+                "test:php:cgl": [
+                    "php-cs-fixer --diff -v fix --format=junit > php-cs-fixer.xml"
+                ],
+                "test:php:lint": [
+                    "phplint"
+                ],
+                "test:php:unit": [
+                    "phpunit -c ./Build/UnitTests.xml --log-junit phpunit-unit.xml --testsuite \"Unit Test Suite\"",
+                    "phpunit -c phpunit.xml.dist --log-junit phpunit-unit2.xml --testsuite \"Unit Test Suite\""
+                ],
+                "test:php:functional": [
+                    "phpunit -c phpunit.xml.dist --log-junit phpunit-functional.xml --testsuite \"Functional Test Suite\""
+                ],
+                "test": [
+                    "@test:php:cgl",
+                    "@test:php:lint",
+                    "@test:php:unit"
                 ]
             },
             "authors": [
