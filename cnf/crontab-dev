@@ -15,4 +15,4 @@ SHELL=/usr/local/vzscripts/sfoutputtosyslog
 
 #       10      2       *       *       *       <command>
 
-     10-59/20   *       *       *       *       /bin/bash -c 'source ~/.zshenv && ~/site/mage/current/satis/buildall.sh -q
+     10-59/20   *       *       *       *       ~/site/mage/current/satis/buildall.sh -q
