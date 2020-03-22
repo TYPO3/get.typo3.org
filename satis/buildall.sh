@@ -47,13 +47,9 @@ fi
 touch $LOCKFILE
 
 # Start repository creation
-#BIN_DIR=$APP_DIR/package-generator/bin
 BIN_DIR=$APP_DIR/bin
 
-cd $APP_DIR
-#cd $APP_DIR/package-generator
-
-#$APP_DIR/package-generator/Build.sh
+cd $WEB_DIR/../satis
 
 if [ -n "$DEBUG" ]; then
     $BIN_DIR/typo3-cms-package-generator extensions:ter:json:create
