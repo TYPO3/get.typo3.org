@@ -16,6 +16,7 @@ magephp:
     - .env.local
     - .gitattributes
     - .gitignore
+    - .gitmodules
     - .mage.yml
     - .php_cs.cache
     - .php_cs.dist
