@@ -46,11 +46,13 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/", methods={"GET"}, name="composer-root", condition="context.getHost() matches '/composer.%app.domain%/'")
+     * @Route("/", host="composer.%app.domain%", name="composer-root")
+     * @Cache(expires="tomorrow", public=true)
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composerRoot(): Response
     {
-        return $this->composerRepository();
+        return $this->redirect('https://get.' . $this->getParameter('app.domain') . '/misc/composer/repository');
     }
 
     /**
@@ -81,7 +83,7 @@ class DefaultController extends AbstractController
      * Outputs the JSON file
      * /json
      * Legacy end point
-     * @Route("/json", methods={"GET"})
+     * @Route("/json", methods={"GET"}, name="legacy-releases-json")
      *
      * @return Response
      */

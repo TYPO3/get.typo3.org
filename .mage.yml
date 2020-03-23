@@ -52,9 +52,9 @@ magephp:
       post-release:
         - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
         - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
-        - fs/remove: { file: "var/cache", flags: "-rf" }
+        - symfony/cache-clear: { env: "staging" }
         - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-        - exec: { cmd: "php ./bin/console cache:warmup", desc: "Warmup Cache" }
+        - symfony/cache-warmup: { env: "staging" }
         - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
       post-deploy:
     master:
@@ -79,8 +79,8 @@ magephp:
       post-release:
         - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
         - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
-        - fs/remove: { file: "var/cache", flags: "-rf" }
+        - symfony/cache-clear: { env: "prod" }
         - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-        - exec: { cmd: "php ./bin/console cache:warmup", desc: "Warmup Cache" }
+        - symfony/cache-warmup: { env: "prod" }
         - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
       post-deploy:
