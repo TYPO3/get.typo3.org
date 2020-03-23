@@ -8,9 +8,11 @@ missing-downloads.yaml
 !/bin/
 /bin/*
 !/bin/console
+!/bin/phpunit
 
 ###> symfony/framework-bundle ###
-.env*.local
+.env.local
+.env.*.local
 /public/bundles/
 /var/
 /vendor/
