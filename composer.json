@@ -1,18 +1,33 @@
 {
-    "type": "project",
     "name": "t3o/gettypo3org",
-    "description": "Site get.typo3.org",
+    "description": "TYPO3 Download Site 'get.typo3.org'",
+    "type": "project",
+    "keywords": [
+        "TYPO3 CMS",
+        "download"
+    ],
+    "homepage": "https://get.typo3.org",
+    "readme": "README.md",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
-            "name": "Susanne Moog",
-            "email": "susanne.moog@typo3.com"
-        },
-        {
             "name": "Benni Mack",
             "email": "benni@typo3.org"
+        },
+		{
+			"name": "Simon Gilli",
+			"email": "typo3@gilbertsoft.org"
+		},
+        {
+            "name": "Susanne Moog",
+            "email": "susanne.moog@typo3.com"
         }
     ],
+    "support": {
+        "chat": "https://typo3.slack.com/archives/C779C18G5",
+        "issues": "https://github.com/TYPO3/get.typo3.org/issues",
+        "source": "https://github.com/TYPO3/get.typo3.org"
+    },
     "require": {
         "php": "^7.2.5",
         "ext-ctype": "*",
@@ -66,17 +81,17 @@
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*"
     },
-    "config": {
-        "bin-dir": "bin",
-        "sort-packages": true,
-        "optimize-autoloader": true,
-		"platform": {
-			"php": "7.4.3"
-        },
-        "preferred-install": {
-            "t3g/*": "source",
-            "*": "dist"
-        }
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
     },
     "autoload": {
         "psr-4": {
@@ -88,14 +103,17 @@
             "App\\Tests\\": "tests/"
         }
     },
-    "replace": {
-        "paragonie/random_compat": "2.*",
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
+    "config": {
+        "bin-dir": "bin",
+        "optimize-autoloader": true,
+		"platform": {
+			"php": "7.4.3"
+        },
+        "preferred-install": {
+            "t3g/*": "source",
+            "*": "dist"
+        },
+        "sort-packages": true
     },
     "scripts": {
         "test:php:cgl": [
@@ -126,9 +144,6 @@
         "post-update-cmd": [
             "@auto-scripts"
         ]
-    },
-    "conflict": {
-        "symfony/symfony": "*"
     },
     "extra": {
         "symfony": {
