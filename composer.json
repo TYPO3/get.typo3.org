@@ -14,10 +14,10 @@
             "name": "Benni Mack",
             "email": "benni@typo3.org"
         },
-		{
-			"name": "Simon Gilli",
-			"email": "typo3@gilbertsoft.org"
-		},
+        {
+            "name": "Simon Gilli",
+            "email": "typo3@gilbertsoft.org"
+        },
         {
             "name": "Susanne Moog",
             "email": "susanne.moog@typo3.com"
@@ -106,8 +106,8 @@
     "config": {
         "bin-dir": "bin",
         "optimize-autoloader": true,
-		"platform": {
-			"php": "7.4.3"
+        "platform": {
+            "php": "7.4.3"
         },
         "preferred-install": {
             "t3g/*": "source",
