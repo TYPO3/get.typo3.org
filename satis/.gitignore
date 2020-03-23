@@ -1,0 +1,6 @@
+/bin/
+/build.lock
+/vendor/
+/Web/*
+!/Web/.gitkeep
+/satis.json

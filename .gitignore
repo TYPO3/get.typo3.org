@@ -1,23 +1,22 @@
-.ddev/commands/
 .idea/
 .vscode/
-*.cache
-missing-downloads.yaml
-!/bin/
 /bin/*
 !/bin/console
+!/bin/phpunit
+/public/p/
+/public/packages.json
+/public/satis.html
+*.cache
+missing-downloads.yaml
 
 ###> symfony/framework-bundle ###
-.env
+.env.local
+.env.*.local
 /public/bundles/
 /var/
 /vendor/
 /Build/MdConverter/vendor/
 ###< symfony/framework-bundle ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-###< phpunit/phpunit ###
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs

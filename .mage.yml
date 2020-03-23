@@ -1,0 +1,85 @@
+magephp:
+  log_dir: ./.mage/logs
+  composer:
+    path: composer
+  exclude:
+    - .ddev
+    - .git
+    - .github
+    - .mage
+    - .vscode
+    - tests
+    - var
+    - .editorconfig
+    - .env
+    - .env.ddev
+    - .env.local
+    - .gitattributes
+    - .gitignore
+    - .mage.yml
+    - .php_cs.cache
+    - .php_cs.dist
+    - .phplint.cache
+    - .phplint.yml
+    - .phpunit.result.cache
+    - composer.json
+    - composer.lock
+    - LICENSE
+    - phpunit.xml.dist
+    - README.md
+    - symfony.lock
+  environments:
+    develop:
+      user: get-dev
+      from: ./
+      host_path: ./site/mage/
+      releases: 3
+      hosts:
+        - web01.typo3server.ch
+      pre-deploy:
+        - exec: { cmd: "echo \"APP_ENV=staging\" >> .env.local", desc: "Create .env.local" }
+        - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
+        - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
+      on-deploy:
+        - fs/link: { from: "../../../shared/var", to: "var" }
+        - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
+        - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
+        - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
+        - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
+        - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+      on-release:
+      post-release:
+        - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
+        - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
+        - fs/remove: { file: "var/cache", flags: "-rf" }
+        - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
+        - exec: { cmd: "php ./bin/console cache:warmup", desc: "Warmup Cache" }
+        - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
+      post-deploy:
+    master:
+      user: get
+      from: ./
+      host_path: ./site/mage/
+      releases: 3
+      hosts:
+        - web01.typo3server.ch
+      pre-deploy:
+        - exec: { cmd: "echo \"APP_ENV=prod\" >> .env.local", desc: "Create .env.local" }
+        - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
+        - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
+      on-deploy:
+        - fs/link: { from: "../../../shared/var", to: "var" }
+        - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
+        - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
+        - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
+        - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
+        - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+      on-release:
+      post-release:
+        - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
+        - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
+        - fs/remove: { file: "var/cache", flags: "-rf" }
+        - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
+        - exec: { cmd: "php ./bin/console cache:warmup", desc: "Warmup Cache" }
+        - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
+      post-deploy:

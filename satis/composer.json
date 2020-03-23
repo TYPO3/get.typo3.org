@@ -1,0 +1,35 @@
+{
+    "name": "typo3/cms-composer-repository",
+    "description": "TYPO3 CMS Composer Repository",
+    "type": "project",
+    "keywords": [
+        "TYPO3 CMS",
+        "composer"
+    ],
+    "homepage": "http://composer.typo3.org",
+    "authors": [
+        {
+            "name": "Simon Gilli",
+            "email": "typo3@gilbertsoft.org"
+        }
+    ],
+    "require": {
+        "php": "^5.5 || ^7.0",
+        "typo3/cms-composer-package-generator": "@dev"
+    },
+    "require-dev": {
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        { "type": "path", "url": "packages/*" }
+    ],
+    "config": {
+        "bin-dir": "bin",
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.4.3"
+        },
+        "sort-packages": true
+    }
+}

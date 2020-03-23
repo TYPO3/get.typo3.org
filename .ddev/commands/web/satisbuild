@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+## Description: Run Satis Build Process
+## Usage: satisbuild
+## Example: "ddev satisbuild"
+
+${WEBSERVER_DOCROOT}/satis/buildall.sh

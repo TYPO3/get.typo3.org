@@ -9,8 +9,9 @@
 README.md export-ignore
 
 # Enforce checkout with linux lf consistent over all plattforms
-.ddev/scripts text eol=lf
+.ddev/scripts/* text eol=lf
 bin/console text eol=lf
+bin/phpunit text eol=lf
 *.php text eol=lf
 *.twig text eol=lf
 *.json text eol=lf

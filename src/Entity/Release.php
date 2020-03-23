@@ -38,7 +38,6 @@ class Release implements \JsonSerializable
      * @ORM\Column(type="datetime")
      * @var \DateTime
      * @Serializer\Groups({"data", "content"})
-     * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */

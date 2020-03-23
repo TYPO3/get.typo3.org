@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ ! -f .env ]; then
-    echo "Creating .env file..."
+if [ ! -f .env.local ]; then
+    echo "Creating .env.local file..."
 
-    cp .env.ddev .env
+    cp .env.ddev .env.local
 else
-    echo ".env file exists"
+    echo ".env.local file exists"
 fi

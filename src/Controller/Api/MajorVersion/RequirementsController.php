@@ -15,7 +15,7 @@ use App\Entity\Requirement;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,7 +77,7 @@ class RequirementsController extends AbstractController
     /**
      * Create new major TYPO3 version requirement
      * @Route("/", methods={"POST"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=201,
@@ -152,7 +152,7 @@ class RequirementsController extends AbstractController
     /**
      * Update requirement of major TYPO3 version
      * @Route("/", methods={"PATCH"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=200,
@@ -225,7 +225,7 @@ class RequirementsController extends AbstractController
     /**
      * Delete requirement of major TYPO3 version
      * @Route("/{category}/{name}", methods={"DELETE"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=204,

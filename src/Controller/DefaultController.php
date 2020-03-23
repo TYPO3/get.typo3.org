@@ -46,12 +46,20 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/", methods={"GET"}, name="composer-root", condition="context.getHost() matches '/composer.%app.domain%/'")
+     */
+    public function composerRoot(): Response
+    {
+        return $this->composerRepository();
+    }
+
+    /**
      * @Route("/", methods={"GET"}, name="root")
      * @Cache(expires="tomorrow", public=true)
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Request $request)
+    public function show(Request $request): Response
     {
         $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
         $communityVersions = $majorVersionRepository->findAllActiveCommunity();

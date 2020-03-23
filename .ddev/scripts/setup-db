@@ -12,11 +12,11 @@ echo 'Database file: '$DBFILE
 if [ ! -f $DBFILE ]; then
     echo "No database found, creating a new one including the fixtures..."
 
-    php ./bin/console doctrine:schema:create
-    php ./bin/console doctrine:migrations:version --add --all
-    php ./bin/console doctrine:fixtures:load
+    php ./bin/console doctrine:schema:create --no-interaction
+    php ./bin/console doctrine:migrations:version --add --all --no-interaction
+    php ./bin/console doctrine:fixtures:load --no-interaction
 else
     echo "Database found, running the migrations..."
 
-    php ./bin/console doctrine:migrations:migrate
+    php ./bin/console doctrine:migrations:migrate --no-interaction
 fi
