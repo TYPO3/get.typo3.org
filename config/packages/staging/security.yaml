@@ -12,5 +12,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1, 185.17.71.133, 2a04:503:0:1019::133] }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1, 185.17.71.134, 2a04:503:0:1019::134] }
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
