@@ -83,7 +83,7 @@ class DefaultController extends AbstractController
      * Outputs the JSON file
      * /json
      * Legacy end point
-     * @Route("/json", methods={"GET"})
+     * @Route("/json", methods={"GET"}, name="legacy-releases-json")
      *
      * @return Response
      */
