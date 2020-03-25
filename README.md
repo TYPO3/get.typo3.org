@@ -1,8 +1,5 @@
 # get.typo3.org
 
-![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=master)
-![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=master)
-
 Symfony 4 application for release notes, download redirects and JSON API for
 releases.
 
