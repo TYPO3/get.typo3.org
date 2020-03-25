@@ -151,8 +151,9 @@ SSH access is possible with the following command:
 
 ### Deployments
 
-The deployments are implemented by Github Actions and Magallanes. Therefor the
-following secrets needs to be defined at Github:
+The deployments are implemented by [Github Actions](https://help.github.com/en/actions)
+and [Magallanes](https://www.magephp.com/). Therefor the following secrets needs
+to be defined at Github:
 
 * SSH_PRIVATE_KEY: the encrypted private ssh key to access the server
 * SSH_PASSPHRASE: the passphrase to decrypt the private key
@@ -162,3 +163,5 @@ following secrets needs to be defined at Github:
 On the servers the files are located in the directory `site` and there are two
 main folders where `mage` holds the deployed releases and `shared` contains
 all shared data like database, satis files or the cache.
+
+See also [Magallanes Documentation](https://www.magephp.com/#configReleases).
