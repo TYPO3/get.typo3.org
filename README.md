@@ -1,7 +1,7 @@
 # get.typo3.org
 
-![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg)
-![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg)
+![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=master)
+![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=master)
 
 Symfony 4 application for release notes, download redirects and JSON API for
 releases.
@@ -142,8 +142,8 @@ SSH access is possible with the following command:
 
 #### Production
 
-![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg)
-![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg)
+![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=master)
+![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=master)
 
 All pushs to the branch `master` are automatically deployed to the production
 site at `https://get.typo3.org` or `https://composer.typo3.org`.
@@ -159,3 +159,9 @@ following secrets needs to be defined at Github:
 
 * SSH_PRIVATE_KEY: the encrypted private ssh key to access the server
 * SSH_PASSPHRASE: the passphrase to decrypt the private key
+
+#### Folder structure
+
+On the servers the files are located in the directory `site` and there are two
+main folders where `mage` holds the deployed releases and `shared` contains
+all shared data like database, satis files or the cache.
