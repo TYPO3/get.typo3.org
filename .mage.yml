@@ -116,5 +116,5 @@ magephp:
                 - symfony/cache-clear: { env: "prod" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - symfony/cache-warmup: { env: "prod" }
-                - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
+                - exec: { cmd: "crontab cnf/crontab-stage", desc: "Install crontab" }
             post-deploy:

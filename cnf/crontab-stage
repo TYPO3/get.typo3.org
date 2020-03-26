@@ -1,0 +1,20 @@
+
+# Redirect output to syslog. Please do not remove this variable
+# unless you set MAILTO to a address of your own.
+SHELL=/usr/local/vzscripts/sfoutputtosyslog
+
+# make sure to source .profile in your jobs to have all settings like environment variables or PHP versions loaded:
+# /bin/bash -c 'source ~/.profile && ~/your/original/command'
+
+#       +------------------------------------ minute (0 - 59)
+#       |       +---------------------------- hour (0 - 23)
+#       |       |       +-------------------- day of month (1 - 31)
+#       |       |       |       +------------ month (1 - 12)
+#       |       |       |       |       +---- day of week (0 - 6) (Sunday=0 or 7)
+#       |       |       |       |       |
+
+#       10      2       *       *       *       <command>
+
+# The Satis build job is currently not enabled by default, please run
+# `~/site/mage/current/satis/buildall.sh` instead.
+#        */15    *       *       *       *       ~/site/mage/current/satis/buildall.sh -q
