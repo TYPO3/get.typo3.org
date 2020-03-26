@@ -97,6 +97,11 @@ magephp:
         - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
         - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
       on-deploy:
+        - exec: { cmd: 'test -d ~/site/shared || mkdir -p ~/site/shared', desc: 'Create shared folder' }
+        - exec: { cmd: 'test -d ~/site/shared/public || mkdir -p ~/site/shared/public', desc: 'Create shared/public folder' }
+        - exec: { cmd: 'test -d ~/site/shared/public/p || mkdir -p ~/site/shared/public/p', desc: 'Create shared/public/p folder' }
+        - exec: { cmd: 'test -d ~/site/shared/satis || mkdir -p ~/site/shared/satis', desc: 'Create shared/satis folder' }
+        - exec: { cmd: 'test -d ~/site/shared/var || mkdir -p ~/site/shared/var', desc: 'Create shared/var folder' }
         - fs/link: { from: "../../../shared/var", to: "var" }
         - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
         - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
