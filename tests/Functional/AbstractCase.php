@@ -43,8 +43,8 @@ abstract class AbstractCase extends PantherTestCase
     {
         $session = $this->client->getContainer()->get('session');
 
-        $firewallName = 'main';
-        $firewallContext = 'main';
+        $firewallName = 'api';
+        $firewallContext = 'api';
 
         $token = new UsernamePasswordToken('admin', null, $firewallName, ['ROLE_ADMIN']);
         $session->set('_security_' . $firewallContext, serialize($token));

@@ -16,9 +16,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
-            pattern: ^/v1/
-            anonymous: lazy
-            provider: in_memory
+            pattern: ^/v\d/api/
+            anonymous: true
+            #provider: in_memory
             http_basic: true
         main:
             anonymous: lazy
