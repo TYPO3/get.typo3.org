@@ -25,7 +25,7 @@ class MenuBuilder extends TemplateMenuBuider
     {
         $menu = parent::mainDefault($options);
         $menu->addChild(
-            'root',
+            'download',
             [
                 'route' => 'download',
                 'label' => 'Download'
