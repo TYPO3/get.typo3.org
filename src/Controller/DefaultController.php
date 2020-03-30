@@ -25,6 +25,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Regular content and download pages
+ *
+ * @Cache(maxage="3600", public=true)
  */
 class DefaultController extends AbstractController
 {
@@ -47,7 +49,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", host="composer.%app.domain%", name="composer-root")
-     * @Cache(expires="tomorrow", public=true)
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composerRoot(): Response
@@ -57,7 +58,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", methods={"GET"}, name="root")
-     * @Cache(expires="tomorrow", public=true)
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -85,32 +85,31 @@ class DefaultController extends AbstractController
      * Legacy end point
      * @Route("/json", methods={"GET"}, name="legacy-releases-json")
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function releaseJson(): Response
     {
-        $maxAgeForReleases = 3600;
         $content = $this->legacyDataService->getReleaseJson();
         $headers = [
             'Content-type'                => 'application/json',
             'Access-Control-Allow-Origin' => '*',
-            'Cache-control'               => 'max-age=' . $maxAgeForReleases,
         ];
         return new Response($content, 200, $headers);
     }
 
     /**
      * Display release notes for a version
-     * @Cache(expires="tomorrow", public=true)
+     *
      * @Route("/release-notes", methods={"GET"}, name="release-notes")
      * @Route("/release-notes/", methods={"GET"})
      * @Route("/release-notes/{version}", methods={"GET"}, name="release-notes-for-version")
      * @Route("/release-notes/{folder}/{version}", methods={"GET"}, name="legacy-release-notes-for-version")
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $version
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function releaseNotes(string $version = '', Request $request): Response
+    public function releaseNotes(Request $request, string $version = ''): Response
     {
         $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
@@ -150,18 +149,17 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/download", methods={"GET"})
-     * @Route("/download/", methods={"GET"}, name="download")
+     * @Route("/download", methods={"GET"}, name="download")
+     * @Route("/download/", methods={"GET"})
      * @Route("/version", methods={"GET"})
      * @Route("/version/", methods={"GET"})
      * @Route("/version/{version}", methods={"GET"}, name="version")
-     * @Cache(expires="tomorrow", public=true)
      *
-     * @param string $version
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $version
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showVersion(string $version = '', Request $request): Response
+    public function showVersion(Request $request, string $version = ''): Response
     {
         $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
@@ -202,7 +200,7 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/list/version/{version}", methods={"GET"}, name="list")
-     * @Cache(expires="tomorrow", public=true)
+     *
      * @param float $version
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -233,6 +231,8 @@ class DefaultController extends AbstractController
      *     name="versionandformat",
      *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+[\\.\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip|tar\\.gz\\.sig|zip\\.sig)?$#'"
      * )
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $requestedVersion
      * @param string $requestedFormat
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
@@ -257,12 +257,14 @@ class DefaultController extends AbstractController
         if (!isset($redirectData['url'])) {
             throw $this->createNotFoundException();
         }
-        header('Cache-control: max-age=3600');
+
         return $this->redirect($redirectData['url']);
     }
 
     /**
      * @Route("/misc/composer", methods={"GET"}, name="composer")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composer(): Response
     {
@@ -273,6 +275,8 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/misc/composer/helper", methods={"GET", "POST"}, name="composer-helper")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composerHelper(): Response
     {
@@ -291,8 +295,9 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/ajax/composer/helper/generate", methods={"POST"}, name="ajax-composer-helper-generate")
-     * @param Request $request
-     * @return JsonResponse
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function composerHelperAjax(Request $request): JsonResponse
     {
@@ -313,6 +318,8 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/misc/composer/repository", methods={"GET"}, name="composer-repository")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composerRepository(): Response
     {
