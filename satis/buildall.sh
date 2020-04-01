@@ -51,14 +51,23 @@ BIN_DIR=$APP_DIR/bin
 
 cd $WEB_DIR/../satis
 
-if [ -n "$DEBUG" ]; then
-    $BIN_DIR/typo3-cms-package-generator extensions:ter:json:create
-    $BIN_DIR/typo3-cms-package-generator satis:json:create
-    php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors
+CURRENT_TIME=$(date +%H:%M)
+if [[ "$CURRENT_TIME" > "05:00" ]] || [[ "$CURRENT_TIME" < "05:05" ]]; then
+    BUILD_PARAM=--all
 else
-    $BIN_DIR/typo3-cms-package-generator extensions:ter:json:create > /dev/null
-    $BIN_DIR/typo3-cms-package-generator satis:json:create > /dev/null
-    php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors > /dev/null
+    BUILD_PARAM=
+fi
+
+if [ -n "$DEBUG" ]; then
+    $BIN_DIR/typo3-cms-package-generator satis:build $WEB_DIR $BUILD_PARAM
+    #$BIN_DIR/typo3-cms-package-generator extensions:ter:json:create
+    #$BIN_DIR/typo3-cms-package-generator satis:json:create
+    #php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors
+else
+    $BIN_DIR/typo3-cms-package-generator satis:build $WEB_DIR $BUILD_PARAM > /dev/null
+    #$BIN_DIR/typo3-cms-package-generator extensions:ter:json:create > /dev/null
+    #$BIN_DIR/typo3-cms-package-generator satis:json:create > /dev/null
+    #php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors > /dev/null
 fi
 
 # Rename Satis index
