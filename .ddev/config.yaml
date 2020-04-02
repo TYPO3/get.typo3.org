@@ -22,7 +22,7 @@ hooks:
   - exec-host: .ddev/scripts/copy-dotenv
 omit_containers: [db, dba]
 use_dns_when_possible: true
-timezone: ""
+timezone: "Europe/Zurich"
 
 
 # This config.yaml was created with ddev version v1.13.1

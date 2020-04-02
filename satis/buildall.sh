@@ -51,27 +51,28 @@ BIN_DIR=$APP_DIR/bin
 
 cd $WEB_DIR/../satis
 
+# Run full build once a day only at 5am
 CURRENT_TIME=$(date +%H:%M)
-if [[ "$CURRENT_TIME" > "05:00" ]] || [[ "$CURRENT_TIME" < "05:05" ]]; then
+if [[ "$CURRENT_TIME" > "05:00" ]] && [[ "$CURRENT_TIME" < "05:05" ]]; then
     BUILD_PARAM=--all
 else
     BUILD_PARAM=
 fi
 
 if [ -n "$DEBUG" ]; then
-    $BIN_DIR/typo3-cms-package-generator satis:build $WEB_DIR $BUILD_PARAM
+    php -d memory_limit=-1 $BIN_DIR/typo3-cms-package-generator satis:build $WEB_DIR $BUILD_PARAM
     #$BIN_DIR/typo3-cms-package-generator extensions:ter:json:create
     #$BIN_DIR/typo3-cms-package-generator satis:json:create
     #php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors
 else
-    $BIN_DIR/typo3-cms-package-generator satis:build $WEB_DIR $BUILD_PARAM > /dev/null
+    php -d memory_limit=-1 $BIN_DIR/typo3-cms-package-generator satis:build $WEB_DIR $BUILD_PARAM > /dev/null
     #$BIN_DIR/typo3-cms-package-generator extensions:ter:json:create > /dev/null
     #$BIN_DIR/typo3-cms-package-generator satis:json:create > /dev/null
     #php -d memory_limit=-1 $BIN_DIR/satis build ./satis.json $WEB_DIR --skip-errors > /dev/null
 fi
 
 # Rename Satis index
-mv $WEB_DIR/index.html $WEB_DIR/satis.html
+#mv $WEB_DIR/index.html $WEB_DIR/satis.html
 
 # Remove lock file
 rm -f $LOCKFILE
