@@ -72,7 +72,7 @@ else
 fi
 
 # Rename Satis index
-mv $WEB_DIR/index.html $WEB_DIR/satis.html
+#mv $WEB_DIR/index.html $WEB_DIR/satis.html
 
 # Remove lock file
 rm -f $LOCKFILE
