@@ -53,7 +53,7 @@ cd $WEB_DIR/../satis
 
 # Run full build once a day only at 5am
 CURRENT_TIME=$(date +%H:%M)
-if [[ "$CURRENT_TIME" > "05:00" ]] && [[ "$CURRENT_TIME" < "05:05" ]]; then
+if [[ "$CURRENT_TIME" > "03:00" ]] && [[ "$CURRENT_TIME" < "03:01" ]]; then
     BUILD_PARAM=--all
 else
     BUILD_PARAM=
