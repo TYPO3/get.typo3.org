@@ -1,4 +1,3 @@
-APIVersion: v1.13.1
 name: get.typo3.org
 type: php
 docroot: public
@@ -11,7 +10,6 @@ additional_hostnames:
 - composer.typo3.org
 additional_fqdns: []
 mariadb_version: "10.2"
-nfs_mount_enabled: false
 provider: default
 hooks:
   post-start:
@@ -22,11 +20,11 @@ hooks:
   - exec-host: .ddev/scripts/copy-dotenv
 omit_containers: [db, dba]
 use_dns_when_possible: true
-timezone: "Europe/Zurich"
+timezone: Europe/Zurich
 
 
-# This config.yaml was created with ddev version v1.13.1
-# webimage: drud/ddev-webserver:v1.13.1
+# This config.yaml was created with ddev version v1.14.0-rc2
+# webimage: drud/ddev-webserver:20200411_webimage_maint
 # dbimage: drud/ddev-dbserver-mariadb-10.2:v1.13.0
 # dbaimage: phpmyadmin/phpmyadmin:5
 # However we do not recommend explicitly wiring these images into the
@@ -96,11 +94,11 @@ timezone: "Europe/Zurich"
 # These values specify the destination directory for ddev ssh and the
 # directory in which commands passed into ddev exec are run.
 
-# omit_containers: ["dba", "ddev-ssh-agent"]
-# would omit the dba (phpMyAdmin) and ddev-ssh-agent containers. Currently
-# only those two containers can be omitted here.
-# Note that these containers can also be omitted globally in the
-# ~/.ddev/global_config.yaml or with the "ddev config global" command.
+# omit_containers: ["db", dba", "ddev-ssh-agent"]
+# Currently only these containers are supported. Some containers can also be
+# omitted globally in the ~/.ddev/global_config.yaml. Note that if you omit
+# the "db" container, several standard features of ddev that access the
+# database container will be unusable.
 
 # nfs_mount_enabled: false
 # Great performance improvement but requires host configuration first.
@@ -122,11 +120,13 @@ timezone: "Europe/Zurich"
 # The host port binding for the ddev-dbserver can be explicitly specified. It is dynamic
 # unless explicitly specified.
 
-# phpmyadmin_port: "1000"
-# The PHPMyAdmin port can be changed from the default 8036
+# phpmyadmin_port: "8036"
+# phpmyadmin_https_port: "8037{"
+# The PHPMyAdmin ports can be changed from the default 8036 and 8037
 
-# mailhog_port: "1001"
-# The MailHog port can be changed from the default 8025
+# mailhog_port: "8025"
+# mailhog_https_port: "8026"
+# The MailHog ports can be changed from the default 8025 and 8026
 
 # webimage_extra_packages: [php-yaml, php7.3-ldap]
 # Extra Debian packages that are needed in the webimage can be added here
@@ -154,6 +154,12 @@ timezone: "Europe/Zurich"
 # If true, ddev will not create CMS-specific settings files like
 # Drupal's settings.php/settings.ddev.php or TYPO3's AdditionalSettings.php
 # In this case the user must provide all such settings.
+
+# no_project_mount: false
+# (Experimental) If true, ddev will not mount the project into the web container; 
+# the user is responsible for mounting it manually or via a script.
+# This is to enable experimentation with alternate file mounting strategies. 
+# For advanced users only!
 
 # provider: default # Currently either "default" or "pantheon"
 #
