@@ -15,4 +15,4 @@ SHELL=/usr/local/vzscripts/sfoutputtosyslog
 
 #       10      2       *       *       *       <command>
 
-        0      */3      *       *       *       ~/site/mage/current/satis/buildall.sh -q
+        0      */3      *       *       *       ~/site/mage/current/satis/build.sh -q

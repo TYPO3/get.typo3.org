@@ -16,5 +16,5 @@ SHELL=/usr/local/vzscripts/sfoutputtosyslog
 #       10      2       *       *       *       <command>
 
 # The Satis build job is currently not enabled by default, please run
-# `~/site/mage/current/satis/buildall.sh` instead.
-#      8-59/15   *       *       *       *       ~/site/mage/current/satis/buildall.sh -q
+# `~/site/mage/current/satis/build.sh` instead.
+#      8-59/15   *       *       *       *       ~/site/mage/current/satis/build.sh -q
