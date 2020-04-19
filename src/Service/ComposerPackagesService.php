@@ -603,6 +603,20 @@ class ComposerPackagesService
             $versionChoices['choices'][self::SPECIAL_VERSIONS][$version['name']] = $version['value'];
         }
 
+        foreach ($majorVersions as $version) {
+            if (\preg_match('/^(\d+)\.(\d+)\.(\d+)/', $version->getLatestRelease()->getVersion(), $matches)) {
+                $nextMinor = $matches[1] . '.' . (string)(((int)$matches[2]) + 1);
+                $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (string)(((int)$matches[3]) + 1);
+
+                if (\is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
+                    $versionChoices['choices'][self::SPECIAL_VERSIONS][$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
+                        $this->getComposerVersionConstraint($nextMinor, true);
+                }
+                $versionChoices['choices'][self::SPECIAL_VERSIONS][$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
+                    $this->getComposerVersionConstraint($nextPatch, true);
+            }
+        }
+
         $builder->add(
             'typo3_version',
             ChoiceType::class,
@@ -647,12 +661,13 @@ class ComposerPackagesService
 
     public function cleanPackagesForVersions(array $packages): array
     {
-        if ($packages['typo3_version'] === '^8.7') {
-            $version = 8;
-        } elseif ($packages['typo3_version'] === '^9.5') {
-            $version = 9;
+        if (\preg_match('/^\^(\d+)/', $packages['typo3_version'], $matches)) {
+            $version = (int)$matches[1];
         } else {
-            $version = 10;
+            $latestVersion = $this->entityManager->getRepository(MajorVersion::class)
+                ->findAllComposerSupported()[0]->getLatestRelease()->getVersion();
+            \preg_match('/^\d+/', $latestVersion, $matches);
+            $version = (int)$matches[0];
         }
 
         foreach (self::$packages as $package) {
@@ -664,9 +679,11 @@ class ComposerPackagesService
         return $packages;
     }
 
-    private function getComposerVersionConstraint(string $version): string
+    private function getComposerVersionConstraint(string $version, bool $development = false): string
     {
-        if (\preg_match('/^\d+\.\d+/', $version, $matches)) {
+        if ($development) {
+            $result = '^' . $version . '@dev';
+        } elseif (\preg_match('/^\d+\.\d+/', $version, $matches)) {
             $result = '^' . $matches[0];
         } else {
             $result = '';
