@@ -14,7 +14,7 @@ use App\Entity\MajorVersion;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 
-class VersionUtilityTest extends TestCase
+class MajorVersionTest extends TestCase
 {
     /**
      * @param array $version
