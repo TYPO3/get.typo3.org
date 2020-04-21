@@ -6,10 +6,20 @@
         <h1>Composer Repository</h1>
     {% endframe %}
 
+    {% frame with { id: 'notice-outdated' } %}
+        <div class="alert alert-danger">
+            <h2 class="h4 alert-heading">This Composer Repository is deprecated.</h2>
+            <p class="mb-0">
+                Please note, the usage of this Composer Repository is deprecated. Instead use the extensions published
+                at <a href="{{ packagist.search }}" target="_blank" rel="noopener">Packagist</a>, which is prefered. As
+                fall back for not yet published extensions you can use this repository.
+            </p>
+        </div>
+    {% endframe %}
+
     {% frame with { color: 'light' } %}
         <h2>What Is It?</h2>
         <p>TYPO3 offers a <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer. The packages are updated once every 3 hours.</p>
-        <p class="deprecated">Please note, the usage of this Composer repository is deprecated. Instead use the extensions published on <a href="{{ packagist.search }}" target="_blank" rel="noopener">Packagist</a>, which is prefered. As fall back for not published extensions you can use this repository.</p>
         <p>This repository includes only the following TYPO3 CMS extensions:</p>
         <ul>
             <li>All TYPO3 extensions that are uploaded to TER, including insecure versions.
@@ -26,15 +36,15 @@
         <h2>How to use it?</h2>
         <p>To enable the usage of the TYPO3 Composer Repository for your project, you have to modify the <code>composer.json</code>.</p>
         <p>Run the following command:</p>
-        <pre><code class="language-bash">composer config repositories.typo3 '{"type": "composer", "url": "https://composer.typo3.org/"}'</code></pre>
+        <pre><code class="language-bash">composer config repositories.typo3 composer https://composer.typo3.org</code></pre>
         <p>Or manually add this lines:</p>
         <pre><code class="language-json">{
-    "repositories": [
-        {
+    "repositories": {
+        "typo3": {
             "type": "composer",
-            "url": "https://composer.typo3.org/"
+            "url": "https://composer.typo3.org"
         }
-    ]
+    }
 }</code></pre>
     {% endframe %}
 
