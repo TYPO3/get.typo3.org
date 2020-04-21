@@ -2,7 +2,7 @@
     {% frame with { id: 'notice-elts', color: 'light', rulerBefore: true } %}
         <h2>Stay secure and up-to-date with TYPO3 ELTS!</h2>
         <p>
-            The TYPO3 community supported {{ title }} from {{ releaseDate.format("Y-m-d") }}
+            The TYPO3 CMS community supported from <strong>{{ releaseDate.format("Y-m-d") }}</strong>
             until <strong>{{ maintainedUntil|date("Y-m-d") }}</strong>.<br>
             <strong>Extend your support now until <u>{{ eltsUntil|date("Y-m-d") }}</u> to
             get access to the latest security and compatibility updates for this version.</strong>
@@ -15,7 +15,7 @@
         <div class="alert alert-danger">
             <h2 class="h4 alert-heading">This version is not supported anymore.</h2>
             <p class="mb-0">
-                The TYPO3 community supported {{ title }} from <strong>{{ releaseDate.format("Y-m-d") }}</strong>
+                The TYPO3 CMS community supported from <strong>{{ releaseDate.format("Y-m-d") }}</strong>
                 until <strong>{{ maintainedUntil|date("Y-m-d") }}</strong>. Please consider updating to a newer version.
             </p>
         </div>
