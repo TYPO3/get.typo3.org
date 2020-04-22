@@ -10,7 +10,6 @@ magephp:
         - .vscode
         - bin/phpunit
         - tests
-        - var
         - .editorconfig
         - .env
         - .env.ddev
@@ -43,17 +42,16 @@ magephp:
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
             on-deploy:
-                - fs/link: { from: "../../../shared/var", to: "var" }
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
                 - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
                 - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
                 - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
-                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+                - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
             on-release:
             post-release:
+                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
-                - symfony/cache-clear: { env: "staging" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - symfony/cache-warmup: { env: "staging" }
                 - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
