@@ -9,11 +9,26 @@
 {% endblock %}
 {% block footer %}
     {% frame with { color: 'primary' } %}
-        <p class="lead">
-            Do you want to contribute to this website or report feedback?
-        </p>
-        <a class="btn btn-dark" href="https://github.com/TYPO3/get.typo3.org/issues" target="_blank" rel="noopener">
-            Go to our GitHub repository
-        </a>
+        <div class="card-group-element card-group-element-align-left card-group-element-columns-2">
+            <div class="card-group-element-item">
+                <p class="lead">
+                    Questions about the TYPO3 CMS?
+                </p>
+                <a class="btn btn-dark" href="https://my.typo3.org/about-mytypo3org/slack" target="_blank" rel="noopener">
+                    Ask the community at Slack
+                </a>
+                <a class="btn btn-dark" href="https://stackoverflow.com/search?q=typo3" target="_blank" rel="noopener">
+                    Ask at Stack Overflow
+                </a>
+            </div>
+            <div class="card-group-element-item">
+                <p class="lead">
+                    Want to contribute to this website or report feedback?
+                </p>
+                <a class="btn btn-dark" href="https://github.com/TYPO3/get.typo3.org/issues" target="_blank" rel="noopener">
+                    Go to our GitHub repository
+                </a>
+            </div>
+        </div>
     {% endframe %}
 {% endblock %}
