@@ -85,6 +85,7 @@ class MajorVersionTest extends TestCase
                     'description',
                     $dateTimeToday,
                     null,
+                    null,
                     $collection,
                     $collection,
                     null
@@ -107,6 +108,7 @@ class MajorVersionTest extends TestCase
                     'description',
                     $dateTimeToday,
                     $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                    null,
                     $collection,
                     $collection,
                     9.5
@@ -123,12 +125,36 @@ class MajorVersionTest extends TestCase
             ],
             'ELTS' => [
                 [
+                    7.6,
+                    'TYPO3 7',
+                    'subtitle',
+                    'description',
+                    $dateTimeToday->modify('-3 years'),
+                    $dateTimeToday->modify('-1 day'),
+                    null,
+                    $collection,
+                    $collection,
+                    7.6
+                ],
+                [
+                    'version' => 7,
+                    'title' => 'TYPO3 7',
+                    'releaseDate' => $dateTimeToday->modify('-3 years'),
+                    'maintainedUntil' => $dateTimeToday->modify('-1 day'),
+                    'eltsUntil' => $dateTimeToday->modify('-1 day')->modify('+3 years'),
+                    'active' => false,
+                    'elts' => true,
+                ]
+            ],
+            'ELTS-SET' => [
+                [
                     6.2,
                     'TYPO3 6.2',
                     'subtitle',
                     'description',
                     $dateTimeToday->modify('-3 years'),
                     $dateTimeToday->modify('-1 day'),
+                    $dateTimeToday->modify('-1 day')->modify('+4 years'),
                     $collection,
                     $collection,
                     6.2
@@ -138,7 +164,7 @@ class MajorVersionTest extends TestCase
                     'title' => 'TYPO3 6.2',
                     'releaseDate' => $dateTimeToday->modify('-3 years'),
                     'maintainedUntil' => $dateTimeToday->modify('-1 day'),
-                    'eltsUntil' => $dateTimeToday->modify('-1 day')->modify('+3 years'),
+                    'eltsUntil' => $dateTimeToday->modify('-1 day')->modify('+4 years'),
                     'active' => false,
                     'elts' => true,
                 ]
@@ -151,6 +177,7 @@ class MajorVersionTest extends TestCase
                     'description',
                     $dateTimeToday->modify('-6 years'),
                     $dateTimeToday->modify('-3 years')->modify('-1 day'),
+                    null,
                     $collection,
                     $collection,
                     4.5
