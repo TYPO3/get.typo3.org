@@ -102,7 +102,7 @@ class MajorVersionController extends AbstractController
             'json',
             SerializationContext::create()->setGroups(['content'])
         );
-        $response =  new JsonResponse($json, Response::HTTP_OK, [], true);
+        $response = new JsonResponse($json, Response::HTTP_OK, [], true);
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;

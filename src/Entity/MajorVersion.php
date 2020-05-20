@@ -59,6 +59,15 @@ class MajorVersion implements \JsonSerializable
     private $description;
 
     /**
+     * @ORM\Column(type="datetime_immutable")
+     * @var \DateTimeImmutable
+     * @Serializer\Groups({"data", "content", "patch"})
+     * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
+     * @SWG\Property(example="2017-12-12T16:48:22 UTC")
+     */
+    private $releaseDate;
+
+    /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
@@ -68,13 +77,13 @@ class MajorVersion implements \JsonSerializable
     private $maintainedUntil;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $releaseDate;
+    private $eltsUntil;
 
     /**
      * @ORM\OneToMany(targetEntity="Requirement", mappedBy="version", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -106,6 +115,7 @@ class MajorVersion implements \JsonSerializable
         string $description,
         \DateTimeImmutable $releaseDate,
         ?\DateTimeImmutable $maintainedUntil,
+        ?\DateTimeImmutable $eltsUntil,
         Collection $requirements,
         Collection $releases,
         ?float $lts
@@ -116,6 +126,7 @@ class MajorVersion implements \JsonSerializable
         $this->setDescription($description);
         $this->setReleaseDate($releaseDate);
         $this->setMaintainedUntil($maintainedUntil);
+        $this->setEltsUntil($eltsUntil);
         $this->setRequirements($requirements);
         $this->setReleases($releases);
         $this->setLts($lts);
@@ -181,9 +192,14 @@ class MajorVersion implements \JsonSerializable
         return $this->maintainedUntil;
     }
 
+    public function setEltsUntil(?\DateTimeImmutable $eltsUntil): void
+    {
+        $this->eltsUntil = $eltsUntil;
+    }
+
     public function getEltsUntil(): ?\DateTimeImmutable
     {
-        return $this->getMaintainedUntil() ? $this->getMaintainedUntil()->modify('+3 years') : null;
+        return $this->eltsUntil ?? ($this->getMaintainedUntil() ? $this->getMaintainedUntil()->modify('+3 years') : null);
     }
 
     public function setReleaseDate(\DateTimeImmutable $releaseDate): void

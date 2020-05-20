@@ -25,6 +25,7 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_SPRINT), 6);
         $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_LTS), 12);
         $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS), 24);
+        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS_EXT), 24);
         $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_OUTDATED), 24);
         $manager->flush();
     }
