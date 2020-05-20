@@ -16,10 +16,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class MajorVersionFixtures extends Fixture
 {
-    const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
-    const MAJOR_VERSION_LTS = 'majorversion-lts';
-    const MAJOR_VERSION_ELTS = 'majorversion-elts';
-    const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
+    public const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
+    public const MAJOR_VERSION_LTS = 'majorversion-lts';
+    public const MAJOR_VERSION_ELTS = 'majorversion-elts';
+    public const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
+    public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
 
     public function load(ObjectManager $manager)
     {
@@ -32,6 +33,7 @@ class MajorVersionFixtures extends Fixture
                 $version['description'],
                 $version['releaseDate'],
                 $version['maintainedUntil'],
+                $version['eltsUntil'],
                 $version['requirements'],
                 $version['releases'],
                 $version['lts']
@@ -49,6 +51,7 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_SPRINT,
             self::MAJOR_VERSION_LTS,
             self::MAJOR_VERSION_ELTS,
+            self::MAJOR_VERSION_ELTS_EXT,
             self::MAJOR_VERSION_OUTDATED,
         ];
     }
@@ -66,6 +69,7 @@ class MajorVersionFixtures extends Fixture
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday,
                 'maintainedUntil' => null,
+                'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
                 'lts' => null
@@ -77,17 +81,31 @@ class MajorVersionFixtures extends Fixture
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday,
                 'maintainedUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
                 'lts' => 9.5
             ],
             self::MAJOR_VERSION_ELTS => [
+                'version' => 7.6,
+                'title' => 'TYPO3 7',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeToday->modify('-3 years'),
+                'maintainedUntil' => $dateTimeToday->modify('-1 day'),
+                'eltsUntil' => null,
+                'requirements' => new ArrayCollection(),
+                'releases' => new ArrayCollection(),
+                'lts' => 7.6
+            ],
+            self::MAJOR_VERSION_ELTS_EXT => [
                 'version' => 6.2,
                 'title' => 'TYPO3 6.2',
                 'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday->modify('-3 years'),
                 'maintainedUntil' => $dateTimeToday->modify('-1 day'),
+                'eltsUntil' => $dateTimeToday->modify('-1 day')->modify('+4 years'),
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
                 'lts' => 6.2
@@ -99,6 +117,7 @@ class MajorVersionFixtures extends Fixture
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeToday->modify('-6 years'),
                 'maintainedUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day'),
+                'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
                 'lts' => 4.5
