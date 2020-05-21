@@ -16,6 +16,16 @@ use Doctrine\ORM\EntityRepository;
 
 class MajorVersionRepository extends EntityRepository
 {
+    /**
+     * Finds all entities in the repository.
+     *
+     * @return array The entities.
+     */
+    public function findAllDescending()
+    {
+        return $this->findBy([], ['version' => 'DESC']);
+    }
+
     public function findAllActive()
     {
         $date = (new \DateTimeImmutable())->modify('-3 years')->format('Y-m-d');

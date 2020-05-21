@@ -53,7 +53,7 @@ class MajorVersionController extends AbstractController
     public function getMajorReleases(Request $request): JsonResponse
     {
         $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $majors = $releaseRepo->findAll();
+        $majors = $releaseRepo->findAllDescending();
         $json = $this->serializer->serialize(
             $majors,
             'json',
