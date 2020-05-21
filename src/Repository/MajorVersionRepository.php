@@ -48,17 +48,15 @@ class MajorVersionRepository extends EntityRepository
 
     public function findAllActiveElts()
     {
-        $dateFrom = (new \DateTimeImmutable())->modify('-3 years')->format('Y-m-d');
-        $dateTo = (new \DateTimeImmutable())->format('Y-m-d');
+        $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->andX(
-                $qb->expr()->gt('m.maintainedUntil', ':dateFrom'),
-                $qb->expr()->lt('m.maintainedUntil', ':dateTo')
+                $qb->expr()->gt('m.eltsUntil', ':date'),
+                $qb->expr()->lte('m.maintainedUntil', ':date'),
             )
         );
-        $qb->setParameter('dateFrom', $dateFrom);
-        $qb->setParameter('dateTo', $dateTo);
+        $qb->setParameter('date', $date);
         $qb->addOrderBy('m.version', 'DESC');
         return $qb->getQuery()->execute();
     }
