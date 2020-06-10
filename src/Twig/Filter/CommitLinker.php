@@ -29,7 +29,10 @@ class CommitLinker extends AbstractExtension
         return preg_replace_callback(
             $pattern,
             function (array $matches): string {
-                return sprintf('<a href="https://github.com/TYPO3/TYPO3.CMS/commit/%1$s">%1$s</a>', $matches['commit']);
+                return sprintf(
+                    '<a href="https://github.com/TYPO3/TYPO3.CMS/commit/%1$s" target="_blank" rel="noopener">%1$s</a>',
+                    $matches['commit']
+                );
             },
             $changeList
         );
