@@ -17,6 +17,13 @@
         on your system. Detailed informations are available in the <a href="https://docs.typo3.org/m/typo3/guide-installation/master/en-us/QuickInstall/Composer/Index.html">TYPO3 Documentation</a>.</p>
         <p>For an easy customized setup of the core extensions for your project's <code>composer.json</code>, use the <a href="composer/helper">TYPO3 Composer Helper</a>.</p>
         <p>It is recommended to include extensions directly from <a href="{{ packagist.search }}" target="_blank" rel="noopener">Packagist</a> instead of using the <a href="composer/repository">TYPO3 Composer Repository</a>. For example, better require <code>georgringer/news</code> than <code>typo3-ter/news</code>, if you want the News extension in your Composer installation.</p>
+        <p>Optional, for the comfortable usage of the extension keys from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository (TER)</a>, an aliases file for <a href="https://github.com/symfony/flex#readme" target="_blank" rel="noopener">Symfony Flex</a> is provided. Run the following commands to activate the Symfony Flex support:</p>
+        <pre><code class="language-bash">composer config extra.symfony.endpoint https://composer.typo3.org
+composer require symfony/flex --dev</code></pre>
+        <p>Afterwards you are able to require the extension keys directly. E.g. to install <code>bk2k/bootstrap-package</code> simply run one of this commands:</p>
+        <pre><code class="language-bash">composer require bootstrap_package
+composer require bootstrap-package
+composer require bootstrappackage</code></pre>
     {% endframe %}
 
     {% frame %}

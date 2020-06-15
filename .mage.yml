@@ -102,12 +102,14 @@ magephp:
                 - exec: { cmd: 'test -d ~/site/shared/var || mkdir -p ~/site/shared/var', desc: 'Create shared/var folder' }
                 - fs/link: { from: "../../../shared/var", to: "var" }
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
+                - fs/link: { from: "../../../../shared/public/aliases.json", to: "public/aliases.json" }
                 - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
                 - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
                 - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
-                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+                - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
             on-release:
             post-release:
+                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
                 - symfony/cache-clear: { env: "prod" }

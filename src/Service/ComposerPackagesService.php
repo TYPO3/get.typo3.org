@@ -13,10 +13,12 @@ namespace App\Service;
 
 use App\Entity\MajorVersion;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class ComposerPackagesService
 {
@@ -677,6 +679,73 @@ class ComposerPackagesService
         }
 
         return $packages;
+    }
+
+    public function getVersionsJson(): string
+    {
+        $cache = new FilesystemAdapter();
+        $content = (string)$cache->get('versions.json', function (ItemInterface $item) {
+            return json_encode($this->buildVersions());
+        });
+
+        return $content;
+    }
+
+    private function buildVersions(): array
+    {
+        /** @var \App\Repository\MajorVersionRepository $repository */
+        $repository = $this->entityManager->getRepository(MajorVersion::class);
+
+        $versions = [
+            'lts' => '',
+            'stable' => '',
+            'next' => '',
+            'previous' => '',
+            'master' => '',
+            'splits' => [],
+        ];
+
+        $majorVersions = $repository->findAllComposerSupported();
+
+        if ($majorVersions[0]->getLts() === null) {
+            $versions['stable'] = $this->getMinorVersion($majorVersions[0]->getLatestRelease()->getVersion());
+            $versions['next'] = $this->getMinorVersion($majorVersions[0]->getLatestRelease()->getVersion());
+            $versions['master'] = $this->getMinorVersion($majorVersions[0]->getLatestRelease()->getVersion());
+            $versions['lts'] = $this->getMinorVersion($majorVersions[1]->getLatestRelease()->getVersion());
+            $versions['previous'] = $this->getMinorVersion($majorVersions[2]->getLatestRelease()->getVersion());
+        } else {
+            $versions['lts'] = $this->getMinorVersion($majorVersions[0]->getLatestRelease()->getVersion());
+            $versions['stable'] = $this->getMinorVersion($majorVersions[0]->getLatestRelease()->getVersion());
+            $versions['previous'] = $this->getMinorVersion($majorVersions[1]->getLatestRelease()->getVersion());
+            $versions['next'] = $majorVersions[0]->getVersion() + 1 . '.0';
+            $versions['master'] = $majorVersions[0]->getVersion() + 1 . '.0';
+        }
+
+        $majorVersions = array_reverse($majorVersions);
+
+        foreach ($majorVersions as $majorVersion) {
+            foreach (self::$packages as $package) {
+                foreach ($package['versions'] as $version) {
+                    if ($version == $majorVersion->getVersion()) {
+                        $versions['splits'][$package['name']][] =
+                            $this->getMinorVersion($majorVersion->getLatestRelease()->getVersion());
+                    }
+                }
+            }
+        }
+
+        ksort($versions['splits']);
+
+        return $versions;
+    }
+
+    private function getMinorVersion(string $version): string
+    {
+        if (\preg_match('/^\d+\.\d+/', $version, $matches)) {
+            return $matches[0];
+        } else {
+            return '';
+        }
     }
 
     private function getComposerVersionConstraint(string $version, bool $development = false): string

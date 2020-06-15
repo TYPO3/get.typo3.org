@@ -3,6 +3,7 @@
 /bin/*
 !/bin/console
 !/bin/phpunit
+/public/aliases.json
 /public/p/
 /public/packages.json
 /public/satis.html

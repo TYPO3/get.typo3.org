@@ -98,6 +98,24 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * Outputs the /versions.json file
+     *
+     * Symfony Flex end point
+     * @Route("/versions.json", methods={"GET"}, name="symfony-releases-json")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function versionsJson(): Response
+    {
+        $content = $this->composerPackagesService->getVersionsJson();
+        $headers = [
+            'Content-type'                => 'application/json',
+            'Access-Control-Allow-Origin' => '*',
+        ];
+        return new Response($content, 200, $headers);
+    }
+
+    /**
      * Display release notes for a version
      *
      * @Route("/release-notes", methods={"GET"}, name="release-notes")
