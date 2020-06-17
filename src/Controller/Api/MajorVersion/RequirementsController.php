@@ -15,11 +15,13 @@ use App\Entity\Requirement;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,6 +36,7 @@ class RequirementsController extends AbstractController
     /**
      * Get TYPO3 major version requirements
      * @Route("s", methods={"GET"})
+     * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
      *     description="Returns TYPO3 major version requirements",
@@ -69,6 +72,7 @@ class RequirementsController extends AbstractController
             SerializationContext::create()->setGroups(['data'])
         );
         $response = new JsonResponse($json, 200, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
