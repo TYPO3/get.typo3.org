@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -70,6 +71,7 @@ class ReleasesController extends AbstractController
             SerializationContext::create()->setGroups(['data'])
         );
         $response = new JsonResponse($json, 200, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
@@ -115,6 +117,7 @@ class ReleasesController extends AbstractController
             SerializationContext::create()->setGroups(['data'])
         );
         $response = new JsonResponse($json, 200, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
@@ -160,6 +163,7 @@ class ReleasesController extends AbstractController
             );
         }
         $response = new JsonResponse($json, 200, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
@@ -205,6 +209,7 @@ class ReleasesController extends AbstractController
             SerializationContext::create()->setGroups(['content'])
         );
         $response = new JsonResponse($json, 200, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
