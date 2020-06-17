@@ -21,6 +21,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -76,6 +77,7 @@ class ReleaseController extends AbstractController
             SerializationContext::create()->setGroups(['data'])
         );
         $response =  new JsonResponse($json, 200, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
@@ -237,6 +239,7 @@ class ReleaseController extends AbstractController
             SerializationContext::create()->setGroups(['content'])
         );
         $response = new JsonResponse($json, Response::HTTP_OK, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
         return $response;
