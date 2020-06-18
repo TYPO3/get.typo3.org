@@ -80,7 +80,7 @@ magephp:
                 - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 300 }
-                - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
+                - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
             post-deploy:
         stage:
             user: get-stage
