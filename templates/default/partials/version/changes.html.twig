@@ -2,7 +2,11 @@
     {% frame %}
         <h2>Changes</h2>
         <div class="changelog">
-            {{ current.releaseNotes.changes|removeWikiLink|escape('html')|parsedown|changehighlighter|commitlinker|raw }}
+            {% if current.elts %}
+                {{ current.releaseNotes.changes|removeWikiLink|escape('html')|parsedown|changehighlighter|raw }}
+            {% else %}
+                {{ current.releaseNotes.changes|removeWikiLink|escape('html')|parsedown|changehighlighter|commitlinker|raw }}
+            {% endif %}
         </div>
     {% endframe %}
 {% endif %}
