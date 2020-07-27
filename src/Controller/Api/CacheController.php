@@ -60,10 +60,9 @@ class CacheController extends AbstractController
             throw new NotFoundHttpException('Version not found.');
         }
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
-        $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-        if ($filesystemCache->hasItem('releases.json')) {
-            $filesystemCache->delete('releases.json');
-        }
+
+        $this->deleteReleases();
+
         return (new JsonResponse(['locations' => $purgeUrls]))->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
@@ -98,23 +97,26 @@ class CacheController extends AbstractController
         $major = $this->getMajorVersionByReleaseVersion($version);
         $purgeUrls = $this->getPurgeUrlsForMajorVersion($major->getVersion());
         $releaseUrls = [
-            $this->generateUrl('app_api_release_getrelease', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('release_show', ['version' => $version], UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl(
+            $this->generateAbsoluteUrl('app_api_release_getrelease'),
+            $this->generateAbsoluteUrl(
+                'release_show',
+                ['version' => $version]
+            ),
+            $this->generateAbsoluteUrl(
                 'app_api_release_getcontentforversion',
-                ['version' => $version],
-                UrlGeneratorInterface::ABSOLUTE_URL
+                ['version' => $version]
             ),
-            $this->generateUrl(
+            $this->generateAbsoluteUrl('release-notes'),
+            $this->generateAbsoluteUrl(
                 'release-notes-for-version',
-                ['version' => $version],
-                UrlGeneratorInterface::ABSOLUTE_URL
+                ['version' => $version]
             ),
-            $this->generateUrl('release-notes', ['version' => $version], UrlGeneratorInterface::ABSOLUTE_URL),
         ];
-        $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-        $filesystemCache->delete('releases.json');
-        return (new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]))->setStatusCode(Response::HTTP_ACCEPTED);
+
+        $this->deleteReleases();
+
+        return (new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]))
+            ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -123,30 +125,73 @@ class CacheController extends AbstractController
      */
     private function getPurgeUrlsForMajorVersion(float $version): array
     {
-        $args = ['version' => $version];
-        $purgeUrls = [
-            $this->generateUrl('root', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('release-notes', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('app_default_releasenotes', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('majorVersion_show', $args, UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl('app_api_majorversion_getmajorreleases', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            $this->generateUrl(
+        return [
+            $this->generateAbsoluteUrlForVersion(
                 'app_api_majorversion_releases_getreleasesbymajorversion',
-                $args,
-                UrlGeneratorInterface::ABSOLUTE_URL
+                $version
             ),
-            $this->generateUrl(
+            $this->generateAbsoluteUrlForVersion(
                 'app_api_majorversion_releases_getlatestreleasebymajorversion',
-                $args,
-                UrlGeneratorInterface::ABSOLUTE_URL
+                $version
             ),
-            $this->generateUrl(
+            $this->generateAbsoluteUrlForVersion(
+                'app_api_majorversion_releases_getlatestsecurityreleasebymajorversion',
+                $version
+            ),
+            $this->generateAbsoluteUrlForVersion(
                 'app_api_majorversion_releases_getlatestreleasecontentbymajorversion',
-                $args,
-                UrlGeneratorInterface::ABSOLUTE_URL
+                $version
             ),
-            $this->generateUrl('root', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            $this->generateAbsoluteUrl('app_api_majorversion_getmajorreleases'),
+            $this->generateAbsoluteUrlForVersion(
+                'majorVersion_show',
+                $version
+            ),
+            $this->generateAbsoluteUrl('root'),
+            $this->generateAbsoluteUrl('release-notes'),
+            $this->generateAbsoluteUrl('app_default_releasenotes'),
+            $this->generateAbsoluteUrlForVersion(
+                'version',
+                $version
+            ),
         ];
-        return $purgeUrls;
+    }
+
+    /**
+     * @param string $route
+     * @param array $parameters
+     * @return string
+     */
+    private function generateAbsoluteUrl(string $route, array $parameters = []): string
+    {
+        return $this->generateUrl(
+            $route,
+            $parameters,
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+    }
+
+    /**
+     * @param string $route
+     * @param float $version
+     * @return string
+     */
+    private function generateAbsoluteUrlForVersion(string $route, float $version): string
+    {
+        return $this->generateAbsoluteUrl(
+            $route,
+            ['version' => $version]
+        );
+    }
+
+    /**
+     * Deletes the releases.json in the cache
+     */
+    private function deleteReleases(): void
+    {
+        $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
+        if ($filesystemCache->hasItem('releases.json')) {
+            $filesystemCache->delete('releases.json');
+        }
     }
 }

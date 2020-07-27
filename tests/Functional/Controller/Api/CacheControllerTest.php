@@ -70,15 +70,16 @@ class CacheControllerTest extends ApiCase
         $this->assertSame(
             [
                 'locations' => [
+                    'http://localhost/v1/api/major/10/release/',
+                    'http://localhost/v1/api/major/10/release/latest',
+                    'http://localhost/v1/api/major/10/release/latest/security',
+                    'http://localhost/v1/api/major/10/release/latest/content',
+                    'http://localhost/v1/api/major/',
+                    'http://localhost/v1/api/major/10',
                     'http://localhost/',
                     'http://localhost/release-notes',
                     'http://localhost/release-notes/',
-                    'http://localhost/v1/api/major/10',
-                    'http://localhost/v1/api/major/',
-                    'http://localhost/v1/api/major/10/release/',
-                    'http://localhost/v1/api/major/10/release/latest',
-                    'http://localhost/v1/api/major/10/release/latest/content',
-                    'http://localhost/',
+                    'http://localhost/version/10',
                 ]
             ],
             json_decode($response->getContent(), true)
@@ -89,15 +90,16 @@ class CacheControllerTest extends ApiCase
         $this->assertSame(
             [
                 'locations' => [
+                    'http://localhost/v1/api/major/6.2/release/',
+                    'http://localhost/v1/api/major/6.2/release/latest',
+                    'http://localhost/v1/api/major/6.2/release/latest/security',
+                    'http://localhost/v1/api/major/6.2/release/latest/content',
+                    'http://localhost/v1/api/major/',
+                    'http://localhost/v1/api/major/6.2',
                     'http://localhost/',
                     'http://localhost/release-notes',
                     'http://localhost/release-notes/',
-                    'http://localhost/v1/api/major/6.2',
-                    'http://localhost/v1/api/major/',
-                    'http://localhost/v1/api/major/6.2/release/',
-                    'http://localhost/v1/api/major/6.2/release/latest',
-                    'http://localhost/v1/api/major/6.2/release/latest/content',
-                    'http://localhost/',
+                    'http://localhost/version/6.2',
                 ]
             ],
             json_decode($response->getContent(), true)
@@ -148,20 +150,22 @@ class CacheControllerTest extends ApiCase
         $this->assertSame(
             [
                 'locations' => [
+                    'http://localhost/v1/api/major/10/release/',
+                    'http://localhost/v1/api/major/10/release/latest',
+                    'http://localhost/v1/api/major/10/release/latest/security',
+                    'http://localhost/v1/api/major/10/release/latest/content',
+                    'http://localhost/v1/api/major/',
+                    'http://localhost/v1/api/major/10',
                     'http://localhost/',
                     'http://localhost/release-notes',
                     'http://localhost/release-notes/',
-                    'http://localhost/v1/api/major/10',
-                    'http://localhost/v1/api/major/',
-                    'http://localhost/v1/api/major/10/release/',
-                    'http://localhost/v1/api/major/10/release/latest',
-                    'http://localhost/v1/api/major/10/release/latest/content',
-                    'http://localhost/',
+                    'http://localhost/version/10',
+
                     'http://localhost/v1/api/release/',
                     'http://localhost/v1/api/release/10.0.0',
                     'http://localhost/v1/api/release/10.0.0/content',
+                    'http://localhost/release-notes',
                     'http://localhost/release-notes/10.0.0',
-                    'http://localhost/release-notes?version=10.0.0',
                 ]
             ],
             json_decode($response->getContent(), true)
