@@ -28,12 +28,16 @@ class MajorVersionRepository extends EntityRepository
 
     public function findAllActive()
     {
-        $date = (new \DateTimeImmutable())->modify('-3 years')->format('Y-m-d');
+        $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->orX(
                 $qb->expr()->gte('m.maintainedUntil', ':date'),
-                $qb->expr()->isNull('m.maintainedUntil')
+                $qb->expr()->isNull('m.maintainedUntil'),
+                $qb->expr()->andX(
+                    $qb->expr()->gt('m.eltsUntil', ':date'),
+                    $qb->expr()->lte('m.maintainedUntil', ':date')
+                )
             )
         );
         $qb->setParameter('date', $date);
@@ -63,7 +67,7 @@ class MajorVersionRepository extends EntityRepository
         $qb->where(
             $qb->expr()->andX(
                 $qb->expr()->gt('m.eltsUntil', ':date'),
-                $qb->expr()->lte('m.maintainedUntil', ':date'),
+                $qb->expr()->lte('m.maintainedUntil', ':date')
             )
         );
         $qb->setParameter('date', $date);
