@@ -7960,19 +7960,20 @@
         },
         {
             "name": "t3g/symfony-template-bundle",
-            "version": "2.3.0",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3GmbH/symfony-template-bundle.git",
-                "reference": "da615647c0fdf482b5c8cc52203170db737185e2"
+                "reference": "9b9fca428139d2b65123dee51faf25f8029df6f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/da615647c0fdf482b5c8cc52203170db737185e2",
-                "reference": "da615647c0fdf482b5c8cc52203170db737185e2",
+                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/9b9fca428139d2b65123dee51faf25f8029df6f7",
+                "reference": "9b9fca428139d2b65123dee51faf25f8029df6f7",
                 "shasum": ""
             },
             "require": {
+                "erusev/parsedown": "^1.7",
                 "knplabs/knp-menu-bundle": "^2.2 || ^3.0",
                 "knplabs/knp-paginator-bundle": "^3.0 || ^4.0 || ^5.0",
                 "php": "^7.2",
@@ -8016,7 +8017,7 @@
                 "templates",
                 "typo3"
             ],
-            "time": "2020-02-28T12:19:16+00:00"
+            "time": "2020-07-08T15:04:12+00:00"
         },
         {
             "name": "twig/extensions",
@@ -8698,6 +8699,7 @@
                 "monolog",
                 "productivity"
             ],
+            "abandoned": true,
             "time": "2019-10-24T07:13:31+00:00"
         },
         {
@@ -11178,5 +11180,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.4.3"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
