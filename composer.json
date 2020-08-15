@@ -29,7 +29,7 @@
         "source": "https://github.com/TYPO3/get.typo3.org"
     },
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4.16",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -114,7 +114,7 @@
         "bin-dir": "bin",
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4.10"
+            "php": "7.4.16"
         },
         "preferred-install": {
             "t3g/*": "source",
