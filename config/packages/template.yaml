@@ -9,8 +9,16 @@ template:
             home: root
             privacy: https://typo3.org/privacy-policy
             legal: https://typo3.org/legal-notice
+            feedback: https://github.com/TYPO3/get.typo3.org/issues
         menu:
             class: App\Menu\MenuBuilder
+        email:
+            legal_footer: |
+                TYPO3 Association, Sihlbruggstrasse 105, 6340 Baar, Switzerland
+                Phone: +41 41 511 00 35, Web: typo3.org, Email: info@typo3.org
+
+                Entry in the register of commerce of the Kanton Zug: CHE‑112.256.297
+                Represented by: Olivier Dobberkau (Präsident)
         theme:
             use_logo: true
             background: white
