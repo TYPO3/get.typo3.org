@@ -56,7 +56,7 @@ magephp:
                 - exec: { cmd: "php ./bin/console cache:warmup --env=staging", desc: "Cache Warmup", timeout: 300 }
                 - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
             post-deploy:
-        master:
+        production:
             user: get
             from: ./
             host_path: ./site/mage/
