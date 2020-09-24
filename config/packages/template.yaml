@@ -18,7 +18,7 @@ template:
                 Phone: +41 41 511 00 35, Web: typo3.org, Email: info@typo3.org
 
                 Entry in the register of commerce of the Kanton Zug: CHE‑112.256.297
-                Represented by: Olivier Dobberkau (Präsident)
+                Represented by: Olivier Dobberkau (President)
         theme:
             use_logo: true
             background: white
