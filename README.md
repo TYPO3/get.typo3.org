@@ -62,12 +62,12 @@ composer test:php:functional
 
 Changes and commits are made in the first place to the branch `develop` which
 will be deployed to development and staging site see later. Please create
-pull request always to this branch and not directly to `master`. Every commit
+pull request always to this branch and not directly to `production`. Every commit
 is checked by our continous integration workflow on Github to ensure no
 breaking changes e.g. in the API.
 
 After a pull request is merged it gets automatically deployed and more manual
-checks and tests can be done before cherry picking the commit to the `master`
+checks and tests can be done before cherry picking the commit to the `production`
 branch which is deployed then to the production site.
 
 ### API Development Access
@@ -139,10 +139,10 @@ SSH access is possible with the following command:
 
 #### Production
 
-![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=master)
-![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=master)
+![CI Production](https://github.com/TYPO3/get.typo3.org/workflows/Integration%20(CI)/badge.svg?branch=production)
+![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=production)
 
-All pushs to the branch `master` are automatically deployed to the production
+All pushs to the branch `production` are automatically deployed to the production
 site at `https://get.typo3.org` or `https://composer.typo3.org`.
 
 SSH access is possible with the following command:

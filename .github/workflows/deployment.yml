@@ -2,7 +2,7 @@ name: Deployment (CD)
 on:
   push:
     branches:
-      - master
+      - production
       - develop
       - stage
 jobs:
