@@ -4,4 +4,4 @@
 ## Usage: satisbuild
 ## Example: "ddev satisbuild"
 
-${WEBSERVER_DOCROOT}/satis/build.sh $@
+/var/www/html/satis/build.sh $@

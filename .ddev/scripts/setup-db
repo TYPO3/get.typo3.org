@@ -1,10 +1,10 @@
 #!/bin/bash
 
 if [ "$APP_ENV" = "test" ]; then
-    DBFILE=$WEBSERVER_DOCROOT'/var/test.db'
+    DBFILE='/var/www/html/var/test.db'
     test -f $DBFILE && rm $DBFILE && echo 'Database file removed'
 else
-    DBFILE=`echo $DATABASE_URL|sed 's@sqlite:\/\/\/%kernel\.project_dir%@'"$WEBSERVER_DOCROOT"'@'`
+    DBFILE=`echo $DATABASE_URL|sed 's@sqlite:\/\/\/%kernel\.project_dir%@'"/var/www/html"'@'`
 fi
 
 echo 'Database file: '$DBFILE
