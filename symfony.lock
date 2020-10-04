@@ -164,6 +164,9 @@
     "monolog/monolog": {
         "version": "1.23.0"
     },
+    "n98/junit-xml": {
+        "version": "1.0.0"
+    },
     "nelmio/api-doc-bundle": {
         "version": "3.0",
         "recipe": {
