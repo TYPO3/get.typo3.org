@@ -279,7 +279,7 @@
         "version": "1.1.9"
     },
     "php": {
-        "version": "7.4.3"
+        "version": "7.4.10"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"

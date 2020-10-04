@@ -107,7 +107,7 @@
         "bin-dir": "bin",
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4.3"
+            "php": "7.4.10"
         },
         "preferred-install": {
             "t3g/*": "source",

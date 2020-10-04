@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7df81cb88f7a0a5369170903e840ba0f",
+    "content-hash": "b5d979b81ad93b9685b2c07a61af9cf7",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -8072,6 +8072,7 @@
                 "i18n",
                 "text"
             ],
+            "abandoned": true,
             "time": "2018-12-05T18:34:18+00:00"
         },
         {
@@ -10913,6 +10914,7 @@
                 "MIT"
             ],
             "description": "Auto bind parameters for your Symfony applications",
+            "abandoned": "symplify/package-builder",
             "time": "2020-03-18T23:25:54+00:00"
         },
         {
@@ -11179,7 +11181,7 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.4.3"
+        "php": "7.4.10"
     },
     "plugin-api-version": "1.1.0"
 }
