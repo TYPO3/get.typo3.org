@@ -194,23 +194,11 @@
             "ref": "65726efb67ff51d89de38195bc0d230fa811f64d"
         }
     },
-    "nette/application": {
-        "version": "v3.0.4"
-    },
-    "nette/component-model": {
-        "version": "v3.0.0"
-    },
     "nette/finder": {
         "version": "v2.5.0"
     },
-    "nette/http": {
-        "version": "v3.0.3"
-    },
     "nette/robot-loader": {
         "version": "v3.2.0"
-    },
-    "nette/routing": {
-        "version": "v3.0.0"
     },
     "nette/utils": {
         "version": "v3.0.1"
