@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57bf410b39a747e0f585df59636e8498",
+    "content-hash": "d34d8564d19c582bbb9e22489bcfeb48",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -9998,16 +9998,16 @@
         },
         {
             "name": "overtrue/phplint",
-            "version": "1.2.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/phplint.git",
-                "reference": "05bef7df401f8e250436bbb008c25d1b344c0e5e"
+                "reference": "11f1ac8c583013897fc3f77634530588073a414d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/phplint/zipball/05bef7df401f8e250436bbb008c25d1b344c0e5e",
-                "reference": "05bef7df401f8e250436bbb008c25d1b344c0e5e",
+                "url": "https://api.github.com/repos/overtrue/phplint/zipball/11f1ac8c583013897fc3f77634530588073a414d",
+                "reference": "11f1ac8c583013897fc3f77634530588073a414d",
                 "shasum": ""
             },
             "require": {
@@ -10016,7 +10016,7 @@
                 "php": ">=5.5.9",
                 "symfony/console": "^3.2|^4.0|^5.0",
                 "symfony/finder": "^3.0|^4.0|^5.0",
-                "symfony/process": "^3.0|^4.0|^5.0",
+                "symfony/process": "^3.3|^4.0|^5.0",
                 "symfony/yaml": "^3.0|^4.0|^5.0"
             },
             "require-dev": {
@@ -10060,7 +10060,7 @@
                 "phplint",
                 "syntax"
             ],
-            "time": "2020-04-17T06:35:56+00:00"
+            "time": "2020-10-02T04:37:14+00:00"
         },
         {
             "name": "php-cs-fixer/diff",
