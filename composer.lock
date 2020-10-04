@@ -3518,16 +3518,16 @@
         },
         {
             "name": "nelmio/security-bundle",
-            "version": "v2.9.0",
+            "version": "v2.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioSecurityBundle.git",
-                "reference": "d8542de5a4bce96e3ee307cfe9bdf14c954a95cd"
+                "reference": "80d6e1091aadf55eab6a79be97a91c06d55e8223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioSecurityBundle/zipball/d8542de5a4bce96e3ee307cfe9bdf14c954a95cd",
-                "reference": "d8542de5a4bce96e3ee307cfe9bdf14c954a95cd",
+                "url": "https://api.github.com/repos/nelmio/NelmioSecurityBundle/zipball/80d6e1091aadf55eab6a79be97a91c06d55e8223",
+                "reference": "80d6e1091aadf55eab6a79be97a91c06d55e8223",
                 "shasum": ""
             },
             "require": {
@@ -3581,7 +3581,7 @@
             "keywords": [
                 "security"
             ],
-            "time": "2020-03-02T14:30:46+00:00"
+            "time": "2020-06-18T12:49:09+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
