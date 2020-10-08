@@ -135,8 +135,7 @@
         ],
         "auto-scripts": {
             "cache:clear --no-optional-warmers": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "cache:clear": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
