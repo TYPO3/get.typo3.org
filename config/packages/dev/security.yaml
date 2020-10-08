@@ -1,10 +1,9 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
+        users_in_memory:
             memory:
                 users:
                     # Authorization for dev context with username `developer` and password `password`
                     developer:
                         password: $2y$15$n9Q1dIvz18JRYj/jaohaX.luADCfZ25ZqR4D5VzWt3WcHJZ7Vndrq
-                        roles: 'ROLE_ADMIN'
+                        roles: ROLE_ADMIN

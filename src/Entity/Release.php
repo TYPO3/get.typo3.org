@@ -204,6 +204,7 @@ class Release implements \JsonSerializable
                 'zip' => $this->zipPackage,
             ],
             'url' => [
+                // todo: try to inject the env var see https://symfony.com/doc/current/configuration.html#accessing-configuration-parameters
                 'zip' => getenv('BASE_URL') . '/' . $this->version . '/zip',
                 'tar' => getenv('BASE_URL') . '/' . $this->version,
             ],
