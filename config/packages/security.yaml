@@ -1,12 +1,12 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
+        users_in_memory:
             memory:
                 users:
                     release-team:
                         password: $2y$15$enKo8VPgw7nd07YcIfPaZOUwfWd.S6Rz0GcaPJXkf3br8NFejkmuq
-                        roles: 'ROLE_ADMIN'
+                        roles: ROLE_ADMIN
     encoders:
         Symfony\Component\Security\Core\User\User:
             algorithm: bcrypt
@@ -18,10 +18,13 @@ security:
         api:
             pattern: ^/v\d/api/
             anonymous: true
-            #provider: in_memory
+            lazy: true
+            provider: users_in_memory
             http_basic: true
         main:
-            anonymous: lazy
+            anonymous: true
+            lazy: true
+            provider: users_in_memory
             security: false
 
             # activate different ways to authenticate
@@ -32,6 +35,9 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-    #access_control:
+    access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # Special rules for get-dev.typo3server.ch
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1, 185.17.71.134, 2a04:503:0:1019::134], host: ^get-dev\.typo3server\.ch$ }
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED, host: ^get-dev\.typo3server\.ch$ }
