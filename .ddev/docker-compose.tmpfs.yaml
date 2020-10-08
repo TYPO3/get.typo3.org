@@ -1,6 +1,6 @@
 version: '3.6'
 
-## Important on Windows without NFS
+## On Windows without using NFS or WSL 2 this could solve caching issues.
 #services:
 #  web:
 #    volumes:
