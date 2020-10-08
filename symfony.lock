@@ -409,13 +409,24 @@
         "version": "v4.1.4"
     },
     "symfony/framework-bundle": {
-        "version": "3.3",
+        "version": "5.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "3.3",
-            "ref": "60ac64d0ec3f8e92bda67567eff5a313a359c94b"
-        }
+            "version": "5.1",
+            "ref": "6ee1194b036378b21884e7f57b6a2ac721167f16"
+        },
+        "files": [
+            "config/packages/cache.yaml",
+            "config/packages/framework.yaml",
+            "config/packages/test/framework.yaml",
+            "config/preload.php",
+            "config/routes/dev/framework.yaml",
+            "config/services.yaml",
+            "public/index.php",
+            "src/Controller/.gitignore",
+            "src/Kernel.php"
+        ]
     },
     "symfony/http-client": {
         "version": "v4.3.8"

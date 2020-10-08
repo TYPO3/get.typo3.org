@@ -28,6 +28,13 @@
         <!-- IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml -->
         <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/test.db"/>
         <!-- ###- doctrine/doctrine-bundle ### -->
+
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="dev"/>
+        <env name="APP_SECRET" value="0cba8b41cce1b06824989e66cdf22728"/>
+        <!-- env name="TRUSTED_PROXIES" value="127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" -->
+        <!-- env name="TRUSTED_HOSTS" value="'^(localhost|example\.com)$'" -->
+        <!-- ###- symfony/framework-bundle ### -->
     </php>
 
     <testsuites>
