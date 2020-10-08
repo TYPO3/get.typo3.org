@@ -1,9 +1,10 @@
 version: '3.6'
 
-services:
-  web:
-    volumes:
-      - type: tmpfs
-        target: /var/www/html/var/cache
-        tmpfs:
-          size: 268435456
+## On Windows without using NFS or WSL 2 this could solve caching issues.
+#services:
+#  web:
+#    volumes:
+#      - type: tmpfs
+#        target: /var/www/html/var/cache
+#        tmpfs:
+#          size: 268435456
