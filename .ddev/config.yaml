@@ -9,7 +9,8 @@ xdebug_enabled: false
 additional_hostnames:
 - composer.typo3.org
 additional_fqdns: []
-mariadb_version: "10.2"
+mariadb_version: ""
+mysql_version: ""
 provider: default
 hooks:
   post-start:
@@ -20,12 +21,13 @@ hooks:
 omit_containers: [db, dba]
 use_dns_when_possible: true
 timezone: Europe/Zurich
+composer_version: "2"
 
 
-# This config.yaml was created with ddev version v1.14.0-rc2
-# webimage: drud/ddev-webserver:20200411_webimage_maint
-# dbimage: drud/ddev-dbserver-mariadb-10.2:v1.13.0
-# dbaimage: phpmyadmin/phpmyadmin:5
+# This config.yaml was created with ddev version v1.16.0-alpha9
+# webimage: drud/ddev-webserver:20201026_hardened
+# dbimage: drud/ddev-dbserver-mariadb-10.2:20201026_hardened
+# dbaimage: phpmyadmin:5
 # However we do not recommend explicitly wiring these images into the
 # config.yaml as they may break future versions of ddev.
 # You can update this config.yaml using 'ddev config'.
@@ -39,7 +41,7 @@ timezone: Europe/Zurich
 
 # docroot: <relative_path> # Relative path to the directory containing index.php.
 
-# php_version: "7.3"  # PHP version to use, "5.6", "7.0", "7.1", "7.2", "7.3", "7.4"
+# php_version: "7.3"  # PHP version to use, "5.6", "7.0", "7.1", "7.2", "7.3", "7.4" "8.0"
 
 # You can explicitly specify the webimage, dbimage, dbaimage lines but this
 # is not recommended, as the images are often closely tied to ddev's' behavior,
@@ -60,16 +62,23 @@ timezone: Europe/Zurich
 
 # xdebug_enabled: false  # Set to true to enable xdebug and "ddev start" or "ddev restart"
 # Note that for most people the commands
-# "ddev exec enable_xdebug" and "ddev exec disable_xdebug" work better,
+# "ddev xdebug" to enable xdebug and "ddev xdebug off" to disable it work better,
 # as leaving xdebug enabled all the time is a big performance hit.
 
-# webserver_type: nginx-fpm  # Can be set to apache-fpm or apache-cgi as well
+# webserver_type: nginx-fpm  # or apache-fpm
 
 # timezone: Europe/Berlin
 # This is the timezone used in the containers and by PHP;
 # it can be set to any valid timezone,
 # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 # For example Europe/Dublin or MST7MDT
+
+# composer_version: "2"
+# if composer_version:"" it will use the current ddev default composer release.
+# It can also be set to "1", to get most recent composer v1
+# or "2" for most recent composer v2.
+# It can be set to any existing specific composer version.
+# After first project 'ddev start' this will not be updated until it changes
 
 # additional_hostnames:
 #  - somename
@@ -93,7 +102,7 @@ timezone: Europe/Zurich
 # These values specify the destination directory for ddev ssh and the
 # directory in which commands passed into ddev exec are run.
 
-# omit_containers: ["db", dba", "ddev-ssh-agent"]
+# omit_containers: [db, dba, ddev-ssh-agent]
 # Currently only these containers are supported. Some containers can also be
 # omitted globally in the ~/.ddev/global_config.yaml. Note that if you omit
 # the "db" container, several standard features of ddev that access the
@@ -120,14 +129,14 @@ timezone: Europe/Zurich
 # unless explicitly specified.
 
 # phpmyadmin_port: "8036"
-# phpmyadmin_https_port: "8037{"
+# phpmyadmin_https_port: "8037"
 # The PHPMyAdmin ports can be changed from the default 8036 and 8037
 
 # mailhog_port: "8025"
 # mailhog_https_port: "8026"
 # The MailHog ports can be changed from the default 8025 and 8026
 
-# webimage_extra_packages: [php-yaml, php7.3-ldap]
+# webimage_extra_packages: [php7.3-tidy, php-bcmath]
 # Extra Debian packages that are needed in the webimage can be added here
 
 # dbimage_extra_packages: [telnet,netcat]
@@ -155,9 +164,9 @@ timezone: Europe/Zurich
 # In this case the user must provide all such settings.
 
 # no_project_mount: false
-# (Experimental) If true, ddev will not mount the project into the web container; 
+# (Experimental) If true, ddev will not mount the project into the web container;
 # the user is responsible for mounting it manually or via a script.
-# This is to enable experimentation with alternate file mounting strategies. 
+# This is to enable experimentation with alternate file mounting strategies.
 # For advanced users only!
 
 # provider: default # Currently either "default" or "pantheon"
