@@ -11,9 +11,9 @@ magephp:
         - bin/phpunit
         - tests
         - .editorconfig
-        - .env
         - .env.ddev
         - .env.local
+        - .env.test
         - .gitattributes
         - .gitignore
         - .gitmodules
