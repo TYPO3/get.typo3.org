@@ -168,9 +168,8 @@ See also [Magallanes Documentation](https://www.magephp.com/#configReleases).
 
 ## Release Cycle
 
-Because there are currently caching issues during new releases the following
-commands have to be executed at the server after the release announcement by
-[Darth](https://github.com/TYPO3/darth):
+If there are caching issues during new releases the following commands have to
+be executed at the server after the release announcement by [Darth](https://github.com/TYPO3/darth):
 
 ```bash
 ~/site/mage/current/bin/console cache:clear
