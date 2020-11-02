@@ -1,11 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
 /*
  * This file is part of the package t3o/gettypo3org.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 
 namespace App\Controller\Api\MajorVersion;
@@ -24,7 +37,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/v1/api/major/{version}/release", defaults={"_format"="json"})
+ * @Route("/v1/api/major/{version}/release", defaults={"_format": "json"})
  */
 class ReleasesController extends AbstractController
 {
@@ -37,10 +50,10 @@ class ReleasesController extends AbstractController
      *     response=200,
      *     description="Returns TYPO3 releases by major version",
      *     @SWG\Schema(
-     *     @SWG\Items(
-     *          type="array",
-     *          @Model(type=\App\Entity\Release::class, groups={"data"})
-     *        )
+     *         @SWG\Items(
+     *             type="array",
+     *             @Model(type=\App\Entity\Release::class, groups={"data"})
+     *         )
      *     )
      * )
      * @SWG\Response(
@@ -85,7 +98,7 @@ class ReleasesController extends AbstractController
      *     response=200,
      *     description="Returns data on latest TYPO3 release of a major version",
      *     @SWG\Schema(
-     *     @Model(type=\App\Entity\Release::class, groups={"data"})
+     *         @Model(type=\App\Entity\Release::class, groups={"data"})
      *     )
      * )
      * @SWG\Response(
@@ -99,7 +112,7 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
      *
-     * @param null|string $version Specific TYPO3 Version to fetch
+     * @param string|null $version Specific TYPO3 Version to fetch
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
@@ -131,7 +144,7 @@ class ReleasesController extends AbstractController
      *     response=200,
      *     description="Returns data on latest TYPO3 security release of a major version",
      *     @SWG\Schema(
-     *     @Model(type=\App\Entity\Release::class, groups={"data"})
+     *         @Model(type=\App\Entity\Release::class, groups={"data"})
      *     )
      * )
      * @SWG\Response(
@@ -145,7 +158,7 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
      *
-     * @param null|string $version Specific TYPO3 Version to fetch
+     * @param string|null $version Specific TYPO3 Version to fetch
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
@@ -177,7 +190,7 @@ class ReleasesController extends AbstractController
      *     response=200,
      *     description="Returns major TYPO3 version information",
      *     @SWG\Schema(
-     *        @Model(type=\App\Entity\Release::class, groups={"content"})
+     *         @Model(type=\App\Entity\Release::class, groups={"content"})
      *     )
      * )
      * @SWG\Response(

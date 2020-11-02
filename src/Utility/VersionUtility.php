@@ -1,11 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
 /*
  * This file is part of the package t3o/gettypo3org.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 
 namespace App\Utility;
@@ -30,10 +43,10 @@ class VersionUtility
     public static function extractMajorVersionNumber(string $version): float
     {
         $versionData = explode('.', trim($version));
-        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int) $versionData[0] : 0;
-        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) && $versionData[0] < 7 ? (int) $versionData[1] : 0;
+        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0;
+        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) && $versionData[0] < 7 ? (int)$versionData[1] : 0;
         array_splice($versionData, 2);
-        return (float) implode('.', $versionData);
+        return (float)implode('.', $versionData);
     }
 
     public static function isValidSemverVersion(string $version): bool
@@ -43,7 +56,7 @@ class VersionUtility
             $version,
             $matches
         );
-        return (int) $success === 1;
+        return (int)$success === 1;
     }
 
     public static function normalize($version, int $digits = 3)
