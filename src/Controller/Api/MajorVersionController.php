@@ -1,11 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
 /*
  * This file is part of the package t3o/gettypo3org.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 
 namespace App\Controller\Api;
@@ -28,7 +41,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/v1/api/major", defaults={"_format"="json"})
+ * @Route("/v1/api/major", defaults={"_format": "json"})
  */
 class MajorVersionController extends AbstractController
 {
@@ -43,7 +56,7 @@ class MajorVersionController extends AbstractController
      *     @SWG\Schema(
      *         type="array",
      *         @SWG\Items(
-     *           @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
+     *             @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
      *         )
      *     )
      * )
@@ -75,8 +88,8 @@ class MajorVersionController extends AbstractController
      *     response=200,
      *     description="Returns major TYPO3 version information",
      *     @SWG\Schema(
-     *           @Model(type=\App\Entity\MajorVersion::class, groups={"data"})
-     *         )
+     *         @Model(type=\App\Entity\MajorVersion::class, groups={"data"})
+     *     )
      * )
      * @SWG\Response(
      *     response=400,
@@ -88,7 +101,7 @@ class MajorVersionController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      *
-     * @param null|string $version Specific TYPO3 Version to fetch
+     * @param string|null $version Specific TYPO3 Version to fetch
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getMajorRelease(string $version, Request $request): JsonResponse
@@ -120,10 +133,10 @@ class MajorVersionController extends AbstractController
      *     response=201,
      *     description="Successfully created",
      *     @SWG\Schema(
-     *          type="object",
-     *          @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *          @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/v1/api/major/21"),
-     *      )
+     *         type="object",
+     *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
+     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/v1/api/major/21"),
+     *     )
      * )
      * @SWG\Response(
      *     response=400,
@@ -187,7 +200,7 @@ class MajorVersionController extends AbstractController
      *     @SWG\Schema(
      *         @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
      *
-     *    )
+     *     )
      * )
      * @SWG\Response(
      *     response=400,
@@ -210,7 +223,7 @@ class MajorVersionController extends AbstractController
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
      * )
      *
-     * @param null|string $version Specific TYPO3 Version to fetch
+     * @param string|null $version Specific TYPO3 Version to fetch
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateMajorRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse

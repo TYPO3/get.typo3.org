@@ -3,8 +3,20 @@
 /*
  * This file is part of the package t3o/gettypo3org.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 
 namespace App\DataFixtures;
@@ -37,13 +49,13 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         $ltsVersionNumber = $majorVersion->getLts() ?? $majorVersionNumber;
 
         $versionData = explode('.', trim($majorVersionNumber));
-        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int) $versionData[0] : 0;
-        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) ? (int) $versionData[1] : 0;
+        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0;
+        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) ? (int)$versionData[1] : 0;
         $versionData[2] = 0;
 
         $ltsVersionData = explode('.', trim($ltsVersionNumber));
-        $ltsVersionData[0] = isset($ltsVersionData[0]) && is_numeric($ltsVersionData[0]) ? (int) $ltsVersionData[0] : $versionData[0];
-        $ltsVersionData[1] = isset($ltsVersionData[1]) && is_numeric($ltsVersionData[1]) ? (int) $ltsVersionData[1] : $versionData[1];
+        $ltsVersionData[0] = isset($ltsVersionData[0]) && is_numeric($ltsVersionData[0]) ? (int)$ltsVersionData[0] : $versionData[0];
+        $ltsVersionData[1] = isset($ltsVersionData[1]) && is_numeric($ltsVersionData[1]) ? (int)$ltsVersionData[1] : $versionData[1];
 
         for ($i = 0; $i < $amount; $i++) {
             $fakeVersion = $versionData;

@@ -1,11 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
 /*
  * This file is part of the package t3o/gettypo3org.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 
 namespace App\Controller\Api;
@@ -29,7 +42,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/v1/api/release", defaults={"_format"="json"})
+ * @Route("/v1/api/release", defaults={"_format": "json"})
  */
 class ReleaseController extends AbstractController
 {
@@ -45,7 +58,7 @@ class ReleaseController extends AbstractController
      *     @SWG\Schema(
      *         type="array",
      *         @SWG\Items(
-     *           @Model(type=\App\Entity\Release::class, groups={"data"})
+     *             @Model(type=\App\Entity\Release::class, groups={"data"})
      *         )
      *     )
      * )
@@ -59,7 +72,7 @@ class ReleaseController extends AbstractController
      * )
      * @SWG\Tag(name="release")
      *
-     * @param null|string $version Specific TYPO3 Version to fetch
+     * @param string|null $version Specific TYPO3 Version to fetch
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getRelease(?string $version, Request $request): JsonResponse
@@ -92,10 +105,10 @@ class ReleaseController extends AbstractController
      *     response=201,
      *     description="Created.",
      *     @SWG\Schema(
-     *          type="object",
-     *          @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *          @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/v1/api/release/10.0.0"),
-     *      )
+     *         type="object",
+     *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
+     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/v1/api/release/10.0.0"),
+     *     )
      * )
      * @SWG\Response(
      *     response=400,
@@ -256,7 +269,7 @@ class ReleaseController extends AbstractController
      *     @SWG\Schema(
      *         @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      *
-     *    )
+     *     )
      * )
      * @SWG\Response(
      *     response=400,
@@ -279,7 +292,7 @@ class ReleaseController extends AbstractController
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
      *
-     * @param null|string $version Specific TYPO3 Version to fetch
+     * @param string|null $version Specific TYPO3 Version to fetch
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse
