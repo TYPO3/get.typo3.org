@@ -127,8 +127,8 @@ Additional configuration for the webserver can be found in the folder `cnf`.
 ![CD Development](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=develop)
 
 All pushs to the branch `develop` are automatically deployed to the development
-and staging site at `https://get-dev.get01.typo3server.ch`. This site is
-protected and can be accessed with the following credentials:
+and staging site at `https://get.typo3.dev`. This site is protected and can be
+accessed with the following credentials:
 
 * User: `preview`
 * Password: `U@2C@3t295hb`
