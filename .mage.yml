@@ -23,12 +23,9 @@ magephp:
         - .phplint.cache
         - .phplint.yml
         - .phpunit.result.cache
-        - composer.json
-        - composer.lock
         - LICENSE
         - phpunit.xml.dist
         - README.md
-        - symfony.lock
     environments:
         develop:
             user: get-dev
