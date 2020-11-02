@@ -1,11 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
 /*
  * This file is part of the package t3o/gettypo3org.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 
 namespace App\Tests\Unit\Entity;
@@ -25,13 +38,13 @@ class MajorVersionTest extends TestCase
     public function entityTest(array $version, array $expectedResult)
     {
         $majorVersion = new MajorVersion(...$version);
-        $this->assertEquals($expectedResult['version'], $majorVersion->getVersion());
-        $this->assertEquals($expectedResult['title'], $majorVersion->getTitle());
-        $this->assertEquals($expectedResult['releaseDate'], $majorVersion->getReleaseDate());
-        $this->assertEquals($expectedResult['maintainedUntil'], $majorVersion->getMaintainedUntil());
-        $this->assertEquals($expectedResult['eltsUntil'], $majorVersion->getEltsUntil());
-        $this->assertEquals($expectedResult['active'], $majorVersion->isActive());
-        $this->assertEquals($expectedResult['elts'], $majorVersion->isElts());
+        self::assertEquals($expectedResult['version'], $majorVersion->getVersion());
+        self::assertEquals($expectedResult['title'], $majorVersion->getTitle());
+        self::assertEquals($expectedResult['releaseDate'], $majorVersion->getReleaseDate());
+        self::assertEquals($expectedResult['maintainedUntil'], $majorVersion->getMaintainedUntil());
+        self::assertEquals($expectedResult['eltsUntil'], $majorVersion->getEltsUntil());
+        self::assertEquals($expectedResult['active'], $majorVersion->isActive());
+        self::assertEquals($expectedResult['elts'], $majorVersion->isElts());
     }
 
     /**
@@ -44,13 +57,13 @@ class MajorVersionTest extends TestCase
     {
         $majorVersion = new MajorVersion(...$version);
         $majorVersion = $majorVersion->toArray();
-        $this->assertEquals($expectedResult['version'], $majorVersion['version']);
-        $this->assertEquals($expectedResult['title'], $majorVersion['title']);
-        $this->assertEquals($expectedResult['releaseDate'], $majorVersion['releaseDate']);
-        $this->assertEquals($expectedResult['maintainedUntil'], $majorVersion['maintainedUntil']);
-        $this->assertEquals($expectedResult['eltsUntil'], $majorVersion['eltsUntil']);
-        $this->assertEquals($expectedResult['active'], $majorVersion['active']);
-        $this->assertEquals($expectedResult['elts'], $majorVersion['elts']);
+        self::assertEquals($expectedResult['version'], $majorVersion['version']);
+        self::assertEquals($expectedResult['title'], $majorVersion['title']);
+        self::assertEquals($expectedResult['releaseDate'], $majorVersion['releaseDate']);
+        self::assertEquals($expectedResult['maintainedUntil'], $majorVersion['maintainedUntil']);
+        self::assertEquals($expectedResult['eltsUntil'], $majorVersion['eltsUntil']);
+        self::assertEquals($expectedResult['active'], $majorVersion['active']);
+        self::assertEquals($expectedResult['elts'], $majorVersion['elts']);
     }
 
     /**
@@ -64,8 +77,8 @@ class MajorVersionTest extends TestCase
         $majorVersion = new MajorVersion(...$version);
         $majorVersion = json_encode($majorVersion);
         $majorVersion = json_decode($majorVersion, true);
-        $this->assertEquals($expectedResult['active'], $majorVersion['active']);
-        $this->assertEquals($expectedResult['elts'], $majorVersion['elts']);
+        self::assertEquals($expectedResult['active'], $majorVersion['active']);
+        self::assertEquals($expectedResult['elts'], $majorVersion['elts']);
     }
 
     /**
