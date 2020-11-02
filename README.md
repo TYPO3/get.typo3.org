@@ -127,8 +127,8 @@ Additional configuration for the webserver can be found in the folder `cnf`.
 ![CD Development](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=develop)
 
 All pushs to the branch `develop` are automatically deployed to the development
-and staging site at `https://get.typo3.dev`. This site is protected and can be
-accessed with the following credentials:
+site at [get.typo3.dev](https://get.typo3.dev) or [composer.typo3.dev](https://composer.typo3.dev).
+This site is protected and can be accessed with the following credentials:
 
 * User: `preview`
 * Password: `U@2C@3t295hb`
@@ -143,7 +143,7 @@ SSH access is possible with the following command:
 ![CD Production](https://github.com/TYPO3/get.typo3.org/workflows/Deployment%20(CD)/badge.svg?branch=production)
 
 All pushs to the branch `production` are automatically deployed to the production
-site at `https://get.typo3.org` or `https://composer.typo3.org`.
+site at [get.typo3.org](https://get.typo3.org) or [composer.typo3.org](https://composer.typo3.org).
 
 SSH access is possible with the following command:
 
