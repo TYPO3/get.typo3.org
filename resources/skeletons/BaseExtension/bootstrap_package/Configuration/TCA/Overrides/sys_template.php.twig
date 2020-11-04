@@ -1,0 +1,19 @@
+<?php
+{% if package.typo3version < 11000000 %}defined('TYPO3_MODE') || die();{% else %}defined('TYPO3') or die('Access denied.');{% endif %}
+
+call_user_func(function()
+{
+    /**
+     * Temporary variables
+     */
+    $extensionKey = '{{ package.extensionKey }}';
+
+    /**
+     * Default TypoScript for {{ package.packageName }}
+     */
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+        $extensionKey,
+        'Configuration/TypoScript',
+        '{{ package.title }}'
+    );
+});

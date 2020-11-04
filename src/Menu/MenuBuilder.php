@@ -51,6 +51,20 @@ class MenuBuilder extends TemplateMenuBuider
                 'label' => 'Release Notes'
             ]
         );
+        $wizards = $menu->addChild(
+            'wizards',
+            [
+                'route' => 'wizards_sitepackage',
+                'label' => 'Wizards'
+            ]
+        );
+        $wizards->addChild(
+            'wizards-sitepackage',
+            [
+                'route' => 'wizards_sitepackage',
+                'label' => 'Sitepackage Builder'
+            ]
+        );
         $composer = $menu->addChild(
             'composer',
             [
