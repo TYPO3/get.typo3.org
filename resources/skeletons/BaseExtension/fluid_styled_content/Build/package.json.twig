@@ -1,0 +1,28 @@
+{
+  "name": "{{ package.vendorNameAlternative }}-{{ package.packageNameAlternative }}",
+  "description": "{{ package.description }}",
+  "repository": {
+    "type": "git",
+    "url": "{{ package.repositoryUrl }}"
+  },
+  "homepage": "{{ package.author.homepage }}",
+  "author": "{{ package.author.name }}",
+  "version": "1.0.0",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-contrib-imagemin": "^3.1.0",
+    "grunt-postcss": "^0.9.0",
+    "grunt-sass": "^3.0.2",
+    "autoprefixer": "^9.5.0",
+    "node-sass": "^4.11.0"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/grunt",
+    "css": "./node_modules/.bin/grunt css",
+    "watch": "./node_modules/.bin/grunt watch"
+  }
+}

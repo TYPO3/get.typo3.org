@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Extension Manager/Repository config file for ext "{{ package.extensionKey }}".
+ */
+$EM_CONF[$_EXTKEY] = [
+    'title' => '{{ package.title }}',
+    'description' => '{{ package.description }}',
+    'category' => 'templates',
+    'constraints' => [
+        'depends' => [
+            'bootstrap_package' => '{% if package.typo3version < 9000000 %}10.0.0-10.0.99{% elseif package.typo3version < 10000000 %}10.0.0-11.0.99{% else %}12.0.0-12.9.99{% endif %}',
+        ],
+        'conflicts' => [
+        ],
+    ],
+    'autoload' => [
+        'psr-4' => [
+            '{{ package.vendorName }}\\{{ package.packageName }}\\' => 'Classes',
+        ],
+    ],
+    'state' => 'stable',
+    'uploadfolder' => 0,
+    'createDirs' => '',
+    'clearCacheOnLoad' => 1,
+    'author' => '{{ package.author.name }}',
+    'author_email' => '{{ package.author.email }}',
+    'author_company' => '{{ package.author.company }}',
+    'version' => '1.0.0',
+];

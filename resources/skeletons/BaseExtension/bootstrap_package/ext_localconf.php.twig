@@ -1,0 +1,12 @@
+<?php
+{% if package.typo3version < 11000000 %}defined('TYPO3_MODE') || die();{% else %}defined('TYPO3') or die('Access denied.');{% endif %}
+
+/***************
+ * Add default RTE configuration
+ */
+$GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['{{ package.extensionKey }}'] = 'EXT:{{ package.extensionKey }}/Configuration/RTE/Default.yaml';
+
+/***************
+ * PageTS
+ */
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:{{ package.extensionKey }}/Configuration/TsConfig/Page/All.tsconfig">');

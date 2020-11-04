@@ -1,0 +1,22 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="Main">
+
+    <div class="container">
+        <div class="alert alert-info">
+            <dl>
+                <dt>Template file</dt>
+                <dd>
+                    <code>typo3conf/ext/{{ package.extensionKey }}/Resources/Private/Templates/Page/Example.html</code>
+                </dd>
+                <dt>Backend Configuration</dt>
+                <dd>
+                    <code>typo3conf/ext/{{ package.extensionKey }}/Configuration/TsConfig/Page/Mod/WebLayout/BackendLayouts/example.tsconfig</code>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{pageUid: '{data.uid}', colPos: '0'}" />
+
+</f:section>
+</html>

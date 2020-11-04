@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Create your own TYPO3 Sitepackage{% endblock %}
+{% block body %}
+
+    {% frame with { color: 'dark', height: 'small', center: true, title: 'Create your own Sitepackage', titleSize: 1, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <p class="lead">
+            Awesome you made it here! Just a few more details about your
+            project and your own Sitepackage is ready for download.
+        </p>
+    {% endframe %}
+
+    {% frame with { id: 'configuration', indent: true, title: 'Configuration' } %}
+        {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {% endframe %}
+
+    {% include 'default/wizards/sitepackage/partials/privacy-footer.html.twig' %}
+
+{% endblock %}

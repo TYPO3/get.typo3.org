@@ -1,0 +1,88 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Success{% endblock %}
+{% block body %}
+
+    {% frame with { color: 'dark', height: 'small', center: true, title: 'Congratulations!', titleSize: 1, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+    <p class="lead">
+        Your Sitepackage has been successfully created. You can now check the
+        configuration or download the prepared Sitepackage.
+    </p>
+    <p>
+        <a href="{{ path('wizards_sitepackage_download') }}" class="btn btn-lg btn-primary">
+            {{ icon('actions-package', 'auto') }}
+            <span class="btn-text">Download</span>
+        </a>
+    </p>
+    {% endframe %}
+
+    {% frame with { id: 'configuration', indent: true, title: 'Your Sitepackage Configuration' } %}
+    <dl class="row py-3">
+        <dt class="col-sm-3">TYPO3 Version</dt>
+        <dd class="col-sm-9">{{ sitepackage.typo3Version|version(2) }}</dd>
+        <dt class="col-sm-3">Base Package</dt>
+        <dd class="col-sm-9">{{ sitepackage.basePackage }}</dd>
+    </dl>
+    <h3>Sitepackage Extension</h3>
+    <dl class="row py-3">
+        <dt class="col-sm-3">Titel</dt>
+        <dd class="col-sm-9">{{ sitepackage.title }}</dd>
+        {% if sitepackage.description %}
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">{{ sitepackage.description }}</dd>
+        {% endif %}
+        <dt class="col-sm-3">Extension Key</dt>
+        <dd class="col-sm-9">{{ sitepackage.extensionKey }}</dd>
+        {% if sitepackage.repositoryUrl %}
+        <dt class="col-sm-3">Repository</dt>
+        <dd class="col-sm-9">{{ sitepackage.repositoryUrl }}</dd>
+        {% endif %}
+    </dl>
+    <h3>PHP</h3>
+    <dl class="row py-3">
+        <!--dt class="col-sm-3">Vendor</dt>
+        <dd class="col-sm-9">{{ sitepackage.vendorName }}</dd>
+        <dt class="col-sm-3">Package</dt>
+        <dd class="col-sm-9">{{ sitepackage.packageName }}</dd-->
+        <dt class="col-sm-3">Composer Name</dt>
+        <dd class="col-sm-9">{{ sitepackage.composerVendorName }}/{{ sitepackage.composerProjectName }}</dd>
+        <dt class="col-sm-3">PSR-4 Namespace</dt>
+        <dd class="col-sm-9">{{ sitepackage.vendorName }}\{{ sitepackage.packageName }}</dd>
+    </dl>
+    <h3>Author</h3>
+    <dl class="row py-3">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{ sitepackage.author.name }}</dd>
+        <dt class="col-sm-3">E-Mail</dt>
+        <dd class="col-sm-9">{{ sitepackage.author.email }}</dd>
+        <dt class="col-sm-3">Company</dt>
+        <dd class="col-sm-9">{{ sitepackage.author.company }}</dd>
+        <dt class="col-sm-3">Homepage</dt>
+        <dd class="col-sm-9">{{ sitepackage.author.homepage }}</dd>
+    </dl>
+    <p>
+        <a href="{{ path('wizards_sitepackage_new') }}" class="btn btn-secondary">
+            {{ icon('actions-arrow-left-alt', 'auto') }}
+            <span class="btn-text">Restart</span>
+        </a>
+        <a href="{{ path('wizards_sitepackage_edit') }}" class="btn btn-primary">
+            {{ icon('actions-open', 'auto') }}
+            <span class="btn-text">Edit Configuration</span>
+        </a>
+    </p>
+    {% endframe %}
+
+    {% frame with { color: 'dark', size: 'default', center: true } %}
+    <p class="lead">
+        Your Sitepackage has been successfully created and is ready for download.
+    </p>
+    <p>
+        <a href="{{ path('wizards_sitepackage_download') }}" class="btn btn-lg btn-primary">
+            {{ icon('actions-package', 'auto') }}
+            <span class="btn-text">Download</span>
+        </a>
+    </p>
+    {% endframe %}
+
+    {% include 'default/wizards/sitepackage/partials/privacy-footer.html.twig' %}
+
+{% endblock %}
