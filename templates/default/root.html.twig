@@ -24,7 +24,7 @@
                             {% if version.version == 11 %}
                                 <p><strong>TYPO3 v11 LTS is scheduled to be released in October 2021.</strong></p>
                                 <p>Updates and security fixes will be provided for three years starting from the release date.
-                                    We encourage users and agencies to install and use the v10 sprint releases until the LTS release is available.
+                                    We encourage users and agencies to install and use the v11 sprint releases until the LTS release is available.
                                     Further details about the releases and release dates are available in the
                                     <a href="https://typo3.org/cms/roadmap/">roadmap</a>.</p>
                             {% else %}
@@ -54,7 +54,11 @@
                         <div class="card-footer">
                             <h5>System requirements</h3>
                             <ul class="list-info">
-                                {% if version.version == 10 %}
+                                {% if version.version == 11 %}
+                                    <li>PHP 7.4 or later</li>
+                                    <li>MySQL 5.7+ / MariaDB / Postgres / SQLite support</li>
+                                    <li>Modern Browsers</li>
+                                {% elseif version.version == 10 %}
                                     <li>PHP 7.2 or later</li>
                                     <li>MySQL 5.5+ / MariaDB / Postgres / SQLite support</li>
                                     <li>Modern Browsers</li>
