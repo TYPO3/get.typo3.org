@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+## Description: Run console app
+## Usage: console
+## Example: ddev console
+
+/var/www/html/bin/console $@
