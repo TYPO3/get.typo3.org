@@ -642,8 +642,10 @@ class ComposerPackagesService
 
         $majorVersions = $repository->findAllComposerSupported();
         foreach ($majorVersions as $version) {
-            $versionChoices['choices'][self::CMS_VERSIONS][$version->getTitle()] =
-                $this->getComposerVersionConstraint($version->getLatestRelease()->getVersion());
+            if ($version->getLatestRelease()) {
+                $versionChoices['choices'][self::CMS_VERSIONS][$version->getTitle()] =
+                    $this->getComposerVersionConstraint($version->getLatestRelease()->getVersion());
+            }
         }
 
         foreach (self::$specialVersions as $version) {
@@ -651,7 +653,7 @@ class ComposerPackagesService
         }
 
         foreach ($majorVersions as $version) {
-            if (\preg_match('/^(\d+)\.(\d+)\.(\d+)/', $version->getLatestRelease()->getVersion(), $matches)) {
+            if ($version->getLatestRelease() && \preg_match('/^(\d+)\.(\d+)\.(\d+)/', $version->getLatestRelease()->getVersion(), $matches)) {
                 $nextMinor = $matches[1] . '.' . (string)(((int)$matches[2]) + 1);
                 $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (string)(((int)$matches[3]) + 1);
 
