@@ -84,6 +84,9 @@ class RequirementExtension extends AbstractExtension
         foreach ($elements as $element) {
             $result[$element->getCategory()][] = $element;
         }
+
+        ksort($result);
+
         return $result;
     }
 
