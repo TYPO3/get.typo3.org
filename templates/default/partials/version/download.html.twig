@@ -21,14 +21,18 @@
                 <div class="accordion-body card-body">
                     <div class="accordion-content">
                         <div class="accordion-content-item accordion-content-text">
-
                             {% if lts %}
-                                <pre><code>composer create-project "typo3/cms-base-distribution:^{{ lts }}" my-new-project</code></pre>
+                                {% set package_version = lts %}
                             {% else %}
-                                <pre><code>composer create-project "typo3/cms-base-distribution:^{{ version }}" my-new-project</code></pre>
+                                {% set package_version = version %}
                             {% endif %}
+                            <pre><code>composer create-project "typo3/cms-base-distribution:^{{ package_version }}" my-new-project</code></pre>
+                            <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Local Documentation" target="_blank" rel="noopener">DDEV Local</a> users can run the following lines in a new project folder:</p>
+                            <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot
+ddev composer create "typo3/cms-base-distribution:^{{ package_version }}"
+ddev typo3cms install:setup
+ddev launch</code></pre>
                             <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a></p>
-
                         </div>
                     </div>
                 </div>
