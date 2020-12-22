@@ -27,7 +27,7 @@ class RequirementCategoryEnum
 {
     const OPTION_PHP = 'php';
     const OPTION_DATABASE = 'database';
-    const OPTION_HARDWARE = 'Hardware';
+    const OPTION_HARDWARE = 'hardware';
     const OPTION_CLIENT = 'client';
 
     protected static $optionNames = [
