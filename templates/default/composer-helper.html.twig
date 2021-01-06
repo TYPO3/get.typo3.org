@@ -10,6 +10,16 @@
         <h1>Composer Helper</h1>
     {% endframe %}
 
+    {% frame with { id: 'notice-out-of-order' } %}
+        <div class="alert alert-danger">
+            <h2 class="h4 alert-heading">Out of service</h2>
+            <p>
+                Please note, the Composer Helper is currenty out of service. We are working on a solution but this needs
+                some more time to investigate. See also the <a href="https://github.com/TYPO3/get.typo3.org/issues/212" target="_blank" rel="noopener">issue at GitHub</a>.
+            </p>
+        </div>
+    {% endframe %}
+
     {% frame with { color: 'light' } %}
         <h2>Select the composer packages</h2>
         <div class="js-composer-helper-console d-none">
