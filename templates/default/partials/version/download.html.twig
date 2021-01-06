@@ -16,7 +16,7 @@
                         <a href="#accordion-ddev" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-ddev">
                             <span class="accordion-title-link-text">
                                 Set up a new project via DDEV Local and Composer
-                                <br><small>Using the command line</small>
+                                <br><small>Highly recommended local development environment</small>
                             </span>
                             <span class="accordion-title-link-state"></span>
                         </a>
@@ -26,7 +26,8 @@
                     <div class="accordion-body card-body">
                         <div class="accordion-content">
                             <div class="accordion-content-item accordion-content-text">
-                                <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Local Documentation" target="_blank" rel="noopener">DDEV Local</a> users can run the following lines in a new project folder:</p>
+                                <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Local Documentation" target="_blank" rel="noopener">DDEV Local</a> simplifies integrating the power and consistency of containerization into your workflows. Set up environments in minutes; switch contexts and projects quickly and easily; speed your time to deployment. DDEV handles the complexity. You get on with the valuable part of your job.</p>
+                                <p>In a new project folder using your favorite shell, run these lines:</p>
                                 <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot
 ddev composer create "typo3/cms-base-distribution:^{{ package_version }}"
 ddev typo3cms install:setup
@@ -35,7 +36,11 @@ ddev launch</code></pre>
                                     <p class="font-weight-bold">Important note for Git Bash users on Windows using the default terminal MSYS2, don't forget to prepend winpty to interactive commands:</p>
                                     <pre><code>winpty ddev typo3cms install:setup</code></pre>
                                 </div>
-                                <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>.</p>
+                                <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>. Instead of the <code>ddev composer create</code> command above, run the command created with the Composer Helper prepended with <code>ddev</code>. E.g.:</p>
+                                <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot
+ddev composer require "typo3/cms-core:^{{ package_version }}" "typo3/minimal:*"
+ddev typo3cms install:setup
+ddev launch</code></pre>
                             </div>
                         </div>
                     </div>
