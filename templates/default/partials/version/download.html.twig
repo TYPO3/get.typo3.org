@@ -5,39 +5,65 @@
     {% else %}
     <div class="accordion" id="accordion-download">
         {% if version >= 6 %}
-        <div class="accordion-item card">
-            <div class="accordion-header card-header" id="accordion-heading-composer">
-                <h4 class="accordion-title">
-                    <a href="#accordion-composer" class="accordion-title-link" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-composer">
-                        <span class="accordion-title-link-text">
-                            Set up a new project via Composer
-                            <br><small>Using the command line</small>
-                        </span>
-                        <span class="accordion-title-link-state"></span>
-                    </a>
-                </h4>
-            </div>
-            <div id="accordion-composer" class="accordion-collapse collapse show" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
-                <div class="accordion-body card-body">
-                    <div class="accordion-content">
-                        <div class="accordion-content-item accordion-content-text">
-                            {% if lts %}
-                                {% set package_version = lts %}
-                            {% else %}
-                                {% set package_version = version %}
-                            {% endif %}
-                            <pre><code>composer create-project "typo3/cms-base-distribution:^{{ package_version }}" my-new-project</code></pre>
-                            <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Local Documentation" target="_blank" rel="noopener">DDEV Local</a> users can run the following lines in a new project folder:</p>
-                            <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot
+            {% if lts %}
+                {% set package_version = lts %}
+            {% else %}
+                {% set package_version = version %}
+            {% endif %}
+            <div class="accordion-item card">
+                <div class="accordion-header card-header" id="accordion-heading-ddev">
+                    <h4 class="accordion-title">
+                        <a href="#accordion-ddev" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-ddev">
+                            <span class="accordion-title-link-text">
+                                Set up a new project via DDEV Local and Composer
+                                <br><small>Using the command line</small>
+                            </span>
+                            <span class="accordion-title-link-state"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="accordion-ddev" class="accordion-collapse collapse" aria-labelledby="accordion-heading-ddev" data-parent="#accordion-download">
+                    <div class="accordion-body card-body">
+                        <div class="accordion-content">
+                            <div class="accordion-content-item accordion-content-text">
+                                <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Local Documentation" target="_blank" rel="noopener">DDEV Local</a> users can run the following lines in a new project folder:</p>
+                                <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot
 ddev composer create "typo3/cms-base-distribution:^{{ package_version }}"
 ddev typo3cms install:setup
 ddev launch</code></pre>
-                            <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via this helper: <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a></p>
+                                <div class="alert alert-warning" role="alert">
+                                    <p class="font-weight-bold">Important note for Git Bash users on Windows using the default terminal MSYS2, don't forget to prepend winpty to interactive commands:</p>
+                                    <pre><code>winpty ddev typo3cms install:setup</code></pre>
+                                </div>
+                                <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="accordion-item card">
+                <div class="accordion-header card-header" id="accordion-heading-composer">
+                    <h4 class="accordion-title">
+                        <a href="#accordion-composer" class="accordion-title-link collapsed" data-toggle="collapse" data-parent="#accordion-download" aria-expanded="true" aria-controls="accordion-composer">
+                            <span class="accordion-title-link-text">
+                                Set up a new project via Composer
+                                <br><small>Using the command line</small>
+                            </span>
+                            <span class="accordion-title-link-state"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="accordion-composer" class="accordion-collapse collapse" aria-labelledby="accordion-heading-composer" data-parent="#accordion-download">
+                    <div class="accordion-body card-body">
+                        <div class="accordion-content">
+                            <div class="accordion-content-item accordion-content-text">
+                                <pre><code>composer create-project "typo3/cms-base-distribution:^{{ package_version }}" my-new-project</code></pre>
+                                <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
         <div class="accordion-item card">
             <div class="accordion-header card-header" id="accordion-heading-curl">
