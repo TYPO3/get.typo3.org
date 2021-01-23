@@ -90,7 +90,7 @@ class MajorVersionRepository extends EntityRepository
 
     public function findAllPreparedForJson()
     {
-        $data = $this->findCommunityVersionsGroupedByMajor();
+        $data = $this->findAllGroupedByMajor();
         $data = array_merge($data, $this->findStableReleases());
         $data = array_merge($data, $this->findLtsReleases());
         return $data;
