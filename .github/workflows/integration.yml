@@ -33,6 +33,7 @@ jobs:
     - name: Install
       run: |
         composer install --no-progress
+        composer dump-autoload --no-progress
     - name: Lint
       if: always()
       run: |
