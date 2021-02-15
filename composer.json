@@ -65,7 +65,7 @@
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*",
-        "t3g/symfony-template-bundle": "^2.1"
+        "t3g/symfony-template-bundle": "@dev"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
@@ -100,6 +100,14 @@
     "autoload-dev": {
         "psr-4": {
             "App\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": {
+        "local": {
+            "type": "path",
+            "url": "packages/*"
         }
     },
     "config": {

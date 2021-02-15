@@ -17,8 +17,7 @@
         </div>
     {% endframe %}
 
-    {% frame with { color: 'light' } %}
-        <h2>What Is It?</h2>
+    {% frame with { color: 'light', id: 'what', title: "What Is It?" } %}
         <p>TYPO3 offers a <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer. The packages are updated once every 3 hours.</p>
         <p>This repository includes only the following TYPO3 CMS extensions:</p>
         <ul>
@@ -32,8 +31,7 @@
         <p>You can <a href="/satis.html" target="_blank" rel="noopener">list and search for</a> available extension packages.</p>
     {% endframe %}
 
-    {% frame with { id: 'usage' } %}
-        <h2>How to use it?</h2>
+    {% frame with { id: 'usage', title: "How to use it?" } %}
         <p>To enable the usage of the TYPO3 Composer Repository for your project, you have to modify the <code>composer.json</code>.</p>
         <p>Run the following command:</p>
         <pre><code class="language-bash">composer config repositories.typo3 composer https://composer.typo3.org</code></pre>
@@ -48,8 +46,7 @@
 }</code></pre>
     {% endframe %}
 
-    {% frame %}
-        <h2>How does it work?</h2>
+    {% frame with { id: 'how', title: "How does it work?" } %}
         <p>A few times a day we crawl the TYPO3 Extension Repository.
         We process all ext_emconf.php's to calculate the dependencies.
         We generate the metadata (packages.json), needed by Composer to find the right downloads which will be downloaded from the TER eventually.</p>

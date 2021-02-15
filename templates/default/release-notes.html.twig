@@ -11,13 +11,22 @@
     {% if currentVersion.active == false %}
         {% include 'default/partials/version/inactive.html.twig' with currentVersion only %}
     {% endif %}
+
     {% if currentVersion.current.releaseNotes.legacyContent %}
         {% frame %}
             {{ currentVersion.current.releaseNotes.legacyContent|escape('html')|parsedown|changehighlighter|raw }}
         {% endframe %}
         {% include 'default/partials/version/signatures.html.twig' with currentVersion only %}
     {% else %}
-        {% include 'default/partials/release-notes/release-notes.html.twig' with currentVersion only %}
+        {% frame with { id: 'release-notes', title: "Release Notes for TYPO3 CMS #{ currentVersion.current.version }", titleSize: 1 } %}
+            <p>
+                This document contains information about TYPO3 CMS {{ currentVersion.current.version }} which was
+                released on {{ currentVersion.current.date|date("d.m.Y") }}.
+            </p>
+            <a href="{{ path('version', {'version': currentVersion.current.version }) }}" class="btn btn-primary">
+                Get TYPO3 {{ currentVersion.current.version }} now
+            </a>
+        {% endframe %}
         {% include 'default/partials/version/news.html.twig' with currentVersion only %}
         {% include 'default/partials/version/checksums.html.twig' with currentVersion only %}
         {% include 'default/partials/version/signatures.html.twig' with currentVersion only %}

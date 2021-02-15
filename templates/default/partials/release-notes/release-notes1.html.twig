@@ -1,10 +1,9 @@
-{% frame %}
-    <h1>Release Notes for TYPO3 CMS {{ current.version }}</h1>
+{% frame with { id: 'release-notes', title: 'Release Notes' } %}
     <p>
         This document contains information about TYPO3 CMS {{ current.version }} which was
         released on {{ current.date|date("d.m.Y") }}.
     </p>
     <a href="{{ path('version', {'version': current.version }) }}" class="btn btn-primary">
-        Get TYPO3 v{{ current.version }} now
+        Get TYPO3 {{ current.version }} now
     </a>
 {% endframe %}

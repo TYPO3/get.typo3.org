@@ -11,10 +11,9 @@
     {% endframe %}
 
     {% if communityVersions|length > 0 %}
-        {% frame with { center: true } %}
-            <h3>Current Versions</h3>
+        {% frame with { id: 'download', center: true, title: 'Current Versions', titleSize: 3 } %}
         {% endframe %}
-        {% frame with { id: 'download' } %}
+        {% frame %}
             <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ communityVersions|length }}">
                 {% for version in communityVersions %}
                 <div class="card-group-element-item">
@@ -105,8 +104,7 @@
     {% endif %}
 
     {% if eltsVersions|length > 0 %}
-        {% frame with { id: 'download-elts', rulerBefore: true, center: true } %}
-            <h3>Past Versions with Extended Long&nbsp;Term&nbsp;Support</h3>
+        {% frame with { id: 'download-elts', rulerBefore: true, center: true, title: 'Past Versions with Extended Long&nbsp;Term&nbsp;Support', titleSize: 3 } %}
             <p>With TYPO3 CMS, you made the right choice. Now benefit from a total of 6 years of support per version.</p>
             <p>3 years of free support by the TYPO3 core team and the community.<br>3 further years of vendor support with ELTS by TYPO3 GmbH.</p>
         {% endframe %}
@@ -157,14 +155,12 @@
         {% endframe %}
     {% endif %}
 
-    {% frame with { id: 'try-online', color: 'light', indent: true, center: true } %}
-        <h3>Try it online</h3>
+    {% frame with { id: 'try-online', color: 'light', indent: true, center: true, title: 'Try it online', titleSize: 3 } %}
         <p>
             Install a complete Apache / MySQL / PHP environment with a TYPO3 package remotely as a SAAS / cloud
             based infrastructures to get started as quick as possible.
         </p>
     {% endframe %}
-
     {% frame with { color: 'light' } %}
         <div class="card-group-element card-group-element-align-left card-group-element-columns-3">
             <div class="card-group-element-item">

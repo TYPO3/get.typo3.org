@@ -1,3 +1,6 @@
 [submodule "satis/packages/CmsComposerPackageGenerator"]
 	path = satis/packages/CmsComposerPackageGenerator
 	url = https://github.com/GsTYPO3/CmsComposerPackageGenerator.git
+[submodule "packages/symfony-template-bundle"]
+	path = packages/symfony-template-bundle
+	url = https://github.com/gilbertsoft/symfony-template-bundle.git

@@ -1,6 +1,5 @@
 {% if elts %}
-    {% frame with { id: 'notice-elts', color: 'light', rulerBefore: true } %}
-        <h2>Stay secure and up-to-date with TYPO3 ELTS!</h2>
+    {% frame with { id: 'notice-elts', color: 'light', rulerBefore: true, title: 'Stay secure and up-to-date with TYPO3 ELTS!' } %}
         <p>
             The TYPO3 CMS community supported from <strong>{{ releaseDate.format("Y-m-d") }}</strong>
             until <strong>{{ maintainedUntil|date("Y-m-d") }}</strong>.<br>

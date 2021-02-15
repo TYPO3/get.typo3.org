@@ -1,6 +1,5 @@
 {% if (current.tarPackage.sha256sum or current.tarPackage.md5sum or current.tarPackage.sha1sum) %}
-    {% frame %}
-        <h2>Package Signatures - Verifying integrity of releases</h2>
+    {% frame with { id: 'package-signatures', title: 'Package Signatures - Verifying integrity of releases' } %}
         <p>
             TYPO3 Release Packages (the downloadable tarballs and zip files) as well as Git tags are signed
             using PGP signatures since TYPO3 v7 during the automated release process. Besides that, MD5 and SHA2-256 hashes are
