@@ -31,6 +31,9 @@
         </form>
     {% endframe %}
 
+    {% frame with { id: 'get', title: "Get TYPO3 #{ currentVersion.current.version }", titleSize: 1 } %}
+    {% endframe %}
+
     {% if currentVersion.active == false %}
         {% include 'default/partials/version/inactive.html.twig' with currentVersion only %}
     {% endif %}

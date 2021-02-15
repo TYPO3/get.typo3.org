@@ -1,6 +1,5 @@
 {% if (current.tarPackage.sha256sum or current.tarPackage.md5sum or current.tarPackage.sha1sum) %}
-    {% frame %}
-        <h2>Checksums of TYPO3 {{ current.version }}</h2>
+    {% frame with { id: 'package-checksums', title: "Checksums of TYPO3 #{ current.version }" } %}
         {% if current.tarPackage.sha256sum %}
         <h3>SHA256</h3>
         <pre>

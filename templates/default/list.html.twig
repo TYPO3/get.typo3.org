@@ -28,8 +28,7 @@
         </form>
     {% endframe %}
 
-    {% frame %}
-        <h2>List of Releases for {{ currentVersion.title }}</h2>
+    {% frame with { id: 'releases-list', title: "List of Releases for #{ currentVersion.title }" } %}
         <div class="card">
             <div class="datatable">
                 <table class="datatable-table">

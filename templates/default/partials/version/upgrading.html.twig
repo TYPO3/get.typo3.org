@@ -1,6 +1,5 @@
 {% if current.releaseNotes.upgradingInstructions %}
-    {% frame %}
-        <h2>Upgrading</h2>
+    {% frame with { id: 'upgrading', title: 'Upgrading' } %}
         {{ current.releaseNotes.upgradingInstructions|parsedown|raw }}
     {% endframe %}
 {% endif %}

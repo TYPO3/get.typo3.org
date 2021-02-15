@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce31b1951a55f54932cf070b28ae9911",
+    "content-hash": "8ead639062d2904deaa9f298cd25ce42",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -8649,17 +8649,11 @@
         },
         {
             "name": "t3g/symfony-template-bundle",
-            "version": "2.16.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/TYPO3GmbH/symfony-template-bundle.git",
-                "reference": "61bd50e786c3098dd8b4106fd7f3ac15ceebbe8b"
-            },
+            "version": "dev-feature/header-anchors",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/61bd50e786c3098dd8b4106fd7f3ac15ceebbe8b",
-                "reference": "61bd50e786c3098dd8b4106fd7f3ac15ceebbe8b",
-                "shasum": ""
+                "type": "path",
+                "url": "packages/symfony-template-bundle.old",
+                "reference": "cce8663d22e0662dab3d9161f247b8909bbc461b"
             },
             "require": {
                 "erusev/parsedown": "^1.7",
@@ -8692,7 +8686,30 @@
                     "T3G\\Bundle\\TemplateBundle\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "T3G\\Bundle\\TemplateBundle\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "t3g:test:php:unit": [
+                    "simple-phpunit -c phpunit.xml.dist --testsuite \"Unit Test Suite\""
+                ],
+                "t3g:cgl": [
+                    "php-cs-fixer fix -v --dry-run"
+                ],
+                "t3g:cgl:fix": [
+                    "php-cs-fixer fix"
+                ],
+                "t3g:test:php:lint": [
+                    "phplint"
+                ],
+                "t3g:test": [
+                    "@t3g:cgl",
+                    "@t3g:test:php:lint",
+                    "@t3g:test:php:unit"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -8705,13 +8722,12 @@
             "description": "TYPO3 Template Bundle",
             "homepage": "http://www.typo3.com",
             "keywords": [
-                "templates",
-                "typo3"
+                "TYPO3",
+                "Templates"
             ],
-            "support": {
-                "source": "https://github.com/TYPO3GmbH/symfony-template-bundle/tree/2.16.0"
-            },
-            "time": "2020-12-14T11:03:44+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "twig/extra-bundle",
@@ -11999,11 +12015,12 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
+        "t3g/symfony-template-bundle": 20,
         "roave/security-advisories": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.2.5",
