@@ -37,8 +37,8 @@ ddev launch</code></pre>
                                 </div>
                                 <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>. Instead of the <code>ddev composer create</code> command above, run the command created with the Composer Helper prepended with <code>ddev</code>. E.g.:</p>
                                 <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot
-ddev composer require "typo3/cms-core:^{{ package_version }}" "typo3/minimal:*"
-ddev typo3cms install:setup
+ddev composer require "typo3/cms-core:^{{ package_version }}" "typo3/minimal:^{{ package_version }}" ...
+ddev typo3cms install:setup (if the TYPO3 Console is installed)
 ddev launch</code></pre>
                             </div>
                         </div>
