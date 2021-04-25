@@ -23,17 +23,25 @@ declare(strict_types=1);
 
 namespace App\Enum;
 
-class RequirementCategoryEnum extends AbstractEnum
+ /**
+ * @codeCoverageIgnore No need to test this ...
+ */
+abstract class AbstractEnum
 {
-    const OPTION_PHP = 'php';
-    const OPTION_DATABASE = 'database';
-    const OPTION_HARDWARE = 'hardware';
-    const OPTION_CLIENT = 'client';
+    protected static array $optionNames = [];
 
-    protected static array $optionNames = [
-        self::OPTION_PHP => 'PHP',
-        self::OPTION_DATABASE => 'Database',
-        self::OPTION_HARDWARE => 'Hardware',
-        self::OPTION_CLIENT => 'Client',
-    ];
+    public static function getName($option): string
+    {
+        return static::$optionNames[$option] ?? ('Unknown option (' . $option . ')');
+    }
+
+    public static function getAvailableOptions($withDescription = false): array
+    {
+        return $withDescription ? static::$optionNames : array_keys(static::$optionNames);
+    }
+
+    public static function isOption(string $option): bool
+    {
+        return isset(static::$optionNames[$option]);
+    }
 }
