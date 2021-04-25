@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the package t3o/gettypo3org.
+ * This file is part of the package t3o/get.typo3.org.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
