@@ -1,3 +1,4 @@
+/.ddev/docker-compose.tmpfs.yaml
 .idea/
 .vscode/
 /bin/*
