@@ -40,14 +40,8 @@ class ListMissingDownloadsCommand extends Command
 
     protected function configure()
     {
-        $this
-            // the short description shown while running "php bin/console list"
-            ->setDescription('Creates a list of missing downloads with URLs to Sourceforge.')
-
-            // the full command description shown when running the command with
-            // the "--help" option
-            ->setHelp('This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.')
-        ;
+        $this->setDescription('Creates a list of missing downloads with URLs to Sourceforge.');
+        $this->setHelp('This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
