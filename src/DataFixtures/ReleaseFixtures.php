@@ -28,7 +28,7 @@ use App\Entity\Release;
 use App\Enum\ReleaseTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 {

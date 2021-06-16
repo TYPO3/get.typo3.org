@@ -43,7 +43,8 @@ class LegacyDataService
     public function getReleaseJson(): string
     {
         $cache = new FilesystemAdapter();
-        $content = (string)$cache->get('releases.json', function (ItemInterface $item) {
+
+        return (string)$cache->get('releases.json', function (ItemInterface $item) {
             /** @var \App\Repository\MajorVersionRepository $rep */
             $rep = $this->entityManager->getRepository(MajorVersion::class);
             $content = json_encode($rep->findAllPreparedForJson());
@@ -51,7 +52,5 @@ class LegacyDataService
             $content = str_replace('.0000', '', $content);
             return $content;
         });
-
-        return $content;
     }
 }

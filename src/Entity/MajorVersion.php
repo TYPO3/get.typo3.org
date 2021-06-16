@@ -146,7 +146,7 @@ class MajorVersion implements \JsonSerializable
 
     public function setVersion(float $version): void
     {
-        $this->version = (float)VersionUtility::extractMajorVersionNumber($version);
+        $this->version = VersionUtility::extractMajorVersionNumber($version);
     }
 
     public function getVersion(): float

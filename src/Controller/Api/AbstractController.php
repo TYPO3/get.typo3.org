@@ -44,10 +44,6 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         $this->serializer = $serializer;
     }
 
-    /**
-     * @param string $version
-     * @return \App\Entity\MajorVersion
-     */
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
@@ -60,7 +56,6 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     }
 
     /**
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
      * @param $object
      */
     protected function validateObject(ValidatorInterface $validator, $object): void
@@ -106,9 +101,6 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         }
     }
 
-    /**
-     * @param string|null $version
-     */
     protected function checkVersionFormat(?string $version): void
     {
         if (!VersionUtility::isValidSemverVersion($version)) {
@@ -128,10 +120,6 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         return $mventity;
     }
 
-    /**
-     * @param string $version
-     * @return Release
-     */
     protected function getReleaseByVersion(string $version): Release
     {
         $releaseRepo = $this->getDoctrine()->getRepository(Release::class);

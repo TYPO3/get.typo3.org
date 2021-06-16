@@ -31,7 +31,6 @@ use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
 class MenuBuilder extends TemplateMenuBuider
 {
     /**
-     * @param array $options
      * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
      */
     public function mainDefault(array $options)
@@ -83,7 +82,6 @@ class MenuBuilder extends TemplateMenuBuider
     }
 
     /**
-     * @param array $options
      * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
      */
     public function mainProfile(array $options)

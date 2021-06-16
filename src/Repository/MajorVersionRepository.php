@@ -92,8 +92,7 @@ class MajorVersionRepository extends EntityRepository
     {
         $data = $this->findCommunityVersionsGroupedByMajor();
         $data = array_merge($data, $this->findStableReleases());
-        $data = array_merge($data, $this->findLtsReleases());
-        return $data;
+        return array_merge($data, $this->findLtsReleases());
     }
 
     public function findAllGroupedByMajor(): array
@@ -104,8 +103,7 @@ class MajorVersionRepository extends EntityRepository
             $data[$this->formatVersion($version->getVersion())] = $version;
         }
         uksort($data, 'version_compare');
-        $data = array_reverse($data);
-        return $data;
+        return array_reverse($data);
     }
 
     public function findCommunityVersionsGroupedByMajor(): array
@@ -117,8 +115,7 @@ class MajorVersionRepository extends EntityRepository
             $data[$this->formatVersion($version->getVersion())] = $version;
         }
         uksort($data, 'version_compare');
-        $data = array_reverse($data);
-        return $data;
+        return array_reverse($data);
     }
 
     public function findAllComposerSupported()
@@ -196,7 +193,6 @@ class MajorVersionRepository extends EntityRepository
      * be later removed in DefaultController.
      *
      * @param int|float|string $version
-     * @return string
      */
     private function formatVersion($version): string
     {
@@ -212,7 +208,6 @@ class MajorVersionRepository extends EntityRepository
     }
 
     /**
-     * @param MajorVersion $majorVersion
      * @return Release[]
      */
     private function majorVersionDescending(MajorVersion $majorVersion): array
@@ -229,10 +224,6 @@ class MajorVersionRepository extends EntityRepository
         return $releases;
     }
 
-    /**
-     * @param MajorVersion $majorVersion
-     * @return MajorVersion
-     */
     private function removeEltsReleases(MajorVersion $majorVersion): MajorVersion
     {
         $majorVersion->setReleases($majorVersion->getReleases()->filter(static function (Release $release) {

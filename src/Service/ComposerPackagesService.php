@@ -655,8 +655,8 @@ class ComposerPackagesService
 
         foreach ($majorVersions as $version) {
             if ($version->getLatestRelease() instanceof Release && \preg_match('/^(\d+)\.(\d+)\.(\d+)/', $version->getLatestRelease()->getVersion(), $matches)) {
-                $nextMinor = $matches[1] . '.' . (string)(((int)$matches[2]) + 1);
-                $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (string)(((int)$matches[3]) + 1);
+                $nextMinor = $matches[1] . '.' . (((int)$matches[2]) + 1);
+                $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
                 if (\is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
                     $versionChoices['choices'][self::SPECIAL_VERSIONS][$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =

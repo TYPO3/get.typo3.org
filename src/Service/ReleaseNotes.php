@@ -29,9 +29,6 @@ class ReleaseNotes
 {
     protected $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
 
-    /**
-     * @return array
-     */
     public function getAllReleaseNoteNames(): array
     {
         /** @var \Symfony\Component\HttpFoundation\File\File[] $directories */
@@ -48,7 +45,6 @@ class ReleaseNotes
             natsort($fileNames);
             $result[$directory->getBasename()] = array_reverse($fileNames);
         }
-        $result = array_reverse($result);
-        return $result;
+        return array_reverse($result);
     }
 }

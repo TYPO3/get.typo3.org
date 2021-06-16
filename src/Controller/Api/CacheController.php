@@ -62,7 +62,6 @@ class CacheController extends AbstractController
      * @SWG\Tag(name="cache")
      *
      * @param string $version Specific TYPO3 Version to delete
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function purgeMajorRelease(string $version): JsonResponse
     {
@@ -102,7 +101,6 @@ class CacheController extends AbstractController
      * @SWG\Tag(name="cache")
      *
      * @param string $version Specific TYPO3 Version to delete
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function purgeRelease(string $version): JsonResponse
     {
@@ -132,10 +130,6 @@ class CacheController extends AbstractController
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
-    /**
-     * @param float $version
-     * @return array
-     */
     private function getPurgeUrlsForMajorVersion(float $version): array
     {
         return [
@@ -170,11 +164,6 @@ class CacheController extends AbstractController
         ];
     }
 
-    /**
-     * @param string $route
-     * @param array $parameters
-     * @return string
-     */
     private function generateAbsoluteUrl(string $route, array $parameters = []): string
     {
         return $this->generateUrl(
@@ -184,11 +173,6 @@ class CacheController extends AbstractController
         );
     }
 
-    /**
-     * @param string $route
-     * @param float $version
-     * @return string
-     */
     private function generateAbsoluteUrlForVersion(string $route, float $version): string
     {
         return $this->generateAbsoluteUrl(

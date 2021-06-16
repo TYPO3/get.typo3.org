@@ -94,9 +94,8 @@ class RequirementExtension extends AbstractExtension
     {
         $result = $this->formatVersions($data);
         $result = $this->groupByCategory($result);
-        $result = $this->sortByTitle($result);
 
-        return $result;
+        return $this->sortByTitle($result);
     }
 
     public function sortByTitle($data): array

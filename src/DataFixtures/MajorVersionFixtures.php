@@ -24,7 +24,7 @@ namespace App\DataFixtures;
 use App\Entity\MajorVersion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class MajorVersionFixtures extends Fixture
 {

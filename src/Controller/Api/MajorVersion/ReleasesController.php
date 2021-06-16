@@ -68,7 +68,6 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="release")
      *
      * @param string $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getReleasesByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -113,7 +112,6 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="release")
      *
      * @param string|null $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -159,7 +157,6 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="release")
      *
      * @param string|null $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -206,7 +203,6 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="release")
      *
      * @param string $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestReleaseContentByMajorVersion(string $version, Request $request): JsonResponse
     {

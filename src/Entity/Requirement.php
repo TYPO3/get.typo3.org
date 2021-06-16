@@ -113,35 +113,26 @@ class Requirement implements \JsonSerializable
         switch ($this->getName()) {
             case 'php':
                 return 'PHP';
-                break;
 
             case 'ie':
                 return 'Internet Explorer';
-                break;
 
             case 'postgres':
                 return 'PostgreSQL';
-                break;
             case 'sqlsrv':
                 return 'Microsoft SQL Server';
-                break;
             case 'mysql':
                 return 'MySQL';
-                break;
             case 'mariadb':
                 return 'MariaDB';
-                break;
             case 'sqlite':
                 return 'SQLite';
-                break;
 
             case 'ram':
                 return 'RAM';
-                break;
 
             default:
                 return \ucfirst($this->getName());
-                break;
         }
     }
 

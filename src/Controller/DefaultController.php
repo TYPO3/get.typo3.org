@@ -62,7 +62,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", host="composer.%app.domain%", name="composer-root")
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composerRoot(): Response
     {
@@ -71,8 +70,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/", methods={"GET"}, name="root")
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request): Response
     {
@@ -97,8 +94,6 @@ class DefaultController extends AbstractController
      * /json
      * Legacy end point
      * @Route("/json", methods={"GET"}, name="legacy-releases-json")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function releaseJson(): Response
     {
@@ -117,10 +112,6 @@ class DefaultController extends AbstractController
      * @Route("/release-notes/", methods={"GET"})
      * @Route("/release-notes/{version}", methods={"GET"}, name="release-notes-for-version")
      * @Route("/release-notes/{folder}/{version}", methods={"GET"}, name="legacy-release-notes-for-version")
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $version
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function releaseNotes(Request $request, string $version = ''): Response
     {
@@ -167,10 +158,6 @@ class DefaultController extends AbstractController
      * @Route("/version", methods={"GET"})
      * @Route("/version/", methods={"GET"})
      * @Route("/version/{version}", methods={"GET"}, name="version")
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $version
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showVersion(Request $request, string $version = ''): Response
     {
@@ -213,10 +200,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/list/version/{version}", methods={"GET"}, name="list")
-     *
-     * @param float $version
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showVersionListByMajorVersion(float $version, Request $request): Response
     {
@@ -245,12 +228,9 @@ class DefaultController extends AbstractController
      *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+[\\.\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip|tar\\.gz\\.sig|zip\\.sig)?$#'"
      * )
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $requestedVersion
-     * @param string $requestedFormat
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function download(Request $request, $requestedVersion = 'stable', $requestedFormat = 'tar.gz')
+    public function download(Request $request, string $requestedVersion = 'stable', string $requestedFormat = 'tar.gz')
     {
         if ($requestedVersion === 'current') {
             $requestedVersion = 'stable';
@@ -276,8 +256,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/misc/composer", methods={"GET"}, name="composer")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composer(): Response
     {
@@ -288,8 +266,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/misc/composer/helper", methods={"GET", "POST"}, name="composer-helper")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composerHelper(): Response
     {
@@ -308,9 +284,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/ajax/composer/helper/generate", methods={"POST"}, name="ajax-composer-helper-generate")
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function composerHelperAjax(Request $request): JsonResponse
     {
@@ -331,8 +304,6 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/misc/composer/repository", methods={"GET"}, name="composer-repository")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function composerRepository(): Response
     {

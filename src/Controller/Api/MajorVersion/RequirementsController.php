@@ -69,7 +69,6 @@ class RequirementsController extends AbstractController
      * @SWG\Tag(name="requirement")
      *
      * @param string $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -130,10 +129,6 @@ class RequirementsController extends AbstractController
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
      *
-     * @param string $version
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function addRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
@@ -201,12 +196,8 @@ class RequirementsController extends AbstractController
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
      *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function updateRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
+    public function updateRequirement(?string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
         if (!empty($content)) {
@@ -263,13 +254,9 @@ class RequirementsController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="requirement")
      *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @param string $category
-     * @param string $name
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function deleteRequirement(
-        string $version,
+        ?string $version,
         string $category,
         string $name
     ): JsonResponse {
