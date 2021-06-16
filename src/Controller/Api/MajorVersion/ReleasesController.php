@@ -111,7 +111,7 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
      *
-     * @param string|null $version Specific TYPO3 Version to fetch
+     * @param string $version Specific TYPO3 Version to fetch
      */
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
