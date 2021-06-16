@@ -121,7 +121,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     {
         $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
         $releases = $releaseRepo->findOneBy(['version' => $version]);
-        if (!$releases) {
+        if (!$releases instanceof Release) {
             throw new NotFoundHttpException();
         }
         return $releases;

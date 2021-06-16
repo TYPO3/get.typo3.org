@@ -377,7 +377,7 @@ class DefaultController extends AbstractController
             $branch = $releases->$branchName;
 
             // $versionParts[2] can be the number '0' as a valid content. e.g. 6.0.0.
-            if (isset($versionParts[2]) === false) {
+            if (!isset($versionParts[2])) {
                 $versionName = $branch->latest;
             }
 

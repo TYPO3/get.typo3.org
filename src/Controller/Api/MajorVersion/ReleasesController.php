@@ -161,7 +161,7 @@ class ReleasesController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        $release = $releaseRepo->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => 'DESC']);
+        $release = $releaseRepo->findLatestSecurityReleaseByMajorVersion($version);
         if (!$release instanceof Release) {
             $json = json_encode([]);
         } else {

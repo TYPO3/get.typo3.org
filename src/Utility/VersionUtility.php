@@ -66,7 +66,7 @@ class VersionUtility
             $version = $matches[1];
 
             for ($i = 2; $i <= $digits; $i++) {
-                $version .= (!empty($matches[$i]) ? $matches[$i] : '.0');
+                $version .= (empty($matches[$i]) ? '.0' : $matches[$i]);
             }
         }
 

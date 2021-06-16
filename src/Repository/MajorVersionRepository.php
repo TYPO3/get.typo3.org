@@ -155,7 +155,7 @@ class MajorVersionRepository extends EntityRepository
         $latestOldStable = $releases[1] ?? null;
         return [
             'latest_stable' => $latestStable->getVersion(),
-            'latest_old_stable' => $latestOldStable ? $latestOldStable->getVersion() : null,
+            'latest_old_stable' => $latestOldStable !== null ? $latestOldStable->getVersion() : null,
         ];
     }
 

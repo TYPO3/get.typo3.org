@@ -21,6 +21,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Release;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -31,4 +32,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReleaseRepository extends EntityRepository
 {
+    public function findLatestSecurityReleaseByMajorVersion(string $version): ?Release {
+        return $this->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => 'DESC']);
+    }
 }

@@ -32,12 +32,12 @@ class ReleaseNotesExtension extends AbstractExtension
     {
         return [
             // format filters
-            new TwigFilter('removeWikiLink', [$this, 'removeWikiLink']),
+            new TwigFilter('removeWikiLink', fn(string $data): string => $this->removeWikiLink($data)),
         ];
     }
 
     public function removeWikiLink(string $data): string
     {
-        return preg_replace('/\(TYPO3_CMS_[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3} \\"wikilink\\"\)/', '', $data);
+        return preg_replace('/\(TYPO3_CMS_\d{1,3}\.\d{1,3}\.\d{1,3} \"wikilink\"\)/', '', $data);
     }
 }

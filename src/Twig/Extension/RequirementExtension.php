@@ -36,16 +36,16 @@ class RequirementExtension extends AbstractExtension
     {
         return [
             // format filters
-            new TwigFilter('formatVersions', [$this, 'formatVersions']),
+            new TwigFilter('formatVersions', fn($data): array => $this->formatVersions($data)),
 
             // sorting filters
-            new TwigFilter('sortByTitle', [$this, 'sortByTitle']),
+            new TwigFilter('sortByTitle', fn($data): array => $this->sortByTitle($data)),
 
             // group and sorting filters
-            new TwigFilter('groupByCategory', [$this, 'groupByCategory']),
+            new TwigFilter('groupByCategory', fn($data): array => $this->groupByCategory($data)),
 
             // combined filters
-            new TwigFilter('prepareRequirements', [$this, 'prepareRequirements']),
+            new TwigFilter('prepareRequirements', fn(Collection $data): array => $this->prepareRequirements($data)),
         ];
     }
 

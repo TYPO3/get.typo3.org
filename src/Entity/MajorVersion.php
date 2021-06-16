@@ -201,7 +201,7 @@ class MajorVersion implements \JsonSerializable
 
     public function getEltsUntil(): ?\DateTimeImmutable
     {
-        return $this->eltsUntil ?? ($this->getMaintainedUntil() ? $this->getMaintainedUntil()->modify('+3 years') : null);
+        return $this->eltsUntil ?? ($this->getMaintainedUntil() !== null ? $this->getMaintainedUntil()->modify('+3 years') : null);
     }
 
     public function setReleaseDate(\DateTimeImmutable $releaseDate): void

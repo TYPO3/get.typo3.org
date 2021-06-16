@@ -141,14 +141,12 @@ class CacheWarmupService implements CacheWarmerInterface
                 $url = $this->router->generate($item, $args);
                 $promise = $this->makeRequest($url);
                 $requestCounter++;
-                if ($requestCounter % 5 === 0) {
-                    // pause every five requests and wait for completion
-                    if ($promise !== null) {
-                        try {
-                            $promise->wait();
-                        } catch (\Exception $exception) {
-                            $this->logger->warning($exception->getMessage(), $exception->getTrace());
-                        }
+                // pause every five requests and wait for completion
+                if ($requestCounter % 5 === 0 && $promise !== null) {
+                    try {
+                        $promise->wait();
+                    } catch (\Exception $exception) {
+                        $this->logger->warning($exception->getMessage(), $exception->getTrace());
                     }
                 }
             }
