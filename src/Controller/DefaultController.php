@@ -306,6 +306,38 @@ class DefaultController extends AbstractController
         return $this->render($templateName);
     }
 
+    protected function createEltsVersionResponse(Request $request, Release $release): Response
+    {
+        $statusCode = Response::HTTP_PAYMENT_REQUIRED;
+        $statusMessage = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
+        $acceptHeader = $request->headers->get('Accept');
+        $response = new Response();
+        if (strpos($acceptHeader, 'application/json') !== false) {
+            $response->setContent(json_encode([
+                'status' => $statusCode,
+                'message' => $statusMessage
+            ]));
+            $response->headers->set('Content-Type', 'application/json');
+        } elseif (strpos($acceptHeader, 'text/html') !== false) {
+            $response = $this->render(
+                'default/elts.html.twig',
+                [
+                    'release' => $release,
+                ]
+            );
+        } else {
+            $response->setContent(chr(10) . $statusMessage . chr(10) . chr(10));
+        }
+        $response->setStatusCode($statusCode);
+        return $response;
+    }
+
+    protected function parseLink(string $text): string
+    {
+        $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
+        return preg_replace($url, '<a href="$0" target="_blank" rel="noreferrer">$0</a>', $text);
+    }
+
     /**
      * @param string $versionName
      * @param string $format
@@ -406,37 +438,5 @@ class DefaultController extends AbstractController
             }
         }
         return $result;
-    }
-
-    protected function createEltsVersionResponse(Request $request, Release $release): Response
-    {
-        $statusCode = Response::HTTP_PAYMENT_REQUIRED;
-        $statusMessage = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
-        $acceptHeader = $request->headers->get('Accept');
-        $response = new Response();
-        if (strpos($acceptHeader, 'application/json') !== false) {
-            $response->setContent(json_encode([
-                'status' => $statusCode,
-                'message' => $statusMessage
-            ]));
-            $response->headers->set('Content-Type', 'application/json');
-        } elseif (strpos($acceptHeader, 'text/html') !== false) {
-            $response = $this->render(
-                'default/elts.html.twig',
-                [
-                    'release' => $release,
-                ]
-            );
-        } else {
-            $response->setContent(chr(10) . $statusMessage . chr(10) . chr(10));
-        }
-        $response->setStatusCode($statusCode);
-        return $response;
-    }
-
-    protected function parseLink(string $text): string
-    {
-        $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
-        return preg_replace($url, '<a href="$0" target="_blank" rel="noreferrer">$0</a>', $text);
     }
 }

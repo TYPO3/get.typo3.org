@@ -32,7 +32,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReleaseRepository extends EntityRepository
 {
-    public function findLatestSecurityReleaseByMajorVersion(string $version): ?Release {
+    public function findLatestSecurityReleaseByMajorVersion(string $version): ?Release
+    {
         return $this->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => 'DESC']);
     }
 }

@@ -20,13 +20,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::DEAD_CODE);
     $containerConfigurator->import(SetList::FRAMEWORK_EXTRA_BUNDLE_50);
     $containerConfigurator->import(SetList::NAMING);
-    //$containerConfigurator->import(SetList::ORDER);
+    $containerConfigurator->import(SetList::ORDER);
     $containerConfigurator->import(SetList::PHP_74);
     //$containerConfigurator->import(SetList::PRIVATIZATION);
     //$containerConfigurator->import(SetList::PSR_4);
     //$containerConfigurator->import(SetList::TYPE_DECLARATION);
     $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
-    //$containerConfigurator->import(SetList::PRIVATIZATION);
     //$containerConfigurator->import(SetList::EARLY_RETURN);
 
     // get services (needed for register a single rule)

@@ -128,7 +128,6 @@ class RequirementsController extends AbstractController
      *     required=true,
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
-     *
      */
     public function addRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
@@ -195,7 +194,6 @@ class RequirementsController extends AbstractController
      *     required=true,
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
-     *
      */
     public function updateRequirement(?string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
@@ -253,7 +251,6 @@ class RequirementsController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="requirement")
-     *
      */
     public function deleteRequirement(
         ?string $version,

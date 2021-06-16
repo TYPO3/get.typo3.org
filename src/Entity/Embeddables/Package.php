@@ -58,6 +58,13 @@ class Package implements \JsonSerializable
      */
     private ?string $sha256sum = null;
 
+    public function __construct(?string $md5sum, ?string $sha1sum, ?string $sha256sum)
+    {
+        $this->md5sum = $md5sum;
+        $this->sha1sum = $sha1sum;
+        $this->sha256sum = $sha256sum;
+    }
+
     /**
      * @return mixed
      */
@@ -80,13 +87,6 @@ class Package implements \JsonSerializable
     public function getSha256sum(): ?string
     {
         return $this->sha256sum;
-    }
-
-    public function __construct(?string $md5sum, ?string $sha1sum, ?string $sha256sum)
-    {
-        $this->md5sum = $md5sum;
-        $this->sha1sum = $sha1sum;
-        $this->sha256sum = $sha256sum;
     }
 
     /**

@@ -703,7 +703,7 @@ class ComposerPackagesService
         $sanitizedBundles = [];
         foreach (self::$bundles as $bundleName => $packages) {
             $sanitizedBundles[$bundleName] = \GuzzleHttp\json_encode(
-                array_map(static fn($name) => str_replace('/', '-', $name), $packages)
+                array_map(static fn ($name) => str_replace('/', '-', $name), $packages)
             );
         }
 

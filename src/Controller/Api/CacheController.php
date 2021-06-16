@@ -164,6 +164,18 @@ class CacheController extends AbstractController
         ];
     }
 
+    /**
+     * Deletes the releases.json in the cache
+     */
+    private function deleteReleases(): void
+    {
+        $filesystemAdapter = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
+        $filesystemAdapterHasItem = $filesystemAdapter->hasItem('releases.json');
+        if ($filesystemAdapterHasItem) {
+            $filesystemAdapter->delete('releases.json');
+        }
+    }
+
     private function generateAbsoluteUrl(string $route, array $parameters = []): string
     {
         return $this->generateUrl(
@@ -179,17 +191,5 @@ class CacheController extends AbstractController
             $route,
             ['version' => $version]
         );
-    }
-
-    /**
-     * Deletes the releases.json in the cache
-     */
-    private function deleteReleases(): void
-    {
-        $filesystemAdapter = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-        $filesystemAdapterHasItem = $filesystemAdapter->hasItem('releases.json');
-        if ($filesystemAdapterHasItem) {
-            $filesystemAdapter->delete('releases.json');
-        }
     }
 }

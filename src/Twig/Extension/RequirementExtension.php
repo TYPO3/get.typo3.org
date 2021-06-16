@@ -36,16 +36,16 @@ class RequirementExtension extends AbstractExtension
     {
         return [
             // format filters
-            new TwigFilter('formatVersions', fn($data): array => $this->formatVersions($data)),
+            new TwigFilter('formatVersions', fn ($data): array => $this->formatVersions($data)),
 
             // sorting filters
-            new TwigFilter('sortByTitle', fn($data): array => $this->sortByTitle($data)),
+            new TwigFilter('sortByTitle', fn ($data): array => $this->sortByTitle($data)),
 
             // group and sorting filters
-            new TwigFilter('groupByCategory', fn($data): array => $this->groupByCategory($data)),
+            new TwigFilter('groupByCategory', fn ($data): array => $this->groupByCategory($data)),
 
             // combined filters
-            new TwigFilter('prepareRequirements', fn(Collection $data): array => $this->prepareRequirements($data)),
+            new TwigFilter('prepareRequirements', fn (Collection $data): array => $this->prepareRequirements($data)),
         ];
     }
 
@@ -148,6 +148,6 @@ class RequirementExtension extends AbstractExtension
 
     private function sortByTitleHelper(array &$data)
     {
-        usort($data, fn($a, $b) => strcasecmp($a->getTitle(), $b->getTitle()));
+        usort($data, fn ($a, $b) => strcasecmp($a->getTitle(), $b->getTitle()));
     }
 }

@@ -49,6 +49,13 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
         $objectManager->flush();
     }
 
+    public function getDependencies()
+    {
+        return [
+            MajorVersionFixtures::class,
+        ];
+    }
+
     protected function getData(): array
     {
         return [
@@ -100,13 +107,6 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
                 'min' => null,
                 'max' => null,
             ]
-        ];
-    }
-
-    public function getDependencies()
-    {
-        return [
-            MajorVersionFixtures::class,
         ];
     }
 }

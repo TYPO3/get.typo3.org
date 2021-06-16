@@ -208,6 +208,13 @@ class MajorVersionRepository extends EntityRepository
         return $version;
     }
 
+    private function removeEltsReleases(MajorVersion $majorVersion): MajorVersion
+    {
+        $majorVersion->setReleases($majorVersion->getReleases()->filter(static fn (Release $release) => !$release->isElts()));
+
+        return $majorVersion;
+    }
+
     /**
      * @return Release[]
      */
@@ -217,16 +224,9 @@ class MajorVersionRepository extends EntityRepository
 
         usort(
             $releases,
-            fn(Release $a, Release $b) => version_compare($b->getVersion(), $a->getVersion())
+            fn (Release $a, Release $b) => version_compare($b->getVersion(), $a->getVersion())
         );
 
         return $releases;
-    }
-
-    private function removeEltsReleases(MajorVersion $majorVersion): MajorVersion
-    {
-        $majorVersion->setReleases($majorVersion->getReleases()->filter(static fn(Release $release) => !$release->isElts()));
-
-        return $majorVersion;
     }
 }

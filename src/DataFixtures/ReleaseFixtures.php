@@ -42,6 +42,13 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         $objectManager->flush();
     }
 
+    public function getDependencies()
+    {
+        return [
+            MajorVersionFixtures::class,
+        ];
+    }
+
     protected function generateReleasesForMajorVersion(ObjectManager $objectManager, MajorVersion $majorVersion, int $amount = 12)
     {
         $generator = \Faker\Factory::create();
@@ -98,12 +105,5 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             }
             $objectManager->persist($release);
         }
-    }
-
-    public function getDependencies()
-    {
-        return [
-            MajorVersionFixtures::class,
-        ];
     }
 }

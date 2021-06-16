@@ -128,6 +128,18 @@ class CacheWarmupService implements CacheWarmerInterface
         $this->warmUpLoopWithVersions($routes, $versions);
     }
 
+    private function warmUpMajorVersions(): void
+    {
+        $majorVersionRepository = $this->entityManager->getRepository(MajorVersion::class);
+        $versions = $majorVersionRepository->findAll();
+        $routes = [
+            'app_api_majorversion_releases_getreleasesbymajorversion',
+            'app_api_majorversion_releases_getlatestreleasebymajorversion',
+            'app_api_majorversion_releases_getlatestreleasecontentbymajorversion',
+        ];
+        $this->warmUpLoopWithVersions($routes, $versions);
+    }
+
     /**
      * @param $routes
      * @param $versions
@@ -151,17 +163,5 @@ class CacheWarmupService implements CacheWarmerInterface
                 }
             }
         }
-    }
-
-    private function warmUpMajorVersions(): void
-    {
-        $majorVersionRepository = $this->entityManager->getRepository(MajorVersion::class);
-        $versions = $majorVersionRepository->findAll();
-        $routes = [
-            'app_api_majorversion_releases_getreleasesbymajorversion',
-            'app_api_majorversion_releases_getlatestreleasebymajorversion',
-            'app_api_majorversion_releases_getlatestreleasecontentbymajorversion',
-        ];
-        $this->warmUpLoopWithVersions($routes, $versions);
     }
 }

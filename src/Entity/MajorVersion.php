@@ -218,7 +218,7 @@ class MajorVersion implements \JsonSerializable
         $array = $this->releases->toArray();
         usort(
             $array,
-            fn($a, $b) => version_compare($b->getVersion(), $a->getVersion())
+            fn ($a, $b) => version_compare($b->getVersion(), $a->getVersion())
         );
         return reset($array);
     }
