@@ -195,7 +195,7 @@ class RequirementsController extends AbstractController
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
      */
-    public function updateRequirement(?string $version, Request $request, ValidatorInterface $validator): JsonResponse
+    public function updateRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
         if (!empty($content)) {
