@@ -253,7 +253,7 @@ class RequirementsController extends AbstractController
      * @SWG\Tag(name="requirement")
      */
     public function deleteRequirement(
-        ?string $version,
+        string $version,
         string $category,
         string $name
     ): JsonResponse {
