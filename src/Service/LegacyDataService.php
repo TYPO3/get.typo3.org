@@ -41,7 +41,7 @@ class LegacyDataService
     {
         $cache = new FilesystemAdapter();
 
-        return (string)$cache->get('releases.json', function (ItemInterface $item) {
+        return (string)$cache->get('releases.json', function (ItemInterface $item): string {
             /** @var \App\Repository\MajorVersionRepository $rep */
             $rep = $this->entityManager->getRepository(MajorVersion::class);
             $content = json_encode($rep->findAllPreparedForJson());

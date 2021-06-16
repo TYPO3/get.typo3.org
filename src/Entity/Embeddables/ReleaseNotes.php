@@ -72,7 +72,7 @@ class ReleaseNotes
      */
     private ?string $legacyContent = null;
 
-    public function setNewsLink(string $newsLink)
+    public function setNewsLink(string $newsLink): void
     {
         $this->newsLink = $newsLink;
     }
@@ -82,7 +82,7 @@ class ReleaseNotes
         return $this->newsLink;
     }
 
-    public function setNews(string $news)
+    public function setNews(string $news): void
     {
         $this->news = $news;
     }
@@ -92,7 +92,7 @@ class ReleaseNotes
         return $this->news;
     }
 
-    public function setUpgradingInstructions(string $upgradingInstructions)
+    public function setUpgradingInstructions(string $upgradingInstructions): void
     {
         $this->upgradingInstructions = $upgradingInstructions;
     }
@@ -102,7 +102,7 @@ class ReleaseNotes
         return $this->upgradingInstructions;
     }
 
-    public function setChanges(string $changes)
+    public function setChanges(string $changes): void
     {
         $this->changes = $changes;
     }
@@ -112,7 +112,7 @@ class ReleaseNotes
         return $this->changes;
     }
 
-    public function setLegacyContent(string $legacyContent)
+    public function setLegacyContent(string $legacyContent): void
     {
         $this->legacyContent = $legacyContent;
     }

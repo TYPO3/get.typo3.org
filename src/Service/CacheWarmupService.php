@@ -108,7 +108,7 @@ class CacheWarmupService implements CacheWarmerInterface
         try {
             $promise = $this->client->requestAsync('GET', $this->baseUrl . $url);
             $promise->then(
-                function ($response) use ($url) {
+                function ($response) use ($url): void {
                     $this->logger->info('Warmed up ' . $url . ' with status ' . $response->getStatusCode());
                 }
             );

@@ -15,9 +15,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::DEAD_CODE);
     $containerConfigurator->import(SetList::PHP_74);
     $containerConfigurator->import(SetList::CODE_QUALITY_STRICT);
+    $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
     //$containerConfigurator->import(SetList::CODING_STYLE);
     //$containerConfigurator->import(SetList::PRIVATIZATION);
-    //$containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
 
     // get services (needed for register a single rule)
     // $services = $containerConfigurator->services();
