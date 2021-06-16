@@ -67,7 +67,7 @@ class Release implements \JsonSerializable
      * @Assert\Type("boolean")
      * @SWG\Property(example="true")
      */
-    private bool $elts = false;
+    private bool $isElts = false;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddables\Package")
@@ -103,7 +103,7 @@ class Release implements \JsonSerializable
 
     public function __construct()
     {
-        $this->elts = false;
+        $this->isElts = false;
     }
 
     public function setVersion(string $version): void
@@ -126,9 +126,9 @@ class Release implements \JsonSerializable
         return $this->releaseNotes;
     }
 
-    public function setDate(\DateTimeInterface $date): void
+    public function setDate(\DateTimeInterface $dateTime): void
     {
-        $this->date = $date;
+        $this->date = $dateTime;
     }
 
     public function getDate(): \DateTime
@@ -181,12 +181,12 @@ class Release implements \JsonSerializable
 
     public function setElts(bool $elts): void
     {
-        $this->elts = $elts;
+        $this->isElts = $elts;
     }
 
     public function isElts(): bool
     {
-        return $this->elts;
+        return $this->isElts;
     }
 
     /**

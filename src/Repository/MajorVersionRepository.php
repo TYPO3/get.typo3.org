@@ -99,8 +99,8 @@ class MajorVersionRepository extends EntityRepository
     {
         $all = $this->findAll();
         $data = [];
-        foreach ($all as $version) {
-            $data[$this->formatVersion($version->getVersion())] = $version;
+        foreach ($all as $singleAll) {
+            $data[$this->formatVersion($singleAll->getVersion())] = $singleAll;
         }
         uksort($data, 'version_compare');
         return array_reverse($data);
@@ -110,9 +110,9 @@ class MajorVersionRepository extends EntityRepository
     {
         $all = $this->findAll();
         $data = [];
-        foreach ($all as $version) {
-            $version = $this->removeEltsReleases($version);
-            $data[$this->formatVersion($version->getVersion())] = $version;
+        foreach ($all as $singleAll) {
+            $majorVersion = $this->removeEltsReleases($majorVersion);
+            $data[$this->formatVersion($majorVersion->getVersion())] = $majorVersion;
         }
         uksort($data, 'version_compare');
         return array_reverse($data);

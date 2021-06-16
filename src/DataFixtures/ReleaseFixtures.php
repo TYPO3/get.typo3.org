@@ -32,19 +32,19 @@ use Doctrine\Persistence\ObjectManager;
 
 class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $objectManager)
     {
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_SPRINT), 6);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_LTS), 12);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS), 24);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS_EXT), 24);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_OUTDATED), 24);
-        $manager->flush();
+        $this->generateReleasesForMajorVersion($objectManager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_SPRINT), 6);
+        $this->generateReleasesForMajorVersion($objectManager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_LTS), 12);
+        $this->generateReleasesForMajorVersion($objectManager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS), 24);
+        $this->generateReleasesForMajorVersion($objectManager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS_EXT), 24);
+        $this->generateReleasesForMajorVersion($objectManager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_OUTDATED), 24);
+        $objectManager->flush();
     }
 
-    protected function generateReleasesForMajorVersion(ObjectManager $manager, MajorVersion $majorVersion, int $amount = 12)
+    protected function generateReleasesForMajorVersion(ObjectManager $objectManager, MajorVersion $majorVersion, int $amount = 12)
     {
-        $faker = \Faker\Factory::create();
+        $generator = \Faker\Factory::create();
         $majorVersionNumber =  $majorVersion->getVersion();
         $ltsVersionNumber = $majorVersion->getLts() ?? $majorVersionNumber;
 
@@ -59,7 +59,7 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < $amount; ++$i) {
             $fakeVersion = $versionData;
-            $fakeVersion[1] = $faker->numberBetween($versionData[1], $ltsVersionData[1]);
+            $fakeVersion[1] = $generator->numberBetween($versionData[1], $ltsVersionData[1]);
             $fakeVersion[2] = $i;
             $version = implode('.', $fakeVersion);
             $date = \DateTime::createFromFormat(
@@ -69,26 +69,26 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 
             $release = new Release();
             $release->setVersion($version);
-            $release->setType($faker->randomElement(ReleaseTypeEnum::getAvailableOptions()));
+            $release->setType($generator->randomElement(ReleaseTypeEnum::getAvailableOptions()));
             $release->setDate($date);
             $release->setMajorVersion($majorVersion);
             $package = new Package(
-                $faker->boolean ? $faker->md5 : null,
-                $faker->boolean ? $faker->sha1 : null,
-                $faker->boolean ? $faker->sha256: null
+                $generator->boolean ? $generator->md5 : null,
+                $generator->boolean ? $generator->sha1 : null,
+                $generator->boolean ? $generator->sha256: null
             );
             $release->setTarPackage($package);
             $release->setZipPackage($package);
 
             $releaseNotes = new ReleaseNotes();
-            $releaseNotes->setNewsLink($faker->url);
-            $releaseNotes->setNews($faker->paragraph($faker->numberBetween(1, 6)));
-            $releaseNotes->setUpgradingInstructions($faker->paragraph($faker->numberBetween(0, 1)));
+            $releaseNotes->setNewsLink($generator->url);
+            $releaseNotes->setNews($generator->paragraph($generator->numberBetween(1, 6)));
+            $releaseNotes->setUpgradingInstructions($generator->paragraph($generator->numberBetween(0, 1)));
             $changelogTypes = ['TASK', 'BUGFIX', 'FEATURE'];
             $changelog = [];
-            $changelog[] = '2019-10-30 7254d67918 [RELEASE] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name . ')';
-            for ($changeIteration = 0; $changeIteration < $faker->numberBetween(5, 50); ++$changeIteration) {
-                $changelog[] = '2019-10-30 7254d67918 [' . $faker->randomElement($changelogTypes) . '] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name . ')';
+            $changelog[] = '2019-10-30 7254d67918 [RELEASE] ' . $generator->sentence($generator->numberBetween(4, 8)) . ' (thanks to ' . $generator->name . ')';
+            for ($changeIteration = 0; $changeIteration < $generator->numberBetween(5, 50); ++$changeIteration) {
+                $changelog[] = '2019-10-30 7254d67918 [' . $generator->randomElement($changelogTypes) . '] ' . $generator->sentence($generator->numberBetween(4, 8)) . ' (thanks to ' . $generator->name . ')';
             }
             $releaseNotes->setChanges(' * ' . implode("\n * ", $changelog));
             $release->setReleaseNotes($releaseNotes);
@@ -96,7 +96,7 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             if ($majorVersion->getMaintainedUntil() && $date > $majorVersion->getMaintainedUntil()) {
                 $release->setElts(true);
             }
-            $manager->persist($release);
+            $objectManager->persist($release);
         }
     }
 

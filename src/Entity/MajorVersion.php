@@ -93,15 +93,14 @@ class MajorVersion implements \JsonSerializable
      * @Serializer\Groups({"data", "content"})
      * @Serializer\Type("ArrayCollection<App\Entity\Requirement>")
      */
-    private \Doctrine\Common\Collections\Collection $requirements;
+    private Collection $requirements;
 
     /**
      * @ORM\OneToMany(targetEntity="Release", mappedBy="majorVersion", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Type("ArrayCollection<App\Entity\Release>")
      * @Serializer\Groups({"data"})
-     * @var Collection
      */
-    private \Doctrine\Common\Collections\Collection $releases;
+    private Collection $releases;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -144,9 +143,9 @@ class MajorVersion implements \JsonSerializable
         return $this->version;
     }
 
-    public function setReleases(Collection $releases): void
+    public function setReleases(Collection $collection): void
     {
-        $this->releases = $releases;
+        $this->releases = $collection;
     }
 
     public function getReleases(): Collection
@@ -184,9 +183,9 @@ class MajorVersion implements \JsonSerializable
         return $this->description;
     }
 
-    public function setMaintainedUntil(?\DateTimeImmutable $maintainedUntil): void
+    public function setMaintainedUntil(?\DateTimeImmutable $dateTimeImmutable): void
     {
-        $this->maintainedUntil = $maintainedUntil;
+        $this->maintainedUntil = $dateTimeImmutable;
     }
 
     public function getMaintainedUntil(): ?\DateTimeImmutable
@@ -194,9 +193,9 @@ class MajorVersion implements \JsonSerializable
         return $this->maintainedUntil;
     }
 
-    public function setEltsUntil(?\DateTimeImmutable $eltsUntil): void
+    public function setEltsUntil(?\DateTimeImmutable $dateTimeImmutable): void
     {
-        $this->eltsUntil = $eltsUntil;
+        $this->eltsUntil = $dateTimeImmutable;
     }
 
     public function getEltsUntil(): ?\DateTimeImmutable
@@ -204,9 +203,9 @@ class MajorVersion implements \JsonSerializable
         return $this->eltsUntil ?? ($this->getMaintainedUntil() !== null ? $this->getMaintainedUntil()->modify('+3 years') : null);
     }
 
-    public function setReleaseDate(\DateTimeImmutable $releaseDate): void
+    public function setReleaseDate(\DateTimeImmutable $dateTimeImmutable): void
     {
-        $this->releaseDate = $releaseDate;
+        $this->releaseDate = $dateTimeImmutable;
     }
 
     public function getReleaseDate(): \DateTimeImmutable
@@ -224,9 +223,9 @@ class MajorVersion implements \JsonSerializable
         return reset($array);
     }
 
-    public function setRequirements(Collection $requirements): void
+    public function setRequirements(Collection $collection): void
     {
-        $this->requirements = $requirements;
+        $this->requirements = $collection;
     }
 
     public function addRequirement(Requirement $requirement): void
@@ -270,18 +269,18 @@ class MajorVersion implements \JsonSerializable
 
     public function isActive(): bool
     {
-        $dateTime = new \DateTimeImmutable();
+        $dateTimeImmutable = new \DateTimeImmutable();
         return null === $this->getMaintainedUntil()
-            || $dateTime <= $this->getMaintainedUntil();
+            || $dateTimeImmutable <= $this->getMaintainedUntil();
     }
 
     public function isElts(): bool
     {
-        $dateTime = new \DateTimeImmutable();
+        $dateTimeImmutable = new \DateTimeImmutable();
         return $this->getMaintainedUntil() != null
             && $this->getEltsUntil() != null
-            && $dateTime > $this->getMaintainedUntil()
-            && $dateTime <= $this->getEltsUntil();
+            && $dateTimeImmutable > $this->getMaintainedUntil()
+            && $dateTimeImmutable <= $this->getEltsUntil();
     }
 
     /**
@@ -295,8 +294,8 @@ class MajorVersion implements \JsonSerializable
     public function jsonSerialize()
     {
         $releaseData = [];
-        foreach ($this->getReleases() as $release) {
-            $releaseData[$release->getVersion()] = $release;
+        foreach ($this->getReleases() as $collection) {
+            $releaseData[$collection->getVersion()] = $collection;
         }
         uksort($releaseData, 'version_compare');
         $desc = array_reverse($releaseData);

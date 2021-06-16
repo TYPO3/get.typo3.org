@@ -78,8 +78,8 @@ class CacheWarmupService implements CacheWarmerInterface
             'app_api_majorversion_getmajorreleases',
             'app_api_release_getrelease',
         ];
-        foreach ($routesWithoutArguments as $route) {
-            $url = $this->router->generate($route);
+        foreach ($routesWithoutArguments as $routeWithoutArgument) {
+            $url = $this->router->generate($routeWithoutArgument);
             $promise = $this->makeRequest($url);
         }
         if ($promise !== null) {
@@ -135,10 +135,10 @@ class CacheWarmupService implements CacheWarmerInterface
     private function warmUpLoopWithVersions($routes, $versions): void
     {
         $requestCounter = 0;
-        foreach ($routes as $item) {
-            foreach ($versions as $active) {
-                $args = ['version' => $active->getVersion()];
-                $url = $this->router->generate($item, $args);
+        foreach ($routes as $route) {
+            foreach ($versions as $version) {
+                $args = ['version' => $version->getVersion()];
+                $url = $this->router->generate($route, $args);
                 $promise = $this->makeRequest($url);
                 ++$requestCounter;
                 // pause every five requests and wait for completion

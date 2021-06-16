@@ -62,8 +62,8 @@ class RequirementExtension extends AbstractExtension
         if (reset($elements) instanceof Requirement) {
             $this->normalizeVersionHelper($elements);
         } else {
-            foreach ($elements as &$category) {
-                $this->normalizeVersionHelper($category);
+            foreach ($elements as &$element) {
+                $this->normalizeVersionHelper($element);
             }
         }
 
@@ -90,9 +90,9 @@ class RequirementExtension extends AbstractExtension
         return $result;
     }
 
-    public function prepareRequirements(Collection $data): array
+    public function prepareRequirements(Collection $collection): array
     {
-        $result = $this->formatVersions($data);
+        $result = $this->formatVersions($collection);
         $result = $this->groupByCategory($result);
 
         return $this->sortByTitle($result);
@@ -111,17 +111,17 @@ class RequirementExtension extends AbstractExtension
         if (reset($elements) instanceof Requirement) {
             $this->sortByTitleHelper($elements);
         } else {
-            foreach ($elements as &$category) {
-                $this->sortByTitleHelper($category);
+            foreach ($elements as &$element) {
+                $this->sortByTitleHelper($element);
             }
         }
 
         return $elements;
     }
 
-    private function normalizeVersionHelper(array &$data)
+    private function normalizeVersionHelper(array &$requirements)
     {
-        foreach ($data as &$requirement) {
+        foreach ($requirements as &$requirement) {
             if (
                 \in_array(
                     $requirement->getCategory(),

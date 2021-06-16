@@ -67,8 +67,8 @@ class CacheController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         $repo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $repo->findOneBy(['version' => $version]);
-        if (!$major instanceof MajorVersion) {
+        $majorVersion = $repo->findOneBy(['version' => $version]);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
@@ -105,8 +105,8 @@ class CacheController extends AbstractController
     public function purgeRelease(string $version): JsonResponse
     {
         $this->checkVersionFormat($version);
-        $major = $this->getMajorVersionByReleaseVersion($version);
-        $purgeUrls = $this->getPurgeUrlsForMajorVersion($major->getVersion());
+        $majorVersion = $this->getMajorVersionByReleaseVersion($version);
+        $purgeUrls = $this->getPurgeUrlsForMajorVersion($majorVersion->getVersion());
         $releaseUrls = [
             $this->generateAbsoluteUrl('app_api_release_getrelease'),
             $this->generateAbsoluteUrl(
@@ -186,9 +186,10 @@ class CacheController extends AbstractController
      */
     private function deleteReleases(): void
     {
-        $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-        if ($filesystemCache->hasItem('releases.json')) {
-            $filesystemCache->delete('releases.json');
+        $filesystemAdapter = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
+        $filesystemAdapterHasItem = $filesystemAdapter->hasItem('releases.json');
+        if ($filesystemAdapterHasItem) {
+            $filesystemAdapter->delete('releases.json');
         }
     }
 }

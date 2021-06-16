@@ -31,11 +31,11 @@ class ReleaseNotes
 
     public function getAllReleaseNoteNames(): array
     {
-        /** @var \Symfony\Component\HttpFoundation\File\File[] $directories */
-        $directories = Finder::create()->directories()->in($this->releaseNotesDir)->sortByName();
+        /** @var \Symfony\Component\HttpFoundation\File\File[] $finder */
+        $finder = Finder::create()->directories()->in($this->releaseNotesDir)->sortByName();
         $result = [];
-        foreach ($directories as $directory) {
-            $dir = $directory->getRealPath() . DIRECTORY_SEPARATOR;
+        foreach ($finder as $singleFinder) {
+            $dir = $singleFinder->getRealPath() . DIRECTORY_SEPARATOR;
             /** @var \Symfony\Component\HttpFoundation\File\File[] $files */
             $files = Finder::create()->files()->in($dir)->name('*.html')->sortByName();
             $fileNames = [];
@@ -43,7 +43,7 @@ class ReleaseNotes
                 $fileNames[] = $file->getBasename('.html');
             }
             natsort($fileNames);
-            $result[$directory->getBasename()] = array_reverse($fileNames);
+            $result[$singleFinder->getBasename()] = array_reverse($fileNames);
         }
         return array_reverse($result);
     }

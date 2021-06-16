@@ -49,7 +49,7 @@ class MajorVersionFixtures extends Fixture
      */
     public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $objectManager)
     {
         $versions = $this->getData();
         foreach ($versions as $key => $version) {
@@ -65,11 +65,11 @@ class MajorVersionFixtures extends Fixture
                 $version['releases'],
                 $version['lts']
             );
-            $manager->persist($majorVersion);
+            $objectManager->persist($majorVersion);
             $this->addReference($key, $majorVersion);
         }
 
-        $manager->flush();
+        $objectManager->flush();
     }
 
     public static function getVersions(): array
@@ -85,16 +85,16 @@ class MajorVersionFixtures extends Fixture
 
     protected function getData(): array
     {
-        $faker = \Faker\Factory::create();
-        $dateTimeToday = new \DateTimeImmutable();
+        $generator = \Faker\Factory::create();
+        $dateTimeImmutable = new \DateTimeImmutable();
 
         return [
             self::MAJOR_VERSION_SPRINT => [
                 'version' => 10,
                 'title' => 'TYPO3 10',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday,
+                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
+                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeImmutable,
                 'maintainedUntil' => null,
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
@@ -104,10 +104,10 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_LTS => [
                 'version' => 9.5,
                 'title' => 'TYPO3 9',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday,
-                'maintainedUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
+                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeImmutable,
+                'maintainedUntil' => $dateTimeImmutable->modify('+3 years')->modify('-1 day'),
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
@@ -116,10 +116,10 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_ELTS => [
                 'version' => 7.6,
                 'title' => 'TYPO3 7',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday->modify('-3 years'),
-                'maintainedUntil' => $dateTimeToday->modify('-1 day'),
+                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
+                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeImmutable->modify('-3 years'),
+                'maintainedUntil' => $dateTimeImmutable->modify('-1 day'),
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
@@ -128,11 +128,11 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_ELTS_EXT => [
                 'version' => 6.2,
                 'title' => 'TYPO3 6.2',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday->modify('-3 years'),
-                'maintainedUntil' => $dateTimeToday->modify('-1 day'),
-                'eltsUntil' => $dateTimeToday->modify('-1 day')->modify('+4 years'),
+                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
+                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeImmutable->modify('-3 years'),
+                'maintainedUntil' => $dateTimeImmutable->modify('-1 day'),
+                'eltsUntil' => $dateTimeImmutable->modify('-1 day')->modify('+4 years'),
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
                 'lts' => 6.2
@@ -140,10 +140,10 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_OUTDATED => [
                 'version' => 4.5,
                 'title' => 'TYPO3 4.5',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday->modify('-6 years'),
-                'maintainedUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day'),
+                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
+                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'releaseDate' => $dateTimeImmutable->modify('-6 years'),
+                'maintainedUntil' => $dateTimeImmutable->modify('-3 years')->modify('-1 day'),
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),

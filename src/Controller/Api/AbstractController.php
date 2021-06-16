@@ -45,11 +45,11 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     {
         $this->checkMajorVersionFormat($version);
         $repo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $entity = $repo->findOneBy(['version' => $version]);
-        if (!$entity instanceof MajorVersion) {
+        $majorVersion = $repo->findOneBy(['version' => $version]);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }
-        return $entity;
+        return $majorVersion;
     }
 
     /**
@@ -57,10 +57,10 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
      */
     protected function validateObject(ValidatorInterface $validator, $object): void
     {
-        $errors = $validator->validate($object);
+        $constraintViolationList = $validator->validate($object);
 
-        if (\count($errors) > 0) {
-            $errorsString = (string)$errors;
+        if (\count($constraintViolationList) > 0) {
+            $errorsString = (string)$constraintViolationList;
             throw new BadRequestHttpException($errorsString);
         }
     }
@@ -68,22 +68,22 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function mapObjects($baseObject, array $data): void
     {
         $em = $this->getDoctrine()->getManager();
-        $metadata = $em->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
-        foreach ($metadata->getFieldNames() as $field) {
+        $classMetadata = $em->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
+        foreach ($classMetadata->getFieldNames() as $field) {
             $fieldName = Inflector::tableize($field);
             if (is_array($data)) {
                 $data = $this->flat($data);
             }
             if (array_key_exists($fieldName, $data)) {
-                if (isset($metadata->fieldMappings[$field]['type'])) {
-                    if ($metadata->fieldMappings[$field]['type'] == 'datetime') {
+                if (isset($classMetadata->fieldMappings[$field]['type'])) {
+                    if ($classMetadata->fieldMappings[$field]['type'] == 'datetime') {
                         $data[$fieldName] = new \DateTime($data[$fieldName]);
-                    } elseif ($metadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
+                    } elseif ($classMetadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
                         $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
                     }
                 }
                 //careful! setters are not being called! Inflection is up to you if you need it!
-                $metadata->setFieldValue($baseObject, $field, $data[$fieldName]);
+                $classMetadata->setFieldValue($baseObject, $field, $data[$fieldName]);
             }
         }
     }

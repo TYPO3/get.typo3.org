@@ -29,7 +29,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class RequirementFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $objectManager)
     {
         foreach (MajorVersionFixtures::getVersions() as $majorVersionIdentifier) {
             $majorVersion = $this->getReference($majorVersionIdentifier);
@@ -42,11 +42,11 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
                 $requirement->setName($data['name']);
                 $requirement->setMin($data['min']);
                 $requirement->setMax($data['max']);
-                $manager->persist($requirement);
+                $objectManager->persist($requirement);
             }
         }
 
-        $manager->flush();
+        $objectManager->flush();
     }
 
     protected function getData(): array

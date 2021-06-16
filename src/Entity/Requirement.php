@@ -71,9 +71,9 @@ class Requirement implements \JsonSerializable
      */
     private ?string $max = null;
 
-    public function setVersion(MajorVersion $version): void
+    public function setVersion(MajorVersion $majorVersion): void
     {
-        $this->version = $version;
+        $this->version = $majorVersion;
     }
 
     public function getVersion(): MajorVersion
