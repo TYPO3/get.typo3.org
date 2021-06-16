@@ -20,7 +20,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::DEAD_CODE);
     $containerConfigurator->import(SetList::FRAMEWORK_EXTRA_BUNDLE_50);
     $containerConfigurator->import(SetList::MONOLOG_20);
-    //$containerConfigurator->import(SetList::MYSQL_TO_MYSQLI);
+    $containerConfigurator->import(SetList::MYSQL_TO_MYSQLI);
     $containerConfigurator->import(SetList::NAMING);
     $containerConfigurator->import(SetList::ORDER);
     $containerConfigurator->import(SetList::PHP_74);
@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     //$containerConfigurator->import(SetList::SAFE_07);
     $containerConfigurator->import(SetList::TYPE_DECLARATION);
     $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
-    //$containerConfigurator->import(SetList::UNWRAP_COMPAT);
+    $containerConfigurator->import(SetList::UNWRAP_COMPAT);
     $containerConfigurator->import(SetList::EARLY_RETURN);
 
     // get services (needed for register a single rule)
