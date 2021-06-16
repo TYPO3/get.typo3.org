@@ -140,6 +140,7 @@ class MajorVersionRepository extends EntityRepository
         );
         $qb->setParameter('minversion', 8);
         $qb->addOrderBy('m.version', 'DESC');
+
         $res = $qb->getQuery()->execute();
         return reset($res);
     }

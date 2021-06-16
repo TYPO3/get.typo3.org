@@ -112,8 +112,8 @@ class CacheWarmupService implements CacheWarmerInterface
                     $this->logger->info('Warmed up ' . $url . ' with status ' . $response->getStatusCode());
                 }
             );
-        } catch (ServerException $exception) {
-            $this->logger->warning($exception->getMessage(), $exception->getTrace());
+        } catch (ServerException $serverException) {
+            $this->logger->warning($serverException->getMessage(), $serverException->getTrace());
         }
         return $promise ?? null;
     }
@@ -140,7 +140,7 @@ class CacheWarmupService implements CacheWarmerInterface
                 $args = ['version' => $active->getVersion()];
                 $url = $this->router->generate($item, $args);
                 $promise = $this->makeRequest($url);
-                $requestCounter++;
+                ++$requestCounter;
                 // pause every five requests and wait for completion
                 if ($requestCounter % 5 === 0 && $promise !== null) {
                     try {

@@ -25,8 +25,17 @@ namespace App\Enum;
 
 class ReleaseTypeEnum extends AbstractEnum
 {
+    /**
+     * @var string
+     */
     const OPTION_REGULAR = 'regular';
+    /**
+     * @var string
+     */
     const OPTION_DEVELOPMENT = 'development';
+    /**
+     * @var string
+     */
     const OPTION_SECURITY = 'security';
 
     protected static array $optionNames = [

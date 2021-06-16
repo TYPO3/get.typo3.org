@@ -28,10 +28,25 @@ use Doctrine\Persistence\ObjectManager;
 
 class MajorVersionFixtures extends Fixture
 {
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_LTS = 'majorversion-lts';
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_ELTS = 'majorversion-elts';
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
 
     public function load(ObjectManager $manager)

@@ -299,7 +299,7 @@ class ComposerPackagesService
         ],
         [
             'name'        => 'typo3/cms-lowlevel',
-            'description' => 'Enables the \'Config\' and \'DB Check\' modules for technical analysis of the system. This includes raw database search, checking relations, counting pages and records etc.',
+            'description' => "Enables the 'Config' and 'DB Check' modules for technical analysis of the system. This includes raw database search, checking relations, counting pages and records etc.",
             'versions' => [
                 11,
                 10,
@@ -383,7 +383,7 @@ class ComposerPackagesService
         ],
         [
             'name'        => 'typo3/cms-scheduler',
-            'description' => 'The TYPO3 Scheduler let\'s you register tasks to happen at a specific time.',
+            'description' => "The TYPO3 Scheduler let's you register tasks to happen at a specific time.",
             'versions' => [
                 11,
                 10,
@@ -419,7 +419,7 @@ class ComposerPackagesService
         ],
         [
             'name'        => 'typo3/cms-sys-action',
-            'description' => 'Actions are \'programmed\' admin tasks which can be performed by selected regular users from the Task Center. An action could be creation of backend users, fixed SQL SELECT queries, listing of records, direct edit access to selected records etc.',
+            'description' => "Actions are 'programmed' admin tasks which can be performed by selected regular users from the Task Center. An action could be creation of backend users, fixed SQL SELECT queries, listing of records, direct edit access to selected records etc.",
             'versions' => [
                 9,
                 8,
@@ -615,7 +615,13 @@ class ComposerPackagesService
         ],
     ];
 
+    /**
+     * @var string
+     */
     public const CMS_VERSIONS = 'TYPO3 CMS Versions';
+    /**
+     * @var string
+     */
     public const SPECIAL_VERSIONS = 'Special Version Selectors';
 
     private EntityManagerInterface $entityManager;
@@ -651,7 +657,7 @@ class ComposerPackagesService
         }
 
         foreach ($majorVersions as $version) {
-            if ($version->getLatestRelease() instanceof Release && \preg_match('/^(\d+)\.(\d+)\.(\d+)/', $version->getLatestRelease()->getVersion(), $matches)) {
+            if ($version->getLatestRelease() instanceof Release && \preg_match('#^(\d+)\.(\d+)\.(\d+)#', $version->getLatestRelease()->getVersion(), $matches)) {
                 $nextMinor = $matches[1] . '.' . (((int)$matches[2]) + 1);
                 $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
@@ -706,12 +712,12 @@ class ComposerPackagesService
 
     public function cleanPackagesForVersions(array $packages): array
     {
-        if (\preg_match('/^\^(\d+)/', $packages['typo3_version'], $matches)) {
+        if (\preg_match('#^\^(\d+)#', $packages['typo3_version'], $matches)) {
             $version = (int)$matches[1];
         } else {
             $latestVersion = $this->entityManager->getRepository(MajorVersion::class)
                 ->findAllComposerSupported()[0]->getLatestRelease()->getVersion();
-            \preg_match('/^\d+/', $latestVersion, $matches);
+            \preg_match('#^\d+#', $latestVersion, $matches);
             $version = (int)$matches[0];
         }
 
@@ -728,7 +734,7 @@ class ComposerPackagesService
     {
         if ($development) {
             $result = '^' . $version . '@dev';
-        } elseif (\preg_match('/^\d+\.\d+/', $version, $matches)) {
+        } elseif (\preg_match('#^\d+\.\d+#', $version, $matches)) {
             $result = '^' . $matches[0];
         } else {
             $result = '';

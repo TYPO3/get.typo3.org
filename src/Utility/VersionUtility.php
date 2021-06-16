@@ -50,7 +50,7 @@ class VersionUtility
     public static function isValidSemverVersion(string $version): bool
     {
         $success = preg_match(
-            "/^(\d+\.\d+\.\d+)(?:-?([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/",
+            "#^(\\d+\\.\\d+\\.\\d+)(?:-?([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?\$#",
             $version,
             $matches
         );
@@ -65,7 +65,7 @@ class VersionUtility
         if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::$modifierRegex . '$}i', $version, $matches)) {
             $version = $matches[1];
 
-            for ($i = 2; $i <= $digits; $i++) {
+            for ($i = 2; $i <= $digits; ++$i) {
                 $version .= (empty($matches[$i]) ? '.0' : $matches[$i]);
             }
         }

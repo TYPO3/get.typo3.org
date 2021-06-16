@@ -288,7 +288,7 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-            $keys = preg_replace('/^(typo3)-/', '$1/', \array_keys($formData));
+            $keys = preg_replace('#^(typo3)-#', '$1/', \array_keys($formData));
             $formData = array_combine($keys, $formData);
             $formData = $this->composerPackagesService->cleanPackagesForVersions($formData);
         }

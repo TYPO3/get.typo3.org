@@ -33,7 +33,13 @@ use Symfony\Component\Yaml\Yaml;
 
 class ListMissingDownloadsCommand extends Command
 {
+    /**
+     * @var int
+     */
     private const FORMAT_TAR = 0;
+    /**
+     * @var int
+     */
     private const FORMAT_ZIP = 1;
 
     protected static $defaultName = 'app:download:missing:list';
@@ -105,7 +111,7 @@ class ListMissingDownloadsCommand extends Command
                 if ($this->checkUrl($url)) {
                     return true;
                 }
-                $result = "https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20$release/typo3_src-$release.";
+                $result = sprintf('https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20%s/typo3_src-%s.', $release, $release);
                 $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
 
                 if (!$this->checkUrl($result)) {
@@ -116,8 +122,8 @@ class ListMissingDownloadsCommand extends Command
             }
 
             return 'redirect failed for ' . $url;
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
     }
 
@@ -129,9 +135,9 @@ class ListMissingDownloadsCommand extends Command
             $client->request('GET', $url, ['max_redirects' => 0]);
 
             throw new \Exception('something went wrong while calling ' . $url);
-        } catch (RedirectionException $e) {
+        } catch (RedirectionException $redirectionException) {
             return true;
-        } catch (ClientException $e) {
+        } catch (ClientException $clientException) {
             return false;
         }
     }
