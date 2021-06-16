@@ -124,7 +124,10 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         return $releases;
     }
 
-    protected function flat(array $array, string $prefix = '')
+    /**
+     * @return mixed[]
+     */
+    protected function flat(array $array, string $prefix = ''): array
     {
         $result = [];
         foreach ($array as $key => $value) {

@@ -35,6 +35,9 @@ abstract class AbstractEnum
         return static::$optionNames[$option] ?? ('Unknown option (' . $option . ')');
     }
 
+    /**
+     * @return mixed[]
+     */
     public static function getAvailableOptions($withDescription = false): array
     {
         return $withDescription ? static::$optionNames : array_keys(static::$optionNames);

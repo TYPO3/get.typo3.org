@@ -34,7 +34,7 @@ class MajorVersionRepository extends EntityRepository
      *
      * @return array The entities.
      */
-    public function findAllDescending()
+    public function findAllDescending(): array
     {
         return $this->findBy([], ['version' => 'DESC']);
     }
@@ -88,13 +88,19 @@ class MajorVersionRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function findAllPreparedForJson()
+    /**
+     * @return mixed[]
+     */
+    public function findAllPreparedForJson(): array
     {
         $data = $this->findCommunityVersionsGroupedByMajor();
         $data = array_merge($data, $this->findStableReleases());
         return array_merge($data, $this->findLtsReleases());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function findAllGroupedByMajor(): array
     {
         $all = $this->findAll();
@@ -106,6 +112,9 @@ class MajorVersionRepository extends EntityRepository
         return array_reverse($data);
     }
 
+    /**
+     * @return array<string, \App\Entity\MajorVersion>
+     */
     public function findCommunityVersionsGroupedByMajor(): array
     {
         $all = $this->findAll();
@@ -145,6 +154,9 @@ class MajorVersionRepository extends EntityRepository
         return reset($res);
     }
 
+    /**
+     * @return array<string, string>|array<string, null>
+     */
     private function findStableReleases(): array
     {
         $qb = $this->createQueryBuilder('m');
@@ -160,6 +172,9 @@ class MajorVersionRepository extends EntityRepository
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function findLtsReleases(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');

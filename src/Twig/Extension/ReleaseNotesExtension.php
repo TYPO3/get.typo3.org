@@ -28,6 +28,9 @@ use Twig\TwigFilter;
 
 class ReleaseNotesExtension extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -36,7 +39,7 @@ class ReleaseNotesExtension extends AbstractExtension
         ];
     }
 
-    public function removeWikiLink(string $data): string
+    public function removeWikiLink(string $data): ?string
     {
         return preg_replace('#\(TYPO3_CMS_\d{1,3}\.\d{1,3}\.\d{1,3} \"wikilink\"\)#', '', $data);
     }

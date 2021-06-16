@@ -42,6 +42,9 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         $objectManager->flush();
     }
 
+    /**
+     * @return array<class-string<MajorVersionFixtures>>
+     */
     public function getDependencies()
     {
         return [

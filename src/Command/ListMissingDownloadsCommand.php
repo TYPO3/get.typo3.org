@@ -37,11 +37,15 @@ class ListMissingDownloadsCommand extends Command
      * @var int
      */
     private const FORMAT_TAR = 0;
+
     /**
      * @var int
      */
     private const FORMAT_ZIP = 1;
 
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:download:missing:list';
 
     protected function configure()
@@ -50,7 +54,7 @@ class ListMissingDownloadsCommand extends Command
         $this->setHelp('This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $client = HttpClient::create();
         $response = $client->request('GET', 'https://get.typo3.org/json');
@@ -104,6 +108,9 @@ class ListMissingDownloadsCommand extends Command
         return 0;
     }
 
+    /**
+     * @return bool|string
+     */
     private function getFixedUrl(string $url, string $release, int $format)
     {
         try {

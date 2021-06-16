@@ -29,6 +29,9 @@ use Twig\TwigFilter;
 
 class SortByVersion extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -36,6 +39,9 @@ class SortByVersion extends AbstractExtension
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     public function sort(Collection $collection): array
     {
         $array = $collection->toArray();

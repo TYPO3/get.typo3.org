@@ -28,6 +28,9 @@ use Twig\TwigFilter;
 
 class Parsedown extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [

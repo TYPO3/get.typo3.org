@@ -698,6 +698,9 @@ class ComposerPackagesService
         return $formBuilder->getForm();
     }
 
+    /**
+     * @return string[]
+     */
     public function getBundles(): array
     {
         $sanitizedBundles = [];
@@ -710,6 +713,9 @@ class ComposerPackagesService
         return $sanitizedBundles;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function cleanPackagesForVersions(array $packages): array
     {
         if (\preg_match('#^\^(\d+)#', $packages['typo3_version'], $matches)) {

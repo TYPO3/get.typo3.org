@@ -32,6 +32,9 @@ use Twig\TwigFilter;
 
 class RequirementExtension extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -49,6 +52,9 @@ class RequirementExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @return mixed[]
+     */
     public function formatVersions($data): array
     {
         if ($data instanceof Collection) {
@@ -70,6 +76,9 @@ class RequirementExtension extends AbstractExtension
         return $elements;
     }
 
+    /**
+     * @return array<int|string, mixed[]>
+     */
     public function groupByCategory($data): array
     {
         if ($data instanceof Collection) {
@@ -90,6 +99,9 @@ class RequirementExtension extends AbstractExtension
         return $result;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function prepareRequirements(Collection $collection): array
     {
         $result = $this->formatVersions($collection);
@@ -98,6 +110,9 @@ class RequirementExtension extends AbstractExtension
         return $this->sortByTitle($result);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function sortByTitle($data): array
     {
         if ($data instanceof Collection) {

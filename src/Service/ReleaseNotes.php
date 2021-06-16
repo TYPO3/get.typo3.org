@@ -29,6 +29,9 @@ class ReleaseNotes
 {
     protected string $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
 
+    /**
+     * @return array<string, string[]>
+     */
     public function getAllReleaseNoteNames(): array
     {
         /** @var \Symfony\Component\HttpFoundation\File\File[] $finder */

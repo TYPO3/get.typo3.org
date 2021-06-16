@@ -130,6 +130,9 @@ class CacheController extends AbstractController
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
+    /**
+     * @return string[]
+     */
     private function getPurgeUrlsForMajorVersion(float $version): array
     {
         return [

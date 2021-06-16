@@ -31,6 +31,7 @@ use App\Utility\VersionUtility;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -57,7 +58,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", host="composer.%app.domain%", name="composer-root")
      */
-    public function composerRoot(): Response
+    public function composerRoot(): RedirectResponse
     {
         return $this->redirect('https://get.' . $this->getParameter('app.domain') . '/misc/composer/repository');
     }
@@ -222,9 +223,9 @@ class DefaultController extends AbstractController
      *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+[\\.\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip|tar\\.gz\\.sig|zip\\.sig)?$#'"
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function download(Request $request, string $requestedVersion = 'stable', string $requestedFormat = 'tar.gz')
+    public function download(Request $request, string $requestedVersion = 'stable', string $requestedFormat = 'tar.gz'): Response
     {
         if ($requestedVersion === 'current') {
             $requestedVersion = 'stable';
@@ -332,18 +333,13 @@ class DefaultController extends AbstractController
         return $response;
     }
 
-    protected function parseLink(string $text): string
+    protected function parseLink(string $text): ?string
     {
         $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
         return preg_replace($url, '<a href="$0" target="_blank" rel="noreferrer">$0</a>', $text);
     }
 
-    /**
-     * @param string $versionName
-     * @param string $format
-     * @return array
-     */
-    private function getSourceForgeRedirect($versionName, $format)
+    private function getSourceForgeRedirect(string $versionName, string $format): ?array
     {
         $packageFiles = [
             // slug (url part) => filename (without Extensions, url-encoded)

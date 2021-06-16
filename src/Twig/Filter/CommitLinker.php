@@ -28,6 +28,9 @@ use Twig\TwigFilter;
 
 class CommitLinker extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -35,7 +38,7 @@ class CommitLinker extends AbstractExtension
         ];
     }
 
-    public function linkCommits(string $changeList): string
+    public function linkCommits(string $changeList): ?string
     {
         $pattern = '#(?<commit>[a-f0-9]{10,40})#m';
 

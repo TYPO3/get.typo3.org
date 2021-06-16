@@ -32,18 +32,22 @@ class MajorVersionFixtures extends Fixture
      * @var string
      */
     public const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
+
     /**
      * @var string
      */
     public const MAJOR_VERSION_LTS = 'majorversion-lts';
+
     /**
      * @var string
      */
     public const MAJOR_VERSION_ELTS = 'majorversion-elts';
+
     /**
      * @var string
      */
     public const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
+
     /**
      * @var string
      */
@@ -83,6 +87,9 @@ class MajorVersionFixtures extends Fixture
         ];
     }
 
+    /**
+     * @return array<string, array<string, float|int|\DateTimeImmutable|\Doctrine\Common\Collections\ArrayCollection<mixed, mixed>|string|null>>
+     */
     protected function getData(): array
     {
         $generator = \Faker\Factory::create();
