@@ -46,7 +46,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         $this->checkMajorVersionFormat($version);
         $repo = $this->getDoctrine()->getRepository(MajorVersion::class);
         $entity = $repo->findOneBy(['version' => $version]);
-        if (null === $entity) {
+        if (!$entity instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }
         return $entity;
@@ -111,7 +111,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         $mventity = $this->getDoctrine()->getManager()->getRepository(MajorVersion::class)->findOneBy(
             ['version' => $majorVersion]
         );
-        if (null === $mventity) {
+        if (!$mventity instanceof MajorVersion) {
             throw new NotFoundHttpException('Major version data for version ' . $majorVersion . ' does not exist.');
         }
         return $mventity;

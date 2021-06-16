@@ -14,7 +14,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Define what rule sets will be applied
     $containerConfigurator->import(SetList::DEAD_CODE);
     $containerConfigurator->import(SetList::PHP_74);
-    //$containerConfigurator->import(SetList::CODE_QUALITY_STRICT);
+    $containerConfigurator->import(SetList::CODE_QUALITY_STRICT);
     //$containerConfigurator->import(SetList::CODING_STYLE);
     //$containerConfigurator->import(SetList::PRIVATIZATION);
     //$containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);

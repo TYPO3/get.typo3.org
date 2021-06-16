@@ -210,7 +210,7 @@ class RequirementsController extends AbstractController
                     'category' => $requirement->getCategory(),
                 ]
             );
-            if (null === $entity) {
+            if (!$entity instanceof Requirement) {
                 throw new NotFoundHttpException('Requirement does not exists');
             }
             $requirement->setVersion($entity->getVersion());
@@ -268,7 +268,7 @@ class RequirementsController extends AbstractController
                 'category' => $category,
             ]
         );
-        if (null === $entity) {
+        if (!$entity instanceof Requirement) {
             throw new NotFoundHttpException('Requirement does not exists');
         }
         $em = $this->getDoctrine()->getManager();
