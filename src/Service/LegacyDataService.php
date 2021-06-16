@@ -30,10 +30,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 class LegacyDataService
 {
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

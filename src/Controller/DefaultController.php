@@ -43,16 +43,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DefaultController extends AbstractController
 {
-    protected $releaseNotesDir  = __DIR__ . '/../../Data/ReleaseNotes/';
-    protected $releasesJsonFile = __DIR__ . '/../../Data/releases.json';
-    /**
-     * @var \App\Service\LegacyDataService
-     */
-    private $legacyDataService;
-    /**
-     * @var \App\Service\ComposerPackagesService
-     */
-    private $composerPackagesService;
+    protected string $releaseNotesDir  = __DIR__ . '/../../Data/ReleaseNotes/';
+    protected string $releasesJsonFile = __DIR__ . '/../../Data/releases.json';
+    private LegacyDataService $legacyDataService;
+    private ComposerPackagesService $composerPackagesService;
 
     public function __construct(LegacyDataService $legacyDataService, ComposerPackagesService $composerPackagesService)
     {

@@ -39,70 +39,61 @@ class MajorVersion implements \JsonSerializable
      * @ORM\Column(type="float")
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="8")
-     *
-     * @var float
      */
-    private $version;
+    private float $version;
 
     /**
      * TYPO3 7 LTS
      * @ORM\Column(type="string")
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="TYPO3 8 LTS")
-     *
-     * @var string
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="string")
      * @Serializer\Groups({"content", "patch"})
      * @SWG\Property(example="The current stable LTS release (for all new projects)")
-     * @var string
      */
-    private $subtitle;
+    private string $subtitle;
 
     /**
      * @ORM\Column(type="string")
      * @Serializer\Groups({"content", "patch"})
      * @SWG\Property(example="The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.")
-     * @var string
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $releaseDate;
+    private \DateTimeImmutable $releaseDate;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $maintainedUntil;
+    private ?\DateTimeImmutable $maintainedUntil = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $eltsUntil;
+    private ?\DateTimeImmutable $eltsUntil = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Requirement", mappedBy="version", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Groups({"data", "content"})
      * @Serializer\Type("ArrayCollection<App\Entity\Requirement>")
      */
-    private $requirements;
+    private \Doctrine\Common\Collections\Collection $requirements;
 
     /**
      * @ORM\OneToMany(targetEntity="Release", mappedBy="majorVersion", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -110,15 +101,14 @@ class MajorVersion implements \JsonSerializable
      * @Serializer\Groups({"data"})
      * @var Collection
      */
-    private $releases;
+    private \Doctrine\Common\Collections\Collection $releases;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example=8.7)
-     * @var float
      */
-    private $lts;
+    private ?float $lts = null;
 
     public function __construct(
         float $version,
@@ -229,9 +219,7 @@ class MajorVersion implements \JsonSerializable
         $array = $this->releases->toArray();
         usort(
             $array,
-            function ($a, $b) {
-                return version_compare($b->getVersion(), $a->getVersion());
-            }
+            fn($a, $b) => version_compare($b->getVersion(), $a->getVersion())
         );
         return reset($array);
     }

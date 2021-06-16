@@ -216,9 +216,7 @@ class MajorVersionRepository extends EntityRepository
 
         usort(
             $releases,
-            function (Release $a, Release $b) {
-                return version_compare($b->getVersion(), $a->getVersion());
-            }
+            fn(Release $a, Release $b) => version_compare($b->getVersion(), $a->getVersion())
         );
 
         return $releases;
@@ -226,9 +224,7 @@ class MajorVersionRepository extends EntityRepository
 
     private function removeEltsReleases(MajorVersion $majorVersion): MajorVersion
     {
-        $majorVersion->setReleases($majorVersion->getReleases()->filter(static function (Release $release) {
-            return !$release->isElts();
-        }));
+        $majorVersion->setReleases($majorVersion->getReleases()->filter(static fn(Release $release) => !$release->isElts()));
 
         return $majorVersion;
     }

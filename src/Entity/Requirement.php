@@ -21,6 +21,7 @@
 
 namespace App\Entity;
 
+use App\Entity\MajorVersion;
 use App\Enum\RequirementCategoryEnum;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -36,44 +37,39 @@ class Requirement implements \JsonSerializable
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="MajorVersion", inversedBy="requirements")
      * @ORM\JoinColumn(name="version", referencedColumnName="version")
-     * @var string|\App\Entity\MajorVersion
      */
-    private $version;
+    private MajorVersion $version;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string")
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="database")
      * @Assert\Choice(callback={"App\Enum\RequirementCategoryEnum", "getAvailableOptions"})
      */
-    private $category;
+    private string $category;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string")
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="mysql")
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="5.5")
      */
-    private $min;
+    private ?string $min = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="5.7")
      */
-    private $max;
+    private ?string $max = null;
 
     public function setVersion(MajorVersion $version): void
     {

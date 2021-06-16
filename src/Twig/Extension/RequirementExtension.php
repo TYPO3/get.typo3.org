@@ -148,8 +148,6 @@ class RequirementExtension extends AbstractExtension
 
     private function sortByTitleHelper(array &$data)
     {
-        usort($data, function ($a, $b) {
-            return strcasecmp($a->getTitle(), $b->getTitle());
-        });
+        usort($data, fn($a, $b) => strcasecmp($a->getTitle(), $b->getTitle()));
     }
 }

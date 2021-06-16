@@ -34,10 +34,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
-    /**
-     * @var \JMS\Serializer\Serializer
-     */
-    protected $serializer;
+    protected SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {

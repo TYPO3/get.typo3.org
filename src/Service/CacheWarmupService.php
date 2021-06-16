@@ -34,27 +34,15 @@ use Symfony\Component\Routing\RouterInterface;
 
 class CacheWarmupService implements CacheWarmerInterface
 {
-    /**
-     * @var \Symfony\Component\Routing\Router
-     */
-    private $router;
+    private RouterInterface $router;
 
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    private $client;
+    private Client $client;
 
-    private $baseUrl;
+    private string $baseUrl;
 
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(RouterInterface $router, EntityManagerInterface $entityManager, LoggerInterface $logger, string $baseUrl)
     {

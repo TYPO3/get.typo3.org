@@ -35,10 +35,8 @@ class VersionUtility
      *
      *                        |--------------|
      * [major].[minor].[patch] -[pre-release] +[build-metadata]
-     *
-     * @var string
      */
-    private static $modifierRegex = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
+    private static string $modifierRegex = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
 
     public static function extractMajorVersionNumber(string $version): float
     {

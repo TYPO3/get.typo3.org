@@ -27,7 +27,7 @@ use Symfony\Component\Finder\Finder;
 
 class ReleaseNotes
 {
-    protected $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
+    protected string $releaseNotesDir = __DIR__ . '/../../Data/ReleaseNotes/';
 
     public function getAllReleaseNoteNames(): array
     {

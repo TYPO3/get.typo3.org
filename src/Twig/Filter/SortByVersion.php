@@ -39,9 +39,7 @@ class SortByVersion extends AbstractExtension
     public function sort(Collection $releases): array
     {
         $array = $releases->toArray();
-        usort($array, function ($a, $b) {
-            return version_compare($b->getVersion(), $a->getVersion());
-        });
+        usort($array, fn($a, $b) => version_compare($b->getVersion(), $a->getVersion()));
 
         return $array;
     }

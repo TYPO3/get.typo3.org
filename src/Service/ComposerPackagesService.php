@@ -33,7 +33,7 @@ use Symfony\Component\Form\FormInterface;
 
 class ComposerPackagesService
 {
-    protected static $packages = [
+    protected static array $packages = [
         [
             'name'        => 'typo3/cms-about',
             'description' => 'Shows info about TYPO3, installed extensions and a separate module for available modules.',
@@ -506,7 +506,7 @@ class ComposerPackagesService
         ],
     ];
 
-    protected static $bundles = [
+    protected static array $bundles = [
         'typo3/full'      => [
             'typo3/cms-about',
             'typo3/cms-adminpanel',
@@ -605,7 +605,7 @@ class ComposerPackagesService
         ]
     ];
 
-    protected static $specialVersions = [
+    protected static array $specialVersions = [
         [
             'name' => 'No version specified (installs latest version)',
             'value' => '',
@@ -618,10 +618,7 @@ class ComposerPackagesService
     public const CMS_VERSIONS = 'TYPO3 CMS Versions';
     public const SPECIAL_VERSIONS = 'Special Version Selectors';
 
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -700,9 +697,7 @@ class ComposerPackagesService
         $sanitizedBundles = [];
         foreach (self::$bundles as $bundleName => $packages) {
             $sanitizedBundles[$bundleName] = \GuzzleHttp\json_encode(
-                array_map(static function ($name) {
-                    return str_replace('/', '-', $name);
-                }, $packages)
+                array_map(static fn($name) => str_replace('/', '-', $name), $packages)
             );
         }
 
