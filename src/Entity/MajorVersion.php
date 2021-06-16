@@ -273,17 +273,25 @@ class MajorVersion implements \JsonSerializable
     public function isActive(): bool
     {
         $dateTimeImmutable = new \DateTimeImmutable();
-        return null === $this->getMaintainedUntil()
-            || $dateTimeImmutable <= $this->getMaintainedUntil();
+        if (null === $this->getMaintainedUntil()) {
+            return true;
+        }
+        return $dateTimeImmutable <= $this->getMaintainedUntil();
     }
 
     public function isElts(): bool
     {
         $dateTimeImmutable = new \DateTimeImmutable();
-        return $this->getMaintainedUntil() != null
-            && $this->getEltsUntil() != null
-            && $dateTimeImmutable > $this->getMaintainedUntil()
-            && $dateTimeImmutable <= $this->getEltsUntil();
+        if ($this->getMaintainedUntil() == null) {
+            return false;
+        }
+        if ($this->getEltsUntil() == null) {
+            return false;
+        }
+        if ($dateTimeImmutable <= $this->getMaintainedUntil()) {
+            return false;
+        }
+        return $dateTimeImmutable <= $this->getEltsUntil();
     }
 
     /**

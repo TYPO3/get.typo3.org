@@ -154,12 +154,16 @@ class CacheWarmupService implements CacheWarmerInterface
                 $promise = $this->makeRequest($url);
                 ++$requestCounter;
                 // pause every five requests and wait for completion
-                if ($requestCounter % 5 === 0 && $promise !== null) {
-                    try {
-                        $promise->wait();
-                    } catch (\Exception $exception) {
-                        $this->logger->warning($exception->getMessage(), $exception->getTrace());
-                    }
+                if ($requestCounter % 5 !== 0) {
+                    continue;
+                }
+                if (!$promise instanceof \GuzzleHttp\Promise\PromiseInterface) {
+                    continue;
+                }
+                try {
+                    $promise->wait();
+                } catch (\Exception $exception) {
+                    $this->logger->warning($exception->getMessage(), $exception->getTrace());
                 }
             }
         }
