@@ -45,6 +45,14 @@ jobs:
       if: always()
       run: |
         composer test:php:lint
+    - name: CGL
+      if: always()
+      run: |
+        composer test:php:cgl
+    - name: Rector
+      if: always()
+      run: |
+        composer test:php:rector
     - name: Unit Tests
       if: always()
       run: |
@@ -52,10 +60,6 @@ jobs:
     - name: Functional Tests
       run: |
         composer test:php:functional
-    - name: CGL
-      if: always()
-      run: |
-        composer test:php:cgl
     - name: Archive Logs
       uses: actions/upload-artifact@v1
       if: always()

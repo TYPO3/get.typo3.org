@@ -72,7 +72,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "fzaninotto/faker": "^1.9",
         "overtrue/phplint": "^2.1",
-        "rector/rector": "^0.6.14",
+        "rector/rector": "^0.11.20",
         "roave/security-advisories": "dev-latest",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
@@ -87,6 +87,13 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-intl-grapheme": "*",
+        "symfony/polyfill-intl-icu": "*",
+        "symfony/polyfill-intl-idn": "*",
+        "symfony/polyfill-intl-normalizer": "*",
+        "symfony/polyfill-mbstring": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php73": "*",
         "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
@@ -135,12 +142,15 @@
         "test:php:functional": [
             "phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-functional.xml --testsuite \"Functional Test Suite\""
         ],
+        "test:php:rector": "rector process --dry-run --no-progress-bar --no-diffs src",
         "test": [
-            "@test:php:cgl",
             "@test:php:lint",
+            "@test:php:cgl",
+            "@test:php:rector",
             "@test:php:unit",
             "@test:php:functional"
         ],
+        "fix:php:rector": "rector process --no-diffs src",
         "auto-scripts": {
             "cache:clear --no-optional-warmers": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
