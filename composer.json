@@ -142,7 +142,7 @@
         "test:php:functional": [
             "phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-functional.xml --testsuite \"Functional Test Suite\""
         ],
-        "test:php:rector": "rector process --dry-run --no-progress-bar --no-diffs src",
+        "test:php:rector": "rector process --dry-run --no-progress-bar --no-diffs",
         "test": [
             "@test:php:lint",
             "@test:php:cgl",
@@ -150,7 +150,7 @@
             "@test:php:unit",
             "@test:php:functional"
         ],
-        "fix:php:rector": "rector process --no-diffs src",
+        "fix:php:rector": "rector process --no-diffs",
         "auto-scripts": {
             "cache:clear --no-optional-warmers": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
