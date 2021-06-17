@@ -107,7 +107,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
             ['version' => $majorVersionNumber]
         );
         if (!$majorVersion instanceof MajorVersion) {
-            throw new NotFoundHttpException('Major version data for version ' . $majorVersionNumber . ' does not exist.');
+            throw new NotFoundHttpException(sprintf('Major version data for version %d does not exist.', $majorVersionNumber));
         }
         return $majorVersion;
     }
