@@ -105,6 +105,7 @@ class Requirement implements \JsonSerializable
 
     public function getTitle(): string
     {
+        // @todo Switch this to match() in PHP 8.0.
         switch ($this->getName()) {
             case 'php':
                 return 'PHP';
