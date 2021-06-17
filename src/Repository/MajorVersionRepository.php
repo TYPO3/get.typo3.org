@@ -30,16 +30,17 @@ use Doctrine\ORM\EntityRepository;
 class MajorVersionRepository extends EntityRepository
 {
     /**
-     * Finds all entities in the repository.
-     *
-     * @return array The entities.
+     * @return array<MajorVersion>
      */
     public function findAllDescending(): array
     {
         return $this->findBy([], ['version' => 'DESC']);
     }
 
-    public function findAllActive()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllActive(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
@@ -58,7 +59,10 @@ class MajorVersionRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function findAllActiveCommunity()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllActiveCommunity(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
@@ -73,7 +77,10 @@ class MajorVersionRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function findAllActiveElts()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllActiveElts(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
@@ -99,27 +106,27 @@ class MajorVersionRepository extends EntityRepository
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, MajorVersion>
      */
     public function findAllGroupedByMajor(): array
     {
-        $all = $this->findAll();
+        $majorVersions = $this->findAll();
         $data = [];
-        foreach ($all as $singleAll) {
-            $data[$this->formatVersion($singleAll->getVersion())] = $singleAll;
+        foreach ($majorVersions as $majorVersion) {
+            $data[$this->formatVersion($majorVersion->getVersion())] = $majorVersion;
         }
         uksort($data, 'version_compare');
         return array_reverse($data);
     }
 
     /**
-     * @return array<string, \App\Entity\MajorVersion>
+     * @return array<string, MajorVersion>
      */
     public function findCommunityVersionsGroupedByMajor(): array
     {
-        $all = $this->findAll();
+        $majorVersions = $this->findAll();
         $data = [];
-        foreach ($all as $singleAll) {
+        foreach ($majorVersions as $majorVersion) {
             $majorVersion = $this->removeEltsReleases($majorVersion);
             $data[$this->formatVersion($majorVersion->getVersion())] = $majorVersion;
         }
@@ -127,7 +134,10 @@ class MajorVersionRepository extends EntityRepository
         return array_reverse($data);
     }
 
-    public function findAllComposerSupported()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllComposerSupported(): array
     {
         $qb = $this->createQueryBuilder('m');
         $qb->where(
@@ -138,7 +148,10 @@ class MajorVersionRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function findLatestLtsComposerSupported()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findLatestLtsComposerSupported(): array
     {
         $qb = $this->createQueryBuilder('m');
         $qb->where(
@@ -149,9 +162,7 @@ class MajorVersionRepository extends EntityRepository
         );
         $qb->setParameter('minversion', 8);
         $qb->addOrderBy('m.version', 'DESC');
-
-        $res = $qb->getQuery()->execute();
-        return reset($res);
+        return $qb->getQuery()->execute();
     }
 
     /**
