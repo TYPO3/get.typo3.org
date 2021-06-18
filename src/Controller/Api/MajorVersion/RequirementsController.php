@@ -257,19 +257,18 @@ class RequirementsController extends AbstractController
         string $category,
         string $name
     ): JsonResponse {
-        $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
-        $entity = $requirementRepo->findOneBy(
+        $requirement = $this->getDoctrine()->getRepository(Requirement::class)->findOneBy(
             [
                 'version' => $this->findMajorVersion($version),
                 'name' => $name,
                 'category' => $category,
             ]
         );
-        if (!$entity instanceof Requirement) {
+        if (!$requirement instanceof Requirement) {
             throw new NotFoundHttpException('Requirement does not exists');
         }
         $em = $this->getDoctrine()->getManager();
-        $em->remove($entity);
+        $em->remove($requirement);
         $em->flush();
         return $this->json([], Response::HTTP_NO_CONTENT);
     }
