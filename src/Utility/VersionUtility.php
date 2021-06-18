@@ -36,7 +36,7 @@ class VersionUtility
      *                        |--------------|
      * [major].[minor].[patch] -[pre-release] +[build-metadata]
      *
-     * @string
+     * @var string
      */
     private const MODIFIER_REGEX = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
 

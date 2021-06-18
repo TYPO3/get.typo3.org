@@ -28,7 +28,6 @@ use App\Entity\Release;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
 use App\Utility\VersionUtility;
-use Doctrine\Common\Collections\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -119,7 +118,7 @@ class DefaultController extends AbstractController
         $data['groupedVersions'] = $majorVersions->findAllGroupedByMajor();
 
         if ($version === '') {
-            $majorVersion = $majorVersions->findOneBy([], ['version' => Criteria::DESC]);
+            $majorVersion = $majorVersions->findLatest();
             return $this->redirectToRoute('release-notes-for-version', ['version' => $majorVersion->getVersion()]);
         }
 
@@ -161,13 +160,13 @@ class DefaultController extends AbstractController
 
         /** @var \App\Repository\MajorVersionRepository $majorVersions */
         $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data['activeVersions'] = $majorVersions->findAllActive();
 
         if ($version === '') {
-            $majorVersion = $majorVersions->findOneBy([], ['version' => Criteria::DESC]);
+            $majorVersion = $majorVersions->findLatest();
             return $this->redirectToRoute('version', ['version' => $majorVersion->getVersion()]);
         }
 
+        $data['activeVersions'] = $majorVersions->findAllActive();
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
         $data['currentVersion'] = $majorVersions->findVersion($majorVersionNumber);
         if (!$data['currentVersion'] instanceof MajorVersion) {

@@ -43,7 +43,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::TYPE_DECLARATION);
     $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
     $containerConfigurator->import(SetList::UNWRAP_COMPAT);
-    $containerConfigurator->import(SetList::EARLY_RETURN);
+    //$containerConfigurator->import(SetList::EARLY_RETURN);
 
     // Symfony specific rule sets
     $containerConfigurator->import(SymfonySetList::SYMFONY_50);
@@ -69,8 +69,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     //$containerConfigurator->import(PHPUnitSetList::DOCTRINE_25);
 
     // get services (needed for register a single rule)
-    // $services = $containerConfigurator->services();
+    $services = $containerConfigurator->services();
 
     // register a single rule
     // $services->set(TypedPropertyRector::class);
+    $services->remove(\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class);
 };
