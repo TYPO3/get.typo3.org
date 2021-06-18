@@ -77,7 +77,7 @@ class ReleaseController extends AbstractController
      */
     public function getRelease(?string $version, Request $request): JsonResponse
     {
-        if ($version !== '') {
+        if ($version !== null) {
             $this->checkVersionFormat($version);
             $releases = $this->getReleaseByVersion($version);
         } else {
