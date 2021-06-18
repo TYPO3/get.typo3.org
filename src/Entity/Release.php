@@ -24,13 +24,14 @@ namespace App\Entity;
 use App\Entity\Embeddables\Package;
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Enum\ReleaseTypeEnum;
+use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ReleaseRepository")
+ * @ORM\Entity(repositoryClass=ReleaseRepository::class)
  */
 class Release implements \JsonSerializable
 {
@@ -192,9 +193,7 @@ class Release implements \JsonSerializable
     /**
     * Specify data which should be serialized to JSON
     *
-    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return array<string, array<string, \App\Entity\Embeddables\Package|string>>|array<string, string> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
-    * @since 5.4.0
+    * @return array<string, array<string, \App\Entity\Embeddables\Package|string>>|array<string, string> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
     */
     public function jsonSerialize()
     {

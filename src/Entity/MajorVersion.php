@@ -21,6 +21,7 @@
 
 namespace App\Entity;
 
+use App\Repository\MajorVersionRepository;
 use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,7 +29,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MajorVersionRepository")
+ * @ORM\Entity(repositoryClass=MajorVersionRepository::class)
  */
 class MajorVersion implements \JsonSerializable
 {
@@ -92,6 +93,7 @@ class MajorVersion implements \JsonSerializable
      * @ORM\OneToMany(targetEntity="Requirement", mappedBy="version", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Groups({"data", "content"})
      * @Serializer\Type("ArrayCollection<App\Entity\Requirement>")
+     * @var \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement>
      */
     private Collection $requirements;
 
@@ -99,6 +101,7 @@ class MajorVersion implements \JsonSerializable
      * @ORM\OneToMany(targetEntity="Release", mappedBy="majorVersion", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Type("ArrayCollection<App\Entity\Release>")
      * @Serializer\Groups({"data"})
+     * @var \App\Entity\Release[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Release>
      */
     private Collection $releases;
 
@@ -121,6 +124,8 @@ class MajorVersion implements \JsonSerializable
         Collection $releases,
         ?float $lts
     ) {
+        $this->requirements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->releases = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setVersion($version);
         $this->setTitle($title);
         $this->setSubtitle($subtitle);
@@ -143,9 +148,12 @@ class MajorVersion implements \JsonSerializable
         return $this->version;
     }
 
-    public function setReleases(Collection $collection): void
+    /**
+     * @param \App\Entity\Release[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Release> $releases
+     */
+    public function setReleases(Collection $releases): void
     {
-        $this->releases = $collection;
+        $this->releases = $releases;
     }
 
     public function getReleases(): Collection
@@ -213,6 +221,9 @@ class MajorVersion implements \JsonSerializable
         return $this->releaseDate;
     }
 
+    /**
+     * @return \App\Entity\Release|bool
+     */
     public function getLatestRelease()
     {
         $array = $this->releases->toArray();
@@ -223,6 +234,9 @@ class MajorVersion implements \JsonSerializable
         return reset($array);
     }
 
+    /**
+     * @param \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement> $collection
+     */
     public function setRequirements(Collection $collection): void
     {
         $this->requirements = $collection;
@@ -297,9 +311,7 @@ class MajorVersion implements \JsonSerializable
     /**
     * Specify data which should be serialized to JSON
     *
-    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return array<string, mixed> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
-    * @since 5.4.0
+    * @return array<string, mixed> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
     */
     public function jsonSerialize()
     {

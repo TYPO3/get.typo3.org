@@ -28,6 +28,7 @@ use App\Entity\Release;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
 use App\Utility\VersionUtility;
+use Doctrine\Common\Collections\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -113,17 +114,17 @@ class DefaultController extends AbstractController
         $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
 
-        /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
-        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data['groupedVersions'] = $majorVersionRepository->findAllGroupedByMajor();
+        /** @var \App\Repository\MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data['groupedVersions'] = $majorVersions->findAllGroupedByMajor();
 
         if ($version === '') {
-            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => 'DESC']);
+            $majorVersion = $majorVersions->findOneBy([], ['version' => Criteria::DESC]);
             return $this->redirectToRoute('release-notes-for-version', ['version' => $majorVersion->getVersion()]);
         }
 
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        $data['currentVersion'] = $majorVersionRepository->findOneBy(['version' => $majorVersionNumber]);
+        $data['currentVersion'] = $majorVersions->findOneBy(['version' => $majorVersionNumber]);
         if (!$data['currentVersion'] instanceof MajorVersion) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
@@ -164,7 +165,7 @@ class DefaultController extends AbstractController
         $data['activeVersions'] = $majorVersionRepository->findAllActive();
 
         if ($version === '') {
-            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => 'DESC']);
+            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => Criteria::DESC]);
             return $this->redirectToRoute('version', ['version' => $majorVersion->getVersion()]);
         }
 

@@ -3,8 +3,11 @@
 declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
+use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
+use Rector\Symfony\Set\SymfonySetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -31,7 +34,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::FRAMEWORK_EXTRA_BUNDLE_50);
     $containerConfigurator->import(SetList::MONOLOG_20);
     $containerConfigurator->import(SetList::MYSQL_TO_MYSQLI);
-    $containerConfigurator->import(SetList::NAMING);
+    //$containerConfigurator->import(SetList::NAMING);
     $containerConfigurator->import(SetList::ORDER);
     $containerConfigurator->import(SetList::PHP_74);
     //$containerConfigurator->import(SetList::PRIVATIZATION);
@@ -41,6 +44,29 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
     $containerConfigurator->import(SetList::UNWRAP_COMPAT);
     $containerConfigurator->import(SetList::EARLY_RETURN);
+
+    // Symfony specific rule sets
+    $containerConfigurator->import(SymfonySetList::SYMFONY_50);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_50_TYPES);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_52);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_52_VALIDATOR_ATTRIBUTES);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_CODE_QUALITY);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
+
+    // Doctrine specific rule sets
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_25);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_BEHAVIORS_20);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_CODE_QUALITY);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_COMMON_20);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_210);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_211);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_30);
+    //$containerConfigurator->import(DoctrineSetList::DOCTRINE_GEDMO_TO_KNPLABS);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_REPOSITORY_AS_SERVICE);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_ORM_29);
+
+    // PHPUnit specific rule sets
+    //$containerConfigurator->import(PHPUnitSetList::DOCTRINE_25);
 
     // get services (needed for register a single rule)
     // $services = $containerConfigurator->services();

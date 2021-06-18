@@ -25,16 +25,29 @@ namespace App\Repository;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Persistence\ManagerRegistry;
 
-class MajorVersionRepository extends EntityRepository
+/**
+ * @method MajorVersion|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MajorVersion|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MajorVersion[]    findAll()
+ * @method MajorVersion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class MajorVersionRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, MajorVersion::class);
+    }
+
     /**
      * @return array<MajorVersion>
      */
     public function findAllDescending(): array
     {
-        return $this->findBy([], ['version' => 'DESC']);
+        return $this->findBy([], ['version' => Criteria::DESC]);
     }
 
     /**
@@ -55,7 +68,7 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('date', $date);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
@@ -73,7 +86,7 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('date', $date);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
@@ -91,7 +104,7 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('date', $date);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
@@ -144,7 +157,7 @@ class MajorVersionRepository extends EntityRepository
             $qb->expr()->gte('m.version', ':minversion')
         );
         $qb->setParameter('minversion', 8);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
@@ -161,7 +174,7 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('minversion', 8);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
@@ -171,7 +184,7 @@ class MajorVersionRepository extends EntityRepository
     private function findStableReleases(): array
     {
         $qb = $this->createQueryBuilder('m');
-        $qb->setMaxResults(1)->orderBy('m.version', 'DESC');
+        $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
         $res = $qb->getQuery()->execute();
         $latestMajor = array_pop($res);
         $releases = $this->majorVersionDescending($latestMajor);
@@ -197,7 +210,7 @@ class MajorVersionRepository extends EntityRepository
                     $qb->expr()->gte('m.maintainedUntil', $date)
                 )
             );
-        $qb->orderBy('m.maintainedUntil', 'DESC');
+        $qb->orderBy('m.maintainedUntil', Criteria::DESC);
         $res = $qb->getQuery()->execute();
         $latestLts = array_shift($res);
         $latestOldLts = array_shift($res);

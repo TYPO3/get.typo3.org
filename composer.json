@@ -146,7 +146,6 @@
         "test": [
             "@test:php:lint",
             "@test:php:cgl",
-            "@test:php:rector",
             "@test:php:unit",
             "@test:php:functional"
         ],
