@@ -72,13 +72,12 @@ class ReleasesController extends AbstractController
     public function getReleasesByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $releaseRepo->findOneBy(['version' => $version]);
-        if (!$major instanceof MajorVersion) {
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findOneBy(['version' => $version]);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
-            $major->getReleases(),
+            $majorVersion->getReleases(),
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
@@ -116,13 +115,12 @@ class ReleasesController extends AbstractController
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $releaseRepo->findOneBy(['version' => $version]);
-        if (!$major instanceof MajorVersion) {
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findOneBy(['version' => $version]);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
-            $major->getLatestRelease(),
+            $majorVersion->getLatestRelease(),
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
@@ -160,8 +158,7 @@ class ReleasesController extends AbstractController
     public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        $release = $releaseRepo->findLatestSecurityReleaseByMajorVersion($version);
+        $release = $this->getDoctrine()->getRepository(Release::class)->findLatestSecurityReleaseByMajorVersion($version);
         if (!$release instanceof Release) {
             $json = json_encode([]);
         } else {
@@ -206,13 +203,12 @@ class ReleasesController extends AbstractController
     public function getLatestReleaseContentByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $releaseRepo->findOneBy(['version' => $version]);
-        if (!$major instanceof MajorVersion) {
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findOneBy(['version' => $version]);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
-            $major->getLatestRelease(),
+            $majorVersion->getLatestRelease(),
             'json',
             SerializationContext::create()->setGroups(['content'])
         );
