@@ -27,6 +27,7 @@ use App\Entity\MajorVersion;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -172,7 +173,7 @@ class CacheController extends AbstractController
      */
     private function deleteReleases(): void
     {
-        $filesystemAdapter = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
+        $filesystemAdapter = new FilesystemAdapter();
         $filesystemAdapterHasItem = $filesystemAdapter->hasItem('releases.json');
         if ($filesystemAdapterHasItem) {
             $filesystemAdapter->delete('releases.json');

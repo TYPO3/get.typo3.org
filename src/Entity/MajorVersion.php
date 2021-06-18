@@ -191,9 +191,9 @@ class MajorVersion implements \JsonSerializable
         return $this->description;
     }
 
-    public function setMaintainedUntil(?\DateTimeImmutable $dateTimeImmutable): void
+    public function setMaintainedUntil(?\DateTimeImmutable $maintainedUntil): void
     {
-        $this->maintainedUntil = $dateTimeImmutable;
+        $this->maintainedUntil = $maintainedUntil;
     }
 
     public function getMaintainedUntil(): ?\DateTimeImmutable
@@ -201,9 +201,9 @@ class MajorVersion implements \JsonSerializable
         return $this->maintainedUntil;
     }
 
-    public function setEltsUntil(?\DateTimeImmutable $dateTimeImmutable): void
+    public function setEltsUntil(?\DateTimeImmutable $eltsUntil): void
     {
-        $this->eltsUntil = $dateTimeImmutable;
+        $this->eltsUntil = $eltsUntil;
     }
 
     public function getEltsUntil(): ?\DateTimeImmutable
@@ -211,9 +211,9 @@ class MajorVersion implements \JsonSerializable
         return $this->eltsUntil ?? ($this->getMaintainedUntil() !== null ? $this->getMaintainedUntil()->modify('+3 years') : null);
     }
 
-    public function setReleaseDate(\DateTimeImmutable $dateTimeImmutable): void
+    public function setReleaseDate(\DateTimeImmutable $releaseDate): void
     {
-        $this->releaseDate = $dateTimeImmutable;
+        $this->releaseDate = $releaseDate;
     }
 
     public function getReleaseDate(): \DateTimeImmutable
@@ -235,11 +235,11 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-     * @param \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement> $collection
+     * @param \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement> $requirements
      */
-    public function setRequirements(Collection $collection): void
+    public function setRequirements(Collection $requirements): void
     {
-        $this->requirements = $collection;
+        $this->requirements = $requirements;
     }
 
     public function addRequirement(Requirement $requirement): void
@@ -262,6 +262,22 @@ class MajorVersion implements \JsonSerializable
         return $this->lts;
     }
 
+    public function isActive(): bool
+    {
+        $dateTime = new \DateTimeImmutable();
+        return null === $this->getMaintainedUntil()
+            || $dateTime <= $this->getMaintainedUntil();
+    }
+
+    public function isElts(): bool
+    {
+        $dateTime = new \DateTimeImmutable();
+        return $this->getMaintainedUntil() != null
+            && $this->getEltsUntil() != null
+            && $dateTime > $this->getMaintainedUntil()
+            && $dateTime <= $this->getEltsUntil();
+    }
+
     /**
      * @return array<string, mixed>
      */
@@ -282,30 +298,6 @@ class MajorVersion implements \JsonSerializable
             'active' => $this->isActive(),
             'elts' => $this->isElts()
         ];
-    }
-
-    public function isActive(): bool
-    {
-        $dateTimeImmutable = new \DateTimeImmutable();
-        if (null === $this->getMaintainedUntil()) {
-            return true;
-        }
-        return $dateTimeImmutable <= $this->getMaintainedUntil();
-    }
-
-    public function isElts(): bool
-    {
-        $dateTimeImmutable = new \DateTimeImmutable();
-        if ($this->getMaintainedUntil() == null) {
-            return false;
-        }
-        if ($this->getEltsUntil() == null) {
-            return false;
-        }
-        if ($dateTimeImmutable <= $this->getMaintainedUntil()) {
-            return false;
-        }
-        return $dateTimeImmutable <= $this->getEltsUntil();
     }
 
     /**
