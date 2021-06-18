@@ -83,11 +83,11 @@ class RequirementsController extends AbstractController
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
-        $jsonResponse = new JsonResponse($json, 200, [], true);
-        $jsonResponse->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $jsonResponse->setEtag(md5($json));
-        $jsonResponse->isNotModified($request);
-        return $jsonResponse;
+        $response = new JsonResponse($json, 200, [], true);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
+        $response->setEtag(md5($json));
+        $response->isNotModified($request);
+        return $response;
     }
 
     /**
