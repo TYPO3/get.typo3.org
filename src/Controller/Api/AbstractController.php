@@ -66,22 +66,22 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
     protected function mapObjects($baseObject, array $data): void
     {
-        $classMetadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
-        foreach ($classMetadata->getFieldNames() as $field) {
+        $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
+        foreach ($metadata->getFieldNames() as $field) {
             $fieldName = Inflector::tableize($field);
             if (is_array($data)) {
                 $data = $this->flat($data);
             }
             if (array_key_exists($fieldName, $data)) {
-                if (isset($classMetadata->fieldMappings[$field]['type'])) {
-                    if ($classMetadata->fieldMappings[$field]['type'] == 'datetime') {
+                if (isset($metadata->fieldMappings[$field]['type'])) {
+                    if ($metadata->fieldMappings[$field]['type'] == 'datetime') {
                         $data[$fieldName] = new \DateTime($data[$fieldName]);
-                    } elseif ($classMetadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
+                    } elseif ($metadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
                         $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
                     }
                 }
                 //careful! setters are not being called! Inflection is up to you if you need it!
-                $classMetadata->setFieldValue($baseObject, $field, $data[$fieldName]);
+                $metadata->setFieldValue($baseObject, $field, $data[$fieldName]);
             }
         }
     }
