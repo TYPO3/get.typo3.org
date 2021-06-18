@@ -199,7 +199,7 @@ class ReleaseController extends AbstractController
         if (null !== $content) {
             $releaseNotes = $this->serializer->deserialize($content, ReleaseNotes::class, 'json');
             $this->validateObject($validator, $releaseNotes);
-            $release = $this->getDoctrine()->getRepository(Release::class)->findOneBy(['version' => $version]);
+            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($version);
             if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
@@ -298,7 +298,7 @@ class ReleaseController extends AbstractController
         $this->checkVersionFormat($version);
         $content = $request->getContent();
         if (!empty($content)) {
-            $release = $this->getDoctrine()->getRepository(Release::class)->findOneBy(['version' => $version]);
+            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($version);
             if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
@@ -360,8 +360,7 @@ class ReleaseController extends AbstractController
      */
     protected function checkVersionConflict(string $version): void
     {
-        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        if ($releaseRepo->findOneBy(['version' => $version])) {
+        if ($this->getDoctrine()->getRepository(Release::class)->findVersion($version)) {
             throw new ConflictHttpException('Version already exists');
         }
     }

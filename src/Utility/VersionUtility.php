@@ -35,8 +35,10 @@ class VersionUtility
      *
      *                        |--------------|
      * [major].[minor].[patch] -[pre-release] +[build-metadata]
+     *
+     * @string
      */
-    private static string $modifierRegex = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
+    private const MODIFIER_REGEX = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
 
     public static function extractMajorVersionNumber(string $version): float
     {
@@ -62,7 +64,7 @@ class VersionUtility
         $version = trim((string)$version);
 
         // match classical versioning
-        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::$modifierRegex . '$}i', $version, $matches)) {
+        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::MODIFIER_REGEX . '$}i', $version, $matches)) {
             $version = $matches[1];
 
             for ($i = 2; $i <= $digits; ++$i) {

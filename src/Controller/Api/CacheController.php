@@ -67,7 +67,7 @@ class CacheController extends AbstractController
     public function purgeMajorRelease(string $version): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion((float)$version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }

@@ -40,6 +40,11 @@ class ReleaseRepository extends ServiceEntityRepository
         parent::__construct($registry, Release::class);
     }
 
+    public function findVersion(string $version): ?Release
+    {
+        return $this->findOneBy(['version' => $version]);
+    }
+
     public function findLatestSecurityReleaseByMajorVersion(string $version): ?Release
     {
         return $this->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => Criteria::DESC]);

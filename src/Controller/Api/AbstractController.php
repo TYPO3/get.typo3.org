@@ -44,7 +44,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion((float)$version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }
@@ -103,9 +103,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function getMajorVersionByReleaseVersion(string $version): MajorVersion
     {
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        $majorVersion = $this->getDoctrine()->getManager()->getRepository(MajorVersion::class)->findOneBy(
-            ['version' => $majorVersionNumber]
-        );
+        $majorVersion = $this->getDoctrine()->getManager()->getRepository(MajorVersion::class)->findVersion($majorVersionNumber);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException(sprintf('Major version data for version %d does not exist.', $majorVersionNumber));
         }
@@ -114,7 +112,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
     protected function getReleaseByVersion(string $version): Release
     {
-        $release = $this->getDoctrine()->getRepository(Release::class)>findOneBy(['version' => $version]);
+        $release = $this->getDoctrine()->getRepository(Release::class)>findVersion($version);
         if (!$release instanceof Release) {
             throw new NotFoundHttpException();
         }

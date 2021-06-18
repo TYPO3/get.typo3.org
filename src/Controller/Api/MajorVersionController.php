@@ -169,7 +169,7 @@ class MajorVersionController extends AbstractController
         if (!empty($content)) {
             $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
             $version = $majorVersion->getVersion();
-            $preexisting = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion((string)$version);
+            $preexisting = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
             if ($preexisting instanceof MajorVersion) {
                 throw new ConflictHttpException('Version already exists');
             }
@@ -221,7 +221,7 @@ class MajorVersionController extends AbstractController
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
      * )
      *
-     * @param string|null $version Specific TYPO3 Version to fetch
+     * @param string $version Specific TYPO3 Version to fetch
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateMajorRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse

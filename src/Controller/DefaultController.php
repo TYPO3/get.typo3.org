@@ -124,14 +124,13 @@ class DefaultController extends AbstractController
         }
 
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        $data['currentVersion'] = $majorVersions->findOneBy(['version' => $majorVersionNumber]);
+        $data['currentVersion'] = $majorVersions->findVersion($majorVersionNumber);
         if (!$data['currentVersion'] instanceof MajorVersion) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
 
         if (VersionUtility::isValidSemverVersion($version)) {
-            $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
-            $release = $releaseRepository->findOneBy(['version' => $version]);
+            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($version);
         } else {
             $release = $data['currentVersion']->getLatestRelease();
         }
@@ -160,24 +159,23 @@ class DefaultController extends AbstractController
         $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
 
-        /** @var \App\Repository\MajorVersionRepository $majorVersionRepository */
-        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data['activeVersions'] = $majorVersionRepository->findAllActive();
+        /** @var \App\Repository\MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data['activeVersions'] = $majorVersions->findAllActive();
 
         if ($version === '') {
-            $majorVersion = $majorVersionRepository->findOneBy([], ['version' => Criteria::DESC]);
+            $majorVersion = $majorVersions->findOneBy([], ['version' => Criteria::DESC]);
             return $this->redirectToRoute('version', ['version' => $majorVersion->getVersion()]);
         }
 
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        $data['currentVersion'] = $majorVersionRepository->findOneBy(['version' => $majorVersionNumber]);
+        $data['currentVersion'] = $majorVersions->findVersion($majorVersionNumber);
         if (!$data['currentVersion'] instanceof MajorVersion) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
 
         if (VersionUtility::isValidSemverVersion($version)) {
-            $releaseRepository = $this->getDoctrine()->getRepository(Release::class);
-            $release = $releaseRepository->findOneBy(['version' => $version]);
+            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($version);
         } else {
             $release = $data['currentVersion']->getLatestRelease();
         }
@@ -233,9 +231,8 @@ class DefaultController extends AbstractController
         }
 
         if (VersionUtility::isValidSemverVersion($requestedVersion)) {
-            $release = $this->getDoctrine()->getRepository(Release::class)
-                ->findOneBy(['version' => $requestedVersion]);
-            if ($release !== null && $release->isElts()) {
+            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($requestedVersion);
+            if ($release instanceof Release && $release->isElts()) {
                 return $this->createEltsVersionResponse($request, $release);
             }
         }
