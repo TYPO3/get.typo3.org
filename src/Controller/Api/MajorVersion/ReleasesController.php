@@ -72,7 +72,7 @@ class ReleasesController extends AbstractController
     public function getReleasesByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findOneBy(['version' => $version]);
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
@@ -115,7 +115,7 @@ class ReleasesController extends AbstractController
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findOneBy(['version' => $version]);
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
@@ -203,7 +203,7 @@ class ReleasesController extends AbstractController
     public function getLatestReleaseContentByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findOneBy(['version' => $version]);
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }

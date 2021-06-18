@@ -200,10 +200,10 @@ class DefaultController extends AbstractController
     public function showVersionListByMajorVersion(float $version, Request $request): Response
     {
         $templateName = 'default/list.html.twig';
-        /** @var \App\Repository\MajorVersionRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $data['activeVersions'] = $repository->findAllActive();
-        $data['currentVersion'] = $repository->findOneBy(['version' => $version]);
+        /** @var \App\Repository\MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data['activeVersions'] = $majorVersions->findAllActive();
+        $data['currentVersion'] = $majorVersions->findVersion($version);
         if ($data['currentVersion'] instanceof MajorVersion) {
             $data['currentVersion'] = $data['currentVersion']->toArray();
         }

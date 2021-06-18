@@ -107,13 +107,12 @@ class MajorVersionController extends AbstractController
     public function getMajorRelease(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $repo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $repo->findOneBy(['version' => $version]);
-        if (null === $major) {
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
-            $major,
+            $majorVersion,
             'json',
             SerializationContext::create()->setGroups(['content'])
         );
@@ -168,11 +167,10 @@ class MajorVersionController extends AbstractController
     {
         $content = $request->getContent();
         if (!empty($content)) {
-            $repo = $this->getDoctrine()->getRepository(MajorVersion::class);
             $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
             $version = $majorVersion->getVersion();
-            $preexisting = $repo->findOneBy(['version' => $version]);
-            if (null !== $preexisting) {
+            $preexisting = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion((string)$version);
+            if ($preexisting instanceof MajorVersion) {
                 throw new ConflictHttpException('Version already exists');
             }
             $this->checkMajorVersionFormat($version);

@@ -44,7 +44,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findOneBy(['version' => $version]);
+        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }

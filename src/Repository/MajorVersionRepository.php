@@ -50,6 +50,11 @@ class MajorVersionRepository extends ServiceEntityRepository
         return $this->findBy([], ['version' => Criteria::DESC]);
     }
 
+    public function findVersion(string $version): ?MajorVersion
+    {
+        return $this->findOneBy(['version' => $version]);
+    }
+
     /**
      * @return array<MajorVersion>
      */
