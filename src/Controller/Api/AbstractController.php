@@ -56,10 +56,10 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
      */
     protected function validateObject(ValidatorInterface $validator, $object): void
     {
-        $constraintViolationList = $validator->validate($object);
+        $violations = $validator->validate($object);
 
-        if (\count($constraintViolationList) > 0) {
-            $errorsString = (string)$constraintViolationList;
+        if (\count($violations) > 0) {
+            $errorsString = (string)$violations;
             throw new BadRequestHttpException($errorsString);
         }
     }

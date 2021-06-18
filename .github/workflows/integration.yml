@@ -49,10 +49,6 @@ jobs:
       if: always()
       run: |
         composer test:php:cgl
-    - name: Rector
-      if: always()
-      run: |
-        composer test:php:rector
     - name: Unit Tests
       if: always()
       run: |
