@@ -77,12 +77,11 @@ class ReleaseController extends AbstractController
      */
     public function getRelease(?string $version, Request $request): JsonResponse
     {
-        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        if ($version) {
+        if ($version !== '') {
             $this->checkVersionFormat($version);
             $releases = $this->getReleaseByVersion($version);
         } else {
-            $releases = $releaseRepo->findAll();
+            $releases = $this->getDoctrine()->getRepository(Release::class)->findAll();
         }
         $json = $this->serializer->serialize(
             $releases,
@@ -200,9 +199,8 @@ class ReleaseController extends AbstractController
         if (null !== $content) {
             $releaseNotes = $this->serializer->deserialize($content, ReleaseNotes::class, 'json');
             $this->validateObject($validator, $releaseNotes);
-            $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-            $release = $releaseRepo->findOneBy(['version' => $version]);
-            if (null === $release) {
+            $release = $this->getDoctrine()->getRepository(Release::class)->findOneBy(['version' => $version]);
+            if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
             $release->setReleaseNotes($releaseNotes);
@@ -300,19 +298,18 @@ class ReleaseController extends AbstractController
         $this->checkVersionFormat($version);
         $content = $request->getContent();
         if (!empty($content)) {
-            $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-            $releaseEntity = $releaseRepo->findOneBy(['version' => $version]);
-            if (null === $releaseEntity) {
+            $release = $this->getDoctrine()->getRepository(Release::class)->findOneBy(['version' => $version]);
+            if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
             $data = json_decode($content, true);
-            $this->mapObjects($releaseEntity, $data);
-            $this->validateObject($validator, $releaseEntity);
+            $this->mapObjects($release, $data);
+            $this->validateObject($validator, $release);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
             $json = $this->serializer->serialize(
-                $releaseEntity,
+                $release,
                 'json',
                 SerializationContext::create()->setGroups(['data', 'content'])
             );
