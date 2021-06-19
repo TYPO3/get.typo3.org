@@ -62,8 +62,6 @@ class CacheController extends AbstractController
      *     description="Version not found."
      * )
      * @SWG\Tag(name="cache")
-     *
-     * @param string $version Specific TYPO3 Version to delete
      */
     public function purgeMajorRelease(string $version): JsonResponse
     {
@@ -102,8 +100,6 @@ class CacheController extends AbstractController
      *     description="Version not found."
      * )
      * @SWG\Tag(name="cache")
-     *
-     * @param string $version Specific TYPO3 Version to delete
      */
     public function purgeRelease(string $version): JsonResponse
     {
