@@ -83,22 +83,22 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             $release->setDate($date);
             $release->setMajorVersion($majorVersion);
             $package = new Package(
-                $generator->boolean ? $generator->md5 : null,
-                $generator->boolean ? $generator->sha1 : null,
-                $generator->boolean ? $generator->sha256: null
+                $generator->boolean() ? $generator->md5() : null,
+                $generator->boolean() ? $generator->sha1() : null,
+                $generator->boolean() ? $generator->sha256(): null
             );
             $release->setTarPackage($package);
             $release->setZipPackage($package);
 
             $releaseNotes = new ReleaseNotes();
-            $releaseNotes->setNewsLink($generator->url);
+            $releaseNotes->setNewsLink($generator->url());
             $releaseNotes->setNews($generator->paragraph($generator->numberBetween(1, 6)));
             $releaseNotes->setUpgradingInstructions($generator->paragraph($generator->numberBetween(0, 1)));
             $changelogTypes = ['TASK', 'BUGFIX', 'FEATURE'];
             $changelog = [];
-            $changelog[] = '2019-10-30 7254d67918 [RELEASE] ' . $generator->sentence($generator->numberBetween(4, 8)) . ' (thanks to ' . $generator->name . ')';
+            $changelog[] = '2019-10-30 7254d67918 [RELEASE] ' . $generator->sentence($generator->numberBetween(4, 8)) . ' (thanks to ' . $generator->name() . ')';
             for ($changeIteration = 0; $changeIteration < $generator->numberBetween(5, 50); ++$changeIteration) {
-                $changelog[] = '2019-10-30 7254d67918 [' . $generator->randomElement($changelogTypes) . '] ' . $generator->sentence($generator->numberBetween(4, 8)) . ' (thanks to ' . $generator->name . ')';
+                $changelog[] = '2019-10-30 7254d67918 [' . $generator->randomElement($changelogTypes) . '] ' . $generator->sentence($generator->numberBetween(4, 8)) . ' (thanks to ' . $generator->name() . ')';
             }
             $releaseNotes->setChanges(' * ' . implode("\n * ", $changelog));
             $release->setReleaseNotes($releaseNotes);
