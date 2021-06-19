@@ -40,13 +40,13 @@ class VersionUtility
      */
     private const MODIFIER_REGEX = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
 
-    public static function extractMajorVersionNumber(string $version): float
+    public static function extractMajorVersionNumber(string $version): string
     {
         $versionData = explode('.', trim($version));
         $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0;
         $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) && $versionData[0] < 7 ? (int)$versionData[1] : 0;
         array_splice($versionData, 2);
-        return (float)implode('.', $versionData);
+        return implode('.', $versionData);
     }
 
     public static function isValidSemverVersion(string $version): bool
@@ -59,7 +59,10 @@ class VersionUtility
         return (int)$success === 1;
     }
 
-    public static function normalize($version, int $digits = 3)
+    /**
+     * @param string|float|int $version
+     */
+    public static function normalize($version, int $digits = 3): string
     {
         $version = trim((string)$version);
 

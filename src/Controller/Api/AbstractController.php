@@ -25,8 +25,11 @@ namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
+use App\Repository\ReleaseRepository;
 use App\Utility\VersionUtility;
 use Doctrine\Common\Util\Inflector;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -44,28 +47,29 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion((float)$version);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }
         return $majorVersion;
     }
 
-    /**
-     * @param $object
-     */
-    protected function validateObject(ValidatorInterface $validator, $object): void
+    protected function validateObject(ValidatorInterface $validator, object $object): void
     {
+        /** @var \Traversable|\Countable $violations */
         $violations = $validator->validate($object);
 
         if (\count($violations) > 0) {
-            $errorsString = (string)$violations;
+            $errorsString = \implode(',', \iterator_to_array($violations, false));
             throw new BadRequestHttpException($errorsString);
         }
     }
 
     protected function mapObjects($baseObject, array $data): void
     {
+        /** @var ClassMetadataInfo $metadata */
         $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = Inflector::tableize($field);
@@ -103,7 +107,9 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function getMajorVersionByReleaseVersion(string $version): MajorVersion
     {
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        $majorVersion = $this->getDoctrine()->getManager()->getRepository(MajorVersion::class)->findVersion($majorVersionNumber);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($majorVersionNumber);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException(sprintf('Major version data for version %d does not exist.', $majorVersionNumber));
         }
@@ -112,7 +118,9 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
     protected function getReleaseByVersion(string $version): Release
     {
-        $release = $this->getDoctrine()->getRepository(Release::class)>findVersion($version);
+        /** @var ReleaseRepository $releases */
+        $releases = $this->getDoctrine()->getRepository(Release::class);
+        $release = $releases->findVersion($version);
         if (!$release instanceof Release) {
             throw new NotFoundHttpException();
         }

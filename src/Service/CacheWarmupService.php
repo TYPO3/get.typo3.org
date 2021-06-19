@@ -25,9 +25,11 @@ namespace App\Service;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -67,11 +69,9 @@ class CacheWarmupService implements CacheWarmerInterface
     }
 
     /**
-     * Warms up the cache.
-     *
-     * @param string $cacheDir The cache directory
+     * @return string[] A list of classes or files to preload on PHP 7.4+
      */
-    public function warmUp($cacheDir): void
+    public function warmUp(string $cacheDir): array
     {
         $routesWithoutArguments = [
             'root',
@@ -97,13 +97,11 @@ class CacheWarmupService implements CacheWarmerInterface
             'release-notes-for-version',
         ];
         $this->warmUpLoopWithVersions($routes, $versions);
+
+        return [];
     }
 
-    /**
-     * @param $url
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    private function makeRequest($url): ?\GuzzleHttp\Promise\PromiseInterface
+    private function makeRequest(string $url): ?PromiseInterface
     {
         try {
             $promise = $this->client->requestAsync('GET', $this->baseUrl . $url);
@@ -120,6 +118,7 @@ class CacheWarmupService implements CacheWarmerInterface
 
     private function warmUpActiveMajorVersions(): void
     {
+        /** @var MajorVersionRepository $majorVersionRepository */
         $majorVersionRepository = $this->entityManager->getRepository(MajorVersion::class);
         $versions = $majorVersionRepository->findAllActive();
         $routes = [
@@ -141,10 +140,10 @@ class CacheWarmupService implements CacheWarmerInterface
     }
 
     /**
-     * @param $routes
-     * @param $versions
+     * @param string[] $routes
+     * @param MajorVersion[] $versions
      */
-    private function warmUpLoopWithVersions($routes, $versions): void
+    private function warmUpLoopWithVersions(array $routes, array $versions): void
     {
         $requestCounter = 0;
         foreach ($routes as $route) {
@@ -157,7 +156,7 @@ class CacheWarmupService implements CacheWarmerInterface
                 if ($requestCounter % 5 !== 0) {
                     continue;
                 }
-                if (!$promise instanceof \GuzzleHttp\Promise\PromiseInterface) {
+                if (!$promise instanceof PromiseInterface) {
                     continue;
                 }
                 try {

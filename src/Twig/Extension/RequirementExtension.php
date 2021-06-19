@@ -53,7 +53,8 @@ class RequirementExtension extends AbstractExtension
     }
 
     /**
-     * @return mixed[]
+     * @param Collection<int, Requirement>|array<Requirement> $data
+     * @return Requirement[]
      */
     public function formatVersions($data): array
     {
@@ -77,6 +78,7 @@ class RequirementExtension extends AbstractExtension
     }
 
     /**
+     * @param Collection<int, Requirement>|array<Requirement> $data
      * @return array<int|string, mixed[]>
      */
     public function groupByCategory($data): array
@@ -100,6 +102,7 @@ class RequirementExtension extends AbstractExtension
     }
 
     /**
+     * @param Collection<int, Requirement> $collection
      * @return mixed[]
      */
     public function prepareRequirements(Collection $collection): array
@@ -111,6 +114,7 @@ class RequirementExtension extends AbstractExtension
     }
 
     /**
+     * @param Collection<int, Requirement>|array<Requirement>|array<int|string, array> $data
      * @return mixed[]
      */
     public function sortByTitle($data): array
@@ -134,7 +138,10 @@ class RequirementExtension extends AbstractExtension
         return $elements;
     }
 
-    private function normalizeVersionHelper(array &$requirements)
+    /**
+     * @param array<Requirement> $requirements
+     */
+    private function normalizeVersionHelper(array &$requirements): void
     {
         foreach ($requirements as &$requirement) {
             if (
@@ -161,7 +168,10 @@ class RequirementExtension extends AbstractExtension
         }
     }
 
-    private function sortByTitleHelper(array &$data)
+    /**
+     * @param array<Requirement> $data
+     */
+    private function sortByTitleHelper(array &$data): void
     {
         usort($data, fn ($a, $b) => strcasecmp($a->getTitle(), $b->getTitle()));
     }

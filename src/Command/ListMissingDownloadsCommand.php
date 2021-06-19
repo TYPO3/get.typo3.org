@@ -46,9 +46,14 @@ class ListMissingDownloadsCommand extends Command
     /**
      * @var string
      */
+    private const NO_ERROR = 'OK';
+
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:download:missing:list';
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Creates a list of missing downloads with URLs to Sourceforge.');
         $this->setHelp('This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.');
@@ -77,23 +82,25 @@ class ListMissingDownloadsCommand extends Command
 
             $output->writeln('Checking download URLs...');
 
+            $result = [];
+
             foreach ($content as $versionKey => $version) {
                 foreach ($version['releases'] as $releaseKey => $release) {
                     $output->writeln($releaseKey . ':');
 
                     $output->write('- TAR: ');
                     $url = $this->getFixedUrl($release['url']['tar'], $releaseKey, self::FORMAT_TAR);
-                    $output->writeln($url === true ? 'OK' : $url);
+                    $output->writeln($url);
 
-                    if ($url !== true) {
+                    if ($url !== self::NO_ERROR) {
                         $result[$versionKey][$releaseKey]['tar'] = $url;
                     }
 
                     $output->write('- ZIP: ');
                     $url = $this->getFixedUrl($release['url']['zip'], $releaseKey, self::FORMAT_ZIP);
-                    $output->writeln($url === true ? 'OK' : $url);
+                    $output->writeln($url);
 
-                    if ($url !== true) {
+                    if ($url !== self::NO_ERROR) {
                         $result[$versionKey][$releaseKey]['zip'] = $url;
                     }
                 }
@@ -108,15 +115,12 @@ class ListMissingDownloadsCommand extends Command
         return 0;
     }
 
-    /**
-     * @return bool|string
-     */
-    private function getFixedUrl(string $url, string $release, int $format)
+    private function getFixedUrl(string $url, string $release, int $format): string
     {
         try {
             if ($this->checkRedirect($url)) {
                 if ($this->checkUrl($url)) {
-                    return true;
+                    return self::NO_ERROR;
                 }
                 $result = sprintf('https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20%s/typo3_src-%s.', $release, $release);
                 $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';

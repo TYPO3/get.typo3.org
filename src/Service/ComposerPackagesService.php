@@ -25,6 +25,7 @@ namespace App\Service;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -33,7 +34,20 @@ use Symfony\Component\Form\FormInterface;
 
 class ComposerPackagesService
 {
-    protected static array $packages = [
+    /**
+     * @var string
+     */
+    public const CMS_VERSIONS_GROUP = 'TYPO3 CMS Versions';
+
+    /**
+     * @var string
+     */
+    public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
+
+    /**
+     * @var array
+     */
+    private const PACKAGES = [
         [
             'name'        => 'typo3/cms-about',
             'description' => 'Shows info about TYPO3, installed extensions and a separate module for available modules.',
@@ -506,7 +520,10 @@ class ComposerPackagesService
         ],
     ];
 
-    protected static array $bundles = [
+    /**
+     * @var array
+     */
+    private const BUNDLES = [
         'typo3/full'      => [
             'typo3/cms-about',
             'typo3/cms-adminpanel',
@@ -605,7 +622,10 @@ class ComposerPackagesService
         ]
     ];
 
-    protected static array $specialVersions = [
+    /**
+     * @var array
+     */
+    private const SPECIAL_VERSIONS = [
         [
             'name' => 'No version specified (installs latest version)',
             'value' => '',
@@ -614,15 +634,6 @@ class ComposerPackagesService
             'value' => '*',
         ],
     ];
-
-    /**
-     * @var string
-     */
-    public const CMS_VERSIONS = 'TYPO3 CMS Versions';
-    /**
-     * @var string
-     */
-    public const SPECIAL_VERSIONS = 'Special Version Selectors';
 
     private EntityManagerInterface $entityManager;
 
@@ -633,7 +644,7 @@ class ComposerPackagesService
 
     public function buildForm(FormBuilderInterface $formBuilder): FormInterface
     {
-        /** @var \App\Repository\MajorVersionRepository $repository */
+        /** @var MajorVersionRepository $repository */
         $repository = $this->entityManager->getRepository(MajorVersion::class);
 
         $versionChoices = [
@@ -647,13 +658,13 @@ class ComposerPackagesService
         $majorVersions = $repository->findAllComposerSupported();
         foreach ($majorVersions as $majorVersion) {
             if ($majorVersion->getLatestRelease() instanceof Release) {
-                $versionChoices['choices'][self::CMS_VERSIONS][$majorVersion->getTitle()] =
+                $versionChoices['choices'][self::CMS_VERSIONS_GROUP][$majorVersion->getTitle()] =
                     $this->getComposerVersionConstraint($majorVersion->getLatestRelease()->getVersion());
             }
         }
 
-        foreach (self::$specialVersions as $version) {
-            $versionChoices['choices'][self::SPECIAL_VERSIONS][$version['name']] = $version['value'];
+        foreach (self::SPECIAL_VERSIONS as $version) {
+            $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version['name']] = $version['value'];
         }
 
         foreach ($majorVersions as $majorVersion) {
@@ -662,10 +673,10 @@ class ComposerPackagesService
                 $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
                 if (\is_null($majorVersion->getLatestRelease()->getMajorVersion()->getLts())) {
-                    $versionChoices['choices'][self::SPECIAL_VERSIONS][$majorVersion->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
+                    $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$majorVersion->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
                         $this->getComposerVersionConstraint($nextMinor, true);
                 }
-                $versionChoices['choices'][self::SPECIAL_VERSIONS][$majorVersion->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
+                $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$majorVersion->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
                     $this->getComposerVersionConstraint($nextPatch, true);
             }
         }
@@ -680,7 +691,7 @@ class ComposerPackagesService
             ])
         );
 
-        foreach (self::$packages as $package) {
+        foreach (self::PACKAGES as $package) {
             $formBuilder->add(
                 str_replace('/', '-', $package['name']),
                 CheckboxType::class,
@@ -704,7 +715,7 @@ class ComposerPackagesService
     public function getBundles(): array
     {
         $sanitizedBundles = [];
-        foreach (self::$bundles as $bundleName => $packages) {
+        foreach (self::BUNDLES as $bundleName => $packages) {
             $sanitizedBundles[$bundleName] = \GuzzleHttp\json_encode(
                 array_map(static fn ($name) => str_replace('/', '-', $name), $packages)
             );
@@ -721,13 +732,15 @@ class ComposerPackagesService
         if (\preg_match('#^\^(\d+)#', $packages['typo3_version'], $matches)) {
             $version = (int)$matches[1];
         } else {
-            $latestVersion = $this->entityManager->getRepository(MajorVersion::class)
+            /** @var MajorVersionRepository $majorVersions */
+            $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+            $latestVersion = $majorVersions
                 ->findAllComposerSupported()[0]->getLatestRelease()->getVersion();
             \preg_match('#^\d+#', $latestVersion, $matches);
             $version = (int)$matches[0];
         }
 
-        foreach (self::$packages as $package) {
+        foreach (self::PACKAGES as $package) {
             if (!in_array($version, $package['versions'], true)) {
                 unset($packages[$package['name']]);
             }

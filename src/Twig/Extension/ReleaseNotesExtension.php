@@ -35,7 +35,7 @@ class ReleaseNotesExtension extends AbstractExtension
     {
         return [
             // format filters
-            new TwigFilter('removeWikiLink', fn (string $data): string => $this->removeWikiLink($data)),
+            new TwigFilter('removeWikiLink', fn (string $data): ?string => $this->removeWikiLink($data)),
         ];
     }
 

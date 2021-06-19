@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
+use App\Repository\MajorVersionRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
@@ -66,8 +67,9 @@ class MajorVersionController extends AbstractController
      */
     public function getMajorReleases(Request $request): JsonResponse
     {
-        $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $majors = $releaseRepo->findAllDescending();
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majors = $majorVersions->findAllDescending();
         $json = $this->serializer->serialize(
             $majors,
             'json',
@@ -100,14 +102,13 @@ class MajorVersionController extends AbstractController
      *     description="Version not found."
      * )
      * @SWG\Tag(name="major")
-     *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getMajorRelease(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
@@ -169,7 +170,9 @@ class MajorVersionController extends AbstractController
         if (!empty($content)) {
             $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
             $version = $majorVersion->getVersion();
-            $preexisting = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+            /** @var MajorVersionRepository $majorVersions */
+            $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+            $preexisting = $majorVersions->findVersion((string)$version);
             if ($preexisting instanceof MajorVersion) {
                 throw new ConflictHttpException('Version already exists');
             }

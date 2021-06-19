@@ -127,7 +127,7 @@ class Release implements \JsonSerializable
         return $this->releaseNotes;
     }
 
-    public function setDate(\DateTimeInterface $dateTime): void
+    public function setDate(\DateTime $dateTime): void
     {
         $this->date = $dateTime;
     }
@@ -193,6 +193,7 @@ class Release implements \JsonSerializable
     /**
     * Specify data which should be serialized to JSON
     *
+    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
     * @return array<string, array<string, \App\Entity\Embeddables\Package|string>>|array<string, string> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
     */
     public function jsonSerialize()

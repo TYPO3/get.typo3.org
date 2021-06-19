@@ -44,10 +44,9 @@ class LegacyDataService
         return (string)$filesystemAdapter->get('releases.json', function (ItemInterface $item): string {
             /** @var \App\Repository\MajorVersionRepository $rep */
             $rep = $this->entityManager->getRepository(MajorVersion::class);
-            $content = json_encode($rep->findAllPreparedForJson());
+            $content = json_encode($rep->findAllPreparedForJson()) ?: '';
             // remove version suffix only used for version sorting
-            $content = str_replace('.0000', '', $content);
-            return $content;
+            return str_replace('.0000', '', $content);
         });
     }
 }

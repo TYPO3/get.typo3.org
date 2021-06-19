@@ -58,12 +58,12 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         $majorVersionNumber =  $majorVersion->getVersion();
         $ltsVersionNumber = $majorVersion->getLts() ?? $majorVersionNumber;
 
-        $versionData = explode('.', trim($majorVersionNumber));
+        $versionData = explode('.', trim((string)$majorVersionNumber));
         $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0;
         $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) ? (int)$versionData[1] : 0;
         $versionData[2] = 0;
 
-        $ltsVersionData = explode('.', trim($ltsVersionNumber));
+        $ltsVersionData = explode('.', trim((string)$ltsVersionNumber));
         $ltsVersionData[0] = isset($ltsVersionData[0]) && is_numeric($ltsVersionData[0]) ? (int)$ltsVersionData[0] : $versionData[0];
         $ltsVersionData[1] = isset($ltsVersionData[1]) && is_numeric($ltsVersionData[1]) ? (int)$ltsVersionData[1] : $versionData[1];
 

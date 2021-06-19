@@ -26,6 +26,8 @@ namespace App\Controller\Api\MajorVersion;
 use App\Controller\Api\AbstractController;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
+use App\Repository\ReleaseRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -66,13 +68,13 @@ class ReleasesController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
-     *
-     * @param string $version Specific TYPO3 Version to fetch
      */
     public function getReleasesByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
@@ -109,13 +111,13 @@ class ReleasesController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
-     *
-     * @param string $version Specific TYPO3 Version to fetch
      */
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
@@ -152,13 +154,13 @@ class ReleasesController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
-     *
-     * @param string|null $version Specific TYPO3 Version to fetch
      */
     public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $release = $this->getDoctrine()->getRepository(Release::class)->findLatestSecurityReleaseByMajorVersion($version);
+        /** @var ReleaseRepository $releases */
+        $releases = $this->getDoctrine()->getRepository(Release::class);
+        $release = $releases->findLatestSecurityReleaseByMajorVersion($version);
         if (!$release instanceof Release) {
             $json = json_encode([]);
         } else {
@@ -197,13 +199,13 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="content")
      * @SWG\Tag(name="release")
-     *
-     * @param string $version Specific TYPO3 Version to fetch
      */
     public function getLatestReleaseContentByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getDoctrine()->getRepository(MajorVersion::class)->findVersion($version);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }

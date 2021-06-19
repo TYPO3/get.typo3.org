@@ -55,7 +55,7 @@ class MajorVersionRepository extends ServiceEntityRepository
         return $this->findOneBy([], ['version' => Criteria::DESC]);
     }
 
-    public function findVersion(float $version): ?MajorVersion
+    public function findVersion(string $version): ?MajorVersion
     {
         return $this->findOneBy(['version' => $version]);
     }
@@ -171,12 +171,10 @@ class MajorVersionRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    /**
-     * @return array<MajorVersion>
-     */
-    public function findLatestLtsComposerSupported(): array
+    public function findLatestLtsComposerSupported(): ?MajorVersion
     {
         $qb = $this->createQueryBuilder('m');
+        $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
         $qb->where(
             $qb->expr()->andX(
                 $qb->expr()->isNotNull('m.lts'),
@@ -184,7 +182,7 @@ class MajorVersionRepository extends ServiceEntityRepository
             )
         );
         $qb->setParameter('minversion', 8);
-        $qb->addOrderBy('m.version', Criteria::DESC);
+        //$qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 

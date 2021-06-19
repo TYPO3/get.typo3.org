@@ -25,6 +25,8 @@ namespace App\Controller;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
+use App\Repository\ReleaseRepository;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
 use App\Utility\VersionUtility;
@@ -68,9 +70,10 @@ class DefaultController extends AbstractController
      */
     public function show(Request $request): Response
     {
-        $majorVersionRepository = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $communityVersions = $majorVersionRepository->findAllActiveCommunity();
-        $eltsVersions = $majorVersionRepository->findAllActiveElts();
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $communityVersions = $majorVersions->findAllActiveCommunity();
+        $eltsVersions = $majorVersions->findAllActiveElts();
 
         $response = $this->render(
             'default/root.html.twig',
@@ -129,7 +132,9 @@ class DefaultController extends AbstractController
         }
 
         if (VersionUtility::isValidSemverVersion($version)) {
-            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($version);
+            /** @var ReleaseRepository $releases */
+            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releases->findVersion($version);
         } else {
             $release = $data['currentVersion']->getLatestRelease();
         }
@@ -174,7 +179,9 @@ class DefaultController extends AbstractController
         }
 
         if (VersionUtility::isValidSemverVersion($version)) {
-            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($version);
+            /** @var ReleaseRepository $releases */
+            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releases->findVersion($version);
         } else {
             $release = $data['currentVersion']->getLatestRelease();
         }
@@ -194,7 +201,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/list/version/{version}", methods={"GET"}, name="list")
      */
-    public function showVersionListByMajorVersion(float $version, Request $request): Response
+    public function showVersionListByMajorVersion(string $version, Request $request): Response
     {
         $templateName = 'default/list.html.twig';
         /** @var \App\Repository\MajorVersionRepository $majorVersions */
@@ -230,7 +237,9 @@ class DefaultController extends AbstractController
         }
 
         if (VersionUtility::isValidSemverVersion($requestedVersion)) {
-            $release = $this->getDoctrine()->getRepository(Release::class)->findVersion($requestedVersion);
+            /** @var ReleaseRepository $releases */
+            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releases->findVersion($requestedVersion);
             if ($release instanceof Release && $release->isElts()) {
                 return $this->createEltsVersionResponse($request, $release);
             }

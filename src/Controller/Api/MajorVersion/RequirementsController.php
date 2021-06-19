@@ -75,7 +75,7 @@ class RequirementsController extends AbstractController
         $this->checkMajorVersionFormat($version);
         $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
         $entities = $requirementRepo->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
-        if (null === $entities) {
+        if ($entities === []) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Twig\Filter;
 
+use App\Entity\Release;
 use Doctrine\Common\Collections\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -40,6 +41,7 @@ class SortByVersion extends AbstractExtension
     }
 
     /**
+     * @param Collection<int, Release> $collection
      * @return mixed[]
      */
     public function sort(Collection $collection): array

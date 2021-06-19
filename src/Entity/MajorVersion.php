@@ -140,7 +140,7 @@ class MajorVersion implements \JsonSerializable
 
     public function setVersion(float $version): void
     {
-        $this->version = VersionUtility::extractMajorVersionNumber($version);
+        $this->version = (float)VersionUtility::extractMajorVersionNumber((string)$version);
     }
 
     public function getVersion(): float
@@ -221,17 +221,14 @@ class MajorVersion implements \JsonSerializable
         return $this->releaseDate;
     }
 
-    /**
-     * @return \App\Entity\Release|bool
-     */
-    public function getLatestRelease()
+    public function getLatestRelease(): ?Release
     {
         $array = $this->releases->toArray();
         usort(
             $array,
             fn ($a, $b) => version_compare($b->getVersion(), $a->getVersion())
         );
-        return reset($array);
+        return $array !== [] ? reset($array) : null;
     }
 
     /**
@@ -303,6 +300,7 @@ class MajorVersion implements \JsonSerializable
     /**
     * Specify data which should be serialized to JSON
     *
+    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
     * @return array<string, mixed> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
     */
     public function jsonSerialize()
@@ -316,8 +314,8 @@ class MajorVersion implements \JsonSerializable
         $latest = $this->getLatestRelease();
         return [
             'releases' => $desc,
-            'latest' => $latest ? $latest->getVersion() : '',
-            'stable' => $latest ? $latest->getVersion() : '',
+            'latest' => $latest !== null ? $latest->getVersion() : '',
+            'stable' => $latest !== null ? $latest->getVersion() : '',
             'active' => $this->isActive(),
             'elts' => $this->isElts(),
         ];
