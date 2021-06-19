@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\File\File;
 
 class ReleaseNotes
 {
@@ -34,12 +35,12 @@ class ReleaseNotes
      */
     public function getAllReleaseNoteNames(): array
     {
-        /** @var \Symfony\Component\HttpFoundation\File\File[] $directories */
+        /** @var File[] $directories */
         $directories = Finder::create()->directories()->in($this->releaseNotesDir)->sortByName();
         $result = [];
         foreach ($directories as $directory) {
             $dir = $directory->getRealPath() . DIRECTORY_SEPARATOR;
-            /** @var \Symfony\Component\HttpFoundation\File\File[] $files */
+            /** @var File[] $files */
             $files = Finder::create()->files()->in($dir)->name('*.html')->sortByName();
             $fileNames = [];
             foreach ($files as $file) {
