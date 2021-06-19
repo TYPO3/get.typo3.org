@@ -110,8 +110,8 @@ class CacheWarmupService implements CacheWarmerInterface
                     $this->logger->info('Warmed up ' . $url . ' with status ' . $response->getStatusCode());
                 }
             );
-        } catch (ServerException $serverException) {
-            $this->logger->warning($serverException->getMessage(), $serverException->getTrace());
+        } catch (ServerException $e) {
+            $this->logger->warning($e->getMessage(), $e->getTrace());
         }
         return $promise ?? null;
     }

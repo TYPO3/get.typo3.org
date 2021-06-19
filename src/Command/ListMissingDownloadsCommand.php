@@ -133,8 +133,8 @@ class ListMissingDownloadsCommand extends Command
             }
 
             return 'redirect failed for ' . $url;
-        } catch (\Exception $exception) {
-            return $exception->getMessage();
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 
@@ -146,9 +146,9 @@ class ListMissingDownloadsCommand extends Command
             $client->request('GET', $url, ['max_redirects' => 0]);
 
             throw new \Exception('something went wrong while calling ' . $url);
-        } catch (RedirectionException $redirectionException) {
+        } catch (RedirectionException $e) {
             return true;
-        } catch (ClientException $clientException) {
+        } catch (ClientException $e) {
             return false;
         }
     }
