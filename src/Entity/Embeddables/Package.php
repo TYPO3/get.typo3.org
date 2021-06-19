@@ -81,12 +81,9 @@ class Package implements \JsonSerializable
     }
 
     /**
-    * Specify data which should be serialized to JSON
-    *
-    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-    * @return array<string, string> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
+    * @return array<string, string>
     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [];
         if (null !== $this->sha1sum) {

@@ -298,16 +298,13 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-    * Specify data which should be serialized to JSON
-    *
-    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-    * @return array<string, mixed> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
+    * @return array<string, mixed>
     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $releaseData = [];
-        foreach ($this->getReleases() as $collection) {
-            $releaseData[$collection->getVersion()] = $collection;
+        foreach ($this->getReleases() as $release) {
+            $releaseData[$release->getVersion()] = $release;
         }
         uksort($releaseData, 'version_compare');
         $desc = array_reverse($releaseData);

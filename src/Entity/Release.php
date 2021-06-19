@@ -191,12 +191,9 @@ class Release implements \JsonSerializable
     }
 
     /**
-    * Specify data which should be serialized to JSON
-    *
-    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-    * @return array<string, array<string, \App\Entity\Embeddables\Package|string>>|array<string, string> data which can be serialized by <b>json_encode</b>, which is a value of any type other than a resource.
+    * @return array<string, mixed>
     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'version' => $this->version,
