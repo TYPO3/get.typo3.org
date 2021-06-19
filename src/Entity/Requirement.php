@@ -28,7 +28,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=RequirementRepository::class)
  */
 class Requirement implements \JsonSerializable
 {

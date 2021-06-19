@@ -21,33 +21,20 @@
 
 namespace App\Repository;
 
-use App\Entity\Release;
+use App\Entity\Requirement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Release|null find($id, $lockMode = null, $lockVersion = null)
- * @method Release|null findOneBy(array $criteria, array $orderBy = null)
- * @method Release[]    findAll()
- * @method Release[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method Release|null findVersion(string $version)
- * @method Release|null findLatestSecurityReleaseByMajorVersion(string $version)
+ * @method Requirement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Requirement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Requirement[]    findAll()
+ * @method Requirement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ReleaseRepository extends ServiceEntityRepository
+class RequirementRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Release::class);
-    }
-
-    public function findVersion(string $version): ?Release
-    {
-        return $this->findOneBy(['version' => $version]);
-    }
-
-    public function findLatestSecurityReleaseByMajorVersion(string $version): ?Release
-    {
-        return $this->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => Criteria::DESC]);
+        parent::__construct($registry, Requirement::class);
     }
 }
