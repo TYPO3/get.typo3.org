@@ -59,22 +59,22 @@ class RequirementExtension extends AbstractExtension
     public function formatVersions($data): array
     {
         if ($data instanceof Collection) {
-            $elements = $data->toArray();
+            $requirements = $data->toArray();
         } elseif (\is_array($data)) {
-            $elements = $data;
+            $requirements = $data;
         } else {
             throw new \Exception('Unsupported type for data: ' . gettype($data));
         }
 
-        if (reset($elements) instanceof Requirement) {
-            $this->normalizeVersionHelper($elements);
+        if (reset($requirements) instanceof Requirement) {
+            $this->normalizeVersionHelper($requirements);
         } else {
-            foreach ($elements as &$element) {
-                $this->normalizeVersionHelper($element);
+            foreach ($requirements as &$requirement) {
+                $this->normalizeVersionHelper($requirement);
             }
         }
 
-        return $elements;
+        return $requirements;
     }
 
     /**
@@ -84,16 +84,16 @@ class RequirementExtension extends AbstractExtension
     public function groupByCategory($data): array
     {
         if ($data instanceof Collection) {
-            $elements = $data->toArray();
+            $requirements = $data->toArray();
         } elseif (\is_array($data)) {
-            $elements = $data;
+            $requirements = $data;
         } else {
             throw new \Exception('Unsupported type for data: ' . gettype($data));
         }
 
         $result = [];
-        foreach ($elements as $element) {
-            $result[$element->getCategory()][] = $element;
+        foreach ($requirements as $requirement) {
+            $result[$requirement->getCategory()][] = $requirement;
         }
 
         ksort($result);
@@ -120,22 +120,22 @@ class RequirementExtension extends AbstractExtension
     public function sortByTitle($data): array
     {
         if ($data instanceof Collection) {
-            $elements = $data->toArray();
+            $requirements = $data->toArray();
         } elseif (\is_array($data)) {
-            $elements = $data;
+            $requirements = $data;
         } else {
             throw new \Exception('Unsupported type for data: ' . gettype($data));
         }
 
-        if (reset($elements) instanceof Requirement) {
-            $this->sortByTitleHelper($elements);
+        if (reset($requirements) instanceof Requirement) {
+            $this->sortByTitleHelper($requirements);
         } else {
-            foreach ($elements as &$element) {
-                $this->sortByTitleHelper($element);
+            foreach ($requirements as &$requirement) {
+                $this->sortByTitleHelper($requirement);
             }
         }
 
-        return $elements;
+        return $requirements;
     }
 
     /**
