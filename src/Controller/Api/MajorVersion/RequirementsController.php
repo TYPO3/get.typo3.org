@@ -25,6 +25,7 @@ namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
 use App\Entity\Requirement;
+use App\Repository\RequirementRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
@@ -67,8 +68,6 @@ class RequirementsController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="requirement")
-     *
-     * @param string $version Specific TYPO3 Version to fetch
      */
     public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -257,7 +256,9 @@ class RequirementsController extends AbstractController
         string $category,
         string $name
     ): JsonResponse {
-        $requirement = $this->getDoctrine()->getRepository(Requirement::class)->findOneBy(
+        /** @var RequirementRepository $requirements */
+        $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+        $requirement = $requirements->findOneBy(
             [
                 'version' => $this->findMajorVersion($version),
                 'name' => $name,
