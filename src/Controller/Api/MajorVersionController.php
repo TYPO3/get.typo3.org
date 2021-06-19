@@ -62,8 +62,6 @@ class MajorVersionController extends AbstractController
      *     )
      * )
      * @SWG\Tag(name="major")
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getMajorReleases(Request $request): JsonResponse
     {
@@ -161,8 +159,6 @@ class MajorVersionController extends AbstractController
      *     required=true,
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
      * )
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function createMajorRelease(Request $request, ValidatorInterface $validator): JsonResponse
     {
@@ -223,9 +219,6 @@ class MajorVersionController extends AbstractController
      *     description="May also contain incomplete model with only those properties that shall be updated",
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
      * )
-     *
-     * @param string $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateMajorRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
@@ -271,9 +264,6 @@ class MajorVersionController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * )
-     *
-     * @param string $version Specific TYPO3 Version to delete
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function deleteMajorRelease(string $version): JsonResponse
     {
