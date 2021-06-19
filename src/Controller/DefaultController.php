@@ -116,7 +116,7 @@ class DefaultController extends AbstractController
         $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
 
-        /** @var \App\Repository\MajorVersionRepository $majorVersions */
+        /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
         $data['groupedVersions'] = $majorVersions->findAllGroupedByMajor();
 
@@ -163,7 +163,7 @@ class DefaultController extends AbstractController
         $data = [];
         $version = str_replace('TYPO3_CMS_', '', $version);
 
-        /** @var \App\Repository\MajorVersionRepository $majorVersions */
+        /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
 
         if ($version === '') {
@@ -204,7 +204,7 @@ class DefaultController extends AbstractController
     public function showVersionListByMajorVersion(string $version, Request $request): Response
     {
         $templateName = 'default/list.html.twig';
-        /** @var \App\Repository\MajorVersionRepository $majorVersions */
+        /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
         $data['activeVersions'] = $majorVersions->findAllActive();
         $data['currentVersion'] = $majorVersions->findVersion($version);
