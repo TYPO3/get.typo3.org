@@ -161,8 +161,8 @@ class CacheWarmupService implements CacheWarmerInterface
                 }
                 try {
                     $promise->wait();
-                } catch (\Exception $exception) {
-                    $this->logger->warning($exception->getMessage(), $exception->getTrace());
+                } catch (\Exception $e) {
+                    $this->logger->warning($e->getMessage(), $e->getTrace());
                 }
             }
         }
