@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\MajorVersion;
+use App\Repository\MajorVersionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -39,12 +40,12 @@ class LegacyDataService
 
     public function getReleaseJson(): string
     {
-        $filesystemAdapter = new FilesystemAdapter();
+        $cache = new FilesystemAdapter();
 
-        return (string)$filesystemAdapter->get('releases.json', function (ItemInterface $item): string {
-            /** @var \App\Repository\MajorVersionRepository $rep */
-            $rep = $this->entityManager->getRepository(MajorVersion::class);
-            $content = json_encode($rep->findAllPreparedForJson()) ?: '';
+        return (string)$cache->get('releases.json', function (ItemInterface $item): string {
+            /** @var MajorVersionRepository $majorVersions */
+            $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+            $content = json_encode($majorVersions->findAllPreparedForJson()) ?: '';
             // remove version suffix only used for version sorting
             return str_replace('.0000', '', $content);
         });
