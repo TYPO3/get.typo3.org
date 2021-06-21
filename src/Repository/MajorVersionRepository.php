@@ -133,10 +133,10 @@ class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findAllGroupedByMajor(): array
     {
-        $majorVersions = $this->findAll();
+        $versions = $this->findAll();
         $data = [];
-        foreach ($majorVersions as $majorVersion) {
-            $data[$this->formatVersion($majorVersion->getVersion())] = $majorVersion;
+        foreach ($versions as $version) {
+            $data[$this->formatVersion($version->getVersion())] = $version;
         }
         uksort($data, 'version_compare');
         return array_reverse($data);
@@ -147,11 +147,10 @@ class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findCommunityVersionsGroupedByMajor(): array
     {
-        $majorVersions = $this->findAll();
+        $versions = $this->findAll();
         $data = [];
-        foreach ($majorVersions as $majorVersion) {
-            $majorVersion = $this->removeEltsReleases($majorVersion);
-            $data[$this->formatVersion($majorVersion->getVersion())] = $majorVersion;
+        foreach ($versions as $version) {
+            $data[$this->formatVersion($version->getVersion())] = $this->removeEltsReleases($version);
         }
         uksort($data, 'version_compare');
         return array_reverse($data);
@@ -255,19 +254,19 @@ class MajorVersionRepository extends ServiceEntityRepository
         return $version;
     }
 
-    private function removeEltsReleases(MajorVersion $majorVersion): MajorVersion
+    private function removeEltsReleases(MajorVersion $version): MajorVersion
     {
-        $majorVersion->setReleases($majorVersion->getReleases()->filter(static fn (Release $release) => !$release->isElts()));
+        $version->setReleases($version->getReleases()->filter(static fn (Release $release) => !$release->isElts()));
 
-        return $majorVersion;
+        return $version;
     }
 
     /**
      * @return Release[]
      */
-    private function majorVersionDescending(MajorVersion $majorVersion): array
+    private function majorVersionDescending(MajorVersion $version): array
     {
-        $releases = $majorVersion->getReleases()->toArray();
+        $releases = $version->getReleases()->toArray();
 
         usort(
             $releases,
