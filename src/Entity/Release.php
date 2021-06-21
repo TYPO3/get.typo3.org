@@ -127,9 +127,9 @@ class Release implements \JsonSerializable
         return $this->releaseNotes;
     }
 
-    public function setDate(\DateTime $dateTime): void
+    public function setDate(\DateTime $date): void
     {
-        $this->date = $dateTime;
+        $this->date = $date;
     }
 
     public function getDate(): \DateTime
