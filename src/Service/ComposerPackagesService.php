@@ -642,7 +642,7 @@ class ComposerPackagesService
         $this->entityManager = $entityManager;
     }
 
-    public function buildForm(FormBuilderInterface $formBuilder): FormInterface
+    public function buildForm(FormBuilderInterface $builder): FormInterface
     {
         /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
@@ -681,7 +681,7 @@ class ComposerPackagesService
             }
         }
 
-        $formBuilder->add(
+        $builder->add(
             'typo3_version',
             ChoiceType::class,
             array_merge($versionChoices, [
@@ -692,7 +692,7 @@ class ComposerPackagesService
         );
 
         foreach (self::PACKAGES as $package) {
-            $formBuilder->add(
+            $builder->add(
                 str_replace('/', '-', $package['name']),
                 CheckboxType::class,
                 [
@@ -706,7 +706,7 @@ class ComposerPackagesService
             );
         }
 
-        return $formBuilder->getForm();
+        return $builder->getForm();
     }
 
     /**
