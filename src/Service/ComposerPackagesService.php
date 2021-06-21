@@ -644,22 +644,22 @@ class ComposerPackagesService
 
     public function buildForm(FormBuilderInterface $formBuilder): FormInterface
     {
-        /** @var MajorVersionRepository $repository */
-        $repository = $this->entityManager->getRepository(MajorVersion::class);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
 
         $versionChoices = [
             'choices'  => [],
             'data'     => $this->getComposerVersionConstraint(
-                $repository->findLatestLtsComposerSupported()->getLatestRelease()->getVersion()
+                $majorVersions->findLatestLtsComposerSupported()->getLatestRelease()->getVersion()
             ),
             'required' => true,
         ];
 
-        $majorVersions = $repository->findAllComposerSupported();
-        foreach ($majorVersions as $majorVersion) {
-            if ($majorVersion->getLatestRelease() instanceof Release) {
-                $versionChoices['choices'][self::CMS_VERSIONS_GROUP][$majorVersion->getTitle()] =
-                    $this->getComposerVersionConstraint($majorVersion->getLatestRelease()->getVersion());
+        $versions = $majorVersions->findAllComposerSupported();
+        foreach ($versions as $version) {
+            if ($version->getLatestRelease() instanceof Release) {
+                $versionChoices['choices'][self::CMS_VERSIONS_GROUP][$version->getTitle()] =
+                    $this->getComposerVersionConstraint($version->getLatestRelease()->getVersion());
             }
         }
 
@@ -667,16 +667,16 @@ class ComposerPackagesService
             $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version['name']] = $version['value'];
         }
 
-        foreach ($majorVersions as $majorVersion) {
-            if ($majorVersion->getLatestRelease() instanceof Release && \preg_match('#^(\d+)\.(\d+)\.(\d+)#', $majorVersion->getLatestRelease()->getVersion(), $matches)) {
+        foreach ($versions as $version) {
+            if ($version->getLatestRelease() instanceof Release && \preg_match('#^(\d+)\.(\d+)\.(\d+)#', $version->getLatestRelease()->getVersion(), $matches)) {
                 $nextMinor = $matches[1] . '.' . (((int)$matches[2]) + 1);
                 $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
-                if (\is_null($majorVersion->getLatestRelease()->getMajorVersion()->getLts())) {
-                    $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$majorVersion->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
+                if (\is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
+                    $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
                         $this->getComposerVersionConstraint($nextMinor, true);
                 }
-                $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$majorVersion->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
+                $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
                     $this->getComposerVersionConstraint($nextPatch, true);
             }
         }
