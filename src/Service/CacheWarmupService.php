@@ -78,9 +78,8 @@ class CacheWarmupService implements CacheWarmerInterface
             'app_api_majorversion_getmajorreleases',
             'app_api_release_getrelease',
         ];
-        foreach ($routesWithoutArguments as $routeWithoutArgument) {
-            $url = $this->router->generate($routeWithoutArgument);
-            $promise = $this->makeRequest($url);
+        foreach ($routesWithoutArguments as $route) {
+            $promise = $this->makeRequest($this->router->generate($route));
         }
         if ($promise !== null) {
             $promise->wait();
