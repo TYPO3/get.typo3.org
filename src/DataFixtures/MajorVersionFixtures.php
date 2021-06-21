@@ -93,7 +93,7 @@ class MajorVersionFixtures extends Fixture
     protected function getData(): array
     {
         $faker = \Faker\Factory::create();
-        $dateTimeImmutable = new \DateTimeImmutable();
+        $today = new \DateTimeImmutable();
 
         return [
             self::MAJOR_VERSION_SPRINT => [
@@ -101,7 +101,7 @@ class MajorVersionFixtures extends Fixture
                 'title' => 'TYPO3 10',
                 'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeImmutable,
+                'releaseDate' => $today,
                 'maintainedUntil' => null,
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
@@ -113,8 +113,8 @@ class MajorVersionFixtures extends Fixture
                 'title' => 'TYPO3 9',
                 'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeImmutable,
-                'maintainedUntil' => $dateTimeImmutable->modify('+3 years')->modify('-1 day'),
+                'releaseDate' => $today,
+                'maintainedUntil' => $today->modify('+3 years')->modify('-1 day'),
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
@@ -125,8 +125,8 @@ class MajorVersionFixtures extends Fixture
                 'title' => 'TYPO3 7',
                 'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeImmutable->modify('-3 years'),
-                'maintainedUntil' => $dateTimeImmutable->modify('-1 day'),
+                'releaseDate' => $today->modify('-3 years'),
+                'maintainedUntil' => $today->modify('-1 day'),
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
@@ -137,9 +137,9 @@ class MajorVersionFixtures extends Fixture
                 'title' => 'TYPO3 6.2',
                 'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeImmutable->modify('-3 years'),
-                'maintainedUntil' => $dateTimeImmutable->modify('-1 day'),
-                'eltsUntil' => $dateTimeImmutable->modify('-1 day')->modify('+4 years'),
+                'releaseDate' => $today->modify('-3 years'),
+                'maintainedUntil' => $today->modify('-1 day'),
+                'eltsUntil' => $today->modify('-1 day')->modify('+4 years'),
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
                 'lts' => 6.2
@@ -149,8 +149,8 @@ class MajorVersionFixtures extends Fixture
                 'title' => 'TYPO3 4.5',
                 'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
                 'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeImmutable->modify('-6 years'),
-                'maintainedUntil' => $dateTimeImmutable->modify('-3 years')->modify('-1 day'),
+                'releaseDate' => $today->modify('-6 years'),
+                'maintainedUntil' => $today->modify('-3 years')->modify('-1 day'),
                 'eltsUntil' => null,
                 'requirements' => new ArrayCollection(),
                 'releases' => new ArrayCollection(),
