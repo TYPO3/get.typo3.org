@@ -46,8 +46,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DefaultController extends AbstractController
 {
-    protected string $releaseNotesDir  = __DIR__ . '/../../Data/ReleaseNotes/';
-    protected string $releasesJsonFile = __DIR__ . '/../../Data/releases.json';
     private LegacyDataService $legacyDataService;
     private ComposerPackagesService $composerPackagesService;
 
