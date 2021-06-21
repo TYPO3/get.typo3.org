@@ -41,12 +41,12 @@ class SortByVersion extends AbstractExtension
     }
 
     /**
-     * @param Collection<int, Release> $collection
+     * @param Release[]|Collection<int, Release> $releases
      * @return mixed[]
      */
-    public function sort(Collection $collection): array
+    public function sort(Collection $releases): array
     {
-        $array = $collection->toArray();
+        $array = $releases->toArray();
         usort($array, fn ($a, $b) => version_compare($b->getVersion(), $a->getVersion()));
 
         return $array;
