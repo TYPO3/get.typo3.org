@@ -181,7 +181,6 @@ class MajorVersionRepository extends ServiceEntityRepository
             )
         );
         $qb->setParameter('minversion', 8);
-        //$qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
