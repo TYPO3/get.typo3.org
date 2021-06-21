@@ -53,7 +53,7 @@ class MajorVersionFixtures extends Fixture
      */
     public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
 
-    public function load(ObjectManager $objectManager)
+    public function load(ObjectManager $manager)
     {
         $versions = $this->getData();
         foreach ($versions as $key => $version) {
@@ -69,11 +69,11 @@ class MajorVersionFixtures extends Fixture
                 $version['releases'],
                 $version['lts']
             );
-            $objectManager->persist($majorVersion);
+            $manager->persist($majorVersion);
             $this->addReference($key, $majorVersion);
         }
 
-        $objectManager->flush();
+        $manager->flush();
     }
 
     public static function getVersions(): array
@@ -92,15 +92,15 @@ class MajorVersionFixtures extends Fixture
      */
     protected function getData(): array
     {
-        $generator = \Faker\Factory::create();
+        $faker = \Faker\Factory::create();
         $dateTimeImmutable = new \DateTimeImmutable();
 
         return [
             self::MAJOR_VERSION_SPRINT => [
                 'version' => 10,
                 'title' => 'TYPO3 10',
-                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
-                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeImmutable,
                 'maintainedUntil' => null,
                 'eltsUntil' => null,
@@ -111,8 +111,8 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_LTS => [
                 'version' => 9.5,
                 'title' => 'TYPO3 9',
-                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
-                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeImmutable,
                 'maintainedUntil' => $dateTimeImmutable->modify('+3 years')->modify('-1 day'),
                 'eltsUntil' => null,
@@ -123,8 +123,8 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_ELTS => [
                 'version' => 7.6,
                 'title' => 'TYPO3 7',
-                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
-                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeImmutable->modify('-3 years'),
                 'maintainedUntil' => $dateTimeImmutable->modify('-1 day'),
                 'eltsUntil' => null,
@@ -135,8 +135,8 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_ELTS_EXT => [
                 'version' => 6.2,
                 'title' => 'TYPO3 6.2',
-                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
-                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeImmutable->modify('-3 years'),
                 'maintainedUntil' => $dateTimeImmutable->modify('-1 day'),
                 'eltsUntil' => $dateTimeImmutable->modify('-1 day')->modify('+4 years'),
@@ -147,8 +147,8 @@ class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_OUTDATED => [
                 'version' => 4.5,
                 'title' => 'TYPO3 4.5',
-                'subtitle' => $generator->sentence(6) . '[SUBTITLE]',
-                'description' => $generator->paragraph(3) . '[DESCRIPTION]',
+                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
+                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
                 'releaseDate' => $dateTimeImmutable->modify('-6 years'),
                 'maintainedUntil' => $dateTimeImmutable->modify('-3 years')->modify('-1 day'),
                 'eltsUntil' => null,
