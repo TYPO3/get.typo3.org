@@ -149,13 +149,16 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-     * @param \App\Entity\Release[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Release> $releases
+     * @param Release[]|Collection<int, Release> $releases
      */
     public function setReleases(Collection $releases): void
     {
         $this->releases = $releases;
     }
 
+    /**
+     * @return Release[]|Collection<int, Release>
+     */
     public function getReleases(): Collection
     {
         return $this->releases;
