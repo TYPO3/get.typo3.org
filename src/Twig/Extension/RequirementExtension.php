@@ -59,22 +59,22 @@ class RequirementExtension extends AbstractExtension
     public function formatVersions($data): array
     {
         if ($data instanceof Collection) {
-            $requirements = $data->toArray();
+            $elements = $data->toArray();
         } elseif (\is_array($data)) {
-            $requirements = $data;
+            $elements = $data;
         } else {
             throw new \Exception('Unsupported type for data: ' . gettype($data));
         }
 
-        if (reset($requirements) instanceof Requirement) {
-            $this->normalizeVersionHelper($requirements);
+        if (reset($elements) instanceof Requirement) {
+            $this->normalizeVersionHelper($elements);
         } else {
-            foreach ($requirements as &$requirement) {
-                $this->normalizeVersionHelper($requirement);
+            foreach ($elements as &$group) {
+                $this->normalizeVersionHelper($group);
             }
         }
 
-        return $requirements;
+        return $elements;
     }
 
     /**
@@ -120,22 +120,22 @@ class RequirementExtension extends AbstractExtension
     public function sortByTitle($data): array
     {
         if ($data instanceof Collection) {
-            $requirements = $data->toArray();
+            $elements = $data->toArray();
         } elseif (\is_array($data)) {
-            $requirements = $data;
+            $elements = $data;
         } else {
             throw new \Exception('Unsupported type for data: ' . gettype($data));
         }
 
-        if (reset($requirements) instanceof Requirement) {
-            $this->sortByTitleHelper($requirements);
+        if (reset($elements) instanceof Requirement) {
+            $this->sortByTitleHelper($elements);
         } else {
-            foreach ($requirements as &$requirement) {
-                $this->sortByTitleHelper($requirement);
+            foreach ($elements as &$group) {
+                $this->sortByTitleHelper($group);
             }
         }
 
-        return $requirements;
+        return $elements;
     }
 
     /**
