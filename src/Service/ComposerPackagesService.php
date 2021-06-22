@@ -45,7 +45,7 @@ class ComposerPackagesService
     public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
 
     /**
-     * @var array
+     * @var array<string, string|array<int>>
      */
     private const PACKAGES = [
         [
@@ -521,7 +521,7 @@ class ComposerPackagesService
     ];
 
     /**
-     * @var array
+     * @var array<string, array<string>>
      */
     private const BUNDLES = [
         'typo3/full'      => [
@@ -623,7 +623,7 @@ class ComposerPackagesService
     ];
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const SPECIAL_VERSIONS = [
         [
@@ -647,10 +647,20 @@ class ComposerPackagesService
         /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
 
+        $majorVersion = $majorVersions->findLatestLtsComposerSupported();
+        if ($majorVersion === null) {
+            throw new \RuntimeException('No LTS release with Composer support found.', 1624353394);
+        }
+
+        $release = $majorVersion->getLatestRelease();
+        if ($release === null) {
+            throw new \RuntimeException('No release found.', 1624353494);
+        }
+
         $versionChoices = [
             'choices'  => [],
             'data'     => $this->getComposerVersionConstraint(
-                $majorVersions->findLatestLtsComposerSupported()->getLatestRelease()->getVersion()
+                $release->getVersion()
             ),
             'required' => true,
         ];
@@ -668,7 +678,7 @@ class ComposerPackagesService
         }
 
         foreach ($versions as $version) {
-            if ($version->getLatestRelease() instanceof Release && \preg_match('#^(\d+)\.(\d+)\.(\d+)#', $version->getLatestRelease()->getVersion(), $matches)) {
+            if ($version->getLatestRelease() instanceof Release && \preg_match('#^(\d+)\.(\d+)\.(\d+)#', $version->getLatestRelease()->getVersion(), $matches) > 0) {
                 $nextMinor = $matches[1] . '.' . (((int)$matches[2]) + 1);
                 $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
@@ -725,18 +735,28 @@ class ComposerPackagesService
     }
 
     /**
+     * @param array<int|string, mixed> $packages
      * @return mixed[]
      */
     public function cleanPackagesForVersions(array $packages): array
     {
-        if (\preg_match('#^\^(\d+)#', $packages['typo3_version'], $matches)) {
+        if (\preg_match('#^\^(\d+)#', $packages['typo3_version'], $matches) > 0) {
             $version = (int)$matches[1];
         } else {
             /** @var MajorVersionRepository $majorVersions */
             $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-            $latestVersion = $majorVersions
-                ->findAllComposerSupported()[0]->getLatestRelease()->getVersion();
-            \preg_match('#^\d+#', $latestVersion, $matches);
+
+            $composerVersions = $majorVersions->findAllComposerSupported();
+            if (\count($composerVersions) === 0) {
+                throw new \RuntimeException('No release found.', 1624353639);
+            }
+
+            $release = $composerVersions[0]->getLatestRelease();
+            if ($release === null) {
+                throw new \RuntimeException('No release found.', 1624353801);
+            }
+
+            \preg_match('#^\d+#', $release->getVersion(), $matches);
             $version = (int)$matches[0];
         }
 
@@ -753,7 +773,7 @@ class ComposerPackagesService
     {
         if ($development) {
             $result = '^' . $version . '@dev';
-        } elseif (\preg_match('#^\d+\.\d+#', $version, $matches)) {
+        } elseif (\preg_match('#^\d+\.\d+#', $version, $matches) > 0) {
             $result = '^' . $matches[0];
         } else {
             $result = '';

@@ -26,6 +26,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<Requirement>
  * @method Requirement|null find($id, $lockMode = null, $lockVersion = null)
  * @method Requirement|null findOneBy(array $criteria, array $orderBy = null)
  * @method Requirement[]    findAll()

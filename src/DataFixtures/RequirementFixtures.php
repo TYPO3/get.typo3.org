@@ -21,6 +21,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\MajorVersion;
 use App\Entity\Requirement;
 use App\Enum\RequirementCategoryEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -29,19 +30,22 @@ use Doctrine\Persistence\ObjectManager;
 
 class RequirementFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         foreach (MajorVersionFixtures::getVersions() as $majorVersionIdentifier) {
+            /** @var MajorVersion $majorVersion */
             $majorVersion = $this->getReference($majorVersionIdentifier);
             $requirements = $this->getData();
 
             foreach ($requirements as $data) {
-                $requirement = new Requirement();
-                $requirement->setVersion($majorVersion);
-                $requirement->setCategory($data['category']);
-                $requirement->setName($data['name']);
-                $requirement->setMin($data['min']);
-                $requirement->setMax($data['max']);
+                $requirement = new Requirement(
+                    $majorVersion,
+                    $data->category,
+                    $data->name,
+                    $data->min,
+                    $data->max
+                );
+
                 $manager->persist($requirement);
             }
         }
@@ -60,59 +64,77 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * @return array<int, array<string, float|int|string|null>>
+     * @return RequirementFixturesData[]
      */
-    protected function getData(): array
+    protected function getData(): iterable
     {
-        return [
-            [
-                'category' => RequirementCategoryEnum::OPTION_PHP,
-                'name' => 'php',
-                'min' => 7.2,
-                'max' => 7.4,
-            ],
-            [
-                'category' => RequirementCategoryEnum::OPTION_DATABASE,
-                'name' => 'mysql',
-                'min' => 5.5,
-                'max' => 5.7,
-            ],
-            [
-                'category' => RequirementCategoryEnum::OPTION_DATABASE,
-                'name' => 'sqlite',
-                'min' => null,
-                'max' => null,
-            ],
-            [
-                'category' => RequirementCategoryEnum::OPTION_DATABASE,
-                'name' => 'postgres',
-                'min' => null,
-                'max' => null,
-            ],
-            [
-                'category' => RequirementCategoryEnum::OPTION_DATABASE,
-                'name' => 'sqlsrv',
-                'min' => null,
-                'max' => null,
-            ],
-            [
-                'category' => RequirementCategoryEnum::OPTION_DATABASE,
-                'name' => 'mariadb',
-                'min' => '10',
-                'max' => '10.2.26',
-            ],
-            [
-                'category' => RequirementCategoryEnum::OPTION_HARDWARE,
-                'name' => 'ram',
-                'min' => 256,
-                'max' => null,
-            ],
-            [
-                'category' => RequirementCategoryEnum::OPTION_CLIENT,
-                'name' => 'chrome',
-                'min' => null,
-                'max' => null,
-            ]
-        ];
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_PHP,
+            'php',
+            '7.2',
+            '7.4'
+        );
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_DATABASE,
+            'mysql',
+            '5.5',
+            '5.7'
+        );
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_DATABASE,
+            'sqlite',
+            null,
+            null
+        );
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_DATABASE,
+            'postgres',
+            null,
+            null
+        );
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_DATABASE,
+            'sqlsrv',
+            null,
+            null
+        );
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_DATABASE,
+            'mariadb',
+            '10',
+            '10.2.26'
+        );
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_HARDWARE,
+            'ram',
+            '256',
+            null
+        );
+        yield new RequirementFixturesData(
+            RequirementCategoryEnum::OPTION_CLIENT,
+            'chrome',
+            null,
+            null
+        );
+    }
+}
+
+class RequirementFixturesData
+{
+    public string $category;
+    public string $name;
+    public ?string $min;
+    public ?string $max;
+
+    public function __construct(
+        string $category,
+        string $name,
+        ?string $min,
+        ?string $max
+    ) {
+        $this->category = $category;
+        $this->name = $name;
+        $this->min = $min;
+        $this->max = $max;
     }
 }

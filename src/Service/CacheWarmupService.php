@@ -78,6 +78,7 @@ class CacheWarmupService implements CacheWarmerInterface
             'app_api_majorversion_getmajorreleases',
             'app_api_release_getrelease',
         ];
+        $promise = null;
         foreach ($routesWithoutArguments as $route) {
             $promise = $this->makeRequest($this->router->generate($route));
         }
@@ -140,7 +141,7 @@ class CacheWarmupService implements CacheWarmerInterface
 
     /**
      * @param string[] $routes
-     * @param MajorVersion[] $versions
+     * @param MajorVersion[]|Release[] $versions
      */
     private function warmUpLoopWithVersions(array $routes, array $versions): void
     {

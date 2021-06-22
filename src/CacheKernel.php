@@ -36,7 +36,7 @@ class CacheKernel extends HttpCache
         if ($request->getMethod() === 'DELETE' && strpos($request->attributes->get('_route'), 'cache') !== false) {
             $content = $response->getContent();
             if (\is_string($content)) {
-                $data = json_decode($response->getContent(), true);
+                $data = json_decode($content, true);
                 if (isset($data['locations'])) {
                     foreach ($data['locations'] as $location) {
                         $this->getStore()->purge($location);

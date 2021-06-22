@@ -70,6 +70,20 @@ class Requirement implements \JsonSerializable
      */
     private ?string $max = null;
 
+    public function __construct(
+        MajorVersion $version,
+        string $category,
+        string $name,
+        ?string $min = null,
+        ?string $max = null
+    ) {
+        $this->setVersion($version);
+        $this->setCategory($category);
+        $this->setName($name);
+        $this->setMin($min);
+        $this->setMax($max);
+    }
+
     public function setVersion(MajorVersion $majorVersion): void
     {
         $this->version = $majorVersion;
@@ -82,7 +96,7 @@ class Requirement implements \JsonSerializable
 
     public function setCategory(string $category): void
     {
-        if (!in_array($category, RequirementCategoryEnum::getAvailableOptions())) {
+        if (!in_array($category, RequirementCategoryEnum::getAvailableOptions(), true)) {
             throw new \InvalidArgumentException('Invalid category');
         }
         $this->category = $category;
@@ -152,6 +166,9 @@ class Requirement implements \JsonSerializable
         return $this->max;
     }
 
+    /**
+    * @return array<string, mixed>
+    */
     public function jsonSerialize(): array
     {
         return [];

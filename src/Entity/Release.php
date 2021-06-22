@@ -68,7 +68,7 @@ class Release implements \JsonSerializable
      * @Assert\Type("boolean")
      * @SWG\Property(example="true")
      */
-    private bool $isElts = false;
+    private bool $elts = false;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddables\Package")
@@ -104,7 +104,7 @@ class Release implements \JsonSerializable
 
     public function __construct()
     {
-        $this->isElts = false;
+        $this->elts = false;
     }
 
     public function setVersion(string $version): void
@@ -169,7 +169,7 @@ class Release implements \JsonSerializable
 
     public function setType(string $type): void
     {
-        if (!in_array($type, ReleaseTypeEnum::getAvailableOptions())) {
+        if (!in_array($type, ReleaseTypeEnum::getAvailableOptions(), true)) {
             throw new \InvalidArgumentException('Invalid type');
         }
         $this->type = $type;
@@ -182,12 +182,12 @@ class Release implements \JsonSerializable
 
     public function setElts(bool $elts): void
     {
-        $this->isElts = $elts;
+        $this->elts = $elts;
     }
 
     public function isElts(): bool
     {
-        return $this->isElts;
+        return $this->elts;
     }
 
     /**

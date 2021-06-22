@@ -163,6 +163,9 @@ class ReleasesController extends AbstractController
         $release = $releases->findLatestSecurityReleaseByMajorVersion($version);
         if (!$release instanceof Release) {
             $json = json_encode([]);
+            if ($json === false) {
+                $json = '{}';
+            }
         } else {
             $json = $this->serializer->serialize(
                 $release,

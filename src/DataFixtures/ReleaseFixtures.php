@@ -32,13 +32,13 @@ use Doctrine\Persistence\ObjectManager;
 
 class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_SPRINT), 6);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_LTS), 12);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS), 24);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_ELTS_EXT), 24);
-        $this->generateReleasesForMajorVersion($manager, $this->getReference(MajorVersionFixtures::MAJOR_VERSION_OUTDATED), 24);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_SPRINT, 6);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS, 12);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS, 24);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS_EXT, 24);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_OUTDATED, 24);
         $manager->flush();
     }
 
@@ -52,8 +52,11 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    protected function generateReleasesForMajorVersion(ObjectManager $manager, MajorVersion $majorVersion, int $amount = 12)
+    protected function generateReleasesForMajorVersion(ObjectManager $manager, string $versionReference, int $amount = 12): void
     {
+        /** @var MajorVersion $majorVersion */
+        $majorVersion = $this->getReference($versionReference);
+
         $faker = \Faker\Factory::create();
         $majorVersionNumber =  $majorVersion->getVersion();
         $ltsVersionNumber = $majorVersion->getLts() ?? $majorVersionNumber;
@@ -76,6 +79,10 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
                 \DateTimeInterface::ATOM,
                 $majorVersion->getReleaseDate()->modify('+' . ($i * 3) . ' months')->format(\DateTimeInterface::ATOM)
             );
+
+            if ($date === false) {
+                throw new \RuntimeException('Can not calculate date.', 1624354915);
+            }
 
             $release = new Release();
             $release->setVersion($version);
@@ -103,7 +110,7 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             $releaseNotes->setChanges(' * ' . implode("\n * ", $changelog));
             $release->setReleaseNotes($releaseNotes);
 
-            if ($majorVersion->getMaintainedUntil() && $date > $majorVersion->getMaintainedUntil()) {
+            if ($majorVersion->getMaintainedUntil() !== null && $date > $majorVersion->getMaintainedUntil()) {
                 $release->setElts(true);
             }
             $manager->persist($release);

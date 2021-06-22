@@ -178,6 +178,9 @@ class CacheController extends AbstractController
         }
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     private function generateAbsoluteUrl(string $route, array $parameters = []): string
     {
         return $this->generateUrl(

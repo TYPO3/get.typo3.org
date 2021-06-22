@@ -112,6 +112,10 @@ class MajorVersion implements \JsonSerializable
      */
     private ?float $lts = null;
 
+    /**
+     * @param Collection<int, Requirement> $requirements
+     * @param Collection<int, Release> $releases
+     */
     public function __construct(
         float $version,
         string $title,
@@ -124,8 +128,6 @@ class MajorVersion implements \JsonSerializable
         Collection $releases,
         ?float $lts
     ) {
-        $this->requirements = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->releases = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setVersion($version);
         $this->setTitle($title);
         $this->setSubtitle($subtitle);
@@ -247,6 +249,9 @@ class MajorVersion implements \JsonSerializable
         $this->requirements->add($requirement);
     }
 
+    /**
+     * @return Collection<int, Requirement>
+     */
     public function getRequirements(): Collection
     {
         return $this->requirements;

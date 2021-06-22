@@ -163,7 +163,7 @@ class MajorVersionController extends AbstractController
     public function createMajorRelease(Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
+        if ($content !== '') {
             $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
             $version = $majorVersion->getVersion();
             /** @var MajorVersionRepository $majorVersions */
@@ -172,7 +172,7 @@ class MajorVersionController extends AbstractController
             if ($preexisting instanceof MajorVersion) {
                 throw new ConflictHttpException('Version already exists');
             }
-            $this->checkMajorVersionFormat($version);
+            $this->checkMajorVersionFormat((string)$version);
             $this->validateObject($validator, $majorVersion);
             $em = $this->getDoctrine()->getManager();
             $em->persist($majorVersion);
@@ -223,7 +223,7 @@ class MajorVersionController extends AbstractController
     public function updateMajorRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
+        if ($content !== '') {
             $entity = $this->findMajorVersion($version);
             $data = json_decode($content, true);
             $this->mapObjects($entity, $data);

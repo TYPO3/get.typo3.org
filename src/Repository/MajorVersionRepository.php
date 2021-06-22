@@ -30,6 +30,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<MajorVersion>
  * @method MajorVersion|null find($id, $lockMode = null, $lockVersion = null)
  * @method MajorVersion|null findOneBy(array $criteria, array $orderBy = null)
  * @method MajorVersion[]    findAll()

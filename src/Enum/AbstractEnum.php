@@ -28,9 +28,12 @@ namespace App\Enum;
  */
 abstract class AbstractEnum
 {
+    /**
+     * @var array<mixed, mixed>
+     */
     protected static array $optionNames = [];
 
-    public static function getName($option): string
+    public static function getName(mixed $option): string
     {
         return static::$optionNames[$option] ?? ('Unknown option (' . $option . ')');
     }
@@ -38,12 +41,12 @@ abstract class AbstractEnum
     /**
      * @return mixed[]
      */
-    public static function getAvailableOptions($withDescription = false): array
+    public static function getAvailableOptions(bool $withDescription = false): array
     {
         return $withDescription ? static::$optionNames : array_keys(static::$optionNames);
     }
 
-    public static function isOption(string $option): bool
+    public static function isOption(mixed $option): bool
     {
         return isset(static::$optionNames[$option]);
     }

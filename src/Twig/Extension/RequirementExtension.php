@@ -150,7 +150,8 @@ class RequirementExtension extends AbstractExtension
                     [
                         RequirementCategoryEnum::OPTION_PHP,
                         RequirementCategoryEnum::OPTION_DATABASE,
-                    ]
+                    ],
+                    true
                 )
             ) {
                 // Calculate the digits and force range from 2 to 3

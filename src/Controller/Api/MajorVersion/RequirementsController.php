@@ -131,7 +131,7 @@ class RequirementsController extends AbstractController
     public function addRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
+        if ($content !== '') {
             $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $this->findMajorVersion($version);
@@ -197,7 +197,7 @@ class RequirementsController extends AbstractController
     public function updateRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
+        if ($content !== '') {
             $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $requirementRepo->findOneBy(

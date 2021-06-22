@@ -45,6 +45,10 @@ jobs:
       if: always()
       run: |
         composer test:php:lint
+    - name: PHPStan
+      if: always()
+      run: |
+        composer phpstan
     - name: CGL
       if: always()
       run: |

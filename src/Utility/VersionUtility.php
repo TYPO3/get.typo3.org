@@ -60,18 +60,22 @@ class VersionUtility
     }
 
     /**
-     * @param string|float|int $version
+     * @param string|float|int|null $version
      */
-    public static function normalize($version, int $digits = 3): string
+    public static function normalize($version, int $digits = 3): ?string
     {
+        if ($version === null) {
+            return $version;
+        }
+
         $version = trim((string)$version);
 
         // match classical versioning
-        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::MODIFIER_REGEX . '$}i', $version, $matches)) {
+        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::MODIFIER_REGEX . '$}i', $version, $matches) > 0) {
             $version = $matches[1];
 
             for ($i = 2; $i <= $digits; ++$i) {
-                $version .= (empty($matches[$i]) ? '.0' : $matches[$i]);
+                $version .= (isset($matches[$i]) && $matches[$i] !== '' ? $matches[$i] : '.0');
             }
         }
 

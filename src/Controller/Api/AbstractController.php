@@ -28,7 +28,7 @@ use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
 use App\Utility\VersionUtility;
-use Doctrine\Common\Util\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -58,26 +58,28 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
     protected function validateObject(ValidatorInterface $validator, object $object): void
     {
-        /** @var \Traversable|\Countable $violations */
         $violations = $validator->validate($object);
 
-        if (\count($violations) > 0) {
-            $errorsString = \implode(',', \iterator_to_array($violations, false));
-            throw new BadRequestHttpException($errorsString);
+        if ($violations->count() > 0) {
+            throw new BadRequestHttpException(\implode("\n", \iterator_to_array($violations, false)));
         }
     }
 
-    protected function mapObjects($baseObject, array $data): void
+    /**
+     * @param array<string, string> $data
+     */
+    protected function mapObjects(object $baseObject, array $data): void
     {
+        $inflector = InflectorFactory::create()->build();
         /** @var ClassMetadataInfo $metadata */
         $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
         foreach ($metadata->getFieldNames() as $field) {
-            $fieldName = Inflector::tableize($field);
-            if (is_array($data)) {
-                $data = $this->flat($data);
-            }
+            $fieldName = $inflector->tableize($field);
+            $data = $this->flat($data);
+
             if (array_key_exists($fieldName, $data)) {
                 if (isset($metadata->fieldMappings[$field]['type'])) {
+                    // @todo Switch this to match() in PHP 8.0.
                     if ($metadata->fieldMappings[$field]['type'] == 'datetime') {
                         $data[$fieldName] = new \DateTime($data[$fieldName]);
                     } elseif ($metadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
@@ -90,7 +92,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         }
     }
 
-    protected function checkMajorVersionFormat($version): void
+    protected function checkMajorVersionFormat(string $version): void
     {
         if (!is_numeric($version)) {
             throw new BadRequestHttpException('Version is not numeric.');
@@ -99,7 +101,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
     protected function checkVersionFormat(?string $version): void
     {
-        if (!VersionUtility::isValidSemverVersion($version)) {
+        if ($version === null || !VersionUtility::isValidSemverVersion($version)) {
             throw new BadRequestHttpException('Version malformed.');
         }
     }
@@ -128,6 +130,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     }
 
     /**
+     * @param array<int, string> $array
      * @return mixed[]
      */
     protected function flat(array $array, string $prefix = ''): array

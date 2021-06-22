@@ -249,8 +249,26 @@
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
     },
+    "phpstan/extension-installer": {
+        "version": "1.1.0"
+    },
     "phpstan/phpstan": {
         "version": "0.12.7"
+    },
+    "phpstan/phpstan-deprecation-rules": {
+        "version": "0.12.6"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.12.39"
+    },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.12.20"
+    },
+    "phpstan/phpstan-strict-rules": {
+        "version": "0.12.9"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.37"
     },
     "phpunit/phpunit-mock-objects": {
         "version": "6.0.1"

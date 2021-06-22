@@ -31,6 +31,10 @@ use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
  */
 class MenuBuilder extends TemplateMenuBuider
 {
+    /**
+     * @param array<mixed, mixed> $options
+     * @return \Knp\Menu\ItemInterface<\Knp\Menu\MenuItem>
+     */
     public function mainDefault(array $options): ItemInterface
     {
         $menu = parent::mainDefault($options);
@@ -79,6 +83,10 @@ class MenuBuilder extends TemplateMenuBuider
         return $menu;
     }
 
+    /**
+     * @param array<mixed, mixed> $options
+     * @return \Knp\Menu\ItemInterface<\Knp\Menu\MenuItem>
+     */
     public function mainProfile(array $options): ItemInterface
     {
         $menu = parent::mainProfile($options);

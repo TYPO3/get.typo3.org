@@ -45,7 +45,8 @@ class LegacyDataService
         return (string)$cache->get('releases.json', function (ItemInterface $item): string {
             /** @var MajorVersionRepository $majorVersions */
             $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-            $content = json_encode($majorVersions->findAllPreparedForJson()) ?: '';
+            $content = json_encode($majorVersions->findAllPreparedForJson());
+            $content = $content !== false ? $content : '';
             // remove version suffix only used for version sorting
             return str_replace('.0000', '', $content);
         });

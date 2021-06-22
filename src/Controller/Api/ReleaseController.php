@@ -141,7 +141,7 @@ class ReleaseController extends AbstractController
     public function addRelease(Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
+        if ($content !== '') {
             $release = $this->serializer->deserialize($content, Release::class, 'json');
             $version = $release->getVersion();
             $this->checkVersionFormat($version);
@@ -295,7 +295,7 @@ class ReleaseController extends AbstractController
     {
         $this->checkVersionFormat($version);
         $content = $request->getContent();
-        if (!empty($content)) {
+        if ($content !== '') {
             /** @var ReleaseRepository $releases */
             $releases = $this->getDoctrine()->getRepository(Release::class);
             $release = $releases->findVersion($version);
@@ -362,7 +362,7 @@ class ReleaseController extends AbstractController
     {
         /** @var ReleaseRepository $releases */
         $releases = $this->getDoctrine()->getRepository(Release::class);
-        if ($releases->findVersion($version)) {
+        if ($releases->findVersion($version) !== null) {
             throw new ConflictHttpException('Version already exists');
         }
     }

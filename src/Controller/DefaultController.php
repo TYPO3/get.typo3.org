@@ -36,6 +36,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -60,7 +61,7 @@ class DefaultController extends AbstractController
      */
     public function composerRoot(): RedirectResponse
     {
-        return $this->redirect('https://get.' . $this->getParameter('app.domain') . '/misc/composer/repository');
+        return $this->redirect(sprintf('https://get.%s/misc/composer/repository', is_string($this->getParameter('app.domain')) ? $this->getParameter('app.domain') : ''));
     }
 
     /**
@@ -120,6 +121,11 @@ class DefaultController extends AbstractController
 
         if ($version === '') {
             $majorVersion = $majorVersions->findLatest();
+
+            if ($majorVersion === null) {
+                throw new NotFoundHttpException('No release found.');
+            }
+
             return $this->redirectToRoute('release-notes-for-version', ['version' => $majorVersion->getVersion()]);
         }
 
@@ -166,6 +172,11 @@ class DefaultController extends AbstractController
 
         if ($version === '') {
             $majorVersion = $majorVersions->findLatest();
+
+            if ($majorVersion === null) {
+                throw new NotFoundHttpException('No release found.');
+            }
+
             return $this->redirectToRoute('version', ['version' => $majorVersion->getVersion()]);
         }
 
@@ -204,12 +215,13 @@ class DefaultController extends AbstractController
         $templateName = 'default/list.html.twig';
         /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $data = [];
         $data['activeVersions'] = $majorVersions->findAllActive();
         $data['currentVersion'] = $majorVersions->findVersion($version);
         if ($data['currentVersion'] instanceof MajorVersion) {
             $data['currentVersion'] = $data['currentVersion']->toArray();
         }
-        if (!$data['currentVersion']) {
+        if (!is_array($data['currentVersion'])) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
         $response = $this->render($templateName, $data);
@@ -293,8 +305,17 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
+
             $keys = preg_replace('#^(typo3)-#', '$1/', \array_keys($formData));
+            if (!is_array($keys)) {
+                throw new BadRequestHttpException('Missing or invalid request body.');
+            }
+
             $formData = array_combine($keys, $formData);
+            if (!is_array($formData)) {
+                throw new BadRequestHttpException('Missing or invalid request body.');
+            }
+
             $formData = $this->composerPackagesService->cleanPackagesForVersions($formData);
         }
 
@@ -315,13 +336,16 @@ class DefaultController extends AbstractController
     {
         $statusCode = Response::HTTP_PAYMENT_REQUIRED;
         $statusMessage = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
-        $acceptHeader = $request->headers->get('Accept');
+        $acceptHeader = $request->headers->get('Accept') ?? '';
         $response = new Response();
-        if (strpos($acceptHeader, 'application/json') !== false) {
-            $response->setContent(json_encode([
-                'status' => $statusCode,
-                'message' => $statusMessage
-            ]));
+
+        $json = json_encode([
+            'status' => $statusCode,
+            'message' => $statusMessage
+        ]);
+
+        if (strpos($acceptHeader, 'application/json') !== false && $json !== false) {
+            $response->setContent($json);
             $response->headers->set('Content-Type', 'application/json');
         } elseif (strpos($acceptHeader, 'text/html') !== false) {
             $response = $this->render(
@@ -343,6 +367,9 @@ class DefaultController extends AbstractController
         return preg_replace($url, '<a href="$0" target="_blank" rel="noreferrer">$0</a>', $text);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getSourceForgeRedirect(string $versionName, string $format): ?array
     {
         $packageFiles = [
@@ -397,28 +424,27 @@ class DefaultController extends AbstractController
         }
         $versionParts = explode('.', $versionName);
 
-        $isValidVersion = !empty($versionParts)
-                          && ((int)$versionParts[0] >= 7 || count($versionParts) > 1);
+        $isValidVersion = ((int)$versionParts[0] >= 7 || count($versionParts) > 1);
 
         // Make sure we can retrieve a product release
-        if ($isValidVersion && in_array($format, ['tar.gz', 'zip', 'tar.gz.sig', 'zip.sig'])) {
+        if ($isValidVersion && in_array($format, ['tar.gz', 'zip', 'tar.gz.sig', 'zip.sig'], true)) {
             $branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
-            if (!isset($releases->$branchName)) {
+            if (!isset($releases[$branchName])) {
                 return null;
             }
-            $branch = $releases->$branchName;
+            $branch = $releases[$branchName];
 
             // $versionParts[2] can be the number '0' as a valid content. e.g. 6.0.0.
             if (!isset($versionParts[2])) {
                 $versionName = $branch->latest;
             }
 
-            $version = $branch->releases->$versionName->version;
+            $version = $branch->releases[$versionName]->version;
 
             if ($version !== null) {
                 // TYPO3 6.2 does not have some packages anymore
                 $legacyPackages = ['introductionpackage', 'governmentpackage', 'blankpackage', 'dummy'];
-                if (version_compare($version, '6.2.0', '>=') && in_array($package, $legacyPackages)) {
+                if (version_compare($version, '6.2.0', '>=') && in_array($package, $legacyPackages, true)) {
                     $flippedPackageFiles = array_flip($packageFiles);
                     $fallbackPackage = $flippedPackageFiles[$package] . '-6.1.7';
                     return $this->getSourceForgeRedirect($fallbackPackage, $format);
