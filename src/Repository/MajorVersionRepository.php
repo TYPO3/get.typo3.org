@@ -174,7 +174,6 @@ class MajorVersionRepository extends ServiceEntityRepository
     public function findLatestLtsComposerSupported(): ?MajorVersion
     {
         $qb = $this->createQueryBuilder('m');
-        $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
         $qb->where(
             $qb->expr()->andX(
                 $qb->expr()->isNotNull('m.lts'),
@@ -182,6 +181,7 @@ class MajorVersionRepository extends ServiceEntityRepository
             )
         );
         $qb->setParameter('minversion', 8);
+        $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
