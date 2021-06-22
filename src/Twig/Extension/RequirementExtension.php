@@ -33,7 +33,7 @@ use Twig\TwigFilter;
 class RequirementExtension extends AbstractExtension
 {
     /**
-     * @return \Twig\TwigFilter[]
+     * @return TwigFilter[]
      */
     public function getFilters()
     {
@@ -53,8 +53,8 @@ class RequirementExtension extends AbstractExtension
     }
 
     /**
-     * @param Collection<int, Requirement>|array<Requirement> $data
-     * @return Requirement[]
+     * @param Collection<int, Requirement>|array<Requirement>|array<string, array<Requirement>> $data
+     * @return mixed[]
      */
     public function formatVersions($data): array
     {
@@ -69,8 +69,8 @@ class RequirementExtension extends AbstractExtension
         if (reset($elements) instanceof Requirement) {
             $this->normalizeVersionHelper($elements);
         } else {
-            foreach ($elements as &$group) {
-                $this->normalizeVersionHelper($group);
+            foreach ($elements as &$category) {
+                $this->normalizeVersionHelper($category);
             }
         }
 
@@ -79,7 +79,7 @@ class RequirementExtension extends AbstractExtension
 
     /**
      * @param Collection<int, Requirement>|array<Requirement> $data
-     * @return array<int|string, mixed[]>
+     * @return array<string, array<Requirement>>
      */
     public function groupByCategory($data): array
     {
@@ -102,19 +102,18 @@ class RequirementExtension extends AbstractExtension
     }
 
     /**
-     * @param Collection<int, Requirement> $collection
-     * @return mixed[]
+     * @param Collection<int, Requirement> $requirements
+     * @return array<string, array<Requirement>>
      */
-    public function prepareRequirements(Collection $collection): array
+    public function prepareRequirements(Collection $requirements): array
     {
-        $result = $this->formatVersions($collection);
+        $result = $this->formatVersions($requirements);
         $result = $this->groupByCategory($result);
-
         return $this->sortByTitle($result);
     }
 
     /**
-     * @param Collection<int, Requirement>|array<Requirement>|array<int|string, array> $data
+     * @param Collection<int, Requirement>|array<Requirement>|array<string, array<Requirement>> $data
      * @return mixed[]
      */
     public function sortByTitle($data): array
@@ -130,8 +129,8 @@ class RequirementExtension extends AbstractExtension
         if (reset($elements) instanceof Requirement) {
             $this->sortByTitleHelper($elements);
         } else {
-            foreach ($elements as &$group) {
-                $this->sortByTitleHelper($group);
+            foreach ($elements as &$category) {
+                $this->sortByTitleHelper($category);
             }
         }
 
