@@ -172,8 +172,7 @@ class CacheController extends AbstractController
     private function deleteReleases(): void
     {
         $filesystemAdapter = new FilesystemAdapter();
-        $filesystemAdapterHasItem = $filesystemAdapter->hasItem('releases.json');
-        if ($filesystemAdapterHasItem) {
+        if ($filesystemAdapter->hasItem('releases.json')) {
             $filesystemAdapter->delete('releases.json');
         }
     }
