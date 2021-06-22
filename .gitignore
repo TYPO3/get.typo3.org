@@ -7,6 +7,7 @@
 /public/p/
 /public/packages.json
 /public/satis.html
+/tools/**/vendor
 *.cache
 missing-downloads.yaml
 
@@ -19,12 +20,6 @@ missing-downloads.yaml
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-###> friendsofphp/php-cs-fixer ###
-/.php_cs
-/.php_cs.cache
-###< friendsofphp/php-cs-fixer ###
-
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache

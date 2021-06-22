@@ -27,15 +27,13 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Release>
  * @method Release|null find($id, $lockMode = null, $lockVersion = null)
  * @method Release|null findOneBy(array $criteria, array $orderBy = null)
  * @method Release[]    findAll()
  * @method Release[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method Release|null findVersion(string $version)
- * @method Release|null findLatestSecurityReleaseByMajorVersion(string $version)
+ * @extends ServiceEntityRepository<Release>
  */
-class ReleaseRepository extends ServiceEntityRepository
+final class ReleaseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

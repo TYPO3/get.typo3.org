@@ -30,13 +30,13 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<MajorVersion>
  * @method MajorVersion|null find($id, $lockMode = null, $lockVersion = null)
  * @method MajorVersion|null findOneBy(array $criteria, array $orderBy = null)
  * @method MajorVersion[]    findAll()
  * @method MajorVersion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<MajorVersion>
  */
-class MajorVersionRepository extends ServiceEntityRepository
+final class MajorVersionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

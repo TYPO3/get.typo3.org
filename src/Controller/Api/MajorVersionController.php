@@ -164,10 +164,10 @@ class MajorVersionController extends AbstractController
     {
         $content = $request->getContent();
         if ($content !== '') {
-            $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
-            $version = $majorVersion->getVersion();
             /** @var MajorVersionRepository $majorVersions */
             $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+            $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
+            $version = $majorVersion->getVersion();
             $preexisting = $majorVersions->findVersion((string)$version);
             if ($preexisting instanceof MajorVersion) {
                 throw new ConflictHttpException('Version already exists');

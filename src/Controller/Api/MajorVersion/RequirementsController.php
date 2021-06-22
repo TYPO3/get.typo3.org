@@ -72,8 +72,9 @@ class RequirementsController extends AbstractController
     public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
-        $entities = $requirementRepo->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
+        /** @var RequirementRepository $requirements */
+        $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+        $entities = $requirements->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
         if ($entities === []) {
             throw new NotFoundHttpException('Version not found.');
         }
@@ -132,11 +133,12 @@ class RequirementsController extends AbstractController
     {
         $content = $request->getContent();
         if ($content !== '') {
-            $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
+            /** @var RequirementRepository $requirements */
+            $requirements = $this->getDoctrine()->getRepository(Requirement::class);
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $this->findMajorVersion($version);
             $requirement->setVersion($entity);
-            $preexistingRequirement = $requirementRepo->findOneBy(
+            $preexistingRequirement = $requirements->findOneBy(
                 [
                     'version' => $version,
                     'name' => $requirement->getName(),
@@ -198,9 +200,10 @@ class RequirementsController extends AbstractController
     {
         $content = $request->getContent();
         if ($content !== '') {
-            $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
+            /** @var RequirementRepository $requirements */
+            $requirements = $this->getDoctrine()->getRepository(Requirement::class);
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
-            $entity = $requirementRepo->findOneBy(
+            $entity = $requirements->findOneBy(
                 [
                     'version' => $version,
                     'name' => $requirement->getName(),

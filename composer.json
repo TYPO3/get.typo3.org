@@ -68,17 +68,9 @@
         "t3g/symfony-template-bundle": "^3"
     },
     "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.4",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "fakerphp/faker": "dev-main",
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "overtrue/phplint": "^2.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^0.12.6",
-        "phpstan/phpstan-doctrine": "^0.12.39",
-        "phpstan/phpstan-phpunit": "^0.12.20",
-        "phpstan/phpstan-strict-rules": "^0.12.9",
-        "phpstan/phpstan-symfony": "^0.12.37",
-        "rector/rector": "^0.11.20",
         "roave/security-advisories": "dev-latest",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
@@ -149,28 +141,36 @@
             "phpunit -c phpunit.xml.dist --log-junit var/log/phpunit-functional.xml --testsuite \"Functional Test Suite\""
         ],
         "test:php:rector": "rector process --dry-run --no-progress-bar --no-diffs",
+        "test:php:stan": "phpstan analyze --configuration build/phpstan.neon --no-progress",
         "test": [
             "@test:php:lint",
+            "@test:php:stan",
             "@test:php:cgl",
             "@test:php:unit",
             "@test:php:functional"
         ],
         "fix:php:rector": "rector process --no-diffs",
-        "phpstan": [
-            "phpstan analyze --configuration build/phpstan.neon"
-        ],
+        "phpstan": "phpstan analyze --configuration build/phpstan.neon",
         "auto-scripts": {
             "cache:clear --no-optional-warmers": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "bin": "echo 'bin not installed.'",
+        "bin-install": "@composer bin all install --ansi",
+        "bin-update": "@composer bin all update --ansi",
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@bin-install"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@bin-update"
         ]
     },
     "extra": {
+        "bamarni-bin": {
+            "target-directory": "tools"
+        },
         "symfony": {
             "id": "01C8T4G8QYJT0T9Q9SWDHVW8AC",
             "allow-contrib": false,

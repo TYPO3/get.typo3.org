@@ -26,6 +26,7 @@ namespace App\Service;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
+use App\Repository\ReleaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
@@ -89,8 +90,9 @@ class CacheWarmupService implements CacheWarmerInterface
 
         $this->warmUpMajorVersions();
 
-        $repository = $this->entityManager->getRepository(Release::class);
-        $versions = $repository->findAll();
+        /** @var ReleaseRepository $releases */
+        $releases = $this->entityManager->getRepository(Release::class);
+        $versions = $releases->findAll();
         $routes = [
             'release_show',
             'app_api_release_getcontentforversion',
@@ -118,9 +120,9 @@ class CacheWarmupService implements CacheWarmerInterface
 
     private function warmUpActiveMajorVersions(): void
     {
-        /** @var MajorVersionRepository $majorVersionRepository */
-        $majorVersionRepository = $this->entityManager->getRepository(MajorVersion::class);
-        $versions = $majorVersionRepository->findAllActive();
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+        $versions = $majorVersions->findAllActive();
         $routes = [
             'majorVersion_show',
         ];
@@ -129,8 +131,9 @@ class CacheWarmupService implements CacheWarmerInterface
 
     private function warmUpMajorVersions(): void
     {
-        $majorVersionRepository = $this->entityManager->getRepository(MajorVersion::class);
-        $versions = $majorVersionRepository->findAll();
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+        $versions = $majorVersions->findAll();
         $routes = [
             'app_api_majorversion_releases_getreleasesbymajorversion',
             'app_api_majorversion_releases_getlatestreleasebymajorversion',

@@ -29,6 +29,7 @@ use App\Repository\MajorVersionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -642,6 +643,10 @@ class ComposerPackagesService
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @return FormInterface
+     */
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
         /** @var MajorVersionRepository $majorVersions */

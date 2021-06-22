@@ -48,7 +48,7 @@ jobs:
     - name: PHPStan
       if: always()
       run: |
-        composer phpstan
+        composer test:php:stan
     - name: CGL
       if: always()
       run: |
