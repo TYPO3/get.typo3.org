@@ -112,46 +112,22 @@ class DefaultController extends AbstractController
      */
     public function releaseNotes(Request $request, string $version = ''): Response
     {
-        $data = [];
-        $version = str_replace('TYPO3_CMS_', '', $version);
-
         /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+
+        $data = [];
+        $response = $this->getVersionData($majorVersions, 'release-notes-for-version', $version, $data);
+
+        if ($response !== null) {
+            return $response;
+        }
+
         $data['groupedVersions'] = $majorVersions->findAllGroupedByMajor();
-
-        if ($version === '') {
-            $majorVersion = $majorVersions->findLatest();
-
-            if ($majorVersion === null) {
-                throw new NotFoundHttpException('No release found.');
-            }
-
-            return $this->redirectToRoute('release-notes-for-version', ['version' => $majorVersion->getVersion()]);
-        }
-
-        $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        $data['currentVersion'] = $majorVersions->findVersion($majorVersionNumber);
-        if (!$data['currentVersion'] instanceof MajorVersion) {
-            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
-        }
-
-        if (VersionUtility::isValidSemverVersion($version)) {
-            /** @var ReleaseRepository $releases */
-            $releases = $this->getDoctrine()->getRepository(Release::class);
-            $release = $releases->findVersion($version);
-        } else {
-            $release = $data['currentVersion']->getLatestRelease();
-        }
-        if (!$release instanceof Release) {
-            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
-        }
-
-        $data['currentVersion'] = $data['currentVersion']->toArray();
-        $data['currentVersion']['current'] = $release;
 
         $response = $this->render('default/release-notes.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
+
         return $response;
     }
 
@@ -164,46 +140,22 @@ class DefaultController extends AbstractController
      */
     public function showVersion(Request $request, string $version = ''): Response
     {
-        $data = [];
-        $version = str_replace('TYPO3_CMS_', '', $version);
-
         /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
 
-        if ($version === '') {
-            $majorVersion = $majorVersions->findLatest();
+        $data = [];
+        $response = $this->getVersionData($majorVersions, 'version', $version, $data);
 
-            if ($majorVersion === null) {
-                throw new NotFoundHttpException('No release found.');
-            }
-
-            return $this->redirectToRoute('version', ['version' => $majorVersion->getVersion()]);
+        if ($response !== null) {
+            return $response;
         }
 
         $data['activeVersions'] = $majorVersions->findAllActive();
-        $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        $data['currentVersion'] = $majorVersions->findVersion($majorVersionNumber);
-        if (!$data['currentVersion'] instanceof MajorVersion) {
-            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
-        }
-
-        if (VersionUtility::isValidSemverVersion($version)) {
-            /** @var ReleaseRepository $releases */
-            $releases = $this->getDoctrine()->getRepository(Release::class);
-            $release = $releases->findVersion($version);
-        } else {
-            $release = $data['currentVersion']->getLatestRelease();
-        }
-        if (!$release instanceof Release) {
-            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
-        }
-
-        $data['currentVersion'] = $data['currentVersion']->toArray();
-        $data['currentVersion']['current'] = $release;
 
         $response = $this->render('default/version.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
+
         return $response;
     }
 
@@ -464,5 +416,46 @@ class DefaultController extends AbstractController
             }
         }
         return $result;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function getVersionData(MajorVersionRepository $majorVersions, string $redirectRoute, string $version, array &$data): ?Response
+    {
+        $version = str_replace('TYPO3_CMS_', '', $version);
+
+        if ($version === '') {
+            $majorVersion = $majorVersions->findLatest();
+
+            if ($majorVersion === null) {
+                throw new NotFoundHttpException('No release found.');
+            }
+
+            return $this->redirectToRoute($redirectRoute, ['version' => $majorVersion->getVersion()]);
+        }
+
+        $data['currentVersion'] = $majorVersions->findVersion(VersionUtility::extractMajorVersionNumber($version));
+
+        if (!$data['currentVersion'] instanceof MajorVersion) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        if (VersionUtility::isValidSemverVersion($version)) {
+            /** @var ReleaseRepository $releases */
+            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releases->findVersion($version);
+        } else {
+            $release = $data['currentVersion']->getLatestRelease();
+        }
+
+        if (!$release instanceof Release) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        $data['currentVersion'] = $data['currentVersion']->toArray();
+        $data['currentVersion']['current'] = $release;
+
+        return null;
     }
 }
