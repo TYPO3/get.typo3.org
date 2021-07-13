@@ -65,7 +65,7 @@
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*",
-        "t3g/symfony-template-bundle": "@dev"
+        "t3g/symfony-template-bundle": "^3"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
