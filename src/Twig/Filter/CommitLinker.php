@@ -43,7 +43,7 @@ class CommitLinker extends AbstractExtension
             $pattern,
             function (array $matches): string {
                 return sprintf(
-                    '<a href="https://github.com/TYPO3/TYPO3.CMS/commit/%1$s" target="_blank" rel="noopener">%1$s</a>',
+                    '<a href="https://github.com/typo3/typo3/commit/%1$s" target="_blank" rel="noopener">%1$s</a>',
                     $matches['commit']
                 );
             },
