@@ -252,9 +252,6 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
-    "roave/security-advisories": {
-        "version": "9999999-dev"
-    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
