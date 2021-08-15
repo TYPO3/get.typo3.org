@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": "^5.5 || ^7.0",
+        "php": "^7.3",
         "typo3/cms-composer-package-generator": "@dev"
     },
     "require-dev": {
@@ -29,7 +29,7 @@
         "bin-dir": "bin",
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4.3"
+            "php": "7.4.16"
         },
         "sort-packages": true
     }
