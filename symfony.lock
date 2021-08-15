@@ -321,6 +321,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "setasign/fpdi": {
+        "version": "v2.3.6"
+    },
     "symfony/asset": {
         "version": "v5.1.9"
     },
@@ -703,6 +706,9 @@
     },
     "t3g/symfony-template-bundle": {
         "version": "2.15.0"
+    },
+    "tecnickcom/tcpdf": {
+        "version": "6.4.1"
     },
     "tracy/tracy": {
         "version": "v2.7.6"
