@@ -68,7 +68,7 @@ class ReleaseNotes
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Serializer\Groups("content")
+     * @Serializer\Groups({"content"})
      */
     private ?string $legacyContent = null;
 
