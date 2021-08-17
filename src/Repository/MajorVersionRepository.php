@@ -182,7 +182,8 @@ final class MajorVersionRepository extends ServiceEntityRepository
         );
         $qb->setParameter('minversion', 8);
         $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
-        return $qb->getQuery()->execute();
+        $res = $qb->getQuery()->execute();
+        return array_pop($res);
     }
 
     /**
