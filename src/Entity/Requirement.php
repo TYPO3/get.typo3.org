@@ -28,7 +28,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=RequirementRepository::class)
  */
 class Requirement implements \JsonSerializable
 {
@@ -36,44 +36,53 @@ class Requirement implements \JsonSerializable
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="MajorVersion", inversedBy="requirements")
      * @ORM\JoinColumn(name="version", referencedColumnName="version")
-     * @var string|\App\Entity\MajorVersion
      */
-    private $version;
+    private MajorVersion $version;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string")
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="database")
      * @Assert\Choice(callback={"App\Enum\RequirementCategoryEnum", "getAvailableOptions"})
      */
-    private $category;
+    private string $category;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string")
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="mysql")
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="5.5")
      */
-    private $min;
+    private ?string $min = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @var string
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="5.7")
      */
-    private $max;
+    private ?string $max = null;
+
+    public function __construct(
+        MajorVersion $version,
+        string $category,
+        string $name,
+        ?string $min = null,
+        ?string $max = null
+    ) {
+        $this->setVersion($version);
+        $this->setCategory($category);
+        $this->setName($name);
+        $this->setMin($min);
+        $this->setMax($max);
+    }
 
     public function setVersion(MajorVersion $version): void
     {
@@ -87,7 +96,7 @@ class Requirement implements \JsonSerializable
 
     public function setCategory(string $category): void
     {
-        if (!in_array($category, RequirementCategoryEnum::getAvailableOptions())) {
+        if (!in_array($category, RequirementCategoryEnum::getAvailableOptions(), true)) {
             throw new \InvalidArgumentException('Invalid category');
         }
         $this->category = $category;
@@ -110,38 +119,30 @@ class Requirement implements \JsonSerializable
 
     public function getTitle(): string
     {
+        // @todo Switch this to match() in PHP 8.0.
         switch ($this->getName()) {
             case 'php':
                 return 'PHP';
-                break;
 
             case 'ie':
                 return 'Internet Explorer';
-                break;
 
             case 'postgres':
                 return 'PostgreSQL';
-                break;
             case 'sqlsrv':
                 return 'Microsoft SQL Server';
-                break;
             case 'mysql':
                 return 'MySQL';
-                break;
             case 'mariadb':
                 return 'MariaDB';
-                break;
             case 'sqlite':
                 return 'SQLite';
-                break;
 
             case 'ram':
                 return 'RAM';
-                break;
 
             default:
                 return \ucfirst($this->getName());
-                break;
         }
     }
 
@@ -166,14 +167,9 @@ class Requirement implements \JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
-     *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    public function jsonSerialize()
+    * @return array<string, mixed>
+    */
+    public function jsonSerialize(): array
     {
         return [];
     }

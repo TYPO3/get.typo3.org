@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -21,26 +19,23 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\Twig\Extension;
+namespace App\Repository;
 
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use App\Entity\Requirement;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class ReleaseNotesExtension extends AbstractExtension
+/**
+ * @method Requirement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Requirement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Requirement[]    findAll()
+ * @method Requirement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<Requirement>
+ */
+final class RequirementRepository extends ServiceEntityRepository
 {
-    /**
-     * @return \Twig\TwigFilter[]
-     */
-    public function getFilters()
+    public function __construct(ManagerRegistry $registry)
     {
-        return [
-            // format filters
-            new TwigFilter('removeWikiLink', [$this, 'removeWikiLink']),
-        ];
-    }
-
-    public function removeWikiLink(string $data): ?string
-    {
-        return preg_replace('#\(TYPO3_CMS_\d{1,3}\.\d{1,3}\.\d{1,3} \"wikilink\"\)#', '', $data);
+        parent::__construct($registry, Requirement::class);
     }
 }

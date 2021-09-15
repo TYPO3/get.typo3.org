@@ -25,6 +25,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\Release;
+use App\Repository\ReleaseRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
@@ -77,12 +78,11 @@ class ReleaseController extends AbstractController
      */
     public function getRelease(?string $version, Request $request): JsonResponse
     {
-        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        if ($version) {
+        if ($version !== null) {
             $this->checkVersionFormat($version);
             $releases = $this->getReleaseByVersion($version);
         } else {
-            $releases = $releaseRepo->findAll();
+            $releases = $this->getDoctrine()->getRepository(Release::class)->findAll();
         }
         $json = $this->serializer->serialize(
             $releases,
@@ -141,7 +141,7 @@ class ReleaseController extends AbstractController
     public function addRelease(Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
+        if ($content !== '') {
             $release = $this->serializer->deserialize($content, Release::class, 'json');
             $version = $release->getVersion();
             $this->checkVersionFormat($version);
@@ -190,19 +190,18 @@ class ReleaseController extends AbstractController
      *     required=true,
      *     @Model(type=\App\Entity\Embeddables\ReleaseNotes::class, groups={"putcontent"})
      * )
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function addReleaseNotesForVersion(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $this->checkVersionFormat($version);
         $content = $request->getContent();
-        if (null !== $content) {
+        if ($content !== '') {
             $releaseNotes = $this->serializer->deserialize($content, ReleaseNotes::class, 'json');
             $this->validateObject($validator, $releaseNotes);
-            $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-            $release = $releaseRepo->findOneBy(['version' => $version]);
-            if (null === $release) {
+            /** @var ReleaseRepository $releases */
+            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releases->findVersion($version);
+            if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
             $release->setReleaseNotes($releaseNotes);
@@ -291,28 +290,26 @@ class ReleaseController extends AbstractController
      *     description="May also contain incomplete model with only those properties that shall be updated",
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
-     *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $this->checkVersionFormat($version);
         $content = $request->getContent();
-        if (!empty($content)) {
-            $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-            $releaseEntity = $releaseRepo->findOneBy(['version' => $version]);
-            if (null === $releaseEntity) {
+        if ($content !== '') {
+            /** @var ReleaseRepository $releases */
+            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $release = $releases->findVersion($version);
+            if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
             $data = json_decode($content, true);
-            $this->mapObjects($releaseEntity, $data);
-            $this->validateObject($validator, $releaseEntity);
+            $this->mapObjects($release, $data);
+            $this->validateObject($validator, $release);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
             $json = $this->serializer->serialize(
-                $releaseEntity,
+                $release,
                 'json',
                 SerializationContext::create()->setGroups(['data', 'content'])
             );
@@ -363,8 +360,9 @@ class ReleaseController extends AbstractController
      */
     protected function checkVersionConflict(string $version): void
     {
-        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        if ($releaseRepo->findOneBy(['version' => $version])) {
+        /** @var ReleaseRepository $releases */
+        $releases = $this->getDoctrine()->getRepository(Release::class);
+        if ($releases->findVersion($version) !== null) {
             throw new ConflictHttpException('Version already exists');
         }
     }

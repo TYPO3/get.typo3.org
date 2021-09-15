@@ -25,8 +25,11 @@ namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
+use App\Repository\ReleaseRepository;
 use App\Utility\VersionUtility;
-use Doctrine\Common\Util\Inflector;
+use Doctrine\Inflector\InflectorFactory;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,63 +37,53 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
-    /**
-     * @var \JMS\Serializer\Serializer
-     */
-    protected $serializer;
+    protected SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
-    /**
-     * @param string $version
-     * @return \App\Entity\MajorVersion
-     */
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
-        $repo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $entity = $repo->findOneBy(['version' => $version]);
-        if (null === $entity) {
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }
-        return $entity;
+        return $majorVersion;
+    }
+
+    protected function validateObject(ValidatorInterface $validator, object $object): void
+    {
+        $violations = $validator->validate($object);
+
+        if ($violations->count() > 0) {
+            throw new BadRequestHttpException(\implode("\n", \iterator_to_array($violations, false)));
+        }
     }
 
     /**
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @param $object
+     * @param array<string, string> $data
      */
-    protected function validateObject(ValidatorInterface $validator, $object): void
+    protected function mapObjects(object $baseObject, array $data): void
     {
-        $errors = $validator->validate($object);
-
-        if (\count($errors) > 0) {
-            $errorsString = (string)$errors;
-            throw new BadRequestHttpException($errorsString);
-        }
-    }
-
-    protected function mapObjects($baseObject, array $data): void
-    {
-        $em = $this->getDoctrine()->getManager();
-        $metadata = $em->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
+        $inflector = InflectorFactory::create()->build();
+        /** @var ClassMetadataInfo<object> $metadata */
+        $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
         foreach ($metadata->getFieldNames() as $field) {
-            $fieldName = Inflector::tableize($field);
-            if (is_array($data)) {
-                $data = $this->flat($data);
-            }
+            $fieldName = $inflector->tableize($field);
+            $data = $this->flat($data);
+
             if (array_key_exists($fieldName, $data)) {
                 if (isset($metadata->fieldMappings[$field]['type'])) {
-                    switch ($metadata->fieldMappings[$field]['type']) {
-                        case 'datetime':
-                            $data[$fieldName] = new \DateTime($data[$fieldName]);
-                            break;
-                        case 'datetime_immutable':
-                            $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
-                            break;
+                    // @todo Switch this to match() in PHP 8.0.
+                    if ($metadata->fieldMappings[$field]['type'] == 'datetime') {
+                        $data[$fieldName] = new \DateTime($data[$fieldName]);
+                    } elseif ($metadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
+                        $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
                     }
                 }
                 //careful! setters are not being called! Inflection is up to you if you need it!
@@ -99,50 +92,48 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         }
     }
 
-    protected function checkMajorVersionFormat($version): void
+    protected function checkMajorVersionFormat(string $version): void
     {
         if (!is_numeric($version)) {
             throw new BadRequestHttpException('Version is not numeric.');
         }
     }
 
-    /**
-     * @param string|null $version
-     */
     protected function checkVersionFormat(?string $version): void
     {
-        if (!VersionUtility::isValidSemverVersion($version)) {
-            throw new BadRequestHttpException('version malformed.');
+        if ($version === null || !VersionUtility::isValidSemverVersion($version)) {
+            throw new BadRequestHttpException('Version malformed.');
         }
     }
 
     protected function getMajorVersionByReleaseVersion(string $version): MajorVersion
     {
-        $majorVersion = VersionUtility::extractMajorVersionNumber($version);
-        $mventity = $this->getDoctrine()->getManager()->getRepository(MajorVersion::class)->findOneBy(
-            ['version' => $majorVersion]
-        );
-        if (null === $mventity) {
-            throw new NotFoundHttpException('Major version data for version ' . $majorVersion . ' does not exist.');
+        $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($majorVersionNumber);
+        if (!$majorVersion instanceof MajorVersion) {
+            throw new NotFoundHttpException(sprintf('Major version data for version %d does not exist.', $majorVersionNumber));
         }
-        return $mventity;
+        return $majorVersion;
+    }
+
+    protected function getReleaseByVersion(string $version): Release
+    {
+        /** @var ReleaseRepository $releases */
+        $releases = $this->getDoctrine()->getRepository(Release::class);
+        $release = $releases->findVersion($version);
+        if (!$release instanceof Release) {
+            throw new NotFoundHttpException();
+        }
+        return $release;
     }
 
     /**
-     * @param string $version
-     * @return Release
+     * @param array<int, string> $array
+     * @return mixed[]
      */
-    protected function getReleaseByVersion(string $version): Release
-    {
-        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        $releases = $releaseRepo->findOneBy(['version' => $version]);
-        if (!$releases) {
-            throw new NotFoundHttpException();
-        }
-        return $releases;
-    }
-
-    protected function flat(array $array, string $prefix = '')
+    protected function flat(array $array, string $prefix = ''): array
     {
         $result = [];
         foreach ($array as $key => $value) {

@@ -24,13 +24,14 @@ namespace App\Entity;
 use App\Entity\Embeddables\Package;
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Enum\ReleaseTypeEnum;
+use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ReleaseRepository")
+ * @ORM\Entity(repositoryClass=ReleaseRepository::class)
  */
 class Release implements \JsonSerializable
 {
@@ -40,74 +41,66 @@ class Release implements \JsonSerializable
      * @SWG\Property(example="8.7.12")
      * @ORM\Id
      * @ORM\Column(type="string")
-     * @var string
      * @Serializer\Groups({"content", "data"})
      * @Assert\Regex("/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/")
      */
-    private $version;
+    private string $version;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
      * @Serializer\Groups({"data", "content"})
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $date;
+    private \DateTime $date;
 
     /**
      * @ORM\Column(type="string")
-     * @var string
      * @Serializer\Groups({"data"})
      * @Assert\Choice(callback={"App\Enum\ReleaseTypeEnum", "getAvailableOptions"})
      */
-    private $type;
+    private string $type;
 
     /**
      * @ORM\Column(type="boolean")
      * @ORM\Column(options={"default": 0})
-     * @var bool
      * @Serializer\Groups({"data", "content"})
      * @Assert\Type("boolean")
      * @SWG\Property(example="true")
      */
-    private $elts = false;
+    private bool $elts = false;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddables\Package")
-     * @var Package
      * @Serializer\Type("App\Entity\Embeddables\Package")
      * @Serializer\Groups({"data"})
      * @Assert\Valid
      */
-    private $tarPackage;
+    private Package $tarPackage;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddables\Package")
-     * @var \App\Entity\Embeddables\Package
      * @Serializer\Type("App\Entity\Embeddables\Package")
      * @Serializer\Groups({"data"})
      * @Assert\Valid
      */
-    private $zipPackage;
+    private Package $zipPackage;
 
     /**
      * @ORM\ManyToOne(targetEntity="MajorVersion", inversedBy="releases")
      * @ORM\JoinColumn(name="major_version", referencedColumnName="version")
-     * @var string|\App\Entity\MajorVersion
      * @Assert\Valid
      * @Assert\NotNull
      */
-    private $majorVersion;
+    private MajorVersion $majorVersion;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddables\ReleaseNotes")
-     * @var Package
      * @Serializer\Type("App\Entity\Embeddables\ReleaseNotes")
      * @Serializer\Groups({"content", "putcontent"})
      * @Assert\Valid
      */
-    private $releaseNotes;
+    private ReleaseNotes $releaseNotes;
 
     public function __construct()
     {
@@ -176,7 +169,7 @@ class Release implements \JsonSerializable
 
     public function setType(string $type): void
     {
-        if (!in_array($type, ReleaseTypeEnum::getAvailableOptions())) {
+        if (!in_array($type, ReleaseTypeEnum::getAvailableOptions(), true)) {
             throw new \InvalidArgumentException('Invalid type');
         }
         $this->type = $type;
@@ -198,14 +191,9 @@ class Release implements \JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
-     *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    public function jsonSerialize()
+    * @return array<string, mixed>
+    */
+    public function jsonSerialize(): array
     {
         return [
             'version' => $this->version,

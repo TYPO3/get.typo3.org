@@ -1,0 +1,5 @@
+{
+    "require": {
+        "seld/jsonlint": "^1.8"
+    }
+}

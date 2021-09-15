@@ -28,6 +28,9 @@ use Twig\TwigFilter;
 
 class CommitLinker extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -35,18 +38,16 @@ class CommitLinker extends AbstractExtension
         ];
     }
 
-    public function linkCommits(string $changeList): string
+    public function linkCommits(string $changeList): ?string
     {
         $pattern = '#(?<commit>[a-f0-9]{10,40})#m';
 
         return preg_replace_callback(
             $pattern,
-            function (array $matches): string {
-                return sprintf(
-                    '<a href="https://github.com/typo3/typo3/commit/%1$s" target="_blank" rel="noopener">%1$s</a>',
-                    $matches['commit']
-                );
-            },
+            fn (array $matches): string => sprintf(
+                '<a href="https://github.com/typo3/typo3/commit/%1$s" target="_blank" rel="noopener">%1$s</a>',
+                $matches['commit']
+            ),
             $changeList
         );
     }

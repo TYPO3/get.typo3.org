@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Menu;
 
+use Knp\Menu\ItemInterface;
 use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
 
 /**
@@ -31,8 +32,9 @@ use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
 class MenuBuilder extends TemplateMenuBuider
 {
     /**
-     * @param array $options
-     * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
+     * {@inheritdoc}
+     *
+     * @param array<mixed, mixed> $options
      */
     public function mainDefault(array $options)
     {
@@ -83,10 +85,11 @@ class MenuBuilder extends TemplateMenuBuider
     }
 
     /**
-     * @param array $options
-     * @return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
+     * {@inheritdoc}
+     *
+     * @param array<mixed, mixed> $options
      */
-    public function mainProfile(array $options)
+    public function mainProfile(array $options): ItemInterface
     {
         $menu = parent::mainProfile($options);
         $menu->addChild(

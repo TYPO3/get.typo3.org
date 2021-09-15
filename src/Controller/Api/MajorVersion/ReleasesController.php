@@ -26,6 +26,8 @@ namespace App\Controller\Api\MajorVersion;
 use App\Controller\Api\AbstractController;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
+use App\Repository\ReleaseRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -66,20 +68,18 @@ class ReleasesController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
-     *
-     * @param string $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getReleasesByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $releaseRepo->findOneBy(['version' => $version]);
-        if (null === $major) {
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
-            $major->getReleases(),
+            $majorVersion->getReleases(),
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
@@ -111,21 +111,18 @@ class ReleasesController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
-     *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        /** @var MajorVersion $major */
-        $major = $releaseRepo->findOneBy(['version' => $version]);
-        if (null === $major) {
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
-            $major->getLatestRelease(),
+            $majorVersion->getLatestRelease(),
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
@@ -157,17 +154,18 @@ class ReleasesController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
-     *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(Release::class);
-        $release = $releaseRepo->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => 'DESC']);
-        if (null === $release) {
+        /** @var ReleaseRepository $releases */
+        $releases = $this->getDoctrine()->getRepository(Release::class);
+        $release = $releases->findLatestSecurityReleaseByMajorVersion($version);
+        if (!$release instanceof Release) {
             $json = json_encode([]);
+            if ($json === false) {
+                $json = '{}';
+            }
         } else {
             $json = $this->serializer->serialize(
                 $release,
@@ -204,20 +202,18 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="content")
      * @SWG\Tag(name="release")
-     *
-     * @param string $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLatestReleaseContentByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $releaseRepo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $releaseRepo->findOneBy(['version' => $version]);
-        if (null === $major) {
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
-            $major->getLatestRelease(),
+            $majorVersion->getLatestRelease(),
             'json',
             SerializationContext::create()->setGroups(['content'])
         );

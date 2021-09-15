@@ -28,6 +28,9 @@ use Twig\TwigFilter;
 
 class Parsedown extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -37,7 +40,6 @@ class Parsedown extends AbstractExtension
 
     public function parse(string $markdown): string
     {
-        $parsedown = new \Parsedown();
-        return $parsedown->parse($markdown);
+        return (new \Parsedown())->parse($markdown);
     }
 }

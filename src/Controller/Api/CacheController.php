@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
+use App\Repository\MajorVersionRepository;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -60,16 +62,14 @@ class CacheController extends AbstractController
      *     description="Version not found."
      * )
      * @SWG\Tag(name="cache")
-     *
-     * @param string $version Specific TYPO3 Version to delete
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function purgeMajorRelease(string $version): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $repo = $this->getDoctrine()->getRepository(MajorVersion::class);
-        $major = $repo->findOneBy(['version' => $version]);
-        if (null === $major) {
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersion = $majorVersions->findVersion($version);
+        if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
@@ -100,15 +100,12 @@ class CacheController extends AbstractController
      *     description="Version not found."
      * )
      * @SWG\Tag(name="cache")
-     *
-     * @param string $version Specific TYPO3 Version to delete
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function purgeRelease(string $version): JsonResponse
     {
         $this->checkVersionFormat($version);
-        $major = $this->getMajorVersionByReleaseVersion($version);
-        $purgeUrls = $this->getPurgeUrlsForMajorVersion($major->getVersion());
+        $majorVersion = $this->getMajorVersionByReleaseVersion($version);
+        $purgeUrls = $this->getPurgeUrlsForMajorVersion($majorVersion->getVersion());
         $releaseUrls = [
             $this->generateAbsoluteUrl('app_api_release_getrelease'),
             $this->generateAbsoluteUrl(
@@ -133,8 +130,7 @@ class CacheController extends AbstractController
     }
 
     /**
-     * @param float $version
-     * @return array
+     * @return string[]
      */
     private function getPurgeUrlsForMajorVersion(float $version): array
     {
@@ -171,9 +167,18 @@ class CacheController extends AbstractController
     }
 
     /**
-     * @param string $route
-     * @param array $parameters
-     * @return string
+     * Deletes the releases.json in the cache
+     */
+    private function deleteReleases(): void
+    {
+        $filesystemAdapter = new FilesystemAdapter();
+        if ($filesystemAdapter->hasItem('releases.json')) {
+            $filesystemAdapter->delete('releases.json');
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $parameters
      */
     private function generateAbsoluteUrl(string $route, array $parameters = []): string
     {
@@ -184,27 +189,11 @@ class CacheController extends AbstractController
         );
     }
 
-    /**
-     * @param string $route
-     * @param float $version
-     * @return string
-     */
     private function generateAbsoluteUrlForVersion(string $route, float $version): string
     {
         return $this->generateAbsoluteUrl(
             $route,
             ['version' => $version]
         );
-    }
-
-    /**
-     * Deletes the releases.json in the cache
-     */
-    private function deleteReleases(): void
-    {
-        $filesystemCache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-        if ($filesystemCache->hasItem('releases.json')) {
-            $filesystemCache->delete('releases.json');
-        }
     }
 }

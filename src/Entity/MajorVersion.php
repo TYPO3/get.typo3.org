@@ -21,6 +21,7 @@
 
 namespace App\Entity;
 
+use App\Repository\MajorVersionRepository;
 use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,7 +29,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MajorVersionRepository")
+ * @ORM\Entity(repositoryClass=MajorVersionRepository::class)
  */
 class MajorVersion implements \JsonSerializable
 {
@@ -39,87 +40,82 @@ class MajorVersion implements \JsonSerializable
      * @ORM\Column(type="float")
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="8")
-     *
-     * @var float
      */
-    private $version;
+    private float $version;
 
     /**
      * TYPO3 7 LTS
      * @ORM\Column(type="string")
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example="TYPO3 8 LTS")
-     *
-     * @var string
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="string")
      * @Serializer\Groups({"content", "patch"})
      * @SWG\Property(example="The current stable LTS release (for all new projects)")
-     * @var string
      */
-    private $subtitle;
+    private string $subtitle;
 
     /**
      * @ORM\Column(type="string")
      * @Serializer\Groups({"content", "patch"})
      * @SWG\Property(example="The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.")
-     * @var string
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $releaseDate;
+    private \DateTimeImmutable $releaseDate;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $maintainedUntil;
+    private ?\DateTimeImmutable $maintainedUntil = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @var \DateTimeImmutable
      * @Serializer\Groups({"data", "content", "patch"})
      * @Serializer\Type("DateTimeImmutable<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      */
-    private $eltsUntil;
+    private ?\DateTimeImmutable $eltsUntil = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Requirement", mappedBy="version", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Groups({"data", "content"})
      * @Serializer\Type("ArrayCollection<App\Entity\Requirement>")
+     * @var \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement>
      */
-    private $requirements;
+    private Collection $requirements;
 
     /**
      * @ORM\OneToMany(targetEntity="Release", mappedBy="majorVersion", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Type("ArrayCollection<App\Entity\Release>")
      * @Serializer\Groups({"data"})
-     * @var Collection
+     * @var \App\Entity\Release[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Release>
      */
-    private $releases;
+    private Collection $releases;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Serializer\Groups({"data", "content", "patch"})
      * @SWG\Property(example=8.7)
-     * @var float
      */
-    private $lts;
+    private ?float $lts = null;
 
+    /**
+     * @param Collection<int, Requirement> $requirements
+     * @param Collection<int, Release> $releases
+     */
     public function __construct(
         float $version,
         string $title,
@@ -146,7 +142,7 @@ class MajorVersion implements \JsonSerializable
 
     public function setVersion(float $version): void
     {
-        $this->version = (float)VersionUtility::extractMajorVersionNumber($version);
+        $this->version = (float)VersionUtility::extractMajorVersionNumber((string)$version);
     }
 
     public function getVersion(): float
@@ -154,11 +150,17 @@ class MajorVersion implements \JsonSerializable
         return $this->version;
     }
 
+    /**
+     * @param Release[]|Collection<int, Release> $releases
+     */
     public function setReleases(Collection $releases): void
     {
         $this->releases = $releases;
     }
 
+    /**
+     * @return Release[]|Collection<int, Release>
+     */
     public function getReleases(): Collection
     {
         return $this->releases;
@@ -211,7 +213,7 @@ class MajorVersion implements \JsonSerializable
 
     public function getEltsUntil(): ?\DateTimeImmutable
     {
-        return $this->eltsUntil ?? ($this->getMaintainedUntil() ? $this->getMaintainedUntil()->modify('+3 years') : null);
+        return $this->eltsUntil ?? ($this->getMaintainedUntil() !== null ? $this->getMaintainedUntil()->modify('+3 years') : null);
     }
 
     public function setReleaseDate(\DateTimeImmutable $releaseDate): void
@@ -224,18 +226,19 @@ class MajorVersion implements \JsonSerializable
         return $this->releaseDate;
     }
 
-    public function getLatestRelease()
+    public function getLatestRelease(): ?Release
     {
         $array = $this->releases->toArray();
         usort(
             $array,
-            function ($a, $b) {
-                return version_compare($b->getVersion(), $a->getVersion());
-            }
+            fn ($a, $b) => version_compare($b->getVersion(), $a->getVersion())
         );
-        return reset($array);
+        return $array !== [] ? reset($array) : null;
     }
 
+    /**
+     * @param \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement> $requirements
+     */
     public function setRequirements(Collection $requirements): void
     {
         $this->requirements = $requirements;
@@ -246,6 +249,9 @@ class MajorVersion implements \JsonSerializable
         $this->requirements->add($requirement);
     }
 
+    /**
+     * @return Collection<int, Requirement>
+     */
     public function getRequirements(): Collection
     {
         return $this->requirements;
@@ -259,25 +265,6 @@ class MajorVersion implements \JsonSerializable
     public function getLts(): ?float
     {
         return $this->lts;
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'version' => $this->getVersion(),
-            'title' => $this->getTitle(),
-            'subtitle' => $this->getSubtitle(),
-            'description' => $this->getDescription(),
-            'releaseDate' => $this->getReleaseDate(),
-            'maintainedUntil' => $this->getMaintainedUntil(),
-            'eltsUntil' => $this->getEltsUntil(),
-            'requirements' => $this->getRequirements(),
-            'releases' => $this->getReleases(),
-            'lts' => $this->getLts(),
-            'latestRelease' => $this->getLatestRelease(),
-            'active' => $this->isActive(),
-            'elts' => $this->isElts()
-        ];
     }
 
     public function isActive(): bool
@@ -297,14 +284,31 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-     * Specify data which should be serialized to JSON
-     *
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
+     * @return array<string, mixed>
      */
-    public function jsonSerialize()
+    public function toArray(): array
+    {
+        return [
+            'version' => $this->getVersion(),
+            'title' => $this->getTitle(),
+            'subtitle' => $this->getSubtitle(),
+            'description' => $this->getDescription(),
+            'releaseDate' => $this->getReleaseDate(),
+            'maintainedUntil' => $this->getMaintainedUntil(),
+            'eltsUntil' => $this->getEltsUntil(),
+            'requirements' => $this->getRequirements(),
+            'releases' => $this->getReleases(),
+            'lts' => $this->getLts(),
+            'latestRelease' => $this->getLatestRelease(),
+            'active' => $this->isActive(),
+            'elts' => $this->isElts()
+        ];
+    }
+
+    /**
+    * @return array<string, mixed>
+    */
+    public function jsonSerialize(): array
     {
         $releaseData = [];
         foreach ($this->getReleases() as $release) {
@@ -315,8 +319,8 @@ class MajorVersion implements \JsonSerializable
         $latest = $this->getLatestRelease();
         return [
             'releases' => $desc,
-            'latest' => $latest ? $latest->getVersion() : '',
-            'stable' => $latest ? $latest->getVersion() : '',
+            'latest' => $latest !== null ? $latest->getVersion() : '',
+            'stable' => $latest !== null ? $latest->getVersion() : '',
             'active' => $this->isActive(),
             'elts' => $this->isElts(),
         ];

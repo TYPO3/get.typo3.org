@@ -25,11 +25,29 @@ namespace App\Enum;
 
 class RequirementCategoryEnum extends AbstractEnum
 {
+    /**
+     * @var string
+     */
     const OPTION_PHP = 'php';
+
+    /**
+     * @var string
+     */
     const OPTION_DATABASE = 'database';
+
+    /**
+     * @var string
+     */
     const OPTION_HARDWARE = 'hardware';
+
+    /**
+     * @var string
+     */
     const OPTION_CLIENT = 'client';
 
+    /**
+     * @var array<string, string>
+     */
     protected static array $optionNames = [
         self::OPTION_PHP => 'PHP',
         self::OPTION_DATABASE => 'Database',

@@ -33,24 +33,33 @@ use Symfony\Component\Yaml\Yaml;
 
 class ListMissingDownloadsCommand extends Command
 {
+    /**
+     * @var int
+     */
     private const FORMAT_TAR = 0;
+
+    /**
+     * @var int
+     */
     private const FORMAT_ZIP = 1;
 
+    /**
+     * @var string
+     */
+    private const NO_ERROR = 'OK';
+
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:download:missing:list';
 
-    protected function configure()
+    protected function configure(): void
     {
-        $this
-            // the short description shown while running "php bin/console list"
-            ->setDescription('Creates a list of missing downloads with URLs to Sourceforge.')
-
-            // the full command description shown when running the command with
-            // the "--help" option
-            ->setHelp('This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.')
-        ;
+        $this->setDescription('Creates a list of missing downloads with URLs to Sourceforge.');
+        $this->setHelp('This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $client = HttpClient::create();
         $response = $client->request('GET', 'https://get.typo3.org/json');
@@ -73,23 +82,25 @@ class ListMissingDownloadsCommand extends Command
 
             $output->writeln('Checking download URLs...');
 
+            $result = [];
+
             foreach ($content as $versionKey => $version) {
                 foreach ($version['releases'] as $releaseKey => $release) {
                     $output->writeln($releaseKey . ':');
 
                     $output->write('- TAR: ');
                     $url = $this->getFixedUrl($release['url']['tar'], $releaseKey, self::FORMAT_TAR);
-                    $output->writeln($url === true ? 'OK' : $url);
+                    $output->writeln($url);
 
-                    if ($url !== true) {
+                    if ($url !== self::NO_ERROR) {
                         $result[$versionKey][$releaseKey]['tar'] = $url;
                     }
 
                     $output->write('- ZIP: ');
                     $url = $this->getFixedUrl($release['url']['zip'], $releaseKey, self::FORMAT_ZIP);
-                    $output->writeln($url === true ? 'OK' : $url);
+                    $output->writeln($url);
 
-                    if ($url !== true) {
+                    if ($url !== self::NO_ERROR) {
                         $result[$versionKey][$releaseKey]['zip'] = $url;
                     }
                 }
@@ -104,14 +115,14 @@ class ListMissingDownloadsCommand extends Command
         return 0;
     }
 
-    private function getFixedUrl(string $url, string $release, int $format)
+    private function getFixedUrl(string $url, string $release, int $format): string
     {
         try {
             if ($this->checkRedirect($url)) {
                 if ($this->checkUrl($url)) {
-                    return true;
+                    return self::NO_ERROR;
                 }
-                $result = "https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20$release/typo3_src-$release.";
+                $result = sprintf('https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20%s/typo3_src-%s.', $release, $release);
                 $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
 
                 if (!$this->checkUrl($result)) {

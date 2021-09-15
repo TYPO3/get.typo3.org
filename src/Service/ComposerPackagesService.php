@@ -25,6 +25,7 @@ namespace App\Service;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -33,7 +34,20 @@ use Symfony\Component\Form\FormInterface;
 
 class ComposerPackagesService
 {
-    protected static $packages = [
+    /**
+     * @var string
+     */
+    public const CMS_VERSIONS_GROUP = 'TYPO3 CMS Versions';
+
+    /**
+     * @var string
+     */
+    public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
+
+    /**
+     * @var array<string, string|array<int>>
+     */
+    private const PACKAGES = [
         [
             'name'        => 'typo3/cms-about',
             'description' => 'Shows info about TYPO3, installed extensions and a separate module for available modules.',
@@ -299,7 +313,7 @@ class ComposerPackagesService
         ],
         [
             'name'        => 'typo3/cms-lowlevel',
-            'description' => 'Enables the \'Config\' and \'DB Check\' modules for technical analysis of the system. This includes raw database search, checking relations, counting pages and records etc.',
+            'description' => "Enables the 'Config' and 'DB Check' modules for technical analysis of the system. This includes raw database search, checking relations, counting pages and records etc.",
             'versions' => [
                 11,
                 10,
@@ -383,7 +397,7 @@ class ComposerPackagesService
         ],
         [
             'name'        => 'typo3/cms-scheduler',
-            'description' => 'The TYPO3 Scheduler let\'s you register tasks to happen at a specific time.',
+            'description' => "The TYPO3 Scheduler let's you register tasks to happen at a specific time.",
             'versions' => [
                 11,
                 10,
@@ -419,7 +433,7 @@ class ComposerPackagesService
         ],
         [
             'name'        => 'typo3/cms-sys-action',
-            'description' => 'Actions are \'programmed\' admin tasks which can be performed by selected regular users from the Task Center. An action could be creation of backend users, fixed SQL SELECT queries, listing of records, direct edit access to selected records etc.',
+            'description' => "Actions are 'programmed' admin tasks which can be performed by selected regular users from the Task Center. An action could be creation of backend users, fixed SQL SELECT queries, listing of records, direct edit access to selected records etc.",
             'versions' => [
                 9,
                 8,
@@ -506,7 +520,10 @@ class ComposerPackagesService
         ],
     ];
 
-    protected static $bundles = [
+    /**
+     * @var array<string, array<string>>
+     */
+    private const BUNDLES = [
         'typo3/full'      => [
             'typo3/cms-about',
             'typo3/cms-adminpanel',
@@ -605,7 +622,10 @@ class ComposerPackagesService
         ]
     ];
 
-    protected static $specialVersions = [
+    /**
+     * @var array<string, string>
+     */
+    private const SPECIAL_VERSIONS = [
         [
             'name' => 'No version specified (installs latest version)',
             'value' => '',
@@ -615,54 +635,62 @@ class ComposerPackagesService
         ],
     ];
 
-    public const CMS_VERSIONS = 'TYPO3 CMS Versions';
-    public const SPECIAL_VERSIONS = 'Special Version Selectors';
-
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @return FormInterface
+     */
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
-        /** @var \App\Repository\MajorVersionRepository $repository */
-        $repository = $this->entityManager->getRepository(MajorVersion::class);
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+
+        $majorVersion = $majorVersions->findLatestLtsComposerSupported();
+        if ($majorVersion === null) {
+            throw new \RuntimeException('No LTS release with Composer support found.', 1624353394);
+        }
+
+        $release = $majorVersion->getLatestRelease();
+        if ($release === null) {
+            throw new \RuntimeException('No release found.', 1624353494);
+        }
 
         $versionChoices = [
             'choices'  => [],
             'data'     => $this->getComposerVersionConstraint(
-                $repository->findLatestLtsComposerSupported()->getLatestRelease()->getVersion()
+                $release->getVersion()
             ),
             'required' => true,
         ];
 
-        $majorVersions = $repository->findAllComposerSupported();
-        foreach ($majorVersions as $version) {
+        $versions = $majorVersions->findAllComposerSupported();
+        foreach ($versions as $version) {
             if ($version->getLatestRelease() instanceof Release) {
-                $versionChoices['choices'][self::CMS_VERSIONS][$version->getTitle()] =
+                $versionChoices['choices'][self::CMS_VERSIONS_GROUP][$version->getTitle()] =
                     $this->getComposerVersionConstraint($version->getLatestRelease()->getVersion());
             }
         }
 
-        foreach (self::$specialVersions as $version) {
-            $versionChoices['choices'][self::SPECIAL_VERSIONS][$version['name']] = $version['value'];
+        foreach (self::SPECIAL_VERSIONS as $version) {
+            $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version['name']] = $version['value'];
         }
 
-        foreach ($majorVersions as $version) {
-            if ($version->getLatestRelease() instanceof Release && \preg_match('/^(\d+)\.(\d+)\.(\d+)/', $version->getLatestRelease()->getVersion(), $matches)) {
-                $nextMinor = $matches[1] . '.' . (string)(((int)$matches[2]) + 1);
-                $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (string)(((int)$matches[3]) + 1);
+        foreach ($versions as $version) {
+            if ($version->getLatestRelease() instanceof Release && \preg_match('#^(\d+)\.(\d+)\.(\d+)#', $version->getLatestRelease()->getVersion(), $matches) > 0) {
+                $nextMinor = $matches[1] . '.' . (((int)$matches[2]) + 1);
+                $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
                 if (\is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
-                    $versionChoices['choices'][self::SPECIAL_VERSIONS][$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
+                    $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
                         $this->getComposerVersionConstraint($nextMinor, true);
                 }
-                $versionChoices['choices'][self::SPECIAL_VERSIONS][$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
+                $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
                     $this->getComposerVersionConstraint($nextPatch, true);
             }
         }
@@ -677,7 +705,7 @@ class ComposerPackagesService
             ])
         );
 
-        foreach (self::$packages as $package) {
+        foreach (self::PACKAGES as $package) {
             $builder->add(
                 str_replace('/', '-', $package['name']),
                 CheckboxType::class,
@@ -695,32 +723,48 @@ class ComposerPackagesService
         return $builder->getForm();
     }
 
+    /**
+     * @return string[]
+     */
     public function getBundles(): array
     {
         $sanitizedBundles = [];
-        foreach (self::$bundles as $bundleName => $packages) {
+        foreach (self::BUNDLES as $bundleName => $packages) {
             $sanitizedBundles[$bundleName] = \GuzzleHttp\json_encode(
-                array_map(static function ($name) {
-                    return str_replace('/', '-', $name);
-                }, $packages)
+                array_map(static fn ($name) => str_replace('/', '-', $name), $packages)
             );
         }
 
         return $sanitizedBundles;
     }
 
+    /**
+     * @param array<int|string, mixed> $packages
+     * @return mixed[]
+     */
     public function cleanPackagesForVersions(array $packages): array
     {
-        if (\preg_match('/^\^(\d+)/', $packages['typo3_version'], $matches)) {
+        if (\preg_match('#^\^(\d+)#', $packages['typo3_version'], $matches) > 0) {
             $version = (int)$matches[1];
         } else {
-            $latestVersion = $this->entityManager->getRepository(MajorVersion::class)
-                ->findAllComposerSupported()[0]->getLatestRelease()->getVersion();
-            \preg_match('/^\d+/', $latestVersion, $matches);
+            /** @var MajorVersionRepository $majorVersions */
+            $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+
+            $composerVersions = $majorVersions->findAllComposerSupported();
+            if (\count($composerVersions) === 0) {
+                throw new \RuntimeException('No release found.', 1624353639);
+            }
+
+            $release = $composerVersions[0]->getLatestRelease();
+            if ($release === null) {
+                throw new \RuntimeException('No release found.', 1624353801);
+            }
+
+            \preg_match('#^\d+#', $release->getVersion(), $matches);
             $version = (int)$matches[0];
         }
 
-        foreach (self::$packages as $package) {
+        foreach (self::PACKAGES as $package) {
             if (!in_array($version, $package['versions'], true)) {
                 unset($packages[$package['name']]);
             }
@@ -733,7 +777,7 @@ class ComposerPackagesService
     {
         if ($development) {
             $result = '^' . $version . '@dev';
-        } elseif (\preg_match('/^\d+\.\d+/', $version, $matches)) {
+        } elseif (\preg_match('#^\d+\.\d+#', $version, $matches) > 0) {
             $result = '^' . $matches[0];
         } else {
             $result = '';

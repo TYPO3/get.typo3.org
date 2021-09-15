@@ -40,7 +40,7 @@ class ReleaseNotes
      * @SWG\Property(type="string", format="uri", example="https://typo3.org/news/article/typo3-v910-released")
      * @Assert\Url
      */
-    private $newsLink;
+    private ?string $newsLink = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -48,7 +48,7 @@ class ReleaseNotes
      * @Serializer\Type("string")
      * @SWG\Property(example="This release is a bugfix and regression fix release.", description="Short news text about the release.")
      */
-    private $news;
+    private ?string $news = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -56,7 +56,7 @@ class ReleaseNotes
      * @Serializer\Type("string")
      * @SWG\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/typo3cms\/InstallationGuide\/) applies.\nNo database updates are necessary.\n")
      */
-    private $upgradingInstructions;
+    private ?string $upgradingInstructions = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -64,15 +64,15 @@ class ReleaseNotes
      * @Serializer\Type("string")
      * @SWG\Property(description="Changelog as markdown")
      */
-    private $changes;
+    private ?string $changes = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Serializer\Groups("content")
+     * @Serializer\Groups({"content"})
      */
-    private $legacyContent;
+    private ?string $legacyContent = null;
 
-    public function setNewsLink(string $newsLink)
+    public function setNewsLink(string $newsLink): void
     {
         $this->newsLink = $newsLink;
     }
@@ -82,7 +82,7 @@ class ReleaseNotes
         return $this->newsLink;
     }
 
-    public function setNews(string $news)
+    public function setNews(string $news): void
     {
         $this->news = $news;
     }
@@ -92,7 +92,7 @@ class ReleaseNotes
         return $this->news;
     }
 
-    public function setUpgradingInstructions(string $upgradingInstructions)
+    public function setUpgradingInstructions(string $upgradingInstructions): void
     {
         $this->upgradingInstructions = $upgradingInstructions;
     }
@@ -102,7 +102,7 @@ class ReleaseNotes
         return $this->upgradingInstructions;
     }
 
-    public function setChanges(string $changes)
+    public function setChanges(string $changes): void
     {
         $this->changes = $changes;
     }
@@ -112,7 +112,7 @@ class ReleaseNotes
         return $this->changes;
     }
 
-    public function setLegacyContent(string $legacyContent)
+    public function setLegacyContent(string $legacyContent): void
     {
         $this->legacyContent = $legacyContent;
     }

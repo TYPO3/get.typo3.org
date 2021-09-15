@@ -1,0 +1,5 @@
+{
+    "require": {
+        "j13k/yaml-lint": "^1.1"
+    }
+}

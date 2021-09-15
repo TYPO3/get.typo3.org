@@ -25,21 +25,46 @@ namespace App\Repository;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Persistence\ManagerRegistry;
 
-class MajorVersionRepository extends EntityRepository
+/**
+ * @method MajorVersion|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MajorVersion|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MajorVersion[]    findAll()
+ * @method MajorVersion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<MajorVersion>
+ */
+final class MajorVersionRepository extends ServiceEntityRepository
 {
-    /**
-     * Finds all entities in the repository.
-     *
-     * @return array The entities.
-     */
-    public function findAllDescending()
+    public function __construct(ManagerRegistry $registry)
     {
-        return $this->findBy([], ['version' => 'DESC']);
+        parent::__construct($registry, MajorVersion::class);
     }
 
-    public function findAllActive()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllDescending(): array
+    {
+        return $this->findBy([], ['version' => Criteria::DESC]);
+    }
+
+    public function findLatest(): ?MajorVersion
+    {
+        return $this->findOneBy([], ['version' => Criteria::DESC]);
+    }
+
+    public function findVersion(string $version): ?MajorVersion
+    {
+        return $this->findOneBy(['version' => $version]);
+    }
+
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllActive(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
@@ -54,11 +79,14 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('date', $date);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
-    public function findAllActiveCommunity()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllActiveCommunity(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
@@ -69,11 +97,14 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('date', $date);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
-    public function findAllActiveElts()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllActiveElts(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
@@ -84,55 +115,63 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('date', $date);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
-    public function findAllPreparedForJson()
+    /**
+     * @return mixed[]
+     */
+    public function findAllPreparedForJson(): array
     {
         $data = $this->findCommunityVersionsGroupedByMajor();
         $data = array_merge($data, $this->findStableReleases());
-        $data = array_merge($data, $this->findLtsReleases());
-        return $data;
+        return array_merge($data, $this->findLtsReleases());
     }
 
+    /**
+     * @return array<string, MajorVersion>
+     */
     public function findAllGroupedByMajor(): array
     {
-        $all = $this->findAll();
+        $versions = $this->findAll();
         $data = [];
-        foreach ($all as $version) {
+        foreach ($versions as $version) {
             $data[$this->formatVersion($version->getVersion())] = $version;
         }
         uksort($data, 'version_compare');
-        $data = array_reverse($data);
-        return $data;
+        return array_reverse($data);
     }
 
+    /**
+     * @return array<string, MajorVersion>
+     */
     public function findCommunityVersionsGroupedByMajor(): array
     {
-        $all = $this->findAll();
+        $versions = $this->findAll();
         $data = [];
-        foreach ($all as $version) {
-            $version = $this->removeEltsReleases($version);
-            $data[$this->formatVersion($version->getVersion())] = $version;
+        foreach ($versions as $version) {
+            $data[$this->formatVersion($version->getVersion())] = $this->removeEltsReleases($version);
         }
         uksort($data, 'version_compare');
-        $data = array_reverse($data);
-        return $data;
+        return array_reverse($data);
     }
 
-    public function findAllComposerSupported()
+    /**
+     * @return array<MajorVersion>
+     */
+    public function findAllComposerSupported(): array
     {
         $qb = $this->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->gte('m.version', ':minversion')
         );
         $qb->setParameter('minversion', 8);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->addOrderBy('m.version', Criteria::DESC);
         return $qb->getQuery()->execute();
     }
 
-    public function findLatestLtsComposerSupported()
+    public function findLatestLtsComposerSupported(): ?MajorVersion
     {
         $qb = $this->createQueryBuilder('m');
         $qb->where(
@@ -142,15 +181,18 @@ class MajorVersionRepository extends EntityRepository
             )
         );
         $qb->setParameter('minversion', 8);
-        $qb->addOrderBy('m.version', 'DESC');
+        $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
         $res = $qb->getQuery()->execute();
-        return reset($res);
+        return array_pop($res);
     }
 
+    /**
+     * @return array<string, string>|array<string, null>
+     */
     private function findStableReleases(): array
     {
         $qb = $this->createQueryBuilder('m');
-        $qb->setMaxResults(1)->orderBy('m.version', 'DESC');
+        $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
         $res = $qb->getQuery()->execute();
         $latestMajor = array_pop($res);
         $releases = $this->majorVersionDescending($latestMajor);
@@ -158,10 +200,13 @@ class MajorVersionRepository extends EntityRepository
         $latestOldStable = $releases[1] ?? null;
         return [
             'latest_stable' => $latestStable->getVersion(),
-            'latest_old_stable' => $latestOldStable ? $latestOldStable->getVersion() : null,
+            'latest_old_stable' => $latestOldStable !== null ? $latestOldStable->getVersion() : null,
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function findLtsReleases(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
@@ -173,7 +218,7 @@ class MajorVersionRepository extends EntityRepository
                     $qb->expr()->gte('m.maintainedUntil', $date)
                 )
             );
-        $qb->orderBy('m.maintainedUntil', 'DESC');
+        $qb->orderBy('m.maintainedUntil', Criteria::DESC);
         $res = $qb->getQuery()->execute();
         $latestLts = array_shift($res);
         $latestOldLts = array_shift($res);
@@ -196,7 +241,6 @@ class MajorVersionRepository extends EntityRepository
      * be later removed in DefaultController.
      *
      * @param int|float|string $version
-     * @return string
      */
     private function formatVersion($version): string
     {
@@ -211,34 +255,25 @@ class MajorVersionRepository extends EntityRepository
         return $version;
     }
 
-    /**
-     * @param MajorVersion $majorVersion
-     * @return Release[]
-     */
-    private function majorVersionDescending(MajorVersion $majorVersion): array
+    private function removeEltsReleases(MajorVersion $version): MajorVersion
     {
-        $releases = $majorVersion->getReleases()->toArray();
+        $version->setReleases($version->getReleases()->filter(static fn (Release $release) => !$release->isElts()));
 
-        usort(
-            $releases,
-            function (Release $a, Release $b) {
-                return version_compare($b->getVersion(), $a->getVersion());
-            }
-        );
-
-        return $releases;
+        return $version;
     }
 
     /**
-     * @param MajorVersion $majorVersion
-     * @return MajorVersion
+     * @return Release[]
      */
-    private function removeEltsReleases(MajorVersion $majorVersion): MajorVersion
+    private function majorVersionDescending(MajorVersion $version): array
     {
-        $majorVersion->setReleases($majorVersion->getReleases()->filter(static function (Release $release) {
-            return !$release->isElts();
-        }));
+        $releases = $version->getReleases()->toArray();
 
-        return $majorVersion;
+        usort(
+            $releases,
+            fn (Release $a, Release $b) => version_compare($b->getVersion(), $a->getVersion())
+        );
+
+        return $releases;
     }
 }

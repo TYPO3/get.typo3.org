@@ -25,36 +25,27 @@ namespace App\Service;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
+use App\Repository\MajorVersionRepository;
+use App\Repository\ReleaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class CacheWarmupService implements CacheWarmerInterface
 {
-    /**
-     * @var \Symfony\Component\Routing\Router
-     */
-    private $router;
+    private RouterInterface $router;
 
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    private $client;
+    private Client $client;
 
-    private $baseUrl;
+    private string $baseUrl;
 
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(RouterInterface $router, EntityManagerInterface $entityManager, LoggerInterface $logger, string $baseUrl)
     {
@@ -79,20 +70,18 @@ class CacheWarmupService implements CacheWarmerInterface
     }
 
     /**
-     * Warms up the cache.
-     *
-     * @param string $cacheDir The cache directory
+     * @return string[] A list of classes or files to preload on PHP 7.4+
      */
-    public function warmUp($cacheDir): void
+    public function warmUp(string $cacheDir): array
     {
         $routesWithoutArguments = [
             'root',
             'app_api_majorversion_getmajorreleases',
             'app_api_release_getrelease',
         ];
+        $promise = null;
         foreach ($routesWithoutArguments as $route) {
-            $url = $this->router->generate($route);
-            $promise = $this->makeRequest($url);
+            $promise = $this->makeRequest($this->router->generate($route));
         }
         if ($promise !== null) {
             $promise->wait();
@@ -101,81 +90,84 @@ class CacheWarmupService implements CacheWarmerInterface
 
         $this->warmUpMajorVersions();
 
-        $repository = $this->entityManager->getRepository(Release::class);
-        $versions = $repository->findAll();
+        /** @var ReleaseRepository $releases */
+        $releases = $this->entityManager->getRepository(Release::class);
+        $versions = $releases->findAll();
         $routes = [
             'release_show',
             'app_api_release_getcontentforversion',
             'release-notes-for-version',
         ];
         $this->warmUpLoopWithVersions($routes, $versions);
+
+        return [];
     }
 
-    /**
-     * @param $url
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    private function makeRequest($url): ?\GuzzleHttp\Promise\PromiseInterface
+    private function makeRequest(string $url): ?PromiseInterface
     {
         try {
             $promise = $this->client->requestAsync('GET', $this->baseUrl . $url);
             $promise->then(
-                function ($response) use ($url) {
+                function ($response) use ($url): void {
                     $this->logger->info('Warmed up ' . $url . ' with status ' . $response->getStatusCode());
                 }
             );
-        } catch (ServerException $exception) {
-            $this->logger->warning($exception->getMessage(), $exception->getTrace());
+        } catch (ServerException $e) {
+            $this->logger->warning($e->getMessage(), $e->getTrace());
         }
         return $promise ?? null;
     }
 
     private function warmUpActiveMajorVersions(): void
     {
-        $majorVersionRepository = $this->entityManager->getRepository(MajorVersion::class);
-        $versions = $majorVersionRepository->findAllActive();
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+        $versions = $majorVersions->findAllActive();
         $routes = [
             'majorVersion_show',
         ];
         $this->warmUpLoopWithVersions($routes, $versions);
     }
 
-    /**
-     * @param $routes
-     * @param $versions
-     */
-    private function warmUpLoopWithVersions($routes, $versions): void
-    {
-        $requestCounter = 0;
-        foreach ($routes as $item) {
-            foreach ($versions as $active) {
-                $args = ['version' => $active->getVersion()];
-                $url = $this->router->generate($item, $args);
-                $promise = $this->makeRequest($url);
-                $requestCounter++;
-                if ($requestCounter % 5 === 0) {
-                    // pause every five requests and wait for completion
-                    if ($promise !== null) {
-                        try {
-                            $promise->wait();
-                        } catch (\Exception $exception) {
-                            $this->logger->warning($exception->getMessage(), $exception->getTrace());
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     private function warmUpMajorVersions(): void
     {
-        $majorVersionRepository = $this->entityManager->getRepository(MajorVersion::class);
-        $versions = $majorVersionRepository->findAll();
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+        $versions = $majorVersions->findAll();
         $routes = [
             'app_api_majorversion_releases_getreleasesbymajorversion',
             'app_api_majorversion_releases_getlatestreleasebymajorversion',
             'app_api_majorversion_releases_getlatestreleasecontentbymajorversion',
         ];
         $this->warmUpLoopWithVersions($routes, $versions);
+    }
+
+    /**
+     * @param string[] $routes
+     * @param MajorVersion[]|Release[] $versions
+     */
+    private function warmUpLoopWithVersions(array $routes, array $versions): void
+    {
+        $requestCounter = 0;
+        foreach ($routes as $route) {
+            foreach ($versions as $version) {
+                $args = ['version' => $version->getVersion()];
+                $url = $this->router->generate($route, $args);
+                $promise = $this->makeRequest($url);
+                ++$requestCounter;
+                // pause every five requests and wait for completion
+                if ($requestCounter % 5 !== 0) {
+                    continue;
+                }
+                if (!$promise instanceof PromiseInterface) {
+                    continue;
+                }
+                try {
+                    $promise->wait();
+                } catch (\Exception $e) {
+                    $this->logger->warning($e->getMessage(), $e->getTrace());
+                }
+            }
+        }
     }
 }

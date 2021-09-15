@@ -1,14 +1,16 @@
 /.ddev/docker-compose.tmpfs.yaml
-.idea/
-.vscode/
+/.idea/
+/.vscode/
 /bin/*
 !/bin/console
-!/bin/phpunit
 /public/p/
 /public/packages.json
 /public/satis.html
-*.cache
-missing-downloads.yaml
+/tools/**/vendor
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+/.phplint-cache
+/missing-downloads.yaml
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -19,12 +21,6 @@ missing-downloads.yaml
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-###> friendsofphp/php-cs-fixer ###
-/.php_cs
-/.php_cs.cache
-###< friendsofphp/php-cs-fixer ###
-
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache

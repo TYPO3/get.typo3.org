@@ -25,6 +25,7 @@ namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
 use App\Entity\Requirement;
+use App\Repository\RequirementRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
@@ -67,16 +68,14 @@ class RequirementsController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="requirement")
-     *
-     * @param string $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
-        $entities = $requirementRepo->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
-        if (null === $entities) {
+        /** @var RequirementRepository $requirements */
+        $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+        $entities = $requirements->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
+        if ($entities === []) {
             throw new NotFoundHttpException('Version not found.');
         }
         $json = $this->serializer->serialize(
@@ -129,21 +128,17 @@ class RequirementsController extends AbstractController
      *     required=true,
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
-     *
-     * @param string $version
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function addRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
-            $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
+        if ($content !== '') {
+            /** @var RequirementRepository $requirements */
+            $requirements = $this->getDoctrine()->getRepository(Requirement::class);
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $this->findMajorVersion($version);
             $requirement->setVersion($entity);
-            $preexistingRequirement = $requirementRepo->findOneBy(
+            $preexistingRequirement = $requirements->findOneBy(
                 [
                     'version' => $version,
                     'name' => $requirement->getName(),
@@ -200,26 +195,22 @@ class RequirementsController extends AbstractController
      *     required=true,
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
-     *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
     {
         $content = $request->getContent();
-        if (!empty($content)) {
-            $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
+        if ($content !== '') {
+            /** @var RequirementRepository $requirements */
+            $requirements = $this->getDoctrine()->getRepository(Requirement::class);
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
-            $entity = $requirementRepo->findOneBy(
+            $entity = $requirements->findOneBy(
                 [
                     'version' => $version,
                     'name' => $requirement->getName(),
                     'category' => $requirement->getCategory(),
                 ]
             );
-            if (null === $entity) {
+            if (!$entity instanceof Requirement) {
                 throw new NotFoundHttpException('Requirement does not exists');
             }
             $requirement->setVersion($entity->getVersion());
@@ -262,30 +253,26 @@ class RequirementsController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="requirement")
-     *
-     * @param string|null $version Specific TYPO3 Version to fetch
-     * @param string $category
-     * @param string $name
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function deleteRequirement(
         string $version,
         string $category,
         string $name
     ): JsonResponse {
-        $requirementRepo = $this->getDoctrine()->getRepository(Requirement::class);
-        $entity = $requirementRepo->findOneBy(
+        /** @var RequirementRepository $requirements */
+        $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+        $requirement = $requirements->findOneBy(
             [
                 'version' => $this->findMajorVersion($version),
                 'name' => $name,
                 'category' => $category,
             ]
         );
-        if (null === $entity) {
+        if (!$requirement instanceof Requirement) {
             throw new NotFoundHttpException('Requirement does not exists');
         }
         $em = $this->getDoctrine()->getManager();
-        $em->remove($entity);
+        $em->remove($requirement);
         $em->flush();
         return $this->json([], Response::HTTP_NO_CONTENT);
     }

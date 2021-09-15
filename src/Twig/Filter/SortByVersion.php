@@ -23,12 +23,16 @@ declare(strict_types=1);
 
 namespace App\Twig\Filter;
 
+use App\Entity\Release;
 use Doctrine\Common\Collections\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 class SortByVersion extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -36,12 +40,14 @@ class SortByVersion extends AbstractExtension
         ];
     }
 
+    /**
+     * @param Release[]|Collection<int, Release> $releases
+     * @return mixed[]
+     */
     public function sort(Collection $releases): array
     {
         $array = $releases->toArray();
-        usort($array, function ($a, $b) {
-            return version_compare($b->getVersion(), $a->getVersion());
-        });
+        usort($array, fn ($a, $b) => version_compare($b->getVersion(), $a->getVersion()));
 
         return $array;
     }

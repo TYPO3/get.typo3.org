@@ -24,39 +24,50 @@ namespace App\DataFixtures;
 use App\Entity\MajorVersion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
+use Faker\Factory as FakerFactory;
 
 class MajorVersionFixtures extends Fixture
 {
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
+
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_LTS = 'majorversion-lts';
+
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_ELTS = 'majorversion-elts';
+
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
+
+    /**
+     * @var string
+     */
     public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $versions = $this->getData();
-        foreach ($versions as $key => $version) {
-            $majorVersion = new MajorVersion(
-                $version['version'],
-                $version['title'],
-                $version['subtitle'],
-                $version['description'],
-                $version['releaseDate'],
-                $version['maintainedUntil'],
-                $version['eltsUntil'],
-                $version['requirements'],
-                $version['releases'],
-                $version['lts']
-            );
-            $manager->persist($majorVersion);
-            $this->addReference($key, $majorVersion);
+        foreach ($versions as $data) {
+            $manager->persist($data->version);
+            $this->addReference($data->key, $data->version);
         }
 
         $manager->flush();
     }
 
+    /**
+     * @return array<string>
+     */
     public static function getVersions(): array
     {
         return [
@@ -68,72 +79,102 @@ class MajorVersionFixtures extends Fixture
         ];
     }
 
-    protected function getData(): array
+    /**
+     * @return MajorVersionFixturesData[]
+     */
+    protected function getData(): iterable
     {
-        $faker = \Faker\Factory::create();
-        $dateTimeToday = new \DateTimeImmutable();
+        $faker = FakerFactory::create();
+        $today = new \DateTimeImmutable();
 
-        return [
-            self::MAJOR_VERSION_SPRINT => [
-                'version' => 10,
-                'title' => 'TYPO3 10',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday,
-                'maintainedUntil' => null,
-                'eltsUntil' => null,
-                'requirements' => new ArrayCollection(),
-                'releases' => new ArrayCollection(),
-                'lts' => null
-            ],
-            self::MAJOR_VERSION_LTS => [
-                'version' => 9.5,
-                'title' => 'TYPO3 9',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday,
-                'maintainedUntil' => $dateTimeToday->modify('+3 years')->modify('-1 day'),
-                'eltsUntil' => null,
-                'requirements' => new ArrayCollection(),
-                'releases' => new ArrayCollection(),
-                'lts' => 9.5
-            ],
-            self::MAJOR_VERSION_ELTS => [
-                'version' => 7.6,
-                'title' => 'TYPO3 7',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday->modify('-3 years'),
-                'maintainedUntil' => $dateTimeToday->modify('-1 day'),
-                'eltsUntil' => null,
-                'requirements' => new ArrayCollection(),
-                'releases' => new ArrayCollection(),
-                'lts' => 7.6
-            ],
-            self::MAJOR_VERSION_ELTS_EXT => [
-                'version' => 6.2,
-                'title' => 'TYPO3 6.2',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday->modify('-3 years'),
-                'maintainedUntil' => $dateTimeToday->modify('-1 day'),
-                'eltsUntil' => $dateTimeToday->modify('-1 day')->modify('+4 years'),
-                'requirements' => new ArrayCollection(),
-                'releases' => new ArrayCollection(),
-                'lts' => 6.2
-            ],
-            self::MAJOR_VERSION_OUTDATED => [
-                'version' => 4.5,
-                'title' => 'TYPO3 4.5',
-                'subtitle' => $faker->sentence(6) . '[SUBTITLE]',
-                'description' => $faker->paragraph(3) . '[DESCRIPTION]',
-                'releaseDate' => $dateTimeToday->modify('-6 years'),
-                'maintainedUntil' => $dateTimeToday->modify('-3 years')->modify('-1 day'),
-                'eltsUntil' => null,
-                'requirements' => new ArrayCollection(),
-                'releases' => new ArrayCollection(),
-                'lts' => 4.5
-            ]
-        ];
+        yield new MajorVersionFixturesData(
+            self::MAJOR_VERSION_SPRINT,
+            new MajorVersion(
+                10,
+                'TYPO3 10',
+                $faker->sentence(6) . '[SUBTITLE]',
+                $faker->paragraph(3) . '[DESCRIPTION]',
+                $today,
+                null,
+                null,
+                new ArrayCollection(),
+                new ArrayCollection(),
+                null
+            )
+        );
+        yield new MajorVersionFixturesData(
+            self::MAJOR_VERSION_LTS,
+            new MajorVersion(
+                9.5,
+                'TYPO3 9',
+                $faker->sentence(6) . '[SUBTITLE]',
+                $faker->paragraph(3) . '[DESCRIPTION]',
+                $today,
+                $today->modify('+3 years')->modify('-1 day'),
+                null,
+                new ArrayCollection(),
+                new ArrayCollection(),
+                9.5
+            )
+        );
+        yield new MajorVersionFixturesData(
+            self::MAJOR_VERSION_ELTS,
+            new MajorVersion(
+                7.6,
+                'TYPO3 7',
+                $faker->sentence(6) . '[SUBTITLE]',
+                $faker->paragraph(3) . '[DESCRIPTION]',
+                $today->modify('-3 years'),
+                $today->modify('-1 day'),
+                null,
+                new ArrayCollection(),
+                new ArrayCollection(),
+                7.6
+            )
+        );
+        yield new MajorVersionFixturesData(
+            self::MAJOR_VERSION_ELTS_EXT,
+            new MajorVersion(
+                6.2,
+                'TYPO3 6.2',
+                $faker->sentence(6) . '[SUBTITLE]',
+                $faker->paragraph(3) . '[DESCRIPTION]',
+                $today->modify('-3 years'),
+                $today->modify('-1 day'),
+                $today->modify('-1 day')->modify('+4 years'),
+                new ArrayCollection(),
+                new ArrayCollection(),
+                6.2
+            )
+        );
+        yield new MajorVersionFixturesData(
+            self::MAJOR_VERSION_OUTDATED,
+            new MajorVersion(
+                4.5,
+                'TYPO3 4.5',
+                $faker->sentence(6) . '[SUBTITLE]',
+                $faker->paragraph(3) . '[DESCRIPTION]',
+                $today->modify('-6 years'),
+                $today->modify('-3 years')->modify('-1 day'),
+                null,
+                new ArrayCollection(),
+                new ArrayCollection(),
+                4.5
+            )
+        );
+    }
+}
+
+class MajorVersionFixturesData
+{
+    public string $key;
+    public MajorVersion $version;
+
+    public function __construct(
+        string $key,
+        MajorVersion $version
+    ) {
+        $this->key = $key;
+        $this->version = $version;
     }
 }

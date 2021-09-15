@@ -32,6 +32,9 @@ use Twig\TwigFilter;
 
 class RequirementExtension extends AbstractExtension
 {
+    /**
+     * @return TwigFilter[]
+     */
     public function getFilters()
     {
         return [
@@ -49,6 +52,10 @@ class RequirementExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param Collection<int, Requirement>|array<Requirement>|array<string, array<Requirement>> $data
+     * @return mixed[]
+     */
     public function formatVersions($data): array
     {
         if ($data instanceof Collection) {
@@ -70,19 +77,23 @@ class RequirementExtension extends AbstractExtension
         return $elements;
     }
 
+    /**
+     * @param Collection<int, Requirement>|array<Requirement> $data
+     * @return array<string, array<Requirement>>
+     */
     public function groupByCategory($data): array
     {
         if ($data instanceof Collection) {
-            $elements = $data->toArray();
+            $requirements = $data->toArray();
         } elseif (\is_array($data)) {
-            $elements = $data;
+            $requirements = $data;
         } else {
             throw new \Exception('Unsupported type for data: ' . gettype($data));
         }
 
         $result = [];
-        foreach ($elements as $element) {
-            $result[$element->getCategory()][] = $element;
+        foreach ($requirements as $requirement) {
+            $result[$requirement->getCategory()][] = $requirement;
         }
 
         ksort($result);
@@ -90,15 +101,21 @@ class RequirementExtension extends AbstractExtension
         return $result;
     }
 
-    public function prepareRequirements(Collection $data): array
+    /**
+     * @param Collection<int, Requirement> $requirements
+     * @return array<string, array<Requirement>>
+     */
+    public function prepareRequirements(Collection $requirements): array
     {
-        $result = $this->formatVersions($data);
+        $result = $this->formatVersions($requirements);
         $result = $this->groupByCategory($result);
-        $result = $this->sortByTitle($result);
-
-        return $result;
+        return $this->sortByTitle($result);
     }
 
+    /**
+     * @param Collection<int, Requirement>|array<Requirement>|array<string, array<Requirement>> $data
+     * @return mixed[]
+     */
     public function sortByTitle($data): array
     {
         if ($data instanceof Collection) {
@@ -120,16 +137,20 @@ class RequirementExtension extends AbstractExtension
         return $elements;
     }
 
-    private function normalizeVersionHelper(array &$data)
+    /**
+     * @param array<Requirement> $requirements
+     */
+    private function normalizeVersionHelper(array &$requirements): void
     {
-        foreach ($data as &$requirement) {
+        foreach ($requirements as &$requirement) {
             if (
                 \in_array(
                     $requirement->getCategory(),
                     [
                         RequirementCategoryEnum::OPTION_PHP,
                         RequirementCategoryEnum::OPTION_DATABASE,
-                    ]
+                    ],
+                    true
                 )
             ) {
                 // Calculate the digits and force range from 2 to 3
@@ -147,10 +168,11 @@ class RequirementExtension extends AbstractExtension
         }
     }
 
-    private function sortByTitleHelper(array &$data)
+    /**
+     * @param array<Requirement> $data
+     */
+    private function sortByTitleHelper(array &$data): void
     {
-        usort($data, function ($a, $b) {
-            return strcasecmp($a->getTitle(), $b->getTitle());
-        });
+        usort($data, fn ($a, $b) => strcasecmp($a->getTitle(), $b->getTitle()));
     }
 }

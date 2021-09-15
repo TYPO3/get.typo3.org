@@ -38,37 +38,44 @@ class VersionUtility
      *
      * @var string
      */
-    private static $modifierRegex = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
+    private const MODIFIER_REGEX = '[._-]?(?:(stable|beta|b|RC|alpha|a|patch|pl|p)((?:[.-]?\d+)*+)?)?([.-]?dev)?';
 
-    public static function extractMajorVersionNumber(string $version): float
+    public static function extractMajorVersionNumber(string $version): string
     {
         $versionData = explode('.', trim($version));
         $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0;
         $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) && $versionData[0] < 7 ? (int)$versionData[1] : 0;
         array_splice($versionData, 2);
-        return (float)implode('.', $versionData);
+        return implode('.', $versionData);
     }
 
     public static function isValidSemverVersion(string $version): bool
     {
         $success = preg_match(
-            "/^(\d+\.\d+\.\d+)(?:-?([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/",
+            '#^(\d+\.\d+\.\d+)(?:-?([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$#',
             $version,
             $matches
         );
         return (int)$success === 1;
     }
 
-    public static function normalize($version, int $digits = 3)
+    /**
+     * @param string|float|int|null $version
+     */
+    public static function normalize($version, int $digits = 3): ?string
     {
+        if ($version === null) {
+            return $version;
+        }
+
         $version = trim((string)$version);
 
         // match classical versioning
-        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::$modifierRegex . '$}i', $version, $matches)) {
+        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::MODIFIER_REGEX . '$}i', $version, $matches) > 0) {
             $version = $matches[1];
 
-            for ($i = 2; $i <= $digits; $i++) {
-                $version .= (!empty($matches[$i]) ? $matches[$i] : '.0');
+            for ($i = 2; $i <= $digits; ++$i) {
+                $version .= (isset($matches[$i]) && $matches[$i] !== '' ? $matches[$i] : '.0');
             }
         }
 
