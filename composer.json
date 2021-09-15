@@ -184,7 +184,7 @@
             "@ci:php:cs-fixer"
         ],
         "ci:php:copypaste": "phpcpd src tests",
-        "ci:php:cs-fixer": "php-cs-fixer fix -v --dry-run --diff --diff-format=udiff",
+        "ci:php:cs-fixer": "php-cs-fixer fix -v --dry-run --diff",
         "ci:php:lint": "phplint --no-progress",
         "ci:php:rector": "rector process --dry-run --no-progress-bar --no-diffs",
         "ci:php:sniff": "phpcs src",
