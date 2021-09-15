@@ -1,15 +1,15 @@
 /.ddev/docker-compose.tmpfs.yaml
-.idea/
-.vscode/
+/.idea/
+/.vscode/
 /bin/*
 !/bin/console
-!/bin/phpunit
 /public/p/
 /public/packages.json
 /public/satis.html
 /tools/**/vendor
-*.cache
-missing-downloads.yaml
+/*.cache
+/.phplint-cache
+/missing-downloads.yaml
 
 ###> symfony/framework-bundle ###
 /.env.local

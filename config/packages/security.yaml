@@ -1,4 +1,9 @@
 security:
+    # https://symfony.com/doc/current/security/experimental_authenticators.html
+    enable_authenticator_manager: true
+    # https://symfony.com/doc/current/security.html#c-hashing-passwords
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         users_in_memory:
@@ -7,22 +12,16 @@ security:
                     release-team:
                         password: $2y$15$enKo8VPgw7nd07YcIfPaZOUwfWd.S6Rz0GcaPJXkf3br8NFejkmuq
                         roles: ROLE_ADMIN
-    encoders:
-        Symfony\Component\Security\Core\User\User:
-            algorithm: bcrypt
-            cost: 15
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
             pattern: ^/v\d/api/
-            anonymous: true
             lazy: true
             provider: users_in_memory
             http_basic: true
         main:
-            anonymous: true
             lazy: true
             provider: users_in_memory
             security: false
