@@ -71,7 +71,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function mapObjects(object $baseObject, array $data): void
     {
         $inflector = InflectorFactory::create()->build();
-        /** @var ClassMetadataInfo $metadata */
+        /** @var ClassMetadataInfo<object> $metadata */
         $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = $inflector->tableize($field);
