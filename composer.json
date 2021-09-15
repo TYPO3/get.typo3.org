@@ -150,19 +150,17 @@
     "scripts": {
         "post-install-cmd": [
             "@auto-scripts",
-            "@bin:install"
+            "@tools:setup:install"
         ],
         "post-update-cmd": [
             "@auto-scripts",
-            "@bin:update"
+            "@tools:setup:update"
         ],
         "auto-scripts": {
             "cache:clear --no-optional-warmers": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "bin": "echo 'bin not installed.'",
-        "bin:install": "@composer bin all install --ansi",
-        "bin:update": "@composer bin all update --ansi",
         "ci": [
             "@ci:static"
         ],
