@@ -44,22 +44,22 @@ jobs:
     - name: Lint
       if: always()
       run: |
-        composer test:php:lint
+        composer ci:php:lint
     - name: PHPStan
       if: always()
       run: |
-        composer test:php:stan
+        composer ci:php:stan
     - name: CGL
       if: always()
       run: |
-        composer test:php:cgl
+        composer ci:php:cs-fixer
     - name: Unit Tests
       if: always()
       run: |
-        composer test:php:unit
+        composer ci:tests:php:unit
     - name: Functional Tests
       run: |
-        composer test:php:functional
+        composer ci:tests:php:unctional
     - name: Archive Logs
       uses: actions/upload-artifact@v1
       if: always()
