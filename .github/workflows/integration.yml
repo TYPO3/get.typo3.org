@@ -59,7 +59,7 @@ jobs:
         composer ci:tests:php:unit
     - name: Functional Tests
       run: |
-        composer ci:tests:php:unctional
+        composer ci:tests:php:functional
     - name: Archive Logs
       uses: actions/upload-artifact@v1
       if: always()
