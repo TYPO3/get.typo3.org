@@ -381,17 +381,17 @@ class DefaultController extends AbstractController
         // Make sure we can retrieve a product release
         if ($isValidVersion && in_array($format, ['tar.gz', 'zip', 'tar.gz.sig', 'zip.sig'], true)) {
             $branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
-            if (!isset($releases[$branchName])) {
+            if (!isset($releases->$branchName)) {
                 return null;
             }
-            $branch = $releases[$branchName];
+            $branch = $releases->$branchName;
 
             // $versionParts[2] can be the number '0' as a valid content. e.g. 6.0.0.
             if (!isset($versionParts[2])) {
                 $versionName = $branch->latest;
             }
 
-            $version = $branch->releases[$versionName]->version;
+            $version = $branch->releases->$versionName->version;
 
             if ($version !== null) {
                 // TYPO3 6.2 does not have some packages anymore
