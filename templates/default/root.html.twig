@@ -20,7 +20,7 @@
                     <div id="download-community-{{ loop.index }}" class="card{% if loop.first %} card-inverse{% endif %}">
                         <div class="card-body">
                             <h4 class="card-title">{{ version.title }}</h4>
-                            {% if version.version == 11 %}
+                            {% if version.version == 12 %}
                                 <p><strong>TYPO3 v11 LTS is scheduled to be released in October 2021.</strong></p>
                                 <p>Updates and security fixes will be provided for three years starting from the release date.
                                     We encourage users and agencies to install and use the v11 sprint releases until the LTS release is available.
@@ -47,6 +47,15 @@
                                     <li>Dashboard for editors</li>
                                     <li>Additional security features for editors and website users</li>
                                     <li>Improved Site setup and URL handling</li>
+                                </ul>
+                            {% elseif version.version == 11 %}
+                                <ul class="list-check">
+                                    <li>Unified editor experience</li>
+                                    <li>Advanced filelist module</li>
+                                    <li>Sharable Deep Links in the TYPO3 Backend</li>
+                                    <li>Improved collaboration and Workflow features</li>
+                                    <li>Flexible and Secure Multi-factor Authentication</li>
+                                    <li>And a lot of Improvements for Developers</li>
                                 </ul>
                             {% endif %}
                         </div>
