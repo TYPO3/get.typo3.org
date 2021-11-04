@@ -54,7 +54,7 @@ class ReleaseNotes
      * @ORM\Column(type="text", nullable=true)
      * @Serializer\Groups({"putcontent", "content"})
      * @Serializer\Type("string")
-     * @SWG\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/typo3cms\/InstallationGuide\/) applies.\nNo database updates are necessary.\n")
+     * @SWG\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n")
      */
     private ?string $upgradingInstructions = null;
 
