@@ -95,7 +95,7 @@ class MenuBuilder extends TemplateMenuBuider
         $menu->addChild(
             'install',
             [
-                'uri' => 'https://docs.typo3.org/typo3cms/InstallationGuide/',
+                'uri' => 'https://docs.typo3.org/installation',
                 'label' => 'Installation Guide'
             ]
         );
