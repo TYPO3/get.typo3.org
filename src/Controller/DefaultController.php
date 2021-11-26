@@ -321,6 +321,7 @@ class DefaultController extends AbstractController
 
     /**
      * @return array<string, mixed>
+     * @todo rewrite to not to longer use the legacy data service
      */
     private function getSourceForgeRedirect(string $versionName, string $format): ?array
     {
@@ -336,7 +337,11 @@ class DefaultController extends AbstractController
 
         $result = [];
         $content = $this->legacyDataService->getReleaseJson();
-        $releases = json_decode($content);
+        $releases = json_decode($content, false);
+        if (!is_object($releases)) {
+            throw new \InvalidArgumentException('Error while decoding the release json.');
+        }
+
         // defaults
         $package = 'typo3_src';
 
@@ -353,7 +358,6 @@ class DefaultController extends AbstractController
          */
         // Detecting Package files, possible with version number
         foreach ($packageFiles as $slug => $filename) {
-
             // a Package Name without version number
             if ($versionName === $slug) { // simple
                 $package = $filename;
