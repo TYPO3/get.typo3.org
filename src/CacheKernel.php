@@ -33,11 +33,15 @@ class CacheKernel extends HttpCache
     {
         $response = parent::invalidate($request, $catch);
 
-        if ($request->getMethod() === 'DELETE' && strpos($request->attributes->get('_route'), 'cache') !== false) {
+        if (
+            $request->getMethod() === 'DELETE'
+            && \is_string($route = $request->attributes->get('_route'))
+            && strpos($route, 'cache') !== false
+        ) {
             $content = $response->getContent();
             if (\is_string($content)) {
                 $data = json_decode($content, true);
-                if (isset($data['locations'])) {
+                if (\is_array($data) && isset($data['locations'])) {
                     foreach ($data['locations'] as $location) {
                         $this->getStore()->purge($location);
                     }

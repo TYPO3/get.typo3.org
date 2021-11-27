@@ -48,9 +48,6 @@ class ListMissingDownloadsCommand extends Command
      */
     private const NO_ERROR = 'OK';
 
-    /**
-     * @var string
-     */
     protected static $defaultName = 'app:download:missing:list';
 
     protected function configure(): void

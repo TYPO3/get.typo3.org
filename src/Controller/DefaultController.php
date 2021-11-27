@@ -30,6 +30,7 @@ use App\Repository\ReleaseRepository;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
 use App\Utility\VersionUtility;
+use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -208,9 +209,13 @@ class DefaultController extends AbstractController
         }
 
         // Get information about version to download
-        $redirectData = $this->getSourceForgeRedirect($requestedVersion, $requestedFormat);
+        try {
+            $redirectData = $this->getSourceForgeRedirect($requestedVersion, $requestedFormat);
+        } catch (\Throwable $th) {
+            throw $this->createNotFoundException();
+        }
 
-        if (!isset($redirectData['url'])) {
+        if (!isset($redirectData['url']) || !is_string($redirectData['url'])) {
             throw $this->createNotFoundException();
         }
 
@@ -256,6 +261,7 @@ class DefaultController extends AbstractController
         $formData = '';
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var array<string, string> $formData */
             $formData = $form->getData();
 
             $keys = preg_replace('#^(typo3)-#', '$1/', \array_keys($formData));
@@ -321,9 +327,11 @@ class DefaultController extends AbstractController
 
     /**
      * @return array<string, mixed>
+     * @throws InvalidArgumentException
      * @todo rewrite to not to longer use the legacy data service
+     * @todo return valid link or throw
      */
-    private function getSourceForgeRedirect(string $versionName, string $format): ?array
+    private function getSourceForgeRedirect(string $versionName, string $format): array
     {
         $packageFiles = [
             // slug (url part) => filename (without Extensions, url-encoded)
@@ -337,9 +345,9 @@ class DefaultController extends AbstractController
 
         $result = [];
         $content = $this->legacyDataService->getReleaseJson();
-        $releases = json_decode($content, false);
-        if (!is_object($releases)) {
-            throw new \InvalidArgumentException('Error while decoding the release json.');
+        $releases = json_decode($content, true);
+        if (!is_array($releases)) {
+            throw new InvalidArgumentException('Error while decoding the release json.', 1638038670);
         }
 
         // defaults
@@ -374,7 +382,10 @@ class DefaultController extends AbstractController
 
         // named version detection
         if ($versionName === 'stable') {
-            $versionName = $releases->latest_stable;
+            if (!isset($releases['latest_stable'])) {
+                throw new InvalidArgumentException('Invalid release json.', 1638038671);
+            }
+            $versionName = $releases['latest_stable'];
         } elseif ($versionName === 'dev') {
             die('"dev" version cannot be used anymore. Please stick to "stable"');
         }
@@ -385,17 +396,17 @@ class DefaultController extends AbstractController
         // Make sure we can retrieve a product release
         if ($isValidVersion && in_array($format, ['tar.gz', 'zip', 'tar.gz.sig', 'zip.sig'], true)) {
             $branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
-            if (!isset($releases->$branchName)) {
-                return null;
+            if (!isset($releases[$branchName])) {
+                throw new InvalidArgumentException('Invalid release json.', 1638038672);
             }
-            $branch = $releases->$branchName;
+            $branch = $releases[$branchName];
 
             // $versionParts[2] can be the number '0' as a valid content. e.g. 6.0.0.
             if (!isset($versionParts[2])) {
-                $versionName = $branch->latest;
+                $versionName = $branch['latest'];
             }
 
-            $version = $branch->releases->$versionName->version;
+            $version = $branch['releases'][$versionName]['version'] ?? null;
 
             if ($version !== null) {
                 // TYPO3 6.2 does not have some packages anymore
@@ -405,6 +416,7 @@ class DefaultController extends AbstractController
                     $fallbackPackage = $flippedPackageFiles[$package] . '-6.1.7';
                     return $this->getSourceForgeRedirect($fallbackPackage, $format);
                 }
+
                 $result = [
                     'url'     => 'https://typo3.azureedge.net/typo3/' .
                                  $version .
@@ -419,6 +431,7 @@ class DefaultController extends AbstractController
                 ];
             }
         }
+
         return $result;
     }
 

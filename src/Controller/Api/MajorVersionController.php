@@ -225,6 +225,7 @@ class MajorVersionController extends AbstractController
         $content = $request->getContent();
         if ($content !== '') {
             $entity = $this->findMajorVersion($version);
+            /** @var array<string, string> $data */
             $data = json_decode($content, true);
             $this->mapObjects($entity, $data);
             $this->validateObject($validator, $entity);

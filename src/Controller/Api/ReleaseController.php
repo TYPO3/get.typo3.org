@@ -302,6 +302,7 @@ class ReleaseController extends AbstractController
             if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
+            /** @var array<string, string> $data */
             $data = json_decode($content, true);
             $this->mapObjects($release, $data);
             $this->validateObject($validator, $release);

@@ -29,7 +29,7 @@ namespace App\Enum;
 abstract class AbstractEnum
 {
     /**
-     * @var array<mixed, mixed>
+     * @var array<mixed, string>
      */
     protected static array $optionNames = [];
 

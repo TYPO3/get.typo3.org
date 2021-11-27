@@ -28,12 +28,9 @@ use App\Entity\Release;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+use RuntimeException;
 
 /**
- * @method MajorVersion|null find($id, $lockMode = null, $lockVersion = null)
- * @method MajorVersion|null findOneBy(array $criteria, array $orderBy = null)
- * @method MajorVersion[]    findAll()
- * @method MajorVersion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<MajorVersion>
  */
 final class MajorVersionRepository extends ServiceEntityRepository
@@ -63,6 +60,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
     /**
      * @return array<MajorVersion>
+     * @throws RuntimeException
      */
     public function findAllActive(): array
     {
@@ -80,11 +78,17 @@ final class MajorVersionRepository extends ServiceEntityRepository
         );
         $qb->setParameter('date', $date);
         $qb->addOrderBy('m.version', Criteria::DESC);
-        return $qb->getQuery()->execute();
+
+        if (!is_array($result = $qb->getQuery()->execute())) {
+            throw new RuntimeException('Query not returned an array type.', 1638022065);
+        }
+
+        return $result;
     }
 
     /**
      * @return array<MajorVersion>
+     * @throws RuntimeException
      */
     public function findAllActiveCommunity(): array
     {
@@ -98,11 +102,17 @@ final class MajorVersionRepository extends ServiceEntityRepository
         );
         $qb->setParameter('date', $date);
         $qb->addOrderBy('m.version', Criteria::DESC);
-        return $qb->getQuery()->execute();
+
+        if (!is_array($result = $qb->getQuery()->execute())) {
+            throw new RuntimeException('Query not returned an array type.', 1638022066);
+        }
+
+        return $result;
     }
 
     /**
      * @return array<MajorVersion>
+     * @throws RuntimeException
      */
     public function findAllActiveElts(): array
     {
@@ -116,7 +126,12 @@ final class MajorVersionRepository extends ServiceEntityRepository
         );
         $qb->setParameter('date', $date);
         $qb->addOrderBy('m.version', Criteria::DESC);
-        return $qb->getQuery()->execute();
+
+        if (!is_array($result = $qb->getQuery()->execute())) {
+            throw new RuntimeException('Query not returned an array type.', 1638022067);
+        }
+
+        return $result;
     }
 
     /**
@@ -159,6 +174,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
     /**
      * @return array<MajorVersion>
+     * @throws RuntimeException
      */
     public function findAllComposerSupported(): array
     {
@@ -168,9 +184,17 @@ final class MajorVersionRepository extends ServiceEntityRepository
         );
         $qb->setParameter('minversion', 8);
         $qb->addOrderBy('m.version', Criteria::DESC);
-        return $qb->getQuery()->execute();
+
+        if (!is_array($result = $qb->getQuery()->execute())) {
+            throw new RuntimeException('Query not returned an array type.', 1638022068);
+        }
+
+        return $result;
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function findLatestLtsComposerSupported(): ?MajorVersion
     {
         $qb = $this->createQueryBuilder('m');
@@ -182,19 +206,28 @@ final class MajorVersionRepository extends ServiceEntityRepository
         );
         $qb->setParameter('minversion', 8);
         $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
-        $res = $qb->getQuery()->execute();
-        return array_pop($res);
+
+        if (!is_array($result = $qb->getQuery()->execute())) {
+            throw new RuntimeException('Query not returned an array type.', 1638022069);
+        }
+
+        return array_pop($result);
     }
 
     /**
      * @return array<string, string>|array<string, null>
+     * @throws RuntimeException
      */
     private function findStableReleases(): array
     {
         $qb = $this->createQueryBuilder('m');
         $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
-        $res = $qb->getQuery()->execute();
-        $latestMajor = array_pop($res);
+
+        if (!is_array($result = $qb->getQuery()->execute())) {
+            throw new RuntimeException('Query not returned an array type.', 1638022070);
+        }
+
+        $latestMajor = array_pop($result);
         $releases = $this->majorVersionDescending($latestMajor);
         $latestStable = $releases[0];
         $latestOldStable = $releases[1] ?? null;
@@ -206,6 +239,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
     /**
      * @return array<string, string>
+     * @throws RuntimeException
      */
     private function findLtsReleases(): array
     {
@@ -219,9 +253,13 @@ final class MajorVersionRepository extends ServiceEntityRepository
                 )
             );
         $qb->orderBy('m.maintainedUntil', Criteria::DESC);
-        $res = $qb->getQuery()->execute();
-        $latestLts = array_shift($res);
-        $latestOldLts = array_shift($res);
+
+        if (!is_array($result = $qb->getQuery()->execute())) {
+            throw new RuntimeException('Query not returned an array type.', 1638022071);
+        }
+
+        $latestLts = array_shift($result);
+        $latestOldLts = array_shift($result);
 
         $latestLtsReleases = $this->majorVersionDescending($latestLts);
         $latestOldLtsReleases = $this->majorVersionDescending($latestOldLts);
