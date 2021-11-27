@@ -1,0 +1,24 @@
+<?php
+
+namespace Knp\Menu;
+
+interface ItemInterface {}
+
+class MenuItem implements ItemInterface {}
+
+namespace T3G\Bundle\TemplateBundle\Menu;
+
+class MenuBuilder
+{
+    /**
+     * @phpstan-param array<mixed, mixed> $options
+     * @phpstan-return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
+     */
+    public function mainDefault(array $options) { }
+
+    /**
+     * @phpstan-param array<mixed, mixed> $options
+     * @phpstan-return \Knp\Menu\ItemInterface|\Knp\Menu\MenuItem
+     */
+    public function mainProfile(array $options) { }
+}

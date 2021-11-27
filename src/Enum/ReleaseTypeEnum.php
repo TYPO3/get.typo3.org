@@ -28,20 +28,20 @@ class ReleaseTypeEnum extends AbstractEnum
     /**
      * @var string
      */
-    const OPTION_REGULAR = 'regular';
+    public const OPTION_REGULAR = 'regular';
 
     /**
      * @var string
      */
-    const OPTION_DEVELOPMENT = 'development';
+    public const OPTION_DEVELOPMENT = 'development';
 
     /**
      * @var string
      */
-    const OPTION_SECURITY = 'security';
+    public const OPTION_SECURITY = 'security';
 
     /**
-     * @var array<string, string>
+     * {@inheritdoc}
      */
     protected static array $optionNames = [
         self::OPTION_REGULAR => 'Regular',

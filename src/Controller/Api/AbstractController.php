@@ -61,7 +61,12 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         $violations = $validator->validate($object);
 
         if ($violations->count() > 0) {
-            throw new BadRequestHttpException(\implode("\n", \iterator_to_array($violations, false)));
+            $messages = '';
+            \iterator_apply($violations, function (\Iterator $iterator) use ($messages) {
+                $messages .= $iterator->current()->getMessage() . "\n";
+                return true;
+            });
+            throw new BadRequestHttpException(trim($messages));
         }
     }
 

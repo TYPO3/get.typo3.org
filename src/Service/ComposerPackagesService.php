@@ -45,7 +45,7 @@ class ComposerPackagesService
     public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
 
     /**
-     * @var array<string, string|array<int>>
+     * @var array<int, array<string, string|array<int>>>
      */
     private const PACKAGES = [
         [
@@ -623,7 +623,7 @@ class ComposerPackagesService
     ];
 
     /**
-     * @var array<string, string>
+     * @var array<int, array<string, string>>
      */
     private const SPECIAL_VERSIONS = [
         [
@@ -744,7 +744,7 @@ class ComposerPackagesService
      */
     public function cleanPackagesForVersions(array $packages): array
     {
-        if (\preg_match('#^\^(\d+)#', $packages['typo3_version'], $matches) > 0) {
+        if (is_string($version = $packages['typo3_version']) && \preg_match('#^\^(\d+)#', $version, $matches) > 0) {
             $version = (int)$matches[1];
         } else {
             /** @var MajorVersionRepository $majorVersions */

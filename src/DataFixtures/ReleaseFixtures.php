@@ -86,13 +86,15 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 
             $release = new Release();
             $release->setVersion($version);
-            $release->setType($faker->randomElement(ReleaseTypeEnum::getAvailableOptions()));
+            /** @var string $type */
+            $type = $faker->randomElement(ReleaseTypeEnum::getAvailableOptions());
+            $release->setType($type);
             $release->setDate($date);
             $release->setMajorVersion($majorVersion);
             $package = new Package(
                 $faker->boolean() ? $faker->md5() : null,
                 $faker->boolean() ? $faker->sha1() : null,
-                $faker->boolean() ? $faker->sha256(): null
+                $faker->boolean() ? $faker->sha256() : null
             );
             $release->setTarPackage($package);
             $release->setZipPackage($package);

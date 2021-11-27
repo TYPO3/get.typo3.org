@@ -27,10 +27,6 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Release|null find($id, $lockMode = null, $lockVersion = null)
- * @method Release|null findOneBy(array $criteria, array $orderBy = null)
- * @method Release[]    findAll()
- * @method Release[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<Release>
  */
 final class ReleaseRepository extends ServiceEntityRepository

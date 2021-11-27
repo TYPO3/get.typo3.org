@@ -33,8 +33,6 @@ class MenuBuilder extends TemplateMenuBuider
 {
     /**
      * {@inheritdoc}
-     *
-     * @param array<mixed, mixed> $options
      */
     public function mainDefault(array $options)
     {
@@ -86,8 +84,6 @@ class MenuBuilder extends TemplateMenuBuider
 
     /**
      * {@inheritdoc}
-     *
-     * @param array<mixed, mixed> $options
      */
     public function mainProfile(array $options): ItemInterface
     {

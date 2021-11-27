@@ -38,67 +38,9 @@ class RequirementExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            // format filters
-            new TwigFilter('formatVersions', [$this, 'formatVersions']),
-
-            // sorting filters
-            new TwigFilter('sortByTitle', [$this, 'sortByTitle']),
-
-            // group and sorting filters
-            new TwigFilter('groupByCategory', [$this, 'groupByCategory']),
-
             // combined filters
             new TwigFilter('prepareRequirements', [$this, 'prepareRequirements']),
         ];
-    }
-
-    /**
-     * @param Collection<int, Requirement>|array<Requirement>|array<string, array<Requirement>> $data
-     * @return mixed[]
-     */
-    public function formatVersions($data): array
-    {
-        if ($data instanceof Collection) {
-            $elements = $data->toArray();
-        } elseif (\is_array($data)) {
-            $elements = $data;
-        } else {
-            throw new \Exception('Unsupported type for data: ' . gettype($data));
-        }
-
-        if (reset($elements) instanceof Requirement) {
-            $this->normalizeVersionHelper($elements);
-        } else {
-            foreach ($elements as &$category) {
-                $this->normalizeVersionHelper($category);
-            }
-        }
-
-        return $elements;
-    }
-
-    /**
-     * @param Collection<int, Requirement>|array<Requirement> $data
-     * @return array<string, array<Requirement>>
-     */
-    public function groupByCategory($data): array
-    {
-        if ($data instanceof Collection) {
-            $requirements = $data->toArray();
-        } elseif (\is_array($data)) {
-            $requirements = $data;
-        } else {
-            throw new \Exception('Unsupported type for data: ' . gettype($data));
-        }
-
-        $result = [];
-        foreach ($requirements as $requirement) {
-            $result[$requirement->getCategory()][] = $requirement;
-        }
-
-        ksort($result);
-
-        return $result;
     }
 
     /**
@@ -113,25 +55,41 @@ class RequirementExtension extends AbstractExtension
     }
 
     /**
-     * @param Collection<int, Requirement>|array<Requirement>|array<string, array<Requirement>> $data
-     * @return mixed[]
+     * @param Collection<int, Requirement> $requirements
+     * @return array<Requirement>
      */
-    public function sortByTitle($data): array
+    private function formatVersions(Collection $requirements): array
     {
-        if ($data instanceof Collection) {
-            $elements = $data->toArray();
-        } elseif (\is_array($data)) {
-            $elements = $data;
-        } else {
-            throw new \Exception('Unsupported type for data: ' . gettype($data));
+        $elements = $requirements->toArray();
+        $this->normalizeVersionHelper($elements);
+
+        return $elements;
+    }
+
+    /**
+     * @param array<Requirement> $requirements
+     * @return array<string, array<Requirement>>
+     */
+    private function groupByCategory(array $requirements): array
+    {
+        $result = [];
+        foreach ($requirements as $requirement) {
+            $result[$requirement->getCategory()][] = $requirement;
         }
 
-        if (reset($elements) instanceof Requirement) {
-            $this->sortByTitleHelper($elements);
-        } else {
-            foreach ($elements as &$category) {
-                $this->sortByTitleHelper($category);
-            }
+        ksort($result);
+
+        return $result;
+    }
+
+    /**
+     * @param array<string, array<Requirement>> $elements
+     * @return array<string, array<Requirement>>
+     */
+    private function sortByTitle(array $elements): array
+    {
+        foreach ($elements as &$category) {
+            $this->sortByTitleHelper($category);
         }
 
         return $elements;

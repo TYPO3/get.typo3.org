@@ -28,25 +28,25 @@ class RequirementCategoryEnum extends AbstractEnum
     /**
      * @var string
      */
-    const OPTION_PHP = 'php';
+    public const OPTION_PHP = 'php';
 
     /**
      * @var string
      */
-    const OPTION_DATABASE = 'database';
+    public const OPTION_DATABASE = 'database';
 
     /**
      * @var string
      */
-    const OPTION_HARDWARE = 'hardware';
+    public const OPTION_HARDWARE = 'hardware';
 
     /**
      * @var string
      */
-    const OPTION_CLIENT = 'client';
+    public const OPTION_CLIENT = 'client';
 
     /**
-     * @var array<string, string>
+     * {@inheritdoc}
      */
     protected static array $optionNames = [
         self::OPTION_PHP => 'PHP',

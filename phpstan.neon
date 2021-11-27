@@ -1,14 +1,12 @@
-includes:
-	- phpstan-baseline.neon
-
 parameters:
 	level: max
 	treatPhpDocTypesAsCertain: false
-
-	ignoreErrors:
 
 	paths:
 		- %currentWorkingDirectory%/config/
 		- %currentWorkingDirectory%/public/
 		- %currentWorkingDirectory%/src/
 		#- %currentWorkingDirectory%/tests/
+
+	stubFiles:
+		- stubs/MenuBuilder.stub
