@@ -166,6 +166,7 @@ class MajorVersionController extends AbstractController
         if ($content !== '') {
             /** @var MajorVersionRepository $majorVersions */
             $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+            /** @var MajorVersion $majorVersion */
             $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
             $version = $majorVersion->getVersion();
             $preexisting = $majorVersions->findVersion((string)$version);

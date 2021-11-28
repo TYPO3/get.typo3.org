@@ -135,6 +135,7 @@ class RequirementsController extends AbstractController
         if ($content !== '') {
             /** @var RequirementRepository $requirements */
             $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+            /** @var Requirement $requirement */
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $this->findMajorVersion($version);
             $requirement->setVersion($entity);
@@ -202,6 +203,7 @@ class RequirementsController extends AbstractController
         if ($content !== '') {
             /** @var RequirementRepository $requirements */
             $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+            /** @var Requirement $requirement */
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $requirements->findOneBy(
                 [
