@@ -69,7 +69,7 @@
         "symfony/validator": "5.3.*",
         "symfony/web-link": "5.3.*",
         "symfony/yaml": "5.3.*",
-        "t3g/symfony-template-bundle": "^2.17.1",
+        "t3g/symfony-template-bundle": "^3.3.6 || dev-bugfix/reintroduce-form-elements-class-support@dev",
         "twig/extra-bundle": "^2.12 || ^3.0",
         "twig/twig": "^2.12 || ^3.0"
     },
@@ -142,10 +142,16 @@
     "repositories": {
         "local": {
             "type": "path",
-            "url": "packages/*"
+            "url": "packages/*",
+            "exclude": [
+                "t3g/symfony-template-bundle"
+            ]
+        },
+        "template-bundle": {
+            "type": "vcs",
+            "url": "https://github.com/gilbertsoft/symfony-template-bundle"
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
