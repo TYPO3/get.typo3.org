@@ -142,6 +142,7 @@ class ReleaseController extends AbstractController
     {
         $content = $request->getContent();
         if ($content !== '') {
+            /** @var Release $release */
             $release = $this->serializer->deserialize($content, Release::class, 'json');
             $version = $release->getVersion();
             $this->checkVersionFormat($version);
@@ -196,6 +197,7 @@ class ReleaseController extends AbstractController
         $this->checkVersionFormat($version);
         $content = $request->getContent();
         if ($content !== '') {
+            /** @var ReleaseNotes $releaseNotes */
             $releaseNotes = $this->serializer->deserialize($content, ReleaseNotes::class, 'json');
             $this->validateObject($validator, $releaseNotes);
             /** @var ReleaseRepository $releases */
