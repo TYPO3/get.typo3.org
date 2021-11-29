@@ -41,12 +41,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @Route("/v1/api/major", defaults={"_format": "json"})
- */
+#[Route(path: ['/api/v1/major', '/v1/api/major'], defaults: ['_format' => 'json'])]
 class MajorVersionController extends AbstractController
 {
-
     /**
      * Get information about a major TYPO3 version
      * @Route("/", methods={"GET"})
@@ -133,7 +130,7 @@ class MajorVersionController extends AbstractController
      *     @SWG\Schema(
      *         type="object",
      *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/v1/api/major/21"),
+     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/api/v1/major/21"),
      *     )
      * )
      * @SWG\Response(

@@ -42,9 +42,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @Route("/v1/api/major/{version}/requirement", defaults={"_format": "json"})
- */
+#[Route(path: ['/api/v1/major/{version}/requirement', '/v1/api/major/{version}/requirement'], defaults: ['_format' => 'json'])]
 class RequirementsController extends AbstractController
 {
     /**
@@ -101,7 +99,7 @@ class RequirementsController extends AbstractController
      *     @SWG\Schema(
      *         type="object",
      *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/v1/api/major/21"),
+     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/api/v1/major/21"),
      *     )
      * )
      * @SWG\Response(

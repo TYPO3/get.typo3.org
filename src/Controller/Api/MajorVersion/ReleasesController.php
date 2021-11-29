@@ -38,12 +38,9 @@ use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/v1/api/major/{version}/release", defaults={"_format": "json"})
- */
+#[Route(path: ['/api/v1/major/{version}/release', '/v1/api/major/{version}/release'], defaults: ['_format' => 'json'])]
 class ReleasesController extends AbstractController
 {
-
     /**
      * Get releases by major version
      * @Route("/", methods={"GET"})

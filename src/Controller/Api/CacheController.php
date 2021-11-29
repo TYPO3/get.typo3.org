@@ -35,10 +35,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @Route("/v1/api/cache", methods={"DELETE"})
- * @IsGranted("ROLE_ADMIN")
- */
+#[Route(path: ['/api/v1/cache', '/v1/api/cache'], methods: ['DELETE'], defaults: ['_format' => 'json'])]
+#[IsGranted('ROLE_ADMIN')]
 class CacheController extends AbstractController
 {
     /**
