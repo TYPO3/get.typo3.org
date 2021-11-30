@@ -33,11 +33,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-      - name: Install Magallanes
-        run: |
-          composer global require "andres-montanez/magallanes" --no-progress
-          /home/runner/.composer/vendor/bin/mage version
-          mkdir -p ./.mage/logs
+          tools: composer:v2, andres-montanez/magallanes
       - name: Get Environment
         id: environment
         run: |
@@ -46,7 +42,8 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh-auth.sock
         run: |
-          /home/runner/.composer/vendor/bin/mage deploy ${{ steps.environment.outputs.target }}
+          mkdir -p ./.mage/logs
+          composer global exec mage deploy ${{ steps.environment.outputs.target }}
       - name: Archive Logs
         uses: actions/upload-artifact@v1
         if: always()
