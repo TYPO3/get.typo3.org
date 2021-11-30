@@ -41,6 +41,7 @@ magephp:
             on-deploy:
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
                 - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
+                - fs/link: { from: "../../../../shared/public/p2", to: "public/p2" }
                 - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
                 - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
                 - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
@@ -67,6 +68,7 @@ magephp:
             on-deploy:
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
                 - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
+                - fs/link: { from: "../../../../shared/public/p2", to: "public/p2" }
                 - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
                 - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
                 - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
@@ -94,12 +96,14 @@ magephp:
                 - exec: { cmd: 'test -d ~/site/shared || mkdir -p ~/site/shared', desc: 'Create shared folder' }
                 - exec: { cmd: 'test -d ~/site/shared/public || mkdir -p ~/site/shared/public', desc: 'Create shared/public folder' }
                 - exec: { cmd: 'test -d ~/site/shared/public/p || mkdir -p ~/site/shared/public/p', desc: 'Create shared/public/p folder' }
+                - exec: { cmd: 'test -d ~/site/shared/public/p2 || mkdir -p ~/site/shared/public/p2', desc: 'Create shared/public/p2 folder' }
                 - exec: { cmd: 'test -d ~/site/shared/satis || mkdir -p ~/site/shared/satis', desc: 'Create shared/satis folder' }
                 - exec: { cmd: 'test -d ~/site/shared/satis/Web || mkdir -p ~/site/shared/satis/Web', desc: 'Create shared/satis/Web folder' }
                 - exec: { cmd: 'test -d ~/site/shared/var || mkdir -p ~/site/shared/var', desc: 'Create shared/var folder' }
                 - fs/link: { from: "../../../shared/var", to: "var" }
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
                 - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
+                - fs/link: { from: "../../../../shared/public/p2", to: "public/p2" }
                 - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
                 - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
