@@ -27,6 +27,7 @@ use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Utils;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -730,7 +731,7 @@ class ComposerPackagesService
     {
         $sanitizedBundles = [];
         foreach (self::BUNDLES as $bundleName => $packages) {
-            $sanitizedBundles[$bundleName] = \GuzzleHttp\json_encode(
+            $sanitizedBundles[$bundleName] = Utils::jsonEncode(
                 array_map(static fn ($name) => str_replace('/', '-', $name), $packages)
             );
         }

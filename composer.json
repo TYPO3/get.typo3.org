@@ -34,7 +34,7 @@
         "doctrine/doctrine-migrations-bundle": "^2.2.2",
         "doctrine/orm": "^2.9",
         "erusev/parsedown": "^1.7",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.4",
         "jms/serializer-bundle": "^3.0",
         "knplabs/knp-menu-bundle": "^3.0",
         "nelmio/api-doc-bundle": "^3.1",
