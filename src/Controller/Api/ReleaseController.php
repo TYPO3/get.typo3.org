@@ -350,7 +350,6 @@ class ReleaseController extends AbstractController
      */
     public function deleteRelease(string $version): JsonResponse
     {
-        $this->checkVersionFormat($version);
         $entity = $this->getReleaseByVersion($version);
         $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
