@@ -15,7 +15,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="">{{ currentVersion.title }}</span>
                         </div>
-                        <select class="form-control custom-select"
+                        <select class="form-control form-select"
                             onchange="if (this.value) window.location.href= '{{ path('root') }}list/version/' + this.value;">
                             <option>Choose a different version</option>
                             {% for activeVersion in activeVersions %}

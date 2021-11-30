@@ -6,7 +6,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="">Version {{ currentVersion.current.version }}{% if currentVersion.current.elts %} ELTS{% endif %}</span>
                     </div>
-                    <select class="form-control b_form__select custom-select" onchange="if (this.value) window.location.href= '{{ path('root') }}release-notes/' + this.value;">
+                    <select class="form-control b_form__select form-select" onchange="if (this.value) window.location.href= '{{ path('root') }}release-notes/' + this.value;">
                         <option value="">Go to another version</option>
                         {% for version,entry in groupedVersions %}
                             <optgroup label="{{ version|replace({'.0000': ''}) }}">
