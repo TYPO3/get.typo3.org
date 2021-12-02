@@ -9,4 +9,4 @@ nelmio_api_doc:
                     type: basic
     areas: # to filter documented areas
         path_patterns:
-            - ^/v1/api(?!/doc$) # Accepts routes under /api except /api/doc
+            - ^/api/v1(?!/doc$) # Accepts routes under /api except /api/doc
