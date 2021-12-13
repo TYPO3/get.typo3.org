@@ -4,6 +4,7 @@
 /bin/*
 !/bin/console
 /public/p/
+/public/p2/
 /public/packages.json
 /public/satis.html
 /tools/**/vendor
