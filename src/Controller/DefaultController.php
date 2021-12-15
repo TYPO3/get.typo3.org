@@ -87,7 +87,7 @@ class DefaultController extends AbstractController
         return $response;
     }
 
-    #[Route(path: ['/api'])]
+    #[Route(path: ['/api', '/v1/api/doc'])]
     public function apiDoc(): Response
     {
         return $this->redirectToRoute('app.swagger_ui');
