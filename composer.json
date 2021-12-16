@@ -1,14 +1,13 @@
 {
     "name": "t3o/get.typo3.org",
-    "type": "project",
     "description": "TYPO3 Download Site 'get.typo3.org'",
+    "license": "GPL-2.0-or-later",
+    "type": "project",
     "keywords": [
         "TYPO3 CMS",
         "download"
     ],
-    "homepage": "https://get.typo3.org",
     "readme": "README.md",
-    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Benni Mack",
@@ -23,6 +22,12 @@
             "email": "susanne.moog@typo3.com"
         }
     ],
+    "homepage": "https://get.typo3.org",
+    "support": {
+        "issues": "https://github.com/TYPO3/get.typo3.org/issues",
+        "chat": "https://typo3.slack.com/archives/C779C18G5",
+        "source": "https://github.com/TYPO3/get.typo3.org"
+    },
     "require": {
         "php": ">=7.4.25",
         "ext-ctype": "*",
@@ -73,6 +78,22 @@
         "twig/extra-bundle": "^2.12 || ^3.0",
         "twig/twig": "^2.12 || ^3.0"
     },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.4.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.4.0",
+        "ergebnis/composer-normalize": "^2.18",
+        "fakerphp/faker": "^1.15.0",
+        "roave/security-advisories": "dev-latest",
+        "symfony/browser-kit": "5.3.*",
+        "symfony/css-selector": "5.3.*",
+        "symfony/debug-bundle": "5.3.*",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/panther": "^1.1.1",
+        "symfony/phpunit-bridge": "5.3.*",
+        "symfony/stopwatch": "5.3.*",
+        "symfony/var-dumper": "5.3.*",
+        "symfony/web-profiler-bundle": "5.3.*"
+    },
     "replace": {
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
@@ -92,20 +113,29 @@
     "conflict": {
         "symfony/symfony": "*"
     },
-    "require-dev": {
-        "bamarni/composer-bin-plugin": "^1.4.1",
-        "doctrine/doctrine-fixtures-bundle": "^3.4.0",
-        "fakerphp/faker": "^1.15.0",
-        "roave/security-advisories": "dev-latest",
-        "symfony/browser-kit": "5.3.*",
-        "symfony/css-selector": "5.3.*",
-        "symfony/debug-bundle": "5.3.*",
-        "symfony/maker-bundle": "^1.0",
-        "symfony/panther": "^1.1.1",
-        "symfony/phpunit-bridge": "5.3.*",
-        "symfony/stopwatch": "5.3.*",
-        "symfony/var-dumper": "5.3.*",
-        "symfony/web-profiler-bundle": "5.3.*"
+    "repositories": {
+        "local": {
+            "type": "path",
+            "url": "packages/*",
+            "exclude": [
+                "t3g/symfony-template-bundle"
+            ]
+        },
+        "template-bundle": {
+            "type": "vcs",
+            "url": "https://github.com/gilbertsoft/symfony-template-bundle"
+        }
+    },
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
     },
     "config": {
         "bin-dir": "bin",
@@ -129,30 +159,6 @@
             "require": "5.3.*"
         }
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "App\\Tests\\": "tests/"
-        }
-    },
-    "repositories": {
-        "local": {
-            "type": "path",
-            "url": "packages/*",
-            "exclude": [
-                "t3g/symfony-template-bundle"
-            ]
-        },
-        "template-bundle": {
-            "type": "vcs",
-            "url": "https://github.com/gilbertsoft/symfony-template-bundle"
-        }
-    },
-    "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
             "@auto-scripts",
@@ -174,7 +180,7 @@
             "@ci:composer:normalize",
             "@ci:composer:validate"
         ],
-        "ci:composer:normalize": "composer-normalize.phar --dry-run",
+        "ci:composer:normalize": "@composer normalize --dry-run",
         "ci:composer:validate": "@composer validate",
         "ci:dynamic": [
             "@ci:tests"
@@ -216,7 +222,7 @@
         "fix:composer": [
             "@fix:composer:normalize"
         ],
-        "fix:composer:normalize": "composer-normalize.phar",
+        "fix:composer:normalize": "@composer normalize",
         "fix:php": [
             "@fix:php:cs-fixer"
         ],
@@ -224,16 +230,12 @@
         "fix:php:rector": "rector process --no-diffs",
         "fix:php:rector:process": "rector process --no-diffs",
         "fix:php:sniff": "phpcbf src",
+        "tools:setup:clean": "rm -r tools/**/composer.lock tools/**/vendor",
         "tools:setup:install": "@composer bin all install --ansi",
         "tools:setup:update": "@composer bin all update --ansi"
     },
     "scripts-descriptions": {
         "tools:setup:install": "Install development tools.",
         "tools:setup:update": "Update development tools."
-    },
-    "support": {
-        "issues": "https://github.com/TYPO3/get.typo3.org/issues",
-        "chat": "https://typo3.slack.com/archives/C779C18G5",
-        "source": "https://github.com/TYPO3/get.typo3.org"
     }
 }

@@ -105,6 +105,15 @@
     "egulias/email-validator": {
         "version": "2.1.24"
     },
+    "ergebnis/composer-normalize": {
+        "version": "2.18.0"
+    },
+    "ergebnis/json-normalizer": {
+        "version": "1.0.3"
+    },
+    "ergebnis/json-printer": {
+        "version": "3.1.1"
+    },
     "erusev/parsedown": {
         "version": "1.7.4"
     },
@@ -146,6 +155,9 @@
             "config/packages/prod/jms_serializer.yaml"
         ]
     },
+    "justinrainbow/json-schema": {
+        "version": "5.2.11"
+    },
     "knplabs/knp-components": {
         "version": "v3.0.0"
     },
@@ -165,6 +177,9 @@
         "version": "3.3.0"
     },
     "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
+    "localheinz/diff": {
         "version": "1.1.1"
     },
     "monolog/monolog": {
