@@ -38,9 +38,17 @@ jobs:
         key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ matrix.php }}-composer-
+    - name: Composer validate
+      if: always()
+      run: |
+        composer ci:composer:validate
     - name: Install
       run: |
         composer install --no-progress
+    - name: Composer normalize
+      if: always()
+      run: |
+        composer ci:composer:normalize
     - name: Lint
       if: always()
       run: |

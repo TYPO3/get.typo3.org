@@ -177,8 +177,8 @@
             "@ci:static"
         ],
         "ci:composer": [
-            "@ci:composer:normalize",
-            "@ci:composer:validate"
+            "@ci:composer:validate",
+            "@ci:composer:normalize"
         ],
         "ci:composer:normalize": "@composer normalize --dry-run",
         "ci:composer:validate": "@composer validate",
