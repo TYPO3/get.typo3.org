@@ -22,6 +22,7 @@
 namespace App\Entity;
 
 use App\Enum\RequirementCategoryEnum;
+use App\Repository\RequirementRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;

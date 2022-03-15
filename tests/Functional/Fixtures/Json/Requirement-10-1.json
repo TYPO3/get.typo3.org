@@ -1,0 +1,6 @@
+{
+  "category": "database",
+  "name": "mariadb",
+  "min": "10.3",
+  "max": "10.5"
+}

@@ -1,0 +1,6 @@
+{
+  "category": "database",
+  "name": "mysql",
+  "min": "5.5",
+  "max": "5.7"
+}
