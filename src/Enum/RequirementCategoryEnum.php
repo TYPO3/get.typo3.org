@@ -46,6 +46,11 @@ class RequirementCategoryEnum extends AbstractEnum
     public const OPTION_CLIENT = 'client';
 
     /**
+     * @var string
+     */
+    public const OPTION_COMPOSER = 'composer';
+
+    /**
      * {@inheritdoc}
      */
     protected static array $optionNames = [
@@ -53,5 +58,6 @@ class RequirementCategoryEnum extends AbstractEnum
         self::OPTION_DATABASE => 'Database',
         self::OPTION_HARDWARE => 'Hardware',
         self::OPTION_CLIENT => 'Client',
+        self::OPTION_COMPOSER => 'Composer',
     ];
 }

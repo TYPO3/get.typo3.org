@@ -107,6 +107,7 @@ class RequirementExtension extends AbstractExtension
                     [
                         RequirementCategoryEnum::OPTION_PHP,
                         RequirementCategoryEnum::OPTION_DATABASE,
+                        RequirementCategoryEnum::OPTION_COMPOSER,
                     ],
                     true
                 )
