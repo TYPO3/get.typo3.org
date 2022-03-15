@@ -66,6 +66,7 @@ jobs:
       run: |
         composer ci:tests:php:unit
     - name: Functional Tests
+      if: always()
       run: |
         composer ci:tests:php:functional
     - name: Archive Logs

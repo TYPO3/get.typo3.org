@@ -53,4 +53,17 @@ class ApiCase extends AbstractCase
         );
         return $this->client->getResponse();
     }
+
+    protected function createRequirementFromJson(string $filePath, string $majorVersion): Response
+    {
+        $this->client->request(
+            'POST',
+            '/v1/api/major/' . $majorVersion . '/requirement/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            file_get_contents(__DIR__ . '/../../Fixtures/' . $filePath)
+        );
+        return $this->client->getResponse();
+    }
 }
