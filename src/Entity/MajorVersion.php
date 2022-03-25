@@ -92,14 +92,14 @@ class MajorVersion implements \JsonSerializable
     /**
      * @ORM\OneToMany(targetEntity="Requirement", mappedBy="version", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Groups({"data", "content"})
-     * @Serializer\Type("ArrayCollection<Requirement>")
+     * @Serializer\Type("ArrayCollection<App\Entity\Requirement>")
      * @var Collection<int, Requirement>
      */
     private Collection $requirements;
 
     /**
      * @ORM\OneToMany(targetEntity="Release", mappedBy="majorVersion", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Serializer\Type("ArrayCollection<Release>")
+     * @Serializer\Type("ArrayCollection<App\Entity\Release>")
      * @Serializer\Groups({"data"})
      * @var Collection<int, Release>
      */
