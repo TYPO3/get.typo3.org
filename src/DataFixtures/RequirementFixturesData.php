@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -21,34 +19,11 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\Twig\Filter;
+namespace App\DataFixtures;
 
-use App\Entity\Release;
-use Doctrine\Common\Collections\Collection;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
-
-class SortByVersion extends AbstractExtension
+class RequirementFixturesData
 {
-    /**
-     * @return \Twig\TwigFilter[]
-     */
-    public function getFilters(): array
+    public function __construct(public string $category, public string $name, public ?string $min, public ?string $max)
     {
-        return [
-            new TwigFilter('sortByVersion', fn ($releases): array => $this->sort($releases)),
-        ];
-    }
-
-    /**
-     * @param Collection<int, Release> $releases
-     * @return mixed[]
-     */
-    public function sort(Collection $releases): array
-    {
-        $array = $releases->toArray();
-        usort($array, fn ($a, $b): int => version_compare($b->getVersion(), $a->getVersion()));
-
-        return $array;
     }
 }

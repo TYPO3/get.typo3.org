@@ -34,7 +34,7 @@ class MenuBuilder extends TemplateMenuBuider
     /**
      * {@inheritdoc}
      */
-    public function mainDefault(array $options)
+    public function mainDefault(array $options): ItemInterface
     {
         $menu = parent::mainDefault($options);
         $menu->addChild(

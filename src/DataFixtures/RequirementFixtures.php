@@ -56,7 +56,7 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
     /**
      * @return array<class-string<MajorVersionFixtures>>
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             MajorVersionFixtures::class,
@@ -64,7 +64,7 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * @return RequirementFixturesData[]
+     * @return \Iterator<RequirementFixturesData>
      */
     protected function getData(): iterable
     {
@@ -116,25 +116,5 @@ class RequirementFixtures extends Fixture implements DependentFixtureInterface
             null,
             null
         );
-    }
-}
-
-class RequirementFixturesData
-{
-    public string $category;
-    public string $name;
-    public ?string $min;
-    public ?string $max;
-
-    public function __construct(
-        string $category,
-        string $name,
-        ?string $min,
-        ?string $max
-    ) {
-        $this->category = $category;
-        $this->name = $name;
-        $this->min = $min;
-        $this->max = $max;
     }
 }

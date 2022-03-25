@@ -31,11 +31,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 class LegacyDataService
 {
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function getReleaseJson(): string
@@ -44,8 +41,8 @@ class LegacyDataService
         $result = $cache->get('releases.json', function (ItemInterface $item): string {
             /** @var MajorVersionRepository $majorVersions */
             $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-            $content = json_encode($majorVersions->findAllPreparedForJson());
-            $content = $content !== false ? $content : '';
+            $content = json_encode($majorVersions->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
+            $content = $content != false ? $content : '';
             // remove version suffix only used for version sorting
             return str_replace('.0000', '', $content);
         });

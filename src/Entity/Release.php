@@ -51,8 +51,9 @@ class Release implements \JsonSerializable
      * @Serializer\Groups({"data", "content"})
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
+     * @var \DateTime|\DateTimeImmutable
      */
-    private \DateTime $date;
+    private \DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="string")
@@ -127,12 +128,15 @@ class Release implements \JsonSerializable
         return $this->releaseNotes;
     }
 
-    public function setDate(\DateTime $date): void
+    public function setDate(\DateTime|\DateTimeImmutable $date): void
     {
         $this->date = $date;
     }
 
-    public function getDate(): \DateTime
+    /**
+     * @return \DateTime|\DateTimeImmutable
+     */
+    public function getDate(): \DateTimeInterface
     {
         return $this->date;
     }
@@ -172,6 +176,7 @@ class Release implements \JsonSerializable
         if (!in_array($type, ReleaseTypeEnum::getAvailableOptions(), true)) {
             throw new \InvalidArgumentException('Invalid type');
         }
+
         $this->type = $type;
     }
 
@@ -191,8 +196,8 @@ class Release implements \JsonSerializable
     }
 
     /**
-    * @return array<string, mixed>
-    */
+     * @return array{version: string, date: string, type: string, checksums: array{tar: Package, zip: Package}, url: array{zip: string, tar: string}}
+     */
     public function jsonSerialize(): array
     {
         return [

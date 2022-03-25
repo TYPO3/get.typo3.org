@@ -92,16 +92,16 @@ class MajorVersion implements \JsonSerializable
     /**
      * @ORM\OneToMany(targetEntity="Requirement", mappedBy="version", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Serializer\Groups({"data", "content"})
-     * @Serializer\Type("ArrayCollection<App\Entity\Requirement>")
-     * @var \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement>
+     * @Serializer\Type("ArrayCollection<Requirement>")
+     * @var Collection<int, Requirement>
      */
     private Collection $requirements;
 
     /**
      * @ORM\OneToMany(targetEntity="Release", mappedBy="majorVersion", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Serializer\Type("ArrayCollection<App\Entity\Release>")
+     * @Serializer\Type("ArrayCollection<Release>")
      * @Serializer\Groups({"data"})
-     * @var \App\Entity\Release[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Release>
+     * @var Collection<int, Release>
      */
     private Collection $releases;
 
@@ -151,7 +151,7 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-     * @param Release[]|Collection<int, Release> $releases
+     * @param Collection<int, Release> $releases
      */
     public function setReleases(Collection $releases): void
     {
@@ -159,7 +159,7 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-     * @return Release[]|Collection<int, Release>
+     * @return Collection<int, Release>
      */
     public function getReleases(): Collection
     {
@@ -231,13 +231,13 @@ class MajorVersion implements \JsonSerializable
         $array = $this->releases->toArray();
         usort(
             $array,
-            fn ($a, $b) => version_compare($b->getVersion(), $a->getVersion())
+            fn ($a, $b): int => version_compare($b->getVersion(), $a->getVersion())
         );
         return $array !== [] ? reset($array) : null;
     }
 
     /**
-     * @param \App\Entity\Requirement[]|\Doctrine\Common\Collections\Collection<int, \App\Entity\Requirement> $requirements
+     * @param Collection<int, Requirement> $requirements
      */
     public function setRequirements(Collection $requirements): void
     {
@@ -284,7 +284,7 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array{version: float, title: string, subtitle: string, description: string, releaseDate: \DateTimeImmutable, maintainedUntil: \DateTimeImmutable|null, eltsUntil: \DateTimeImmutable|null, requirements: Collection<int, Requirement>, releases: Collection<int, Release>, lts: float|null, latestRelease: Release|null, active: bool, elts: bool}
      */
     public function toArray(): array
     {
@@ -306,15 +306,19 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-    * @return array<string, mixed>
-    */
+     * @return array{releases: array<string, Release>, latest: string, stable: string, active: bool, elts: bool}
+     */
     public function jsonSerialize(): array
     {
         $releaseData = [];
         foreach ($this->getReleases() as $release) {
             $releaseData[$release->getVersion()] = $release;
         }
-        uksort($releaseData, 'version_compare');
+
+        uksort(
+            $releaseData,
+            fn (string $a, string $b): int => version_compare($a, $b)
+        );
         $desc = array_reverse($releaseData);
         $latest = $this->getLatestRelease();
         return [

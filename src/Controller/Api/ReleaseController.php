@@ -71,7 +71,6 @@ class ReleaseController extends AbstractController
      * @SWG\Tag(name="release")
      *
      * @param string|null $version Specific TYPO3 Version to fetch
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getRelease(?string $version, Request $request): JsonResponse
     {
@@ -79,8 +78,9 @@ class ReleaseController extends AbstractController
             $this->checkVersionFormat($version);
             $releases = $this->getReleaseByVersion($version);
         } else {
-            $releases = $this->getDoctrine()->getRepository(Release::class)->findAll();
+            $releases = $this->managerRegistry->getRepository(Release::class)->findAll();
         }
+
         $json = $this->serializer->serialize(
             $releases,
             'json',
@@ -130,10 +130,6 @@ class ReleaseController extends AbstractController
      *     required=true,
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function addRelease(Request $request, ValidatorInterface $validator): JsonResponse
     {
@@ -147,7 +143,7 @@ class ReleaseController extends AbstractController
             $majorVersion = $this->getMajorVersionByReleaseVersion($version);
             $release->setMajorVersion($majorVersion);
             $this->validateObject($validator, $release);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->managerRegistry->getManager();
             $em->persist($release);
             $em->flush();
             $location = $this->generateUrl('release_show', ['version' => $version]);
@@ -156,6 +152,7 @@ class ReleaseController extends AbstractController
             ];
             return new JsonResponse(['status' => 'success', 'Location' => $location], Response::HTTP_CREATED, $header);
         }
+
         throw new BadRequestHttpException('Missing or invalid request body.');
     }
 
@@ -198,18 +195,20 @@ class ReleaseController extends AbstractController
             $releaseNotes = $this->serializer->deserialize($content, ReleaseNotes::class, 'json');
             $this->validateObject($validator, $releaseNotes);
             /** @var ReleaseRepository $releases */
-            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $releases = $this->managerRegistry->getRepository(Release::class);
             $release = $releases->findVersion($version);
             if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
+
             $release->setReleaseNotes($releaseNotes);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->managerRegistry->getManager();
             $em->persist($release);
             $em->flush();
 
             return new JsonResponse([], Response::HTTP_NO_CONTENT);
         }
+
         throw new BadRequestHttpException('Missing or malformed body.');
     }
 
@@ -236,9 +235,6 @@ class ReleaseController extends AbstractController
      * )
      * @SWG\Tag(name="release")
      * @SWG\Tag(name="content")
-     *
-     * @param string $version
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getContentForVersion(string $version, Request $request): JsonResponse
     {
@@ -296,16 +292,17 @@ class ReleaseController extends AbstractController
         $content = $request->getContent();
         if ($content !== '') {
             /** @var ReleaseRepository $releases */
-            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $releases = $this->managerRegistry->getRepository(Release::class);
             $release = $releases->findVersion($version);
             if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
+
             /** @var array<string, string> $data */
-            $data = json_decode($content, true);
+            $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
             $this->mapObjects($release, $data);
             $this->validateObject($validator, $release);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->managerRegistry->getManager();
             $em->flush();
 
             $json = $this->serializer->serialize(
@@ -315,6 +312,7 @@ class ReleaseController extends AbstractController
             );
             return new JsonResponse($json, Response::HTTP_OK, [], true);
         }
+
         throw new BadRequestHttpException('Missing or invalid request body.');
     }
 
@@ -343,24 +341,20 @@ class ReleaseController extends AbstractController
      * )
      *
      * @param string $version Specific TYPO3 Version to delete
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function deleteRelease(string $version): JsonResponse
     {
         $entity = $this->getReleaseByVersion($version);
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->managerRegistry->getManager();
         $em->remove($entity);
         $em->flush();
         return $this->json([], Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @param string $version
-     */
     protected function checkVersionConflict(string $version): void
     {
         /** @var ReleaseRepository $releases */
-        $releases = $this->getDoctrine()->getRepository(Release::class);
+        $releases = $this->managerRegistry->getRepository(Release::class);
         if ($releases->findVersion($version) !== null) {
             throw new ConflictHttpException('Version already exists');
         }

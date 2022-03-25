@@ -70,11 +70,12 @@ class ReleasesController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
+
         $json = $this->serializer->serialize(
             $majorVersion->getReleases(),
             'json',
@@ -113,11 +114,12 @@ class ReleasesController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
+
         $json = $this->serializer->serialize(
             $majorVersion->getLatestRelease(),
             'json',
@@ -156,7 +158,7 @@ class ReleasesController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         /** @var ReleaseRepository $releases */
-        $releases = $this->getDoctrine()->getRepository(Release::class);
+        $releases = $this->managerRegistry->getRepository(Release::class);
         $release = $releases->findLatestSecurityReleaseByMajorVersion($version);
         if (!$release instanceof Release) {
             $json = json_encode([]);
@@ -170,6 +172,7 @@ class ReleasesController extends AbstractController
                 SerializationContext::create()->setGroups(['data'])
             );
         }
+
         $response = new JsonResponse($json, 200, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
@@ -204,11 +207,12 @@ class ReleasesController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
+
         $json = $this->serializer->serialize(
             $majorVersion->getLatestRelease(),
             'json',

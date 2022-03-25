@@ -31,10 +31,10 @@ class CommitLinker extends AbstractExtension
     /**
      * @return \Twig\TwigFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
-            new TwigFilter('commitlinker', [$this, 'linkCommits']),
+            new TwigFilter('commitlinker', fn (string $changeList): ?string => $this->linkCommits($changeList)),
         ];
     }
 

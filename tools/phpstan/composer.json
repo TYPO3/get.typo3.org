@@ -1,11 +1,16 @@
 {
     "require": {
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0.0",
-        "phpstan/phpstan-doctrine": "^1.0.2",
-        "phpstan/phpstan-phpunit": "^1.0.0",
-        "phpstan/phpstan-strict-rules": "^1.1.0",
-        "phpstan/phpstan-symfony": "^1.0.1",
-        "rector/rector": "^0.12.5"
+        "phpstan/extension-installer": "*",
+        "phpstan/phpstan-deprecation-rules": "*",
+        "phpstan/phpstan-doctrine": "*",
+        "phpstan/phpstan-phpunit": "*",
+        "phpstan/phpstan-strict-rules": "*",
+        "phpstan/phpstan-symfony": "*",
+        "rector/rector": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }

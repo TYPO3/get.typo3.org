@@ -48,6 +48,9 @@ class ListMissingDownloadsCommand extends Command
      */
     private const NO_ERROR = 'OK';
 
+    /**
+     * @var string|null
+     */
     protected static $defaultName = 'app:download:missing:list';
 
     protected function configure(): void
@@ -119,6 +122,7 @@ class ListMissingDownloadsCommand extends Command
                 if ($this->checkUrl($url)) {
                     return self::NO_ERROR;
                 }
+
                 $result = sprintf('https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20%s/typo3_src-%s.', $release, $release);
                 $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
 
@@ -130,8 +134,8 @@ class ListMissingDownloadsCommand extends Command
             }
 
             return 'redirect failed for ' . $url;
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
     }
 
@@ -143,9 +147,9 @@ class ListMissingDownloadsCommand extends Command
             $client->request('GET', $url, ['max_redirects' => 0]);
 
             throw new \Exception('something went wrong while calling ' . $url);
-        } catch (RedirectionException $e) {
+        } catch (RedirectionException) {
             return true;
-        } catch (ClientException $e) {
+        } catch (ClientException) {
             return false;
         }
     }

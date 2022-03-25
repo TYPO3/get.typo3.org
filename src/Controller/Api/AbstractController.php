@@ -30,29 +30,31 @@ use App\Repository\ReleaseRepository;
 use App\Utility\VersionUtility;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\Persistence\ManagerRegistry;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
-    protected SerializerInterface $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
+    public function __construct(
+        protected readonly SerializerInterface $serializer,
+        protected readonly ManagerRegistry $managerRegistry,
+    ) {
     }
 
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }
+
         return $majorVersion;
     }
 
@@ -62,10 +64,14 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
         if ($violations->count() > 0) {
             $messages = '';
-            \iterator_apply($violations, function (\Iterator $iterator) use ($messages) {
-                $messages .= $iterator->current()->getMessage() . "\n";
+            \iterator_apply($violations, function (\Iterator $iterator) use ($messages): bool {
+                if ($iterator->current() instanceof ConstraintViolationInterface) {
+                    $messages .= $iterator->current()->getMessage() . "\n";
+                }
+
                 return true;
             });
+
             throw new BadRequestHttpException(trim($messages));
         }
     }
@@ -77,7 +83,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     {
         $inflector = InflectorFactory::create()->build();
         /** @var ClassMetadataInfo<object> $metadata */
-        $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor(\get_class($baseObject));
+        $metadata = $this->managerRegistry->getManager()->getMetadataFactory()->getMetadataFor($baseObject::class);
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = $inflector->tableize($field);
             $data = $this->flat($data);
@@ -91,6 +97,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
                         $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
                     }
                 }
+
                 //careful! setters are not being called! Inflection is up to you if you need it!
                 $metadata->setFieldValue($baseObject, $field, $data[$fieldName]);
             }
@@ -115,22 +122,24 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     {
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majorVersion = $majorVersions->findVersion($majorVersionNumber);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException(sprintf('Major version data for version %d does not exist.', $majorVersionNumber));
         }
+
         return $majorVersion;
     }
 
     protected function getReleaseByVersion(string $version): Release
     {
         /** @var ReleaseRepository $releases */
-        $releases = $this->getDoctrine()->getRepository(Release::class);
+        $releases = $this->managerRegistry->getRepository(Release::class);
         $release = $releases->findVersion($version);
         if (!$release instanceof Release) {
             throw new NotFoundHttpException();
         }
+
         return $release;
     }
 
@@ -151,6 +160,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
                 $result[$prefix . $key] = $value;
             }
         }
+
         return $result;
     }
 }

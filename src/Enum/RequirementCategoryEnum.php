@@ -28,27 +28,27 @@ class RequirementCategoryEnum extends AbstractEnum
     /**
      * @var string
      */
-    public const OPTION_PHP = 'php';
+    public final const OPTION_PHP = 'php';
 
     /**
      * @var string
      */
-    public const OPTION_DATABASE = 'database';
+    public final const OPTION_DATABASE = 'database';
 
     /**
      * @var string
      */
-    public const OPTION_HARDWARE = 'hardware';
+    public final const OPTION_HARDWARE = 'hardware';
 
     /**
      * @var string
      */
-    public const OPTION_CLIENT = 'client';
+    public final const OPTION_CLIENT = 'client';
 
     /**
      * @var string
      */
-    public const OPTION_COMPOSER = 'composer';
+    public final const OPTION_COMPOSER = 'composer';
 
     /**
      * {@inheritdoc}

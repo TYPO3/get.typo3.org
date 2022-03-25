@@ -35,11 +35,11 @@ class RequirementExtension extends AbstractExtension
     /**
      * @return TwigFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             // combined filters
-            new TwigFilter('prepareRequirements', [$this, 'prepareRequirements']),
+            new TwigFilter('prepareRequirements', fn (Collection $requirements): array => $this->prepareRequirements($requirements)),
         ];
     }
 
@@ -132,6 +132,6 @@ class RequirementExtension extends AbstractExtension
      */
     private function sortByTitleHelper(array &$data): void
     {
-        usort($data, fn ($a, $b) => strcasecmp($a->getTitle(), $b->getTitle()));
+        usort($data, fn ($a, $b): int => strcasecmp($a->getTitle(), $b->getTitle()));
     }
 }

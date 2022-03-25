@@ -31,10 +31,10 @@ class ChangeHighlighter extends AbstractExtension
     /**
      * @return \Twig\TwigFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
-            new TwigFilter('changehighlighter', [$this, 'highlightChanges']),
+            new TwigFilter('changehighlighter', fn (string $changeList): ?string => $this->highlightChanges($changeList)),
         ];
     }
 
@@ -48,6 +48,7 @@ class ChangeHighlighter extends AbstractExtension
                 if (isset($matches['important']) && '' !== $matches['important']) {
                     $cssClass .= ' change-important';
                 }
+
                 return '<li class="change ' . $cssClass . '">' . $matches['content'];
             },
             $changeList

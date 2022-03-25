@@ -100,6 +100,7 @@ class Requirement implements \JsonSerializable
         if (!in_array($category, RequirementCategoryEnum::getAvailableOptions(), true)) {
             throw new \InvalidArgumentException('Invalid category');
         }
+
         $this->category = $category;
     }
 
@@ -120,31 +121,17 @@ class Requirement implements \JsonSerializable
 
     public function getTitle(): string
     {
-        // @todo Switch this to match() in PHP 8.0.
-        switch ($this->getName()) {
-            case 'php':
-                return 'PHP';
-
-            case 'ie':
-                return 'Internet Explorer';
-
-            case 'postgres':
-                return 'PostgreSQL';
-            case 'sqlsrv':
-                return 'Microsoft SQL Server';
-            case 'mysql':
-                return 'MySQL';
-            case 'mariadb':
-                return 'MariaDB';
-            case 'sqlite':
-                return 'SQLite';
-
-            case 'ram':
-                return 'RAM';
-
-            default:
-                return \ucfirst($this->getName());
-        }
+        return match ($this->getName()) {
+            'php' => 'PHP',
+            'ie' => 'Internet Explorer',
+            'postgres' => 'PostgreSQL',
+            'sqlsrv' => 'Microsoft SQL Server',
+            'mysql' => 'MySQL',
+            'mariadb' => 'MariaDB',
+            'sqlite' => 'SQLite',
+            'ram' => 'RAM',
+            default => \ucfirst($this->getName()),
+        };
     }
 
     public function setMin(?string $min): void
