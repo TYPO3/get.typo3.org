@@ -31,11 +31,11 @@ class ReleaseNotesExtension extends AbstractExtension
     /**
      * @return \Twig\TwigFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             // format filters
-            new TwigFilter('removeWikiLink', [$this, 'removeWikiLink']),
+            new TwigFilter('removeWikiLink', fn (string $data): ?string => $this->removeWikiLink($data)),
         ];
     }
 

@@ -63,7 +63,7 @@ class MajorVersionController extends AbstractController
     public function getMajorReleases(Request $request): JsonResponse
     {
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majors = $majorVersions->findAllDescending();
         $json = $this->serializer->serialize(
             $majors,
@@ -102,11 +102,12 @@ class MajorVersionController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
+
         $json = $this->serializer->serialize(
             $majorVersion,
             'json',
@@ -162,7 +163,7 @@ class MajorVersionController extends AbstractController
         $content = $request->getContent();
         if ($content !== '') {
             /** @var MajorVersionRepository $majorVersions */
-            $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+            $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
             /** @var MajorVersion $majorVersion */
             $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
             $version = $majorVersion->getVersion();
@@ -170,9 +171,10 @@ class MajorVersionController extends AbstractController
             if ($preexisting instanceof MajorVersion) {
                 throw new ConflictHttpException('Version already exists');
             }
+
             $this->checkMajorVersionFormat((string)$version);
             $this->validateObject($validator, $majorVersion);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->managerRegistry->getManager();
             $em->persist($majorVersion);
             $em->flush();
             $location = $this->generateUrl('majorVersion_show', ['version' => $version]);
@@ -181,6 +183,7 @@ class MajorVersionController extends AbstractController
             ];
             return new JsonResponse(['status' => 'success', 'Location' => $location], Response::HTTP_CREATED, $header);
         }
+
         throw new BadRequestHttpException('Missing or invalid request body.');
     }
 
@@ -224,10 +227,10 @@ class MajorVersionController extends AbstractController
         if ($content !== '') {
             $entity = $this->findMajorVersion($version);
             /** @var array<string, string> $data */
-            $data = json_decode($content, true);
+            $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
             $this->mapObjects($entity, $data);
             $this->validateObject($validator, $entity);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->managerRegistry->getManager();
             $em->flush();
 
             $json = $this->serializer->serialize(
@@ -237,6 +240,7 @@ class MajorVersionController extends AbstractController
             );
             return new JsonResponse($json, Response::HTTP_OK, [], true);
         }
+
         throw new BadRequestHttpException('Missing or invalid request body.');
     }
 
@@ -267,7 +271,7 @@ class MajorVersionController extends AbstractController
     public function deleteMajorRelease(string $version): JsonResponse
     {
         $entity = $this->findMajorVersion($version);
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->managerRegistry->getManager();
         $em->remove($entity);
         $em->flush();
 

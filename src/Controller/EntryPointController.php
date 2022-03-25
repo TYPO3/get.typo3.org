@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EntryPointController extends AbstractController
@@ -39,7 +39,7 @@ class EntryPointController extends AbstractController
     ];
 
     #[Route('/go/{slug}', requirements: ['slug' => '.+'])]
-    public function handle(Request $request, string $slug): Response
+    public function handle(Request $request, string $slug): RedirectResponse
     {
         if (!array_key_exists($slug, self::ENTRY_POINTS)) {
             throw $this->createNotFoundException(sprintf('Entry point "%s" not found!', $slug));

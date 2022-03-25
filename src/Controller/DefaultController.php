@@ -30,6 +30,7 @@ use App\Repository\ReleaseRepository;
 use App\Service\ComposerPackagesService;
 use App\Service\LegacyDataService;
 use App\Utility\VersionUtility;
+use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,13 +49,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DefaultController extends AbstractController
 {
-    private LegacyDataService $legacyDataService;
-    private ComposerPackagesService $composerPackagesService;
-
-    public function __construct(LegacyDataService $legacyDataService, ComposerPackagesService $composerPackagesService)
-    {
-        $this->legacyDataService = $legacyDataService;
-        $this->composerPackagesService = $composerPackagesService;
+    public function __construct(
+        private readonly LegacyDataService $legacyDataService,
+        private readonly ComposerPackagesService $composerPackagesService,
+        private readonly ManagerRegistry $managerRegistry,
+    ) {
     }
 
     /**
@@ -71,7 +70,7 @@ class DefaultController extends AbstractController
     public function show(Request $request): Response
     {
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $communityVersions = $majorVersions->findAllActiveCommunity();
         $eltsVersions = $majorVersions->findAllActiveElts();
 
@@ -88,7 +87,7 @@ class DefaultController extends AbstractController
     }
 
     #[Route(path: ['/api', '/v1/api/doc'])]
-    public function apiDoc(): Response
+    public function apiDoc(): RedirectResponse
     {
         return $this->redirectToRoute('app.swagger_ui');
     }
@@ -120,7 +119,7 @@ class DefaultController extends AbstractController
     public function releaseNotes(Request $request, string $version = ''): Response
     {
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
 
         $data = [];
         $response = $this->getVersionData($majorVersions, 'release-notes-for-version', $version, $data);
@@ -148,7 +147,7 @@ class DefaultController extends AbstractController
     public function showVersion(Request $request, string $version = ''): Response
     {
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
 
         $data = [];
         $response = $this->getVersionData($majorVersions, 'version', $version, $data);
@@ -173,16 +172,18 @@ class DefaultController extends AbstractController
     {
         $templateName = 'default/list.html.twig';
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $data = [];
         $data['activeVersions'] = $majorVersions->findAllActive();
         $data['currentVersion'] = $majorVersions->findVersion($version);
         if ($data['currentVersion'] instanceof MajorVersion) {
             $data['currentVersion'] = $data['currentVersion']->toArray();
         }
+
         if (!is_array($data['currentVersion'])) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
+
         $response = $this->render($templateName, $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
@@ -196,8 +197,6 @@ class DefaultController extends AbstractController
      *     name="versionandformat",
      *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+[\\.\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip|tar\\.gz\\.sig|zip\\.sig)?$#'"
      * )
-     *
-     * @return RedirectResponse|Response
      */
     public function download(Request $request, string $requestedVersion = 'stable', string $requestedFormat = 'tar.gz'): Response
     {
@@ -207,7 +206,7 @@ class DefaultController extends AbstractController
 
         if (VersionUtility::isValidSemverVersion($requestedVersion)) {
             /** @var ReleaseRepository $releases */
-            $releases = $this->getDoctrine()->getRepository(Release::class);
+            $releases = $this->managerRegistry->getRepository(Release::class);
             $release = $releases->findVersion($requestedVersion);
             if ($release instanceof Release && $release->isElts()) {
                 return $this->createEltsVersionResponse($request, $release);
@@ -217,7 +216,7 @@ class DefaultController extends AbstractController
         // Get information about version to download
         try {
             $redirectData = $this->getSourceForgeRedirect($requestedVersion, $requestedFormat);
-        } catch (\Throwable $th) {
+        } catch (\Throwable) {
             throw $this->createNotFoundException();
         }
 
@@ -267,8 +266,10 @@ class DefaultController extends AbstractController
         $formData = '';
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var array<string, string> $formData */
             $formData = $form->getData();
+            if (!is_array($formData)) {
+                throw new BadRequestHttpException('Missing or invalid request body.');
+            }
 
             $keys = preg_replace('#^(typo3)-#', '$1/', \array_keys($formData));
             if (!is_array($keys)) {
@@ -276,10 +277,6 @@ class DefaultController extends AbstractController
             }
 
             $formData = array_combine($keys, $formData);
-            if (!is_array($formData)) {
-                throw new BadRequestHttpException('Missing or invalid request body.');
-            }
-
             $formData = $this->composerPackagesService->cleanPackagesForVersions($formData);
         }
 
@@ -308,10 +305,10 @@ class DefaultController extends AbstractController
             'message' => $statusMessage
         ]);
 
-        if (strpos($acceptHeader, 'application/json') !== false && $json !== false) {
+        if (str_contains($acceptHeader, 'application/json') && $json !== false) {
             $response->setContent($json);
             $response->headers->set('Content-Type', 'application/json');
-        } elseif (strpos($acceptHeader, 'text/html') !== false) {
+        } elseif (str_contains($acceptHeader, 'text/html')) {
             $response = $this->render(
                 'default/elts.html.twig',
                 [
@@ -321,6 +318,7 @@ class DefaultController extends AbstractController
         } else {
             $response->setContent(chr(10) . $statusMessage . chr(10) . chr(10));
         }
+
         $response->setStatusCode($statusCode);
         return $response;
     }
@@ -329,6 +327,47 @@ class DefaultController extends AbstractController
     {
         $url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
         return preg_replace($url, '<a href="$0" target="_blank" rel="noreferrer">$0</a>', $text);
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function getVersionData(MajorVersionRepository $majorVersions, string $redirectRoute, string $version, array &$data): ?Response
+    {
+        $version = str_replace('TYPO3_CMS_', '', $version);
+
+        if ($version === '') {
+            $majorVersion = $majorVersions->findLatestWithReleases();
+
+            if (!$majorVersion instanceof MajorVersion) {
+                throw new NotFoundHttpException('No release found.');
+            }
+
+            return $this->redirectToRoute($redirectRoute, ['version' => $majorVersion->getVersion()]);
+        }
+
+        $data['currentVersion'] = $majorVersions->findVersion(VersionUtility::extractMajorVersionNumber($version));
+
+        if (!$data['currentVersion'] instanceof MajorVersion) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        if (VersionUtility::isValidSemverVersion($version)) {
+            /** @var ReleaseRepository $releases */
+            $releases = $this->managerRegistry->getRepository(Release::class);
+            $release = $releases->findVersion($version);
+        } else {
+            $release = $data['currentVersion']->getLatestRelease();
+        }
+
+        if (!$release instanceof Release) {
+            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
+        }
+
+        $data['currentVersion'] = $data['currentVersion']->toArray();
+        $data['currentVersion']['current'] = $release;
+
+        return null;
     }
 
     /**
@@ -351,9 +390,9 @@ class DefaultController extends AbstractController
 
         $result = [];
         $content = $this->legacyDataService->getReleaseJson();
-        $releases = json_decode($content, true);
+        $releases = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         if (!is_array($releases)) {
-            throw new InvalidArgumentException('Error while decoding the release json.', 1638038670);
+            throw new InvalidArgumentException('Error while decoding the release json.', 1_638_038_670);
         }
 
         // defaults
@@ -378,6 +417,7 @@ class DefaultController extends AbstractController
                 $versionName = 'stable';
                 break;
             }
+
             // a Package Name with version number
             if (substr($versionName, 0, strlen($slug) + 1) === $slug . '-') {
                 $package = $filename;
@@ -389,13 +429,15 @@ class DefaultController extends AbstractController
         // named version detection
         if ($versionName === 'stable') {
             if (!isset($releases['latest_stable'])) {
-                throw new InvalidArgumentException('Invalid release json.', 1638038671);
+                throw new InvalidArgumentException('Invalid release json.', 1_638_038_671);
             }
+
             $versionName = $releases['latest_stable'];
         } elseif ($versionName === 'dev') {
             die('"dev" version cannot be used anymore. Please stick to "stable"');
         }
-        $versionParts = explode('.', $versionName);
+
+        $versionParts = explode('.', (string)$versionName);
 
         $isValidVersion = ((int)$versionParts[0] >= 7 || count($versionParts) > 1);
 
@@ -403,8 +445,9 @@ class DefaultController extends AbstractController
         if ($isValidVersion && in_array($format, ['tar.gz', 'zip', 'tar.gz.sig', 'zip.sig'], true)) {
             $branchName = (int)$versionParts[0] >= 7 ? $versionParts[0] : $versionParts[0] . '.' . $versionParts[1];
             if (!isset($releases[$branchName])) {
-                throw new InvalidArgumentException('Invalid release json.', 1638038672);
+                throw new InvalidArgumentException('Invalid release json.', 1_638_038_672);
             }
+
             $branch = $releases[$branchName];
 
             // $versionParts[2] can be the number '0' as a valid content. e.g. 6.0.0.
@@ -439,46 +482,5 @@ class DefaultController extends AbstractController
         }
 
         return $result;
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     */
-    private function getVersionData(MajorVersionRepository $majorVersions, string $redirectRoute, string $version, array &$data): ?Response
-    {
-        $version = str_replace('TYPO3_CMS_', '', $version);
-
-        if ($version === '') {
-            $majorVersion = $majorVersions->findLatestWithReleases();
-
-            if ($majorVersion === null) {
-                throw new NotFoundHttpException('No release found.');
-            }
-
-            return $this->redirectToRoute($redirectRoute, ['version' => $majorVersion->getVersion()]);
-        }
-
-        $data['currentVersion'] = $majorVersions->findVersion(VersionUtility::extractMajorVersionNumber($version));
-
-        if (!$data['currentVersion'] instanceof MajorVersion) {
-            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
-        }
-
-        if (VersionUtility::isValidSemverVersion($version)) {
-            /** @var ReleaseRepository $releases */
-            $releases = $this->getDoctrine()->getRepository(Release::class);
-            $release = $releases->findVersion($version);
-        } else {
-            $release = $data['currentVersion']->getLatestRelease();
-        }
-
-        if (!$release instanceof Release) {
-            throw new NotFoundHttpException('No data for version ' . $version . ' found.');
-        }
-
-        $data['currentVersion'] = $data['currentVersion']->toArray();
-        $data['currentVersion']['current'] = $release;
-
-        return null;
     }
 }

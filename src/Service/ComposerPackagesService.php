@@ -38,12 +38,12 @@ class ComposerPackagesService
     /**
      * @var string
      */
-    public const CMS_VERSIONS_GROUP = 'TYPO3 CMS Versions';
+    public final const CMS_VERSIONS_GROUP = 'TYPO3 CMS Versions';
 
     /**
      * @var string
      */
-    public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
+    public final const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
 
     /**
      * @var array<int, array<string, string|array<int>>>
@@ -671,30 +671,23 @@ class ComposerPackagesService
         ],
     ];
 
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @return FormInterface
-     */
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
         /** @var MajorVersionRepository $majorVersions */
         $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
 
         $majorVersion = $majorVersions->findLatestLtsComposerSupported();
-        if ($majorVersion === null) {
-            throw new \RuntimeException('No LTS release with Composer support found.', 1624353394);
+        if (!$majorVersion instanceof MajorVersion) {
+            throw new \RuntimeException('No LTS release with Composer support found.', 1_624_353_394);
         }
 
         $release = $majorVersion->getLatestRelease();
-        if ($release === null) {
-            throw new \RuntimeException('No release found.', 1624353494);
+        if (!$release instanceof Release) {
+            throw new \RuntimeException('No release found.', 1_624_353_494);
         }
 
         $versionChoices = [
@@ -770,7 +763,7 @@ class ComposerPackagesService
         $sanitizedBundles = [];
         foreach (self::BUNDLES as $bundleName => $packages) {
             $sanitizedBundles[$bundleName] = Utils::jsonEncode(
-                array_map(static fn ($name) => str_replace('/', '-', $name), $packages)
+                array_map(static fn ($name): string => str_replace('/', '-', $name), $packages)
             );
         }
 
@@ -790,13 +783,13 @@ class ComposerPackagesService
             $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
 
             $composerVersions = $majorVersions->findAllComposerSupported();
-            if (\count($composerVersions) === 0) {
-                throw new \RuntimeException('No release found.', 1624353639);
+            if ($composerVersions === []) {
+                throw new \RuntimeException('No release found.', 1_624_353_639);
             }
 
             $release = $composerVersions[0]->getLatestRelease();
-            if ($release === null) {
-                throw new \RuntimeException('No release found.', 1624353801);
+            if (!$release instanceof Release) {
+                throw new \RuntimeException('No release found.', 1_624_353_801);
             }
 
             \preg_match('#^\d+#', $release->getVersion(), $matches);

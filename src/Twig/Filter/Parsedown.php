@@ -31,10 +31,10 @@ class Parsedown extends AbstractExtension
     /**
      * @return \Twig\TwigFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
-            new TwigFilter('parsedown', [$this, 'parse']),
+            new TwigFilter('parsedown', fn (string $markdown): string => $this->parse($markdown)),
         ];
     }
 

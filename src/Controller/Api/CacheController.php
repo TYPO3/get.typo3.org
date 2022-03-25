@@ -65,11 +65,12 @@ class CacheController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->getDoctrine()->getRepository(MajorVersion::class);
+        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $majorVersion = $majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
+
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
 
         $this->deleteReleases();

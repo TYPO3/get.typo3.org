@@ -45,7 +45,7 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
     /**
      * @return array<class-string<MajorVersionFixtures>>
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             MajorVersionFixtures::class,
@@ -81,7 +81,7 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             );
 
             if ($date === false) {
-                throw new \RuntimeException('Can not calculate date.', 1624354915);
+                throw new \RuntimeException('Can not calculate date.', 1_624_354_915);
             }
 
             $release = new Release();
@@ -109,12 +109,14 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             for ($changeIteration = 0; $changeIteration < $faker->numberBetween(5, 50); ++$changeIteration) {
                 $changelog[] = '2019-10-30 7254d67918 [' . $faker->randomElement($changelogTypes) . '] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name() . ')';
             }
+
             $releaseNotes->setChanges(' * ' . implode("\n * ", $changelog));
             $release->setReleaseNotes($releaseNotes);
 
             if ($majorVersion->getMaintainedUntil() !== null && $date > $majorVersion->getMaintainedUntil()) {
                 $release->setElts(true);
             }
+
             $manager->persist($release);
         }
     }

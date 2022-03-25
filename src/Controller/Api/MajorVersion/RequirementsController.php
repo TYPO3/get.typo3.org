@@ -71,11 +71,12 @@ class RequirementsController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
         /** @var RequirementRepository $requirements */
-        $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+        $requirements = $this->managerRegistry->getRepository(Requirement::class);
         $entities = $requirements->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
         if ($entities === []) {
             throw new NotFoundHttpException('Version not found.');
         }
+
         $json = $this->serializer->serialize(
             $entities,
             'json',
@@ -132,7 +133,7 @@ class RequirementsController extends AbstractController
         $content = $request->getContent();
         if ($content !== '') {
             /** @var RequirementRepository $requirements */
-            $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+            $requirements = $this->managerRegistry->getRepository(Requirement::class);
             /** @var Requirement $requirement */
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $this->findMajorVersion($version);
@@ -147,9 +148,10 @@ class RequirementsController extends AbstractController
             if (null !== $preexistingRequirement) {
                 throw new ConflictHttpException('Requirement already exists.');
             }
+
             $this->validateObject($validator, $requirement);
             $entity->addRequirement($requirement);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->managerRegistry->getManager();
             $em->flush();
             $location = $this->generateUrl('majorVersion_show', ['version' => $version]);
             $header = [
@@ -157,6 +159,7 @@ class RequirementsController extends AbstractController
             ];
             return new JsonResponse(['status' => 'success', 'Location' => $location], Response::HTTP_CREATED, $header);
         }
+
         throw new BadRequestHttpException('Missing or invalid request body.');
     }
 
@@ -200,7 +203,7 @@ class RequirementsController extends AbstractController
         $content = $request->getContent();
         if ($content !== '') {
             /** @var RequirementRepository $requirements */
-            $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+            $requirements = $this->managerRegistry->getRepository(Requirement::class);
             /** @var Requirement $requirement */
             $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
             $entity = $requirements->findOneBy(
@@ -213,9 +216,10 @@ class RequirementsController extends AbstractController
             if (!$entity instanceof Requirement) {
                 throw new NotFoundHttpException('Requirement does not exists');
             }
+
             $requirement->setVersion($entity->getVersion());
             $this->validateObject($validator, $entity);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->managerRegistry->getManager();
             $em->remove($entity);
             $em->flush();
             $em->persist($requirement);
@@ -227,6 +231,7 @@ class RequirementsController extends AbstractController
             );
             return new JsonResponse($json, Response::HTTP_OK, [], true);
         }
+
         throw new BadRequestHttpException('Missing or invalid request body.');
     }
 
@@ -260,7 +265,7 @@ class RequirementsController extends AbstractController
         string $name
     ): JsonResponse {
         /** @var RequirementRepository $requirements */
-        $requirements = $this->getDoctrine()->getRepository(Requirement::class);
+        $requirements = $this->managerRegistry->getRepository(Requirement::class);
         $requirement = $requirements->findOneBy(
             [
                 'version' => $this->findMajorVersion($version),
@@ -271,7 +276,8 @@ class RequirementsController extends AbstractController
         if (!$requirement instanceof Requirement) {
             throw new NotFoundHttpException('Requirement does not exists');
         }
-        $em = $this->getDoctrine()->getManager();
+
+        $em = $this->managerRegistry->getManager();
         $em->remove($requirement);
         $em->flush();
         return $this->json([], Response::HTTP_NO_CONTENT);

@@ -29,18 +29,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CacheKernel extends HttpCache
 {
-    protected function invalidate(Request $request, $catch = false): Response
+    protected function invalidate(Request $request, bool $catch = false): Response
     {
         $response = parent::invalidate($request, $catch);
 
         if (
             $request->getMethod() === 'DELETE'
             && \is_string($route = $request->attributes->get('_route'))
-            && strpos($route, 'cache') !== false
+            && str_contains($route, 'cache')
         ) {
             $content = $response->getContent();
             if (\is_string($content)) {
-                $data = json_decode($content, true);
+                $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
                 if (\is_array($data) && isset($data['locations'])) {
                     foreach ($data['locations'] as $location) {
                         $this->getStore()->purge($location);

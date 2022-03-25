@@ -37,23 +37,15 @@ use Symfony\Component\Routing\RouterInterface;
 
 class CacheWarmupService implements CacheWarmerInterface
 {
-    private RouterInterface $router;
+    private readonly Client $client;
 
-    private EntityManagerInterface $entityManager;
-
-    private Client $client;
-
-    private string $baseUrl;
-
-    private LoggerInterface $logger;
-
-    public function __construct(RouterInterface $router, EntityManagerInterface $entityManager, LoggerInterface $logger, string $baseUrl)
-    {
-        $this->router = $router;
-        $this->entityManager = $entityManager;
+    public function __construct(
+        private readonly RouterInterface $router,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger,
+        private readonly string $baseUrl,
+    ) {
         $this->client = new Client();
-        $this->logger = $logger;
-        $this->baseUrl = $baseUrl;
     }
 
     /**
@@ -64,7 +56,7 @@ class CacheWarmupService implements CacheWarmerInterface
      *
      * @return bool true if the warmer is optional, false otherwise
      */
-    public function isOptional()
+    public function isOptional(): bool
     {
         return true;
     }
@@ -83,9 +75,11 @@ class CacheWarmupService implements CacheWarmerInterface
         foreach ($routesWithoutArguments as $route) {
             $promise = $this->makeRequest($this->router->generate($route));
         }
+
         if ($promise !== null) {
             $promise->wait();
         }
+
         $this->warmUpActiveMajorVersions();
 
         $this->warmUpMajorVersions();
@@ -112,9 +106,10 @@ class CacheWarmupService implements CacheWarmerInterface
                     $this->logger->info('Warmed up ' . $url . ' with status ' . $response->getStatusCode());
                 }
             );
-        } catch (ServerException $e) {
-            $this->logger->warning($e->getMessage(), $e->getTrace());
+        } catch (ServerException $serverException) {
+            $this->logger->warning($serverException->getMessage(), $serverException->getTrace());
         }
+
         return $promise ?? null;
     }
 
@@ -159,13 +154,15 @@ class CacheWarmupService implements CacheWarmerInterface
                 if ($requestCounter % 5 !== 0) {
                     continue;
                 }
+
                 if (!$promise instanceof PromiseInterface) {
                     continue;
                 }
+
                 try {
                     $promise->wait();
-                } catch (\Exception $e) {
-                    $this->logger->warning($e->getMessage(), $e->getTrace());
+                } catch (\Exception $exception) {
+                    $this->logger->warning($exception->getMessage(), $exception->getTrace());
                 }
             }
         }

@@ -32,27 +32,27 @@ class MajorVersionFixtures extends Fixture
     /**
      * @var string
      */
-    public const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
+    public final const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
 
     /**
      * @var string
      */
-    public const MAJOR_VERSION_LTS = 'majorversion-lts';
+    public final const MAJOR_VERSION_LTS = 'majorversion-lts';
 
     /**
      * @var string
      */
-    public const MAJOR_VERSION_ELTS = 'majorversion-elts';
+    public final const MAJOR_VERSION_ELTS = 'majorversion-elts';
 
     /**
      * @var string
      */
-    public const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
+    public final const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
 
     /**
      * @var string
      */
-    public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
+    public final const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
 
     public function load(ObjectManager $manager): void
     {
@@ -80,7 +80,7 @@ class MajorVersionFixtures extends Fixture
     }
 
     /**
-     * @return MajorVersionFixturesData[]
+     * @return \Iterator<MajorVersionFixturesData>
      */
     protected function getData(): iterable
     {
@@ -162,19 +162,5 @@ class MajorVersionFixtures extends Fixture
                 4.5
             )
         );
-    }
-}
-
-class MajorVersionFixturesData
-{
-    public string $key;
-    public MajorVersion $version;
-
-    public function __construct(
-        string $key,
-        MajorVersion $version
-    ) {
-        $this->key = $key;
-        $this->version = $version;
     }
 }
