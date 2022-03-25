@@ -48,9 +48,17 @@ final class MajorVersionRepository extends ServiceEntityRepository
         return $this->findBy([], ['version' => Criteria::DESC]);
     }
 
-    public function findLatest(): ?MajorVersion
+    public function findLatestWithReleases(): ?MajorVersion
     {
-        return $this->findOneBy([], ['version' => Criteria::DESC]);
+        $versions = $this->findBy([], ['version' => Criteria::DESC]);
+
+        foreach ($versions as $version) {
+            if ($version->getReleases()->count() > 0) {
+                return $version;
+            }
+        }
+
+        return null;
     }
 
     public function findVersion(string $version): ?MajorVersion
@@ -105,6 +113,13 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
         if (!is_array($result = $qb->getQuery()->execute())) {
             throw new RuntimeException('Query not returned an array type.', 1638022066);
+        }
+
+        // Remove versions without releases
+        foreach ($result as $key => $version) {
+            if ($version->getReleases()->count() === 0) {
+                unset($result[$key]);
+            }
         }
 
         return $result;
