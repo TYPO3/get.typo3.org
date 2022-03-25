@@ -30,8 +30,9 @@ jobs:
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
       - name: Set up PHP Version
-        run: |
-          sudo update-alternatives --set php /usr/bin/php7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
       - name: Install Magallanes
         run: |
           composer global require "andres-montanez/magallanes" --no-progress
