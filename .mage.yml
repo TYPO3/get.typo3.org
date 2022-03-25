@@ -9,6 +9,7 @@ magephp:
         - .mage
         - .vscode
         - bin/phpunit
+        - stubs
         - tests
         - .editorconfig
         - .env.ddev
@@ -18,14 +19,16 @@ magephp:
         - .gitignore
         - .gitmodules
         - .mage.yml
-        - .php_cs.cache
-        - .php_cs.dist
-        - .phplint.cache
+        - .php-cs-fixer.cache
+        - .php-cs-fixer.dist.php
+        - .phplint-cache
         - .phplint.yml
         - .phpunit.result.cache
         - LICENSE
+        - phpstan.neon
         - phpunit.xml.dist
         - README.md
+        - rector.php
     environments:
         develop:
             user: get-dev
@@ -35,7 +38,7 @@ magephp:
             hosts:
                 - get01.typo3server.ch
             pre-deploy:
-                - exec: { cmd: "echo \"APP_ENV=staging\" >> .env.local", desc: "Create .env.local" }
+                - exec: { cmd: "echo \"APP_ENV=prod\" >> .env.local", desc: "Create .env.local" }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
             on-deploy:
