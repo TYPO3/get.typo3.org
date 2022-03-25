@@ -449,7 +449,7 @@ class DefaultController extends AbstractController
         $version = str_replace('TYPO3_CMS_', '', $version);
 
         if ($version === '') {
-            $majorVersion = $majorVersions->findLatest();
+            $majorVersion = $majorVersions->findLatestWithReleases();
 
             if ($majorVersion === null) {
                 throw new NotFoundHttpException('No release found.');

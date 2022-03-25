@@ -21,11 +21,12 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ version.title }}</h4>
                             {% if version.version == 12 %}
-                                <p><strong>TYPO3 v11 LTS is scheduled to be released in October 2021.</strong></p>
-                                <p>Updates and security fixes will be provided for three years starting from the release date.
-                                    We encourage users and agencies to install and use the v11 sprint releases until the LTS release is available.
-                                    Further details about the releases and release dates are available in the
-                                    <a href="https://typo3.org/cms/roadmap/">roadmap</a>.</p>
+                                <p><strong>{{ version.subtitle }}</strong></p>
+                                <p>Updates and security fixes will be provided for three years starting from the release date.</p>
+                                {% if version.latestRelease %}
+                                    <p>We encourage users and agencies to install and use the sprint releases until the LTS release is available.
+                                        Further details about the releases and release dates are available in the <a href="https://typo3.org/cms/roadmap/">roadmap</a>.</p>
+                                {% endif %}
                             {% else %}
                                 <p>{{ version.description }}</p>
                             {% endif %}
@@ -62,7 +63,11 @@
                         <div class="card-footer">
                             <h5>System requirements</h3>
                             <ul class="list-info">
-                                {% if version.version == 11 %}
+                                {% if version.version == 12 %}
+                                    <li>PHP 8.1</li>
+                                    <li>MySQL 5.7+ / MariaDB / Postgres / SQLite support</li>
+                                    <li>Modern Browsers</li>
+                                {% elseif version.version == 11 %}
                                     <li>PHP 7.4, 8.0 or 8.1</li>
                                     <li>MySQL 5.7+ / MariaDB / Postgres / SQLite support</li>
                                     <li>Modern Browsers</li>
@@ -102,7 +107,7 @@
                                 <a href="{{ path('version', {'version': version.version}) }}"
                                     class="btn btn-{{ btnClass }}">Get version {{ version.version }}</a>
                             {% else %}
-                                <p>No version available.</p>
+                                <p>No releases available.</p>
                             {% endif %}
                         </div>
                     </div>

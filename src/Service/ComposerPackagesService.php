@@ -62,6 +62,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-adminpanel',
             'description' => 'The TYPO3 admin panel provides a panel with additional functionality in the frontend (Debugging, Caching, Preview...)',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -71,6 +72,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-backend',
             'description' => 'Classes for the TYPO3 backend.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -81,6 +83,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-belog',
             'description' => 'Displays backend log, both per page and system wide. Available as the module Tools>Log (system wide overview) and Web>Info/Log (page relative overview).',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -91,6 +94,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-beuser',
             'description' => 'Backend user administration and overview. Allows you to compare the settings of users and verify their permissions and see who is online.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -108,6 +112,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-core',
             'description' => 'The core library of TYPO3.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -132,6 +137,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-dashboard',
             'description' => 'Dashboard for TYPO3.',
             'versions' => [
+                12,
                 11,
                 10,
             ]
@@ -147,6 +153,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-extbase',
             'description' => 'A framework to build extensions for TYPO3 CMS.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -157,6 +164,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-extensionmanager',
             'description' => 'TYPO3 Extension Manager.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -175,6 +183,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-felogin',
             'description' => 'A template-based plugin to log in Website Users in the Frontend.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -185,6 +194,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-filelist',
             'description' => 'Listing of files in the directory.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -195,6 +205,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-filemetadata',
             'description' => 'Add advanced metadata to File.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -205,6 +216,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-fluid',
             'description' => 'Fluid is a next-generation templating engine which makes the life of extension authors a lot easier!',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -215,6 +227,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-fluid-styled-content',
             'description' => 'A set of common content elements based on Fluid for Frontend output.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -225,6 +238,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-form',
             'description' => 'Form Library, Plugin and Editor.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -235,6 +249,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-frontend',
             'description' => 'Classes for the frontend of TYPO3.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -252,6 +267,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-impexp',
             'description' => 'Import and Export of records from TYPO3 in a custom serialized format (.T3D) for data exchange with other TYPO3 systems.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -262,6 +278,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-indexed-search',
             'description' => 'Indexed Search Engine for TYPO3 pages, PDF-files, Word-files, HTML and text files. Provides a backend module for statistics of the indexer and a frontend plugin. Documentation can be found in the extension "doc_indexed_search".',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -272,6 +289,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-info',
             'description' => 'Shows various infos.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -289,6 +307,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-install',
             'description' => 'The Install Tool mounted as the module Tools>Install in TYPO3.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -306,6 +325,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-linkvalidator',
             'description' => 'Link Validator checks the links in your website for validity. It can validate all kinds of links: internal, external and file links. Scheduler is supported to run Link Validator via Cron including the option to send status mails, if broken links were detected.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -316,6 +336,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-lowlevel',
             'description' => "Enables the 'Config' and 'DB Check' modules for technical analysis of the system. This includes raw database search, checking relations, counting pages and records etc.",
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -326,6 +347,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-opendocs',
             'description' => 'Shows opened documents by the user.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -336,6 +358,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-recordlist',
             'description' => 'List of database-records.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -346,6 +369,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-recycler',
             'description' => 'The recycler offers the possibility to restore deleted records or remove them from the database permanently. These actions can be applied to a single record, multiple records, and recursively to child records (ex. restoring a page can restore all content elements on that page). Filtering by page and by table provides a quick overview of deleted records before taking action on them.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -356,6 +380,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-redirects',
             'description' => 'Custom redirects in TYPO3.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -365,6 +390,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-reports',
             'description' => 'The reports module groups several system reports.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -383,6 +409,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-rte-ckeditor',
             'description' => 'Integration of CKEditor as Rich Text Editor.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -400,6 +427,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-scheduler',
             'description' => "The TYPO3 Scheduler let's you register tasks to happen at a specific time.",
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -410,6 +438,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-seo',
             'description' => 'SEO features for TYPO3.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -419,6 +448,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-setup',
             'description' => 'Allows users to edit a limited set of options for their user profile, eg. preferred language and their name and email address.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -444,6 +474,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-sys-note',
             'description' => 'Records with messages which can be placed on any page and contain instructions or other information related to a page or section.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -454,6 +485,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-t3editor',
             'description' => 'JavaScript-driven editor with syntax highlighting and codecompletion. Based on CodeMirror.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -472,6 +504,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-tstemplate',
             'description' => 'Framework for management of TypoScript template records for the CMS frontend.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -489,6 +522,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-viewpage',
             'description' => 'Shows the frontend webpage inside the backend frameset.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -513,6 +547,7 @@ class ComposerPackagesService
             'name'        => 'typo3/cms-workspaces',
             'description' => 'Adds workspaces functionality with custom stages to TYPO3.',
             'versions' => [
+                12,
                 11,
                 10,
                 9,
@@ -691,9 +726,12 @@ class ComposerPackagesService
                     $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
                         $this->getComposerVersionConstraint($nextMinor, true);
                 }
-                $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
-                    $this->getComposerVersionConstraint($nextPatch, true);
+            } else {
+                $nextPatch = $version->getVersion() . '.0.0';
             }
+
+            $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
+                $this->getComposerVersionConstraint($nextPatch, true);
         }
 
         $builder->add(

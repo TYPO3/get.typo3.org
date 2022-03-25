@@ -47,7 +47,7 @@ class MajorVersionController extends AbstractController
     /**
      * Get information about a major TYPO3 version
      * @Route("/", methods={"GET"})
-     * @Cache(expires="tomorrow", public=true)
+     * @Cache(expires="+1 hour", public=true)
      * @SWG\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
@@ -80,7 +80,7 @@ class MajorVersionController extends AbstractController
     /**
      * Get hard facts of a major TYPO3 Release
      * @Route("/{version}", methods={"GET"}, name="majorVersion_show")
-     * @Cache(expires="tomorrow", public=true)
+     * @Cache(expires="+1 hour", public=true)
      * @SWG\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
