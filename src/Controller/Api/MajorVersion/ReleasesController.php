@@ -30,8 +30,8 @@ use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
@@ -45,26 +45,26 @@ class ReleasesController extends AbstractController
      * Get releases by major version
      * @Route("/", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 releases by major version",
-     *     @SWG\Schema(
-     *         @SWG\Items(
+     *     @OA\Schema(
+     *         @OA\Items(
      *             type="array",
-     *             @Model(type=\App\Entity\Release::class, groups={"data"})
+     *             ref=@Model(type=Release::class, groups={"data"})
      *         )
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="release")
      */
     public function getReleasesByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -92,23 +92,21 @@ class ReleasesController extends AbstractController
      * Get latest release of a major version
      * @Route("/latest", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 release of a major version",
-     *     @SWG\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"data"})
-     *     )
+     *     @OA\Schema(ref=@Model(type=Release::class, groups={"data"}))
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Version is not numeric"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="release")
      */
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -136,23 +134,21 @@ class ReleasesController extends AbstractController
      * Get latest security release of a major version
      * @Route("/latest/security", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 security release of a major version",
-     *     @SWG\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"data"})
-     *     )
+     *     @OA\Schema(ref=@Model(type=Release::class, groups={"data"}))
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Version is not numeric"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="release")
      */
     public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
@@ -184,24 +180,22 @@ class ReleasesController extends AbstractController
      * Get latest release of a major version
      * @Route("/latest/content", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @SWG\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"content"})
-     *     )
+     *     @OA\Schema(ref=@Model(type=Release::class, groups={"content"}))
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="content")
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="content")
+     * @OA\Tag(name="release")
      */
     public function getLatestReleaseContentByMajorVersion(string $version, Request $request): JsonResponse
     {

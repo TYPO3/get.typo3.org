@@ -1,12 +1,21 @@
 nelmio_api_doc:
     documentation:
+        servers:
+          - url: https://get.typo3.org/api
+            description: Production API over HTTPS
+          - url: https://get.typo3.dev/api
+            description: Development API over HTTPS
         info:
             title: get.typo3.org
             description: REST API for getting information about TYPO3 releases
             version: 1.0.0
-        securityDefinitions:
+        components:
+            securitySchemes:
                 Basic:
-                    type: basic
+                    type: http
+                    scheme: basic
+        security:
+            - Basic: []
     areas: # to filter documented areas
         path_patterns:
-            - ^/api/v1(?!/doc$) # Accepts routes under /api except /api/doc
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

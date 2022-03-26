@@ -25,7 +25,7 @@ use App\Enum\RequirementCategoryEnum;
 use App\Repository\RequirementRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -44,7 +44,7 @@ class Requirement implements \JsonSerializable
      * @ORM\Id
      * @ORM\Column(type="string")
      * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="database")
+     * @OA\Property(example="database")
      * @Assert\Choice(callback={"App\Enum\RequirementCategoryEnum", "getAvailableOptions"})
      */
     private string $category;
@@ -53,21 +53,21 @@ class Requirement implements \JsonSerializable
      * @ORM\Id
      * @ORM\Column(type="string")
      * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="mysql")
+     * @OA\Property(example="mysql")
      */
     private string $name;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="5.5")
+     * @OA\Property(example="5.5")
      */
     private ?string $min = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="5.7")
+     * @OA\Property(example="5.7")
      */
     private ?string $max = null;
 

@@ -28,9 +28,9 @@ use App\Repository\MajorVersionRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,17 +48,15 @@ class MajorVersionController extends AbstractController
      * Get information about a major TYPO3 version
      * @Route("/", methods={"GET"})
      * @Cache(expires="+1 hour", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         type="array",
-     *         @SWG\Items(
-     *             @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
-     *         )
+     *         @OA\Items(ref=@Model(type=MajorVersion::class, groups={"content"}))
      *     )
      * )
-     * @SWG\Tag(name="major")
+     * @OA\Tag(name="major")
      */
     public function getMajorReleases(Request $request): JsonResponse
     {
@@ -81,22 +79,20 @@ class MajorVersionController extends AbstractController
      * Get hard facts of a major TYPO3 Release
      * @Route("/{version}", methods={"GET"}, name="majorVersion_show")
      * @Cache(expires="+1 hour", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @SWG\Schema(
-     *         @Model(type=\App\Entity\MajorVersion::class, groups={"data"})
-     *     )
+     *     @OA\Schema(ref=@Model(type=MajorVersion::class, groups={"data"}))
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
+     * @OA\Tag(name="major")
      */
     public function getMajorRelease(string $version, Request $request): JsonResponse
     {
@@ -125,37 +121,43 @@ class MajorVersionController extends AbstractController
      * @Route("/", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=201,
      *     description="Successfully created",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         type="object",
-     *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/api/v1/major/21"),
+     *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
+     *         @OA\Property(
+     *             property="Location",
+     *             title="Location (URI)",
+     *             description="URI of newly created version",
+     *             type="string",
+     *             example="/api/v1/major/21"
+     *         ),
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Version exists."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Parameter(
+     * @OA\Tag(name="major")
+     * @OA\Parameter(
      *     name="major",
-     *     in="body",
+     *     in="query",
      *     required=true,
-     *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
+     *     @Model(type=MajorVersion::class, groups={"patch"})
      * )
      */
     public function createMajorRelease(Request $request, ValidatorInterface $validator): JsonResponse
@@ -192,33 +194,30 @@ class MajorVersionController extends AbstractController
      * @Route("/{version}", methods={"PATCH"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
-     *     @SWG\Schema(
-     *         @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
-     *
-     *     )
+     *     @OA\Schema(ref=@Model(type=MajorVersion::class, groups={"content"}))
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Parameter(
+     * @OA\Tag(name="major")
+     * @OA\Parameter(
      *     name="major",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     description="May also contain incomplete model with only those properties that shall be updated",
-     *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
+     *     @Model(type=MajorVersion::class, groups={"patch"})
      * )
      */
     public function updateMajorRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse
@@ -249,23 +248,23 @@ class MajorVersionController extends AbstractController
      * @Route("/{version}", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
+     * @OA\Tag(name="major")
      * )
      */
     public function deleteMajorRelease(string $version): JsonResponse

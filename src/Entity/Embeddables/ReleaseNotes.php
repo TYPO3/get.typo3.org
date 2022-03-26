@@ -25,7 +25,7 @@ namespace App\Entity\Embeddables;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -37,7 +37,7 @@ class ReleaseNotes
      * @ORM\Column(type="string", nullable=true)
      * @Serializer\Groups({"putcontent", "content"})
      * @Serializer\Type("string")
-     * @SWG\Property(type="string", format="uri", example="https://typo3.org/news/article/typo3-v910-released")
+     * @OA\Property(type="string", format="uri", example="https://typo3.org/news/article/typo3-v910-released")
      * @Assert\Url
      */
     private ?string $newsLink = null;
@@ -46,7 +46,7 @@ class ReleaseNotes
      * @ORM\Column(type="text", nullable=true)
      * @Serializer\Groups({"putcontent", "content"})
      * @Serializer\Type("string")
-     * @SWG\Property(example="This release is a bugfix and regression fix release.", description="Short news text about the release.")
+     * @OA\Property(example="This release is a bugfix and regression fix release.", description="Short news text about the release.")
      */
     private ?string $news = null;
 
@@ -54,7 +54,7 @@ class ReleaseNotes
      * @ORM\Column(type="text", nullable=true)
      * @Serializer\Groups({"putcontent", "content"})
      * @Serializer\Type("string")
-     * @SWG\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n")
+     * @OA\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n")
      */
     private ?string $upgradingInstructions = null;
 
@@ -62,7 +62,7 @@ class ReleaseNotes
      * @ORM\Column(type="text", nullable=true)
      * @Serializer\Groups({"putcontent", "content"})
      * @Serializer\Type("string")
-     * @SWG\Property(description="Changelog as markdown")
+     * @OA\Property(description="Changelog as markdown")
      */
     private ?string $changes = null;
 

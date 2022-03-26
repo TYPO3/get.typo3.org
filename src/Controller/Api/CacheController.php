@@ -26,8 +26,8 @@ namespace App\Controller\Api;
 use App\Entity\MajorVersion;
 use App\Repository\MajorVersionRepository;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,23 +43,23 @@ class CacheController extends AbstractController
      * Purge caches related to TYPO3 major version
      * @Route("/majorVersion/{version}")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Invalid version format."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="cache")
+     * @OA\Tag(name="cache")
      */
     public function purgeMajorRelease(string $version): JsonResponse
     {
@@ -82,23 +82,23 @@ class CacheController extends AbstractController
      * Purge caches related to single TYPO3 release
      * @Route("/release/{version}")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Invalid version format"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="cache")
+     * @OA\Tag(name="cache")
      */
     public function purgeRelease(string $version): JsonResponse
     {
