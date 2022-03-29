@@ -4,6 +4,7 @@ parameters:
 
 	paths:
 		- %currentWorkingDirectory%/config/
+		- %currentWorkingDirectory%/migrations/
 		- %currentWorkingDirectory%/public/
 		- %currentWorkingDirectory%/src/
 		#- %currentWorkingDirectory%/tests/
