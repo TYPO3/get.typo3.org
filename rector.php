@@ -2,6 +2,25 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the package t3o/get.typo3.org.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
 use Rector\Core\Configuration\Option;
 use Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
 use Rector\Doctrine\Set\DoctrineSetList;
@@ -81,8 +100,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_BEHAVIORS_20);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_CODE_QUALITY);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_COMMON_20);
-    $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_211);
-    //$containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_30);
+    //$containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_211);
+    $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_30);
     //$containerConfigurator->import(DoctrineSetList::DOCTRINE_GEDMO_TO_KNPLABS);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_REPOSITORY_AS_SERVICE);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_ORM_29);

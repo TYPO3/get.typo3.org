@@ -53,8 +53,9 @@ magephp:
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
+                - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-                - exec: { cmd: "php ./bin/console cache:warmup --env=staging", desc: "Cache Warmup", timeout: 300 }
+                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 300 }
                 - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
             post-deploy:
         production:
@@ -80,6 +81,7 @@ magephp:
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
+                - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 300 }
                 - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }

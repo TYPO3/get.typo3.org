@@ -18,5 +18,6 @@ if [ ! -f $DBFILE ]; then
 else
     echo "Database found, running the migrations..."
 
+    php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction
     php ./bin/console doctrine:migrations:migrate --no-interaction
 fi
