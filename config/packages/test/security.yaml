@@ -1,0 +1,9 @@
+security:
+    providers:
+        users_in_memory:
+            memory:
+                users:
+                    # Authorization for test context with username `test` and password `password`
+                    test-user:
+                        password: $2y$15$n9Q1dIvz18JRYj/jaohaX.luADCfZ25ZqR4D5VzWt3WcHJZ7Vndrq
+                        roles: ROLE_ADMIN

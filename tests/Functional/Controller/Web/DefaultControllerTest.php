@@ -41,178 +41,178 @@ class DefaultControllerTest extends AbstractCase
     /**
      * @test
      */
-    public function webDefault()
+    public function webDefault(): void
     {
         $this->client->request('GET', '/');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Build Blazingly');
-        $this->assertSelectorTextContains('#download-community-1 .btn', 'Get version 10');
-        $this->assertSelectorTextContains('#download-community-2 .btn', 'Get version 9');
-        $this->assertSelectorTextContains('#download-elts-1 .btn-primary', 'Buy ELTS');
-        $this->assertSelectorTextNotContains('h4', 'TYPO3 4.5');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', 'Build Blazingly');
+        self::assertSelectorTextContains('#download-community-1 .btn', 'Get version 10');
+        self::assertSelectorTextContains('#download-community-2 .btn', 'Get version 9');
+        self::assertSelectorTextContains('#download-elts-1 .btn-primary', 'Buy ELTS');
+        self::assertSelectorTextNotContains('h4', 'TYPO3 4.5');
     }
 
     /**
      * @test
      */
-    public function webDownloadRedirect()
+    public function webDownloadRedirect(): void
     {
         $this->client->request('GET', '/download');
-        $this->assertResponseRedirects();
-        $this->assertSelectorTextContains('a', '/version/10');
+        self::assertResponseRedirects();
+        self::assertSelectorTextContains('a', '/version/10');
     }
 
     /**
      * @test
      */
-    public function webVersionSprint()
+    public function webVersionSprint(): void
     {
         $this->client->request('GET', '/version/10');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'TYPO3 10');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', 'TYPO3 10');
     }
 
     /**
      * @test
      */
-    public function webVersionSpecific()
+    public function webVersionSpecific(): void
     {
         $this->client->request('GET', '/version/10.0.0');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '(10.0.0)');
-        $this->assertSelectorNotExists('#notice-elts');
-        $this->assertSelectorExists('#accordion-download');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '(10.0.0)');
+        self::assertSelectorNotExists('#notice-elts');
+        self::assertSelectorExists('#accordion-download');
     }
 
     /**
      * @test
      */
-    public function webVersionElts()
+    public function webVersionElts(): void
     {
         $this->client->request('GET', '/version/6.2');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '(6.2.23 ELTS)');
-        $this->assertSelectorExists('#notice-elts');
-        $this->assertSelectorNotExists('#accordion-download');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '(6.2.23 ELTS)');
+        self::assertSelectorExists('#notice-elts');
+        self::assertSelectorNotExists('#accordion-download');
     }
 
     /**
      * @test
      */
-    public function webVersionBeforeElts()
+    public function webVersionBeforeElts(): void
     {
         $this->client->request('GET', '/version/6.2.0');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '(6.2.0)');
-        $this->assertSelectorExists('#notice-elts');
-        $this->assertSelectorExists('#accordion-download');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '(6.2.0)');
+        self::assertSelectorExists('#notice-elts');
+        self::assertSelectorExists('#accordion-download');
     }
 
     /**
      * @test
      */
-    public function webVersionOutdated()
+    public function webVersionOutdated(): void
     {
         $this->client->request('GET', '/version/4.5.0');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '(4.5.0)');
-        $this->assertSelectorExists('#notice-outdated');
-        $this->assertSelectorExists('#accordion-download');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '(4.5.0)');
+        self::assertSelectorExists('#notice-outdated');
+        self::assertSelectorExists('#accordion-download');
     }
 
     /**
      * @test
      */
-    public function webVersionOutdatedElts()
+    public function webVersionOutdatedElts(): void
     {
         $this->client->request('GET', '/version/4.5');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '(4.5.23 ELTS)');
-        $this->assertSelectorExists('#notice-outdated');
-        $this->assertSelectorNotExists('#accordion-download');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '(4.5.23 ELTS)');
+        self::assertSelectorExists('#notice-outdated');
+        self::assertSelectorNotExists('#accordion-download');
     }
 
     /**
      * @test
      */
-    public function webReleaseNotesRedirect()
+    public function webReleaseNotesRedirect(): void
     {
         $this->client->request('GET', '/release-notes');
-        $this->assertResponseRedirects();
-        $this->assertSelectorTextContains('a', '/release-notes/10');
+        self::assertResponseRedirects();
+        self::assertSelectorTextContains('a', '/release-notes/10');
     }
 
     /**
      * @test
      */
-    public function weReleaseNotesSprint()
+    public function weReleaseNotesSprint(): void
     {
         $this->client->request('GET', '/release-notes/10');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '10.0.5');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '10.0.5');
     }
 
     /**
      * @test
      */
-    public function webReleaseNotesSpecific()
+    public function webReleaseNotesSpecific(): void
     {
         $this->client->request('GET', '/release-notes/10.0.0');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '10.0.0');
-        $this->assertSelectorNotExists('#notice-elts');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '10.0.0');
+        self::assertSelectorNotExists('#notice-elts');
     }
 
     /**
      * @test
      */
-    public function webReleaseNotesElts()
+    public function webReleaseNotesElts(): void
     {
         $this->client->request('GET', '/release-notes/6.2');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '6.2.23 ELTS');
-        $this->assertSelectorExists('#notice-elts');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '6.2.23 ELTS');
+        self::assertSelectorExists('#notice-elts');
     }
 
     /**
      * @test
      */
-    public function webReleaseNotesBeforeElts()
+    public function webReleaseNotesBeforeElts(): void
     {
         $this->client->request('GET', '/release-notes/6.2.0');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '6.2.0');
-        $this->assertSelectorExists('#notice-elts');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '6.2.0');
+        self::assertSelectorExists('#notice-elts');
     }
 
     /**
      * @test
      */
-    public function webReleaseNotesOutdated()
+    public function webReleaseNotesOutdated(): void
     {
         $this->client->request('GET', '/release-notes/4.5.0');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '4.5.0');
-        $this->assertSelectorExists('#notice-outdated');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '4.5.0');
+        self::assertSelectorExists('#notice-outdated');
     }
 
     /**
      * @test
      */
-    public function webReleaseNotesOutdatedElts()
+    public function webReleaseNotesOutdatedElts(): void
     {
         $this->client->request('GET', '/release-notes/4.5');
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', '4.5.23 ELTS');
-        $this->assertSelectorExists('#notice-outdated');
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', '4.5.23 ELTS');
+        self::assertSelectorExists('#notice-outdated');
     }
 
     /**
      * @test
      */
-    public function webDownloadEltsVersion()
+    public function webDownloadEltsVersion(): void
     {
         $this->client->request('GET', '/6.2.23');
-        $this->assertResponseStatusCodeSame(Response::HTTP_PAYMENT_REQUIRED);
+        self::assertResponseStatusCodeSame(Response::HTTP_PAYMENT_REQUIRED);
     }
 }

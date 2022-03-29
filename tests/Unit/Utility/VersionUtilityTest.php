@@ -24,63 +24,57 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Utility;
 
 use App\Utility\VersionUtility;
+use Iterator;
 use PHPUnit\Framework\TestCase;
 
 class VersionUtilityTest extends TestCase
 {
     /**
-     * @param string $version
-     * @param float $expectedResult
      * @dataProvider extractMajorVersionNumberTestDataProvider
      * @test
      */
-    public function extractMajorVersionNumberTest(string $version, float $expectedResult)
+    public function extractMajorVersionNumberTest(string $version, float $expectedResult): void
     {
         $result = VersionUtility::extractMajorVersionNumber($version);
-        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult, (float)$result);
     }
 
     /**
-     * @return array
+     * @return Iterator<string, array<int, string|float>>
      */
-    public function extractMajorVersionNumberTestDataProvider(): array
+    public function extractMajorVersionNumberTestDataProvider(): Iterator
     {
-        return [
-            ['10.10.10.10', 10],
-            ['4.5', 4.5],
-            ['4.5.35', 4.5],
-            ['6.2.0', 6.2],
-            ['6.99.99', 6.99],
-            ['7.6.12', 7],
-            ['7.2', 7],
-            ['10.12.99', 10],
-            ['99', 99],
-            ['10.99.99-dev', 10]
-        ];
+        yield 'Minor 4' => ['4.5', 4.5];
+        yield 'Patch 4' => ['4.5.35', 4.5];
+        yield 'Minor 6' => ['6.2.0', 6.2];
+        yield 'Patch 6' => ['6.99.99', 6.99];
+        yield 'Minor 7' => ['7.6', 7];
+        yield 'Patch 7' => ['7.6.12', 7];
+        yield 'Minor 10' => ['10.11', 10];
+        yield 'Patch 10' => ['10.12.99', 10];
+        yield 'Build 10' => ['10.11.12.13', 10];
+        yield 'Dev 10' => ['10.99.99-dev', 10];
+        yield 'Max' => ['99', 99];
     }
 
     /**
-     * @param string $version
-     * @param float $expectedResult
      * @dataProvider isValidSemverVersionTestDataProvider
      * @test
      */
-    public function isValidSemverVersionTest(string $version, bool $expectedResult)
+    public function isValidSemverVersionTest(string $version, bool $expectedResult): void
     {
         $result = VersionUtility::isValidSemverVersion($version);
         self::assertEquals($expectedResult, $result);
     }
 
     /**
-     * @return array
+     * @return Iterator<string, array<string|bool>>
      */
-    public function isValidSemverVersionTestDataProvider(): array
+    public function isValidSemverVersionTestDataProvider(): Iterator
     {
-        return [
-            ['6.2.0', true],
-            ['6.99.99-dev', true],
-            ['7.6.12', true],
-            ['10.abc.99', false]
-        ];
+        yield 'Patch 6' => ['6.2.0', true];
+        yield 'Dev 6' => ['6.99.99-dev', true];
+        yield 'Patch 7' => ['7.6.12', true];
+        yield 'Invalid' => ['10.abc.99', false];
     }
 }

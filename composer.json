@@ -202,9 +202,15 @@
         "ci:php:copypaste": "phpcpd src tests",
         "ci:php:cs-fixer": "php-cs-fixer fix -v --dry-run --diff",
         "ci:php:lint": "phplint --no-progress",
-        "ci:php:rector": "rector process --dry-run --no-progress-bar --no-diffs",
+        "ci:php:rector": [
+            "@php simple-phpunit install -c phpunit.xml.dist",
+            "@php rector process --dry-run --no-progress-bar --no-diffs"
+        ],
         "ci:php:sniff": "phpcs --standard=PSR12 src tests",
-        "ci:php:stan": "phpstan analyse --no-progress",
+        "ci:php:stan": [
+            "@php simple-phpunit install -c phpunit.xml.dist",
+            "@php phpstan analyse --no-progress"
+        ],
         "ci:static": [
             "@ci:composer",
             "@ci:json:lint",
@@ -234,9 +240,15 @@
             "@fix:php:cs-fixer"
         ],
         "fix:php:cs-fixer": "php-cs-fixer fix",
-        "fix:php:rector": "rector process --no-diffs",
+        "fix:php:rector": [
+            "@php simple-phpunit install -c phpunit.xml.dist",
+            "@php rector process --no-diffs"
+        ],
         "fix:php:sniff": "phpcbf src",
-        "tools:php:rector": "rector process --dry-run",
+        "tools:php:rector": [
+            "@php simple-phpunit install -c phpunit.xml.dist",
+            "@php rector process --dry-run"
+        ],
         "tools:setup:clean": "rm -r tools/**/composer.lock tools/**/vendor",
         "tools:setup:install": "@composer bin all install --ansi",
         "tools:setup:update": "@composer bin all update --ansi"

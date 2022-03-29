@@ -30,7 +30,7 @@ class ReleaseControllerTest extends ApiCase
     /**
      * @test
      */
-    public function createReleaseUnauthorized()
+    public function createReleaseUnauthorized(): void
     {
         $response = $this->createReleaseFromJson('Json/Release-10.0.0.json');
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
@@ -39,17 +39,17 @@ class ReleaseControllerTest extends ApiCase
     /**
      * @test
      */
-    public function createReleaseAuthorized()
+    public function createReleaseAuthorized(): void
     {
         $this->logIn();
         $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
 
         $response = $this->createReleaseFromJson('Json/Release-10.0.0.json');
         self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertSame(['status' => 'success', 'Location' => '/v1/api/release/10.0.0'], json_decode($response->getContent(), true));
+        self::assertSame(['status' => 'success', 'Location' => '/v1/api/release/10.0.0'], $this->decodeResponse($response));
 
         $response = $this->createReleaseFromJson('Json/Release-10.0.1.json');
         self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertSame(['status' => 'success', 'Location' => '/v1/api/release/10.0.1'], json_decode($response->getContent(), true));
+        self::assertSame(['status' => 'success', 'Location' => '/v1/api/release/10.0.1'], $this->decodeResponse($response));
     }
 }

@@ -31,7 +31,7 @@ class RequirementsControllerTest extends ApiCase
     /**
      * @test
      */
-    public function addRequirementUnauthorized()
+    public function addRequirementUnauthorized(): void
     {
         $response = $this->createRequirementFromJson('Json/Requirement-10-0.json', '10');
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
@@ -40,17 +40,17 @@ class RequirementsControllerTest extends ApiCase
     /**
      * @test
      */
-    public function addRequirementAuthorized()
+    public function addRequirementAuthorized(): void
     {
         $this->logIn();
         $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
 
         $response = $this->createRequirementFromJson('Json/Requirement-10-0.json', '10');
         self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], json_decode($response->getContent(), true));
+        self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], $this->decodeResponse($response));
 
         $response = $this->createRequirementFromJson('Json/Requirement-10-1.json', '10');
         self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], json_decode($response->getContent(), true));
+        self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], $this->decodeResponse($response));
     }
 }

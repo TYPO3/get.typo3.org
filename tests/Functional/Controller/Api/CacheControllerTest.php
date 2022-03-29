@@ -42,7 +42,7 @@ class CacheControllerTest extends ApiCase
     /**
      * @test
      */
-    public function deleteCacheMajorVersionUnauthorized()
+    public function deleteCacheMajorVersionUnauthorized(): void
     {
         $this->client->request('DELETE', '/v1/api/cache/majorVersion/10');
         $response = $this->client->getResponse();
@@ -52,7 +52,7 @@ class CacheControllerTest extends ApiCase
     /**
      * @test
      */
-    public function deleteCacheMajorVersionInvalid()
+    public function deleteCacheMajorVersionInvalid(): void
     {
         $this->logIn();
         $this->client->request('DELETE', '/v1/api/cache/majorVersion/NotAValidVersionNumber');
@@ -63,7 +63,7 @@ class CacheControllerTest extends ApiCase
     /**
      * @test
      */
-    public function deleteCacheMajorVersionNotFound()
+    public function deleteCacheMajorVersionNotFound(): void
     {
         $this->logIn();
         $this->client->request('DELETE', '/v1/api/cache/majorVersion/99');
@@ -74,7 +74,7 @@ class CacheControllerTest extends ApiCase
     /**
      * @test
      */
-    public function deleteCacheMajorVersionAuthorized()
+    public function deleteCacheMajorVersionAuthorized(): void
     {
         $this->logIn();
         $this->client->request('DELETE', '/v1/api/cache/majorVersion/10');
@@ -95,7 +95,7 @@ class CacheControllerTest extends ApiCase
                     'http://localhost/version/10',
                 ]
             ],
-            json_decode($response->getContent(), true)
+            $this->decodeResponse($response)
         );
         $this->client->request('DELETE', '/v1/api/cache/majorVersion/6.2');
         $response = $this->client->getResponse();
@@ -115,14 +115,14 @@ class CacheControllerTest extends ApiCase
                     'http://localhost/version/6.2',
                 ]
             ],
-            json_decode($response->getContent(), true)
+            $this->decodeResponse($response)
         );
     }
 
     /**
      * @test
      */
-    public function deleteCacheReleaseUnauthorized()
+    public function deleteCacheReleaseUnauthorized(): void
     {
         $this->client->request('DELETE', '/v1/api/cache/release/10.0.0');
         $response = $this->client->getResponse();
@@ -132,7 +132,7 @@ class CacheControllerTest extends ApiCase
     /**
      * @test
      */
-    public function deleteCacheReleaseInvalid()
+    public function deleteCacheReleaseInvalid(): void
     {
         $this->logIn();
         $this->client->request('DELETE', '/v1/api/cache/release/NotAValidVersionNumber');
@@ -143,7 +143,7 @@ class CacheControllerTest extends ApiCase
     /**
      * @test
      */
-    public function deleteCacheReleaseNotFound()
+    public function deleteCacheReleaseNotFound(): void
     {
         $this->logIn();
         $this->client->request('DELETE', '/v1/api/cache/release/99.99.99');
@@ -154,7 +154,7 @@ class CacheControllerTest extends ApiCase
     /**
      * @test
      */
-    public function deleteCacheReleaseAuthorized()
+    public function deleteCacheReleaseAuthorized(): void
     {
         $this->logIn();
         $this->client->request('DELETE', '/v1/api/cache/release/10.0.0');
@@ -181,7 +181,7 @@ class CacheControllerTest extends ApiCase
                     'http://localhost/release-notes/10.0.0',
                 ]
             ],
-            json_decode($response->getContent(), true)
+            $this->decodeResponse($response)
         );
     }
 }

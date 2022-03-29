@@ -24,10 +24,40 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Controller\Api;
 
 use App\Tests\Functional\AbstractCase;
+use LogicException;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiCase extends AbstractCase
 {
+    private function loadFixture(string $fileName): string
+    {
+        $contents = file_get_contents($fileName);
+
+        if ($contents === false) {
+            throw new LogicException(sprintf('Fixture "%s" not accessible', $fileName));
+        }
+
+        return $contents;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function decodeResponse(Response $response): array
+    {
+        $content = $response->getContent();
+        if ($content === false) {
+            return [];
+        }
+
+        $content = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        if (!is_array($content)) {
+            return [];
+        }
+
+        return $content;
+    }
+
     protected function createMajorVersionFromJson(string $filePath): Response
     {
         $this->client->request(
@@ -36,8 +66,9 @@ class ApiCase extends AbstractCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            file_get_contents(__DIR__ . '/../../Fixtures/' . $filePath)
+            $this->loadFixture(__DIR__ . '/../../Fixtures/' . $filePath)
         );
+
         return $this->client->getResponse();
     }
 
@@ -49,8 +80,9 @@ class ApiCase extends AbstractCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            file_get_contents(__DIR__ . '/../../Fixtures/' . $filePath)
+            $this->loadFixture(__DIR__ . '/../../Fixtures/' . $filePath)
         );
+
         return $this->client->getResponse();
     }
 
@@ -62,8 +94,9 @@ class ApiCase extends AbstractCase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            file_get_contents(__DIR__ . '/../../Fixtures/' . $filePath)
+            $this->loadFixture(__DIR__ . '/../../Fixtures/' . $filePath)
         );
+
         return $this->client->getResponse();
     }
 }

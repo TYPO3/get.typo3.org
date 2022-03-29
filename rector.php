@@ -24,6 +24,7 @@ declare(strict_types=1);
 use Rector\Core\Configuration\Option;
 use Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
 use Rector\Doctrine\Set\DoctrineSetList;
+use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
 use Rector\Set\ValueObject\LevelSetList;
@@ -41,11 +42,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::PATHS, [
         __DIR__ . '/migrations',
         __DIR__ . '/src',
-        //__DIR__ . '/tests',
+        __DIR__ . '/tests',
     ]);
 
     $parameters->set(Option::BOOTSTRAP_FILES, [
         __DIR__ . '/vendor/autoload.php',
+        __DIR__ . '/vendor/bin/.phpunit/phpunit/vendor/autoload.php',
     ]);
 
     // Path to phpstan with extensions, that PHPStan in Rector uses to determine types
@@ -114,7 +116,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 
     // PHPUnit specific rule sets
-    //$containerConfigurator->import(PHPUnitSetList::DOCTRINE_25);
+    $containerConfigurator->import(PHPUnitLevelSetList::UP_TO_PHPUNIT_90);
+    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_CODE_QUALITY);
+    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_EXCEPTION);
+    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_MOCK);
+    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD);
+    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER);
 
     // register a single rule
     //$services->remove(\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class);
