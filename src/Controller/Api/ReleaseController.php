@@ -25,7 +25,6 @@ namespace App\Controller\Api;
 
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\Release;
-use App\Repository\ReleaseRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
@@ -40,15 +39,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route(path: ['/api/v1/release', '/v1/api/release'], defaults: ['_format' => 'json'])]
 class ReleaseController extends AbstractController
 {
     /**
      * Get information about all TYPO3 releases or a specific release
-     * @Route("/", methods={"GET"})
-     * @Route("/{version}", methods={"GET"}, name="release_show")
      * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
@@ -72,21 +68,23 @@ class ReleaseController extends AbstractController
      *
      * @param string|null $version Specific TYPO3 Version to fetch
      */
+    #[Route(path: '/', methods: ['GET'])]
+    #[Route(path: '/{version}', methods: ['GET'], name: 'release_show')]
     public function getRelease(?string $version, Request $request): JsonResponse
     {
         if ($version !== null) {
             $this->checkVersionFormat($version);
             $releases = $this->getReleaseByVersion($version);
         } else {
-            $releases = $this->managerRegistry->getRepository(Release::class)->findAll();
+            $releases = $this->getReleases()->findAll();
         }
 
-        $json = $this->serializer->serialize(
+        $json = $this->getSerializer()->serialize(
             $releases,
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
-        $response =  new JsonResponse($json, 200, [], true);
+        $response =  new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
@@ -95,7 +93,6 @@ class ReleaseController extends AbstractController
 
     /**
      * Add new TYPO3 release
-     * @Route("/", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -131,19 +128,20 @@ class ReleaseController extends AbstractController
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
      */
-    public function addRelease(Request $request, ValidatorInterface $validator): JsonResponse
+    #[Route(path: '/', methods: ['POST'])]
+    public function addRelease(Request $request): JsonResponse
     {
         $content = $request->getContent();
         if ($content !== '') {
             /** @var Release $release */
-            $release = $this->serializer->deserialize($content, Release::class, 'json');
+            $release = $this->getSerializer()->deserialize($content, Release::class, 'json');
             $version = $release->getVersion();
             $this->checkVersionFormat($version);
             $this->checkVersionConflict($version);
             $majorVersion = $this->getMajorVersionByReleaseVersion($version);
             $release->setMajorVersion($majorVersion);
-            $this->validateObject($validator, $release);
-            $em = $this->managerRegistry->getManager();
+            $this->validateObject($release);
+            $em = $this->getManagerRegistry()->getManager();
             $em->persist($release);
             $em->flush();
             $location = $this->generateUrl('release_show', ['version' => $version]);
@@ -158,7 +156,6 @@ class ReleaseController extends AbstractController
 
     /**
      * Add TYPO3 Release Notes for Version
-     * @Route("/{version}/release-notes", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -186,23 +183,22 @@ class ReleaseController extends AbstractController
      *     @Model(type=\App\Entity\Embeddables\ReleaseNotes::class, groups={"putcontent"})
      * )
      */
-    public function addReleaseNotesForVersion(string $version, Request $request, ValidatorInterface $validator): JsonResponse
+    #[Route(path: '/{version}/release-notes', methods: ['PUT'])]
+    public function addReleaseNotesForVersion(string $version, Request $request): JsonResponse
     {
         $this->checkVersionFormat($version);
         $content = $request->getContent();
         if ($content !== '') {
             /** @var ReleaseNotes $releaseNotes */
-            $releaseNotes = $this->serializer->deserialize($content, ReleaseNotes::class, 'json');
-            $this->validateObject($validator, $releaseNotes);
-            /** @var ReleaseRepository $releases */
-            $releases = $this->managerRegistry->getRepository(Release::class);
-            $release = $releases->findVersion($version);
+            $releaseNotes = $this->getSerializer()->deserialize($content, ReleaseNotes::class, 'json');
+            $this->validateObject($releaseNotes);
+            $release = $this->getReleases()->findVersion($version);
             if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
 
             $release->setReleaseNotes($releaseNotes);
-            $em = $this->managerRegistry->getManager();
+            $em = $this->getManagerRegistry()->getManager();
             $em->persist($release);
             $em->flush();
 
@@ -214,7 +210,6 @@ class ReleaseController extends AbstractController
 
     /**
      * Get TYPO3 Release Content
-     * @Route("/{version}/content", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
@@ -236,11 +231,12 @@ class ReleaseController extends AbstractController
      * @SWG\Tag(name="release")
      * @SWG\Tag(name="content")
      */
+    #[Route(path: '/{version}/content', methods: ['GET'])]
     public function getContentForVersion(string $version, Request $request): JsonResponse
     {
         $this->checkVersionFormat($version);
         $entity = $this->getReleaseByVersion($version);
-        $json = $this->serializer->serialize(
+        $json = $this->getSerializer()->serialize(
             $entity,
             'json',
             SerializationContext::create()->setGroups(['content'])
@@ -254,7 +250,6 @@ class ReleaseController extends AbstractController
 
     /**
      * Update TYPO3 Release
-     * @Route("/{version}", methods={"PATCH"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -262,7 +257,6 @@ class ReleaseController extends AbstractController
      *     description="Updated Entity",
      *     @SWG\Schema(
      *         @Model(type=\App\Entity\Release::class, groups={"data", "content"})
-     *
      *     )
      * )
      * @SWG\Response(
@@ -286,14 +280,13 @@ class ReleaseController extends AbstractController
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
      */
-    public function updateRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse
+    #[Route(path: '/{version}', methods: ['PATCH'])]
+    public function updateRelease(string $version, Request $request): JsonResponse
     {
         $this->checkVersionFormat($version);
         $content = $request->getContent();
         if ($content !== '') {
-            /** @var ReleaseRepository $releases */
-            $releases = $this->managerRegistry->getRepository(Release::class);
-            $release = $releases->findVersion($version);
+            $release = $this->getReleases()->findVersion($version);
             if (!$release instanceof Release) {
                 throw new NotFoundHttpException('Release ' . $version . ' not found.');
             }
@@ -301,11 +294,11 @@ class ReleaseController extends AbstractController
             /** @var array<string, string> $data */
             $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
             $this->mapObjects($release, $data);
-            $this->validateObject($validator, $release);
-            $em = $this->managerRegistry->getManager();
+            $this->validateObject($release);
+            $em = $this->getManagerRegistry()->getManager();
             $em->flush();
 
-            $json = $this->serializer->serialize(
+            $json = $this->getSerializer()->serialize(
                 $release,
                 'json',
                 SerializationContext::create()->setGroups(['data', 'content'])
@@ -319,7 +312,6 @@ class ReleaseController extends AbstractController
     /**
      * Delete TYPO3 release
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/{version}", methods={"DELETE"})
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=204,
@@ -339,13 +331,13 @@ class ReleaseController extends AbstractController
      * )
      * @SWG\Tag(name="release")
      * )
-     *
      * @param string $version Specific TYPO3 Version to delete
      */
+    #[Route(path: '/{version}', methods: ['DELETE'])]
     public function deleteRelease(string $version): JsonResponse
     {
         $entity = $this->getReleaseByVersion($version);
-        $em = $this->managerRegistry->getManager();
+        $em = $this->getManagerRegistry()->getManager();
         $em->remove($entity);
         $em->flush();
         return $this->json([], Response::HTTP_NO_CONTENT);
@@ -353,9 +345,7 @@ class ReleaseController extends AbstractController
 
     protected function checkVersionConflict(string $version): void
     {
-        /** @var ReleaseRepository $releases */
-        $releases = $this->managerRegistry->getRepository(Release::class);
-        if ($releases->findVersion($version) !== null) {
+        if ($this->getReleases()->findVersion($version) !== null) {
             throw new ConflictHttpException('Version already exists');
         }
     }

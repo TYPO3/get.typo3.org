@@ -28,48 +28,44 @@ use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Embeddable
- */
+#[ORM\Embeddable]
 class ReleaseNotes
 {
     /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Serializer\Groups({"putcontent", "content"})
-     * @Serializer\Type("string")
      * @SWG\Property(type="string", format="uri", example="https://typo3.org/news/article/typo3-v910-released")
-     * @Assert\Url
      */
+    #[Assert\Url]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[Serializer\Groups(['putcontent', 'content'])]
+    #[Serializer\Type('string')]
     private ?string $newsLink = null;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Serializer\Groups({"putcontent", "content"})
-     * @Serializer\Type("string")
      * @SWG\Property(example="This release is a bugfix and regression fix release.", description="Short news text about the release.")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    #[Serializer\Groups(['putcontent', 'content'])]
+    #[Serializer\Type('string')]
     private ?string $news = null;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Serializer\Groups({"putcontent", "content"})
-     * @Serializer\Type("string")
      * @SWG\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    #[Serializer\Groups(['putcontent', 'content'])]
+    #[Serializer\Type('string')]
     private ?string $upgradingInstructions = null;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Serializer\Groups({"putcontent", "content"})
-     * @Serializer\Type("string")
      * @SWG\Property(description="Changelog as markdown")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    #[Serializer\Groups(['putcontent', 'content'])]
+    #[Serializer\Type('string')]
     private ?string $changes = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Serializer\Groups({"content"})
-     */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    #[Serializer\Groups(['content'])]
     private ?string $legacyContent = null;
 
     public function setNewsLink(string $newsLink): void

@@ -27,15 +27,15 @@ final class Version20191112143111 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', "Migration can only be executed safely on 'sqlite'.");
 
-        $this->addSql('ALTER TABLE release ADD COLUMN elts BOOLEAN DEFAULT \'0\' NOT NULL');
+        $this->addSql("ALTER TABLE release ADD COLUMN elts BOOLEAN DEFAULT '0' NOT NULL");
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', "Migration can only be executed safely on 'sqlite'.");
 
         $this->addSql('DROP INDEX IDX_9E47031D17E84B00');
         $this->addSql('CREATE TEMPORARY TABLE __temp__release AS SELECT version, major_version, date, type, tar_package_md5sum, tar_package_sha1sum, tar_package_sha256sum, zip_package_md5sum, zip_package_sha1sum, zip_package_sha256sum, release_notes_news_link, release_notes_news, release_notes_upgrading_instructions, release_notes_changes, release_notes_legacy_content FROM "release"');

@@ -27,7 +27,7 @@ final class Version20200520094638 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', "Migration can only be executed safely on 'sqlite'.");
 
         $this->addSql('CREATE TEMPORARY TABLE __temp__major_version AS SELECT version, title, subtitle, description, release_date, lts, maintained_until FROM major_version');
         $this->addSql('DROP TABLE major_version');
@@ -35,7 +35,7 @@ final class Version20200520094638 extends AbstractMigration
         , lts DOUBLE PRECISION DEFAULT NULL, maintained_until DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
         , elts_until DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
         , PRIMARY KEY(version))');
-        $this->addSql('INSERT INTO major_version (version, title, subtitle, description, release_date, lts, maintained_until, elts_until) SELECT version, title, subtitle, description, release_date, lts, maintained_until, datetime(maintained_until, \'+3 year\') FROM __temp__major_version');
+        $this->addSql("INSERT INTO major_version (version, title, subtitle, description, release_date, lts, maintained_until, elts_until) SELECT version, title, subtitle, description, release_date, lts, maintained_until, datetime(maintained_until, '+3 year') FROM __temp__major_version");
         $this->addSql('DROP TABLE __temp__major_version');
         $this->addSql('DROP INDEX IDX_9E47031D17E84B00');
         $this->addSql('CREATE TEMPORARY TABLE __temp__release AS SELECT version, major_version, date, type, tar_package_md5sum, tar_package_sha1sum, tar_package_sha256sum, zip_package_md5sum, zip_package_sha1sum, zip_package_sha256sum, release_notes_news_link, release_notes_news, release_notes_upgrading_instructions, release_notes_changes, release_notes_legacy_content, elts FROM "release"');
@@ -55,7 +55,7 @@ final class Version20200520094638 extends AbstractMigration
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', "Migration can only be executed safely on 'sqlite'.");
 
         $this->addSql('CREATE TEMPORARY TABLE __temp__major_version AS SELECT version, title, subtitle, description, release_date, maintained_until, lts FROM major_version');
         $this->addSql('DROP TABLE major_version');

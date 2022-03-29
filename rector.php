@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
+use Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
 use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
+use Rector\Symfony\Set\JMSSetList;
+use Rector\Symfony\Set\SymfonyLevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -17,6 +20,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // paths to refactor; solid alternative to CLI arguments
     $parameters->set(Option::PATHS, [
+        __DIR__ . '/migrations',
         __DIR__ . '/src',
         //__DIR__ . '/tests',
     ]);
@@ -27,6 +31,20 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // Path to phpstan with extensions, that PHPStan in Rector uses to determine types
     //$parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, getcwd() . '/phpstan-for-config.neon');
+
+    /*
+    $parameters->set(Option::SKIP, [
+        RenamePropertyRector::class => [
+            __DIR__ . 'src/Controller/**',
+        ],
+        ReplaceParentRepositoryCallsByRepositoryPropertyRector::class => [
+            __DIR__ . 'src/Controller/**',
+        ],
+    ]);
+    */
+
+    // get services (needed for register a single rule)
+    $services = $containerConfigurator->services();
 
     // Define what rule sets will be applied
     $containerConfigurator->import(LevelSetList::UP_TO_PHP_81);
@@ -39,7 +57,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::MONOLOG_20);
     $containerConfigurator->import(SetList::MYSQL_TO_MYSQLI);
     //$containerConfigurator->import(SetList::NAMING);
-    $containerConfigurator->import(SetList::PHP_81);
     //$containerConfigurator->import(SetList::PRIVATIZATION);
     $containerConfigurator->import(SetList::PSR_4);
     //$containerConfigurator->import(SetList::SAFE_07);
@@ -49,35 +66,37 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     //$containerConfigurator->import(SetList::EARLY_RETURN);
 
     // Symfony specific rule sets
-    /*
-    $containerConfigurator->import(SymfonySetList::SYMFONY_50);
-    $containerConfigurator->import(SymfonySetList::SYMFONY_50_TYPES);
-    $containerConfigurator->import(SymfonySetList::SYMFONY_52);
-    $containerConfigurator->import(SymfonySetList::SYMFONY_52_VALIDATOR_ATTRIBUTES);
+    $parameters->set(
+        Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER,
+        __DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml'
+    );
+
+    $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_54);
+    $containerConfigurator->import(SymfonySetList::SYMFONY_STRICT);
     $containerConfigurator->import(SymfonySetList::SYMFONY_CODE_QUALITY);
     $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
 
     // Doctrine specific rule sets
-    /*
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_25);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_BEHAVIORS_20);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_CODE_QUALITY);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_COMMON_20);
-    $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_210);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_211);
-    $containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_30);
+    //$containerConfigurator->import(DoctrineSetList::DOCTRINE_DBAL_30);
     //$containerConfigurator->import(DoctrineSetList::DOCTRINE_GEDMO_TO_KNPLABS);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_REPOSITORY_AS_SERVICE);
     $containerConfigurator->import(DoctrineSetList::DOCTRINE_ORM_29);
-    */
+
+    //$services->remove(\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class);
+
+    // Doctrine specific rule sets
+    //$containerConfigurator->import(JMSSetList::REMOVE_JMS_INJECT);
+    $containerConfigurator->import(JMSSetList::ANNOTATIONS_TO_ATTRIBUTES);
+
 
     // PHPUnit specific rule sets
     //$containerConfigurator->import(PHPUnitSetList::DOCTRINE_25);
 
-    // get services (needed for register a single rule)
-    $services = $containerConfigurator->services();
-
     // register a single rule
-    // $services->set(TypedPropertyRector::class);
-    $services->remove(\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class);
+    //$services->remove(\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class);
 };

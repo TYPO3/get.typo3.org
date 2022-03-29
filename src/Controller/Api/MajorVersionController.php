@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
-use App\Repository\MajorVersionRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
@@ -39,14 +38,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route(path: ['/api/v1/major', '/v1/api/major'], defaults: ['_format' => 'json'])]
 class MajorVersionController extends AbstractController
 {
     /**
      * Get information about a major TYPO3 version
-     * @Route("/", methods={"GET"})
      * @Cache(expires="+1 hour", public=true)
      * @SWG\Response(
      *     response=200,
@@ -60,17 +57,16 @@ class MajorVersionController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      */
+    #[Route(path: '/', methods: ['GET'])]
     public function getMajorReleases(Request $request): JsonResponse
     {
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majors = $majorVersions->findAllDescending();
-        $json = $this->serializer->serialize(
+        $majors = $this->getMajorVersions()->findAllDescending();
+        $json = $this->getSerializer()->serialize(
             $majors,
             'json',
             SerializationContext::create()->setGroups(['content'])
         );
-        $response = new JsonResponse($json, 200, [], true);
+        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
@@ -79,7 +75,6 @@ class MajorVersionController extends AbstractController
 
     /**
      * Get hard facts of a major TYPO3 Release
-     * @Route("/{version}", methods={"GET"}, name="majorVersion_show")
      * @Cache(expires="+1 hour", public=true)
      * @SWG\Response(
      *     response=200,
@@ -98,17 +93,16 @@ class MajorVersionController extends AbstractController
      * )
      * @SWG\Tag(name="major")
      */
+    #[Route(path: '/{version}', methods: ['GET'], name: 'majorVersion_show')]
     public function getMajorRelease(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majorVersion = $majorVersions->findVersion($version);
+        $majorVersion = $this->getMajorVersions()->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('Version not found.');
         }
 
-        $json = $this->serializer->serialize(
+        $json = $this->getSerializer()->serialize(
             $majorVersion,
             'json',
             SerializationContext::create()->setGroups(['content'])
@@ -122,7 +116,6 @@ class MajorVersionController extends AbstractController
 
     /**
      * Create new major TYPO3 version
-     * @Route("/", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -158,23 +151,22 @@ class MajorVersionController extends AbstractController
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
      * )
      */
-    public function createMajorRelease(Request $request, ValidatorInterface $validator): JsonResponse
+    #[Route(path: '/', methods: ['POST'])]
+    public function createMajorRelease(Request $request): JsonResponse
     {
         $content = $request->getContent();
         if ($content !== '') {
-            /** @var MajorVersionRepository $majorVersions */
-            $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
             /** @var MajorVersion $majorVersion */
-            $majorVersion = $this->serializer->deserialize($content, MajorVersion::class, 'json');
+            $majorVersion = $this->getSerializer()->deserialize($content, MajorVersion::class, 'json');
             $version = $majorVersion->getVersion();
-            $preexisting = $majorVersions->findVersion((string)$version);
+            $preexisting = $this->getMajorVersions()->findVersion((string)$version);
             if ($preexisting instanceof MajorVersion) {
                 throw new ConflictHttpException('Version already exists');
             }
 
             $this->checkMajorVersionFormat((string)$version);
-            $this->validateObject($validator, $majorVersion);
-            $em = $this->managerRegistry->getManager();
+            $this->validateObject($majorVersion);
+            $em = $this->getManagerRegistry()->getManager();
             $em->persist($majorVersion);
             $em->flush();
             $location = $this->generateUrl('majorVersion_show', ['version' => $version]);
@@ -189,7 +181,6 @@ class MajorVersionController extends AbstractController
 
     /**
      * Update properties of major TYPO3 version
-     * @Route("/{version}", methods={"PATCH"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -197,7 +188,6 @@ class MajorVersionController extends AbstractController
      *     description="Updated Entity",
      *     @SWG\Schema(
      *         @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
-     *
      *     )
      * )
      * @SWG\Response(
@@ -221,7 +211,8 @@ class MajorVersionController extends AbstractController
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
      * )
      */
-    public function updateMajorRelease(string $version, Request $request, ValidatorInterface $validator): JsonResponse
+    #[Route(path: '/{version}', methods: ['PATCH'])]
+    public function updateMajorRelease(string $version, Request $request): JsonResponse
     {
         $content = $request->getContent();
         if ($content !== '') {
@@ -229,11 +220,11 @@ class MajorVersionController extends AbstractController
             /** @var array<string, string> $data */
             $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
             $this->mapObjects($entity, $data);
-            $this->validateObject($validator, $entity);
-            $em = $this->managerRegistry->getManager();
+            $this->validateObject($entity);
+            $em = $this->getManagerRegistry()->getManager();
             $em->flush();
 
-            $json = $this->serializer->serialize(
+            $json = $this->getSerializer()->serialize(
                 $entity,
                 'json',
                 SerializationContext::create()->setGroups(['content'])
@@ -246,7 +237,6 @@ class MajorVersionController extends AbstractController
 
     /**
      * Delete major TYPO3 version
-     * @Route("/{version}", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -268,13 +258,13 @@ class MajorVersionController extends AbstractController
      * @SWG\Tag(name="major")
      * )
      */
+    #[Route(path: '/{version}', methods: ['DELETE'])]
     public function deleteMajorRelease(string $version): JsonResponse
     {
         $entity = $this->findMajorVersion($version);
-        $em = $this->managerRegistry->getManager();
+        $em = $this->getManagerRegistry()->getManager();
         $em->remove($entity);
         $em->flush();
-
         return $this->json([], Response::HTTP_NO_CONTENT);
     }
 }

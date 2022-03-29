@@ -26,7 +26,6 @@ namespace App\Service;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -671,16 +670,14 @@ class ComposerPackagesService
         ],
     ];
 
-    public function __construct(private readonly EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly MajorVersionRepository $majorVersions,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-
-        $majorVersion = $majorVersions->findLatestLtsComposerSupported();
+        $majorVersion = $this->majorVersions->findLatestLtsComposerSupported();
         if (!$majorVersion instanceof MajorVersion) {
             throw new \RuntimeException('No LTS release with Composer support found.', 1_624_353_394);
         }
@@ -698,7 +695,7 @@ class ComposerPackagesService
             'required' => true,
         ];
 
-        $versions = $majorVersions->findAllComposerSupported();
+        $versions = $this->majorVersions->findAllComposerSupported();
         foreach ($versions as $version) {
             if ($version->getLatestRelease() instanceof Release) {
                 $versionChoices['choices'][self::CMS_VERSIONS_GROUP][$version->getTitle()] =
@@ -779,10 +776,7 @@ class ComposerPackagesService
         if (is_string($version = $packages['typo3_version']) && \preg_match('#^\^(\d+)#', $version, $matches) > 0) {
             $version = (int)$matches[1];
         } else {
-            /** @var MajorVersionRepository $majorVersions */
-            $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-
-            $composerVersions = $majorVersions->findAllComposerSupported();
+            $composerVersions = $this->majorVersions->findAllComposerSupported();
             if ($composerVersions === []) {
                 throw new \RuntimeException('No release found.', 1_624_353_639);
             }

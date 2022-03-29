@@ -22,16 +22,37 @@
 namespace App\Repository;
 
 use App\Entity\Requirement;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
-/**
- * @extends ServiceEntityRepository<Requirement>
- */
-final class RequirementRepository extends ServiceEntityRepository
+final class RequirementRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var EntityRepository<Requirement>
+     */
+    private readonly EntityRepository $repository;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($registry, Requirement::class);
+        $this->repository = $entityManager->getRepository(Requirement::class);
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string>|null $orderBy
+     * @return Requirement[]
+     */
+    public function findBy(array $criteria, ?array $orderBy = null, ?int $limit = null, ?int $offset = null): array
+    {
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string>|null $orderBy
+     */
+    public function findOneBy(array $criteria, ?array $orderBy = null): ?Requirement
+    {
+        return $this->repository->findOneBy($criteria, $orderBy);
     }
 }

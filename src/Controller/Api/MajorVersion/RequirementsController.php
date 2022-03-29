@@ -25,7 +25,6 @@ namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
 use App\Entity\Requirement;
-use App\Repository\RequirementRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
@@ -40,14 +39,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route(path: ['/api/v1/major/{version}/requirement', '/v1/api/major/{version}/requirement'], defaults: ['_format' => 'json'])]
 class RequirementsController extends AbstractController
 {
     /**
      * Get TYPO3 major version requirements
-     * @Route("s", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
@@ -67,22 +64,21 @@ class RequirementsController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="requirement")
      */
+    #[Route(path: 's', methods: ['GET'])]
     public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        /** @var RequirementRepository $requirements */
-        $requirements = $this->managerRegistry->getRepository(Requirement::class);
-        $entities = $requirements->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
-        if ($entities === []) {
+        $requirements = $this->getRequirements()->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
+        if ($requirements === []) {
             throw new NotFoundHttpException('Version not found.');
         }
 
-        $json = $this->serializer->serialize(
-            $entities,
+        $json = $this->getSerializer()->serialize(
+            $requirements,
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
-        $response = new JsonResponse($json, 200, [], true);
+        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
@@ -91,7 +87,6 @@ class RequirementsController extends AbstractController
 
     /**
      * Create new major TYPO3 version requirement
-     * @Route("/", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -128,17 +123,16 @@ class RequirementsController extends AbstractController
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
      */
-    public function addRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
+    #[Route(path: '/', methods: ['POST'])]
+    public function addRequirement(string $version, Request $request): JsonResponse
     {
         $content = $request->getContent();
         if ($content !== '') {
-            /** @var RequirementRepository $requirements */
-            $requirements = $this->managerRegistry->getRepository(Requirement::class);
             /** @var Requirement $requirement */
-            $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
+            $requirement = $this->getSerializer()->deserialize($content, Requirement::class, 'json');
             $entity = $this->findMajorVersion($version);
             $requirement->setVersion($entity);
-            $preexistingRequirement = $requirements->findOneBy(
+            $preexistingRequirement = $this->getRequirements()->findOneBy(
                 [
                     'version' => $version,
                     'name' => $requirement->getName(),
@@ -149,9 +143,9 @@ class RequirementsController extends AbstractController
                 throw new ConflictHttpException('Requirement already exists.');
             }
 
-            $this->validateObject($validator, $requirement);
+            $this->validateObject($requirement);
             $entity->addRequirement($requirement);
-            $em = $this->managerRegistry->getManager();
+            $em = $this->getManagerRegistry()->getManager();
             $em->flush();
             $location = $this->generateUrl('majorVersion_show', ['version' => $version]);
             $header = [
@@ -165,7 +159,6 @@ class RequirementsController extends AbstractController
 
     /**
      * Update requirement of major TYPO3 version
-     * @Route("/", methods={"PATCH"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -198,15 +191,14 @@ class RequirementsController extends AbstractController
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
      */
-    public function updateRequirement(string $version, Request $request, ValidatorInterface $validator): JsonResponse
+    #[Route(path: '/', methods: ['PATCH'])]
+    public function updateRequirement(string $version, Request $request): JsonResponse
     {
         $content = $request->getContent();
         if ($content !== '') {
-            /** @var RequirementRepository $requirements */
-            $requirements = $this->managerRegistry->getRepository(Requirement::class);
             /** @var Requirement $requirement */
-            $requirement = $this->serializer->deserialize($content, Requirement::class, 'json');
-            $entity = $requirements->findOneBy(
+            $requirement = $this->getSerializer()->deserialize($content, Requirement::class, 'json');
+            $entity = $this->getRequirements()->findOneBy(
                 [
                     'version' => $version,
                     'name' => $requirement->getName(),
@@ -218,13 +210,13 @@ class RequirementsController extends AbstractController
             }
 
             $requirement->setVersion($entity->getVersion());
-            $this->validateObject($validator, $entity);
-            $em = $this->managerRegistry->getManager();
+            $this->validateObject($entity);
+            $em = $this->getManagerRegistry()->getManager();
             $em->remove($entity);
             $em->flush();
             $em->persist($requirement);
             $em->flush();
-            $json = $this->serializer->serialize(
+            $json = $this->getSerializer()->serialize(
                 $requirement,
                 'json',
                 SerializationContext::create()->setGroups(['content'])
@@ -237,7 +229,6 @@ class RequirementsController extends AbstractController
 
     /**
      * Delete requirement of major TYPO3 version
-     * @Route("/{category}/{name}", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
@@ -259,14 +250,10 @@ class RequirementsController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="requirement")
      */
-    public function deleteRequirement(
-        string $version,
-        string $category,
-        string $name
-    ): JsonResponse {
-        /** @var RequirementRepository $requirements */
-        $requirements = $this->managerRegistry->getRepository(Requirement::class);
-        $requirement = $requirements->findOneBy(
+    #[Route(path: '/{category}/{name}', methods: ['DELETE'])]
+    public function deleteRequirement(string $version, string $category, string $name): JsonResponse
+    {
+        $requirement = $this->getRequirements()->findOneBy(
             [
                 'version' => $this->findMajorVersion($version),
                 'name' => $name,
@@ -277,7 +264,7 @@ class RequirementsController extends AbstractController
             throw new NotFoundHttpException('Requirement does not exists');
         }
 
-        $em = $this->managerRegistry->getManager();
+        $em = $this->getManagerRegistry()->getManager();
         $em->remove($requirement);
         $em->flush();
         return $this->json([], Response::HTTP_NO_CONTENT);

@@ -30,6 +30,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Controller\DefaultController:
+        arguments:
+            $appDomain: '%env(APP_DOMAIN)%'
+
     App\Service\CacheWarmupService:
         arguments:
             $baseUrl: '%env(BASE_URL)%'

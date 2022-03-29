@@ -24,10 +24,7 @@ declare(strict_types=1);
 namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
-use App\Entity\MajorVersion;
 use App\Entity\Release;
-use App\Repository\MajorVersionRepository;
-use App\Repository\ReleaseRepository;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -35,7 +32,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: ['/api/v1/major/{version}/release', '/v1/api/major/{version}/release'], defaults: ['_format' => 'json'])]
@@ -43,7 +39,6 @@ class ReleasesController extends AbstractController
 {
     /**
      * Get releases by major version
-     * @Route("/", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
@@ -66,22 +61,16 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
      */
+    #[Route(path: '/', methods: ['GET'])]
     public function getReleasesByMajorVersion(string $version, Request $request): JsonResponse
     {
-        $this->checkMajorVersionFormat($version);
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majorVersion = $majorVersions->findVersion($version);
-        if (!$majorVersion instanceof MajorVersion) {
-            throw new NotFoundHttpException('Version not found.');
-        }
-
-        $json = $this->serializer->serialize(
+        $majorVersion = $this->findMajorVersion($version);
+        $json = $this->getSerializer()->serialize(
             $majorVersion->getReleases(),
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
-        $response = new JsonResponse($json, 200, [], true);
+        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
@@ -90,7 +79,6 @@ class ReleasesController extends AbstractController
 
     /**
      * Get latest release of a major version
-     * @Route("/latest", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
@@ -110,22 +98,16 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
      */
+    #[Route(path: '/latest', methods: ['GET'])]
     public function getLatestReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
-        $this->checkMajorVersionFormat($version);
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majorVersion = $majorVersions->findVersion($version);
-        if (!$majorVersion instanceof MajorVersion) {
-            throw new NotFoundHttpException('Version not found.');
-        }
-
-        $json = $this->serializer->serialize(
+        $majorVersion = $this->findMajorVersion($version);
+        $json = $this->getSerializer()->serialize(
             $majorVersion->getLatestRelease(),
             'json',
             SerializationContext::create()->setGroups(['data'])
         );
-        $response = new JsonResponse($json, 200, [], true);
+        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
@@ -134,7 +116,6 @@ class ReleasesController extends AbstractController
 
     /**
      * Get latest security release of a major version
-     * @Route("/latest/security", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
@@ -154,26 +135,25 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="major")
      * @SWG\Tag(name="release")
      */
+    #[Route(path: '/latest/security', methods: ['GET'])]
     public function getLatestSecurityReleaseByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        /** @var ReleaseRepository $releases */
-        $releases = $this->managerRegistry->getRepository(Release::class);
-        $release = $releases->findLatestSecurityReleaseByMajorVersion($version);
+        $release = $this->findLatestSecurityReleaseByMajorVersion($version);
         if (!$release instanceof Release) {
             $json = json_encode([]);
             if ($json === false) {
                 $json = '{}';
             }
         } else {
-            $json = $this->serializer->serialize(
+            $json = $this->getSerializer()->serialize(
                 $release,
                 'json',
                 SerializationContext::create()->setGroups(['data'])
             );
         }
 
-        $response = new JsonResponse($json, 200, [], true);
+        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
@@ -182,7 +162,6 @@ class ReleasesController extends AbstractController
 
     /**
      * Get latest release of a major version
-     * @Route("/latest/content", methods={"GET"})
      * @Cache(expires="tomorrow", public=true)
      * @SWG\Response(
      *     response=200,
@@ -203,22 +182,16 @@ class ReleasesController extends AbstractController
      * @SWG\Tag(name="content")
      * @SWG\Tag(name="release")
      */
+    #[Route(path: '/latest/content', methods: ['GET'])]
     public function getLatestReleaseContentByMajorVersion(string $version, Request $request): JsonResponse
     {
-        $this->checkMajorVersionFormat($version);
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majorVersion = $majorVersions->findVersion($version);
-        if (!$majorVersion instanceof MajorVersion) {
-            throw new NotFoundHttpException('Version not found.');
-        }
-
-        $json = $this->serializer->serialize(
+        $majorVersion = $this->findMajorVersion($version);
+        $json = $this->getSerializer()->serialize(
             $majorVersion->getLatestRelease(),
             'json',
             SerializationContext::create()->setGroups(['content'])
         );
-        $response = new JsonResponse($json, 200, [], true);
+        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
         $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
         $response->setEtag(md5($json));
         $response->isNotModified($request);
