@@ -22,67 +22,49 @@
 namespace App\Entity;
 
 use App\Enum\RequirementCategoryEnum;
-use App\Repository\RequirementRepository;
+use Doctrine\DBAL\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=RequirementRepository::class)
- */
+#[ORM\Entity]
 class Requirement implements \JsonSerializable
 {
-    /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="MajorVersion", inversedBy="requirements")
-     * @ORM\JoinColumn(name="version", referencedColumnName="version")
-     */
-    private MajorVersion $version;
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="string")
-     * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="database")
-     * @Assert\Choice(callback={"App\Enum\RequirementCategoryEnum", "getAvailableOptions"})
-     */
-    private string $category;
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="string")
-     * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="mysql")
-     */
-    private string $name;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="5.5")
-     */
-    private ?string $min = null;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Serializer\Groups({"data", "content", "patch"})
-     * @SWG\Property(example="5.7")
-     */
-    private ?string $max = null;
-
     public function __construct(
-        MajorVersion $version,
-        string $category,
-        string $name,
-        ?string $min = null,
-        ?string $max = null
+        #[ORM\Id]
+        #[ORM\ManyToOne(targetEntity: MajorVersion::class, inversedBy: 'requirements')]
+        #[ORM\JoinColumn(name: 'version', referencedColumnName: 'version')]
+        private MajorVersion $version,
+        /**
+         * @noRector
+         * @SWG\Property(example="database")
+         */
+        #[Assert\Choice(callback: [RequirementCategoryEnum::class, 'getAvailableOptions'])]
+        #[ORM\Id]
+        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+        #[Serializer\Groups(['data', 'content', 'patch'])]
+        private string $category,
+        /**
+         * @SWG\Property(example="mysql")
+         */
+        #[ORM\Id]
+        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+        #[Serializer\Groups(['data', 'content', 'patch'])]
+        private string $name,
+        /**
+         * @SWG\Property(example="5.5")
+         */
+        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+        #[Serializer\Groups(['data', 'content', 'patch'])]
+        private ?string $min = null,
+        /**
+         * @SWG\Property(example="5.7")
+         */
+        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+        #[Serializer\Groups(['data', 'content', 'patch'])]
+        private ?string $max = null,
     ) {
-        $this->setVersion($version);
-        $this->setCategory($category);
-        $this->setName($name);
-        $this->setMin($min);
-        $this->setMax($max);
     }
 
     public function setVersion(MajorVersion $version): void
@@ -155,8 +137,8 @@ class Requirement implements \JsonSerializable
     }
 
     /**
-    * @return array<string, mixed>
-    */
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         return [];

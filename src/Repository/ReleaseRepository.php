@@ -22,27 +22,37 @@
 namespace App\Repository;
 
 use App\Entity\Release;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
-/**
- * @extends ServiceEntityRepository<Release>
- */
-final class ReleaseRepository extends ServiceEntityRepository
+final class ReleaseRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var EntityRepository<Release>
+     */
+    private readonly EntityRepository $repository;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($registry, Release::class);
+        $this->repository = $entityManager->getRepository(Release::class);
+    }
+
+    /**
+     * @return Release[]
+     */
+    public function findAll(): array
+    {
+        return $this->repository->findAll();
     }
 
     public function findVersion(string $version): ?Release
     {
-        return $this->findOneBy(['version' => $version]);
+        return $this->repository->findOneBy(['version' => $version]);
     }
 
     public function findLatestSecurityReleaseByMajorVersion(string $version): ?Release
     {
-        return $this->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => Criteria::DESC]);
+        return $this->repository->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => Criteria::DESC]);
     }
 }

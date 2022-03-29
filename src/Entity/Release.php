@@ -24,83 +24,70 @@ namespace App\Entity;
 use App\Entity\Embeddables\Package;
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Enum\ReleaseTypeEnum;
-use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=ReleaseRepository::class)
- */
+#[ORM\Entity]
 class Release implements \JsonSerializable
 {
     /**
      * Version in a semver/version_compare compatible format
      *
      * @SWG\Property(example="8.7.12")
-     * @ORM\Id
-     * @ORM\Column(type="string")
-     * @Serializer\Groups({"content", "data"})
-     * @Assert\Regex("/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/")
      */
+    #[Assert\Regex('/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/')]
+    #[ORM\Id]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[Serializer\Groups(['content', 'data'])]
     private string $version;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Serializer\Groups({"data", "content"})
-     * @Serializer\Type("DateTime<'Y-m-d\TH:i:sP'>")
      * @SWG\Property(example="2017-12-12T16:48:22 UTC")
      * @var \DateTime|\DateTimeImmutable
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    #[Serializer\Groups(['data', 'content'])]
+    #[Serializer\Type("DateTime<'Y-m-d\\TH:i:sP'>")]
     private \DateTimeInterface $date;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Serializer\Groups({"data"})
-     * @Assert\Choice(callback={"App\Enum\ReleaseTypeEnum", "getAvailableOptions"})
-     */
+    /** @noRector */
+    #[Assert\Choice(callback: [ReleaseTypeEnum::class, 'getAvailableOptions'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[Serializer\Groups(['data'])]
     private string $type;
 
     /**
-     * @ORM\Column(type="boolean")
-     * @ORM\Column(options={"default": 0})
-     * @Serializer\Groups({"data", "content"})
-     * @Assert\Type("boolean")
      * @SWG\Property(example="true")
      */
+    #[Assert\Type('boolean')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => 0])]
+    #[Serializer\Groups(['data', 'content'])]
     private bool $elts = false;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddables\Package")
-     * @Serializer\Type("App\Entity\Embeddables\Package")
-     * @Serializer\Groups({"data"})
-     * @Assert\Valid
-     */
+    #[Assert\Valid]
+    #[ORM\Embedded(class: Package::class)]
+    #[Serializer\Type(\App\Entity\Embeddables\Package::class)]
+    #[Serializer\Groups(['data'])]
     private Package $tarPackage;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddables\Package")
-     * @Serializer\Type("App\Entity\Embeddables\Package")
-     * @Serializer\Groups({"data"})
-     * @Assert\Valid
-     */
+    #[Assert\Valid]
+    #[ORM\Embedded(class: Package::class)]
+    #[Serializer\Type(\App\Entity\Embeddables\Package::class)]
+    #[Serializer\Groups(['data'])]
     private Package $zipPackage;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="MajorVersion", inversedBy="releases")
-     * @ORM\JoinColumn(name="major_version", referencedColumnName="version")
-     * @Assert\Valid
-     * @Assert\NotNull
-     */
+    #[Assert\Valid]
+    #[Assert\NotNull]
+    #[ORM\ManyToOne(targetEntity: MajorVersion::class, inversedBy: 'releases')]
+    #[ORM\JoinColumn(name: 'major_version', referencedColumnName: 'version')]
     private MajorVersion $majorVersion;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddables\ReleaseNotes")
-     * @Serializer\Type("App\Entity\Embeddables\ReleaseNotes")
-     * @Serializer\Groups({"content", "putcontent"})
-     * @Assert\Valid
-     */
+    #[Assert\Valid]
+    #[ORM\Embedded(class: ReleaseNotes::class)]
+    #[Serializer\Type(\App\Entity\Embeddables\ReleaseNotes::class)]
+    #[Serializer\Groups(['content', 'putcontent'])]
     private ReleaseNotes $releaseNotes;
 
     public function __construct()

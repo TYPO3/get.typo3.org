@@ -25,19 +25,29 @@ namespace App\Repository;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use RuntimeException;
 
-/**
- * @extends ServiceEntityRepository<MajorVersion>
- */
-final class MajorVersionRepository extends ServiceEntityRepository
+final class MajorVersionRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var EntityRepository<MajorVersion>
+     */
+    private readonly EntityRepository $repository;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($registry, MajorVersion::class);
+        $this->repository = $entityManager->getRepository(MajorVersion::class);
+    }
+
+    /**
+     * @return MajorVersion[]
+     */
+    public function findAll(): array
+    {
+        return $this->repository->findAll();
     }
 
     /**
@@ -45,12 +55,12 @@ final class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findAllDescending(): array
     {
-        return $this->findBy([], ['version' => Criteria::DESC]);
+        return $this->repository->findBy([], ['version' => Criteria::DESC]);
     }
 
     public function findLatestWithReleases(): ?MajorVersion
     {
-        $versions = $this->findBy([], ['version' => Criteria::DESC]);
+        $versions = $this->repository->findBy([], ['version' => Criteria::DESC]);
 
         foreach ($versions as $version) {
             if ($version->getReleases()->count() > 0) {
@@ -63,7 +73,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
     public function findVersion(string $version): ?MajorVersion
     {
-        return $this->findOneBy(['version' => $version]);
+        return $this->repository->findOneBy(['version' => $version]);
     }
 
     /**
@@ -73,7 +83,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
     public function findAllActive(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->repository->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->orX(
                 $qb->expr()->gte('m.maintainedUntil', ':date'),
@@ -101,7 +111,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
     public function findAllActiveCommunity(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->repository->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->orX(
                 $qb->expr()->gte('m.maintainedUntil', ':date'),
@@ -132,7 +142,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
     public function findAllActiveElts(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->repository->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->andX(
                 $qb->expr()->gt('m.eltsUntil', ':date'),
@@ -164,7 +174,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findAllGroupedByMajor(): array
     {
-        $versions = $this->findAll();
+        $versions = $this->repository->findAll();
         $data = [];
         foreach ($versions as $version) {
             $data[$this->formatVersion($version->getVersion())] = $version;
@@ -182,7 +192,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findCommunityVersionsGroupedByMajor(): array
     {
-        $versions = $this->findAll();
+        $versions = $this->repository->findAll();
         $data = [];
         foreach ($versions as $version) {
             $data[$this->formatVersion($version->getVersion())] = $this->removeEltsReleases($version);
@@ -201,7 +211,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findAllComposerSupported(): array
     {
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->repository->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->gte('m.version', ':minversion')
         );
@@ -220,7 +230,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findLatestLtsComposerSupported(): ?MajorVersion
     {
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->repository->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->andX(
                 $qb->expr()->isNotNull('m.lts'),
@@ -243,7 +253,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
      */
     private function findStableReleases(): array
     {
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->repository->createQueryBuilder('m');
         $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
 
         if (!is_array($result = $qb->getQuery()->execute())) {
@@ -267,7 +277,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
     private function findLtsReleases(): array
     {
         $date = (new \DateTimeImmutable())->format('Y-m-d');
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->repository->createQueryBuilder('m');
         $qb->setMaxResults(2)
             ->where(
                 $qb->expr()->andX(

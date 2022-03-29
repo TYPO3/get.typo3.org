@@ -27,7 +27,6 @@ use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Promise\PromiseInterface;
@@ -41,8 +40,9 @@ class CacheWarmupService implements CacheWarmerInterface
 
     public function __construct(
         private readonly RouterInterface $router,
-        private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
+        private readonly MajorVersionRepository $majorVersions,
+        private readonly ReleaseRepository $releases,
         private readonly string $baseUrl,
     ) {
         $this->client = new Client();
@@ -84,9 +84,8 @@ class CacheWarmupService implements CacheWarmerInterface
 
         $this->warmUpMajorVersions();
 
-        /** @var ReleaseRepository $releases */
-        $releases = $this->entityManager->getRepository(Release::class);
-        $versions = $releases->findAll();
+        /** @noRector */
+        $versions = $this->releases->findAll();
         $routes = [
             'release_show',
             'app_api_release_getcontentforversion',
@@ -115,9 +114,8 @@ class CacheWarmupService implements CacheWarmerInterface
 
     private function warmUpActiveMajorVersions(): void
     {
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-        $versions = $majorVersions->findAllActive();
+        /** @noRector */
+        $versions = $this->majorVersions->findAllActive();
         $routes = [
             'majorVersion_show',
         ];
@@ -126,9 +124,8 @@ class CacheWarmupService implements CacheWarmerInterface
 
     private function warmUpMajorVersions(): void
     {
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-        $versions = $majorVersions->findAll();
+        /** @noRector */
+        $versions = $this->majorVersions->findAll();
         $routes = [
             'app_api_majorversion_releases_getreleasesbymajorversion',
             'app_api_majorversion_releases_getlatestreleasebymajorversion',

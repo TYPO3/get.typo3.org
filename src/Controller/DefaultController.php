@@ -25,12 +25,7 @@ namespace App\Controller;
 
 use App\Entity\MajorVersion;
 use App\Entity\Release;
-use App\Repository\MajorVersionRepository;
-use App\Repository\ReleaseRepository;
-use App\Service\ComposerPackagesService;
-use App\Service\LegacyDataService;
 use App\Utility\VersionUtility;
-use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,30 +45,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     public function __construct(
-        private readonly LegacyDataService $legacyDataService,
-        private readonly ComposerPackagesService $composerPackagesService,
-        private readonly ManagerRegistry $managerRegistry,
+        private readonly string $appDomain,
+        private \App\Service\LegacyDataService $legacyDataService,
+        private \App\Service\ComposerPackagesService $composerPackagesService,
+        private \App\Repository\MajorVersionRepository $majorVersions,
+        private \App\Repository\ReleaseRepository $releases,
     ) {
     }
 
-    /**
-     * @Route("/", host="composer.%app.domain%", name="composer-root")
-     */
+    #[Route(path: '/', host: 'composer.%app.domain%', name: 'composer-root')]
     public function composerRoot(): RedirectResponse
     {
-        return $this->redirect(sprintf('https://get.%s/misc/composer/repository', is_string($this->getParameter('app.domain')) ? $this->getParameter('app.domain') : ''));
+        return $this->redirect(sprintf('https://get.%s/misc/composer/repository', $this->appDomain));
     }
 
-    /**
-     * @Route("/", methods={"GET"}, name="root")
-     */
+    #[Route(path: '/', methods: ['GET'], name: 'root')]
     public function show(Request $request): Response
     {
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $communityVersions = $majorVersions->findAllActiveCommunity();
-        $eltsVersions = $majorVersions->findAllActiveElts();
-
+        $communityVersions = $this->majorVersions->findAllActiveCommunity();
+        $eltsVersions = $this->majorVersions->findAllActiveElts();
         $response = $this->render(
             'default/root.html.twig',
             [
@@ -96,8 +86,8 @@ class DefaultController extends AbstractController
      * Outputs the JSON file
      * /json
      * Legacy end point
-     * @Route("/json", methods={"GET"}, name="legacy-releases-json")
      */
+    #[Route(path: '/json', methods: ['GET'], name: 'legacy-releases-json')]
     public function releaseJson(): Response
     {
         $content = $this->legacyDataService->getReleaseJson();
@@ -105,77 +95,58 @@ class DefaultController extends AbstractController
             'Content-type'                => 'application/json',
             'Access-Control-Allow-Origin' => '*',
         ];
-        return new Response($content, 200, $headers);
+        return new Response($content, \Symfony\Component\HttpFoundation\Response::HTTP_OK, $headers);
     }
 
     /**
      * Display release notes for a version
-     *
-     * @Route("/release-notes", methods={"GET"}, name="release-notes")
-     * @Route("/release-notes/", methods={"GET"})
-     * @Route("/release-notes/{version}", methods={"GET"}, name="release-notes-for-version")
-     * @Route("/release-notes/{folder}/{version}", methods={"GET"}, name="legacy-release-notes-for-version")
      */
+    #[Route(path: '/release-notes', methods: ['GET'], name: 'release-notes')]
+    #[Route(path: '/release-notes/', methods: ['GET'])]
+    #[Route(path: '/release-notes/{version}', methods: ['GET'], name: 'release-notes-for-version')]
+    #[Route(path: '/release-notes/{folder}/{version}', methods: ['GET'], name: 'legacy-release-notes-for-version')]
     public function releaseNotes(Request $request, string $version = ''): Response
     {
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-
         $data = [];
-        $response = $this->getVersionData($majorVersions, 'release-notes-for-version', $version, $data);
-
+        $response = $this->getVersionData('release-notes-for-version', $version, $data);
         if ($response !== null) {
             return $response;
         }
 
-        $data['groupedVersions'] = $majorVersions->findAllGroupedByMajor();
-
+        $data['groupedVersions'] = $this->majorVersions->findAllGroupedByMajor();
         $response = $this->render('default/release-notes.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
-
         return $response;
     }
 
-    /**
-     * @Route("/download", methods={"GET"}, name="download")
-     * @Route("/download/", methods={"GET"})
-     * @Route("/version", methods={"GET"})
-     * @Route("/version/", methods={"GET"})
-     * @Route("/version/{version}", methods={"GET"}, name="version")
-     */
+    #[Route(path: '/download', methods: ['GET'], name: 'download')]
+    #[Route(path: '/download/', methods: ['GET'])]
+    #[Route(path: '/version', methods: ['GET'])]
+    #[Route(path: '/version/', methods: ['GET'])]
+    #[Route(path: '/version/{version}', methods: ['GET'], name: 'version')]
     public function showVersion(Request $request, string $version = ''): Response
     {
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-
         $data = [];
-        $response = $this->getVersionData($majorVersions, 'version', $version, $data);
-
+        $response = $this->getVersionData('version', $version, $data);
         if ($response !== null) {
             return $response;
         }
 
-        $data['activeVersions'] = $majorVersions->findAllActive();
-
+        $data['activeVersions'] = $this->majorVersions->findAllActive();
         $response = $this->render('default/version.html.twig', $data);
         $response->setEtag(md5(serialize($data)));
         $response->isNotModified($request);
-
         return $response;
     }
 
-    /**
-     * @Route("/list/version/{version}", methods={"GET"}, name="list")
-     */
+    #[Route(path: '/list/version/{version}', methods: ['GET'], name: 'list')]
     public function showVersionListByMajorVersion(string $version, Request $request): Response
     {
         $templateName = 'default/list.html.twig';
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
         $data = [];
-        $data['activeVersions'] = $majorVersions->findAllActive();
-        $data['currentVersion'] = $majorVersions->findVersion($version);
+        $data['activeVersions'] = $this->majorVersions->findAllActive();
+        $data['currentVersion'] = $this->majorVersions->findVersion($version);
         if ($data['currentVersion'] instanceof MajorVersion) {
             $data['currentVersion'] = $data['currentVersion']->toArray();
         }
@@ -190,14 +161,8 @@ class DefaultController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/{requestedVersion}", methods={"GET"}, name="specificversion")
-     * @Route("/{requestedVersion}/{requestedFormat}",
-     *     methods={"GET"},
-     *     name="versionandformat",
-     *     condition="context.getPathInfo() matches '#^\\/?((?:stable|current)|(?:\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\d+\\.\\d+[\\.\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?)\\/?(?:tar\\.gz|zip|tar\\.gz\\.sig|zip\\.sig)?$#'"
-     * )
-     */
+    #[Route(path: '/{requestedVersion}', methods: ['GET'], name: 'specificversion')]
+    #[Route(path: '/{requestedVersion}/{requestedFormat}', methods: ['GET'], name: 'versionandformat', condition: "context.getPathInfo() matches '#^\\\\/?((?:stable|current)|(?:\\\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\\\d+\\\\.\\\\d+[\\\\.\\\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\\\.[0-9A-Za-z-]+)*))?(?:\\\\+([0-9A-Za-z-]+(?:\\\\.[0-9A-Za-z-]+)*))?)\\\\/?(?:tar\\\\.gz|zip|tar\\\\.gz\\\\.sig|zip\\\\.sig)?\$#'")]
     public function download(Request $request, string $requestedVersion = 'stable', string $requestedFormat = 'tar.gz'): Response
     {
         if ($requestedVersion === 'current') {
@@ -205,9 +170,7 @@ class DefaultController extends AbstractController
         }
 
         if (VersionUtility::isValidSemverVersion($requestedVersion)) {
-            /** @var ReleaseRepository $releases */
-            $releases = $this->managerRegistry->getRepository(Release::class);
-            $release = $releases->findVersion($requestedVersion);
+            $release = $this->releases->findVersion($requestedVersion);
             if ($release instanceof Release && $release->isElts()) {
                 return $this->createEltsVersionResponse($request, $release);
             }
@@ -227,25 +190,19 @@ class DefaultController extends AbstractController
         return $this->redirect($redirectData['url']);
     }
 
-    /**
-     * @Route("/misc/composer", methods={"GET"}, name="composer")
-     */
+    #[Route(path: '/misc/composer', methods: ['GET'], name: 'composer')]
     public function composer(): Response
     {
         $templateName = 'default/composer.html.twig';
-
         return $this->render($templateName);
     }
 
-    /**
-     * @Route("/misc/composer/helper", methods={"GET", "POST"}, name="composer-helper")
-     */
+    #[Route(path: '/misc/composer/helper', methods: ['GET', 'POST'], name: 'composer-helper')]
     public function composerHelper(): Response
     {
         $formBuilder = $this->createFormBuilder();
         $templateName = 'default/composer-helper.html.twig';
         $form = $this->composerPackagesService->buildForm($formBuilder);
-
         return $this->render(
             $templateName,
             [
@@ -255,13 +212,10 @@ class DefaultController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/ajax/composer/helper/generate", methods={"POST"}, name="ajax-composer-helper-generate")
-     */
+    #[Route(path: '/ajax/composer/helper/generate', methods: ['POST'], name: 'ajax-composer-helper-generate')]
     public function composerHelperAjax(Request $request): JsonResponse
     {
         $formBuilder = $this->createFormBuilder();
-
         $form = $this->composerPackagesService->buildForm($formBuilder);
         $formData = '';
         $form->handleRequest($request);
@@ -283,13 +237,10 @@ class DefaultController extends AbstractController
         return new JsonResponse(['status' => $formData]);
     }
 
-    /**
-     * @Route("/misc/composer/repository", methods={"GET"}, name="composer-repository")
-     */
+    #[Route(path: '/misc/composer/repository', methods: ['GET'], name: 'composer-repository')]
     public function composerRepository(): Response
     {
         $templateName = 'default/composer-repository.html.twig';
-
         return $this->render($templateName);
     }
 
@@ -332,12 +283,12 @@ class DefaultController extends AbstractController
     /**
      * @param array<string, mixed> $data
      */
-    private function getVersionData(MajorVersionRepository $majorVersions, string $redirectRoute, string $version, array &$data): ?Response
+    private function getVersionData(string $redirectRoute, string $version, array &$data): ?Response
     {
         $version = str_replace('TYPO3_CMS_', '', $version);
 
         if ($version === '') {
-            $majorVersion = $majorVersions->findLatestWithReleases();
+            $majorVersion = $this->majorVersions->findLatestWithReleases();
 
             if (!$majorVersion instanceof MajorVersion) {
                 throw new NotFoundHttpException('No release found.');
@@ -346,16 +297,14 @@ class DefaultController extends AbstractController
             return $this->redirectToRoute($redirectRoute, ['version' => $majorVersion->getVersion()]);
         }
 
-        $data['currentVersion'] = $majorVersions->findVersion(VersionUtility::extractMajorVersionNumber($version));
+        $data['currentVersion'] = $this->majorVersions->findVersion(VersionUtility::extractMajorVersionNumber($version));
 
         if (!$data['currentVersion'] instanceof MajorVersion) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');
         }
 
         if (VersionUtility::isValidSemverVersion($version)) {
-            /** @var ReleaseRepository $releases */
-            $releases = $this->managerRegistry->getRepository(Release::class);
-            $release = $releases->findVersion($version);
+            $release = $this->releases->findVersion($version);
         } else {
             $release = $data['currentVersion']->getLatestRelease();
         }

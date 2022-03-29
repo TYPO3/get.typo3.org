@@ -23,15 +23,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\MajorVersion;
-use App\Repository\MajorVersionRepository;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -41,7 +38,6 @@ class CacheController extends AbstractController
 {
     /**
      * Purge caches related to TYPO3 major version
-     * @Route("/majorVersion/{version}")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=202,
@@ -61,26 +57,17 @@ class CacheController extends AbstractController
      * )
      * @SWG\Tag(name="cache")
      */
+    #[Route(path: '/majorVersion/{version}')]
     public function purgeMajorRelease(string $version): JsonResponse
     {
-        $this->checkMajorVersionFormat($version);
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majorVersion = $majorVersions->findVersion($version);
-        if (!$majorVersion instanceof MajorVersion) {
-            throw new NotFoundHttpException('Version not found.');
-        }
-
+        $this->findMajorVersion($version);
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
-
         $this->deleteReleases();
-
         return (new JsonResponse(['locations' => $purgeUrls]))->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
      * Purge caches related to single TYPO3 release
-     * @Route("/release/{version}")
      * @DocSecurity(name="Basic")
      * @SWG\Response(
      *     response=202,
@@ -100,6 +87,7 @@ class CacheController extends AbstractController
      * )
      * @SWG\Tag(name="cache")
      */
+    #[Route(path: '/release/{version}')]
     public function purgeRelease(string $version): JsonResponse
     {
         $this->checkVersionFormat($version);
@@ -121,9 +109,7 @@ class CacheController extends AbstractController
                 ['version' => $version]
             ),
         ];
-
         $this->deleteReleases();
-
         return (new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]))
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }

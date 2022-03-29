@@ -27,6 +27,7 @@ use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
+use App\Repository\RequirementRepository;
 use App\Utility\VersionUtility;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -35,22 +36,48 @@ use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     public function __construct(
-        protected readonly SerializerInterface $serializer,
-        protected readonly ManagerRegistry $managerRegistry,
+        private readonly \JMS\Serializer\SerializerInterface $serializer,
+        private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry,
+        private readonly \App\Repository\MajorVersionRepository $majorVersions,
+        private readonly \App\Repository\RequirementRepository $requirements,
+        private readonly \App\Repository\ReleaseRepository $releases,
+        private readonly \Symfony\Component\Validator\Validator\ValidatorInterface $validator,
     ) {
+    }
+
+    protected function getSerializer(): SerializerInterface
+    {
+        return $this->serializer;
+    }
+
+    protected function getManagerRegistry(): ManagerRegistry
+    {
+        return $this->managerRegistry;
+    }
+
+    protected function getMajorVersions(): MajorVersionRepository
+    {
+        return $this->majorVersions;
+    }
+
+    protected function getRequirements(): RequirementRepository
+    {
+        return $this->requirements;
+    }
+
+    protected function getReleases(): ReleaseRepository
+    {
+        return $this->releases;
     }
 
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majorVersion = $majorVersions->findVersion($version);
+        $majorVersion = $this->majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
         }
@@ -58,9 +85,9 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         return $majorVersion;
     }
 
-    protected function validateObject(ValidatorInterface $validator, object $object): void
+    protected function validateObject(object $object): void
     {
-        $violations = $validator->validate($object);
+        $violations = $this->validator->validate($object);
 
         if ($violations->count() > 0) {
             $messages = '';
@@ -121,9 +148,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function getMajorVersionByReleaseVersion(string $version): MajorVersion
     {
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->managerRegistry->getRepository(MajorVersion::class);
-        $majorVersion = $majorVersions->findVersion($majorVersionNumber);
+        $majorVersion = $this->majorVersions->findVersion($majorVersionNumber);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException(sprintf('Major version data for version %d does not exist.', $majorVersionNumber));
         }
@@ -133,14 +158,19 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
 
     protected function getReleaseByVersion(string $version): Release
     {
-        /** @var ReleaseRepository $releases */
-        $releases = $this->managerRegistry->getRepository(Release::class);
-        $release = $releases->findVersion($version);
+        $release = $this->releases->findVersion($version);
         if (!$release instanceof Release) {
             throw new NotFoundHttpException();
         }
 
         return $release;
+    }
+
+    protected function findLatestSecurityReleaseByMajorVersion(string $version): ?Release
+    {
+        $this->checkMajorVersionFormat($version);
+
+        return $this->releases->findLatestSecurityReleaseByMajorVersion($version);
     }
 
     /**
