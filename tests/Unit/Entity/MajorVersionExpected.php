@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -19,14 +21,20 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\Tests;
+namespace App\Tests\Unit\Entity;
 
-use Symfony\Component\Dotenv\Dotenv;
+use DateTimeImmutable;
 
-require \dirname(__DIR__) . '/vendor/autoload.php';
-
-if (\file_exists(\dirname(__DIR__) . '/config/bootstrap.php')) {
-    require \dirname(__DIR__) . '/config/bootstrap.php';
-} else {
-    (new Dotenv())->bootEnv(\dirname(__DIR__) . '/.env');
+class MajorVersionExpected
+{
+    public function __construct(
+        public readonly float $version,
+        public readonly string $title,
+        public readonly DateTimeImmutable $releaseDate,
+        public readonly ?DateTimeImmutable $maintainedUntil,
+        public readonly ?DateTimeImmutable $eltsUntil,
+        public readonly bool $active,
+        public readonly bool $elts,
+    ) {
+    }
 }

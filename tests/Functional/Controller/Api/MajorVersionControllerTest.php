@@ -30,7 +30,7 @@ class MajorVersionControllerTest extends ApiCase
     /**
      * @test
      */
-    public function createMajorVersionUnauthorized()
+    public function createMajorVersionUnauthorized(): void
     {
         $response = $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
@@ -39,11 +39,11 @@ class MajorVersionControllerTest extends ApiCase
     /**
      * @test
      */
-    public function createMajorVersionAuthorized()
+    public function createMajorVersionAuthorized(): void
     {
         $this->logIn();
         $response = $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
         self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], json_decode($response->getContent(), true));
+        self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], $this->decodeResponse($response));
     }
 }

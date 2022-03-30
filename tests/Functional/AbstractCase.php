@@ -24,72 +24,83 @@ namespace App\Tests\Functional;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use LogicException;
 use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
-use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Panther\PantherTestCase;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 abstract class AbstractCase extends PantherTestCase
 {
-    protected $client;
+    protected KernelBrowser $client;
 
-    /**
-     * @var ORMExecutor
-     */
-    private $fixtureExecutor;
+    private ?ORMExecutor $fixtureExecutor = null;
 
-    /**
-     * @var ContainerAwareLoader
-     */
-    private $fixtureLoader;
+    private ?ContainerAwareLoader $fixtureLoader = null;
 
     public function setUp(): void
     {
-        parent::setUp();
         self::bootKernel();
         DatabasePrimer::prime(self::$kernel);
-        $this->client = static::createClient();
+
+        $client = static::createClient();
+
+        if (!$client instanceof KernelBrowser) {
+            throw new LogicException('Browser instance is not a KernelBrowser');
+        }
+
+        $this->client = $client;
     }
 
-    protected function logIn()
+    protected function logIn(): void
     {
-        $session = $this->client->getContainer()->get('session');
+        $userProvider = static::getContainer()->get(UserProviderInterface::class);
+        if (!$userProvider instanceof UserProviderInterface) {
+            throw new LogicException('UserProvider instance is not a UserProviderInterface');
+        }
 
-        $firewallName = 'api';
-        $firewallContext = 'api';
+        $testUser = $userProvider->loadUserByIdentifier('test-user');
 
-        $token = new UsernamePasswordToken('admin', null, $firewallName, ['ROLE_ADMIN']);
-        $session->set('_security_' . $firewallContext, serialize($token));
-        $session->save();
-
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
+        $this->client->loginUser($testUser, 'api');
     }
 
-    protected function addFixture(FixtureInterface $fixture)
+    protected function addFixture(FixtureInterface $fixture): void
     {
         $this->getFixtureLoader()->addFixture($fixture);
     }
 
-    protected function executeFixtures()
+    protected function executeFixtures(): void
     {
         $this->getFixtureExecutor()->execute($this->getFixtureLoader()->getFixtures());
     }
 
     private function getFixtureExecutor(): ORMExecutor
     {
-        if (!$this->fixtureExecutor) {
-            $entityManager = self::$kernel->getContainer()->get('doctrine')->getManager();
+        if ($this->fixtureExecutor === null) {
+            $managerRegistry = static::getContainer()->get('doctrine');
+            if (!$managerRegistry instanceof ManagerRegistry) {
+                throw new LogicException('Doctrine instance is not a ManagerRegistry');
+            }
+
+            $entityManager = $managerRegistry->getManager();
+            if (!$entityManager instanceof EntityManagerInterface) {
+                throw new LogicException('Manager instance is not a EntityManagerInterface');
+            }
+
             $this->fixtureExecutor = new ORMExecutor($entityManager, new ORMPurger($entityManager));
         }
+
         return $this->fixtureExecutor;
     }
 
     private function getFixtureLoader(): ContainerAwareLoader
     {
-        if (!$this->fixtureLoader) {
-            $this->fixtureLoader = new ContainerAwareLoader(self::$kernel->getContainer());
+        if ($this->fixtureLoader === null) {
+            $this->fixtureLoader = new ContainerAwareLoader(static::getContainer());
         }
+
         return $this->fixtureLoader;
     }
 }

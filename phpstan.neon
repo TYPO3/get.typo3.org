@@ -2,12 +2,15 @@ parameters:
 	level: max
 	treatPhpDocTypesAsCertain: false
 
+	bootstrapFiles:
+		- %currentWorkingDirectory%/vendor/bin/.phpunit/phpunit/vendor/autoload.php
+
 	paths:
 		- %currentWorkingDirectory%/config/
 		- %currentWorkingDirectory%/migrations/
 		- %currentWorkingDirectory%/public/
 		- %currentWorkingDirectory%/src/
-		#- %currentWorkingDirectory%/tests/
+		- %currentWorkingDirectory%/tests/
 
 	stubFiles:
 		- stubs/MenuBuilder.stub
