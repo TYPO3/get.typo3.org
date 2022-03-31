@@ -56,6 +56,7 @@ magephp:
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
+                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
                 - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
             post-deploy:
         production:
@@ -84,6 +85,7 @@ magephp:
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
+                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
                 - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
             post-deploy:
         stage:
