@@ -52,10 +52,10 @@ magephp:
             post-release:
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
-                - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
+                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 300 }
+                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
             post-deploy:
         production:
@@ -80,10 +80,10 @@ magephp:
             post-release:
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
-                - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
+                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 300 }
+                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
             post-deploy:
         stage:
@@ -115,7 +115,7 @@ magephp:
             on-release:
             post-release:
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
-                - exec: { cmd: "php-reload", desc: "Reload PHP Configuration" }
+                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - symfony/cache-clear: { env: "prod" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - symfony/cache-warmup: { env: "prod" }
