@@ -1,14 +1,36 @@
-name: Deployment (CD)
+name: Deployment Template
+
 on:
-  push:
-    branches:
-      - production
-      - develop
-      - stage
+  workflow_call:
+    inputs:
+      php_version:
+        description: 'PHP version to be used for the deployment.'
+        default: '8.1'
+        required: false
+        type: string
+      composer_version:
+        description: 'Composer version to be used for the deployment.'
+        default: '2'
+        required: false
+        type: string
+
 jobs:
-  deployment:
-    name: Deployment
+  print_inputs:
+    name: Print Inputs
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Print the inputs
+        run: |
+          echo PHP version: ${{ inputs.php_version }}
+          echo Composer version: ${{ inputs.composer_version }}
+
+  deploy:
+    name: Deploy
+    needs:
+      - print_inputs
+    runs-on: ubuntu-latest
+
     steps:
       - name: Setup SSH Key
         env:
@@ -20,33 +42,34 @@ jobs:
           ssh-keygen -p -P "${{ secrets.SSH_PASSPHRASE }}" -N "" -f ~/.ssh/deploy_key
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add ~/.ssh/deploy_key
-      - uses: actions/checkout@v2
-      - name: Checkout submodules
-        shell: bash
-        run: |
-          # If your submodules are configured to use SSH instead of HTTPS please uncomment the following line
-          # git config --global url."https://github.com/".insteadOf "git@github.com:"
-          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-          git submodule sync --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+
+      - uses: actions/checkout@v3
+        name: Checkout
+        with:
+          submodules: 'recursive'
+
       - name: Set up PHP Version
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
-          tools: composer:v2, andres-montanez/magallanes
+          php-version: ${{ inputs.php_version }}
+          tools: composer:${{ inputs.composer_version }}, andres-montanez/magallanes
+
       - name: Get Environment
         id: environment
         run: |
           echo ::set-output name=target::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
+
       - name: Deployment
         env:
           SSH_AUTH_SOCK: /tmp/ssh-auth.sock
         run: |
           mkdir -p ./.mage/logs
           composer global exec mage deploy ${{ steps.environment.outputs.target }}
-      - name: Archive Logs
-        uses: actions/upload-artifact@v1
+
+      - name: Upload Logs
+        uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: logs
+          name: deployment
           path: .mage/logs
+          retention-days: 7

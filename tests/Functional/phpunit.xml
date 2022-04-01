@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+  backupGlobals="false"
+  backupStaticAttributes="false"
+  beStrictAboutTestsThatDoNotTestAnything="true"
+  colors="true"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  failOnRisky="true"
+  processIsolation="false"
+  stopOnFailure="false"
+  bootstrap="../bootstrap.php"
+>
+  <coverage>
+    <include>
+      <directory>../../src/</directory>
+    </include>
+    <report>
+      <html outputDirectory="../../var/log/report-functional"/>
+      <php outputFile="../../var/log/cov/coverage-functional.cov"/>
+    </report>
+  </coverage>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <server name="APP_ENV" value="test" force="true"/>
+    <server name="SHELL_VERBOSITY" value="-1"/>
+    <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+    <server name="SYMFONY_PHPUNIT_VERSION" value="9.5"/>
+  </php>
+  <testsuites>
+    <testsuite name="Functional Test Suite">
+      <directory>./</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="../../var/log/junit-functional.xml"/>
+    <testdoxHtml outputFile="../../var/log/testdox-functional.html"/>
+  </logging>
+</phpunit>

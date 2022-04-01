@@ -42,6 +42,7 @@ class DatabasePrimer
         }
 
         // Get the entity manager from the service container
+        /** @noRector */
         $entityManager = $kernel->getContainer()->get('doctrine.orm.entity_manager');
         if (!$entityManager instanceof EntityManagerInterface) {
             throw new \LogicException('EntityManager could not be retrieved');

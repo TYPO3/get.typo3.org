@@ -3,14 +3,14 @@ parameters:
 	treatPhpDocTypesAsCertain: false
 
 	bootstrapFiles:
-		- %currentWorkingDirectory%/vendor/bin/.phpunit/phpunit/vendor/autoload.php
+		- tools/phpunit/vendor/autoload.php
 
 	paths:
-		- %currentWorkingDirectory%/config/
-		- %currentWorkingDirectory%/migrations/
-		- %currentWorkingDirectory%/public/
-		- %currentWorkingDirectory%/src/
-		- %currentWorkingDirectory%/tests/
+		- config/
+		- migrations/
+		- public/
+		- src/
+		- tests/
 
 	stubFiles:
 		- stubs/MenuBuilder.stub
