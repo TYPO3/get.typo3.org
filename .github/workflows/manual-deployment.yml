@@ -25,3 +25,6 @@ jobs:
     with:
       php_version: ${{ github.event.inputs.php_version }}
       composer_version: ${{ github.event.inputs.composer_version }}
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
