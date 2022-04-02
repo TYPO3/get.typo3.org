@@ -47,7 +47,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::BOOTSTRAP_FILES, [
         __DIR__ . '/vendor/autoload.php',
-        __DIR__ . '/vendor/bin/.phpunit/phpunit/vendor/autoload.php',
+        __DIR__ . '/tools/phpunit/vendor/autoload.php',
     ]);
 
     // Path to phpstan with extensions, that PHPStan in Rector uses to determine types

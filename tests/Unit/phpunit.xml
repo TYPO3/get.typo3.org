@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+  backupGlobals="false"
+  backupStaticAttributes="false"
+  beStrictAboutTestsThatDoNotTestAnything="true"
+  colors="true"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  failOnRisky="true"
+  processIsolation="false"
+  stopOnFailure="false"
+  bootstrap="../bootstrap.php"
+>
+  <coverage>
+    <include>
+      <directory>../../src/</directory>
+    </include>
+    <report>
+      <html outputDirectory="../../var/log/report-unit"/>
+      <php outputFile="../../var/log/cov/coverage-unit.cov"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Unit Test Suite">
+      <directory>./</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="../../var/log/junit-unit.xml"/>
+    <testdoxHtml outputFile="../../var/log/testdox-unit.html"/>
+  </logging>
+</phpunit>
