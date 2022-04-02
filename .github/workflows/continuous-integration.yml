@@ -544,5 +544,5 @@ jobs:
     name: Deployment
     needs:
       - tests
-    if: startsWith(github.event.workflow_run.event, 'push')
+    if: ${{ github.github.event_name == 'push' }}
     uses: ./.github/workflows/deployment.yml
