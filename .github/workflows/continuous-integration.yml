@@ -546,3 +546,6 @@ jobs:
       - tests
     if: ${{ github.event_name == 'push' }}
     uses: ./.github/workflows/deployment.yml
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}

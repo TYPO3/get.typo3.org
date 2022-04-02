@@ -13,6 +13,11 @@ on:
         default: '2'
         required: false
         type: string
+    secrets:
+      SSH_PRIVATE_KEY:
+        required: true
+      SSH_PASSPHRASE:
+        required: true
 
 jobs:
   print_inputs:
