@@ -544,5 +544,5 @@ jobs:
     name: Deployment
     needs:
       - tests
-    if: ${{ github.github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' }}
     uses: ./.github/workflows/deployment.yml
