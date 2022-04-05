@@ -48,15 +48,15 @@ magephp:
                 - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
                 - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
                 - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
-            on-release:
-            post-release:
-                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
-                - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
+            on-release:
+                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+                - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
+            post-release:
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
+                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
             post-deploy:
         production:
@@ -77,15 +77,15 @@ magephp:
                 - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
                 - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
                 - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
-            on-release:
-            post-release:
-                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
-                - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
+            on-release:
+                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+                - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
+            post-release:
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
+                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
             post-deploy:
         stage:
