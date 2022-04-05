@@ -1,0 +1,29 @@
+name: Continuous Deployment (CD)
+
+on:
+  workflow_run:
+    workflows: [Continuous Integration (CI)]
+    types: [completed]
+    branches:
+      - develop
+      - production
+      - stage
+
+jobs:
+  print_context:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_CONTEXT: ${{ toJSON(github) }}
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        run: |
+          echo $GH_CONTEXT
+          echo $EVENT_CONTEXT
+
+  deployment:
+    name: Deployment
+    if: ${{ github.event_name == 'push' }} && ${{ github.event.workflow_run.conclusion == 'success' }}
+    uses: ./.github/workflows/deployment.yml
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
