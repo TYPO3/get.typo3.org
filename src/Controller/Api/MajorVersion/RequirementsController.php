@@ -40,7 +40,10 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: ['/api/v1/major/{version}/requirement', '/v1/api/major/{version}/requirement'], defaults: ['_format' => 'json'])]
+#[Route(
+    path: ['/api/v1/major/{version}/requirement', '/v1/api/major/{version}/requirement'],
+    defaults: ['_format' => 'json']
+)]
 class RequirementsController extends AbstractController
 {
     /**
@@ -68,7 +71,10 @@ class RequirementsController extends AbstractController
     public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $requirements = $this->getRequirements()->findBy(['version' => $version], ['category' => 'ASC', 'name' => 'ASC']);
+        $requirements = $this->getRequirements()->findBy(
+            ['version' => $version],
+            ['category' => 'ASC', 'name' => 'ASC']
+        );
         if ($requirements === []) {
             throw new NotFoundHttpException('Version not found.');
         }
@@ -95,7 +101,13 @@ class RequirementsController extends AbstractController
      *     @SWG\Schema(
      *         type="object",
      *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/api/v1/major/21"),
+     *         @SWG\Property(
+     *             property="Location",
+     *             title="Location (URI)",
+     *             description="URI of newly created version",
+     *             type="string",
+     *             example="/api/v1/major/21"
+     *         ),
      *     )
      * )
      * @SWG\Response(

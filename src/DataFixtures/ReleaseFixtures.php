@@ -30,7 +30,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ReleaseFixtures extends Fixture implements DependentFixtureInterface
+final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -52,8 +52,11 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    protected function generateReleasesForMajorVersion(ObjectManager $manager, string $versionReference, int $amount = 12): void
-    {
+    protected function generateReleasesForMajorVersion(
+        ObjectManager $manager,
+        string $versionReference,
+        int $amount = 12
+    ): void {
         /** @var MajorVersion $majorVersion */
         $majorVersion = $this->getReference($versionReference);
 
@@ -67,8 +70,10 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         $versionData[2] = 0;
 
         $ltsVersionData = explode('.', trim((string)$ltsVersionNumber));
-        $ltsVersionData[0] = isset($ltsVersionData[0]) && is_numeric($ltsVersionData[0]) ? (int)$ltsVersionData[0] : $versionData[0];
-        $ltsVersionData[1] = isset($ltsVersionData[1]) && is_numeric($ltsVersionData[1]) ? (int)$ltsVersionData[1] : $versionData[1];
+        $ltsVersionData[0] = isset($ltsVersionData[0]) && is_numeric($ltsVersionData[0])
+            ? (int)$ltsVersionData[0] : $versionData[0];
+        $ltsVersionData[1] = isset($ltsVersionData[1]) && is_numeric($ltsVersionData[1])
+            ? (int)$ltsVersionData[1] : $versionData[1];
 
         for ($i = 0; $i < $amount; ++$i) {
             $fakeVersion = $versionData;
@@ -105,9 +110,17 @@ class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             $releaseNotes->setUpgradingInstructions($faker->paragraph($faker->numberBetween(0, 1)));
             $changelogTypes = ['TASK', 'BUGFIX', 'FEATURE'];
             $changelog = [];
-            $changelog[] = '2019-10-30 7254d67918 [RELEASE] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name() . ')';
+            $changelog[] = sprintf(
+                '2019-10-30 7254d67918 [RELEASE] %s (thanks to %s)',
+                $faker->sentence($faker->numberBetween(4, 8)),
+                $faker->name()
+            );
             for ($changeIteration = 0; $changeIteration < $faker->numberBetween(5, 50); ++$changeIteration) {
-                $changelog[] = '2019-10-30 7254d67918 [' . $faker->randomElement($changelogTypes) . '] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to ' . $faker->name() . ')';
+                $changelog[] = sprintf(
+                    '2019-10-30 7254d67918 [%s] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to %s)',
+                    $faker->randomElement($changelogTypes), /** @phpstan-ignore-line */
+                    $faker->name()
+                );
             }
 
             $releaseNotes->setChanges(' * ' . implode("\n * ", $changelog));

@@ -53,6 +53,9 @@ final class ReleaseRepository
 
     public function findLatestSecurityReleaseByMajorVersion(string $version): ?Release
     {
-        return $this->repository->findOneBy(['majorVersion' => $version, 'type' => 'security'], ['date' => Criteria::DESC]);
+        return $this->repository->findOneBy(
+            ['majorVersion' => $version, 'type' => 'security'],
+            ['date' => Criteria::DESC]
+        );
     }
 }

@@ -23,32 +23,32 @@ declare(strict_types=1);
 
 namespace App\Enum;
 
-class RequirementCategoryEnum extends AbstractEnum
+final class RequirementCategoryEnum extends AbstractEnum
 {
     /**
      * @var string
      */
-    public final const OPTION_PHP = 'php';
+    public const OPTION_PHP = 'php';
 
     /**
      * @var string
      */
-    public final const OPTION_DATABASE = 'database';
+    public const OPTION_DATABASE = 'database';
 
     /**
      * @var string
      */
-    public final const OPTION_HARDWARE = 'hardware';
+    public const OPTION_HARDWARE = 'hardware';
 
     /**
      * @var string
      */
-    public final const OPTION_CLIENT = 'client';
+    public const OPTION_CLIENT = 'client';
 
     /**
      * @var string
      */
-    public final const OPTION_COMPOSER = 'composer';
+    public const OPTION_COMPOSER = 'composer';
 
     /**
      * {@inheritdoc}

@@ -327,7 +327,9 @@ final class MajorVersionRepository
 
     private function removeEltsReleases(MajorVersion $version): MajorVersion
     {
-        $version->setReleases($version->getReleases()->filter(static fn (Release $release): bool => !$release->isElts()));
+        $version->setReleases($version->getReleases()->filter(
+            static fn (Release $release): bool => !$release->isElts()
+        ));
 
         return $version;
     }

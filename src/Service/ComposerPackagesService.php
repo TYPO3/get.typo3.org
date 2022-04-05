@@ -32,17 +32,17 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
-class ComposerPackagesService
+final class ComposerPackagesService
 {
     /**
      * @var string
      */
-    public final const CMS_VERSIONS_GROUP = 'TYPO3 CMS Versions';
+    public const CMS_VERSIONS_GROUP = 'TYPO3 CMS Versions';
 
     /**
      * @var string
      */
-    public final const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
+    public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
 
     /**
      * @var array<int, array<string, string|array<int>>>
@@ -708,19 +708,27 @@ class ComposerPackagesService
         }
 
         foreach ($versions as $version) {
-            if ($version->getLatestRelease() instanceof Release && \preg_match('#^(\d+)\.(\d+)\.(\d+)#', $version->getLatestRelease()->getVersion(), $matches) > 0) {
+            if (
+                $version->getLatestRelease() instanceof Release && \preg_match(
+                    '#^(\d+)\.(\d+)\.(\d+)#',
+                    $version->getLatestRelease()->getVersion(),
+                    $matches
+                ) > 0
+            ) {
                 $nextMinor = $matches[1] . '.' . (((int)$matches[2]) + 1);
                 $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
                 if (\is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
-                    $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
+                    $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP]
+                        [$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
                         $this->getComposerVersionConstraint($nextMinor, true);
                 }
             } else {
                 $nextPatch = $version->getVersion() . '.0.0';
             }
 
-            $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP][$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
+            $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP]
+                [$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
                 $this->getComposerVersionConstraint($nextPatch, true);
         }
 

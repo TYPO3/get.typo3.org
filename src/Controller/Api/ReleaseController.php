@@ -101,7 +101,13 @@ class ReleaseController extends AbstractController
      *     @SWG\Schema(
      *         type="object",
      *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(property="Location", title="Location (URI)", description="URI of newly created version", type="string", example="/api/v1/release/10.0.0"),
+     *         @SWG\Property(
+     *             property="Location",
+     *             title="Location (URI)",
+     *             description="URI of newly created version",
+     *             type="string",
+     *             example="/api/v1/release/10.0.0"
+     *         ),
      *     )
      * )
      * @SWG\Response(

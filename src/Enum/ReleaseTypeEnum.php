@@ -23,22 +23,22 @@ declare(strict_types=1);
 
 namespace App\Enum;
 
-class ReleaseTypeEnum extends AbstractEnum
+final class ReleaseTypeEnum extends AbstractEnum
 {
     /**
      * @var string
      */
-    public final const OPTION_REGULAR = 'regular';
+    public const OPTION_REGULAR = 'regular';
 
     /**
      * @var string
      */
-    public final const OPTION_DEVELOPMENT = 'development';
+    public const OPTION_DEVELOPMENT = 'development';
 
     /**
      * @var string
      */
-    public final const OPTION_SECURITY = 'security';
+    public const OPTION_SECURITY = 'security';
 
     /**
      * {@inheritdoc}

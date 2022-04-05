@@ -37,7 +37,9 @@ class Release implements \JsonSerializable
      *
      * @SWG\Property(example="8.7.12")
      */
-    #[Assert\Regex('/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/')]
+    #[Assert\Regex(
+        '/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/'
+    )]
     #[ORM\Id]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     #[Serializer\Groups(['content', 'data'])]
@@ -183,7 +185,13 @@ class Release implements \JsonSerializable
     }
 
     /**
-     * @return array{version: string, date: string, type: string, checksums: array{tar: Package, zip: Package}, url: array{zip: string, tar: string}}
+     * @return array{
+     *     version: string,
+     *     date: string,
+     *     type: string,
+     *     checksums: array{tar: Package, zip: Package},
+     *     url: array{zip: string, tar: string}
+     * }
      */
     public function jsonSerialize(): array
     {
@@ -196,7 +204,8 @@ class Release implements \JsonSerializable
                 'zip' => $this->zipPackage,
             ],
             'url' => [
-                // todo: try to inject the env var see https://symfony.com/doc/current/configuration.html#accessing-configuration-parameters
+                // todo: try to inject the env var see
+                // https://symfony.com/doc/current/configuration.html#accessing-configuration-parameters
                 'zip' => getenv('BASE_URL') . '/' . $this->version . '/zip',
                 'tar' => getenv('BASE_URL') . '/' . $this->version,
             ],

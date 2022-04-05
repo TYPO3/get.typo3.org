@@ -162,9 +162,17 @@ class DefaultController extends AbstractController
     }
 
     #[Route(path: '/{requestedVersion}', methods: ['GET'], name: 'specificversion')]
-    #[Route(path: '/{requestedVersion}/{requestedFormat}', methods: ['GET'], name: 'versionandformat', condition: "context.getPathInfo() matches '#^\\\\/?((?:stable|current)|(?:\\\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\\\d+\\\\.\\\\d+[\\\\.\\\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\\\.[0-9A-Za-z-]+)*))?(?:\\\\+([0-9A-Za-z-]+(?:\\\\.[0-9A-Za-z-]+)*))?)\\\\/?(?:tar\\\\.gz|zip|tar\\\\.gz\\\\.sig|zip\\\\.sig)?\$#'")]
-    public function download(Request $request, string $requestedVersion = 'stable', string $requestedFormat = 'tar.gz'): Response
-    {
+    #[Route(
+        path: '/{requestedVersion}/{requestedFormat}',
+        methods: ['GET'],
+        name: 'versionandformat',
+        condition: "context.getPathInfo() matches '#^\\\\/?((?:stable|current)|(?:\\\\d+)|(typo3_src|typo3_src_dummy|dummy|introduction|government|blank)?-?(\\\\d+\\\\.\\\\d+[\\\\.\\\\d+]?)(?:-?([0-9A-Za-z-]+(?:\\\\.[0-9A-Za-z-]+)*))?(?:\\\\+([0-9A-Za-z-]+(?:\\\\.[0-9A-Za-z-]+)*))?)\\\\/?(?:tar\\\\.gz|zip|tar\\\\.gz\\\\.sig|zip\\\\.sig)?\$#'"
+    )]
+    public function download(
+        Request $request,
+        string $requestedVersion = 'stable',
+        string $requestedFormat = 'tar.gz'
+    ): Response {
         if ($requestedVersion === 'current') {
             $requestedVersion = 'stable';
         }
@@ -247,7 +255,8 @@ class DefaultController extends AbstractController
     protected function createEltsVersionResponse(Request $request, Release $release): Response
     {
         $statusCode = Response::HTTP_PAYMENT_REQUIRED;
-        $statusMessage = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
+        $statusMessage =
+            'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
         $acceptHeader = $request->headers->get('Accept') ?? '';
         $response = new Response();
 
@@ -297,7 +306,8 @@ class DefaultController extends AbstractController
             return $this->redirectToRoute($redirectRoute, ['version' => $majorVersion->getVersion()]);
         }
 
-        $data['currentVersion'] = $this->majorVersions->findVersion(VersionUtility::extractMajorVersionNumber($version));
+        $data['currentVersion'] = $this->majorVersions
+            ->findVersion(VersionUtility::extractMajorVersionNumber($version));
 
         if (!$data['currentVersion'] instanceof MajorVersion) {
             throw new NotFoundHttpException('No data for version ' . $version . ' found.');

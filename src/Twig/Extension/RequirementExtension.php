@@ -39,7 +39,10 @@ class RequirementExtension extends AbstractExtension
     {
         return [
             // combined filters
-            new TwigFilter('prepareRequirements', fn (Collection $requirements): array => $this->prepareRequirements($requirements)),
+            new TwigFilter(
+                'prepareRequirements',
+                fn (Collection $requirements): array => $this->prepareRequirements($requirements)
+            ),
         ];
     }
 
