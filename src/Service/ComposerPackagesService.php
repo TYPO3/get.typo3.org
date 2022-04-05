@@ -807,6 +807,20 @@ final class ComposerPackagesService
         return $packages;
     }
 
+    /**
+     * @return array<int, string>
+     */
+    public function getCorePackages(): array
+    {
+        $packages = [];
+
+        foreach (self::PACKAGES as $package) {
+            $packages[] = $package['name'];
+        }
+
+        return $packages;
+    }
+
     private function getComposerVersionConstraint(string $version, bool $development = false): string
     {
         if ($development) {
