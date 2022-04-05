@@ -43,8 +43,10 @@ class VersionUtility
     public static function extractMajorVersionNumber(string $version): string
     {
         $versionData = explode('.', trim($version));
-        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0;
-        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) && $versionData[0] < 7 ? (int)$versionData[1] : 0;
+        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0])
+            ? (int)$versionData[0] : 0;
+        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) && $versionData[0] < 7
+            ? (int)$versionData[1] : 0;
         array_splice($versionData, 2);
         return implode('.', $versionData);
     }
@@ -71,7 +73,13 @@ class VersionUtility
         $version = trim((string)$version);
 
         // match classical versioning
-        if (preg_match('{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::MODIFIER_REGEX . '$}i', $version, $matches) > 0) {
+        if (
+            preg_match(
+                '{^v?(\d{1,5})(\.\d++)?(\.\d++)?(\.\d++)?' . self::MODIFIER_REGEX . '$}i',
+                $version,
+                $matches
+            ) > 0
+        ) {
             $version = $matches[1];
 
             for ($i = 2; $i <= $digits; ++$i) {

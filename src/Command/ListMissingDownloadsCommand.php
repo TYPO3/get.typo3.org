@@ -56,7 +56,9 @@ class ListMissingDownloadsCommand extends Command
     protected function configure(): void
     {
         $this->setDescription('Creates a list of missing downloads with URLs to Sourceforge.');
-        $this->setHelp('This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.');
+        $this->setHelp(
+            'This command allows you to create a list of missing downloads with URLs to Sourceforge if available there.'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -109,7 +111,9 @@ class ListMissingDownloadsCommand extends Command
             $yaml = Yaml::dump($result, 4);
             file_put_contents('missing-downloads.yaml', $yaml);
         } else {
-            throw new \Exception('Invalid response with status code ' . $statusCode . ' and content type ' . $contentType);
+            throw new \Exception(
+                'Invalid response with status code ' . $statusCode . ' and content type ' . $contentType
+            );
         }
 
         return 0;
@@ -123,7 +127,11 @@ class ListMissingDownloadsCommand extends Command
                     return self::NO_ERROR;
                 }
 
-                $result = sprintf('https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20%s/typo3_src-%s.', $release, $release);
+                $result = sprintf(
+                    'https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20%s/typo3_src-%s.',
+                    $release,
+                    $release
+                );
                 $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
 
                 if (!$this->checkUrl($result)) {

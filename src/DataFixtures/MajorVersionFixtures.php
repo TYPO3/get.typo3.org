@@ -27,32 +27,32 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory as FakerFactory;
 
-class MajorVersionFixtures extends Fixture
+final class MajorVersionFixtures extends Fixture
 {
     /**
      * @var string
      */
-    public final const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
+    public const MAJOR_VERSION_SPRINT = 'majorversion-sprint';
 
     /**
      * @var string
      */
-    public final const MAJOR_VERSION_LTS = 'majorversion-lts';
+    public const MAJOR_VERSION_LTS = 'majorversion-lts';
 
     /**
      * @var string
      */
-    public final const MAJOR_VERSION_ELTS = 'majorversion-elts';
+    public const MAJOR_VERSION_ELTS = 'majorversion-elts';
 
     /**
      * @var string
      */
-    public final const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
+    public const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
 
     /**
      * @var string
      */
-    public final const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
+    public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
 
     public function load(ObjectManager $manager): void
     {

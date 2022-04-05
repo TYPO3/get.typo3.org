@@ -21,7 +21,7 @@
 
 namespace App\DataFixtures;
 
-class RequirementFixturesData
+final class RequirementFixturesData
 {
     public function __construct(public string $category, public string $name, public ?string $min, public ?string $max)
     {

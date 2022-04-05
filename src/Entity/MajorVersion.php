@@ -88,14 +88,24 @@ class MajorVersion implements \JsonSerializable
         /**
          * @var Collection<int, Requirement>
          */
-        #[ORM\OneToMany(targetEntity: Requirement::class, mappedBy: 'version', cascade: ['persist', 'remove'], orphanRemoval: true)]
+        #[ORM\OneToMany(
+            targetEntity: Requirement::class,
+            mappedBy: 'version',
+            cascade: ['persist', 'remove'],
+            orphanRemoval: true
+        )]
         #[Serializer\Groups(['data', 'content'])]
         #[Serializer\Type('ArrayCollection<App\Entity\Requirement>')]
         private Collection $requirements,
         /**
          * @var Collection<int, Release>
          */
-        #[ORM\OneToMany(targetEntity: Release::class, mappedBy: 'majorVersion', cascade: ['persist', 'remove'], orphanRemoval: true)]
+        #[ORM\OneToMany(
+            targetEntity: Release::class,
+            mappedBy: 'majorVersion',
+            cascade: ['persist', 'remove'],
+            orphanRemoval: true
+        )]
         #[Serializer\Type('ArrayCollection<App\Entity\Release>')]
         #[Serializer\Groups(['data'])]
         private Collection $releases,
@@ -182,7 +192,9 @@ class MajorVersion implements \JsonSerializable
 
     public function getEltsUntil(): ?\DateTimeImmutable
     {
-        return $this->eltsUntil ?? ($this->getMaintainedUntil() !== null ? $this->getMaintainedUntil()->modify('+3 years') : null);
+        return $this->eltsUntil ?? (
+            $this->getMaintainedUntil() !== null ? $this->getMaintainedUntil()->modify('+3 years') : null
+        );
     }
 
     public function setReleaseDate(\DateTimeImmutable $releaseDate): void
@@ -253,7 +265,21 @@ class MajorVersion implements \JsonSerializable
     }
 
     /**
-     * @return array{version: float, title: string, subtitle: string, description: string, releaseDate: \DateTimeImmutable, maintainedUntil: \DateTimeImmutable|null, eltsUntil: \DateTimeImmutable|null, requirements: Collection<int, Requirement>, releases: Collection<int, Release>, lts: float|null, latestRelease: Release|null, active: bool, elts: bool}
+     * @return array{
+     *     version: float,
+     *     title: string,
+     *     subtitle: string,
+     *     description: string,
+     *     releaseDate: \DateTimeImmutable,
+     *     maintainedUntil: \DateTimeImmutable|null,
+     *     eltsUntil: \DateTimeImmutable|null,
+     *     requirements: Collection<int, Requirement>,
+     *     releases: Collection<int, Release>,
+     *     lts: float|null,
+     *     latestRelease: Release|null,
+     *     active: bool,
+     *     elts: bool
+     * }
      */
     public function toArray(): array
     {

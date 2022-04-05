@@ -77,6 +77,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function findMajorVersion(string $version): MajorVersion
     {
         $this->checkMajorVersionFormat($version);
+
         $majorVersion = $this->majorVersions->findVersion($version);
         if (!$majorVersion instanceof MajorVersion) {
             throw new NotFoundHttpException('No such version.');
@@ -125,7 +126,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
                     }
                 }
 
-                //careful! setters are not being called! Inflection is up to you if you need it!
+                // careful! setters are not being called! Inflection is up to you if you need it!
                 $metadata->setFieldValue($baseObject, $field, $data[$fieldName]);
             }
         }
@@ -150,7 +151,10 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
         $majorVersionNumber = VersionUtility::extractMajorVersionNumber($version);
         $majorVersion = $this->majorVersions->findVersion($majorVersionNumber);
         if (!$majorVersion instanceof MajorVersion) {
-            throw new NotFoundHttpException(sprintf('Major version data for version %d does not exist.', $majorVersionNumber));
+            throw new NotFoundHttpException(sprintf(
+                'Major version data for version %d does not exist.',
+                $majorVersionNumber
+            ));
         }
 
         return $majorVersion;
@@ -180,6 +184,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function flat(array $array, string $prefix = ''): array
     {
         $result = [];
+
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $result = array_merge(

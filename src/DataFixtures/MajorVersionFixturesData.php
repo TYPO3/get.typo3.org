@@ -23,7 +23,7 @@ namespace App\DataFixtures;
 
 use App\Entity\MajorVersion;
 
-class MajorVersionFixturesData
+final class MajorVersionFixturesData
 {
     public function __construct(public string $key, public MajorVersion $version)
     {
