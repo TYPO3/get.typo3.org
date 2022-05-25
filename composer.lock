@@ -9633,12 +9633,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "4b07ae1c8cf8264073a0e561b9e833fc2a3759ea"
+                "reference": "fd6cbe067f9e0dc5869ecdd9531bc3fa25560be6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4b07ae1c8cf8264073a0e561b9e833fc2a3759ea",
-                "reference": "4b07ae1c8cf8264073a0e561b9e833fc2a3759ea",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fd6cbe067f9e0dc5869ecdd9531bc3fa25560be6",
+                "reference": "fd6cbe067f9e0dc5869ecdd9531bc3fa25560be6",
                 "shasum": ""
             },
             "conflict": {
@@ -9696,7 +9696,7 @@
                 "contao/core-bundle": "<4.9.18|>=4.10,<4.11.7|>=4.13,<4.13.3|= 4.10.0",
                 "contao/listing-bundle": ">=4,<4.4.8",
                 "contao/managed-edition": "<=1.5",
-                "craftcms/cms": "<3.7.29",
+                "craftcms/cms": "<3.7.36",
                 "croogo/croogo": "<3.0.7",
                 "cuyz/valinor": ">=0.5,<0.7",
                 "czproject/git-php": "<4.0.3",
@@ -9950,7 +9950,7 @@
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "simplito/elliptic-php": "<1.0.6",
                 "slim/slim": "<2.6",
-                "smarty/smarty": "<3.1.43|>=4,<4.0.3",
+                "smarty/smarty": "<3.1.45|>=4,<4.1.1",
                 "snipe/snipe-it": "<5.4.4|>= 6.0.0-RC-1, <= 6.0.0-RC-5",
                 "socalnick/scn-social-auth": "<1.15.2",
                 "socialiteproviders/steam": "<1.1",
@@ -10119,7 +10119,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-29T22:04:06+00:00"
+            "time": "2022-05-25T21:04:24+00:00"
         },
         {
             "name": "symfony/browser-kit",
