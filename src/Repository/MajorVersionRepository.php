@@ -101,7 +101,7 @@ final class MajorVersionRepository
             throw new RuntimeException('Query not returned an array type.', 1_638_022_065);
         }
 
-        return $result;
+        return $this->removeVersionsWithoutReleases($result);
     }
 
     /**
@@ -125,14 +125,7 @@ final class MajorVersionRepository
             throw new RuntimeException('Query not returned an array type.', 1_638_022_066);
         }
 
-        // Remove versions without releases
-        foreach ($result as $key => $version) {
-            if ($version->getReleases()->count() === 0) {
-                unset($result[$key]);
-            }
-        }
-
-        return $result;
+        return $this->removeVersionsWithoutReleases($result);
     }
 
     /**
@@ -174,7 +167,8 @@ final class MajorVersionRepository
      */
     public function findAllGroupedByMajor(): array
     {
-        $versions = $this->repository->findAll();
+        $versions = $this->removeVersionsWithoutReleases($this->repository->findAll());
+
         $data = [];
         foreach ($versions as $version) {
             $data[$this->formatVersion($version->getVersion())] = $version;
@@ -347,5 +341,21 @@ final class MajorVersionRepository
         );
 
         return $releases;
+    }
+
+    /**
+     * @param array<int, MajorVersion> $versions
+     * @return array<int, MajorVersion>
+     */
+    private function removeVersionsWithoutReleases(array $versions): array
+    {
+        // Remove versions without releases
+        foreach ($versions as $key => $version) {
+            if ($version->getReleases()->count() === 0) {
+                unset($versions[$key]);
+            }
+        }
+
+        return $versions;
     }
 }
