@@ -5,8 +5,7 @@
         "phpstan/phpstan-doctrine": "*",
         "phpstan/phpstan-phpunit": "*",
         "phpstan/phpstan-strict-rules": "*",
-        "phpstan/phpstan-symfony": "*",
-        "rector/rector": "*"
+        "phpstan/phpstan-symfony": "*"
     },
     "config": {
         "allow-plugins": {
