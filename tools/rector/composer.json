@@ -1,3 +1,5 @@
 {
-	"rector/rector": "*"
+    "require": {
+		"rector/rector": "*"
+	}
 }
