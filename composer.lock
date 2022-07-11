@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f5dea6f855258d52cab103f055eb95d",
+    "content-hash": "67cadc3a71b94ea9099694053bb47f75",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -8303,16 +8303,16 @@
         },
         {
             "name": "t3g/symfony-template-bundle",
-            "version": "dev-bugfix/reintroduce-form-elements-class-support",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/gilbertsoft/symfony-template-bundle.git",
-                "reference": "9cbcc668f5ac967d632ee66cd37adc884e9e0ef0"
+                "url": "https://github.com/TYPO3GmbH/symfony-template-bundle.git",
+                "reference": "e19118c8a5614da4550faa9d602c5fadbdd1c6ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gilbertsoft/symfony-template-bundle/zipball/9cbcc668f5ac967d632ee66cd37adc884e9e0ef0",
-                "reference": "9cbcc668f5ac967d632ee66cd37adc884e9e0ef0",
+                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/e19118c8a5614da4550faa9d602c5fadbdd1c6ea",
+                "reference": "e19118c8a5614da4550faa9d602c5fadbdd1c6ea",
                 "shasum": ""
             },
             "require": {
@@ -8348,30 +8348,7 @@
                     "T3G\\Bundle\\TemplateBundle\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "T3G\\Bundle\\TemplateBundle\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "t3g:test:php:unit": [
-                    "simple-phpunit -c phpunit.xml.dist --testsuite \"Unit Test Suite\""
-                ],
-                "t3g:cgl": [
-                    "php-cs-fixer fix -v --dry-run"
-                ],
-                "t3g:cgl:fix": [
-                    "php-cs-fixer fix"
-                ],
-                "t3g:test:php:lint": [
-                    "phplint"
-                ],
-                "t3g:test": [
-                    "@t3g:cgl",
-                    "@t3g:test:php:lint",
-                    "@t3g:test:php:unit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -8384,13 +8361,55 @@
             "description": "TYPO3 Template Bundle",
             "homepage": "http://www.typo3.com",
             "keywords": [
-                "TYPO3",
-                "Templates"
+                "templates",
+                "typo3"
             ],
             "support": {
-                "source": "https://github.com/gilbertsoft/symfony-template-bundle/tree/bugfix/reintroduce-form-elements-class-support"
+                "issues": "https://github.com/TYPO3GmbH/symfony-template-bundle/issues",
+                "source": "https://github.com/TYPO3GmbH/symfony-template-bundle/tree/3.4.0"
             },
-            "time": "2022-03-25T15:39:12+00:00"
+            "time": "2022-06-23T10:54:35+00:00"
+        },
+        {
+            "name": "t3g/symfony-usercentrics-bundle",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TYPO3GmbH/symfony-usercentrics-bundle.git",
+                "reference": "fba13e53355a29ba781df80690901bba6c667e5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-usercentrics-bundle/zipball/fba13e53355a29ba781df80690901bba6c667e5c",
+                "reference": "fba13e53355a29ba781df80690901bba6c667e5c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "symfony/dependency-injection": "^4.2 || ^5.4",
+                "symfony/twig-bundle": "^4.2 || ^5.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "overtrue/phplint": "^3.0 || ^4.0 || ^5.0",
+                "symfony/phpunit-bridge": "^4.4 || ^5.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "T3G\\Bundle\\UsercentricsBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Integration of usercentrics.com for Symfony",
+            "support": {
+                "issues": "https://github.com/TYPO3GmbH/symfony-usercentrics-bundle/issues",
+                "source": "https://github.com/TYPO3GmbH/symfony-usercentrics-bundle/tree/1.0.1"
+            },
+            "time": "2022-07-11T12:25:49+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -10646,7 +10665,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "t3g/symfony-template-bundle": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,

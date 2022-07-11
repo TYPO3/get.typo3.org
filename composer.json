@@ -82,7 +82,8 @@
         "symfony/validator": "5.4.*",
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
-        "t3g/symfony-template-bundle": "^3.3.6 || dev-bugfix/reintroduce-form-elements-class-support@dev",
+        "t3g/symfony-template-bundle": "^3.4",
+        "t3g/symfony-usercentrics-bundle": "^1.0",
         "twig/extra-bundle": "^2.12 || ^3.0",
         "twig/twig": "^2.12 || ^3.0"
     },
@@ -121,12 +122,6 @@
     },
     "conflict": {
         "symfony/symfony": "*"
-    },
-    "repositories": {
-        "template-bundle": {
-            "type": "vcs",
-            "url": "https://github.com/gilbertsoft/symfony-template-bundle"
-        }
     },
     "prefer-stable": true,
     "autoload": {
