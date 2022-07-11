@@ -12,6 +12,7 @@
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 /.phplint-cache
+/auth.json
 /missing-downloads.yaml
 .phpunit.result.cache
 
