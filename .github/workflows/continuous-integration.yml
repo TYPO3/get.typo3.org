@@ -539,3 +539,13 @@ jobs:
           name: logs-${{ matrix.php-version }}-${{ matrix.dependencies }}
           path: var/log
           retention-days: 7
+
+  deployment:
+    name: Deployment
+    needs:
+      - tests
+    if: ${{ github.event_name == 'push' }}
+    uses: ./.github/workflows/deployment.yml
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
