@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Enum;
 
- /**
+/**
  * @codeCoverageIgnore No need to test this ...
  */
 abstract class AbstractEnum
