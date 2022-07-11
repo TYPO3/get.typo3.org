@@ -5,7 +5,14 @@
     <link rel="stylesheet" href="{{ asset('assets/Css/additions.css') }}">
 {% endblock %}
 {% block javascripts %}
-    {{ parent() }}
+    {{ usercentrics() }}
+    {{ usercentrics('Google Analytics', {async: true, src: 'https://www.googletagmanager.com/gtag/js?id=G-JTSKLNF4S0'}) }}
+    {{ usercentrics('Google Analytics', {}, '
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag(\'js\', new Date());
+        gtag(\'config\', \'G-JTSKLNF4S0\');
+    ') }}
 {% endblock %}
 {% block footer %}
     {% frame with { color: 'primary' } %}

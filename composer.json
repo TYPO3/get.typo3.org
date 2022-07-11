@@ -83,6 +83,7 @@
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
         "t3g/symfony-template-bundle": "^3.4",
+        "t3g/symfony-usercentrics-bundle": "^1.0",
         "twig/extra-bundle": "^2.12 || ^3.0",
         "twig/twig": "^2.12 || ^3.0"
     },

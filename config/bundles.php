@@ -20,4 +20,5 @@ return [
     T3G\Bundle\TemplateBundle\TemplateBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true, 'test' => true],
+    T3G\Bundle\UsercentricsBundle\UsercentricsBundle::class => ['all' => true],
 ];
