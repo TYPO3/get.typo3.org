@@ -54,6 +54,7 @@
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.4.*",
         "symfony/cache": "5.4.*",
+        "symfony/cache-contracts": "^2.5",
         "symfony/console": "5.4.*",
         "symfony/dependency-injection": "5.4.*",
         "symfony/dotenv": "5.4.*",
