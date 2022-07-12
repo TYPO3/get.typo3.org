@@ -41,14 +41,6 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return MajorVersion[]
-     */
-    public function findAll(): array
-    {
-        return $this->findAll();
-    }
-
-    /**
      * @return array<MajorVersion>
      */
     public function findAllDescending(): array
@@ -184,7 +176,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
      */
     public function findCommunityVersionsGroupedByMajor(): array
     {
-        $versions = $this->findAll();
+        $versions = $this->removeVersionsWithoutReleases($this->findAll());
         $data = [];
         foreach ($versions as $version) {
             $data[$this->formatVersion($version->getVersion())] = $this->removeEltsReleases($version);
@@ -246,13 +238,19 @@ final class MajorVersionRepository extends ServiceEntityRepository
     private function findStableReleases(): array
     {
         $qb = $this->createQueryBuilder('m');
-        $qb->setMaxResults(1)->orderBy('m.version', Criteria::DESC);
+        $qb->orderBy('m.version', Criteria::DESC);
 
         if (!is_array($result = $qb->getQuery()->execute())) {
             throw new RuntimeException('Query not returned an array type.', 1_638_022_070);
         }
 
+        $result = $this->removeVersionsWithoutReleases($result);
         $latestMajor = array_pop($result);
+
+        if (!$latestMajor instanceof MajorVersion) {
+            throw new RuntimeException('No version found.', 1_638_022_071);
+        }
+
         $releases = $this->majorVersionDescending($latestMajor);
         $latestStable = $releases[0];
         $latestOldStable = $releases[1] ?? null;
