@@ -46,9 +46,8 @@ class JsonControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/json');
         $response = $this->client->getResponse();
-        $json = $response->getContent();
 
-        if ($json === false) {
+        if (($json = $response->getContent()) === false) {
             throw new RuntimeException('Error no response content.', 1_657_642_832);
         }
 
