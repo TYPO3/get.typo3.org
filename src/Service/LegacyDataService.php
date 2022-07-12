@@ -32,7 +32,6 @@ class LegacyDataService
 {
     public function __construct(
         private readonly TagAwareCacheInterface $cache,
-        private readonly EntityManagerInterface $entityManager,
         private readonly MajorVersionRepository $majorVersionRepository,
     ) {
     }
@@ -46,10 +45,6 @@ class LegacyDataService
             // remove version suffix only used for version sorting
             return str_replace('.0000', '', $content);
         });
-
-        if (!is_string($result)) {
-            throw new \RuntimeException(sprintf('String expected but %s given.', gettype($result)));
-        }
 
         return $result;
     }
