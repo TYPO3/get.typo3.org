@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Repository\MajorVersionRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 

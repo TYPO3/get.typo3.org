@@ -25,8 +25,8 @@ use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\AbstractCase;
-use Symfony\Component\HttpFoundation\Response;
 use RuntimeException;
+use Symfony\Component\HttpFoundation\Response;
 
 class JsonControllerTest extends AbstractCase
 {
