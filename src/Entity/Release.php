@@ -24,12 +24,13 @@ namespace App\Entity;
 use App\Entity\Embeddables\Package;
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Enum\ReleaseTypeEnum;
+use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ReleaseRepository::class)]
 class Release implements \JsonSerializable
 {
     /**
