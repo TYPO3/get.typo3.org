@@ -45,6 +45,10 @@ class LegacyDataService
             return str_replace('.0000', '', $content);
         });
 
+        if (!is_string($result)) {
+            throw new \RuntimeException(sprintf('String expected but %s given.', gettype($result)));
+        }
+
         return $result;
     }
 }
