@@ -21,10 +21,9 @@
 
 namespace App\Tests\Functional\Controller\Web;
 
-use App\DataFixtures\MajorVersionFixtures;
-use App\DataFixtures\ReleaseFixtures;
-use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\AbstractCase;
+use App\Tests\Functional\Fixtures\MajorVersionFixtures;
+use App\Tests\Functional\Fixtures\ReleaseFixtures;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,7 +34,6 @@ class JsonControllerTest extends AbstractCase
         parent::setUp();
         $this->addFixture(new MajorVersionFixtures());
         $this->addFixture(new ReleaseFixtures());
-        $this->addFixture(new RequirementFixtures());
         $this->executeFixtures();
     }
 
@@ -56,10 +54,20 @@ class JsonControllerTest extends AbstractCase
         }
 
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
+
         self::assertArrayHasKey('10', $content);
+        self::assertArrayHasKey('9', $content);
+        self::assertArrayHasKey('8', $content);
+        self::assertArrayHasKey('7', $content);
+
         self::assertArrayHasKey('latest_stable', $content);
         self::assertArrayHasKey('latest_old_stable', $content);
         self::assertArrayHasKey('latest_lts', $content);
         self::assertArrayHasKey('latest_old_lts', $content);
+
+        self::assertSame('10.0.2', $content['latest_stable']);
+        self::assertSame('10.0.1', $content['latest_old_stable']);
+        self::assertSame('9.5.5', $content['latest_lts']);
+        self::assertSame('8.7.8', $content['latest_old_lts']);
     }
 }

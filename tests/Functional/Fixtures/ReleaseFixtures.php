@@ -19,10 +19,8 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\DataFixtures;
+namespace App\Tests\Functional\Fixtures;
 
-use App\Entity\Embeddables\Package;
-use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Enum\ReleaseTypeEnum;
@@ -34,12 +32,10 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_SPRINT, 6);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS, 12);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS_OLD, 18);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS, 24);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS_EXT, 24);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_OUTDATED, 24);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_SPRINT, 3);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS, 6);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS_OLD, 9);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS, 12);
         $manager->flush();
     }
 
@@ -56,29 +52,25 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
     protected function generateReleasesForMajorVersion(
         ObjectManager $manager,
         string $versionReference,
-        int $amount = 12
+        int $amount
     ): void {
         /** @var MajorVersion $majorVersion */
         $majorVersion = $this->getReference($versionReference);
 
-        $faker = \Faker\Factory::create();
         $majorVersionNumber =  $majorVersion->getVersion();
         $ltsVersionNumber = $majorVersion->getLts() ?? $majorVersionNumber;
 
         $versionData = explode('.', trim((string)$majorVersionNumber));
-        $versionData[0] = isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0;
-        $versionData[1] = isset($versionData[1]) && is_numeric($versionData[1]) ? (int)$versionData[1] : 0;
-        $versionData[2] = 0;
-
         $ltsVersionData = explode('.', trim((string)$ltsVersionNumber));
         $ltsVersionData[0] = isset($ltsVersionData[0]) && is_numeric($ltsVersionData[0])
-            ? (int)$ltsVersionData[0] : $versionData[0];
+            ? (int)$ltsVersionData[0]
+            : (isset($versionData[0]) && is_numeric($versionData[0]) ? (int)$versionData[0] : 0);
         $ltsVersionData[1] = isset($ltsVersionData[1]) && is_numeric($ltsVersionData[1])
-            ? (int)$ltsVersionData[1] : $versionData[1];
+            ? (int)$ltsVersionData[1]
+            : (isset($versionData[1]) && is_numeric($versionData[1]) ? (int)$versionData[1] : 0);
 
         for ($i = 0; $i < $amount; ++$i) {
-            $fakeVersion = $versionData;
-            $fakeVersion[1] = $faker->numberBetween($versionData[1], $ltsVersionData[1]);
+            $fakeVersion = $ltsVersionData;
             $fakeVersion[2] = $i;
             $version = implode('.', $fakeVersion);
             $date = \DateTime::createFromFormat(
@@ -92,40 +84,9 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 
             $release = new Release();
             $release->setVersion($version);
-            /** @var string $type */
-            $type = $faker->randomElement(ReleaseTypeEnum::getAvailableOptions());
-            $release->setType($type);
+            $release->setType(ReleaseTypeEnum::OPTION_REGULAR);
             $release->setDate($date);
             $release->setMajorVersion($majorVersion);
-            $package = new Package(
-                $faker->boolean() ? $faker->md5() : null,
-                $faker->boolean() ? $faker->sha1() : null,
-                $faker->boolean() ? $faker->sha256() : null
-            );
-            $release->setTarPackage($package);
-            $release->setZipPackage($package);
-
-            $releaseNotes = new ReleaseNotes();
-            $releaseNotes->setNewsLink($faker->url());
-            $releaseNotes->setNews($faker->paragraph($faker->numberBetween(1, 6)));
-            $releaseNotes->setUpgradingInstructions($faker->paragraph($faker->numberBetween(0, 1)));
-            $changelogTypes = ['TASK', 'BUGFIX', 'FEATURE'];
-            $changelog = [];
-            $changelog[] = sprintf(
-                '2019-10-30 7254d67918 [RELEASE] %s (thanks to %s)',
-                $faker->sentence($faker->numberBetween(4, 8)),
-                $faker->name()
-            );
-            for ($changeIteration = 0; $changeIteration < $faker->numberBetween(5, 50); ++$changeIteration) {
-                $changelog[] = sprintf(
-                    '2019-10-30 7254d67918 [%s] ' . $faker->sentence($faker->numberBetween(4, 8)) . ' (thanks to %s)',
-                    $faker->randomElement($changelogTypes), /** @phpstan-ignore-line */
-                    $faker->name()
-                );
-            }
-
-            $releaseNotes->setChanges(' * ' . implode("\n * ", $changelog));
-            $release->setReleaseNotes($releaseNotes);
 
             if ($majorVersion->getMaintainedUntil() !== null && $date > $majorVersion->getMaintainedUntil()) {
                 $release->setElts(true);

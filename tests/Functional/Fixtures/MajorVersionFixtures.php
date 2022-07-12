@@ -19,13 +19,12 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\DataFixtures;
+namespace App\Tests\Functional\Fixtures;
 
 use App\Entity\MajorVersion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory as FakerFactory;
 
 final class MajorVersionFixtures extends Fixture
 {
@@ -49,16 +48,6 @@ final class MajorVersionFixtures extends Fixture
      */
     public const MAJOR_VERSION_ELTS = 'majorversion-elts';
 
-    /**
-     * @var string
-     */
-    public const MAJOR_VERSION_ELTS_EXT = 'majorversion-elts-ext';
-
-    /**
-     * @var string
-     */
-    public const MAJOR_VERSION_OUTDATED = 'majorversion-outdated';
-
     public function load(ObjectManager $manager): void
     {
         $versions = $this->getData();
@@ -80,8 +69,6 @@ final class MajorVersionFixtures extends Fixture
             self::MAJOR_VERSION_LTS,
             self::MAJOR_VERSION_LTS_OLD,
             self::MAJOR_VERSION_ELTS,
-            self::MAJOR_VERSION_ELTS_EXT,
-            self::MAJOR_VERSION_OUTDATED,
         ];
     }
 
@@ -90,7 +77,6 @@ final class MajorVersionFixtures extends Fixture
      */
     protected function getData(): iterable
     {
-        $faker = FakerFactory::create();
         $today = new \DateTimeImmutable();
 
         yield new MajorVersionFixturesData(
@@ -98,8 +84,8 @@ final class MajorVersionFixtures extends Fixture
             new MajorVersion(
                 10,
                 'TYPO3 10',
-                $faker->sentence(6) . '[SUBTITLE]',
-                $faker->paragraph(3) . '[DESCRIPTION]',
+                '[SUBTITLE]',
+                '[DESCRIPTION]',
                 $today,
                 null,
                 null,
@@ -113,8 +99,8 @@ final class MajorVersionFixtures extends Fixture
             new MajorVersion(
                 9,
                 'TYPO3 9',
-                $faker->sentence(6) . '[SUBTITLE]',
-                $faker->paragraph(3) . '[DESCRIPTION]',
+                '[SUBTITLE]',
+                '[DESCRIPTION]',
                 $today,
                 $today->modify('+3 years')->modify('-1 day'),
                 null,
@@ -128,10 +114,10 @@ final class MajorVersionFixtures extends Fixture
             new MajorVersion(
                 8,
                 'TYPO3 8',
-                $faker->sentence(6) . '[SUBTITLE]',
-                $faker->paragraph(3) . '[DESCRIPTION]',
-                $today->modify('-1 years'),
-                $today->modify('+2 years')->modify('-1 day'),
+                '[SUBTITLE]',
+                '[DESCRIPTION]',
+                $today->modify('-540 days'),
+                $today->modify('+540 days')->modify('-1 day'),
                 null,
                 new ArrayCollection(),
                 new ArrayCollection(),
@@ -143,44 +129,14 @@ final class MajorVersionFixtures extends Fixture
             new MajorVersion(
                 7,
                 'TYPO3 7',
-                $faker->sentence(6) . '[SUBTITLE]',
-                $faker->paragraph(3) . '[DESCRIPTION]',
+                '[SUBTITLE]',
+                '[DESCRIPTION]',
                 $today->modify('-3 years'),
                 $today->modify('-1 day'),
                 null,
                 new ArrayCollection(),
                 new ArrayCollection(),
                 7.6
-            )
-        );
-        yield new MajorVersionFixturesData(
-            self::MAJOR_VERSION_ELTS_EXT,
-            new MajorVersion(
-                6.2,
-                'TYPO3 6.2',
-                $faker->sentence(6) . '[SUBTITLE]',
-                $faker->paragraph(3) . '[DESCRIPTION]',
-                $today->modify('-3 years'),
-                $today->modify('-1 day'),
-                $today->modify('-1 day')->modify('+4 years'),
-                new ArrayCollection(),
-                new ArrayCollection(),
-                6.2
-            )
-        );
-        yield new MajorVersionFixturesData(
-            self::MAJOR_VERSION_OUTDATED,
-            new MajorVersion(
-                4.5,
-                'TYPO3 4.5',
-                $faker->sentence(6) . '[SUBTITLE]',
-                $faker->paragraph(3) . '[DESCRIPTION]',
-                $today->modify('-6 years'),
-                $today->modify('-3 years')->modify('-1 day'),
-                null,
-                new ArrayCollection(),
-                new ArrayCollection(),
-                null
             )
         );
     }
