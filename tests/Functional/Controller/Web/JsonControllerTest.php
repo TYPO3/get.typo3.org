@@ -26,6 +26,7 @@ use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\AbstractCase;
 use Symfony\Component\HttpFoundation\Response;
+use RuntimeException;
 
 class JsonControllerTest extends AbstractCase
 {
@@ -45,9 +46,18 @@ class JsonControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/json');
         $response = $this->client->getResponse();
-        $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $json = $response->getContent();
+
+        if ($json === false) {
+            throw new RuntimeException('Error no response content.', 1_657_642_832);
+        }
+
+        if (!\is_array($content = json_decode($json, true, 512, JSON_THROW_ON_ERROR))) {
+            throw new RuntimeException('Error array expected.', 1_657_642_833);
+        }
 
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
+        self::assertArrayHasKey('10', $content);
         self::assertArrayHasKey('latest_stable', $content);
         self::assertArrayHasKey('latest_old_stable', $content);
         self::assertArrayHasKey('latest_lts', $content);
