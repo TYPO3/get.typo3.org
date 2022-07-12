@@ -37,9 +37,10 @@ class LegacyDataService
 
     public function getReleaseJson(): string
     {
+        /*
         $cache = new FilesystemAdapter();
         $result = $cache->get('releases.json', function (ItemInterface $item): string {
-            /** @var MajorVersionRepository $majorVersions */
+            /** @var MajorVersionRepository $majorVersions * /
             $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
             $content = json_encode($majorVersions->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
             $content = $content != false ? $content : '';
@@ -50,6 +51,14 @@ class LegacyDataService
         if (!is_string($result)) {
             throw new \RuntimeException(sprintf('String expected but %s given.', gettype($result)));
         }
+        */
+
+        /** @var MajorVersionRepository $majorVersions */
+        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
+        $content = json_encode($majorVersions->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
+        $content = $content != false ? $content : '';
+        // remove version suffix only used for version sorting
+        $result = str_replace('.0000', '', $content);
 
         return $result;
     }
