@@ -22,13 +22,14 @@
 namespace App\Entity;
 
 use App\Enum\RequirementCategoryEnum;
+use App\Repository\RequirementRepository;
 use Doctrine\DBAL\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: RequirementRepository::class)]
 class Requirement implements \JsonSerializable
 {
     public function __construct(

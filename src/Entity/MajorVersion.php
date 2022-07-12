@@ -21,13 +21,14 @@
 
 namespace App\Entity;
 
+use App\Repository\MajorVersionRepository;
 use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Swagger\Annotations as SWG;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: MajorVersionRepository::class)]
 class MajorVersion implements \JsonSerializable
 {
     /**
