@@ -113,7 +113,12 @@ class MajorVersionController extends AbstractController
     /**
      * Create new major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=MajorVersion::class, groups={"patch"}),
+     *     request="major",
+     *     required=true
+     * )
      * @OA\Response(
      *     response=201,
      *     description="Successfully created",
@@ -146,12 +151,6 @@ class MajorVersionController extends AbstractController
      *     description="Version not found."
      * )
      * @OA\Tag(name="major")
-     * @OA\Parameter(
-     *     name="major",
-     *     in="query",
-     *     required=true,
-     *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
-     * )
      */
     #[Route(path: '/', methods: ['POST'])]
     public function createMajorRelease(Request $request): JsonResponse
@@ -184,7 +183,13 @@ class MajorVersionController extends AbstractController
     /**
      * Update properties of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=MajorVersion::class, groups={"patch"}),
+     *     request="major",
+     *     description="May also contain incomplete model with only those properties that shall be updated",
+     *     required=true
+     * )
      * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
@@ -203,13 +208,6 @@ class MajorVersionController extends AbstractController
      *     description="Version not found."
      * )
      * @OA\Tag(name="major")
-     * @OA\Parameter(
-     *     name="major",
-     *     in="query",
-     *     required=true,
-     *     description="May also contain incomplete model with only those properties that shall be updated",
-     *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
-     * )
      */
     #[Route(path: '/{version}', methods: ['PATCH'])]
     public function updateMajorRelease(string $version, Request $request): JsonResponse
@@ -238,7 +236,7 @@ class MajorVersionController extends AbstractController
     /**
      * Delete major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."

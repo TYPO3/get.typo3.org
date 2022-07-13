@@ -92,7 +92,12 @@ class RequirementsController extends AbstractController
     /**
      * Create new major TYPO3 version requirement
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Requirement::class, groups={"patch"}),
+     *     request="requirement",
+     *     required=true
+     * )
      * @OA\Response(
      *     response=201,
      *     description="Successfully created",
@@ -126,12 +131,6 @@ class RequirementsController extends AbstractController
      * )
      * @OA\Tag(name="major")
      * @OA\Tag(name="requirement")
-     * @OA\Parameter(
-     *     name="requirement",
-     *     in="query",
-     *     required=true,
-     *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
-     * )
      */
     #[Route(path: '/', methods: ['POST'])]
     public function addRequirement(string $version, Request $request): JsonResponse
@@ -170,7 +169,12 @@ class RequirementsController extends AbstractController
     /**
      * Update requirement of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Requirement::class, groups={"patch"}),
+     *     request="requirement",
+     *     required=true
+     * )
      * @OA\Response(
      *     response=200,
      *     description="Successfully created",
@@ -194,12 +198,6 @@ class RequirementsController extends AbstractController
      * )
      * @OA\Tag(name="major")
      * @OA\Tag(name="requirement")
-     * @OA\Parameter(
-     *     name="requirement",
-     *     in="query",
-     *     required=true,
-     *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
-     * )
      */
     #[Route(path: '/', methods: ['PATCH'])]
     public function updateRequirement(string $version, Request $request): JsonResponse
@@ -240,7 +238,7 @@ class RequirementsController extends AbstractController
     /**
      * Delete requirement of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted"

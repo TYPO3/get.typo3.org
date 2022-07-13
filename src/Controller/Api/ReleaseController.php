@@ -92,7 +92,12 @@ class ReleaseController extends AbstractController
     /**
      * Add new TYPO3 release
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Release::class, groups={"data", "content"}),
+     *     request="release",
+     *     required=true
+     * )
      * @OA\Response(
      *     response=201,
      *     description="Created.",
@@ -125,12 +130,6 @@ class ReleaseController extends AbstractController
      *     description="Conflict. Version already exists."
      * )
      * @OA\Tag(name="release")
-     * @OA\Parameter(
-     *     name="release",
-     *     in="query",
-     *     required=true,
-     *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
-     * )
      */
     #[Route(path: '/', methods: ['POST'])]
     public function addRelease(Request $request): JsonResponse
@@ -161,7 +160,12 @@ class ReleaseController extends AbstractController
     /**
      * Add TYPO3 Release Notes for Version
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=ReleaseNotes::class, groups={"putcontent"}),
+     *     request="release-notes",
+     *     required=true
+     * )
      * @OA\Response(
      *     response=204,
      *     description="Returns updated entity."
@@ -180,12 +184,6 @@ class ReleaseController extends AbstractController
      * )
      * @OA\Tag(name="release")
      * @OA\Tag(name="content")
-     * @OA\Parameter(
-     *     name="release-notes",
-     *     in="query",
-     *     required=true,
-     *     @Model(type=\App\Entity\Embeddables\ReleaseNotes::class, groups={"putcontent"})
-     * )
      */
     #[Route(path: '/{version}/release-notes', methods: ['PUT'])]
     public function addReleaseNotesForVersion(string $version, Request $request): JsonResponse
@@ -255,7 +253,13 @@ class ReleaseController extends AbstractController
     /**
      * Update TYPO3 Release
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Release::class, groups={"data", "content"}),
+     *     request="release",
+     *     description="May also contain incomplete model with only those properties that shall be updated",
+     *     required=true
+     * )
      * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
@@ -274,13 +278,6 @@ class ReleaseController extends AbstractController
      *     description="Version not found."
      * )
      * @OA\Tag(name="release")
-     * @OA\Parameter(
-     *     name="release",
-     *     in="query",
-     *     required=true,
-     *     description="May also contain incomplete model with only those properties that shall be updated",
-     *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
-     * )
      */
     #[Route(path: '/{version}', methods: ['PATCH'])]
     public function updateRelease(string $version, Request $request): JsonResponse
@@ -314,7 +311,7 @@ class ReleaseController extends AbstractController
     /**
      * Delete TYPO3 release
      * @IsGranted("ROLE_ADMIN")
-     * @Security(name="http")
+     * @Security(name="Basic")
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."

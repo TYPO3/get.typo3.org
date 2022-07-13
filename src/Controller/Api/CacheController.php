@@ -37,7 +37,7 @@ class CacheController extends AbstractController
 {
     /**
      * Purge caches related to TYPO3 major version
-     * @Security(name="http")
+     * @Security(name="Basic")
      * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
@@ -67,7 +67,7 @@ class CacheController extends AbstractController
 
     /**
      * Purge caches related to single TYPO3 release
-     * @Security(name="http")
+     * @Security(name="Basic")
      * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."

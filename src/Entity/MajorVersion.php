@@ -28,6 +28,12 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     description="TYPO3 major version",
+ *     title="Major version",
+ * )
+ */
 #[ORM\Entity(repositoryClass: MajorVersionRepository::class)]
 class MajorVersion implements \JsonSerializable
 {
@@ -66,21 +72,21 @@ class MajorVersion implements \JsonSerializable
         #[Serializer\Groups(['content', 'patch'])]
         private string $description,
         /**
-         * @OA\Property(example="2017-12-12T16:48:22 UTC")
+         * @OA\Property(example="2017-12-12T16:48:22+00:00")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
         private \DateTimeImmutable $releaseDate,
         /**
-         * @OA\Property(example="2017-12-12T16:48:22 UTC")
+         * @OA\Property(example="2017-12-12T16:48:22+00:00")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
         private ?\DateTimeImmutable $maintainedUntil,
         /**
-         * @OA\Property(example="2017-12-12T16:48:22 UTC")
+         * @OA\Property(example="2017-12-12T16:48:22+00:00")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]

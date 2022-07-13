@@ -146,6 +146,7 @@
         "optimize-autoloader": true,
         "preferred-install": {
             "t3g/*": "source",
+            "zircote/swagger-php": "source",
             "*": "dist"
         },
         "sort-packages": true

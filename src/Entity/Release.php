@@ -30,6 +30,12 @@ use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @OA\Schema(
+ *     description="TYPO3 release",
+ *     title="Release",
+ * )
+ */
 #[ORM\Entity(repositoryClass: ReleaseRepository::class)]
 class Release implements \JsonSerializable
 {
@@ -47,7 +53,7 @@ class Release implements \JsonSerializable
     private string $version;
 
     /**
-     * @OA\Property(example="2017-12-12T16:48:22 UTC")
+     * @OA\Property(example="2017-12-12T16:48:22+00:00")
      * @var \DateTime|\DateTimeImmutable
      */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
