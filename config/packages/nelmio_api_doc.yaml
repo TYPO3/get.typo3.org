@@ -1,12 +1,16 @@
 nelmio_api_doc:
-    documentation:
-        info:
-            title: get.typo3.org
-            description: REST API for getting information about TYPO3 releases
-            version: 1.0.0
-        securityDefinitions:
-                Basic:
-                    type: basic
-    areas: # to filter documented areas
-        path_patterns:
-            - ^/api/v1(?!/doc$) # Accepts routes under /api except /api/doc
+  documentation:
+    info:
+      title: get.typo3.org
+      description: REST API for getting information about TYPO3 releases
+      version: 1.0.0
+    components:
+      securitySchemes:
+        Basic:
+          type: basic
+    security:
+      - Basic: []
+  areas:
+    default:
+      path_patterns:
+        - ^/api/v1(?!/doc$)

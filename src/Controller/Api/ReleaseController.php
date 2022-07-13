@@ -28,9 +28,9 @@ use App\Entity\Release;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,25 +46,25 @@ class ReleaseController extends AbstractController
     /**
      * Get information about all TYPO3 releases or a specific release
      * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release(s)",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         type="array",
-     *         @SWG\Items(
+     *         @OA\Items(
      *             @Model(type=\App\Entity\Release::class, groups={"data"})
      *         )
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="release")
      *
      * @param string|null $version Specific TYPO3 Version to fetch
      */
@@ -95,13 +95,13 @@ class ReleaseController extends AbstractController
      * Add new TYPO3 release
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=201,
      *     description="Created.",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         type="object",
-     *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(
+     *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
+     *         @OA\Property(
      *             property="Location",
      *             title="Location (URI)",
      *             description="URI of newly created version",
@@ -110,24 +110,24 @@ class ReleaseController extends AbstractController
      *         ),
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Corresponding major version not found."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Conflict. Version already exists."
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Parameter(
+     * @OA\Tag(name="release")
+     * @OA\Parameter(
      *     name="release",
      *     in="body",
      *     required=true,
@@ -164,25 +164,25 @@ class ReleaseController extends AbstractController
      * Add TYPO3 Release Notes for Version
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=204,
      *     description="Returns updated entity."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Tag(name="content")
-     * @SWG\Parameter(
+     * @OA\Tag(name="release")
+     * @OA\Tag(name="content")
+     * @OA\Parameter(
      *     name="release-notes",
      *     in="body",
      *     required=true,
@@ -217,25 +217,25 @@ class ReleaseController extends AbstractController
     /**
      * Get TYPO3 Release Content
      * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release content",
      *     @Model(type=\App\Entity\Release::class, groups={"content"})
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found"
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Tag(name="content")
+     * @OA\Tag(name="release")
+     * @OA\Tag(name="content")
      */
     #[Route(path: '/{version}/content', methods: ['GET'])]
     public function getContentForVersion(string $version, Request $request): JsonResponse
@@ -258,27 +258,27 @@ class ReleaseController extends AbstractController
      * Update TYPO3 Release
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Parameter(
+     * @OA\Tag(name="release")
+     * @OA\Parameter(
      *     name="release",
      *     in="body",
      *     required=true,
@@ -319,23 +319,23 @@ class ReleaseController extends AbstractController
      * Delete TYPO3 release
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="release")
      * )
      * @param string $version Specific TYPO3 Version to delete
      */

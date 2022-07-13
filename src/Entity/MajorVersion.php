@@ -26,14 +26,14 @@ use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 
 #[ORM\Entity(repositoryClass: MajorVersionRepository::class)]
 class MajorVersion implements \JsonSerializable
 {
     /**
      * For example 7 or 8 or 4.3
-     * @SWG\Property(example="8")
+     * @OA\Property(example="8")
      */
     #[ORM\Id]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
@@ -48,39 +48,39 @@ class MajorVersion implements \JsonSerializable
         float $version,
         /**
          * TYPO3 7 LTS
-         * @SWG\Property(example="TYPO3 8 LTS")
+         * @OA\Property(example="TYPO3 8 LTS")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private string $title,
         /**
-         * @SWG\Property(example="The current stable LTS release (for all new projects)")
+         * @OA\Property(example="The current stable LTS release (for all new projects)")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
         #[Serializer\Groups(['content', 'patch'])]
         private string $subtitle,
         /**
-         * @SWG\Property(example="The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.")
+         * @OA\Property(example="The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
         #[Serializer\Groups(['content', 'patch'])]
         private string $description,
         /**
-         * @SWG\Property(example="2017-12-12T16:48:22 UTC")
+         * @OA\Property(example="2017-12-12T16:48:22 UTC")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
         private \DateTimeImmutable $releaseDate,
         /**
-         * @SWG\Property(example="2017-12-12T16:48:22 UTC")
+         * @OA\Property(example="2017-12-12T16:48:22 UTC")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
         private ?\DateTimeImmutable $maintainedUntil,
         /**
-         * @SWG\Property(example="2017-12-12T16:48:22 UTC")
+         * @OA\Property(example="2017-12-12T16:48:22 UTC")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
@@ -111,7 +111,7 @@ class MajorVersion implements \JsonSerializable
         #[Serializer\Groups(['data'])]
         private Collection $releases,
         /**
-         * @SWG\Property(example=8.7)
+         * @OA\Property(example=8.7)
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]

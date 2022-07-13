@@ -27,9 +27,9 @@ use App\Entity\MajorVersion;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,17 +45,17 @@ class MajorVersionController extends AbstractController
     /**
      * Get information about a major TYPO3 version
      * @Cache(expires="+1 hour", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         type="array",
-     *         @SWG\Items(
+     *         @OA\Items(
      *             @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
      *         )
      *     )
      * )
-     * @SWG\Tag(name="major")
+     * @OA\Tag(name="major")
      */
     #[Route(path: '/', methods: ['GET'])]
     public function getMajorReleases(Request $request): JsonResponse
@@ -76,22 +76,22 @@ class MajorVersionController extends AbstractController
     /**
      * Get hard facts of a major TYPO3 Release
      * @Cache(expires="+1 hour", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         @Model(type=\App\Entity\MajorVersion::class, groups={"data"})
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
+     * @OA\Tag(name="major")
      */
     #[Route(path: '/{version}', methods: ['GET'], name: 'majorVersion_show')]
     public function getMajorRelease(string $version, Request $request): JsonResponse
@@ -118,13 +118,13 @@ class MajorVersionController extends AbstractController
      * Create new major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=201,
      *     description="Successfully created",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         type="object",
-     *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(
+     *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
+     *         @OA\Property(
      *             property="Location",
      *             title="Location (URI)",
      *             description="URI of newly created version",
@@ -133,24 +133,24 @@ class MajorVersionController extends AbstractController
      *         ),
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Version exists."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Parameter(
+     * @OA\Tag(name="major")
+     * @OA\Parameter(
      *     name="major",
      *     in="body",
      *     required=true,
@@ -189,27 +189,27 @@ class MajorVersionController extends AbstractController
      * Update properties of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Parameter(
+     * @OA\Tag(name="major")
+     * @OA\Parameter(
      *     name="major",
      *     in="body",
      *     required=true,
@@ -245,23 +245,23 @@ class MajorVersionController extends AbstractController
      * Delete major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
+     * @OA\Tag(name="major")
      * )
      */
     #[Route(path: '/{version}', methods: ['DELETE'])]

@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,23 +38,23 @@ class CacheController extends AbstractController
     /**
      * Purge caches related to TYPO3 major version
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Invalid version format."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="cache")
+     * @OA\Tag(name="cache")
      */
     #[Route(path: '/majorVersion/{version}')]
     public function purgeMajorRelease(string $version): JsonResponse
@@ -68,23 +68,23 @@ class CacheController extends AbstractController
     /**
      * Purge caches related to single TYPO3 release
      * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Invalid version format"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="cache")
+     * @OA\Tag(name="cache")
      */
     #[Route(path: '/release/{version}')]
     public function purgeRelease(string $version): JsonResponse
