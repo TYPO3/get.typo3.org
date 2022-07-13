@@ -7,7 +7,7 @@ nelmio_api_doc:
     components:
       securitySchemes:
         Basic:
-          type: basic
+          type: http
     security:
       - Basic: []
   areas:
