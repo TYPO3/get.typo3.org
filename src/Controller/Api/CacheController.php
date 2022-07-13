@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use Nelmio\ApiDocBundle\Annotation\Security as Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -37,7 +37,7 @@ class CacheController extends AbstractController
 {
     /**
      * Purge caches related to TYPO3 major version
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
@@ -67,7 +67,7 @@ class CacheController extends AbstractController
 
     /**
      * Purge caches related to single TYPO3 release
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."

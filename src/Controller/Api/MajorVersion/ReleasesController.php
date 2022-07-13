@@ -43,11 +43,9 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 releases by major version",
-     *     @OA\Schema(
-     *         @OA\Items(
-     *             type="array",
-     *             @Model(type=\App\Entity\Release::class, groups={"data"})
-     *         )
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=\App\Entity\Release::class, groups={"data"}))
      *     )
      * )
      * @OA\Response(
@@ -83,9 +81,7 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 release of a major version",
-     *     @OA\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"data"})
-     *     )
+     *     @Model(type=\App\Entity\Release::class, groups={"data"})
      * )
      * @OA\Response(
      *     response=400,
@@ -120,9 +116,7 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 security release of a major version",
-     *     @OA\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"data"})
-     *     )
+     *     @Model(type=\App\Entity\Release::class, groups={"data"})
      * )
      * @OA\Response(
      *     response=400,
@@ -166,9 +160,7 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @OA\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"content"})
-     *     )
+     *     @Model(type=\App\Entity\Release::class, groups={"content"})
      * )
      * @OA\Response(
      *     response=400,

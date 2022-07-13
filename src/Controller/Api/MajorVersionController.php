@@ -26,7 +26,7 @@ namespace App\Controller\Api;
 use App\Entity\MajorVersion;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use Nelmio\ApiDocBundle\Annotation\Security as Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -48,11 +48,9 @@ class MajorVersionController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @OA\Schema(
+     *     @OA\JsonContent(
      *         type="array",
-     *         @OA\Items(
-     *             @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
-     *         )
+     *         @OA\Items(ref=@Model(type=\App\Entity\MajorVersion::class, groups={"content"}))
      *     )
      * )
      * @OA\Tag(name="major")
@@ -79,9 +77,7 @@ class MajorVersionController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
-     *     @OA\Schema(
-     *         @Model(type=\App\Entity\MajorVersion::class, groups={"data"})
-     *     )
+     *     @Model(type=\App\Entity\MajorVersion::class, groups={"data"})
      * )
      * @OA\Response(
      *     response=400,
@@ -117,11 +113,11 @@ class MajorVersionController extends AbstractController
     /**
      * Create new major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=201,
      *     description="Successfully created",
-     *     @OA\Schema(
+     *     @OA\JsonContent(
      *         type="object",
      *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
      *         @OA\Property(
@@ -152,7 +148,7 @@ class MajorVersionController extends AbstractController
      * @OA\Tag(name="major")
      * @OA\Parameter(
      *     name="major",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
      * )
@@ -188,13 +184,11 @@ class MajorVersionController extends AbstractController
     /**
      * Update properties of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
-     *     @OA\Schema(
-     *         @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
-     *     )
+     *     @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
      * )
      * @OA\Response(
      *     response=400,
@@ -211,7 +205,7 @@ class MajorVersionController extends AbstractController
      * @OA\Tag(name="major")
      * @OA\Parameter(
      *     name="major",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     description="May also contain incomplete model with only those properties that shall be updated",
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"patch"})
@@ -244,7 +238,7 @@ class MajorVersionController extends AbstractController
     /**
      * Delete major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."

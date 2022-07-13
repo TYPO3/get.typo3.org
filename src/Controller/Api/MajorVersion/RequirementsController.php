@@ -27,7 +27,7 @@ use App\Controller\Api\AbstractController;
 use App\Entity\Requirement;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use Nelmio\ApiDocBundle\Annotation\Security as Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -52,9 +52,7 @@ class RequirementsController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 major version requirements",
-     *     @OA\Schema(
-     *         @Model(type=\App\Entity\Requirement::class, groups={"data"})
-     *     )
+     *     @Model(type=\App\Entity\Requirement::class, groups={"data"})
      * )
      * @OA\Response(
      *     response=400,
@@ -94,11 +92,11 @@ class RequirementsController extends AbstractController
     /**
      * Create new major TYPO3 version requirement
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=201,
      *     description="Successfully created",
-     *     @OA\Schema(
+     *     @OA\JsonContent(
      *         type="object",
      *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
      *         @OA\Property(
@@ -130,7 +128,7 @@ class RequirementsController extends AbstractController
      * @OA\Tag(name="requirement")
      * @OA\Parameter(
      *     name="requirement",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
@@ -172,7 +170,7 @@ class RequirementsController extends AbstractController
     /**
      * Update requirement of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=200,
      *     description="Successfully created",
@@ -198,7 +196,7 @@ class RequirementsController extends AbstractController
      * @OA\Tag(name="requirement")
      * @OA\Parameter(
      *     name="requirement",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
      * )
@@ -242,7 +240,7 @@ class RequirementsController extends AbstractController
     /**
      * Delete requirement of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted"

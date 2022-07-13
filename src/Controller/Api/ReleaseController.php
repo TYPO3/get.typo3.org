@@ -27,7 +27,7 @@ use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\Release;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use Nelmio\ApiDocBundle\Annotation\Security as Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -49,11 +49,9 @@ class ReleaseController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release(s)",
-     *     @OA\Schema(
+     *     @OA\JsonContent(
      *         type="array",
-     *         @OA\Items(
-     *             @Model(type=\App\Entity\Release::class, groups={"data"})
-     *         )
+     *         @OA\Items(ref=@Model(type=\App\Entity\Release::class, groups={"data"}))
      *     )
      * )
      * @OA\Response(
@@ -94,11 +92,11 @@ class ReleaseController extends AbstractController
     /**
      * Add new TYPO3 release
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=201,
      *     description="Created.",
-     *     @OA\Schema(
+     *     @OA\JsonContent(
      *         type="object",
      *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
      *         @OA\Property(
@@ -129,7 +127,7 @@ class ReleaseController extends AbstractController
      * @OA\Tag(name="release")
      * @OA\Parameter(
      *     name="release",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
@@ -163,7 +161,7 @@ class ReleaseController extends AbstractController
     /**
      * Add TYPO3 Release Notes for Version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=204,
      *     description="Returns updated entity."
@@ -184,7 +182,7 @@ class ReleaseController extends AbstractController
      * @OA\Tag(name="content")
      * @OA\Parameter(
      *     name="release-notes",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     @Model(type=\App\Entity\Embeddables\ReleaseNotes::class, groups={"putcontent"})
      * )
@@ -257,13 +255,11 @@ class ReleaseController extends AbstractController
     /**
      * Update TYPO3 Release
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
-     *     @OA\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"data", "content"})
-     *     )
+     *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
      * @OA\Response(
      *     response=400,
@@ -280,7 +276,7 @@ class ReleaseController extends AbstractController
      * @OA\Tag(name="release")
      * @OA\Parameter(
      *     name="release",
-     *     in="body",
+     *     in="query",
      *     required=true,
      *     description="May also contain incomplete model with only those properties that shall be updated",
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
@@ -318,7 +314,7 @@ class ReleaseController extends AbstractController
     /**
      * Delete TYPO3 release
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
+     * @Security(name="http")
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."
