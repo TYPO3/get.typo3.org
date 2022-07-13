@@ -27,7 +27,6 @@ use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Utility\VersionUtility;
 use InvalidArgumentException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -39,8 +38,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Regular content and download pages
- *
- * @Cache(maxage="3600", public=true)
  */
 class DefaultController extends AbstractController
 {
@@ -80,22 +77,6 @@ class DefaultController extends AbstractController
     public function apiDoc(): RedirectResponse
     {
         return $this->redirectToRoute('app.swagger_ui');
-    }
-
-    /**
-     * Outputs the JSON file
-     * /json
-     * Legacy end point
-     */
-    #[Route(path: '/json', methods: ['GET'], name: 'legacy-releases-json')]
-    public function releaseJson(): Response
-    {
-        $content = $this->legacyDataService->getReleaseJson();
-        $headers = [
-            'Content-type'                => 'application/json',
-            'Access-Control-Allow-Origin' => '*',
-        ];
-        return new Response($content, \Symfony\Component\HttpFoundation\Response::HTTP_OK, $headers);
     }
 
     /**

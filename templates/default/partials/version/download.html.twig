@@ -139,10 +139,10 @@ ddev launch</code></pre>
                         <div class="accordion-content-item accordion-content-text">
                             <ul class="list-link">
                                 <li>
-                                    <a href="{{ baseUrl }}/{{ current.version }}/tar.gz">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz</a>
+                                    <a href="{{ baseUrl }}/{{ current.version }}/tar.gz" class="ga_download_version_{{ current.majorVersion.version }} ga_download_type_tar">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/tar.gz</a>
                                 </li>
                                 <li>
-                                    <a href="{{ baseUrl }}/{{ current.version }}/zip">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip</a>
+                                    <a href="{{ baseUrl }}/{{ current.version }}/zip" class="ga_download_version_{{ current.majorVersion.version }} ga_download_type_zip">{{ baseUrl|replace({'https://': '', 'http://': ''}) }}/{{ current.version }}/zip</a>
                                 </li>
                                 {% if version >= 7 %}
                                 <li>

@@ -238,16 +238,15 @@ final class MajorVersionRepository extends ServiceEntityRepository
     private function findStableReleases(): array
     {
         $qb = $this->createQueryBuilder('m');
-        $qb->orderBy('m.version', Criteria::DESC);
+        $qb->setMaxResults(2)->orderBy('m.version', Criteria::DESC);
 
         if (!is_array($result = $qb->getQuery()->execute())) {
             throw new RuntimeException('Query not returned an array type.', 1_638_022_070);
         }
 
         $result = $this->removeVersionsWithoutReleases($result);
-        $latestMajor = array_pop($result);
 
-        if (!$latestMajor instanceof MajorVersion) {
+        if (!($latestMajor = reset($result)) instanceof MajorVersion) {
             throw new RuntimeException('No version found.', 1_638_022_071);
         }
 

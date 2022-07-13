@@ -26,7 +26,6 @@ namespace App\Controller\Api;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -156,10 +155,7 @@ class CacheController extends AbstractController
      */
     private function deleteReleases(): void
     {
-        $filesystemAdapter = new FilesystemAdapter();
-        if ($filesystemAdapter->hasItem('releases.json')) {
-            $filesystemAdapter->delete('releases.json');
-        }
+        $this->getCache()->invalidateTags(['releases']);
     }
 
     /**

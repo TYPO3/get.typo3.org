@@ -23,42 +23,27 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\MajorVersion;
 use App\Repository\MajorVersionRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class LegacyDataService
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly TagAwareCacheInterface $cache,
+        private readonly MajorVersionRepository $majorVersionRepository,
+    ) {
     }
 
     public function getReleaseJson(): string
     {
-        /*
-        $cache = new FilesystemAdapter();
-        $result = $cache->get('releases.json', function (ItemInterface $item): string {
-            /** @var MajorVersionRepository $majorVersions * /
-            $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-            $content = json_encode($majorVersions->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
+        $result = $this->cache->get('releases.json', function (ItemInterface $item): string {
+            $item->tag(['releases']);
+            $content = json_encode($this->majorVersionRepository->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
             $content = $content != false ? $content : '';
             // remove version suffix only used for version sorting
             return str_replace('.0000', '', $content);
         });
-
-        if (!is_string($result)) {
-            throw new \RuntimeException(sprintf('String expected but %s given.', gettype($result)));
-        }
-        */
-
-        /** @var MajorVersionRepository $majorVersions */
-        $majorVersions = $this->entityManager->getRepository(MajorVersion::class);
-        $content = json_encode($majorVersions->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
-        $content = $content != false ? $content : '';
-        // remove version suffix only used for version sorting
-        $result = str_replace('.0000', '', $content);
 
         return $result;
     }
