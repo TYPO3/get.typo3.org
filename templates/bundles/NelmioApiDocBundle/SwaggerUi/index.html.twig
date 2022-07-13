@@ -3,18 +3,24 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    {{ nelmioAsset(assets_mode, 'swagger-ui/swagger-ui.css') }}
     <link rel="stylesheet" href="{{ asset('assets/Css/swagger.css') }}">
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/nelmioapidoc/swagger-ui/swagger-ui-bundle.js') }}"></script>
-    <script src="{{ asset('bundles/nelmioapidoc/swagger-ui/swagger-ui-standalone-preset.js') }}"></script>
-    <script src="{{ asset('bundles/nelmioapidoc/init-swagger-ui.js') }}"></script>
+    {{ nelmioAsset(assets_mode, 'swagger-ui/swagger-ui-bundle.js') }}
+    {{ nelmioAsset(assets_mode, 'swagger-ui/swagger-ui-standalone-preset.js') }}
+    {{ nelmioAsset(assets_mode, 'init-swagger-ui.js') }}
+    <script type="text/javascript">
+        (function () {
+            var swaggerUI = {{ swagger_ui_config|json_encode(65)|raw }};
+            window.onload = loadSwaggerUI(swaggerUI);
+        })();
+    </script>
 {% endblock %}
 
 {% block body %}
 
-    <link rel="stylesheet" href="{{ asset('assets/Css/swagger.css') }}">
     {# json_encode(65) is for JSON_UNESCAPED_SLASHES|JSON_HEX_TAG to avoid JS XSS #}
     <script id="swagger-data" type="application/json">{{ swagger_data|json_encode(65)|raw }}</script>
 
@@ -47,7 +53,6 @@
 
     {% frame %}
         <div id="swagger-ui" class="api-platform"></div>
-        <div class="text-center">&copy; 2017 <a href="https://api-platform.com">Api-Platform</a></div>
     {% endframe %}
 
 {% endblock %}
