@@ -38,16 +38,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
-class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     public function __construct(
-        private readonly TagAwareCacheInterface $cache,
-        private readonly \JMS\Serializer\SerializerInterface $serializer,
-        private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry,
-        private readonly \App\Repository\MajorVersionRepository $majorVersions,
-        private readonly \App\Repository\RequirementRepository $requirements,
-        private readonly \App\Repository\ReleaseRepository $releases,
-        private readonly \Symfony\Component\Validator\Validator\ValidatorInterface $validator,
+        private \Symfony\Contracts\Cache\TagAwareCacheInterface $cache,
+        private \JMS\Serializer\SerializerInterface $serializer,
+        private \Doctrine\Persistence\ManagerRegistry $managerRegistry,
+        private \App\Repository\MajorVersionRepository $majorVersions,
+        private \App\Repository\RequirementRepository $requirements,
+        private \App\Repository\ReleaseRepository $releases,
+        private \Symfony\Component\Validator\Validator\ValidatorInterface $validator,
     ) {
     }
 

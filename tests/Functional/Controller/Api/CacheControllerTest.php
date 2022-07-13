@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CacheControllerTest extends ApiCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->addFixture(new MajorVersionFixtures());
