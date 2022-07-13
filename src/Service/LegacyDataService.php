@@ -37,14 +37,12 @@ class LegacyDataService
 
     public function getReleaseJson(): string
     {
-        $result = $this->cache->get('releases.json', function (ItemInterface $item): string {
+        return $this->cache->get('releases.json', function (ItemInterface $item): string {
             $item->tag(['releases']);
             $content = json_encode($this->majorVersionRepository->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
             $content = $content != false ? $content : '';
             // remove version suffix only used for version sorting
             return str_replace('.0000', '', $content);
         });
-
-        return $result;
     }
 }

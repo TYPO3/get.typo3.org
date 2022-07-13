@@ -33,7 +33,7 @@ final class CoreExtensionsRedirectsCommand extends Command
     /**
      * List of packages with existing release on TER to be excluded from the redirects.
      *
-     * @var array<int, string>
+     * @var string[]
      */
     private const PACKAGES_EXCLUDED = [
         'typo3/cms-feedit',

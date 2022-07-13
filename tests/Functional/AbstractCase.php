@@ -40,7 +40,7 @@ abstract class AbstractCase extends PantherTestCase
 
     private ?ContainerAwareLoader $fixtureLoader = null;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         DatabasePrimer::prime(self::$kernel);

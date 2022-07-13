@@ -29,7 +29,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultControllerTest extends AbstractCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->addFixture(new MajorVersionFixtures());
