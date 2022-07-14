@@ -28,23 +28,21 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/major', '/v1/api/major'], defaults: ['_format' => 'json'])]
 class MajorVersionController extends AbstractController
 {
     /**
      * Get information about a major TYPO3 version
-     * @Cache(expires="+1 hour", public=true)
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
@@ -56,24 +54,25 @@ class MajorVersionController extends AbstractController
      * @OA\Tag(name="major")
      */
     #[Route(path: '/', methods: ['GET'])]
-    public function getMajorReleases(Request $request): JsonResponse
+    public function getMajorReleases(): JsonResponse
     {
-        $majors = $this->getMajorVersions()->findAllDescending();
-        $json = $this->getSerializer()->serialize(
-            $majors,
-            'json',
-            SerializationContext::create()->setGroups(['content'])
-        );
-        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+        $json = $this->getCache()->get('major-versions-descending', function (ItemInterface $item): string {
+            $item->tag(['major-versions', 'major-version']);
+
+            $majors = $this->getMajorVersions()->findAllDescending();
+
+            return $this->getSerializer()->serialize(
+                $majors,
+                'json',
+                SerializationContext::create()->setGroups(['content'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**
      * Get hard facts of a major TYPO3 Release
-     * @Cache(expires="+1 hour", public=true)
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
@@ -90,24 +89,26 @@ class MajorVersionController extends AbstractController
      * @OA\Tag(name="major")
      */
     #[Route(path: '/{version}', methods: ['GET'], name: 'majorVersion_show')]
-    public function getMajorRelease(string $version, Request $request): JsonResponse
+    public function getMajorRelease(string $version): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $majorVersion = $this->getMajorVersions()->findVersion($version);
-        if (!$majorVersion instanceof MajorVersion) {
-            throw new NotFoundHttpException('Version not found.');
-        }
 
-        $json = $this->getSerializer()->serialize(
-            $majorVersion,
-            'json',
-            SerializationContext::create()->setGroups(['content'])
-        );
-        $response = new JsonResponse($json, Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+        $json = $this->getCache()->get('major-version-' . $version, function (ItemInterface $item) use ($version): string {
+            $item->tag(['major-versions', 'major-version-' . $version]);
+
+            $majorVersion = $this->getMajorVersions()->findVersion($version);
+            if (!$majorVersion instanceof MajorVersion) {
+                throw new NotFoundHttpException('Version not found.');
+            }
+
+            return $this->getSerializer()->serialize(
+                $majorVersion,
+                'json',
+                SerializationContext::create()->setGroups(['content'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**

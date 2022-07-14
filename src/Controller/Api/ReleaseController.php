@@ -29,23 +29,21 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/release', '/v1/api/release'], defaults: ['_format' => 'json'])]
 class ReleaseController extends AbstractController
 {
     /**
      * Get information about all TYPO3 releases or a specific release
-     * @Cache(expires="tomorrow", public=true)
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release(s)",
@@ -68,25 +66,29 @@ class ReleaseController extends AbstractController
      */
     #[Route(path: '/', methods: ['GET'])]
     #[Route(path: '/{version}', methods: ['GET'], name: 'release_show')]
-    public function getRelease(?string $version, Request $request): JsonResponse
+    public function getRelease(?string $version): JsonResponse
     {
         if ($version !== null) {
             $this->checkVersionFormat($version);
-            $releases = $this->getReleaseByVersion($version);
+            $versionSuffix = '-' . $version;
         } else {
-            $releases = $this->getReleases()->findAll();
+            $versionSuffix = 's';
         }
 
-        $json = $this->getSerializer()->serialize(
-            $releases,
-            'json',
-            SerializationContext::create()->setGroups(['data'])
-        );
-        $response =  new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+        $json = $this->getCache()->get('release' . $versionSuffix, function (ItemInterface $item) use ($version): string {
+            $versionSuffix = $version !== null ? '-' . $version : '';
+
+            $item->tag(['releases', 'release' . $versionSuffix]);
+            $releases = $version !== null ? $this->getReleaseByVersion($version) : $this->getReleases()->findAll();
+
+            return $this->getSerializer()->serialize(
+                $releases,
+                'json',
+                SerializationContext::create()->setGroups(['data'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**
@@ -212,7 +214,6 @@ class ReleaseController extends AbstractController
 
     /**
      * Get TYPO3 Release Content
-     * @Cache(expires="tomorrow", public=true)
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release content",
@@ -234,20 +235,23 @@ class ReleaseController extends AbstractController
      * @OA\Tag(name="content")
      */
     #[Route(path: '/{version}/content', methods: ['GET'])]
-    public function getContentForVersion(string $version, Request $request): JsonResponse
+    public function getContentForVersion(string $version): JsonResponse
     {
         $this->checkVersionFormat($version);
-        $entity = $this->getReleaseByVersion($version);
-        $json = $this->getSerializer()->serialize(
-            $entity,
-            'json',
-            SerializationContext::create()->setGroups(['content'])
-        );
-        $response = new JsonResponse($json, Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+
+        $json = $this->getCache()->get('release-' . $version, function (ItemInterface $item) use ($version): string {
+            $item->tag(['releases', 'release-' . $version]);
+
+            $release = $this->getReleaseByVersion($version);
+
+            return $this->getSerializer()->serialize(
+                $release,
+                'json',
+                SerializationContext::create()->setGroups(['content'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**
