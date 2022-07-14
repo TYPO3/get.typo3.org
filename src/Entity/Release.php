@@ -27,16 +27,22 @@ use App\Enum\ReleaseTypeEnum;
 use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @OA\Schema(
+ *     description="TYPO3 release",
+ *     title="Release",
+ * )
+ */
 #[ORM\Entity(repositoryClass: ReleaseRepository::class)]
 class Release implements \JsonSerializable
 {
     /**
      * Version in a semver/version_compare compatible format
      *
-     * @SWG\Property(example="8.7.12")
+     * @OA\Property(example="8.7.12")
      */
     #[Assert\Regex(
         '/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/'
@@ -47,7 +53,7 @@ class Release implements \JsonSerializable
     private string $version;
 
     /**
-     * @SWG\Property(example="2017-12-12T16:48:22 UTC")
+     * @OA\Property(example="2017-12-12T16:48:22+00:00")
      * @var \DateTime|\DateTimeImmutable
      */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
@@ -62,7 +68,7 @@ class Release implements \JsonSerializable
     private string $type;
 
     /**
-     * @SWG\Property(example="true")
+     * @OA\Property(example="true")
      */
     #[Assert\Type('boolean')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => 0])]

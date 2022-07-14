@@ -1,6 +1,6 @@
 {
   "version": "10.0.1",
-  "date": "2020-04-08T16:00:00 UTC",
+  "date": "2020-04-08T16:00:00+00:00",
   "type": "regular",
   "tar_package": {
     "md5sum": "23cab7d353b055a3bf5ef8f9963ba348",

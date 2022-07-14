@@ -25,14 +25,14 @@ namespace App\Entity\Embeddables;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Embeddable]
 class ReleaseNotes
 {
     /**
-     * @SWG\Property(type="string", format="uri", example="https://typo3.org/news/article/typo3-v910-released")
+     * @OA\Property(type="string", format="uri", example="https://typo3.org/news/article/typo3-v910-released")
      */
     #[Assert\Url]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
@@ -41,7 +41,7 @@ class ReleaseNotes
     private ?string $newsLink = null;
 
     /**
-     * @SWG\Property(example="This release is a bugfix and regression fix release.", description="Short news text about the release.")
+     * @OA\Property(example="This release is a bugfix and regression fix release.", description="Short news text about the release.")
      */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
     #[Serializer\Groups(['putcontent', 'content'])]
@@ -49,7 +49,7 @@ class ReleaseNotes
     private ?string $news = null;
 
     /**
-     * @SWG\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n")
+     * @OA\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n")
      */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
     #[Serializer\Groups(['putcontent', 'content'])]
@@ -57,7 +57,7 @@ class ReleaseNotes
     private ?string $upgradingInstructions = null;
 
     /**
-     * @SWG\Property(description="Changelog as markdown")
+     * @OA\Property(description="Changelog as markdown")
      */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
     #[Serializer\Groups(['putcontent', 'content'])]

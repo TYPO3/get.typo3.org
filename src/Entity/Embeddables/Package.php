@@ -23,7 +23,7 @@ namespace App\Entity\Embeddables;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Embeddable]
@@ -31,7 +31,7 @@ class Package implements \JsonSerializable
 {
     public function __construct(
         /**
-         * @SWG\Property(example="23cab7d353b055a3bf5ef8f9963ba348")
+         * @OA\Property(example="23cab7d353b055a3bf5ef8f9963ba348")
          */
         #[Assert\Regex('/^[0-9a-f]{32}$/')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
@@ -39,7 +39,7 @@ class Package implements \JsonSerializable
         #[Serializer\Type('string')]
         private readonly ?string $md5sum,
         /**
-         * @SWG\Property(example="7af3a3fe4f1bbda916575c9779368d229d259819")
+         * @OA\Property(example="7af3a3fe4f1bbda916575c9779368d229d259819")
          */
         #[Assert\Regex('/^[0-9a-f]{40}$/')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
@@ -47,7 +47,7 @@ class Package implements \JsonSerializable
         #[Serializer\Type('string')]
         private readonly ?string $sha1sum,
         /**
-         * @SWG\Property(example="1e34187712269aa556413d2529b950c0dbff17cc95160cf316de07a3c85ce859")
+         * @OA\Property(example="1e34187712269aa556413d2529b950c0dbff17cc95160cf316de07a3c85ce859")
          */
         #[Assert\Regex('/^[A-Fa-f0-9]{64}$/')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
