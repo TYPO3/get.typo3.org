@@ -191,7 +191,7 @@
             "@ci:composer:require-checker:reset"
         ],
         "ci:composer:require-checker:reset": [
-            "@composer require doctrine/doctrine-fixtures-bundle:^3.4.0 fakerphp/faker:^1.15.0 --dev --ansi --no-interaction --no-progress",
+            "@composer require doctrine/doctrine-fixtures-bundle:^3.4 fakerphp/faker:^1.19 --dev --ansi --no-interaction --no-progress",
             "@composer remove doctrine/data-fixtures --ansi --no-interaction --no-progress --no-update"
         ],
         "ci:composer:validate": "@composer validate --strict",

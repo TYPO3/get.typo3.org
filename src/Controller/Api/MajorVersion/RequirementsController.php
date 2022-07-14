@@ -29,16 +29,15 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(
     path: ['/api/v1/major/{version}/requirement', '/v1/api/major/{version}/requirement'],
@@ -48,7 +47,6 @@ class RequirementsController extends AbstractController
 {
     /**
      * Get TYPO3 major version requirements
-     * @Cache(expires="tomorrow", public=true)
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 major version requirements",
@@ -66,27 +64,29 @@ class RequirementsController extends AbstractController
      * @OA\Tag(name="requirement")
      */
     #[Route(path: 's', methods: ['GET'])]
-    public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
+    public function getRequirementsByMajorVersion(string $version): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $requirements = $this->getRequirements()->findBy(
-            ['version' => $version],
-            ['category' => 'ASC', 'name' => 'ASC']
-        );
-        if ($requirements === []) {
-            throw new NotFoundHttpException('Version not found.');
-        }
 
-        $json = $this->getSerializer()->serialize(
-            $requirements,
-            'json',
-            SerializationContext::create()->setGroups(['data'])
-        );
-        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+        $json = $this->getCache()->get('requirements-' . $version, function (ItemInterface $item) use ($version): string {
+            $item->tag(['requirements', 'requirements-' . $version]);
+
+            $requirements = $this->getRequirements()->findBy(
+                ['version' => $version],
+                ['category' => 'ASC', 'name' => 'ASC']
+            );
+            if ($requirements === []) {
+                throw new NotFoundHttpException('Version not found.');
+            }
+
+            return $this->getSerializer()->serialize(
+                $requirements,
+                'json',
+                SerializationContext::create()->setGroups(['data'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**
