@@ -539,6 +539,16 @@ jobs:
         if: always()
         run: composer ci:tests:php:functional
 
+      - name: Upload coverage results to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: php-${{ matrix.php-version }}-${{ matrix.dependencies }}
+        run: |
+          composer exec phpcov -- merge --clover var/log/coverage/clover.xml var/log/coverage
+          composer global require ${{ env.COMPOSER_INSTALL_FLAGS }} ${{ env.COMPOSER_FLAGS }} php-coveralls/php-coveralls
+          composer global exec php-coveralls -- --coverage_clover=var/log/coverage/clover.xml -vvv --json_path=var/log/coverage/coveralls-upload.json
+
       - name: Upload Logs
         uses: actions/upload-artifact@v3
         if: always()
@@ -547,10 +557,24 @@ jobs:
           path: var/log
           retention-days: 7
 
+
+  coveralls-finish:
+    name: Finish Coveralls
+    needs:
+      - tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
+
   deployment:
     name: Deployment
     needs:
-      - tests
+      - coveralls-finish
     if: ${{ github.event_name == 'push' }}
     uses: ./.github/workflows/deployment.yml
     secrets:

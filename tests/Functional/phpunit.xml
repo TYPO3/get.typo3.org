@@ -20,7 +20,7 @@
     </include>
     <report>
       <html outputDirectory="../../var/log/report-functional"/>
-      <php outputFile="../../var/log/cov/coverage-functional.cov"/>
+      <php outputFile="../../var/log/coverage/coverage-functional.cov"/>
     </report>
   </coverage>
   <php>

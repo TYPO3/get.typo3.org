@@ -20,7 +20,7 @@
     </include>
     <report>
       <html outputDirectory="../../var/log/report-unit"/>
-      <php outputFile="../../var/log/cov/coverage-unit.cov"/>
+      <php outputFile="../../var/log/coverage/coverage-unit.cov"/>
     </report>
   </coverage>
   <testsuites>
