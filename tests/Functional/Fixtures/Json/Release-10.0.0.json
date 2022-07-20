@@ -1,6 +1,6 @@
 {
   "version": "10.0.0",
-  "date": "2020-04-07T16:00:00 UTC",
+  "date": "2020-04-07T16:00:00+00:00",
   "type": "regular",
   "elts": true,
   "tar_package": {

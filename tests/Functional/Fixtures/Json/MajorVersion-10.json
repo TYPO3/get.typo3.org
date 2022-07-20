@@ -4,6 +4,6 @@
   "lts": 10.4,
   "subtitle": "It’s not the years, honey. It’s the mileage.",
   "description": "In contrast to the treasure find, which usually happens accidentally and unintentionally, the treasure hunt is a targeted search for lost or hidden valuables.",
-  "release_date": "2020-04-07T16:00:00 UTC",
-  "maintained_until": "2023-04-07T15:59:59 UTC"
+  "release_date": "2020-04-07T16:00:00+00:00",
+  "maintained_until": "2023-04-07T15:59:59+00:00"
 }

@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
+use Nelmio\ApiDocBundle\Annotation\Security as Security;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,54 +37,55 @@ class CacheController extends AbstractController
 {
     /**
      * Purge caches related to TYPO3 major version
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Invalid version format."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="cache")
+     * @OA\Tag(name="cache")
      */
     #[Route(path: '/majorVersion/{version}')]
     public function purgeMajorRelease(string $version): JsonResponse
     {
         $this->findMajorVersion($version);
         $purgeUrls = $this->getPurgeUrlsForMajorVersion((float)$version);
-        $this->deleteReleases();
+        $this->deleteRelease($version);
+        $this->deleteMajorVersion($version);
         return (new JsonResponse(['locations' => $purgeUrls]))->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
      * Purge caches related to single TYPO3 release
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Invalid version format"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="cache")
+     * @OA\Tag(name="cache")
      */
     #[Route(path: '/release/{version}')]
     public function purgeRelease(string $version): JsonResponse
@@ -108,7 +109,7 @@ class CacheController extends AbstractController
                 ['version' => $version]
             ),
         ];
-        $this->deleteReleases();
+        $this->deleteRelease($version);
         return (new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]))
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
@@ -151,11 +152,26 @@ class CacheController extends AbstractController
     }
 
     /**
+     * Deletes a release and the releases.json in the cache
+     */
+    private function deleteRelease(string $version): void
+    {
+        $this->getCache()->invalidateTags([
+            'release-' . $version,
+            'release'
+        ]);
+    }
+
+    /**
      * Deletes the releases.json in the cache
      */
-    private function deleteReleases(): void
+    private function deleteMajorVersion(string $version): void
     {
-        $this->getCache()->invalidateTags(['releases']);
+        $this->getCache()->invalidateTags([
+            'major-version-' . $version,
+            'major-version',
+            'requirements-' . $version,
+        ]);
     }
 
     /**

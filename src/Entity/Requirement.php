@@ -26,9 +26,15 @@ use App\Repository\RequirementRepository;
 use Doctrine\DBAL\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @OA\Schema(
+ *     description="TYPO3 major version requirement",
+ *     title="Requirement",
+ * )
+ */
 #[ORM\Entity(repositoryClass: RequirementRepository::class)]
 class Requirement implements \JsonSerializable
 {
@@ -39,7 +45,7 @@ class Requirement implements \JsonSerializable
         private MajorVersion $version,
         /**
          * @noRector
-         * @SWG\Property(example="database")
+         * @OA\Property(example="database")
          */
         #[Assert\Choice(callback: [RequirementCategoryEnum::class, 'getAvailableOptions'])]
         #[ORM\Id]
@@ -47,20 +53,20 @@ class Requirement implements \JsonSerializable
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private string $category,
         /**
-         * @SWG\Property(example="mysql")
+         * @OA\Property(example="mysql")
          */
         #[ORM\Id]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private string $name,
         /**
-         * @SWG\Property(example="5.5")
+         * @OA\Property(example="5.5")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private ?string $min = null,
         /**
-         * @SWG\Property(example="5.7")
+         * @OA\Property(example="5.7")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]

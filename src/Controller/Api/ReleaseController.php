@@ -27,81 +27,86 @@ use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\Release;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Nelmio\ApiDocBundle\Annotation\Security as Security;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/release', '/v1/api/release'], defaults: ['_format' => 'json'])]
 class ReleaseController extends AbstractController
 {
     /**
      * Get information about all TYPO3 releases or a specific release
-     * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release(s)",
-     *     @SWG\Schema(
+     *     @OA\JsonContent(
      *         type="array",
-     *         @SWG\Items(
-     *             @Model(type=\App\Entity\Release::class, groups={"data"})
-     *         )
+     *         @OA\Items(ref=@Model(type=\App\Entity\Release::class, groups={"data"}))
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="release")
      *
      * @param string|null $version Specific TYPO3 Version to fetch
      */
     #[Route(path: '/', methods: ['GET'])]
     #[Route(path: '/{version}', methods: ['GET'], name: 'release_show')]
-    public function getRelease(?string $version, Request $request): JsonResponse
+    public function getRelease(?string $version): JsonResponse
     {
         if ($version !== null) {
             $this->checkVersionFormat($version);
-            $releases = $this->getReleaseByVersion($version);
+            $versionSuffix = '-' . $version;
         } else {
-            $releases = $this->getReleases()->findAll();
+            $versionSuffix = 's';
         }
 
-        $json = $this->getSerializer()->serialize(
-            $releases,
-            'json',
-            SerializationContext::create()->setGroups(['data'])
-        );
-        $response =  new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+        $json = $this->getCache()->get('release' . $versionSuffix, function (ItemInterface $item) use ($version): string {
+            $versionSuffix = $version !== null ? '-' . $version : '';
+
+            $item->tag(['releases', 'release' . $versionSuffix]);
+            $releases = $version !== null ? $this->getReleaseByVersion($version) : $this->getReleases()->findAll();
+
+            return $this->getSerializer()->serialize(
+                $releases,
+                'json',
+                SerializationContext::create()->setGroups(['data'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**
      * Add new TYPO3 release
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Release::class, groups={"data", "content"}),
+     *     request="release",
+     *     required=true
+     * )
+     * @OA\Response(
      *     response=201,
      *     description="Created.",
-     *     @SWG\Schema(
+     *     @OA\JsonContent(
      *         type="object",
-     *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(
+     *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
+     *         @OA\Property(
      *             property="Location",
      *             title="Location (URI)",
      *             description="URI of newly created version",
@@ -110,29 +115,23 @@ class ReleaseController extends AbstractController
      *         ),
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Corresponding major version not found."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Conflict. Version already exists."
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Parameter(
-     *     name="release",
-     *     in="body",
-     *     required=true,
-     *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
-     * )
+     * @OA\Tag(name="release")
      */
     #[Route(path: '/', methods: ['POST'])]
     public function addRelease(Request $request): JsonResponse
@@ -163,31 +162,30 @@ class ReleaseController extends AbstractController
     /**
      * Add TYPO3 Release Notes for Version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=ReleaseNotes::class, groups={"putcontent"}),
+     *     request="release-notes",
+     *     required=true
+     * )
+     * @OA\Response(
      *     response=204,
      *     description="Returns updated entity."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Tag(name="content")
-     * @SWG\Parameter(
-     *     name="release-notes",
-     *     in="body",
-     *     required=true,
-     *     @Model(type=\App\Entity\Embeddables\ReleaseNotes::class, groups={"putcontent"})
-     * )
+     * @OA\Tag(name="release")
+     * @OA\Tag(name="content")
      */
     #[Route(path: '/{version}/release-notes', methods: ['PUT'])]
     public function addReleaseNotesForVersion(string $version, Request $request): JsonResponse
@@ -216,75 +214,74 @@ class ReleaseController extends AbstractController
 
     /**
      * Get TYPO3 Release Content
-     * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release content",
      *     @Model(type=\App\Entity\Release::class, groups={"content"})
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found"
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Tag(name="content")
+     * @OA\Tag(name="release")
+     * @OA\Tag(name="content")
      */
     #[Route(path: '/{version}/content', methods: ['GET'])]
-    public function getContentForVersion(string $version, Request $request): JsonResponse
+    public function getContentForVersion(string $version): JsonResponse
     {
         $this->checkVersionFormat($version);
-        $entity = $this->getReleaseByVersion($version);
-        $json = $this->getSerializer()->serialize(
-            $entity,
-            'json',
-            SerializationContext::create()->setGroups(['content'])
-        );
-        $response = new JsonResponse($json, Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+
+        $json = $this->getCache()->get('release-' . $version, function (ItemInterface $item) use ($version): string {
+            $item->tag(['releases', 'release-' . $version]);
+
+            $release = $this->getReleaseByVersion($version);
+
+            return $this->getSerializer()->serialize(
+                $release,
+                'json',
+                SerializationContext::create()->setGroups(['content'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**
      * Update TYPO3 Release
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Release::class, groups={"data", "content"}),
+     *     request="release",
+     *     description="May also contain incomplete model with only those properties that shall be updated",
+     *     required=true
+     * )
+     * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
-     *     @SWG\Schema(
-     *         @Model(type=\App\Entity\Release::class, groups={"data", "content"})
-     *     )
+     *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
-     * @SWG\Parameter(
-     *     name="release",
-     *     in="body",
-     *     required=true,
-     *     description="May also contain incomplete model with only those properties that shall be updated",
-     *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
-     * )
+     * @OA\Tag(name="release")
      */
     #[Route(path: '/{version}', methods: ['PATCH'])]
     public function updateRelease(string $version, Request $request): JsonResponse
@@ -318,24 +315,24 @@ class ReleaseController extends AbstractController
     /**
      * Delete TYPO3 release
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="release")
+     * @OA\Tag(name="release")
      * )
      * @param string $version Specific TYPO3 Version to delete
      */

@@ -27,18 +27,17 @@ use App\Controller\Api\AbstractController;
 use App\Entity\Requirement;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Nelmio\ApiDocBundle\Annotation\Security as Security;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(
     path: ['/api/v1/major/{version}/requirement', '/v1/api/major/{version}/requirement'],
@@ -48,60 +47,64 @@ class RequirementsController extends AbstractController
 {
     /**
      * Get TYPO3 major version requirements
-     * @Cache(expires="tomorrow", public=true)
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 major version requirements",
-     *     @SWG\Schema(
-     *         @Model(type=\App\Entity\Requirement::class, groups={"data"})
-     *     )
+     *     @Model(type=\App\Entity\Requirement::class, groups={"data"})
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="requirement")
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="requirement")
      */
     #[Route(path: 's', methods: ['GET'])]
-    public function getRequirementsByMajorVersion(string $version, Request $request): JsonResponse
+    public function getRequirementsByMajorVersion(string $version): JsonResponse
     {
         $this->checkMajorVersionFormat($version);
-        $requirements = $this->getRequirements()->findBy(
-            ['version' => $version],
-            ['category' => 'ASC', 'name' => 'ASC']
-        );
-        if ($requirements === []) {
-            throw new NotFoundHttpException('Version not found.');
-        }
 
-        $json = $this->getSerializer()->serialize(
-            $requirements,
-            'json',
-            SerializationContext::create()->setGroups(['data'])
-        );
-        $response = new JsonResponse($json, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-        $response->setEtag(md5($json));
-        $response->isNotModified($request);
-        return $response;
+        $json = $this->getCache()->get('requirements-' . $version, function (ItemInterface $item) use ($version): string {
+            $item->tag(['requirements', 'requirements-' . $version]);
+
+            $requirements = $this->getRequirements()->findBy(
+                ['version' => $version],
+                ['category' => 'ASC', 'name' => 'ASC']
+            );
+            if ($requirements === []) {
+                throw new NotFoundHttpException('Version not found.');
+            }
+
+            return $this->getSerializer()->serialize(
+                $requirements,
+                'json',
+                SerializationContext::create()->setGroups(['data'])
+            );
+        });
+
+        return new JsonResponse($json, Response::HTTP_OK, [], true);
     }
 
     /**
      * Create new major TYPO3 version requirement
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Requirement::class, groups={"patch"}),
+     *     request="requirement",
+     *     required=true
+     * )
+     * @OA\Response(
      *     response=201,
      *     description="Successfully created",
-     *     @SWG\Schema(
+     *     @OA\JsonContent(
      *         type="object",
-     *         @SWG\Property(property="Status", title="Status", enum={"success"}, type="string"),
-     *         @SWG\Property(
+     *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
+     *         @OA\Property(
      *             property="Location",
      *             title="Location (URI)",
      *             description="URI of newly created version",
@@ -110,30 +113,24 @@ class RequirementsController extends AbstractController
      *         ),
      *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Requirement exists."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Major version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="requirement")
-     * @SWG\Parameter(
-     *     name="requirement",
-     *     in="body",
-     *     required=true,
-     *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
-     * )
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="requirement")
      */
     #[Route(path: '/', methods: ['POST'])]
     public function addRequirement(string $version, Request $request): JsonResponse
@@ -172,36 +169,35 @@ class RequirementsController extends AbstractController
     /**
      * Update requirement of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\RequestBody(
+     *     @Model(type=Requirement::class, groups={"patch"}),
+     *     request="requirement",
+     *     required=true
+     * )
+     * @OA\Response(
      *     response=200,
      *     description="Successfully created",
      *     @Model(type=\App\Entity\Requirement::class, groups={"content"})
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Version exists."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="requirement")
-     * @SWG\Parameter(
-     *     name="requirement",
-     *     in="body",
-     *     required=true,
-     *     @Model(type=\App\Entity\Requirement::class, groups={"patch"})
-     * )
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="requirement")
      */
     #[Route(path: '/', methods: ['PATCH'])]
     public function updateRequirement(string $version, Request $request): JsonResponse
@@ -242,25 +238,25 @@ class RequirementsController extends AbstractController
     /**
      * Delete requirement of major TYPO3 version
      * @IsGranted("ROLE_ADMIN")
-     * @DocSecurity(name="Basic")
-     * @SWG\Response(
+     * @Security(name="Basic")
+     * @OA\Response(
      *     response=204,
      *     description="Successfully deleted"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
      *     description="Unauthorized."
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Version not found."
      * )
-     * @SWG\Tag(name="major")
-     * @SWG\Tag(name="requirement")
+     * @OA\Tag(name="major")
+     * @OA\Tag(name="requirement")
      */
     #[Route(path: '/{category}/{name}', methods: ['DELETE'])]
     public function deleteRequirement(string $version, string $category, string $name): JsonResponse
