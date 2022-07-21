@@ -60,7 +60,7 @@ class ReleasesController extends AbstractController
     #[Route(path: '/', methods: ['GET'])]
     public function getReleasesByMajorVersion(string $version): JsonResponse
     {
-        $json = $this->getCache()->get('release-' . $version, function (ItemInterface $item) use ($version): string {
+        $json = $this->getCache()->get('releases-' . $version, function (ItemInterface $item) use ($version): string {
             $item->tag(['releases', 'release-' . $version]);
 
             $majorVersion = $this->findMajorVersion($version);
@@ -96,7 +96,7 @@ class ReleasesController extends AbstractController
     #[Route(path: '/latest', methods: ['GET'])]
     public function getLatestReleaseByMajorVersion(string $version): JsonResponse
     {
-        $json = $this->getCache()->get('release-' . $version, function (ItemInterface $item) use ($version): string {
+        $json = $this->getCache()->get('release-latest-' . $version, function (ItemInterface $item) use ($version): string {
             $item->tag(['releases', 'release-' . $version]);
 
             $majorVersion = $this->findMajorVersion($version);
@@ -134,7 +134,7 @@ class ReleasesController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
 
-        $json = $this->getCache()->get('release-' . $version, function (ItemInterface $item) use ($version): string {
+        $json = $this->getCache()->get('release-latest-security-' . $version, function (ItemInterface $item) use ($version): string {
             $item->tag(['releases', 'release-' . $version]);
 
             $release = $this->findLatestSecurityReleaseByMajorVersion($version);
@@ -179,7 +179,7 @@ class ReleasesController extends AbstractController
     #[Route(path: '/latest/content', methods: ['GET'])]
     public function getLatestReleaseContentByMajorVersion(string $version): JsonResponse
     {
-        $json = $this->getCache()->get('release-' . $version, function (ItemInterface $item) use ($version): string {
+        $json = $this->getCache()->get('release-latest-content-' . $version, function (ItemInterface $item) use ($version): string {
             $item->tag(['releases', 'release-' . $version]);
 
             $majorVersion = $this->findMajorVersion($version);
