@@ -241,7 +241,7 @@ jobs:
   php_coding_standards:
     name: PHP Coding Standards
     needs:
-      - php_rector
+      - php_lint
     runs-on: ubuntu-latest
 
     steps:
@@ -281,7 +281,7 @@ jobs:
   php_sniff:
     name: PHP Code Sniffer
     needs:
-      - php_rector
+      - php_lint
     runs-on: ubuntu-latest
 
     steps:
@@ -321,7 +321,7 @@ jobs:
   php_copypaste_detector:
     name: PHP Copy/Paste Detector
     needs:
-      - php_rector
+      - php_lint
     runs-on: ubuntu-latest
 
     steps:
@@ -361,10 +361,7 @@ jobs:
   php_stan:
     name: PHP Stan
     needs:
-      - validation
-      - php_coding_standards
-      - php_sniff
-      - php_copypaste_detector
+      - php_lint
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
 
@@ -450,7 +447,7 @@ jobs:
   tests:
     name: Tests
     needs:
-      - php_stan
+      - php_lint
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
 
@@ -574,6 +571,14 @@ jobs:
   deployment:
     name: Deployment
     needs:
+      - json_lint
+      - yaml_lint
+      - validation
+      - php_coding_standards
+      - php_sniff
+      - php_copypaste_detector
+      - php_stan
+      - php_rector
       - coveralls-finish
     if: ${{ github.event_name == 'push' }}
     uses: ./.github/workflows/deployment.yml
