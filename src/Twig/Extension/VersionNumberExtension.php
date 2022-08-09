@@ -26,18 +26,15 @@ namespace App\Twig\Extension;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-/**
- * VersionNumberExtension.
- **/
 class VersionNumberExtension extends AbstractExtension
 {
     /**
      * @return TwigFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
-            new TwigFilter('version', [$this, 'versionFilter']),
+            new TwigFilter('version', $this->versionFilter(...)),
         ];
     }
 
@@ -47,16 +44,13 @@ class VersionNumberExtension extends AbstractExtension
         $parts = [
             substr($versionString, 0, 3),
             substr($versionString, 3, 3),
-            substr($versionString, 6, 3)
+            substr($versionString, 6, 3),
         ];
 
-        switch ($positions) {
-            case 1:
-                return (string)(int)$parts[0];
-            case 2:
-                return (int)$parts[0] . '.' . (int)$parts[1];
-            default:
-                return (int)$parts[0] . '.' . (int)$parts[1] . '.' . (int)$parts[2];
-        }
+        return match ($positions) {
+            1 => (string)(int)$parts[0],
+            2 => (int)$parts[0] . '.' . (int)$parts[1],
+            default => (int)$parts[0] . '.' . (int)$parts[1] . '.' . (int)$parts[2],
+        };
     }
 }

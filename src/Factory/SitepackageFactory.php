@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\Entity\Sitepackage;
 use App\Form\Dto\SitepackageDto;
+use App\Package\Sitepackage;
 
 class SitepackageFactory
 {
@@ -32,16 +32,14 @@ class SitepackageFactory
     {
         $sitepackage = $entity ?? new Sitepackage();
         $sitepackage
-            ->setTypo3Version($dto->typo3Version)
             ->setBasePackage($dto->basePackage)
-            ->setVendorName($dto->vendorName ?? '')
-            ->setComposerVendorName($dto->composerVendorName ?? '')
+            ->setTypo3Version($dto->typo3Version)
             ->setTitle($dto->title ?? '')
             ->setDescription($dto->description ?? '')
-            ->setPackageName($dto->packageName ?? '')
-            ->setComposerProjectName($dto->composerProjectName ?? '')
             ->setExtensionKey($dto->extensionKey ?? '')
             ->setRepositoryUrl($dto->repositoryUrl ?? '')
+            ->setComposerName($dto->composerName ?? '')
+            ->setPsr4Namespace($dto->psr4Namespace ?? '')
             ->getAuthor()
             ->setName($dto->name ?? '')
             ->setEmail($dto->email ?? '')
@@ -54,8 +52,6 @@ class SitepackageFactory
 
     public static function fromEntity(Sitepackage $sitepackage): SitepackageDto
     {
-        $dto = SitepackageDto::fromEntity($sitepackage);
-
-        return $dto;
+        return SitepackageDto::fromEntity($sitepackage);
     }
 }

@@ -23,9 +23,6 @@ declare(strict_types=1);
 
 namespace App\Utility;
 
-/**
- * StringUtility
- */
 class StringUtility
 {
     public static function clean(string $string): string
@@ -36,9 +33,8 @@ class StringUtility
         $string = str_replace('&', '', $string);
         $string = self::convertUmlauts($string);
         $string = self::toASCII($string);
-        $string = trim($string);
 
-        return $string;
+        return trim($string);
     }
 
     public static function convertUmlauts(string $string): string
@@ -61,26 +57,25 @@ class StringUtility
     public static function stringToUpperCamelCase(string $string): string
     {
         $string = self::clean($string);
-        $string = is_string($result = preg_replace('/[^a-z0-9]+/i', ' ', $string)) ? $result : $string;
-        $string = is_string($result = preg_replace('/[A-Z]+/', ' $0', $string)) ? $result : $string;
+        $string = is_string($result = preg_replace('#[^a-z0-9]+#i', ' ', $string)) ? $result : $string;
+        $string = is_string($result = preg_replace('#[A-Z]+#', ' $0', $string)) ? $result : $string;
         $string = trim($string);
         $string = strtolower($string);
         $string = ucwords($string);
-        $string = str_replace(' ', '', $string);
 
-        return $string;
+        return str_replace(' ', '', $string);
     }
 
     public static function camelCaseToLowerCaseUnderscored(string $string): string
     {
         preg_match_all(
-            '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!',
+            '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)#',
             self::clean($string),
             $matches
         );
         $ret = $matches[0];
         foreach ($ret as &$match) {
-            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+            $match = $match == strtoupper((string)$match) ? strtolower((string)$match) : lcfirst((string)$match);
         }
 
         return implode('_', $ret);
@@ -89,13 +84,13 @@ class StringUtility
     public static function camelCaseToLowerCaseDashed(string $string): string
     {
         preg_match_all(
-            '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!',
+            '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)#',
             self::clean($string),
             $matches
         );
         $ret = $matches[0];
         foreach ($ret as &$match) {
-            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+            $match = $match == strtoupper((string)$match) ? strtolower((string)$match) : lcfirst((string)$match);
         }
 
         return implode('-', $ret);

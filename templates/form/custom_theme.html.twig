@@ -1,0 +1,13 @@
+{% extends "custom_theme.html.twig" %}
+
+{%- block base_package_widget -%}
+
+    {% if notification is not empty %}
+        <div class="alert alert-{{ notification_type }}" role="alert">
+            {{ notification }}
+        </div>
+    {% endif %}
+
+    {{- block('choice_widget') -}}
+
+{%- endblock base_package_widget -%}

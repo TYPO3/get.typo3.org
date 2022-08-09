@@ -23,96 +23,87 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\Sitepackage;
-use App\Service\SitepackageGenerator;
+use App\Package\Sitepackage;
 use App\Utility\StringUtility;
-use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
+//use OpenApi\Attributes as OA;
+use OpenApi\Attributes\MediaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Validator\Validation;
+use function is_string;
 
-/**
- * @Route("/api/v1/sitepackage", defaults={"_format": "json"})
- * @Route("/v1/api/sitepackage", defaults={"_format": "json"})
- */
+#[Route(path: '/api/v1/sitepackage', defaults: ['_format' => 'json'])]
 class SitepackageController extends AbstractController
 {
-    /**
-     * @var \JMS\Serializer\SerializerInterface
-     */
-    protected $serializer;
-
-    /**
-     * @var SitepackageGenerator
-     */
-    protected $sitepackageGenerator;
+    use ValidationTrait;
 
     public function __construct(
-        SerializerInterface $serializer,
-        SitepackageGenerator $sitepackageGenerator
+        private \App\Service\SitepackageGenerator $sitepackageGenerator,
+        private \JMS\Serializer\SerializerInterface $serializer,
+        private \Symfony\Component\Validator\Validator\ValidatorInterface $validator,
     ) {
-        $this->serializer = $serializer;
-        $this->sitepackageGenerator = $sitepackageGenerator;
     }
 
     /**
-     * @Route("/", methods={"POST"})
-     * @SWG\Parameter(
-     *     name="sitepackage",
-     *     in="body",
-     *     @Model(type=Sitepackage::class)
+     * @OA\RequestBody(
+     *     @Model(type=Sitepackage::class),
+     *     request="sitepackage",
+     *     required=true
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Successfully generated.",
-     *     @SWG\Schema(type="file")
+     *     @OA\Schema(type="file")
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
-     * @SWG\Tag(name="sitepackage")
+     * @OA\Tag(name="sitepackage")
      */
-    public function createSitepackage(Request $request): Response
+    /*
+    #[OA\RequestBody(
+        //new Model(type: Sitepackage::class)
+        //ref: new OA\Schema(type: Sitepackage::class),
+        request: 'sitepackage',
+        required: true,
+        //new Model(type: Sitepackage::class)
+        content: new Model(type: Sitepackage::class)
+        //content: new OA\Schema(ref: new Model(type: Sitepackage::class))
+    )]
+    #[OA\RequestBody(new Model(type: Sitepackage::class))]
+    #[OA\Response(
+        response: 200,
+        description: 'Successfully generated.',
+        //content: new OA\Schema(type: 'file')
+        content: new OA\MediaType(mediaType: 'application/zip')
+    )]
+    #[OA\Response(
+        response: 400,
+        description: 'Request malformed.'
+    )]
+    #[OA\Tag(name: 'sitepackage')]
+    */
+    #[Route(path: '/create', methods: ['POST'])]
+    public function createSitepackage(Request $request): BinaryFileResponse
     {
-        $content = $request->getContent();
+        if (!is_string($content = $request->getContent())) {
+            throw new BadRequestHttpException('Missing or invalid request body.');
+        }
+
         /** @var Sitepackage $sitepackage */
         $sitepackage = $this->serializer->deserialize($content, Sitepackage::class, 'json');
         $this->validateObject($sitepackage);
         $this->sitepackageGenerator->create($sitepackage);
         $filename = $this->sitepackageGenerator->getFilename();
         BinaryFileResponse::trustXSendfileTypeHeader();
-
         return $this
             ->file($this->sitepackageGenerator->getZipPath(), StringUtility::toASCII($filename))
             ->deleteFileAfterSend(true);
-    }
-
-    /**
-     * @param Sitepackage $object
-     */
-    protected function validateObject(Sitepackage $object): void
-    {
-        $validator = Validation::createValidatorBuilder()
-            ->enableAnnotationMapping()
-            ->getValidator()
-        ;
-        $violations = $validator->validate($object);
-
-        if ($violations->count() > 0) {
-            $messages = '';
-            \iterator_apply($violations, function (\Iterator $iterator) use ($messages) {
-                $messages .= $iterator->current()->getMessage() . "\n";
-                return true;
-            });
-            throw new BadRequestHttpException(trim($messages));
-        }
     }
 }

@@ -23,204 +23,213 @@ declare(strict_types=1);
 
 namespace App\Controller\Wizards;
 
-use App\Entity\Sitepackage;
 use App\Factory\SitepackageFactory;
 use App\Form\Dto\SitepackageDto;
 use App\Form\SitepackageType;
-use App\Service\SitepackageGenerator;
+use App\Session\WizardSessionTrait;
 use App\Utility\StringUtility;
+use App\Utility\VersionUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
+use Twig\Error\RuntimeError;
 use UnexpectedValueException;
 
-/**
- * @Route("/wizards/sitepackage")
-*/
+use function sprintf;
+
+#[Route(path: '/wizards/sitepackage')]
 final class SitepackageController extends AbstractController
 {
-    /**
-     * @Route("/", name="wizards_sitepackage")
-     */
+    use WizardSessionTrait;
+
+    public function __construct(
+        private \App\Service\BasePackageService $basePackageService,
+        private \App\Service\SitepackageGenerator $sitepackageGenerator,
+    ) {
+    }
+
+    #[Route(path: '', name: 'wizards_sitepackage')]
     public function index(): Response
     {
         return $this->render(
-            'default/wizards/sitepackage/index.html.twig',
-            []
+            'wizards/sitepackage/index.html.twig'
         );
     }
 
-    /**
-     * @Route("/new/", name="wizards_sitepackage_new")
-     */
-    public function new(Request $request): Response
+    #[Route(path: '/new', name: 'wizards_sitepackage_new')]
+    #[Route(path: '/new/{vendor}/{project}', name: 'wizards_sitepackage_new_filtered')]
+    public function new(string $vendor = '', string $project = ''): Response
     {
-        $session = $request->getSession();
+        $this->setSitepackageConfig(new SitepackageDto(), false);
 
-        $this->setAdvanced($session, false);
-        $this->setConfiguration($session, new SitepackageDto());
+        $filtered = false;
+        $basePackages = $this->basePackageService->getBasePackages();
 
-        return $this->redirectToRoute('wizards_sitepackage_edit');
+        if ($vendor !== '' && $project !== '') {
+            $basePackageName = sprintf('%s/%s', $vendor, $project);
+
+            try {
+                $basePackage = $this->basePackageService->checkAndInstallMissingBasePackage($basePackageName);
+                $basePackages = [$basePackage];
+                $filtered = true;
+            } catch (Throwable $throwable) {
+                $this->addFlash(
+                    'fatal',
+                    $throwable->getMessage()
+                );
+                return $this->redirectToRoute('wizards_sitepackage_new');
+            }
+        }
+
+        return $this->render(
+            'wizards/sitepackage/new.html.twig',
+            [
+                'basePackages' => $basePackages,
+                'filtered' => $filtered,
+            ]
+        );
     }
 
-    /**
-     * @Route("/edit/", name="wizards_sitepackage_edit")
-     */
-    public function edit(Request $request): Response
+    #[Route(path: '/validate/{vendor}/{project}', name: 'wizards_sitepackage_validate')]
+    public function validate(string $vendor, string $project): RedirectResponse
     {
-        $session = $request->getSession();
-
         try {
-            $configuration = $this->getConfiguration($session);
-        } catch (UnexpectedValueException $th) {
+            $configuration = $this->getSitepackageConfig();
+        } catch (UnexpectedValueException) {
             return $this->redirectToRoute('wizards_sitepackage_new');
         }
 
-        $form = $this->createSitepackageForm($configuration, $this->getAdvanced($session));
+        $configuration->basePackage = sprintf('%s/%s', $vendor, $project);
+
+        try {
+            $basePackage = $this->basePackageService->checkAndInstallMissingBasePackage($configuration->basePackage);
+            $configuration->typo3Version = VersionUtility::versionToInt($basePackage->typo3Versions[0]);
+        } catch (Throwable $throwable) {
+            $this->addFlash(
+                'fatal',
+                $throwable->getMessage()
+            );
+            return $this->redirectToRoute('wizards_sitepackage_new');
+        }
+
+        $this->setSitepackageConfig($configuration, $this->isAdvancedSitepackageConfig());
+
+        return $this->redirectToRoute('wizards_sitepackage_configure');
+    }
+
+    #[Route(path: '/configure', name: 'wizards_sitepackage_configure')]
+    public function configure(Request $request): Response
+    {
+        try {
+            $configuration = $this->getSitepackageConfig();
+        } catch (UnexpectedValueException) {
+            return $this->redirectToRoute('wizards_sitepackage_new');
+        }
+
+        $form = $this->createForm(
+            SitepackageType::class,
+            $configuration,
+            [
+                'action' => $this->generateUrl('wizards_sitepackage_configure'),
+                'advanced' => $this->isAdvancedSitepackageConfig(),
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            if ($form->has('simple') && ($simple = $form->get('simple')) instanceof SubmitButton && $simple->isClicked()) {
-                $this->setAdvanced($session, false);
-                $this->setConfiguration($session, $configuration);
+            if (
+                $form->has('simple') &&
+                ($simple = $form->get('simple')) instanceof SubmitButton && $simple->isClicked()
+            ) {
+                $this->setSitepackageConfig($configuration, false);
 
-                return $this->redirectToRoute('wizards_sitepackage_edit');
+                return $this->redirectToRoute('wizards_sitepackage_configure');
             }
-            if ($form->has('advanced') && ($advanced = $form->get('advanced')) instanceof SubmitButton && $advanced->isClicked()) {
-                $this->setAdvanced($session, true);
-                $this->setConfiguration($session, $configuration);
 
-                return $this->redirectToRoute('wizards_sitepackage_edit');
+            if (
+                $form->has('advanced') &&
+                ($advanced = $form->get('advanced')) instanceof SubmitButton && $advanced->isClicked()
+            ) {
+                $this->setSitepackageConfig($configuration, true);
+
+                return $this->redirectToRoute('wizards_sitepackage_configure');
             }
 
             if ($form->isValid()) {
-                $this->setConfiguration($session, $configuration);
+                $this->setSitepackageConfig($configuration, $this->isAdvancedSitepackageConfig());
 
                 return $this->redirectToRoute('wizards_sitepackage_success');
             }
         }
 
         return $this->render(
-            'default/wizards/sitepackage/edit.html.twig',
+            'wizards/sitepackage/configure.html.twig',
             [
                 'form' => $form->createView(),
             ]
         );
     }
 
-    /**
-     * @Route("/success/", name="wizards_sitepackage_success")
-     */
-    public function success(Request $request): Response
+    #[Route(path: '/success', name: 'wizards_sitepackage_success')]
+    public function success(): Response
     {
-        $session = $request->getSession();
-
         try {
-            $configuration = $this->getConfiguration($session);
-        } catch (UnexpectedValueException $th) {
+            $sitepackage = SitepackageFactory::fromDto($this->getSitepackageConfig());
+        } catch (UnexpectedValueException) {
             return $this->redirectToRoute('wizards_sitepackage_new');
         }
 
-        $sitepackage = SitepackageFactory::fromDto($configuration);
-        $this->setSitepackage($session, $sitepackage);
+        $this->setSitepackage($sitepackage);
 
         return $this->render(
-            'default/wizards/sitepackage/success.html.twig',
+            'wizards/sitepackage/success.html.twig',
             [
-                'sitepackage' => $sitepackage
+                'base_package' => $this->basePackageService->getInstalledBasePackage($sitepackage->getBasePackage()),
+                'sitepackage' => $sitepackage,
             ]
         );
     }
 
-    /**
-     * @Route("/download/", name="wizards_sitepackage_download")
-     */
-    public function download(Request $request, SitepackageGenerator $sitepackageGenerator): Response
+    #[Route(path: '/download', name: 'wizards_sitepackage_download')]
+    public function download(): Response
     {
-        $session = $request->getSession();
-
         try {
-            $sitepackage = $this->getSitepackage($session);
-        } catch (UnexpectedValueException $th) {
+            $sitepackage = $this->getSitepackage();
+        } catch (UnexpectedValueException) {
             return $this->redirectToRoute('wizards_sitepackage_new');
         }
 
-        $sitepackageGenerator->create($sitepackage);
-        $filename = $sitepackageGenerator->getFilename();
+        try {
+            $this->sitepackageGenerator->create($sitepackage);
+        } catch (RuntimeError $runtimeError) {
+            $this->setSitepackageError($runtimeError->getMessage());
+
+            return $this->redirectToRoute('wizards_sitepackage_error');
+        }
 
         BinaryFileResponse::trustXSendfileTypeHeader();
 
         return $this
-            ->file($sitepackageGenerator->getZipPath(), StringUtility::toASCII($filename))
+            ->file(
+                $this->sitepackageGenerator->getZipPath(),
+                StringUtility::toASCII($this->sitepackageGenerator->getFilename())
+            )
             ->deleteFileAfterSend(true);
     }
 
-    private function createSitepackageForm(SitepackageDto $configuration, bool $advanced = false): FormInterface
+    #[Route(path: '/error', name: 'wizards_sitepackage_error')]
+    public function error(): Response
     {
-        return $this->createForm(
-            SitepackageType::class,
-            $configuration,
+        return $this->render(
+            'wizards/sitepackage/error.html.twig',
             [
-                'action' => $this->generateUrl('wizards_sitepackage_edit'),
-                'advanced' => $advanced,
+                'error' => $this->getSitepackageError(),
             ]
         );
-    }
-
-    private function getAdvanced(SessionInterface $session): bool
-    {
-        return $session->get('sitepackage_advanced') === true;
-    }
-
-    private function setAdvanced(SessionInterface $session, bool $advanced): void
-    {
-        $session->set('sitepackage_advanced', $advanced);
-    }
-
-    private function getConfiguration(SessionInterface $session): SitepackageDto
-    {
-        $configuration = $session->get('sitepackage_configuration');
-
-        if ($configuration === null || !($configuration instanceof SitepackageDto)) {
-            $this->addFlash(
-                'danger',
-                'Whoops, we could not find the package configuration. Please submit the configuration again.'
-            );
-
-            throw new UnexpectedValueException('Invalid or missing configuration.', 1638038672);
-        }
-
-        return $configuration;
-    }
-
-    private function setConfiguration(SessionInterface $session, SitepackageDto $configuration): void
-    {
-        $session->set('sitepackage_configuration', $configuration);
-    }
-
-    private function getSitepackage(SessionInterface $session): Sitepackage
-    {
-        $sitepackage = $session->get('sitepackage');
-
-        if ($sitepackage === null || !($sitepackage instanceof Sitepackage)) {
-            $this->addFlash(
-                'danger',
-                'Whoops, we could not find the Sitepackage. Please submit the configuration again.'
-            );
-
-            throw new UnexpectedValueException('Invalid or missing Sitepackage.', 1638038673);
-        }
-
-        return $sitepackage;
-    }
-
-    private function setSitepackage(SessionInterface $session, Sitepackage $sitepackage): void
-    {
-        $session->set('sitepackage', $sitepackage);
     }
 }

@@ -23,27 +23,48 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Enum\BasePackageEnum;
+use App\Service\BasePackageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use function sprintf;
 
 class BasePackageType extends AbstractType
 {
+    public function __construct(
+        private readonly BasePackageService $basePackageService,
+    ) {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $choices = [];
 
-        foreach (BasePackageEnum::getAvailableOptions() as $option) {
-            $choices[BasePackageEnum::getName($option)] = $option;
+        foreach ($this->basePackageService->getInstalledBasePackages() as $basePackage) {
+            $choices[sprintf('%s (%s)', $basePackage->title, $basePackage->packageName)] = $basePackage->packageName;
         }
 
         $resolver->setDefaults([
             'choices' => $choices,
+            'disabled' => true,
+            'notification' => null,
+            'notification_type' => 'danger',
         ]);
+
+        $resolver->setAllowedTypes('notification', ['null', 'string']);
+        $resolver->setAllowedTypes('notification_type', 'string');
     }
 
-    public function getParent()
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $view->vars['notification'] = $options['notification'];
+        $view->vars['notification_type'] = $options['notification_type'];
+    }
+
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

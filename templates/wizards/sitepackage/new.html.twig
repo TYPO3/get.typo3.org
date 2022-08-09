@@ -1,0 +1,80 @@
+{% extends 'wizards/layout.html.twig' %}
+
+{% block title %}Create your own TYPO3 Sitepackage{% endblock %}
+
+{% block body %}
+
+    {% frame with { color: 'dark', center: true, title: 'Create your own Sitepackage', titleSize: 1, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <p class="lead">
+            Awesome you made it here! Just a few more details about your
+            project and your own Sitepackage is ready for download.
+        </p>
+    {% endframe %}
+
+    {% if basePackages|length > 0 %}
+        {% if not filtered %}
+            {% frame with { id: 'base-packages', center: true, title: 'Choose a Base Package to continue with' } %}{% endframe %}
+        {% endif %}
+
+        {% frame %}
+            <div class="card-group-element card-group-element-align-center card-group-element-columns-3">
+                {% for basePackage in basePackages %}
+                    <div class="card-group-element-item">
+                        <div id="base-package-{{ loop.index }}" class="card{% if basePackage.official %} card-inverse{% endif %}">
+                            <div class="card-header">
+                                <h4 class="card-title">{{ basePackage.title }}</h4>
+                            </div>
+                            <img
+                                class="basepackage-image card-img-top"
+                                src="/base-packages/{{ basePackage.assetsDir }}/{{ basePackage.previewImage }}"
+                            >
+                            {% if basePackage.official %}
+                                <img
+                                    class="basepackage-official-badge"
+                                    src="{{ asset("assets/Images/OfficialBadge.svg") }}" alt="{{ basePackage.title }}"
+                                    height="64"
+                                    width="64"
+                                >
+                            {% endif %}
+                            <div class="card-body">
+                                <p class="card-text">{{ basePackage.description }}</p>
+                            </div>
+                            <div class="card-footer d-grid">
+                                <h5>Supported TYPO3 versions</h3>
+                                <ul class="list-inline">
+                                {% for typo3Version in basePackage.typo3Versions %}
+                                    <li class="list-inline-item">{{ typo3Version }}</li>
+                                {% endfor %}
+                                </ul>
+                                {% set btnClass = 'light' %}
+                                {% if basePackage.official %}
+                                    {% set btnClass = 'primary' %}
+                                {% endif %}
+                                <a href="{{ path('wizards_sitepackage_validate', {'vendor': basePackage.vendorName, 'project': basePackage.projectName}) }}" class="btn btn-{{ btnClass }} btn-block" role="button">
+                                    {{ icon('actions-rocket', 'auto') }}
+                                    <span class="btn-text">Create Sitepackage</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endframe %}
+
+        {% if filtered %}
+            {% frame with { center: true } %}
+                <p>
+                    <a href="{{ path('wizards_sitepackage_new') }}" class="btn btn-primary">
+                        {{ icon('actions-rocket', 'auto') }}
+                        <span class="btn-text">Show all Base Packages</span>
+                    </a>
+                </p>
+            {% endframe %}
+        {% endif %}
+    {% else %}
+        <div class="alert alert-danger">
+            <h2 class="h4 alert-heading">No BasePackages found.</h2>
+        </div>
+    {% endif %}
+
+{% endblock %}

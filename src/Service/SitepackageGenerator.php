@@ -23,44 +23,61 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Sitepackage;
-use App\Utility\FileUtility;
+use App\Form\Dto\BasePackageDto;
+use App\Package\Sitepackage;
+use App\Utility\VersionUtility;
+use RuntimeException;
+use Symfony\Component\Finder\Finder;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
+use ZipArchive;
 
-/**
- * SitepackageGenerator
- */
-class SitepackageGenerator
+use function sprintf;
+use function dirname;
+use function rtrim;
+
+final class SitepackageGenerator
 {
-    protected string $zipPath;
-    protected string $filename;
+    /**
+     * @var array<string, BasePackageDto>
+     */
+    private array $basePackages = [];
+
+    private string $zipPath;
+
+    private string $filename;
+
+    public function __construct(
+        private readonly BasePackageService $basePackageService,
+    ) {
+    }
 
     public function create(Sitepackage $package): void
     {
-        $extensionKey = $package->getExtensionKey();
-        $this->filename = $extensionKey . '.zip';
-        $sourceDir = __DIR__ . '/../../resources/skeletons/BaseExtension/' . $package->getBasePackage() . '/';
-        $this->zipPath = is_string($zipPath = tempnam(sys_get_temp_dir(), $this->filename)) ? $zipPath : $this->filename;
-        $fileList = FileUtility::listDirectory($sourceDir);
+        $this->filename = $package->getExtensionKey() . '.zip';
+        $this->zipPath = ($zipPath = tempnam(sys_get_temp_dir(), $this->filename)) !== false
+            ? $zipPath : $this->filename
+        ;
 
-        $zipFile = new \ZipArchive();
-        $opened = $zipFile->open($this->zipPath, \ZipArchive::CREATE);
+        $zipFile = new ZipArchive();
+        $opened = $zipFile->open($this->zipPath, ZipArchive::CREATE);
         if ($opened === true) {
-            foreach ($fileList as $file) {
-                if ($file !== $this->zipPath && file_exists($file)) {
-                    $baseFileName = $this->createRelativeFilePath($file, $sourceDir);
-                    if (is_dir($file)) {
-                        $zipFile->addEmptyDir($baseFileName);
-                    } elseif (!$this->isTwigFile($file)) {
-                        $zipFile->addFile($file, $baseFileName);
-                    } else {
-                        $content = $this->getFileContent($file, $package);
-                        $nameInZip = $this->removeTwigExtension($baseFileName);
-                        $zipFile->addFromString($nameInZip, $content);
-                    }
-                }
-            }
+            $sourceDir = $this->getSourceDir($package);
+            $files = Finder::create()
+                ->ignoreDotFiles(false)
+                ->ignoreVCS(false)
+                ->in($sourceDir)
+            ;
+            $this->addFiles($zipFile, $files, $package, $sourceDir);
+
+            $sourceDir = dirname($sourceDir) . '/shared';
+            $files = Finder::create()
+                ->ignoreDotFiles(false)
+                ->ignoreVCS(false)
+                ->in($sourceDir)
+            ;
+            $this->addFiles($zipFile, $files, $package, $sourceDir);
+
             $zipFile->close();
         }
     }
@@ -75,36 +92,95 @@ class SitepackageGenerator
         return $this->filename;
     }
 
-    private function getFileContent(string $file, Sitepackage $package): string
+    private function getBasePackage(Sitepackage $package): BasePackageDto
+    {
+        if (!($this->basePackages[$package->getBasePackage()] ?? null) instanceof BasePackageDto) {
+            $this->basePackages[$package->getBasePackage()] =
+                $this->basePackageService->getInstalledBasePackage($package->getBasePackage());
+        }
+
+        return $this->basePackages[$package->getBasePackage()];
+    }
+
+    private function getSourceDir(Sitepackage $package): string
+    {
+        $basePackage = $this->getBasePackage($package);
+        $version = $package->getTypo3Version();
+        $versionDir = '';
+
+        foreach ($basePackage->typo3Versions as $v) {
+            if ($version < VersionUtility::versionToInt($v)) {
+                continue;
+            }
+
+            $versionDir = $v;
+            break;
+        }
+
+        if ($versionDir === '') {
+            throw new RuntimeException(
+                sprintf('Template for version "%s" not found.', $version),
+                1_658_939_427
+            );
+        }
+
+        return $basePackage->getInstallPath() . '/templates/skeletons/' . $versionDir;
+    }
+
+    private function getFileContent(string $file, string $baseDir, Sitepackage $package): string
     {
         $content = file_get_contents($file);
-        $fileUniqueId = uniqid('file');
-        $twig = new Environment(new ArrayLoader([$fileUniqueId => $content]));
-        $rendered = $twig->render(
+        $fileUniqueId = uniqid($this->createRelativeFilePath(
+            $file,
+            $baseDir
+        ));
+        $twig = new Environment(new ArrayLoader([$fileUniqueId => $content]), [
+            'strict_variables' => true,
+        ]);
+
+        return $twig->render(
             $fileUniqueId,
             [
                 'package' => $package,
-                'timestamp' => time()
+                'timestamp' => time(),
             ]
         );
-
-        return $rendered;
     }
 
-    private function isTwigFile(string $file): bool
+    private function createRelativeFilePath(string $file, string $sourceDir): string
     {
-        $pathinfo = pathinfo($file);
-
-        return ($pathinfo['extension'] ?? '') === 'twig';
+        return substr($file, strlen(rtrim($sourceDir, '/')) + 1);
     }
 
-    protected function createRelativeFilePath(string $file, string $sourceDir): string
+    private function isTwigFile(string $extension): bool
     {
-        return substr($file, strlen($sourceDir));
+        return $extension === 'twig';
     }
 
-    protected function removeTwigExtension(string $baseFileName): string
+    private function removeTwigExtension(string $baseFileName): string
     {
         return substr($baseFileName, 0, -5);
+    }
+
+    private function addFiles(
+        ZipArchive $zipFile,
+        Finder $files,
+        Sitepackage $package,
+        string $sourceDir
+    ): void {
+        $baseDir = dirname($sourceDir, 5);
+
+        foreach ($files as $file) {
+            $baseFileName = $this->createRelativeFilePath($file->getPathname(), $sourceDir);
+            if ($file->isDir()) {
+                $zipFile->addEmptyDir($baseFileName);
+            } elseif (!$this->isTwigFile($file->getExtension())) {
+                $zipFile->addFile($file->getPathname(), $baseFileName);
+            } else {
+                $content = $this->getFileContent($file->getPathname(), $baseDir, $package);
+                $nameInZip = $this->removeTwigExtension($baseFileName);
+                $zipFile->addFromString($nameInZip, $content);
+            }
+        }
     }
 }

@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+
+{% block headline %}{% endblock %}
+
+{% block footer %}
+
+    {% include 'wizards/partials/privacy-footer.html.twig' %}
+    {{ parent() }}
+
+{% endblock %}

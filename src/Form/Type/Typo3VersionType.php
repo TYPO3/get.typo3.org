@@ -23,23 +23,31 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Enum\Typo3VersionEnum;
+use App\Repository\MajorVersionRepository;
+use App\Utility\VersionUtility;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Typo3VersionType extends AbstractType
 {
-    private const LOWEST_SUPPORTED_VERSION = Typo3VersionEnum::OPTION_8;
+    public function __construct(
+        private readonly MajorVersionRepository $majorVersions,
+    ) {
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $choices = [];
 
-        foreach (Typo3VersionEnum::getAvailableOptions(true) as $option => $name) {
-            if ($option >= self::LOWEST_SUPPORTED_VERSION) {
-                $choices['TYPO3 ' . $name] = $option;
+        foreach ($this->majorVersions->findAllComposerSupported() as $majorVersion) {
+            if ($majorVersion->getLatestRelease() === null) {
+                continue;
             }
+
+            $choices[$majorVersion->getTitle()] = VersionUtility::versionToInt(
+                VersionUtility::normalize($majorVersion->getLatestRelease()->getVersion(), 2)
+            );
         }
 
         $resolver->setDefaults([
@@ -47,7 +55,7 @@ class Typo3VersionType extends AbstractType
         ]);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

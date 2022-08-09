@@ -23,135 +23,85 @@ declare(strict_types=1);
 
 namespace App\Form\Dto;
 
-use App\Entity\Sitepackage;
-use App\Enum\BasePackageEnum;
-use App\Enum\Typo3VersionEnum;
+use App\Package\Sitepackage;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class SitepackageDto
 {
-    /**
-     * @Assert\NotBlank
-     * @Assert\Choice(callback={"App\Enum\Typo3VersionEnum", "getAvailableOptions"})
-     */
-    public int $typo3Version = Typo3VersionEnum::OPTION_11;
+    #[Assert\NotBlank]
+    public string $basePackage = '';
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Choice(callback={"App\Enum\BasePackageEnum", "getAvailableOptions"})
-     */
-    public string $basePackage = BasePackageEnum::OPTION_BOOTSTRAP_PACKAGE;
+    #[Assert\NotBlank]
+    public int $typo3Version = 0;
 
-    /**
-     * @Assert\Length(
-     *     allowEmptyString=true,
-     *     min=3
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[a-z0-9]([_.-]?[a-z0-9]+)*\/[a-z0-9](([_.]?|-{0,2})[a-z0-9]+)*$/",
-     *     message="Only lower case letters, numbers, underscores, dots and hyphens are allowed"
-     * )
-     */
-    public ?string $composerName;
+    #[Assert\NotBlank(message: 'Please enter a title for your Sitepackage.')]
+    #[Assert\Length(min: 3)]
+    #[Assert\Regex(
+        pattern: '/^[A-Za-z0-9\x7f-\xff .:&-]+$/',
+        message: 'Only letters, numbers and spaces are allowed.'
+    )]
+    public ?string $title = null;
 
-    /**
-     * @Assert\Length(
-     *     allowEmptyString=true,
-     *     min=3
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[A-Z][A-Za-z0-9]+\[A-Z][A-Za-z0-9]+$/",
-     *     message="Only letters and numbers are allowed"
-     * )
-     */
-    public ?string $psr4Namespace;
+    #[Assert\Regex(
+        pattern: '/^[A-Za-z0-9\x7f-\xff .,:!?&-]+$/',
+        message: 'Only letters, numbers and spaces are allowed.'
+    )]
+    public ?string $description = null;
 
-    /**
-     * @Assert\NotBlank(
-     *     message="Please enter a title for your Sitepackage"
-     * )
-     * @Assert\Length(
-     *     min=3
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[A-Za-z0-9\x7f-\xff .:&-]+$/",
-     *     message="Only letters, numbers and spaces are allowed"
-     * )
-     */
-    public ?string $title;
+    #[Assert\Url]
+    public ?string $repositoryUrl = null;
 
-    /**
-     * @Assert\Regex(
-     *     pattern="/^[A-Za-z0-9\x7f-\xff .,:!?&-]+$/",
-     *     message="Only letters, numbers and spaces are allowed"
-     * )
-     */
-    public ?string $description;
+    #[Assert\Length(min: 3)]
+    #[Assert\Regex(
+        pattern: '/^[a-z][a-z0-9_]+$/',
+        message: 'Only lower case letters, numbers and underscores are allowed.'
+    )]
+    public ?string $extensionKey = null;
 
-    /**
-     * @Assert\Url
-     */
-    public ?string $repositoryUrl;
+    #[Assert\Regex(
+        pattern: '/^[a-z0-9]([_.-]?[a-z0-9]+)*\/[a-z0-9](([_.]?|-{0,2})[a-z0-9]+)*$/',
+        message: 'The name must be lowercased and consist of words separated by `-`, `.` or `_`.'
+    )]
+    public ?string $composerName = null;
 
-    /**
-     * @Assert\Length(
-     *     allowEmptyString=true,
-     *     min=3
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[a-z][a-z0-9_]+$/",
-     *     message="Only lower case letters, numbers and undscores are allowed"
-     * )
-     */
-    public ?string $extensionKey;
+    #[Assert\Regex(
+        pattern: '/^[A-Z][A-Za-z0-9]+\\\[A-Z][A-Za-z0-9]+$/',
+        message: 'Only letters and numbers are allowed.'
+    )]
+    public ?string $psr4Namespace = null;
 
-    /**
-     * @Assert\NotBlank(message="Please enter the authors' name.")
-     * @Assert\Length(
-     *     min=3
-     * )
-     */
-    public ?string $name;
+    #[Assert\NotBlank(message: "Please enter the authors' name.")]
+    #[Assert\Length(min: 3)]
+    public ?string $name = null;
 
-    /**
-     * @Assert\NotBlank(message="Please enter the authors' email address.")
-     * @Assert\Email(
-     *     message="The email '{{ value }}' is not a valid email.",
-     * )
-     */
-    public ?string $email;
+    #[Assert\NotBlank(message: "Please enter the authors' email address.")]
+    #[Assert\Email(message: "The email '{{ value }}' is not a valid email.")]
+    public ?string $email = null;
 
-    /**
-     * @Assert\NotBlank(message="Please enter the authors' company.")
-     * @Assert\Length(
-     *     min=3
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[A-Za-z0-9\x7f-\xff .:&-]+$/",
-     *     message="Only letters, numbers and spaces are allowed"
-     * )
-     */
-    public ?string $company;
+    #[Assert\NotBlank(message: "Please enter the authors' company.")]
+    #[Assert\Length(min: 3)]
+    #[Assert\Regex(
+        pattern: '/^[A-Za-z0-9\x7f-\xff .:&-]+$/',
+        message: 'Only letters, numbers and spaces are allowed.'
+    )]
+    public ?string $company = null;
 
-    /**
-     * @Assert\NotBlank(message="Please enter the authors' homepage URL.")
-     * @Assert\Url
-     */
-    public ?string $homepage;
+    #[Assert\NotBlank(message: "Please enter the authors' homepage URL.")]
+    #[Assert\Url]
+    public ?string $homepage = null;
 
-    public static function fromEntity(Sitepackage $entity): self
-    {
+    public static function fromEntity(
+        Sitepackage $entity
+    ): self {
         $dto = new self();
-        $dto->typo3Version = $entity->getTypo3Version();
         $dto->basePackage = $entity->getBasePackage();
-        $dto->vendorName = $entity->getVendorName();
-        $dto->composerVendorName = $entity->getComposerVendorName();
+        $dto->typo3Version = $entity->getTypo3Version();
         $dto->title = $entity->getTitle();
         $dto->description = $entity->getDescription();
-        $dto->packageName = $entity->getPackageName();
-        $dto->composerProjectName = $entity->getComposerProjectName();
         $dto->extensionKey = $entity->getExtensionKey();
         $dto->repositoryUrl = $entity->getRepositoryUrl();
+        $dto->composerName = $entity->getComposerName();
+        $dto->psr4Namespace = $entity->getPsr4Namespace();
         $dto->name = $entity->getAuthor()->getName();
         $dto->email = $entity->getAuthor()->getEmail();
         $dto->company = $entity->getAuthor()->getCompany();

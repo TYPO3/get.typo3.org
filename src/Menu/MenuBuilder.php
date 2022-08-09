@@ -28,9 +28,6 @@ use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
 
 class MenuBuilder extends TemplateMenuBuider
 {
-    /**
-     * @inheritDoc
-     */
     public function mainDefault(array $options): ItemInterface
     {
         $menu = parent::mainDefault($options);
@@ -52,14 +49,14 @@ class MenuBuilder extends TemplateMenuBuider
             'wizards',
             [
                 'route' => 'wizards_sitepackage',
-                'label' => 'Wizards'
+                'label' => 'Wizards',
             ]
         );
         $wizards->addChild(
             'wizards-sitepackage',
             [
                 'route' => 'wizards_sitepackage',
-                'label' => 'Sitepackage Builder'
+                'label' => 'Sitepackage Builder',
             ]
         );
         $composer = $menu->addChild(
@@ -93,9 +90,6 @@ class MenuBuilder extends TemplateMenuBuider
         return $menu;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function mainProfile(array $options): ItemInterface
     {
         $menu = parent::mainProfile($options);

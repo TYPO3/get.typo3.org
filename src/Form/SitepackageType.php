@@ -26,6 +26,9 @@ namespace App\Form;
 use App\Form\Dto\SitepackageDto;
 use App\Form\Type\BasePackageType;
 use App\Form\Type\Typo3VersionType;
+use App\Service\BasePackageService;
+use App\Utility\VersionUtility;
+use RuntimeException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -34,44 +37,68 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * SitepackageType
- */
 class SitepackageType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
+    public function __construct(
+        private readonly BasePackageService $basePackageService,
+    ) {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $advanced = (bool)($options['advanced'] ?? false);
 
+        if (!($configuration = $options['data']) instanceof SitepackageDto) {
+            throw new RuntimeException('Wrong data class given.', 1_658_867_793);
+        }
+
+        $basePackage = $this->basePackageService->getInstalledBasePackage($configuration->basePackage);
+
+        if (!$basePackage->official) {
+            $notification = 'This is a third party base package, not provided by TYPO3. Please contact the author in case of problems, we do not provide support.';
+            $notificationType = 'info';
+        } else {
+            $notification = null;
+            $notificationType = '';
+        }
+
         $builder
-            //->setAction(is_string($action = $options['action']) ? $action : '')
-            ->add('typo3Version', Typo3VersionType::class, [
-                'label' => 'TYPO3 Version',
-                'label_attr' => ['class' => 'w-auto pe-2'],
-                'expanded' => true,
-                'row_attr' => ['class' => 'd-inline-flex flex-column w-50'],
-            ])
             ->add('basePackage', BasePackageType::class, [
                 'label' => 'Base Package',
-                'label_attr' => ['class' => 'w-auto me-2'],
+                'notification' => $notification,
+                'notification_type' => $notificationType,
+            ])
+            ->add('typo3Version', Typo3VersionType::class, [
+                'label' => 'TYPO3 Version',
+                'choice_filter' => static function (int $version) use ($basePackage): bool {
+                    foreach ($basePackage->typo3Versions as $typo3Version) {
+                        if ($version < VersionUtility::versionToInt($typo3Version)) {
+                            continue;
+                        }
+
+                        if ($version % 1_000_000 !== VersionUtility::versionToInt($typo3Version) % 1_000_000) {
+                            continue;
+                        }
+
+                        return true;
+                    }
+
+                    return false;
+                },
                 'expanded' => true,
-                'row_attr' => ['class' => 'd-inline-flex flex-column w-50'],
             ])
             ->add('title', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'My Sitepackage',
-                ]
+                ],
             ])
             ->add('description', TextareaType::class, [
                 'required' => false,
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'Optional description for the use of this sitepackage',
-                ]
+                ],
             ])
             ->add('repositoryUrl', TextType::class, [
                 'label' => 'Repository URL',
@@ -79,7 +106,7 @@ class SitepackageType extends AbstractType
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'https://github.com/username/my_sitepackage',
-                ]
+                ],
             ])
         ;
 
@@ -142,7 +169,7 @@ class SitepackageType extends AbstractType
                 SubmitType::class,
                 [
                     'label' => 'Create Sitepackage',
-                    //'icon' => 'floppy-disk',
+                    'icon' => 'actions-save',
                     'attr' => ['class' => 'btn-primary'],
                     'row_attr' => ['class' => 'd-inline-flex'],
                 ]
@@ -155,7 +182,7 @@ class SitepackageType extends AbstractType
                 SubmitType::class,
                 [
                     'label' => 'Simple Configuration',
-                    //'icon' => 'pencil',
+                    'icon' => 'actions-toggle-off',
                     'attr' => ['class' => 'btn-secondary'],
                     'row_attr' => ['class' => 'd-inline-flex ms-1'],
                     'validate' => false,
@@ -167,7 +194,7 @@ class SitepackageType extends AbstractType
                 SubmitType::class,
                 [
                     'label' => 'Advanced Configuration',
-                    //'icon' => 'pencil',
+                    'icon' => 'actions-toggle-on',
                     'attr' => ['class' => 'btn-secondary'],
                     'row_attr' => ['class' => 'd-inline-flex ms-1'],
                     'validate' => false,
@@ -176,9 +203,6 @@ class SitepackageType extends AbstractType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

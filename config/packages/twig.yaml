@@ -5,3 +5,5 @@ twig:
         packagist:
             search: https://packagist.org/explore/?type=typo3-cms-extension
             submit: https://packagist.org/packages/submit
+    form_themes:
+        - 'form/custom_theme.html.twig'

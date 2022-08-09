@@ -33,7 +33,7 @@ final class Version20220818095608 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add ID to Requirements';
     }
 
     public function up(Schema $schema): void

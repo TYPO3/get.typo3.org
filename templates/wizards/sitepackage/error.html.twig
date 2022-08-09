@@ -1,0 +1,23 @@
+{% extends 'wizards/layout.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+
+    {% frame with { color: 'dark', center: true, title: 'Error', titleSize: 1, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <p class="lead">
+            Your sitepackage was not created, please check the error below.
+        </p>
+    {% endframe %}
+
+    {% frame with { id: 'error', indent: true, title: 'Error information' } %}
+        <p>{{ error }}</p>
+        <p>
+            <a href="{{ path('wizards_sitepackage_success') }}" class="btn btn-secondary">
+                {{ icon('actions-arrow-left-alt', 'auto') }}
+                <span class="btn-text">Back</span>
+            </a>
+        </p>
+    {% endframe %}
+
+{% endblock %}

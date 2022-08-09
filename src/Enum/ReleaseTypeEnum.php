@@ -40,9 +40,6 @@ final class ReleaseTypeEnum extends AbstractEnum
      */
     public const OPTION_SECURITY = 'security';
 
-    /**
-     * @inheritDoc
-     */
     protected static array $optionNames = [
         self::OPTION_REGULAR => 'Regular',
         self::OPTION_DEVELOPMENT => 'Development',

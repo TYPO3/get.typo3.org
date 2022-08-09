@@ -36,7 +36,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use DateTime;
 use DateTimeImmutable;
@@ -47,6 +46,8 @@ use function is_string;
 
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
+    use ValidationTrait;
+
     public function __construct(
         private \Symfony\Contracts\Cache\TagAwareCacheInterface $cache,
         private \App\Service\CacheService $cacheService,
@@ -104,26 +105,6 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         }
 
         return $majorVersion;
-    }
-
-    protected function validateObject(object $object): void
-    {
-        $violations = $this->validator->validate($object);
-
-        if ($violations->count() > 0) {
-            $messages = '';
-
-            iterator_apply(
-                $violations,
-                static function (ConstraintViolationInterface $violation) use (&$messages): bool {
-                    $messages .= \sprintf("%s: %s\n", $violation->getPropertyPath(), $violation->getMessage());
-                    return true;
-                },
-                iterator_to_array($violations)
-            );
-
-            throw new BadRequestHttpException(trim($messages));
-        }
     }
 
     /**
