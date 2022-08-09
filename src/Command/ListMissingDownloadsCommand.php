@@ -135,7 +135,7 @@ class ListMissingDownloadsCommand extends Command
                 $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
 
                 if (!$this->checkUrl($result)) {
-                    $result = 'failed (' . $result . ')';
+                    return 'failed (' . $result . ')';
                 }
 
                 return $result;

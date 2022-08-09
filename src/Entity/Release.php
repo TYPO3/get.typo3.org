@@ -99,11 +99,6 @@ class Release implements \JsonSerializable
     #[Serializer\Groups(['content', 'putcontent'])]
     private ReleaseNotes $releaseNotes;
 
-    public function __construct()
-    {
-        $this->elts = false;
-    }
-
     public function setVersion(string $version): void
     {
         $this->version = $version;

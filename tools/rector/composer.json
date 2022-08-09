@@ -1,5 +1,5 @@
 {
     "require": {
-		"rector/rector": "*"
+		"rector/rector": "^0.13.10"
 	}
 }
