@@ -1,4 +1,4 @@
-name: Continuous Integration (CI)
+name: Continuous Integration / Deployment (CI/CD)
 
 on:
   push:
@@ -241,7 +241,7 @@ jobs:
   php_coding_standards:
     name: PHP Coding Standards
     needs:
-      - php_rector
+      - php_lint
     runs-on: ubuntu-latest
 
     steps:
@@ -281,7 +281,7 @@ jobs:
   php_sniff:
     name: PHP Code Sniffer
     needs:
-      - php_rector
+      - php_lint
     runs-on: ubuntu-latest
 
     steps:
@@ -321,7 +321,7 @@ jobs:
   php_copypaste_detector:
     name: PHP Copy/Paste Detector
     needs:
-      - php_rector
+      - php_lint
     runs-on: ubuntu-latest
 
     steps:
@@ -361,10 +361,7 @@ jobs:
   php_stan:
     name: PHP Stan
     needs:
-      - validation
-      - php_coding_standards
-      - php_sniff
-      - php_copypaste_detector
+      - php_lint
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
 
@@ -375,14 +372,11 @@ jobs:
         dependencies: ['lock']
         experimental: [false]
         include:
-          - php-version: 'latest'
-            dependencies: 'lock'
+          - php-version: '8.1'
+            dependencies: 'highest'
             experimental: true
           - php-version: 'latest'
             dependencies: 'highest'
-            experimental: true
-          - php-version: 'nightly'
-            dependencies: 'lock'
             experimental: true
           - php-version: 'nightly'
             dependencies: 'highest'
@@ -420,12 +414,8 @@ jobs:
       - name: Setup authentication for Composer
         run: composer config github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Handle lowest dependencies update
-        if: contains(matrix.dependencies, 'lowest')
-        run: echo "COMPOSER_UPDATE_FLAGS=$COMPOSER_UPDATE_FLAGS --prefer-lowest" >> $GITHUB_ENV
-
       - name: Allow alpha releases for latest-deps builds to catch problems earlier
-        if: contains(matrix.dependencies, 'highest')
+        if: ${{ matrix.dependencies == 'highest' }}
         run: composer config minimum-stability alpha
 
       - name: Set platform.php for nightly
@@ -450,7 +440,7 @@ jobs:
   tests:
     name: Tests
     needs:
-      - php_stan
+      - php_lint
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
 
@@ -465,13 +455,7 @@ jobs:
             dependencies: 'highest'
             experimental: true
           - php-version: 'latest'
-            dependencies: 'lock'
-            experimental: true
-          - php-version: 'latest'
             dependencies: 'highest'
-            experimental: true
-          - php-version: 'nightly'
-            dependencies: 'lock'
             experimental: true
           - php-version: 'nightly'
             dependencies: 'highest'
@@ -557,7 +541,6 @@ jobs:
           path: var/log
           retention-days: 7
 
-
   coveralls-finish:
     name: Finish Coveralls
     needs:
@@ -574,6 +557,14 @@ jobs:
   deployment:
     name: Deployment
     needs:
+      - json_lint
+      - yaml_lint
+      - validation
+      - php_coding_standards
+      - php_sniff
+      - php_copypaste_detector
+      - php_stan
+      - php_rector
       - coveralls-finish
     if: ${{ github.event_name == 'push' }}
     uses: ./.github/workflows/deployment.yml
