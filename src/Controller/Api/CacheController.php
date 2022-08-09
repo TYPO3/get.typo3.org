@@ -109,7 +109,7 @@ class CacheController extends AbstractController
                 ['version' => $version]
             ),
         ];
-        $this->deleteRelease($version);
+        $this->deleteRelease((string)$majorVersion->getVersion());
         return (new JsonResponse(['locations' => array_merge($purgeUrls, $releaseUrls)]))
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
@@ -158,7 +158,7 @@ class CacheController extends AbstractController
     {
         $this->getCache()->invalidateTags([
             'release-' . $version,
-            'release'
+            'release',
         ]);
     }
 
