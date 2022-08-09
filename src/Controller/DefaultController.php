@@ -65,7 +65,7 @@ class DefaultController extends AbstractController
             'default/root.html.twig',
             [
                 'communityVersions' => $communityVersions,
-                'eltsVersions' => $eltsVersions
+                'eltsVersions' => $eltsVersions,
             ]
         );
         $response->setEtag(md5(serialize($communityVersions) . serialize($eltsVersions)));
@@ -196,7 +196,7 @@ class DefaultController extends AbstractController
             $templateName,
             [
                 'form'    => $form->createView(),
-                'bundles' => $this->composerPackagesService->getBundles()
+                'bundles' => $this->composerPackagesService->getBundles(),
             ]
         );
     }
@@ -243,7 +243,7 @@ class DefaultController extends AbstractController
 
         $json = json_encode([
             'status' => $statusCode,
-            'message' => $statusMessage
+            'message' => $statusMessage,
         ]);
 
         if (str_contains($acceptHeader, 'application/json') && $json !== false) {

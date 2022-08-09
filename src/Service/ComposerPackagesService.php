@@ -55,7 +55,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-adminpanel',
@@ -65,7 +65,7 @@ final class ComposerPackagesService
                 11,
                 10,
                 9,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-backend',
@@ -76,7 +76,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-belog',
@@ -87,7 +87,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-beuser',
@@ -98,14 +98,14 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-context-help',
             'description' => 'Provides context sensitive help to tables, fields and modules in the system languages.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-core',
@@ -116,21 +116,21 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-cshmanual',
             'description' => 'Shows TYPO3 inline user manual.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-css-styled-content',
             'description' => 'Contains configuration for CSS content-rendering of the table "tt_content". This is meant as a modern substitute for the classic "content (default)" template which was based more on <font>-tags, while this is pure CSS.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-dashboard',
@@ -139,14 +139,14 @@ final class ComposerPackagesService
                 12,
                 11,
                 10,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-documentation',
             'description' => 'Backend module for TYPO3 to list and show documentation of loaded extensions as well as custom documents.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-extbase',
@@ -157,7 +157,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-extensionmanager',
@@ -168,7 +168,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-feedit',
@@ -176,7 +176,7 @@ final class ComposerPackagesService
             'versions' => [
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-felogin',
@@ -187,7 +187,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-filelist',
@@ -198,7 +198,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-filemetadata',
@@ -209,7 +209,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-fluid',
@@ -220,7 +220,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-fluid-styled-content',
@@ -231,7 +231,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-form',
@@ -242,7 +242,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-frontend',
@@ -253,14 +253,14 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-func',
             'description' => 'Advanced functions.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-impexp',
@@ -271,7 +271,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-indexed-search',
@@ -282,7 +282,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-info',
@@ -293,14 +293,14 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-info-pagetsconfig',
             'description' => 'Displays the compiled Page TSconfig values relative to a page.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-install',
@@ -311,14 +311,14 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-lang',
             'description' => 'Contains all the core language labels in a set of files mostly of the "locallang" format. This extension is always required in a TYPO3 install.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-linkvalidator',
@@ -329,7 +329,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-lowlevel',
@@ -340,7 +340,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-opendocs',
@@ -351,7 +351,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-recordlist',
@@ -362,7 +362,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-recycler',
@@ -373,7 +373,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-redirects',
@@ -383,7 +383,7 @@ final class ComposerPackagesService
                 11,
                 10,
                 9,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-reports',
@@ -394,7 +394,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-rsaauth',
@@ -402,7 +402,7 @@ final class ComposerPackagesService
             'versions' => [
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-rte-ckeditor',
@@ -413,14 +413,14 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-saltedpasswords',
             'description' => 'Uses a password hashing framework for storing passwords. Integrates into the system extension "felogin". Use SSL or rsaauth to secure datatransfer! Please read the manual first!',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-scheduler',
@@ -431,7 +431,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-seo',
@@ -441,7 +441,7 @@ final class ComposerPackagesService
                 11,
                 10,
                 9,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-setup',
@@ -452,14 +452,14 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-sv',
             'description' => 'The core/default services. This includes the default authentication services for now.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-sys-action',
@@ -467,7 +467,7 @@ final class ComposerPackagesService
             'versions' => [
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-sys-note',
@@ -478,7 +478,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-t3editor',
@@ -489,7 +489,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-taskcenter',
@@ -497,7 +497,7 @@ final class ComposerPackagesService
             'versions' => [
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-tstemplate',
@@ -508,14 +508,14 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-version',
             'description' => 'Backend Interface for management of the versioning API.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-viewpage',
@@ -526,21 +526,21 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-wizard-crpages',
             'description' => 'A little utility to create many empty pages in one batch. Great for making a quick page structure.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-wizard-sortpages',
             'description' => 'A little utility to rearrange the sorting order of pages in the backend.',
             'versions' => [
                 8,
-            ]
+            ],
         ],
         [
             'name'        => 'typo3/cms-workspaces',
@@ -551,7 +551,7 @@ final class ComposerPackagesService
                 10,
                 9,
                 8,
-            ]
+            ],
         ],
     ];
 
@@ -654,7 +654,7 @@ final class ComposerPackagesService
             'typo3/cms-setup',
             'typo3/cms-tstemplate',
             'typo3/cms-viewpage',
-        ]
+        ],
     ];
 
     /**

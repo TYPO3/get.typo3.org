@@ -78,15 +78,15 @@ class Package implements \JsonSerializable
     public function jsonSerialize(): array
     {
         $data = [];
-        if (null !== $this->sha1sum) {
+        if ($this->sha1sum !== null) {
             $data['sha1'] = $this->sha1sum;
         }
 
-        if (null !== $this->md5sum) {
+        if ($this->md5sum !== null) {
             $data['md5'] = $this->md5sum;
         }
 
-        if (null !== $this->sha256sum) {
+        if ($this->sha256sum !== null) {
             $data['sha256'] = $this->sha256sum;
         }
 

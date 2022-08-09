@@ -148,7 +148,7 @@ class RequirementsController extends AbstractController
                     'category' => $requirement->getCategory(),
                 ]
             );
-            if (null !== $preexistingRequirement) {
+            if ($preexistingRequirement !== null) {
                 throw new ConflictHttpException('Requirement already exists.');
             }
 
@@ -158,7 +158,7 @@ class RequirementsController extends AbstractController
             $em->flush();
             $location = $this->generateUrl('majorVersion_show', ['version' => $version]);
             $header = [
-                'Location' => $location
+                'Location' => $location,
             ];
             return new JsonResponse(['status' => 'success', 'Location' => $location], Response::HTTP_CREATED, $header);
         }
