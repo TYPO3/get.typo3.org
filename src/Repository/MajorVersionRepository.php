@@ -166,7 +166,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
         uksort(
             $data,
-            fn (string $a, string $b): int => version_compare($a, $b)
+            static fn (string $a, string $b): int => version_compare($a, $b)
         );
         return array_reverse($data);
     }
@@ -184,7 +184,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
         uksort(
             $data,
-            fn (string $a, string $b): int => version_compare($a, $b)
+            static fn (string $a, string $b): int => version_compare($a, $b)
         );
         return array_reverse($data);
     }
@@ -332,7 +332,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
         usort(
             $releases,
-            fn (Release $a, Release $b): int => version_compare($b->getVersion(), $a->getVersion())
+            static fn (Release $a, Release $b): int => version_compare($b->getVersion(), $a->getVersion())
         );
 
         return $releases;

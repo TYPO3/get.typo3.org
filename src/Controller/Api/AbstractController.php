@@ -99,7 +99,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
 
         if ($violations->count() > 0) {
             $messages = '';
-            \iterator_apply($violations, function (\Iterator $iterator) use ($messages): bool {
+            \iterator_apply($violations, static function (\Iterator $iterator) use ($messages): bool {
                 if ($iterator->current() instanceof ConstraintViolationInterface) {
                     $messages .= $iterator->current()->getMessage() . "\n";
                 }
