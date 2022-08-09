@@ -151,7 +151,7 @@ class ReleaseController extends AbstractController
             $em->flush();
             $location = $this->generateUrl('release_show', ['version' => $version]);
             $header = [
-                'Location' => $location
+                'Location' => $location,
             ];
             return new JsonResponse(['status' => 'success', 'Location' => $location], Response::HTTP_CREATED, $header);
         }

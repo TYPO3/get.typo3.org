@@ -258,7 +258,7 @@ class MajorVersion implements \JsonSerializable
     public function isActive(): bool
     {
         $dateTime = new \DateTimeImmutable();
-        return null === $this->getMaintainedUntil()
+        return $this->getMaintainedUntil() === null
             || $dateTime <= $this->getMaintainedUntil();
     }
 
@@ -303,7 +303,7 @@ class MajorVersion implements \JsonSerializable
             'lts' => $this->getLts(),
             'latestRelease' => $this->getLatestRelease(),
             'active' => $this->isActive(),
-            'elts' => $this->isElts()
+            'elts' => $this->isElts(),
         ];
     }
 

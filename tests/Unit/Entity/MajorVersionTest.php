@@ -108,7 +108,7 @@ class MajorVersionTest extends TestCase
                 null,
                 true,
                 false
-            )
+            ),
         ];
         yield 'LTS' => [
             new MajorVersion(
@@ -131,7 +131,7 @@ class MajorVersionTest extends TestCase
                 $dateTimeToday->modify('+6 years')->modify('-1 day'),
                 true,
                 false
-            )
+            ),
         ];
         yield 'ELTS' => [
             new MajorVersion(
@@ -154,7 +154,7 @@ class MajorVersionTest extends TestCase
                 $dateTimeToday->modify('-1 day')->modify('+3 years'),
                 false,
                 true
-            )
+            ),
         ];
         yield 'ELTS-SET' => [
             new MajorVersion(
@@ -177,7 +177,7 @@ class MajorVersionTest extends TestCase
                 $dateTimeToday->modify('-1 day')->modify('+4 years'),
                 false,
                 true
-            )
+            ),
         ];
         yield 'OUTDATED' => [
             new MajorVersion(
@@ -200,7 +200,7 @@ class MajorVersionTest extends TestCase
                 $dateTimeToday->modify('-3 years')->modify('-1 day')->modify('+3 years'),
                 false,
                 false
-            )
+            ),
         ];
     }
 }
