@@ -4,9 +4,9 @@
 /.vscode/
 /public/p/
 /public/p2/
+/public/satis/
 /public/aliases.json
 /public/packages.json
-/public/satis.html
 /tools/**/vendor
 /.php-cs-fixer.php
 /.php-cs-fixer.cache

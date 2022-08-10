@@ -18,7 +18,6 @@ hooks:
   - exec: cp .env.ddev .env.local
   - exec: /mnt/ddev_config/scripts/setup-db
   - composer: install
-  - composer: install -d satis
 omit_containers: [db, dba]
 use_dns_when_possible: true
 timezone: Europe/Zurich
@@ -91,7 +90,7 @@ web_environment: []
 # Please take care with this because it can cause great confusion.
 
 # upload_dir: custom/upload/dir
-# would set the destination path for ddev import-files to <docroot>/custom/upload/dir 
+# would set the destination path for ddev import-files to <docroot>/custom/upload/dir
 
 # working_dir:
 #   web: /var/www/html

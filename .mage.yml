@@ -3,12 +3,12 @@ magephp:
     composer:
         path: composer
     exclude:
-        - ./.*
+        - ./.[!.e]*
         - ./public/p
         - ./public/p2
+        - ./public/satis
         - ./public/aliases.json
         - ./public/packages.json
-        - ./public/satis.html
         - ./stubs
         - ./tests
         - ./tools
@@ -29,25 +29,26 @@ magephp:
             pre-deploy:
                 - exec: { cmd: "echo \"APP_ENV=prod\" >> .env.local", desc: "Create .env.local" }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
-                - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
             on-deploy:
                 - exec: { cmd: 'mkdir -p var', desc: 'Create var folder' }
+                - exec: { cmd: 'mkdir -p var/satis', desc: 'Create var/satis folder' }
+                - exec: { cmd: 'test -d ~/site/shared/public/satis || mkdir -p ~/site/shared/public/satis', desc: 'Create shared/public/satis folder' }
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
-                - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
-                - fs/link: { from: "../../../../shared/public/p2", to: "public/p2" }
-                - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
-                - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
+                - fs/link: { from: "../../../../shared/public/satis", to: "public/satis" }
+                - fs/link: { from: "satis/p", to: "public/p" }
+                - fs/link: { from: "satis/p2", to: "public/p2" }
+                - fs/link: { from: "satis/aliases.json", to: "public/aliases.json" }
+                - fs/link: { from: "satis/packages.json", to: "public/packages.json" }
                 - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-            on-release:
+                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
+                - exec: { cmd: "crontab cnf/crontab-dev.cron", desc: "Install crontab" }
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+            on-release:
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
             post-release:
-                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
-                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
-                - exec: { cmd: "crontab cnf/crontab-dev", desc: "Install crontab" }
             post-deploy:
         production:
             user: get
@@ -59,25 +60,26 @@ magephp:
             pre-deploy:
                 - exec: { cmd: "echo \"APP_ENV=prod\" >> .env.local", desc: "Create .env.local" }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
-                - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
             on-deploy:
                 - exec: { cmd: 'mkdir -p var', desc: 'Create var folder' }
+                - exec: { cmd: 'mkdir -p var/satis', desc: 'Create var/satis folder' }
+                - exec: { cmd: 'test -d ~/site/shared/public/satis || mkdir -p ~/site/shared/public/satis', desc: 'Create shared/public/satis folder' }
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
-                - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
-                - fs/link: { from: "../../../../shared/public/p2", to: "public/p2" }
-                - fs/link: { from: "../../../../shared/public/packages.json", to: "public/packages.json" }
-                - fs/link: { from: "../../../../shared/public/satis.html", to: "public/satis.html" }
+                - fs/link: { from: "../../../../shared/public/satis", to: "public/satis" }
+                - fs/link: { from: "satis/p", to: "public/p" }
+                - fs/link: { from: "satis/p2", to: "public/p2" }
+                - fs/link: { from: "satis/aliases.json", to: "public/aliases.json" }
+                - fs/link: { from: "satis/packages.json", to: "public/packages.json" }
                 - exec: { cmd: "sqlite3 ~/site/mage/current/var/gettr.db '.backup var/gettr.db'", desc: "Copy DB" }
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
-            on-release:
+                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
+                - exec: { cmd: "crontab cnf/crontab.cron", desc: "Install crontab" }
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
+            on-release:
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
             post-release:
-                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
-                - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
-                - exec: { cmd: "crontab cnf/crontab", desc: "Install crontab" }
             post-deploy:
         stage:
             user: get-stage
@@ -89,7 +91,6 @@ magephp:
             pre-deploy:
                 - exec: { cmd: "echo \"APP_ENV=prod\" >> .env.local", desc: "Create .env.local" }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
-                - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
             on-deploy:
                 - exec: { cmd: 'test -d ~/site/shared || mkdir -p ~/site/shared', desc: 'Create shared folder' }
                 - exec: { cmd: 'test -d ~/site/shared/public || mkdir -p ~/site/shared/public', desc: 'Create shared/public folder' }
@@ -112,5 +113,5 @@ magephp:
                 - symfony/cache-clear: { env: "prod" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
                 - symfony/cache-warmup: { env: "prod" }
-                - exec: { cmd: "crontab cnf/crontab-stage", desc: "Install crontab" }
+                - exec: { cmd: "crontab cnf/crontab-stage.cron", desc: "Install crontab" }
             post-deploy:

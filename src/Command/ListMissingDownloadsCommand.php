@@ -32,6 +32,9 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Yaml\Yaml;
 use Exception;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ListMissingDownloadsCommand extends Command
 {
     /**
