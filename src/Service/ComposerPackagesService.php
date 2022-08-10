@@ -31,6 +31,10 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
+use RuntimeException;
+
+use function is_null;
+use function preg_match;
 
 final class ComposerPackagesService
 {
@@ -45,7 +49,7 @@ final class ComposerPackagesService
     public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
 
     /**
-     * @var array<int, array<string, string|array<int>>>
+     * @var array<int, array<string, array<int>|string>>
      */
     private const PACKAGES = [
         [
@@ -679,12 +683,12 @@ final class ComposerPackagesService
     {
         $majorVersion = $this->majorVersions->findLatestLtsComposerSupported();
         if (!$majorVersion instanceof MajorVersion) {
-            throw new \RuntimeException('No LTS release with Composer support found.', 1_624_353_394);
+            throw new RuntimeException('No LTS release with Composer support found.', 1_624_353_394);
         }
 
         $release = $majorVersion->getLatestRelease();
         if (!$release instanceof Release) {
-            throw new \RuntimeException('No release found.', 1_624_353_494);
+            throw new RuntimeException('No release found.', 1_624_353_494);
         }
 
         $versionChoices = [
@@ -709,7 +713,7 @@ final class ComposerPackagesService
 
         foreach ($versions as $version) {
             if (
-                $version->getLatestRelease() instanceof Release && \preg_match(
+                $version->getLatestRelease() instanceof Release && preg_match(
                     '#^(\d+)\.(\d+)\.(\d+)#',
                     $version->getLatestRelease()->getVersion(),
                     $matches
@@ -718,7 +722,7 @@ final class ComposerPackagesService
                 $nextMinor = $matches[1] . '.' . (((int)$matches[2]) + 1);
                 $nextPatch = $matches[1] . '.' . $matches[2] . '.' . (((int)$matches[3]) + 1);
 
-                if (\is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
+                if (is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
                     $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP]
                         [$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
                         $this->getComposerVersionConstraint($nextMinor, true);
@@ -777,24 +781,25 @@ final class ComposerPackagesService
 
     /**
      * @param array<int|string, mixed> $packages
+     *
      * @return mixed[]
      */
     public function cleanPackagesForVersions(array $packages): array
     {
-        if (is_string($version = $packages['typo3_version']) && \preg_match('#^\^(\d+)#', $version, $matches) > 0) {
+        if (is_string($version = $packages['typo3_version']) && preg_match('#^\^(\d+)#', $version, $matches) > 0) {
             $version = (int)$matches[1];
         } else {
             $composerVersions = $this->majorVersions->findAllComposerSupported();
             if ($composerVersions === []) {
-                throw new \RuntimeException('No release found.', 1_624_353_639);
+                throw new RuntimeException('No release found.', 1_624_353_639);
             }
 
             $release = $composerVersions[0]->getLatestRelease();
             if (!$release instanceof Release) {
-                throw new \RuntimeException('No release found.', 1_624_353_801);
+                throw new RuntimeException('No release found.', 1_624_353_801);
             }
 
-            \preg_match('#^\d+#', $release->getVersion(), $matches);
+            preg_match('#^\d+#', $release->getVersion(), $matches);
             $version = (int)$matches[0];
         }
 
@@ -825,7 +830,7 @@ final class ComposerPackagesService
     {
         if ($development) {
             $result = '^' . $version . '@dev';
-        } elseif (\preg_match('#^\d+\.\d+#', $version, $matches) > 0) {
+        } elseif (preg_match('#^\d+\.\d+#', $version, $matches) > 0) {
             $result = '^' . $matches[0];
         } else {
             $result = '';

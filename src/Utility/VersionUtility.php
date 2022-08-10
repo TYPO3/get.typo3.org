@@ -62,7 +62,7 @@ class VersionUtility
     }
 
     /**
-     * @param string|float|int|null $version
+     * @param float|int|string|null $version
      */
     public static function normalize($version, int $digits = 3): ?string
     {

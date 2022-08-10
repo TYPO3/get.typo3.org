@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -23,10 +25,13 @@ namespace App\Tests;
 
 use Symfony\Component\Dotenv\Dotenv;
 
-require \dirname(__DIR__) . '/vendor/autoload.php';
+use function file_exists;
+use function dirname;
 
-if (\file_exists(\dirname(__DIR__) . '/config/bootstrap.php')) {
-    require \dirname(__DIR__) . '/config/bootstrap.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+if (file_exists(dirname(__DIR__) . '/config/bootstrap.php')) {
+    require dirname(__DIR__) . '/config/bootstrap.php';
 } else {
-    (new Dotenv())->bootEnv(\dirname(__DIR__) . '/.env');
+    (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 }

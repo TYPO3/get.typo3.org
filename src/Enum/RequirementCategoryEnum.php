@@ -51,7 +51,7 @@ final class RequirementCategoryEnum extends AbstractEnum
     public const OPTION_COMPOSER = 'composer';
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     protected static array $optionNames = [
         self::OPTION_PHP => 'PHP',

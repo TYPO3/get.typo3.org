@@ -37,6 +37,11 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use Iterator;
+use DateTime;
+use DateTimeImmutable;
+
+use function iterator_apply;
 
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
@@ -99,7 +104,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
 
         if ($violations->count() > 0) {
             $messages = '';
-            \iterator_apply($violations, static function (\Iterator $iterator) use ($messages): bool {
+            iterator_apply($violations, static function (Iterator $iterator) use ($messages): bool {
                 if ($iterator->current() instanceof ConstraintViolationInterface) {
                     $messages .= $iterator->current()->getMessage() . "\n";
                 }
@@ -127,9 +132,9 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
                 if (isset($metadata->fieldMappings[$field]['type'])) {
                     // @todo Switch this to match() in PHP 8.0.
                     if ($metadata->fieldMappings[$field]['type'] == 'datetime') {
-                        $data[$fieldName] = new \DateTime($data[$fieldName]);
+                        $data[$fieldName] = new DateTime($data[$fieldName]);
                     } elseif ($metadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
-                        $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
+                        $data[$fieldName] = new DateTimeImmutable($data[$fieldName]);
                     }
                 }
 
@@ -186,6 +191,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
 
     /**
      * @param array<int, string> $array
+     *
      * @return mixed[]
      */
     protected function flat(array $array, string $prefix = ''): array

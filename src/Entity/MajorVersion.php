@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -27,6 +29,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
+use JsonSerializable;
+use DateTimeImmutable;
 
 /**
  * @OA\Schema(
@@ -35,10 +39,11 @@ use OpenApi\Annotations as OA;
  * )
  */
 #[ORM\Entity(repositoryClass: MajorVersionRepository::class)]
-class MajorVersion implements \JsonSerializable
+class MajorVersion implements JsonSerializable
 {
     /**
-     * For example 7 or 8 or 4.3
+     * For example 7 or 8 or 4.3.
+     *
      * @OA\Property(example="8")
      */
     #[ORM\Id]
@@ -48,12 +53,13 @@ class MajorVersion implements \JsonSerializable
 
     /**
      * @param Collection<int, Requirement> $requirements
-     * @param Collection<int, Release> $releases
+     * @param Collection<int, Release>     $releases
      */
     public function __construct(
         float $version,
         /**
-         * TYPO3 7 LTS
+         * TYPO3 7 LTS.
+         *
          * @OA\Property(example="TYPO3 8 LTS")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
@@ -77,21 +83,21 @@ class MajorVersion implements \JsonSerializable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
-        private \DateTimeImmutable $releaseDate,
+        private DateTimeImmutable $releaseDate,
         /**
          * @OA\Property(example="2017-12-12T16:48:22+00:00")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
-        private ?\DateTimeImmutable $maintainedUntil,
+        private ?DateTimeImmutable $maintainedUntil,
         /**
          * @OA\Property(example="2017-12-12T16:48:22+00:00")
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
-        private ?\DateTimeImmutable $eltsUntil,
+        private ?DateTimeImmutable $eltsUntil,
         /**
          * @var Collection<int, Requirement>
          */
@@ -182,34 +188,34 @@ class MajorVersion implements \JsonSerializable
         return $this->description;
     }
 
-    public function setMaintainedUntil(?\DateTimeImmutable $maintainedUntil): void
+    public function setMaintainedUntil(?DateTimeImmutable $maintainedUntil): void
     {
         $this->maintainedUntil = $maintainedUntil;
     }
 
-    public function getMaintainedUntil(): ?\DateTimeImmutable
+    public function getMaintainedUntil(): ?DateTimeImmutable
     {
         return $this->maintainedUntil;
     }
 
-    public function setEltsUntil(?\DateTimeImmutable $eltsUntil): void
+    public function setEltsUntil(?DateTimeImmutable $eltsUntil): void
     {
         $this->eltsUntil = $eltsUntil;
     }
 
-    public function getEltsUntil(): ?\DateTimeImmutable
+    public function getEltsUntil(): ?DateTimeImmutable
     {
         return $this->eltsUntil ?? (
             $this->getMaintainedUntil() !== null ? $this->getMaintainedUntil()->modify('+3 years') : null
         );
     }
 
-    public function setReleaseDate(\DateTimeImmutable $releaseDate): void
+    public function setReleaseDate(DateTimeImmutable $releaseDate): void
     {
         $this->releaseDate = $releaseDate;
     }
 
-    public function getReleaseDate(): \DateTimeImmutable
+    public function getReleaseDate(): DateTimeImmutable
     {
         return $this->releaseDate;
     }
@@ -257,7 +263,7 @@ class MajorVersion implements \JsonSerializable
 
     public function isActive(): bool
     {
-        $dateTime = new \DateTimeImmutable();
+        $dateTime = new DateTimeImmutable();
         if ($this->getMaintainedUntil() === null) {
             return true;
         }
@@ -267,7 +273,7 @@ class MajorVersion implements \JsonSerializable
 
     public function isElts(): bool
     {
-        $dateTime = new \DateTimeImmutable();
+        $dateTime = new DateTimeImmutable();
         if ($this->getMaintainedUntil() == null) {
             return false;
         }

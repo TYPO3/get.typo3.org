@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -28,6 +30,10 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
+use JsonSerializable;
+use InvalidArgumentException;
+
+use function ucfirst;
 
 /**
  * @OA\Schema(
@@ -36,7 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  */
 #[ORM\Entity(repositoryClass: RequirementRepository::class)]
-class Requirement implements \JsonSerializable
+class Requirement implements JsonSerializable
 {
     public function __construct(
         #[ORM\Id]
@@ -87,7 +93,7 @@ class Requirement implements \JsonSerializable
     public function setCategory(string $category): void
     {
         if (!in_array($category, RequirementCategoryEnum::getAvailableOptions(), true)) {
-            throw new \InvalidArgumentException('Invalid category');
+            throw new InvalidArgumentException('Invalid category');
         }
 
         $this->category = $category;
@@ -119,7 +125,7 @@ class Requirement implements \JsonSerializable
             'mariadb' => 'MariaDB',
             'sqlite' => 'SQLite',
             'ram' => 'RAM',
-            default => \ucfirst($this->getName()),
+            default => ucfirst($this->getName()),
         };
     }
 

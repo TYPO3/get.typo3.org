@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use Nelmio\ApiDocBundle\Annotation\Security as Security;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,7 +36,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class CacheController extends AbstractController
 {
     /**
-     * Purge caches related to TYPO3 major version
+     * Purge caches related to TYPO3 major version.
+     *
      * @Security(name="Basic")
      * @OA\Response(
      *     response=202,
@@ -67,7 +68,8 @@ class CacheController extends AbstractController
     }
 
     /**
-     * Purge caches related to single TYPO3 release
+     * Purge caches related to single TYPO3 release.
+     *
      * @Security(name="Basic")
      * @OA\Response(
      *     response=202,
@@ -152,7 +154,7 @@ class CacheController extends AbstractController
     }
 
     /**
-     * Deletes a release and the releases.json in the cache
+     * Deletes a release and the releases.json in the cache.
      */
     private function deleteRelease(string $version): void
     {
@@ -163,7 +165,7 @@ class CacheController extends AbstractController
     }
 
     /**
-     * Deletes the releases.json in the cache
+     * Deletes the releases.json in the cache.
      */
     private function deleteMajorVersion(string $version): void
     {

@@ -30,6 +30,7 @@ use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Yaml\Yaml;
+use Exception;
 
 class ListMissingDownloadsCommand extends Command
 {
@@ -111,7 +112,7 @@ class ListMissingDownloadsCommand extends Command
             $yaml = Yaml::dump($result, 4);
             file_put_contents('missing-downloads.yaml', $yaml);
         } else {
-            throw new \Exception(
+            throw new Exception(
                 'Invalid response with status code ' . $statusCode . ' and content type ' . $contentType
             );
         }
@@ -142,7 +143,7 @@ class ListMissingDownloadsCommand extends Command
             }
 
             return 'redirect failed for ' . $url;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $exception->getMessage();
         }
     }
@@ -154,7 +155,7 @@ class ListMissingDownloadsCommand extends Command
         try {
             $client->request('GET', $url, ['max_redirects' => 0]);
 
-            throw new \Exception('something went wrong while calling ' . $url);
+            throw new Exception('something went wrong while calling ' . $url);
         } catch (RedirectionException) {
             return true;
         } catch (ClientException) {
