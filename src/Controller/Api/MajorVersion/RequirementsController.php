@@ -27,7 +27,7 @@ use App\Controller\Api\AbstractController;
 use App\Entity\Requirement;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as Security;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,7 +46,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 class RequirementsController extends AbstractController
 {
     /**
-     * Get TYPO3 major version requirements
+     * Get TYPO3 major version requirements.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 major version requirements",
@@ -90,7 +91,8 @@ class RequirementsController extends AbstractController
     }
 
     /**
-     * Create new major TYPO3 version requirement
+     * Create new major TYPO3 version requirement.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\RequestBody(
@@ -167,7 +169,8 @@ class RequirementsController extends AbstractController
     }
 
     /**
-     * Update requirement of major TYPO3 version
+     * Update requirement of major TYPO3 version.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\RequestBody(
@@ -236,7 +239,8 @@ class RequirementsController extends AbstractController
     }
 
     /**
-     * Delete requirement of major TYPO3 version
+     * Delete requirement of major TYPO3 version.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\Response(

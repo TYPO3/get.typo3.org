@@ -27,7 +27,7 @@ use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\Release;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as Security;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -43,7 +43,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 class ReleaseController extends AbstractController
 {
     /**
-     * Get information about all TYPO3 releases or a specific release
+     * Get information about all TYPO3 releases or a specific release.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release(s)",
@@ -92,7 +93,8 @@ class ReleaseController extends AbstractController
     }
 
     /**
-     * Add new TYPO3 release
+     * Add new TYPO3 release.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\RequestBody(
@@ -160,7 +162,8 @@ class ReleaseController extends AbstractController
     }
 
     /**
-     * Add TYPO3 Release Notes for Version
+     * Add TYPO3 Release Notes for Version.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\RequestBody(
@@ -213,7 +216,8 @@ class ReleaseController extends AbstractController
     }
 
     /**
-     * Get TYPO3 Release Content
+     * Get TYPO3 Release Content.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release content",
@@ -255,7 +259,8 @@ class ReleaseController extends AbstractController
     }
 
     /**
-     * Update TYPO3 Release
+     * Update TYPO3 Release.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\RequestBody(
@@ -313,7 +318,8 @@ class ReleaseController extends AbstractController
     }
 
     /**
-     * Delete TYPO3 release
+     * Delete TYPO3 release.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\Response(
@@ -334,6 +340,7 @@ class ReleaseController extends AbstractController
      * )
      * @OA\Tag(name="release")
      * )
+     *
      * @param string $version Specific TYPO3 Version to delete
      */
     #[Route(path: '/{version}', methods: ['DELETE'])]

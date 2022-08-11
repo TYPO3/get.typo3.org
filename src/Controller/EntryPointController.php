@@ -31,7 +31,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EntryPointController extends AbstractController
 {
     /**
-     * @var array<string, string> Key / value pairs representing the slug and the route to redirect to.
+     * @var array<string, string> key / value pairs representing the slug and the route to redirect to
      */
     private const ENTRY_POINTS = [
         // 'slug' => 'route',

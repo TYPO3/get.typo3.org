@@ -29,6 +29,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use RuntimeException;
+use DateTimeImmutable;
+
+use function in_array;
 
 /**
  * @extends ServiceEntityRepository<MajorVersion>
@@ -67,12 +70,13 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return array<MajorVersion>
      * @throws RuntimeException
+     *
+     * @return array<MajorVersion>
      */
     public function findAllActive(): array
     {
-        $date = (new \DateTimeImmutable())->format('Y-m-d');
+        $date = (new DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->orX(
@@ -95,12 +99,13 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return array<MajorVersion>
      * @throws RuntimeException
+     *
+     * @return array<MajorVersion>
      */
     public function findAllActiveCommunity(): array
     {
-        $date = (new \DateTimeImmutable())->format('Y-m-d');
+        $date = (new DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->orX(
@@ -119,12 +124,13 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return array<MajorVersion>
      * @throws RuntimeException
+     *
+     * @return array<MajorVersion>
      */
     public function findAllActiveElts(): array
     {
-        $date = (new \DateTimeImmutable())->format('Y-m-d');
+        $date = (new DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
         $qb->where(
             $qb->expr()->andX(
@@ -190,8 +196,9 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return array<MajorVersion>
      * @throws RuntimeException
+     *
+     * @return array<MajorVersion>
      */
     public function findAllComposerSupported(): array
     {
@@ -232,8 +239,9 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return array{latest_stable: string, latest_old_stable: string|null}
      * @throws RuntimeException
+     *
+     * @return array{latest_stable: string, latest_old_stable: string|null}
      */
     private function findStableReleases(): array
     {
@@ -260,12 +268,13 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return array{latest_lts: string, latest_old_lts: string}
      * @throws RuntimeException
+     *
+     * @return array{latest_lts: string, latest_old_lts: string}
      */
     private function findLtsReleases(): array
     {
-        $date = (new \DateTimeImmutable())->format('Y-m-d');
+        $date = (new DateTimeImmutable())->format('Y-m-d');
         $qb = $this->createQueryBuilder('m');
         $qb->setMaxResults(2)
             ->where(
@@ -304,7 +313,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
     {
         $version = (string)$version;
         if (!str_contains($version, '.')) {
-            if (\in_array((int)$version, [7, 8, 9, 10, 11, 12, 13], true)) {
+            if (in_array((int)$version, [7, 8, 9, 10, 11, 12, 13], true)) {
                 $version .= '.0000';
             } else {
                 $version .= '.0';
@@ -340,6 +349,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
     /**
      * @param array<int, MajorVersion> $versions
+     *
      * @return array<int, MajorVersion>
      */
     private function removeVersionsWithoutReleases(array $versions): array

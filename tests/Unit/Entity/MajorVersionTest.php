@@ -28,6 +28,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Iterator;
 use LogicException;
 use PHPUnit\Framework\TestCase;
+use DateTimeImmutable;
 
 class MajorVersionTest extends TestCase
 {
@@ -84,7 +85,7 @@ class MajorVersionTest extends TestCase
      */
     public function entityTestDataProvider(): Iterator
     {
-        $dateTimeToday = new \DateTimeImmutable();
+        $dateTimeToday = new DateTimeImmutable();
         $collection = new ArrayCollection();
 
         yield 'SPRINT' => [

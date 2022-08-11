@@ -26,13 +26,10 @@ namespace App\Menu;
 use Knp\Menu\ItemInterface;
 use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
 
-/**
- * MenuBuilder
- */
 class MenuBuilder extends TemplateMenuBuider
 {
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function mainDefault(array $options): ItemInterface
     {
@@ -83,7 +80,7 @@ class MenuBuilder extends TemplateMenuBuider
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function mainProfile(array $options): ItemInterface
     {

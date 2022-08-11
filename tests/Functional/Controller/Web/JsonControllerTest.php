@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -27,6 +29,8 @@ use App\Tests\Functional\Fixtures\ReleaseFixtures;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
+use function is_array;
+
 class JsonControllerTest extends AbstractCase
 {
     protected function setUp(): void
@@ -49,7 +53,7 @@ class JsonControllerTest extends AbstractCase
             throw new RuntimeException('Error no response content.', 1_657_642_832);
         }
 
-        if (!\is_array($content = json_decode($json, true, 512, JSON_THROW_ON_ERROR))) {
+        if (!is_array($content = json_decode($json, true, 512, JSON_THROW_ON_ERROR))) {
             throw new RuntimeException('Error array expected.', 1_657_642_833);
         }
 

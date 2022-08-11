@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -25,6 +27,8 @@ use App\Entity\MajorVersion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
+use DateTimeImmutable;
+use Iterator;
 
 final class MajorVersionFixtures extends Fixture
 {
@@ -73,11 +77,11 @@ final class MajorVersionFixtures extends Fixture
     }
 
     /**
-     * @return \Iterator<MajorVersionFixturesData>
+     * @return Iterator<MajorVersionFixturesData>
      */
     protected function getData(): iterable
     {
-        $today = new \DateTimeImmutable();
+        $today = new DateTimeImmutable();
 
         yield new MajorVersionFixturesData(
             self::MAJOR_VERSION_SPRINT,
