@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -25,9 +27,10 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
+use JsonSerializable;
 
 #[ORM\Embeddable]
-class Package implements \JsonSerializable
+class Package implements JsonSerializable
 {
     public function __construct(
         /**

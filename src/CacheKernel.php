@@ -27,6 +27,9 @@ use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use function is_string;
+use function is_array;
+
 class CacheKernel extends HttpCache
 {
     protected function invalidate(Request $request, bool $catch = false): Response
@@ -35,13 +38,13 @@ class CacheKernel extends HttpCache
 
         if (
             $request->getMethod() === 'DELETE'
-            && \is_string($route = $request->attributes->get('_route'))
+            && is_string($route = $request->attributes->get('_route'))
             && str_contains($route, 'cache')
         ) {
             $content = $response->getContent();
-            if (\is_string($content)) {
+            if (is_string($content)) {
                 $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-                if (!\is_array($data)) {
+                if (!is_array($data)) {
                     return $response;
                 }
 

@@ -42,6 +42,7 @@ class SortByVersion extends AbstractExtension
 
     /**
      * @param Collection<int, Release> $releases
+     *
      * @return mixed[]
      */
     public function sort(Collection $releases): array

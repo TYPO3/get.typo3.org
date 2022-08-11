@@ -26,7 +26,7 @@ namespace App\Controller\Api;
 use App\Entity\MajorVersion;
 use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security as Security;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,7 +42,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 class MajorVersionController extends AbstractController
 {
     /**
-     * Get information about a major TYPO3 version
+     * Get information about a major TYPO3 version.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
@@ -72,7 +73,8 @@ class MajorVersionController extends AbstractController
     }
 
     /**
-     * Get hard facts of a major TYPO3 Release
+     * Get hard facts of a major TYPO3 Release.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
@@ -112,7 +114,8 @@ class MajorVersionController extends AbstractController
     }
 
     /**
-     * Create new major TYPO3 version
+     * Create new major TYPO3 version.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\RequestBody(
@@ -182,7 +185,8 @@ class MajorVersionController extends AbstractController
     }
 
     /**
-     * Update properties of major TYPO3 version
+     * Update properties of major TYPO3 version.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\RequestBody(
@@ -235,7 +239,8 @@ class MajorVersionController extends AbstractController
     }
 
     /**
-     * Delete major TYPO3 version
+     * Delete major TYPO3 version.
+     *
      * @IsGranted("ROLE_ADMIN")
      * @Security(name="Basic")
      * @OA\Response(

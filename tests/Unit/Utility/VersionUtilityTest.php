@@ -40,7 +40,7 @@ class VersionUtilityTest extends TestCase
     }
 
     /**
-     * @return Iterator<string, array<int, string|float>>
+     * @return Iterator<string, array<int, float|string>>
      */
     public function extractMajorVersionNumberTestDataProvider(): Iterator
     {
@@ -68,7 +68,7 @@ class VersionUtilityTest extends TestCase
     }
 
     /**
-     * @return Iterator<string, array<string|bool>>
+     * @return Iterator<string, array<bool|string>>
      */
     public function isValidSemverVersionTestDataProvider(): Iterator
     {
