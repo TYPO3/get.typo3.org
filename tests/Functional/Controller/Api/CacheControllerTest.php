@@ -93,7 +93,7 @@ class CacheControllerTest extends ApiCase
                     'http://localhost/release-notes',
                     'http://localhost/release-notes/',
                     'http://localhost/version/10',
-                ]
+                ],
             ],
             $this->decodeResponse($response)
         );
@@ -113,7 +113,7 @@ class CacheControllerTest extends ApiCase
                     'http://localhost/release-notes',
                     'http://localhost/release-notes/',
                     'http://localhost/version/6.2',
-                ]
+                ],
             ],
             $this->decodeResponse($response)
         );
@@ -179,7 +179,7 @@ class CacheControllerTest extends ApiCase
                     'http://localhost/v1/api/release/10.0.0/content',
                     'http://localhost/release-notes',
                     'http://localhost/release-notes/10.0.0',
-                ]
+                ],
             ],
             $this->decodeResponse($response)
         );

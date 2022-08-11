@@ -41,42 +41,42 @@ class MenuBuilder extends TemplateMenuBuider
             'download',
             [
                 'route' => 'download',
-                'label' => 'Download'
+                'label' => 'Download',
             ]
         );
         $menu->addChild(
             'release-notes',
             [
                 'route' => 'release-notes',
-                'label' => 'Release Notes'
+                'label' => 'Release Notes',
             ]
         );
         $composer = $menu->addChild(
             'composer',
             [
                 'route' => 'composer',
-                'label' => 'Composer'
+                'label' => 'Composer',
             ]
         );
         $composer->addChild(
             'composer-helper',
             [
                 'route' => 'composer-helper',
-                'label' => 'Helper'
+                'label' => 'Helper',
             ]
         );
         $composer->addChild(
             'composer-repository',
             [
                 'route' => 'composer-repository',
-                'label' => 'Repository'
+                'label' => 'Repository',
             ]
         );
         $menu->addChild(
             'api',
             [
                 'route' => 'app.swagger_ui',
-                'label' => 'API'
+                'label' => 'API',
             ]
         );
         return $menu;
@@ -92,21 +92,21 @@ class MenuBuilder extends TemplateMenuBuider
             'install',
             [
                 'uri' => 'https://docs.typo3.org/installation',
-                'label' => 'Installation Guide'
+                'label' => 'Installation Guide',
             ]
         );
         $menu->addChild(
             'gettingstarted',
             [
                 'uri' => 'https://docs.typo3.org/typo3cms/GettingStartedTutorial/',
-                'label' => 'Getting Started'
+                'label' => 'Getting Started',
             ]
         );
         $menu->addChild(
             'elts',
             [
                 'uri' => 'https://typo3.com/elts',
-                'label' => 'ELTS'
+                'label' => 'ELTS',
             ]
         );
         return $menu;

@@ -28,14 +28,18 @@ use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\JMSSetList;
+use Rector\Symfony\Set\SensiolabsSetList;
 use Rector\Symfony\Set\SymfonyLevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
+use Rector\Symfony\Set\TwigSetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/migrations',
         __DIR__ . '/src',
         __DIR__ . '/tests',
+        __DIR__ . '/.php-cs-fixer.dist.php',
+        __FILE__,
     ]);
 
     $rectorConfig->bootstrapFiles([
@@ -44,22 +48,19 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->sets([
+        //LevelSetList::UP_TO_PHP_82,
         LevelSetList::UP_TO_PHP_81,
-        //SetList::DEFLUENT,
         SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
-        //SetList::DEAD_CODE, // temporary disabled
-        SetList::FRAMEWORK_EXTRA_BUNDLE_50,
+        SetList::DEAD_CODE,
         SetList::MONOLOG_20,
-        SetList::MYSQL_TO_MYSQLI,
         //SetList::NAMING,
         //SetList::PRIVATIZATION,
         SetList::PSR_4,
         SetList::TYPE_DECLARATION,
         SetList::TYPE_DECLARATION_STRICT,
-        SetList::UNWRAP_COMPAT,
-        //SetList::EARLY_RETURN,
+        SetList::EARLY_RETURN,
         SetList::RECTOR_CONFIG,
 
         // Symfony specific rule sets
@@ -67,6 +68,15 @@ return static function (RectorConfig $rectorConfig): void {
         SymfonySetList::SYMFONY_STRICT,
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
+
+        SensiolabsSetList::FRAMEWORK_EXTRA_50,
+
+        // Twig specific rule sets
+        TwigSetList::TWIG_UNDERSCORE_TO_NAMESPACE,
+
+        // JMS specific rule sets
+        JMSSetList::REMOVE_JMS_INJECT,
+        JMSSetList::ANNOTATIONS_TO_ATTRIBUTES,
 
         // Doctrine specific rule sets
         DoctrineSetList::DOCTRINE_25,
@@ -78,10 +88,7 @@ return static function (RectorConfig $rectorConfig): void {
         //DoctrineSetList::DOCTRINE_GEDMO_TO_KNPLABS,
         //DoctrineSetList::DOCTRINE_REPOSITORY_AS_SERVICE,
         DoctrineSetList::DOCTRINE_ORM_29,
-
-        // Doctrine specific rule sets
-        //JMSSetList::REMOVE_JMS_INJECT,
-        JMSSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
 
         // PHPUnit specific rule sets
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,

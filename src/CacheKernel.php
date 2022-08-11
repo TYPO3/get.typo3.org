@@ -41,11 +41,19 @@ class CacheKernel extends HttpCache
             $content = $response->getContent();
             if (\is_string($content)) {
                 $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-                if (\is_array($data) && isset($data['locations'])) {
-                    foreach ($data['locations'] as $location) {
-                        $this->getStore()->purge($location);
-                    }
+                if (!\is_array($data)) {
+                    return $response;
                 }
+
+                if (!isset($data['locations'])) {
+                    return $response;
+                }
+
+                foreach ($data['locations'] as $location) {
+                    $this->getStore()->purge($location);
+                }
+
+                return $response;
             }
         }
 

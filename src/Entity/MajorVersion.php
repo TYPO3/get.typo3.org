@@ -219,7 +219,7 @@ class MajorVersion implements \JsonSerializable
         $array = $this->releases->toArray();
         usort(
             $array,
-            fn ($a, $b): int => version_compare($b->getVersion(), $a->getVersion())
+            static fn ($a, $b): int => version_compare($b->getVersion(), $a->getVersion())
         );
         return $array !== [] ? reset($array) : null;
     }
@@ -258,17 +258,29 @@ class MajorVersion implements \JsonSerializable
     public function isActive(): bool
     {
         $dateTime = new \DateTimeImmutable();
-        return null === $this->getMaintainedUntil()
-            || $dateTime <= $this->getMaintainedUntil();
+        if ($this->getMaintainedUntil() === null) {
+            return true;
+        }
+
+        return $dateTime <= $this->getMaintainedUntil();
     }
 
     public function isElts(): bool
     {
         $dateTime = new \DateTimeImmutable();
-        return $this->getMaintainedUntil() != null
-            && $this->getEltsUntil() != null
-            && $dateTime > $this->getMaintainedUntil()
-            && $dateTime <= $this->getEltsUntil();
+        if ($this->getMaintainedUntil() == null) {
+            return false;
+        }
+
+        if ($this->getEltsUntil() == null) {
+            return false;
+        }
+
+        if ($dateTime <= $this->getMaintainedUntil()) {
+            return false;
+        }
+
+        return $dateTime <= $this->getEltsUntil();
     }
 
     /**
@@ -303,7 +315,7 @@ class MajorVersion implements \JsonSerializable
             'lts' => $this->getLts(),
             'latestRelease' => $this->getLatestRelease(),
             'active' => $this->isActive(),
-            'elts' => $this->isElts()
+            'elts' => $this->isElts(),
         ];
     }
 
@@ -319,7 +331,7 @@ class MajorVersion implements \JsonSerializable
 
         uksort(
             $releaseData,
-            fn (string $a, string $b): int => version_compare($a, $b)
+            static fn (string $a, string $b): int => version_compare($a, $b)
         );
         $desc = array_reverse($releaseData);
         $latest = $this->getLatestRelease();
