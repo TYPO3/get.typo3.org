@@ -85,6 +85,16 @@
                                     <li>Internet Explorer 11 and later</li>
                                 {% endif %}
                             </ul>
+                            {% if version.version == 10 %}
+                            <div class="alert alert-danger">
+                                <h2 class="h5 alert-heading">PHP 8.x support</h2>
+                                <p class="mb-0">
+                                    Please note, PHP 8.0 and above will not be supported by the v10 LTS releases! You
+                                    have to upgrade your installation to v11 or talk to your hoster regarding enhanced
+                                    PHP 7.4 support after November 2022.
+                                </p>
+                            </div>
+                            {% endif %}
                             <hr>
                             {% if version.maintainedUntil %}
                             <h5>Supported Until</h5>
