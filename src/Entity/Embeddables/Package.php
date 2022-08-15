@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -25,9 +27,10 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
+use JsonSerializable;
 
 #[ORM\Embeddable]
-class Package implements \JsonSerializable
+class Package implements JsonSerializable
 {
     public function __construct(
         /**
@@ -37,7 +40,7 @@ class Package implements \JsonSerializable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Serializer\Groups(['data'])]
         #[Serializer\Type('string')]
-        private readonly ?string $md5sum,
+        private ?string $md5sum,
         /**
          * @OA\Property(example="7af3a3fe4f1bbda916575c9779368d229d259819")
          */
@@ -45,7 +48,7 @@ class Package implements \JsonSerializable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Serializer\Groups(['data'])]
         #[Serializer\Type('string')]
-        private readonly ?string $sha1sum,
+        private ?string $sha1sum,
         /**
          * @OA\Property(example="1e34187712269aa556413d2529b950c0dbff17cc95160cf316de07a3c85ce859")
          */
@@ -53,7 +56,7 @@ class Package implements \JsonSerializable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Serializer\Groups(['data'])]
         #[Serializer\Type('string')]
-        private readonly ?string $sha256sum
+        private ?string $sha256sum
     ) {
     }
 

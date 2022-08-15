@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -27,6 +29,7 @@ use App\Enum\RequirementCategoryEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Iterator;
 
 final class RequirementFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -64,7 +67,7 @@ final class RequirementFixtures extends Fixture implements DependentFixtureInter
     }
 
     /**
-     * @return \Iterator<RequirementFixturesData>
+     * @return Iterator<RequirementFixturesData>
      */
     protected function getData(): iterable
     {

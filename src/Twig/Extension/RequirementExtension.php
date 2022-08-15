@@ -30,6 +30,8 @@ use Doctrine\Common\Collections\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
+use function in_array;
+
 class RequirementExtension extends AbstractExtension
 {
     /**
@@ -48,6 +50,7 @@ class RequirementExtension extends AbstractExtension
 
     /**
      * @param Collection<int, Requirement> $requirements
+     *
      * @return array<string, array<Requirement>>
      */
     public function prepareRequirements(Collection $requirements): array
@@ -59,6 +62,7 @@ class RequirementExtension extends AbstractExtension
 
     /**
      * @param Collection<int, Requirement> $requirements
+     *
      * @return array<Requirement>
      */
     private function formatVersions(Collection $requirements): array
@@ -71,6 +75,7 @@ class RequirementExtension extends AbstractExtension
 
     /**
      * @param array<Requirement> $requirements
+     *
      * @return array<string, array<Requirement>>
      */
     private function groupByCategory(array $requirements): array
@@ -87,6 +92,7 @@ class RequirementExtension extends AbstractExtension
 
     /**
      * @param array<string, array<Requirement>> $elements
+     *
      * @return array<string, array<Requirement>>
      */
     private function sortByTitle(array $elements): array
@@ -105,7 +111,7 @@ class RequirementExtension extends AbstractExtension
     {
         foreach ($requirements as &$requirement) {
             if (
-                \in_array(
+                in_array(
                     $requirement->getCategory(),
                     [
                         RequirementCategoryEnum::OPTION_PHP,

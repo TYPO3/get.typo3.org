@@ -36,8 +36,10 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+use function array_keys;
+
 /**
- * Regular content and download pages
+ * Regular content and download pages.
  */
 class DefaultController extends AbstractController
 {
@@ -80,7 +82,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * Display release notes for a version
+     * Display release notes for a version.
      */
     #[Route(path: '/release-notes', methods: ['GET'], name: 'release-notes')]
     #[Route(path: '/release-notes/', methods: ['GET'])]
@@ -214,7 +216,7 @@ class DefaultController extends AbstractController
                 throw new BadRequestHttpException('Missing or invalid request body.');
             }
 
-            $keys = preg_replace('#^(typo3)-#', '$1/', \array_keys($formData));
+            $keys = preg_replace('#^(typo3)-#', '$1/', array_keys($formData));
             if (!is_array($keys)) {
                 throw new BadRequestHttpException('Missing or invalid request body.');
             }
@@ -311,8 +313,10 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @return array<string, mixed>
      * @throws InvalidArgumentException
+     *
+     * @return array<string, mixed>
+     *
      * @todo rewrite to not to longer use the legacy data service
      * @todo return valid link or throw
      */

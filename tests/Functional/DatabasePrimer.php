@@ -26,9 +26,10 @@ namespace App\Tests\Functional;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\HttpKernel\KernelInterface;
+use LogicException;
 
 /**
- * Class DatabasePrimer
+ * Class DatabasePrimer.
  *
  * @see https://www.sitepoint.com/quick-tip-testing-symfony-apps-with-a-disposable-database/
  */
@@ -38,14 +39,14 @@ class DatabasePrimer
     {
         // Make sure we are in the test environment
         if ($kernel->getEnvironment() !== 'test') {
-            throw new \LogicException('Primer must be executed in the test environment');
+            throw new LogicException('Primer must be executed in the test environment');
         }
 
         // Get the entity manager from the service container
         /** @noRector */
         $entityManager = $kernel->getContainer()->get('doctrine.orm.entity_manager');
         if (!$entityManager instanceof EntityManagerInterface) {
-            throw new \LogicException('EntityManager could not be retrieved');
+            throw new LogicException('EntityManager could not be retrieved');
         }
 
         // Recreate the database

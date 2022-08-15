@@ -37,7 +37,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 class ReleasesController extends AbstractController
 {
     /**
-     * Get releases by major version
+     * Get releases by major version.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 releases by major version",
@@ -76,7 +77,8 @@ class ReleasesController extends AbstractController
     }
 
     /**
-     * Get latest release of a major version
+     * Get latest release of a major version.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 release of a major version",
@@ -112,7 +114,8 @@ class ReleasesController extends AbstractController
     }
 
     /**
-     * Get latest security release of a major version
+     * Get latest security release of a major version.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 security release of a major version",
@@ -158,7 +161,8 @@ class ReleasesController extends AbstractController
     }
 
     /**
-     * Get latest release of a major version
+     * Get latest release of a major version.
+     *
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",

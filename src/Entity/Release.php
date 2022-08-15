@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the package t3o/get.typo3.org.
  *
@@ -29,6 +31,11 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
+use JsonSerializable;
+use DateTimeInterface;
+use InvalidArgumentException;
+use DateTimeImmutable;
+use DateTime;
 
 /**
  * @OA\Schema(
@@ -37,10 +44,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  */
 #[ORM\Entity(repositoryClass: ReleaseRepository::class)]
-class Release implements \JsonSerializable
+class Release implements JsonSerializable
 {
     /**
-     * Version in a semver/version_compare compatible format
+     * Version in a semver/version_compare compatible format.
      *
      * @OA\Property(example="8.7.12")
      */
@@ -54,14 +61,17 @@ class Release implements \JsonSerializable
 
     /**
      * @OA\Property(example="2017-12-12T16:48:22+00:00")
-     * @var \DateTime|\DateTimeImmutable
+     *
+     * @var DateTime|DateTimeImmutable
      */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
     #[Serializer\Groups(['data', 'content'])]
     #[Serializer\Type("DateTime<'Y-m-d\\TH:i:sP'>")]
-    private \DateTimeInterface $date;
+    private DateTimeInterface $date;
 
-    /** @noRector */
+    /**
+     * @noRector
+     */
     #[Assert\Choice(callback: [ReleaseTypeEnum::class, 'getAvailableOptions'])]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     #[Serializer\Groups(['data'])]
@@ -119,15 +129,15 @@ class Release implements \JsonSerializable
         return $this->releaseNotes;
     }
 
-    public function setDate(\DateTime|\DateTimeImmutable $date): void
+    public function setDate(DateTime|DateTimeImmutable $date): void
     {
         $this->date = $date;
     }
 
     /**
-     * @return \DateTime|\DateTimeImmutable
+     * @return DateTime|DateTimeImmutable
      */
-    public function getDate(): \DateTimeInterface
+    public function getDate(): DateTimeInterface
     {
         return $this->date;
     }
@@ -165,7 +175,7 @@ class Release implements \JsonSerializable
     public function setType(string $type): void
     {
         if (!in_array($type, ReleaseTypeEnum::getAvailableOptions(), true)) {
-            throw new \InvalidArgumentException('Invalid type');
+            throw new InvalidArgumentException('Invalid type');
         }
 
         $this->type = $type;
