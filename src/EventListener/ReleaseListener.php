@@ -21,33 +21,31 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\Service;
+namespace App\EventListener;
 
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use App\Entity\Release;
+use App\Service\CacheService;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
-class CacheService
+final class ReleaseListener
 {
     public function __construct(
-        private readonly TagAwareCacheInterface $cache,
+        private readonly CacheService $cacheService,
     ) {
     }
 
-    public function purgeMajorVersion(string $majorVersion): void
+    public function postUpdate(Release $release, LifecycleEventArgs $eventArgs): void
     {
-        $this->cache->invalidateTags([
-            'major-version-' . $majorVersion,
-            'major-version',
-            'requirements-' . $majorVersion,
-            'releases-' . $majorVersion,
-            'release',
-        ]);
+        $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
     }
 
-    public function purgeMajorVersionReleases(string $majorVersion): void
+    public function postRemove(Release $release, LifecycleEventArgs $eventArgs): void
     {
-        $this->cache->invalidateTags([
-            'releases-' . $majorVersion,
-            'release',
-        ]);
+        $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
+    }
+
+    public function postPersist(Release $release, LifecycleEventArgs $eventArgs): void
+    {
+        $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
     }
 }

@@ -29,7 +29,7 @@ namespace App\Enum;
 abstract class AbstractEnum
 {
     /**
-     * @var array<mixed, string>
+     * @var array<int|string, string>
      */
     protected static array $optionNames = [];
 
@@ -39,7 +39,7 @@ abstract class AbstractEnum
     }
 
     /**
-     * @return mixed[]
+     * @return array<int|string, int|string>
      */
     public static function getAvailableOptions(bool $withDescription = false): array
     {

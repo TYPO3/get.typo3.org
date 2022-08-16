@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\EventListener\MajorVersionListener;
 use App\Repository\MajorVersionRepository;
 use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\Collection;
@@ -31,6 +32,7 @@ use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
 use JsonSerializable;
 use DateTimeImmutable;
+use Stringable;
 
 /**
  * @OA\Schema(
@@ -39,7 +41,8 @@ use DateTimeImmutable;
  * )
  */
 #[ORM\Entity(repositoryClass: MajorVersionRepository::class)]
-class MajorVersion implements JsonSerializable
+#[ORM\EntityListeners([MajorVersionListener::class])]
+class MajorVersion implements JsonSerializable, Stringable
 {
     /**
      * For example 7 or 8 or 4.3.
@@ -348,5 +351,10 @@ class MajorVersion implements JsonSerializable
             'active' => $this->isActive(),
             'elts' => $this->isElts(),
         ];
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
     }
 }

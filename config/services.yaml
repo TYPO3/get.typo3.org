@@ -34,6 +34,15 @@ services:
         arguments:
             $appDomain: '%env(APP_DOMAIN)%'
 
+    App\EventListener\MajorVersionListener:
+        tags: ['doctrine.orm.entity_listener']
+
+    App\EventListener\ReleaseListener:
+        tags: ['doctrine.orm.entity_listener']
+
+    App\EventListener\RequirementListener:
+        tags: ['doctrine.orm.entity_listener']
+
     App\Service\CacheWarmupService:
         arguments:
             $baseUrl: '%env(BASE_URL)%'
