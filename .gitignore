@@ -1,8 +1,6 @@
 /.ddev/docker-compose.tmpfs.yaml
 /.idea/
 /.vscode/
-/bin/*
-!/bin/console
 /public/p/
 /public/p2/
 /public/aliases.json
