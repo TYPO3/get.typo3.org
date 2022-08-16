@@ -1,0 +1,11 @@
+#!/bin/bash
+
+## Description: Deploy site
+## Usage: deploy
+## Example: "ddev deploy"
+
+ddev auth ssh --ssh-key-path .ssh
+ddev composer global require --ansi -n --no-progress andres-montanez/magallanes
+ddev exec -- mkdir -p ./.mage/logs
+ddev composer global exec --ansi -n mage deploy develop
+ddev composer install --ansi -n --no-progress
