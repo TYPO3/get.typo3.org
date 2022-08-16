@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-## Description: Run Satis Build Process
-## Usage: satisbuild
-## Example: "ddev satisbuild"
-
-/var/www/html/satis/build.sh $@

@@ -23,8 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -70,8 +68,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -108,8 +104,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -159,8 +153,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -207,8 +199,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -247,8 +237,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -287,8 +275,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -327,8 +313,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -385,8 +369,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -464,8 +446,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

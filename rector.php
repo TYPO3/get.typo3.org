@@ -21,6 +21,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
+use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
@@ -97,6 +98,10 @@ return static function (RectorConfig $rectorConfig): void {
         PHPUnitSetList::REMOVE_MOCKS,
         PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD,
         PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER,
+    ]);
+
+    $rectorConfig->skip([
+        AddArrayDefaultToArrayPropertyRector::class => [__DIR__ . '/src/Model/SatisJson.php'],
     ]);
 
     $rectorConfig->symfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml');
