@@ -22,7 +22,6 @@ and start hacking. To head to the project in the browser run
 
 1. create and edit `.env.local` to overwrite vars from `.env.dist`
 1. execute `composer install`
-1. execute `composer install -d satis/package-generator` to setup Satis (optional)
 1. execute `php ./bin/console doctrine:schema:create` to create database schema
 
 ### Database Creation and Migration
@@ -74,13 +73,6 @@ branch which is deployed then to the production site.
 
 In the dev context you can authorize your requests with the username `developer`
 and the password `password` by default.
-
-### Satis / TYPO3 Composer Repository
-
-The Satis application is located at the folder `satis` and contains all relevant
-parts for the creation of the TYPO3 Composer Repository at
-`https://composer.typo3.org`. This job is started through crontab see `cnf`
-folder for the configuration details.
 
 ### Download Link Checker
 

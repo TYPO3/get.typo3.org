@@ -18,17 +18,16 @@
     {% endframe %}
 
     {% frame with { color: 'light', id: 'what', title: "What Is It?" } %}
-        <p>TYPO3 offers a <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer. The packages are updated once every 3 hours.</p>
+        <p>TYPO3 offers a <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a> repository, enabling you to install TYPO3 extensions from the <a href="https://extensions.typo3.org">TYPO3 Extension Repository</a> (TER) including their TER dependencies via Composer. The packages are updated once every 15 minutes.</p>
         <p>This repository includes only the following TYPO3 CMS extensions:</p>
         <ul>
-            <li>All TYPO3 extensions that are uploaded to TER, including insecure versions.
+            <li>All TYPO3 extensions compatible with TYPO3 v8.7 or later that are uploaded to TER, including insecure versions.
                 <ul>
-                    <li>Insecure versions are marked in th extra section with &quot;extra&quot;&quot;typo3/ter&quot;&quot;reviewstate&quot; = &quot;insecure&quot; in the Composer extra section</li>
-                    <li>All these extensions are in the <code>typo3-ter/</code> namespace</li>
+                    <li>Insecure versions are marked in the extra section &quot;extra.typo3/ter.reviewstate&quot; = &quot;insecure&quot; in the composer.json.</li>
+                    <li>All these extensions have the <code>typo3-ter</code> vendor name set.</li>
                 </ul>
             </li>
         </ul>
-        <p>You can <a href="/satis.html" target="_blank" rel="noopener">list and search for</a> available extension packages.</p>
     {% endframe %}
 
     {% frame with { id: 'usage', title: "How to use it?" } %}
