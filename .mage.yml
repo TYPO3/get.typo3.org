@@ -48,6 +48,7 @@ magephp:
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
             on-release:
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
+                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
             post-release:
             post-deploy:
         production:
@@ -79,6 +80,7 @@ magephp:
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
             on-release:
                 - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
+                - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
             post-release:
             post-deploy:
         stage:
