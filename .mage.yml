@@ -3,36 +3,25 @@ magephp:
     composer:
         path: composer
     exclude:
-        - .ddev
-        - .git
-        - .github
-        - .mage
-        - .vscode
-        - bin/phpunit
-        - stubs
-        - tests
-        - .editorconfig
-        - .env.ddev
-        - .env.local
-        - .env.test
-        - .gitattributes
-        - .gitignore
-        - .gitmodules
-        - .mage.yml
-        - .php-cs-fixer.cache
-        - .php-cs-fixer.dist.php
-        - .phplint-cache
-        - .phplint.yml
-        - .phpunit.result.cache
-        - LICENSE
-        - phpstan.neon
-        - phpunit.xml.dist
-        - README.md
-        - rector.php
+        - ./.*
+        - ./public/p
+        - ./public/p2
+        - ./public/aliases.json
+        - ./public/packages.json
+        - ./public/satis.html
+        - ./stubs
+        - ./tests
+        - ./tools
+        - ./var
+        - ./LICENSE
+        - ./phpstan.neon
+        - ./phpunit.xml.dist
+        - ./README.md
+        - ./rector.php
     environments:
         develop:
             user: get-dev
-            from: ./
+            from: ./* ./.env
             host_path: ./site/mage/
             releases: 3
             hosts:
@@ -42,6 +31,7 @@ magephp:
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
             on-deploy:
+                - exec: { cmd: 'mkdir -p var', desc: 'Create var folder' }
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
                 - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
                 - fs/link: { from: "../../../../shared/public/p2", to: "public/p2" }
@@ -61,7 +51,7 @@ magephp:
             post-deploy:
         production:
             user: get
-            from: ./
+            from: ./* ./.env
             host_path: ./site/mage/
             releases: 3
             hosts:
@@ -71,6 +61,7 @@ magephp:
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader' }
                 - composer/install: { flags: '--no-dev --no-progress --optimize-autoloader --working-dir=satis' }
             on-deploy:
+                - exec: { cmd: 'mkdir -p var', desc: 'Create var folder' }
                 - fs/link: { from: "../../../shared/.env.local", to: ".env.local" }
                 - fs/link: { from: "../../../../shared/public/p", to: "public/p" }
                 - fs/link: { from: "../../../../shared/public/p2", to: "public/p2" }
@@ -90,7 +81,7 @@ magephp:
             post-deploy:
         stage:
             user: get-stage
-            from: ./
+            from: ./* ./.env
             host_path: ./site/mage/
             releases: 3
             hosts:

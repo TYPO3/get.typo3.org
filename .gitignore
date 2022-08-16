@@ -1,5 +1,6 @@
 /.ddev/docker-compose.tmpfs.yaml
 /.idea/
+/.mage/
 /.vscode/
 /public/p/
 /public/p2/
