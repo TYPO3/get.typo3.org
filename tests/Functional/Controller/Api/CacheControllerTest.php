@@ -81,40 +81,14 @@ class CacheControllerTest extends ApiCase
         $response = $this->client->getResponse();
         self::assertSame(Response::HTTP_ACCEPTED, $response->getStatusCode());
         self::assertSame(
-            [
-                'locations' => [
-                    'http://localhost/v1/api/major/10/release/',
-                    'http://localhost/v1/api/major/10/release/latest',
-                    'http://localhost/v1/api/major/10/release/latest/security',
-                    'http://localhost/v1/api/major/10/release/latest/content',
-                    'http://localhost/v1/api/major/',
-                    'http://localhost/v1/api/major/10',
-                    'http://localhost/',
-                    'http://localhost/release-notes',
-                    'http://localhost/release-notes/',
-                    'http://localhost/version/10',
-                ],
-            ],
+            [],
             $this->decodeResponse($response)
         );
         $this->client->request('DELETE', '/v1/api/cache/majorVersion/6.2');
         $response = $this->client->getResponse();
         self::assertSame(Response::HTTP_ACCEPTED, $response->getStatusCode());
         self::assertSame(
-            [
-                'locations' => [
-                    'http://localhost/v1/api/major/6.2/release/',
-                    'http://localhost/v1/api/major/6.2/release/latest',
-                    'http://localhost/v1/api/major/6.2/release/latest/security',
-                    'http://localhost/v1/api/major/6.2/release/latest/content',
-                    'http://localhost/v1/api/major/',
-                    'http://localhost/v1/api/major/6.2',
-                    'http://localhost/',
-                    'http://localhost/release-notes',
-                    'http://localhost/release-notes/',
-                    'http://localhost/version/6.2',
-                ],
-            ],
+            [],
             $this->decodeResponse($response)
         );
     }
@@ -161,26 +135,7 @@ class CacheControllerTest extends ApiCase
         $response = $this->client->getResponse();
         self::assertSame(Response::HTTP_ACCEPTED, $response->getStatusCode());
         self::assertSame(
-            [
-                'locations' => [
-                    'http://localhost/v1/api/major/10/release/',
-                    'http://localhost/v1/api/major/10/release/latest',
-                    'http://localhost/v1/api/major/10/release/latest/security',
-                    'http://localhost/v1/api/major/10/release/latest/content',
-                    'http://localhost/v1/api/major/',
-                    'http://localhost/v1/api/major/10',
-                    'http://localhost/',
-                    'http://localhost/release-notes',
-                    'http://localhost/release-notes/',
-                    'http://localhost/version/10',
-
-                    'http://localhost/v1/api/release/',
-                    'http://localhost/v1/api/release/10.0.0',
-                    'http://localhost/v1/api/release/10.0.0/content',
-                    'http://localhost/release-notes',
-                    'http://localhost/release-notes/10.0.0',
-                ],
-            ],
+            [],
             $this->decodeResponse($response)
         );
     }
