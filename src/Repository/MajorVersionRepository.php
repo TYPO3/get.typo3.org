@@ -31,6 +31,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use RuntimeException;
 use DateTimeImmutable;
 
+use function in_array;
+
 /**
  * @extends ServiceEntityRepository<MajorVersion>
  */
@@ -153,8 +155,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
     {
         $data = $this->findCommunityVersionsGroupedByMajor();
         $data = array_merge($data, $this->findStableReleases());
-        $data = array_merge($data, $this->findLtsReleases());
-        return array_merge($data, ['_deprecation_' => 'This file is deprecated. Please use the new API at /api/v1 see https://get.typo3.org/api/doc.']);
+        return array_merge($data, $this->findLtsReleases());
     }
 
     /**
@@ -173,7 +174,6 @@ final class MajorVersionRepository extends ServiceEntityRepository
             $data,
             static fn (string $a, string $b): int => version_compare($a, $b)
         );
-
         return array_reverse($data);
     }
 
@@ -183,7 +183,6 @@ final class MajorVersionRepository extends ServiceEntityRepository
     public function findCommunityVersionsGroupedByMajor(): array
     {
         $versions = $this->removeVersionsWithoutReleases($this->findAll());
-
         $data = [];
         foreach ($versions as $version) {
             $data[$this->formatVersion($version->getVersion())] = $this->removeEltsReleases($version);
@@ -193,7 +192,6 @@ final class MajorVersionRepository extends ServiceEntityRepository
             $data,
             static fn (string $a, string $b): int => version_compare($a, $b)
         );
-
         return array_reverse($data);
     }
 
@@ -305,17 +303,17 @@ final class MajorVersionRepository extends ServiceEntityRepository
     }
 
     /**
-     * As PHP does not like sorting arrays with a mix of int and string keys,
-     * we forcibly suffix .0 releases.
-     * In versions 7 and later the json key should only be the first digit --
-     * therefor we add a recognizable suffix that will be later removed in the
-     * controllers.
+     * As PHP does not like sorting arrays with a mix of int
+     * and string keys, we forcibly suffix .0 releases
+     * In versions 7, 8, 9 the json key should only be the first
+     * digit -- therefor we add a recognizable suffix that will
+     * be later removed in DefaultController.
      */
     private function formatVersion(float|int|string $version): string
     {
         $version = (string)$version;
         if (!str_contains($version, '.')) {
-            if ((int)$version >= 7) {
+            if (in_array((int)$version, [7, 8, 9, 10, 11, 12, 13], true)) {
                 $version .= '.0000';
             } else {
                 $version .= '.0';
