@@ -71,15 +71,18 @@ class ReleaseController extends AbstractController
     {
         if ($version !== null) {
             $this->checkVersionFormat($version);
-            $versionSuffix = '-' . $version;
+            $versionSuffix = '-data-' . $version;
         } else {
-            $versionSuffix = 's';
+            $versionSuffix = 's-data';
         }
 
         $json = $this->getCache()->get('release' . $versionSuffix, function (ItemInterface $item) use ($version): string {
-            $versionSuffix = $version !== null ? '-' . $version : '';
+            if ($version !== null) {
+                $item->tag(['releases', 'release-' . $version]);
+            } else {
+                $item->tag(['releases', 'release']);
+            }
 
-            $item->tag(['releases', 'release' . $versionSuffix]);
             $releases = $version !== null ? $this->getReleaseByVersion($version) : $this->getReleases()->findAll();
 
             return $this->getSerializer()->serialize(
@@ -243,7 +246,7 @@ class ReleaseController extends AbstractController
     {
         $this->checkVersionFormat($version);
 
-        $json = $this->getCache()->get('release-' . $version, function (ItemInterface $item) use ($version): string {
+        $json = $this->getCache()->get('release-content-' . $version, function (ItemInterface $item) use ($version): string {
             $item->tag(['releases', 'release-' . $version]);
 
             $release = $this->getReleaseByVersion($version);

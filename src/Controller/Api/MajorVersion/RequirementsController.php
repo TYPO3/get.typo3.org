@@ -69,7 +69,7 @@ class RequirementsController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
 
-        $json = $this->getCache()->get('requirements-' . $version, function (ItemInterface $item) use ($version): string {
+        $json = $this->getCache()->get('requirements-data-' . $version, function (ItemInterface $item) use ($version): string {
             $item->tag(['requirements', 'requirements-' . $version]);
 
             $requirements = $this->getRequirements()->findBy(
