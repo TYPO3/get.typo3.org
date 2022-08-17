@@ -93,15 +93,15 @@
 		"twig/twig": "^2.12 || ^3.0"
 	},
 	"require-dev": {
-		"bamarni/composer-bin-plugin": "^1.7",
+		"bamarni/composer-bin-plugin": "^1.8",
 		"doctrine/doctrine-fixtures-bundle": "^3.4",
-		"ergebnis/composer-normalize": "^2.18",
-		"fakerphp/faker": "^1.19",
+		"ergebnis/composer-normalize": "^2.28",
+		"fakerphp/faker": "^1.20",
 		"roave/security-advisories": "dev-latest",
 		"symfony/browser-kit": "^5.4",
 		"symfony/css-selector": "^5.4",
 		"symfony/debug-bundle": "^5.4",
-		"symfony/maker-bundle": "^1.0",
+		"symfony/maker-bundle": "^1.45",
 		"symfony/panther": "^1.1",
 		"symfony/stopwatch": "^5.4",
 		"symfony/var-dumper": "^5.4",
@@ -161,7 +161,7 @@
 		"symfony": {
 			"allow-contrib": false,
 			"id": "01C8T4G8QYJT0T9Q9SWDHVW8AC",
-			"require": "5.4.*"
+			"require": "^5.4"
 		}
 	},
 	"scripts": {
@@ -195,7 +195,7 @@
 		],
 		"ci:composer:require-checker:reset": [
 			"@composer remove doctrine/data-fixtures --ansi --no-interaction --no-progress --no-update",
-			"@composer require doctrine/doctrine-fixtures-bundle:^3.4 fakerphp/faker:^1.19 --dev --ansi --no-interaction --no-progress"
+			"@composer require doctrine/doctrine-fixtures-bundle:^3.4 fakerphp/faker:^1.20 --dev --ansi --no-interaction --no-progress"
 		],
 		"ci:composer:validate": "@composer validate --strict",
 		"ci:dynamic": [
