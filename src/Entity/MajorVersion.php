@@ -326,36 +326,23 @@ class MajorVersion implements JsonSerializable
     }
 
     /**
-     * @return array{
-     *   releases: array<string, Release>|string,
-     *   latest: string,
-     *   stable: string,
-     *   active: bool,
-     *   elts: bool
-     * }
+     * @return array{releases: array<string, Release>, latest: string, stable: string, active: bool, elts: bool}
      */
     public function jsonSerialize(): array
     {
-        if ($this->version < 9) {
-            $releaseData = [];
-            foreach ($this->getReleases() as $release) {
-                $releaseData[$release->getVersion()] = $release;
-            }
-
-            uksort(
-                $releaseData,
-                static fn (string $a, string $b): int => version_compare($a, $b)
-            );
-
-            $releases = array_reverse($releaseData);
-        } else {
-            $releases = 'Please use the new API at /api/v1 to fetch the releases see https://get.typo3.org/api/doc.';
+        $releaseData = [];
+        foreach ($this->getReleases() as $release) {
+            $releaseData[$release->getVersion()] = $release;
         }
 
+        uksort(
+            $releaseData,
+            static fn (string $a, string $b): int => version_compare($a, $b)
+        );
+        $desc = array_reverse($releaseData);
         $latest = $this->getLatestRelease();
-
         return [
-            'releases' => $releases,
+            'releases' => $desc,
             'latest' => $latest !== null ? $latest->getVersion() : '',
             'stable' => $latest !== null ? $latest->getVersion() : '',
             'active' => $this->isActive(),
