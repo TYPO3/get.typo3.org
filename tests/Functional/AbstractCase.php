@@ -44,9 +44,6 @@ abstract class AbstractCase extends PantherTestCase
 
     protected function setUp(): void
     {
-        self::bootKernel();
-        DatabasePrimer::prime(self::$kernel);
-
         $client = static::createClient();
 
         if (!$client instanceof KernelBrowser) {
@@ -54,6 +51,8 @@ abstract class AbstractCase extends PantherTestCase
         }
 
         $this->client = $client;
+
+        DatabasePrimer::prime(self::$kernel);
     }
 
     protected function logIn(): void
@@ -76,6 +75,10 @@ abstract class AbstractCase extends PantherTestCase
     protected function executeFixtures(): void
     {
         $this->getFixtureExecutor()->execute($this->getFixtureLoader()->getFixtures());
+
+        /** @var \Symfony\Contracts\Cache\TagAwareCacheInterface $appCacheTaggable */
+        $appCacheTaggable = static::getContainer()->get('cache.app.taggable');
+        $appCacheTaggable->invalidateTags(['major-versions', 'releases', 'requirements']);
     }
 
     private function getFixtureExecutor(): ORMExecutor
