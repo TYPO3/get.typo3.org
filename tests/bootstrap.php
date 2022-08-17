@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Tests;
 
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Filesystem\Filesystem;
 
 use function file_exists;
 use function dirname;
@@ -35,3 +36,6 @@ if (file_exists(dirname(__DIR__) . '/config/bootstrap.php')) {
 } else {
     (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 }
+
+// ensure a fresh cache when debug mode is disabled
+(new Filesystem())->remove(__DIR__ . '/../var/cache/test');

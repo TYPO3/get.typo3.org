@@ -37,10 +37,10 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_SPRINT, 3);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS, 6);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS_OLD, 9);
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS, 12);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_SPRINT, 6);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS, 12);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS_OLD, 18);
+        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS, 24);
         $manager->flush();
     }
 
@@ -80,7 +80,7 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             $version = implode('.', $fakeVersion);
             $date = DateTime::createFromFormat(
                 DateTimeInterface::ATOM,
-                $majorVersion->getReleaseDate()->modify('+' . ($i * 3) . ' months')->format(DateTimeInterface::ATOM)
+                $majorVersion->getReleaseDate()->modify('+' . ($i * 2) . ' months')->format(DateTimeInterface::ATOM)
             );
 
             if ($date === false) {

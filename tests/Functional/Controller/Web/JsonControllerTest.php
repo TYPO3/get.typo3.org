@@ -69,9 +69,9 @@ class JsonControllerTest extends AbstractCase
         self::assertArrayHasKey('latest_lts', $content);
         self::assertArrayHasKey('latest_old_lts', $content);
 
-        self::assertSame('10.0.2', $content['latest_stable']);
-        self::assertSame('10.0.1', $content['latest_old_stable']);
-        self::assertSame('9.5.5', $content['latest_lts']);
-        self::assertSame('8.7.8', $content['latest_old_lts']);
+        self::assertSame('10.0.5', $content['latest_stable']);
+        self::assertSame('10.0.4', $content['latest_old_stable']);
+        self::assertSame('9.5.11', $content['latest_lts']);
+        self::assertSame('8.7.17', $content['latest_old_lts']);
     }
 }
