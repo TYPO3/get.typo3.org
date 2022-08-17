@@ -28,6 +28,7 @@ use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
 use App\Repository\RequirementRepository;
+use App\Service\CacheService;
 use App\Utility\VersionUtility;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -47,6 +48,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
 {
     public function __construct(
         private \Symfony\Contracts\Cache\TagAwareCacheInterface $cache,
+        private \App\Service\CacheService $cacheService,
         private \JMS\Serializer\SerializerInterface $serializer,
         private \Doctrine\Persistence\ManagerRegistry $managerRegistry,
         private \App\Repository\MajorVersionRepository $majorVersions,
@@ -59,6 +61,11 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     protected function getCache(): TagAwareCacheInterface
     {
         return $this->cache;
+    }
+
+    protected function getCacheService(): CacheService
+    {
+        return $this->cacheService;
     }
 
     protected function getSerializer(): SerializerInterface
