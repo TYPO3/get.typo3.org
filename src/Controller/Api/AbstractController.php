@@ -37,11 +37,11 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
-use Iterator;
 use DateTime;
 use DateTimeImmutable;
 
 use function iterator_apply;
+use function iterator_to_array;
 
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
@@ -104,13 +104,15 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
 
         if ($violations->count() > 0) {
             $messages = '';
-            iterator_apply($violations, static function (Iterator $iterator) use ($messages): bool {
-                if ($iterator->current() instanceof ConstraintViolationInterface) {
-                    $messages .= $iterator->current()->getMessage() . "\n";
-                }
 
-                return true;
-            });
+            iterator_apply(
+                $violations,
+                static function (ConstraintViolationInterface $violation) use (&$messages): bool {
+                    $messages .= \sprintf("%s: %s\n", $violation->getPropertyPath(), $violation->getMessage());
+                    return true;
+                },
+                iterator_to_array($violations)
+            );
 
             throw new BadRequestHttpException(trim($messages));
         }
