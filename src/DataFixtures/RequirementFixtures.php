@@ -42,6 +42,7 @@ final class RequirementFixtures extends Fixture implements DependentFixtureInter
 
             foreach ($requirements as $data) {
                 $requirement = new Requirement(
+                    null,
                     $majorVersion,
                     $data->category,
                     $data->name,

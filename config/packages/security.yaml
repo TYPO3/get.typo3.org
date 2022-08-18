@@ -16,6 +16,16 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/admin
+            lazy: true
+            provider: users_in_memory
+            form_login:
+                login_path: app_login
+                check_path: app_login
+            logout:
+                path: app_logout
+                target: app_login
         api:
             pattern: ^/(?:api/v\d|v\d/api)/
             lazy: true

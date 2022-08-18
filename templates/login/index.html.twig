@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Administration Login{% endblock %}
+
+{% block body %}
+    {% frame with { color: 'dark', center: true, title: 'Backend Login', titleSize: 1, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <p class="lead">
+            Please enter your credentials to access the administration.
+        </p>
+    {% endframe %}
+
+    {% frame with { id: 'login', title: 'Login', indent: true } %}
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form action="{{ path('app_login') }}" method="post">
+            <div class="form-group">
+                <label class="form-label required" for="username">User:</label>
+                <input class="form-control form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+            </div>
+            <div class="form-group">
+                <label class="form-label required" for="password">Password:</label>
+                <input class="form-control form-control" type="password" id="password" name="_password"/>
+            </div>
+            <input type="hidden" name="_target_path" value="/admin"/>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">login</button>
+            </div>
+        </form>
+    {% endframe %}
+{% endblock %}
