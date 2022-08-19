@@ -35,7 +35,7 @@ class LoginController extends AbstractController
     ) {
     }
 
-    #[Route('/admin/login', name: 'app_login')]
+    #[Route('/login', name: 'app_login')]
     public function index(): Response
     {
         // get the login error if there is one
@@ -48,7 +48,7 @@ class LoginController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/logout', name: 'app_logout', methods: ['GET'])]
+    #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
     {
         // controller can be blank: it will never be called!
