@@ -42,6 +42,7 @@ class DownloadControllerTest extends AbstractCase
 
     /**
      * @dataProvider webDownloadVersionDataProvider
+     *
      * @test
      */
     public function webDownloadVersion(

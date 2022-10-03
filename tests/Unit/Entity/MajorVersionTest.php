@@ -34,6 +34,7 @@ class MajorVersionTest extends TestCase
 {
     /**
      * @dataProvider entityTestDataProvider
+     *
      * @test
      */
     public function entityTest(MajorVersion $majorVersion, MajorVersionExpected $expectedResult): void
@@ -49,6 +50,7 @@ class MajorVersionTest extends TestCase
 
     /**
      * @dataProvider entityTestDataProvider
+     *
      * @test
      */
     public function entityToArrayTest(MajorVersion $majorVersion, MajorVersionExpected $expectedResult): void
@@ -65,6 +67,7 @@ class MajorVersionTest extends TestCase
 
     /**
      * @dataProvider entityTestDataProvider
+     *
      * @test
      */
     public function entityToJsonTest(MajorVersion $majorVersion, MajorVersionExpected $expectedResult): void
