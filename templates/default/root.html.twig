@@ -25,7 +25,7 @@
                                 <p>Updates and security fixes will be provided for three years starting from the release date.</p>
                                 {% if version.latestRelease %}
                                     <p>We encourage users and agencies to install and use the sprint releases until the LTS release is available.
-                                        Further details about the releases and release dates are available in the <a href="https://typo3.org/cms/roadmap/">roadmap</a>.</p>
+                                        Further details about the releases and planned release dates are available in the <a href="https://typo3.org/cms/roadmap/">roadmap</a>.</p>
                                 {% endif %}
                             {% else %}
                                 <p>{{ version.description }}</p>
@@ -58,6 +58,14 @@
                                     <li>Flexible and Secure Multi-factor Authentication</li>
                                     <li>And a lot of Improvements for Developers</li>
                                 </ul>
+                            {% elseif version.version == 12 %}
+                                <ul class="list-check">
+                                    <li>Increased performance</li>
+                                    <li>Improved backend usability</li>
+                                    <li>Create custom content types quickly and easily</li>
+                                    <li>Top-modern dependent libraries (CKEditor v5, Symfony v6, Doctrine v3)</li>
+                                    <li>And a lot of improvements for developers</li>
+                                </ul>
                             {% endif %}
                         </div>
                         <div class="card-footer">
@@ -65,7 +73,7 @@
                             <ul class="list-info">
                                 {% if version.version == 12 %}
                                     <li>PHP 8.1</li>
-                                    <li>MySQL 5.7+ / MariaDB / Postgres / SQLite support</li>
+                                    <li>MySQL 8.0+ / MariaDB 10.3+ / Postgres 10.0+ / SQLite 3.8.3+ support</li>
                                     <li>Modern Browsers</li>
                                 {% elseif version.version == 11 %}
                                     <li>PHP 7.4, 8.0 or 8.1</li>
