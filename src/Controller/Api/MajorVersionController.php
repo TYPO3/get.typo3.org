@@ -57,7 +57,7 @@ class MajorVersionController extends AbstractController
     #[Route(path: '/', methods: ['GET'])]
     public function getMajorReleases(): JsonResponse
     {
-        $json = $this->getCache()->get('major-versions-descending', function (ItemInterface $item): string {
+        $json = $this->getCache()->get('major-versions-descending-content', function (ItemInterface $item): string {
             $item->tag(['major-versions', 'major-version']);
 
             $majors = $this->getMajorVersions()->findAllDescending();
@@ -95,7 +95,7 @@ class MajorVersionController extends AbstractController
     {
         $this->checkMajorVersionFormat($version);
 
-        $json = $this->getCache()->get('major-version-' . $version, function (ItemInterface $item) use ($version): string {
+        $json = $this->getCache()->get('major-version-content-' . $version, function (ItemInterface $item) use ($version): string {
             $item->tag(['major-versions', 'major-version-' . $version]);
 
             $majorVersion = $this->getMajorVersions()->findVersion($version);

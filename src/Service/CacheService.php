@@ -23,26 +23,31 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Repository\MajorVersionRepository;
-use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
-class LegacyDataService
+class CacheService
 {
     public function __construct(
         private readonly TagAwareCacheInterface $cache,
-        private readonly MajorVersionRepository $majorVersionRepository,
     ) {
     }
 
-    public function getReleaseJson(): string
+    public function purgeMajorVersion(string $majorVersion): void
     {
-        return $this->cache->get('releases.json', function (ItemInterface $item): string {
-            $item->tag(['major-versions', 'major-version', 'releases', 'release']);
-            $content = json_encode($this->majorVersionRepository->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
-            $content = $content != false ? $content : '';
-            // remove version suffix only used for version sorting
-            return str_replace('.0000', '', $content);
-        });
+        $this->cache->invalidateTags([
+            'major-version-' . $majorVersion,
+            'major-version',
+            'requirements-' . $majorVersion,
+            'releases-' . $majorVersion,
+            'release',
+        ]);
+    }
+
+    public function purgeMajorVersionReleases(string $majorVersion): void
+    {
+        $this->cache->invalidateTags([
+            'releases-' . $majorVersion,
+            'release',
+        ]);
     }
 }

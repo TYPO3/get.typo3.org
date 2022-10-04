@@ -28,6 +28,7 @@ use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
 use App\Repository\RequirementRepository;
+use App\Service\CacheService;
 use App\Utility\VersionUtility;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -37,16 +38,18 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
-use Iterator;
 use DateTime;
 use DateTimeImmutable;
 
 use function iterator_apply;
+use function iterator_to_array;
+use function is_string;
 
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     public function __construct(
         private \Symfony\Contracts\Cache\TagAwareCacheInterface $cache,
+        private \App\Service\CacheService $cacheService,
         private \JMS\Serializer\SerializerInterface $serializer,
         private \Doctrine\Persistence\ManagerRegistry $managerRegistry,
         private \App\Repository\MajorVersionRepository $majorVersions,
@@ -59,6 +62,11 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     protected function getCache(): TagAwareCacheInterface
     {
         return $this->cache;
+    }
+
+    protected function getCacheService(): CacheService
+    {
+        return $this->cacheService;
     }
 
     protected function getSerializer(): SerializerInterface
@@ -104,13 +112,15 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
 
         if ($violations->count() > 0) {
             $messages = '';
-            iterator_apply($violations, static function (Iterator $iterator) use ($messages): bool {
-                if ($iterator->current() instanceof ConstraintViolationInterface) {
-                    $messages .= $iterator->current()->getMessage() . "\n";
-                }
 
-                return true;
-            });
+            iterator_apply(
+                $violations,
+                static function (ConstraintViolationInterface $violation) use (&$messages): bool {
+                    $messages .= \sprintf("%s: %s\n", $violation->getPropertyPath(), $violation->getMessage());
+                    return true;
+                },
+                iterator_to_array($violations)
+            );
 
             throw new BadRequestHttpException(trim($messages));
         }
@@ -124,13 +134,12 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         $inflector = InflectorFactory::create()->build();
         /** @var ClassMetadataInfo<object> $metadata */
         $metadata = $this->managerRegistry->getManager()->getMetadataFactory()->getMetadataFor($baseObject::class);
+        $data = $this->flat($data);
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = $inflector->tableize($field);
-            $data = $this->flat($data);
 
-            if (array_key_exists($fieldName, $data)) {
+            if (array_key_exists($fieldName, $data) && is_string($data[$fieldName])) {
                 if (isset($metadata->fieldMappings[$field]['type'])) {
-                    // @todo Switch this to match() in PHP 8.0.
                     if ($metadata->fieldMappings[$field]['type'] == 'datetime') {
                         $data[$fieldName] = new DateTime($data[$fieldName]);
                     } elseif ($metadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
@@ -190,9 +199,9 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     }
 
     /**
-     * @param array<int, string> $array
+     * @param array<string, string> $array
      *
-     * @return mixed[]
+     * @return array<string, string>
      */
     protected function flat(array $array, string $prefix = ''): array
     {

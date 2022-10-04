@@ -21,28 +21,31 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\Service;
+namespace App\EventListener;
 
-use App\Repository\MajorVersionRepository;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use App\Entity\Release;
+use App\Service\CacheService;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
-class LegacyDataService
+final class ReleaseListener
 {
     public function __construct(
-        private readonly TagAwareCacheInterface $cache,
-        private readonly MajorVersionRepository $majorVersionRepository,
+        private readonly CacheService $cacheService,
     ) {
     }
 
-    public function getReleaseJson(): string
+    public function postUpdate(Release $release, LifecycleEventArgs $eventArgs): void
     {
-        return $this->cache->get('releases.json', function (ItemInterface $item): string {
-            $item->tag(['major-versions', 'major-version', 'releases', 'release']);
-            $content = json_encode($this->majorVersionRepository->findAllPreparedForJson(), JSON_THROW_ON_ERROR);
-            $content = $content != false ? $content : '';
-            // remove version suffix only used for version sorting
-            return str_replace('.0000', '', $content);
-        });
+        $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
+    }
+
+    public function postRemove(Release $release, LifecycleEventArgs $eventArgs): void
+    {
+        $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
+    }
+
+    public function postPersist(Release $release, LifecycleEventArgs $eventArgs): void
+    {
+        $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
     }
 }

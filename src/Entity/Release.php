@@ -26,6 +26,7 @@ namespace App\Entity;
 use App\Entity\Embeddables\Package;
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Enum\ReleaseTypeEnum;
+use App\EventListener\ReleaseListener;
 use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -36,6 +37,7 @@ use DateTimeInterface;
 use InvalidArgumentException;
 use DateTimeImmutable;
 use DateTime;
+use Stringable;
 
 /**
  * @OA\Schema(
@@ -44,7 +46,8 @@ use DateTime;
  * )
  */
 #[ORM\Entity(repositoryClass: ReleaseRepository::class)]
-class Release implements JsonSerializable
+#[ORM\EntityListeners([ReleaseListener::class])]
+class Release implements JsonSerializable, Stringable
 {
     /**
      * Version in a semver/version_compare compatible format.
@@ -222,5 +225,10 @@ class Release implements JsonSerializable
                 'tar' => getenv('BASE_URL') . '/' . $this->version,
             ],
         ];
+    }
+
+    public function __toString(): string
+    {
+        return $this->getVersion();
     }
 }

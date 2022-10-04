@@ -60,8 +60,8 @@ class CacheController extends AbstractController
     public function purgeMajorRelease(string $version): JsonResponse
     {
         $this->findMajorVersion($version);
-        $this->deleteRelease($version);
-        $this->deleteMajorVersion($version);
+        $this->getCacheService()->purgeMajorVersion($version);
+
         return $this->json([], Response::HTTP_ACCEPTED);
     }
 
@@ -91,31 +91,10 @@ class CacheController extends AbstractController
     public function purgeRelease(string $version): JsonResponse
     {
         $this->checkVersionFormat($version);
-        $majorVersion = $this->getMajorVersionByReleaseVersion($version);
-        $this->deleteRelease((string)$majorVersion->getVersion());
+        $this->getCacheService()->purgeMajorVersionReleases(
+            (string)$this->getMajorVersionByReleaseVersion($version)->getVersion()
+        );
+
         return $this->json([], Response::HTTP_ACCEPTED);
-    }
-
-    /**
-     * Deletes a release and the releases.json in the cache.
-     */
-    private function deleteRelease(string $version): void
-    {
-        $this->getCache()->invalidateTags([
-            'release-' . $version,
-            'release',
-        ]);
-    }
-
-    /**
-     * Deletes the releases.json in the cache.
-     */
-    private function deleteMajorVersion(string $version): void
-    {
-        $this->getCache()->invalidateTags([
-            'major-version-' . $version,
-            'major-version',
-            'requirements-' . $version,
-        ]);
     }
 }

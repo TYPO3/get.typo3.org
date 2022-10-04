@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enum\RequirementCategoryEnum;
+use App\EventListener\RequirementListener;
 use App\Repository\RequirementRepository;
 use Doctrine\DBAL\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,6 +33,7 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 use JsonSerializable;
 use InvalidArgumentException;
+use Stringable;
 
 use function ucfirst;
 
@@ -42,26 +44,30 @@ use function ucfirst;
  * )
  */
 #[ORM\Entity(repositoryClass: RequirementRepository::class)]
-class Requirement implements JsonSerializable
+#[ORM\EntityListeners([RequirementListener::class])]
+#[ORM\UniqueConstraint(columns: ['version', 'category', 'name'])]
+class Requirement implements JsonSerializable, Stringable
 {
     public function __construct(
         #[ORM\Id]
+        #[ORM\GeneratedValue]
+        #[ORM\Column]
+        private ?int $id,
         #[ORM\ManyToOne(targetEntity: MajorVersion::class, inversedBy: 'requirements')]
         #[ORM\JoinColumn(name: 'version', referencedColumnName: 'version')]
         private MajorVersion $version,
         /**
          * @noRector
+         *
          * @OA\Property(example="database")
          */
         #[Assert\Choice(callback: [RequirementCategoryEnum::class, 'getAvailableOptions'])]
-        #[ORM\Id]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private string $category,
         /**
          * @OA\Property(example="mysql")
          */
-        #[ORM\Id]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private string $name,
@@ -78,6 +84,11 @@ class Requirement implements JsonSerializable
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private ?string $max = null,
     ) {
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function setVersion(MajorVersion $version): void
@@ -155,5 +166,20 @@ class Requirement implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [];
+    }
+
+    public function __toString(): string
+    {
+        $result = ucfirst($this->getCategory()) . ' / ' . $this->getTitle();
+
+        if (($min = $this->getMin()) !== \null) {
+            $result .= ': ' . $min;
+        }
+
+        if (($max = $this->getMax()) !== \null) {
+            $result .= '-' . $max;
+        }
+
+        return $result;
     }
 }

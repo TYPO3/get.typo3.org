@@ -1,5 +1,5 @@
 {
     "require": {
-        "typo3/coding-standards": "^0.5.3"
+        "typo3/coding-standards": "*"
     }
 }

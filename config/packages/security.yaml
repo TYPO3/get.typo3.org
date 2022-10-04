@@ -16,6 +16,16 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/admin
+            lazy: true
+            provider: users_in_memory
+            form_login:
+                login_path: app_login
+                check_path: app_login
+            logout:
+                path: app_logout
+                target: app_login
         api:
             pattern: ^/(?:api/v\d|v\d/api)/
             lazy: true
@@ -35,7 +45,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         # Special rules for get.typo3.dev
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1, 185.17.71.134, 2a04:503:0:1019::134], host: ^get\.typo3\.dev$ }
