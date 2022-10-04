@@ -741,7 +741,7 @@ final class ComposerPackagesService
             array_merge($versionChoices, [
                 'label'         => 'TYPO3 Version',
                 'label_attr'    => ['class' => 'version-label'],
-                'attr'          => ['class' => 'js-composer-package-version', 'onChange' => 'checkboxChangeEvent()'],
+                'attr'          => ['data-composer-helper-version' => 'true', 'onChange' => 'checkboxChangeEvent()'],
             ])
         );
 
@@ -753,8 +753,7 @@ final class ComposerPackagesService
                     'value'         => $package['name'],
                     'label'         => $package['name'],
                     'help'          => $package['description'],
-                    'label_attr'    => ['class' => 'checkbox-custom'],
-                    'attr'          => ['class' => 'js-composer-package-check', 'onChange' => 'checkboxChangeEvent()'],
+                    'attr'          => ['data-composer-helper-package' => 'true', 'onChange' => 'checkboxChangeEvent()'],
                     'required'      => false,
                 ]
             );
