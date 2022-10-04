@@ -1,12 +1,12 @@
 {% frame with { id: 'system-requirements', color: 'light', title: 'System Requirements' } %}
-    <p>For more information as well as installation instructions see the <a href="https://docs.typo3.org/m/typo3/tutorial-getting-started/master/en-us/SystemRequirements/Index.html" rel="noopener,noreferrer">Installation guide</a>.</p>
+    <p>For more information and installation instructions read the <a href="https://docs.typo3.org/m/typo3/tutorial-getting-started/master/en-us/SystemRequirements/Index.html" rel="noopener,noreferrer">Installation guide</a>.</p>
     <div class="card">
         <div class="datatable">
             <table class="datatable-table">
                 <tbody>
                 <tr>
                     <th scope="row">Operating System</th>
-                    <td>Linux, Windows or Mac{% if version > 8 %}, or common cloud infrastructure setups{% endif %}</td>
+                    <td>Linux, Microsoft Windows or macOS{% if version > 8 %} (this also includes hosting on all common cloud environments){% endif %}</td>
                 </tr>
                 <tr>
                     <th scope="row">Webserver</th>
@@ -47,4 +47,5 @@
             </table>
         </div>
     </div>
+    <p>TYPO3 has been tested to work on the platforms listed above. Further setups are conceivable. <a href="https://github.com/TYPO3/get.typo3.org/issues/new/choose" rel="noopener,noreferrer">Let us know</a> which components we should add to the list.</p>
 {% endframe %}

@@ -361,7 +361,6 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-recordlist',
             'description' => 'List of database-records.',
             'versions' => [
-                12,
                 11,
                 10,
                 9,
