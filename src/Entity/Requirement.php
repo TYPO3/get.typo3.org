@@ -58,6 +58,7 @@ class Requirement implements JsonSerializable, Stringable
         private MajorVersion $version,
         /**
          * @noRector
+         *
          * @OA\Property(example="database")
          */
         #[Assert\Choice(callback: [RequirementCategoryEnum::class, 'getAvailableOptions'])]

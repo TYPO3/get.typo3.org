@@ -31,6 +31,7 @@ class VersionUtilityTest extends TestCase
 {
     /**
      * @dataProvider extractMajorVersionNumberTestDataProvider
+     *
      * @test
      */
     public function extractMajorVersionNumberTest(string $version, float $expectedResult): void
@@ -59,6 +60,7 @@ class VersionUtilityTest extends TestCase
 
     /**
      * @dataProvider isValidSemverVersionTestDataProvider
+     *
      * @test
      */
     public function isValidSemverVersionTest(string $version, bool $expectedResult): void

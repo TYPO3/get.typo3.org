@@ -43,6 +43,7 @@ use DateTimeImmutable;
 
 use function iterator_apply;
 use function iterator_to_array;
+use function is_string;
 
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
@@ -133,13 +134,12 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         $inflector = InflectorFactory::create()->build();
         /** @var ClassMetadataInfo<object> $metadata */
         $metadata = $this->managerRegistry->getManager()->getMetadataFactory()->getMetadataFor($baseObject::class);
+        $data = $this->flat($data);
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = $inflector->tableize($field);
-            $data = $this->flat($data);
 
-            if (array_key_exists($fieldName, $data)) {
+            if (array_key_exists($fieldName, $data) && is_string($data[$fieldName])) {
                 if (isset($metadata->fieldMappings[$field]['type'])) {
-                    // @todo Switch this to match() in PHP 8.0.
                     if ($metadata->fieldMappings[$field]['type'] == 'datetime') {
                         $data[$fieldName] = new DateTime($data[$fieldName]);
                     } elseif ($metadata->fieldMappings[$field]['type'] == 'datetime_immutable') {
@@ -199,9 +199,9 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     }
 
     /**
-     * @param array<int, string> $array
+     * @param array<string, string> $array
      *
-     * @return mixed[]
+     * @return array<string, string>
      */
     protected function flat(array $array, string $prefix = ''): array
     {
