@@ -556,6 +556,17 @@ final class ComposerPackagesService
                 8,
             ],
         ],
+        [
+            'name'        => 'typo3/minimal',
+            'description' => 'Provides Composer requirements to the minimal set of system extensions that is required to run TYPO3.',
+            'versions' => [
+                12,
+                11,
+                10,
+                9,
+                8,
+            ],
+        ],
     ];
 
     /**
@@ -615,6 +626,7 @@ final class ComposerPackagesService
             'typo3/cms-wizard-crpages',
             'typo3/cms-wizard-sortpages',
             'typo3/cms-workspaces',
+            'typo3/minimal',
         ],
         'typo3/minimal'   => [
             'typo3/cms-backend',
@@ -626,6 +638,7 @@ final class ComposerPackagesService
             'typo3/cms-frontend',
             'typo3/cms-install',
             'typo3/cms-recordlist',
+            'typo3/minimal',
         ],
         'typo3/default'   => [
             'typo3/cms-about',
@@ -657,6 +670,7 @@ final class ComposerPackagesService
             'typo3/cms-setup',
             'typo3/cms-tstemplate',
             'typo3/cms-viewpage',
+            'typo3/minimal',
         ],
     ];
 
