@@ -30,7 +30,14 @@ use Doctrine\Common\Collections\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
+use function array_key_exists;
+use function implode;
 use function in_array;
+use function sprintf;
+use function substr;
+use function str_ends_with;
+
+use const null;
 
 class RequirementExtension extends AbstractExtension
 {
@@ -40,10 +47,13 @@ class RequirementExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            // combined filters
             new TwigFilter(
                 'prepareRequirements',
                 fn (Collection $requirements): array => $this->prepareRequirements($requirements)
+            ),
+            new TwigFilter(
+                'prepareRequirementsShort',
+                fn (Collection $requirements): array => $this->prepareRequirementsShort($requirements)
             ),
         ];
     }
@@ -58,6 +68,86 @@ class RequirementExtension extends AbstractExtension
         $result = $this->formatVersions($requirements);
         $result = $this->groupByCategory($result);
         return $this->sortByTitle($result);
+    }
+
+    /**
+     * @param Collection<int, Requirement> $requirements
+     *
+     * @return array<string, string>
+     */
+    public function prepareRequirementsShort(Collection $requirements): array
+    {
+        $result = [
+            RequirementCategoryEnum::OPTION_PHP => '',
+            RequirementCategoryEnum::OPTION_DATABASE => '',
+            //RequirementCategoryEnum::OPTION_COMPOSER => '',
+        ];
+
+        $categories = $this->sortByTitle($this->groupByCategory($requirements->toArray()));
+
+        foreach ($categories as $category => $categoryRequirements) {
+            if (
+                array_key_exists(
+                    $category,
+                    $result
+                )
+            ) {
+                foreach ($categoryRequirements as $requirement) {
+                    switch ($requirement->getCategory()) {
+                        case RequirementCategoryEnum::OPTION_PHP:
+                            $phpVersions = [
+                                '3.0',
+                                '4.0', '4.1', '4.2', '4.3', '4.4',
+                                '5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6',
+                                '7.0', '7.1', '7.2', '7.3', '7.4',
+                                '8.0', '8.1', '8.2',
+                            ];
+
+                            $supportedVersions = [];
+
+                            foreach ($phpVersions as $phpVersion) {
+                                if (
+                                    version_compare(
+                                        VersionUtility::normalize($phpVersion, 2) ?? '',
+                                        VersionUtility::normalize($requirement->getMin(), 2) ?? ''
+                                    ) >= 0
+                                    && version_compare(
+                                        VersionUtility::normalize($phpVersion, 2) ?? '',
+                                        VersionUtility::normalize($requirement->getMax(), 2) ?? ''
+                                    ) <= 0
+                                ) {
+                                    $supportedVersions[] = $phpVersion;
+                                }
+                            }
+
+                            $result[$requirement->getCategory()] = sprintf(
+                                '%s %s',
+                                $requirement->getTitle(),
+                                implode(', ', $supportedVersions)
+                            );
+                            break;
+
+                        default:
+                            $result[$requirement->getCategory()] .= $result[$requirement->getCategory()] !== '' ? ' / ' : '';
+                            $result[$requirement->getCategory()] .= $requirement->getTitle();
+
+                            if ($requirement->getMin() !== null) {
+                                $version = VersionUtility::normalize($requirement->getMin(), 3) ?? '';
+                                if (str_ends_with($version, '.0')) {
+                                    $version = substr($version, 0, -2);
+                                }
+                                $result[$requirement->getCategory()] .= sprintf(
+                                    '&nbsp;%s+',
+                                    $version
+                                );
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**

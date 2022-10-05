@@ -31,6 +31,7 @@ class MajorVersionExpected
         public readonly float $version,
         public readonly string $title,
         public readonly DateTimeImmutable $releaseDate,
+        public readonly ?DateTimeImmutable $regularMaintenanceUntil,
         public readonly ?DateTimeImmutable $maintainedUntil,
         public readonly ?DateTimeImmutable $eltsUntil,
         public readonly bool $active,

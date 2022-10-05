@@ -42,6 +42,7 @@ class MajorVersionTest extends TestCase
         self::assertSame($expectedResult->version, $majorVersion->getVersion());
         self::assertSame($expectedResult->title, $majorVersion->getTitle());
         self::assertEquals($expectedResult->releaseDate, $majorVersion->getReleaseDate());
+        self::assertEquals($expectedResult->regularMaintenanceUntil, $majorVersion->getRegularMaintenanceUntil());
         self::assertEquals($expectedResult->maintainedUntil, $majorVersion->getMaintainedUntil());
         self::assertEquals($expectedResult->eltsUntil, $majorVersion->getEltsUntil());
         self::assertEquals($expectedResult->active, $majorVersion->isActive());
@@ -59,6 +60,7 @@ class MajorVersionTest extends TestCase
         self::assertSame($expectedResult->version, $majorVersion['version']);
         self::assertSame($expectedResult->title, $majorVersion['title']);
         self::assertEquals($expectedResult->releaseDate, $majorVersion['releaseDate']);
+        self::assertEquals($expectedResult->regularMaintenanceUntil, $majorVersion['regularMaintenanceUntil']);
         self::assertEquals($expectedResult->maintainedUntil, $majorVersion['maintainedUntil']);
         self::assertEquals($expectedResult->eltsUntil, $majorVersion['eltsUntil']);
         self::assertEquals($expectedResult->active, $majorVersion['active']);
@@ -100,6 +102,7 @@ class MajorVersionTest extends TestCase
                 $dateTimeToday,
                 null,
                 null,
+                null,
                 $collection,
                 $collection,
                 null
@@ -108,6 +111,7 @@ class MajorVersionTest extends TestCase
                 10,
                 'TYPO3 10',
                 $dateTimeToday,
+                null,
                 null,
                 null,
                 true,
@@ -121,6 +125,7 @@ class MajorVersionTest extends TestCase
                 'subtitle',
                 'description',
                 $dateTimeToday,
+                null,
                 $dateTimeToday->modify('+3 years')->modify('-1 day'),
                 null,
                 $collection,
@@ -131,6 +136,7 @@ class MajorVersionTest extends TestCase
                 9,
                 'TYPO3 9',
                 $dateTimeToday,
+                null,
                 $dateTimeToday->modify('+3 years')->modify('-1 day'),
                 $dateTimeToday->modify('+6 years')->modify('-1 day'),
                 true,
@@ -144,6 +150,7 @@ class MajorVersionTest extends TestCase
                 'subtitle',
                 'description',
                 $dateTimeToday->modify('-3 years'),
+                null,
                 $dateTimeToday->modify('-1 day'),
                 null,
                 $collection,
@@ -154,6 +161,7 @@ class MajorVersionTest extends TestCase
                 7,
                 'TYPO3 7',
                 $dateTimeToday->modify('-3 years'),
+                null,
                 $dateTimeToday->modify('-1 day'),
                 $dateTimeToday->modify('-1 day')->modify('+3 years'),
                 false,
@@ -167,6 +175,7 @@ class MajorVersionTest extends TestCase
                 'subtitle',
                 'description',
                 $dateTimeToday->modify('-3 years'),
+                null,
                 $dateTimeToday->modify('-1 day'),
                 $dateTimeToday->modify('-1 day')->modify('+4 years'),
                 $collection,
@@ -177,6 +186,7 @@ class MajorVersionTest extends TestCase
                 6.2,
                 'TYPO3 6.2',
                 $dateTimeToday->modify('-3 years'),
+                null,
                 $dateTimeToday->modify('-1 day'),
                 $dateTimeToday->modify('-1 day')->modify('+4 years'),
                 false,
@@ -190,6 +200,7 @@ class MajorVersionTest extends TestCase
                 'subtitle',
                 'description',
                 $dateTimeToday->modify('-6 years'),
+                null,
                 $dateTimeToday->modify('-3 years')->modify('-1 day'),
                 null,
                 $collection,
@@ -200,6 +211,7 @@ class MajorVersionTest extends TestCase
                 4.5,
                 'TYPO3 4.5',
                 $dateTimeToday->modify('-6 years'),
+                null,
                 $dateTimeToday->modify('-3 years')->modify('-1 day'),
                 $dateTimeToday->modify('-3 years')->modify('-1 day')->modify('+3 years'),
                 false,
