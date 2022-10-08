@@ -31,6 +31,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 use RuntimeException;
 
 /**
@@ -141,6 +142,7 @@ class SatisBuildCommand extends Command
 
         // Run satis build
         if ($returnCode === 0) {
+            /*
             $application = new \Composer\Satis\Console\Application();
             $application->setAutoExit(false);
 
@@ -160,6 +162,40 @@ class SatisBuildCommand extends Command
             $commandInput = new ArrayInput($arguments);
             $output->writeln(sprintf('Running "%s" (%s)...', $arguments['command'], $buildAll ? 'full' : 'new'));
             $returnCode = $application->run($commandInput, $output);
+            */
+
+            $arguments = [
+                'satis/bin/satis',
+                'build',
+                $configFile,
+                $outputDir,
+                '--skip-errors',
+            ];
+
+            if (!$buildAll) {
+                $arguments += [
+                    '--repository-url=' . 'file://' . realpath($repositoryDir) . '/packages-TYPO3Extensions-new.json',
+                ];
+            }
+
+            $process = new Process(
+                $arguments,
+                $this->getProjectDir(),
+                \null,
+                \null,
+                \null
+            );
+
+            $output->writeln(sprintf('Running "satis build" (%s)...', $buildAll ? 'full' : 'new'));
+            if (($returnCode = $process->run()) !== 0) {
+                $output->writeln(sprintf(
+                    "Error while running Satis.\n\nOutput:\n%s\n\nError Output:\n%s\n\Command:\n%s\n\nProject Dir:\n%s",
+                    $process->getOutput(),
+                    $process->getErrorOutput(),
+                    $process->getCommandLine(),
+                    $this->getProjectDir()
+                ));
+            }
         }
 
         // Output processing duration
@@ -169,5 +205,10 @@ class SatisBuildCommand extends Command
         $output->writeln(sprintf('Finished in %f seconds', $time));
 
         return $returnCode;
+    }
+
+    private function getProjectDir(): string
+    {
+        return __DIR__ . '/../..';
     }
 }

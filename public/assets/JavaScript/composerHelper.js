@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('js-composer-helper-form');
-    const allComposerPackages = document.getElementsByClassName('js-composer-package-check');
+    const allComposerPackages = document.querySelectorAll('[data-composer-helper-package="true"]');
 
     vanillaAjaxForm(form);
 
@@ -64,7 +64,7 @@ const vanillaAjaxForm = function(form) {
                 let outputContainer = document.getElementsByClassName('js-composer-helper-packages')[0];
                 outputContainer.innerHTML = '';
 
-                const allComposerPackages = document.getElementsByClassName('js-composer-package-check');
+                const allComposerPackages = document.querySelectorAll('[data-composer-helper-package="true"]');
                 hideAll(allComposerPackages);
 
                 let showOutput = false;

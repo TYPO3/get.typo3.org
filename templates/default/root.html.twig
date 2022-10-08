@@ -18,8 +18,10 @@
                 {% for version in communityVersions %}
                 <div class="card-group-element-item">
                     <div id="download-community-{{ loop.index }}" class="card{% if loop.first %} card-inverse{% endif %}">
-                        <div class="card-body">
+                        <div class="card-header">
                             <h4 class="card-title">{{ version.title }}</h4>
+                        </div>
+                        <div class="card-body">
                             {% if version.version == 12 %}
                                 <p><strong>{{ version.subtitle }}</strong></p>
                                 <p>Updates and security fixes will be provided for three years starting from the release date.</p>
@@ -67,9 +69,19 @@
                                     <li>And a lot of improvements for developers</li>
                                 </ul>
                             {% endif %}
+                            {% if version.version == 10 %}
+                            <div class="alert alert-danger">
+                                <h2 class="h5 alert-heading">PHP 8.x support</h2>
+                                <p class="mb-0">
+                                    Please note, PHP 8.0 and above will not be supported by the v10 LTS releases! You
+                                    have to upgrade your installation to v11 or talk to your hosting provider regarding enhanced
+                                    PHP 7.4 support after November 2022.
+                                </p>
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="card-footer">
-                            <h5>System requirements</h3>
+                            <h5><a href="{{ path('version', {'version': version.version}) }}#system-requirements">System requirements</a></h3>
                             <ul class="list-info">
                                 {% if version.version == 12 %}
                                     <li>PHP 8.1</li>
@@ -92,17 +104,8 @@
                                     <li>MySQL 5.5+ / MariaDB / Postgres support</li>
                                     <li>Internet Explorer 11 and later</li>
                                 {% endif %}
+                                <li><a href="{{ path('version', {'version': version.version}) }}#system-requirements">Detailed list of requirements</a></li>
                             </ul>
-                            {% if version.version == 10 %}
-                            <div class="alert alert-danger">
-                                <h2 class="h5 alert-heading">PHP 8.x support</h2>
-                                <p class="mb-0">
-                                    Please note, PHP 8.0 and above will not be supported by the v10 LTS releases! You
-                                    have to upgrade your installation to v11 or talk to your hosting provider regarding enhanced
-                                    PHP 7.4 support after November 2022.
-                                </p>
-                            </div>
-                            {% endif %}
                             <hr>
                             {% if version.maintainedUntil %}
                             <h5>Supported Until</h5>
