@@ -44,13 +44,7 @@ abstract class AbstractCase extends PantherTestCase
 
     protected function setUp(): void
     {
-        $client = static::createClient();
-
-        if (!$client instanceof KernelBrowser) {
-            throw new LogicException('Browser instance is not a KernelBrowser');
-        }
-
-        $this->client = $client;
+        $this->client = static::createClient();
 
         DatabasePrimer::prime(self::$kernel);
     }

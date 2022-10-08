@@ -28,7 +28,6 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +35,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/major', '/v1/api/major'], defaults: ['_format' => 'json'])]
@@ -122,8 +122,6 @@ class MajorVersionController extends AbstractController
     /**
      * Create new major TYPO3 version.
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Security(name="Basic")
      *
      * @OA\RequestBody(
@@ -171,6 +169,7 @@ class MajorVersionController extends AbstractController
      * @OA\Tag(name="major")
      */
     #[Route(path: '/', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function createMajorRelease(Request $request): JsonResponse
     {
         $content = $request->getContent();
@@ -200,8 +199,6 @@ class MajorVersionController extends AbstractController
 
     /**
      * Update properties of major TYPO3 version.
-     *
-     * @IsGranted("ROLE_ADMIN")
      *
      * @Security(name="Basic")
      *
@@ -236,6 +233,7 @@ class MajorVersionController extends AbstractController
      * @OA\Tag(name="major")
      */
     #[Route(path: '/{version}', methods: ['PATCH'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function updateMajorRelease(string $version, Request $request): JsonResponse
     {
         $content = $request->getContent();
@@ -262,8 +260,6 @@ class MajorVersionController extends AbstractController
     /**
      * Delete major TYPO3 version.
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Security(name="Basic")
      *
      * @OA\Response(
@@ -287,6 +283,7 @@ class MajorVersionController extends AbstractController
      * )
      */
     #[Route(path: '/{version}', methods: ['DELETE'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function deleteMajorRelease(string $version): JsonResponse
     {
         $entity = $this->findMajorVersion($version);
