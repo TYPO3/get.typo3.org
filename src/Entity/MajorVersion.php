@@ -93,6 +93,13 @@ class MajorVersion implements JsonSerializable, Stringable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
+        private ?DateTimeImmutable $regularMaintenanceUntil,
+        /**
+         * @OA\Property(example="2017-12-12T16:48:22+00:00")
+         */
+        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+        #[Serializer\Groups(['data', 'content', 'patch'])]
+        #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
         private ?DateTimeImmutable $maintainedUntil,
         /**
          * @OA\Property(example="2017-12-12T16:48:22+00:00")
@@ -189,6 +196,16 @@ class MajorVersion implements JsonSerializable, Stringable
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function setRegularMaintenanceUntil(?DateTimeImmutable $regularMaintenanceUntil): void
+    {
+        $this->regularMaintenanceUntil = $regularMaintenanceUntil;
+    }
+
+    public function getRegularMaintenanceUntil(): ?DateTimeImmutable
+    {
+        return $this->regularMaintenanceUntil;
     }
 
     public function setMaintainedUntil(?DateTimeImmutable $maintainedUntil): void
@@ -299,6 +316,7 @@ class MajorVersion implements JsonSerializable, Stringable
      *     subtitle: string,
      *     description: string,
      *     releaseDate: \DateTimeImmutable,
+     *     regularMaintenanceUntil: \DateTimeImmutable|null,
      *     maintainedUntil: \DateTimeImmutable|null,
      *     eltsUntil: \DateTimeImmutable|null,
      *     requirements: Collection<int, Requirement>,
@@ -317,6 +335,7 @@ class MajorVersion implements JsonSerializable, Stringable
             'subtitle' => $this->getSubtitle(),
             'description' => $this->getDescription(),
             'releaseDate' => $this->getReleaseDate(),
+            'regularMaintenanceUntil' => $this->getRegularMaintenanceUntil(),
             'maintainedUntil' => $this->getMaintainedUntil(),
             'eltsUntil' => $this->getEltsUntil(),
             'requirements' => $this->getRequirements(),
