@@ -31,12 +31,6 @@
                     <div class="accordion-body card-body">
                         <div class="accordion-content">
                             <div class="accordion-content-item accordion-content-text">
-                                {% if version == 12 %}
-                                <div class="alert alert-info" role="alert">
-                                    <p class="font-weight-bold">DDEV has currently no native support to properly generate the new configuration, a new version will be released soon. For the time being, some workarounds must be used.</p>
-                                </div>
-                                {% endif %}
-
                                 <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Documentation" target="_blank" rel="noopener">DDEV</a> simplifies integrating the power and consistency of containerization into your workflows. Set up environments in minutes; switch contexts and projects quickly and easily; speed your time to deployment. DDEV handles the complexity. You get on with the valuable part of your job.</p>
                                 <p><b>Before proceeding, make sure your DDEV installation is up to date.</b></p>
                                 <p>In a new project folder using your favorite shell, run these lines:</p>
@@ -44,9 +38,7 @@
 ddev composer create --no-install "typo3/cms-base-distribution:^{{ package_version }}"
 ddev composer install
 {% if version == 12 %}
-ddev config --auto
-ddev exec mkdir -p config/system
-ddev exec cp public/typo3conf/AdditionalConfiguration.php config/system/additional.php
+ddev restart
 {% endif %}
 {% if console %}
 ddev typo3cms install:setup
