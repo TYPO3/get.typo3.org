@@ -23,7 +23,7 @@
                             <h4 class="card-title">
                                 TYPO3 {{ version.version }} {% if not version.lts is empty %}LTS{% endif %}
                                 {% if version.lts is empty %}
-                                <span class="ms-2 badge rounded-pill bg-success fs-6">next*</span>
+                                <span class="ms-2 badge rounded-pill bg-success fs-6">next-gen*</span>
                                 {% elseif regular_maintenance < date() %}
                                 <span class="ms-2 badge rounded-pill bg-danger fs-6">old stable*</span>
                                 {% else %}
@@ -84,10 +84,10 @@
                                 <div class="alert alert-danger">
                                     <h2 class="h5 alert-heading">PHP 8.x support</h2>
                                     <p class="mb-0">
-                                        Please note that TYPO3 v10 does not support PHP v8.x. Upgrade your TYPO3
-                                        installation to v11 or v12, or discuss options to receive extended support for
-                                        PHP v7.4 after its official end of support time in November 2022 with your
-                                        hosting provider.
+                                        Please note that TYPO3 v10 LTS (incl. the upcoming ELTS releases) does not
+                                        support PHP v8.x. Upgrade your TYPO3 installation to v11 or v12, or discuss
+                                        options to receive extended support for PHP v7.4 after its official end of
+                                        support time in November 2022 with your hosting provider.
                                     </p>
                                 </div>
                             {% elseif version.version == 11 %}
