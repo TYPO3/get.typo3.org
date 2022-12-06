@@ -358,6 +358,13 @@ final class ComposerPackagesService
             ],
         ],
         [
+            'name'        => 'typo3/cms-reactions',
+            'description' => 'Handle incoming Webhooks for TYPO3.',
+            'versions' => [
+                12,
+            ],
+        ],
+        [
             'name'        => 'typo3/cms-recordlist',
             'description' => 'List of database-records.',
             'versions' => [
@@ -605,6 +612,7 @@ final class ComposerPackagesService
             'typo3/cms-linkvalidator',
             'typo3/cms-lowlevel',
             'typo3/cms-opendocs',
+            'typo3/cms-reactions',
             'typo3/cms-recordlist',
             'typo3/cms-recycler',
             'typo3/cms-redirects',
