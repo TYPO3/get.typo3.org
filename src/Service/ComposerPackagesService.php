@@ -26,6 +26,7 @@ namespace App\Service;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
+use Composer\Semver\VersionParser;
 use GuzzleHttp\Utils;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -34,7 +35,9 @@ use Symfony\Component\Form\FormInterface;
 use RuntimeException;
 
 use function is_null;
+use function ltrim;
 use function preg_match;
+use function sprintf;
 
 final class ComposerPackagesService
 {
@@ -806,8 +809,11 @@ final class ComposerPackagesService
      */
     public function cleanPackagesForVersions(array $packages): array
     {
+        $stability = 'stable';
+
         if (is_string($version = $packages['typo3_version']) && preg_match('#^\^(\d+)#', $version, $matches) > 0) {
-            $version = (int)$matches[1];
+            $stability = VersionParser::parseStability($version);
+            $majorVersion = (int)$matches[1];
         } else {
             $composerVersions = $this->majorVersions->findAllComposerSupported();
             if ($composerVersions === []) {
@@ -820,14 +826,36 @@ final class ComposerPackagesService
             }
 
             preg_match('#^\d+#', $release->getVersion(), $matches);
-            $version = (int)$matches[0];
+            $majorVersion = (int)$matches[0];
         }
 
+        $composerPackages = '';
+
         foreach (self::PACKAGES as $package) {
-            if (!in_array($version, $package['versions'], true)) {
+            if (!in_array($majorVersion, $package['versions'], true)) {
                 unset($packages[$package['name']]);
+                continue;
+            }
+
+            if (array_key_exists($package['name'], $packages) && $packages[$package['name']] === true) {
+                if ($version !== '*' && $package['name'] === 'typo3/minimal') {
+                    $packageVersion = sprintf('^%s', $majorVersion);
+                    if ($stability !== 'stable') {
+                        $packageVersion .= '@' . $stability;
+                    }
+                } else {
+                    $packageVersion = is_string($version) ? $version : '';
+                }
+
+                if ($version === '') {
+                    $composerPackages .= sprintf(' "%s"', $package['name']);
+                } else {
+                    $composerPackages .= sprintf(' "%s:%s"', $package['name'], $packageVersion);
+                }
             }
         }
+
+        $packages['composer_packages'] = ltrim($composerPackages);
 
         return $packages;
     }
