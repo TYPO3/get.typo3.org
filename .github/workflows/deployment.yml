@@ -59,8 +59,7 @@ jobs:
 
       - name: Get Environment
         id: environment
-        run: |
-          echo ::set-output name=target::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
+        run: echo "target=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')" >> $GITHUB_OUTPUT
 
       - name: Deployment
         env:
