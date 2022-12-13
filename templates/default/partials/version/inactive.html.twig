@@ -13,9 +13,14 @@
     {% frame with { id: 'notice-outdated' } %}
         <div class="alert alert-danger">
             <h2 class="h4 alert-heading">This version is not supported anymore.</h2>
-            <p class="mb-0">
+            <p>
                 The TYPO3 CMS community supported from <strong>{{ releaseDate.format("Y-m-d") }}</strong>
-                until <strong>{{ maintainedUntil|date("Y-m-d") }}</strong>. Please consider updating to a newer version.
+                until <strong>{{ maintainedUntil|date("Y-m-d") }}</strong>.
+                Extended security &amp; compatibility support (ELTS) expired on
+                <strong>{{ eltsUntil|date("Y-m-d") }}</strong>.
+            </p>
+            <p class="mb-0">
+                Please consider updating to a newer version.
             </p>
         </div>
     {% endframe %}
