@@ -67,24 +67,16 @@ const vanillaAjaxForm = function(form) {
                 const allComposerPackages = document.querySelectorAll('[data-composer-helper-package="true"]');
                 hideAll(allComposerPackages);
 
-                let showOutput = false;
                 Object.keys(response.status).forEach(composerPackage => {
                     if(typeof response.status[composerPackage] === "boolean") {
                         const input = document.querySelectorAll('input[name="form[' + composerPackage.replace('/', '-') + ']"]')[0];
                         input.parentElement.parentElement.classList.remove('d-none');
                     }
-
-                    if(response.status[composerPackage] === true) {
-                        showOutput = true;
-                        if (response.status['typo3_version']) {
-                            composerPackage = '"' + composerPackage + ':' + response.status['typo3_version'] + '"';
-                        }
-                        outputContainer.insertAdjacentText('beforeend', ' ' + composerPackage)
-                    }
                 });
 
                 outputContainerWrapper.classList.add('d-none');
-                if(showOutput) {
+                if (response.status['composer_packages']) {
+                    outputContainer.insertAdjacentText('beforeend', response.status['composer_packages'])
                     outputContainerWrapper.classList.remove('d-none');
                 }
 
@@ -94,6 +86,7 @@ const vanillaAjaxForm = function(form) {
         }
     };
 };
+
 const hideAll = function(elementArray) {
     Array.from(elementArray).forEach(element => {
         element.parentElement.parentElement.classList.add('d-none');
