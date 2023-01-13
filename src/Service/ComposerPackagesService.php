@@ -52,7 +52,11 @@ final class ComposerPackagesService
     public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
 
     /**
-     * @var array<int, array<string, array<int>|string>>
+     * @var array<int, array{
+     *   name: string,
+     *   description: string,
+     *   versions: array<int>
+     * }>
      */
     private const PACKAGES = [
         [
@@ -686,13 +690,17 @@ final class ComposerPackagesService
     ];
 
     /**
-     * @var array<int, array<string, string>>
+     * @var array<int, array{
+     *   name: string,
+     *   value: string
+     * }>
      */
     private const SPECIAL_VERSIONS = [
         [
             'name' => 'No version specified (installs latest version)',
             'value' => '',
-        ],        [
+        ],
+        [
             'name' => 'Any version `*` (installs latest compatible version, not recommended, use with caution)',
             'value' => '*',
         ],
@@ -772,7 +780,7 @@ final class ComposerPackagesService
 
         foreach (self::PACKAGES as $package) {
             $builder->add(
-                str_replace('/', '-', $package['name']),
+                str_replace('/', '-', $package['name']), /** @phpstan-ignore-line */
                 CheckboxType::class,
                 [
                     'value'         => $package['name'],
@@ -803,9 +811,9 @@ final class ComposerPackagesService
     }
 
     /**
-     * @param array<int|string, mixed> $packages
+     * @param array<string, bool|string> $packages
      *
-     * @return mixed[]
+     * @return array<string, bool|string>
      */
     public function cleanPackagesForVersions(array $packages): array
     {
@@ -832,13 +840,16 @@ final class ComposerPackagesService
         $composerPackages = '';
 
         foreach (self::PACKAGES as $package) {
+            /** @var string $packageName */
+            $packageName = $package['name'];
+
             if (!in_array($majorVersion, $package['versions'], true)) {
-                unset($packages[$package['name']]);
+                unset($packages[$packageName]);
                 continue;
             }
 
-            if (array_key_exists($package['name'], $packages) && $packages[$package['name']] === true) {
-                if ($version !== '*' && $package['name'] === 'typo3/minimal') {
+            if (array_key_exists($packageName, $packages) && $packages[$packageName] === true) {
+                if ($version !== '*' && $packageName === 'typo3/minimal') {
                     $packageVersion = sprintf('^%s', $majorVersion);
                     if ($stability !== 'stable') {
                         $packageVersion .= '@' . $stability;
@@ -848,9 +859,9 @@ final class ComposerPackagesService
                 }
 
                 if ($version === '') {
-                    $composerPackages .= sprintf(' "%s"', $package['name']);
+                    $composerPackages .= sprintf(' "%s"', $packageName);
                 } else {
-                    $composerPackages .= sprintf(' "%s:%s"', $package['name'], $packageVersion);
+                    $composerPackages .= sprintf(' "%s:%s"', $packageName, $packageVersion);
                 }
             }
         }
