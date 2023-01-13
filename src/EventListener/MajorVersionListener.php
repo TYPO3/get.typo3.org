@@ -25,7 +25,9 @@ namespace App\EventListener;
 
 use App\Entity\MajorVersion;
 use App\Service\CacheService;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 
 final class MajorVersionListener
 {
@@ -34,17 +36,17 @@ final class MajorVersionListener
     ) {
     }
 
-    public function postUpdate(MajorVersion $majorVersion, LifecycleEventArgs $eventArgs): void
+    public function postUpdate(MajorVersion $majorVersion, PostUpdateEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersion((string)$majorVersion->getVersion());
     }
 
-    public function postRemove(MajorVersion $majorVersion, LifecycleEventArgs $eventArgs): void
+    public function postRemove(MajorVersion $majorVersion, PostRemoveEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersion((string)$majorVersion->getVersion());
     }
 
-    public function postPersist(MajorVersion $majorVersion, LifecycleEventArgs $eventArgs): void
+    public function postPersist(MajorVersion $majorVersion, PostPersistEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersion((string)$majorVersion->getVersion());
     }
