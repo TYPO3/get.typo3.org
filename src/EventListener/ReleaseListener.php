@@ -25,7 +25,9 @@ namespace App\EventListener;
 
 use App\Entity\Release;
 use App\Service\CacheService;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 
 final class ReleaseListener
 {
@@ -34,17 +36,17 @@ final class ReleaseListener
     ) {
     }
 
-    public function postUpdate(Release $release, LifecycleEventArgs $eventArgs): void
+    public function postUpdate(Release $release, PostUpdateEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
     }
 
-    public function postRemove(Release $release, LifecycleEventArgs $eventArgs): void
+    public function postRemove(Release $release, PostRemoveEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
     }
 
-    public function postPersist(Release $release, LifecycleEventArgs $eventArgs): void
+    public function postPersist(Release $release, PostPersistEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
     }

@@ -25,7 +25,9 @@ namespace App\EventListener;
 
 use App\Entity\Requirement;
 use App\Service\CacheService;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 
 final class RequirementListener
 {
@@ -34,17 +36,17 @@ final class RequirementListener
     ) {
     }
 
-    public function postUpdate(Requirement $requirement, LifecycleEventArgs $eventArgs): void
+    public function postUpdate(Requirement $requirement, PostUpdateEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersion((string)$requirement->getVersion()->getVersion());
     }
 
-    public function postRemove(Requirement $requirement, LifecycleEventArgs $eventArgs): void
+    public function postRemove(Requirement $requirement, PostRemoveEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersion((string)$requirement->getVersion()->getVersion());
     }
 
-    public function postPersist(Requirement $requirement, LifecycleEventArgs $eventArgs): void
+    public function postPersist(Requirement $requirement, PostPersistEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersion((string)$requirement->getVersion()->getVersion());
     }
