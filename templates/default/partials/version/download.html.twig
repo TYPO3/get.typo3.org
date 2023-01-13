@@ -14,6 +14,8 @@
             {% if version == 12 %}
                 {% set php_version_option = " --php-version 8.1" %}
                 {% set console = false %}
+            {% elseif version <= 10 %}
+                {% set php_version_option = " --php-version 7.4" %}
             {% endif %}
             <div class="accordion-item card">
                 <div class="accordion-header card-header" id="accordion-heading-ddev">
