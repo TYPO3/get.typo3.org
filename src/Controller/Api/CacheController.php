@@ -38,6 +38,7 @@ class CacheController extends AbstractController
      * Purge caches related to TYPO3 major version.
      *
      * @Security(name="Basic")
+     *
      * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
@@ -54,6 +55,7 @@ class CacheController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="cache")
      */
     #[Route(path: '/majorVersion/{version}')]
@@ -69,6 +71,7 @@ class CacheController extends AbstractController
      * Purge caches related to single TYPO3 release.
      *
      * @Security(name="Basic")
+     *
      * @OA\Response(
      *     response=202,
      *     description="Successfully purged caches."
@@ -85,6 +88,7 @@ class CacheController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="cache")
      */
     #[Route(path: '/release/{version}')]

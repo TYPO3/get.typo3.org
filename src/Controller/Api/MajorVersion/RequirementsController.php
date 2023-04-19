@@ -51,8 +51,10 @@ class RequirementsController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 major version requirements",
+     *
      *     @Model(type=\App\Entity\Requirement::class, groups={"data"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
@@ -61,6 +63,7 @@ class RequirementsController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="requirement")
      */
@@ -94,17 +97,23 @@ class RequirementsController extends AbstractController
      * Create new major TYPO3 version requirement.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\RequestBody(
+     *
      *     @Model(type=Requirement::class, groups={"patch"}),
      *     request="requirement",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=201,
      *     description="Successfully created",
+     *
      *     @OA\JsonContent(
      *         type="object",
+     *
      *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
      *         @OA\Property(
      *             property="Location",
@@ -115,6 +124,7 @@ class RequirementsController extends AbstractController
      *         ),
      *     )
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -131,6 +141,7 @@ class RequirementsController extends AbstractController
      *     response=404,
      *     description="Major version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="requirement")
      */
@@ -172,17 +183,23 @@ class RequirementsController extends AbstractController
      * Update requirement of major TYPO3 version.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\RequestBody(
+     *
      *     @Model(type=Requirement::class, groups={"patch"}),
      *     request="requirement",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=200,
      *     description="Successfully created",
+     *
      *     @Model(type=\App\Entity\Requirement::class, groups={"content"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -199,6 +216,7 @@ class RequirementsController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="requirement")
      */
@@ -242,7 +260,9 @@ class RequirementsController extends AbstractController
      * Delete requirement of major TYPO3 version.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted"
@@ -259,6 +279,7 @@ class RequirementsController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="requirement")
      */
