@@ -47,11 +47,14 @@ class MajorVersionController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
+     *
      *     @OA\JsonContent(
      *         type="array",
+     *
      *         @OA\Items(ref=@Model(type=\App\Entity\MajorVersion::class, groups={"content"}))
      *     )
      * )
+     *
      * @OA\Tag(name="major")
      */
     #[Route(path: '/', methods: ['GET'])]
@@ -78,8 +81,10 @@ class MajorVersionController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
+     *
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"data"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
@@ -88,6 +93,7 @@ class MajorVersionController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      */
     #[Route(path: '/{version}', methods: ['GET'], name: 'majorVersion_show')]
@@ -117,17 +123,23 @@ class MajorVersionController extends AbstractController
      * Create new major TYPO3 version.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\RequestBody(
+     *
      *     @Model(type=MajorVersion::class, groups={"patch"}),
      *     request="major",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=201,
      *     description="Successfully created",
+     *
      *     @OA\JsonContent(
      *         type="object",
+     *
      *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
      *         @OA\Property(
      *             property="Location",
@@ -138,6 +150,7 @@ class MajorVersionController extends AbstractController
      *         ),
      *     )
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -154,6 +167,7 @@ class MajorVersionController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      */
     #[Route(path: '/', methods: ['POST'])]
@@ -188,18 +202,24 @@ class MajorVersionController extends AbstractController
      * Update properties of major TYPO3 version.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\RequestBody(
+     *
      *     @Model(type=MajorVersion::class, groups={"patch"}),
      *     request="major",
      *     description="May also contain incomplete model with only those properties that shall be updated",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
+     *
      *     @Model(type=\App\Entity\MajorVersion::class, groups={"content"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -212,6 +232,7 @@ class MajorVersionController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      */
     #[Route(path: '/{version}', methods: ['PATCH'])]
@@ -242,7 +263,9 @@ class MajorVersionController extends AbstractController
      * Delete major TYPO3 version.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."
@@ -259,6 +282,7 @@ class MajorVersionController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * )
      */

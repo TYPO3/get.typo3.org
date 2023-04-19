@@ -546,6 +546,13 @@ final class ComposerPackagesService
             ],
         ],
         [
+            'name'        => 'typo3/cms-webhooks',
+            'description' => 'Handle outgoing Webhooks for TYPO3',
+            'versions' => [
+                12,
+            ],
+        ],
+        [
             'name'        => 'typo3/cms-wizard-crpages',
             'description' => 'A little utility to create many empty pages in one batch. Great for making a quick page structure.',
             'versions' => [
@@ -638,6 +645,7 @@ final class ComposerPackagesService
             'typo3/cms-tstemplate',
             'typo3/cms-version',
             'typo3/cms-viewpage',
+            'typo3/cms-webhooks',
             'typo3/cms-wizard-crpages',
             'typo3/cms-wizard-sortpages',
             'typo3/cms-workspaces',

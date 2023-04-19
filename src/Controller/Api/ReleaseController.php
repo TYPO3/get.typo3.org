@@ -48,11 +48,14 @@ class ReleaseController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release(s)",
+     *
      *     @OA\JsonContent(
      *         type="array",
+     *
      *         @OA\Items(ref=@Model(type=\App\Entity\Release::class, groups={"data"}))
      *     )
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -61,6 +64,7 @@ class ReleaseController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="release")
      *
      * @param string|null $version Specific TYPO3 Version to fetch
@@ -99,17 +103,23 @@ class ReleaseController extends AbstractController
      * Add new TYPO3 release.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\RequestBody(
+     *
      *     @Model(type=Release::class, groups={"data", "content"}),
      *     request="release",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=201,
      *     description="Created.",
+     *
      *     @OA\JsonContent(
      *         type="object",
+     *
      *         @OA\Property(property="Status", title="Status", enum={"success"}, type="string"),
      *         @OA\Property(
      *             property="Location",
@@ -120,6 +130,7 @@ class ReleaseController extends AbstractController
      *         ),
      *     )
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -136,6 +147,7 @@ class ReleaseController extends AbstractController
      *     response=409,
      *     description="Conflict. Version already exists."
      * )
+     *
      * @OA\Tag(name="release")
      */
     #[Route(path: '/', methods: ['POST'])]
@@ -168,12 +180,16 @@ class ReleaseController extends AbstractController
      * Add TYPO3 Release Notes for Version.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\RequestBody(
+     *
      *     @Model(type=ReleaseNotes::class, groups={"putcontent"}),
      *     request="release-notes",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=204,
      *     description="Returns updated entity."
@@ -190,6 +206,7 @@ class ReleaseController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="release")
      * @OA\Tag(name="content")
      */
@@ -224,8 +241,10 @@ class ReleaseController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 Release content",
+     *
      *     @Model(type=\App\Entity\Release::class, groups={"content"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -238,6 +257,7 @@ class ReleaseController extends AbstractController
      *     response=404,
      *     description="Version not found"
      * )
+     *
      * @OA\Tag(name="release")
      * @OA\Tag(name="content")
      */
@@ -265,18 +285,24 @@ class ReleaseController extends AbstractController
      * Update TYPO3 Release.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\RequestBody(
+     *
      *     @Model(type=Release::class, groups={"data", "content"}),
      *     request="release",
      *     description="May also contain incomplete model with only those properties that shall be updated",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=200,
      *     description="Updated Entity",
+     *
      *     @Model(type=\App\Entity\Release::class, groups={"data", "content"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
@@ -289,6 +315,7 @@ class ReleaseController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="release")
      */
     #[Route(path: '/{version}', methods: ['PATCH'])]
@@ -324,7 +351,9 @@ class ReleaseController extends AbstractController
      * Delete TYPO3 release.
      *
      * @IsGranted("ROLE_ADMIN")
+     *
      * @Security(name="Basic")
+     *
      * @OA\Response(
      *     response=204,
      *     description="Successfully deleted."
@@ -341,6 +370,7 @@ class ReleaseController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="release")
      * )
      *
