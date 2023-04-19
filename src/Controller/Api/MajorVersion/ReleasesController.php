@@ -42,11 +42,14 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns TYPO3 releases by major version",
+     *
      *     @OA\JsonContent(
      *         type="array",
+     *
      *         @OA\Items(ref=@Model(type=\App\Entity\Release::class, groups={"data"}))
      *     )
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
@@ -55,6 +58,7 @@ class ReleasesController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="release")
      */
@@ -82,8 +86,10 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 release of a major version",
+     *
      *     @Model(type=\App\Entity\Release::class, groups={"data"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Version is not numeric"
@@ -92,6 +98,7 @@ class ReleasesController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="release")
      */
@@ -119,8 +126,10 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns data on latest TYPO3 security release of a major version",
+     *
      *     @Model(type=\App\Entity\Release::class, groups={"data"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Version is not numeric"
@@ -129,6 +138,7 @@ class ReleasesController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="release")
      */
@@ -166,8 +176,10 @@ class ReleasesController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns major TYPO3 version information",
+     *
      *     @Model(type=\App\Entity\Release::class, groups={"content"})
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Version is not numeric."
@@ -176,6 +188,7 @@ class ReleasesController extends AbstractController
      *     response=404,
      *     description="Version not found."
      * )
+     *
      * @OA\Tag(name="major")
      * @OA\Tag(name="content")
      * @OA\Tag(name="release")
