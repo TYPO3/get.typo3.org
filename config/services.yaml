@@ -39,3 +39,8 @@ services:
     App\Service\CacheWarmupService:
         arguments:
             $baseUrl: '%env(BASE_URL)%'
+
+    App\Service\WebhookService:
+        arguments:
+            $url: '%env(APP_WEBHOOK_MY_TYPO3_URL)%'
+            $secret: '%env(APP_WEBHOOK_MY_TYPO3_SECRET)%'

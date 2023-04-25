@@ -25,6 +25,7 @@ namespace App\EventListener;
 
 use App\Entity\Release;
 use App\Service\CacheService;
+use App\Service\WebhookService;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
@@ -33,6 +34,7 @@ final class ReleaseListener
 {
     public function __construct(
         private readonly CacheService $cacheService,
+        private readonly WebhookService $webhookService,
     ) {
     }
 
@@ -49,5 +51,6 @@ final class ReleaseListener
     public function postPersist(Release $release, PostPersistEventArgs $eventArgs): void
     {
         $this->cacheService->purgeMajorVersionReleases((string)$release->getMajorVersion()->getVersion());
+        $this->webhookService->announceRelease($release);
     }
 }
