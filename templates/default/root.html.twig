@@ -24,6 +24,8 @@
                                 TYPO3 {{ version.version }} {% if not version.lts is empty %}LTS{% endif %}
                                 {% if version.lts is empty %}
                                 <span class="ms-2 badge rounded-pill bg-success fs-6">next-gen*</span>
+                                {% elseif loop.first %}
+                                <span class="ms-2 badge rounded-pill bg-success fs-6">stable*</span>
                                 {% elseif regular_maintenance < date() %}
                                 <span class="ms-2 badge rounded-pill bg-danger fs-6">old stable*</span>
                                 {% else %}
