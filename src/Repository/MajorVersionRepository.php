@@ -325,9 +325,11 @@ final class MajorVersionRepository extends ServiceEntityRepository
 
     private function removeEltsReleases(MajorVersion $version): MajorVersion
     {
-        $version->setReleases($version->getReleases()->filter(
-            static fn (Release $release): bool => !$release->isElts()
-        ));
+        foreach ($version->getReleases()->filter(
+            static fn (Release $release): bool => $release->isElts()
+        ) as $key => $release) {
+            $version->getReleases()->removeElement($release);
+        }
 
         return $version;
     }

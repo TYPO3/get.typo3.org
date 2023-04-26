@@ -6,3 +6,4 @@ doctrine_migrations:
     storage:
         table_storage:
             table_name: 'migration_versions'
+    enable_profiler: false
