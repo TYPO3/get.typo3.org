@@ -33,7 +33,7 @@ use Stringable;
 
 #[OA\Schema(
     title: 'Base package',
-    description: 'Base package available in the wizards'
+    description: 'Base package available in the Tools'
 )]
 #[ORM\Entity(repositoryClass: BasePackageRepository::class)]
 #[ORM\EntityListeners([BasePackageListener::class])]

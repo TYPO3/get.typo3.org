@@ -32,7 +32,7 @@ use UnexpectedValueException;
 
 use function is_string;
 
-trait WizardSessionTrait
+trait ToolSessionTrait
 {
     private function getSession(): SessionInterface
     {

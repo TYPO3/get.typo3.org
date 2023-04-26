@@ -1,4 +1,4 @@
-{% extends 'wizards/layout.html.twig' %}
+{% extends 'tools/layout.html.twig' %}
 
 {% block title %}Error{% endblock %}
 
@@ -13,7 +13,7 @@
     {% frame with { id: 'error', indent: true, title: 'Error information' } %}
         <p>{{ error }}</p>
         <p>
-            <a href="{{ path('wizards_sitepackage_success') }}" class="btn btn-secondary">
+            <a href="{{ path('tools_sitepackage_success') }}" class="btn btn-secondary">
                 {{ icon('actions-arrow-left-alt', 'auto') }}
                 <span class="btn-text">Back</span>
             </a>

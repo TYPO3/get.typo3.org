@@ -1,4 +1,4 @@
-{% extends 'wizards/layout.html.twig' %}
+{% extends 'tools/layout.html.twig' %}
 
 {% block title %}Kickstart your TYPO3 template development{% endblock %}
 
@@ -10,7 +10,7 @@
             or start your own template right now.
         </p>
         <p>
-            <a href="{{ path('wizards_sitepackage_new') }}" class="btn btn-lg btn-primary">
+            <a href="{{ path('tools_sitepackage_new') }}" class="btn btn-lg btn-primary">
                 {{ icon('actions-rocket', 'auto') }}
                 <span class="btn-text">Create Sitepackage</span>
             </a>
@@ -101,7 +101,7 @@
 
     {% frame with { center: true, id: 'start', title: 'Start your own Sitepackage' } %}
         <p>
-            <a href="{{ path('wizards_sitepackage_new') }}" class="btn btn-primary">
+            <a href="{{ path('tools_sitepackage_new') }}" class="btn btn-primary">
                 {{ icon('actions-rocket', 'auto') }}
                 <span class="btn-text">Create Sitepackage</span>
             </a>

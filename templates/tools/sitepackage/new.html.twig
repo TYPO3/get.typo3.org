@@ -1,4 +1,4 @@
-{% extends 'wizards/layout.html.twig' %}
+{% extends 'tools/layout.html.twig' %}
 
 {% block title %}Create your own TYPO3 Sitepackage{% endblock %}
 
@@ -50,7 +50,7 @@
                                 {% if basePackage.official %}
                                     {% set btnClass = 'primary' %}
                                 {% endif %}
-                                <a href="{{ path('wizards_sitepackage_validate', {'vendor': basePackage.vendorName, 'project': basePackage.projectName}) }}" class="btn btn-{{ btnClass }} btn-block" role="button">
+                                <a href="{{ path('tools_sitepackage_validate', {'vendor': basePackage.vendorName, 'project': basePackage.projectName}) }}" class="btn btn-{{ btnClass }} btn-block" role="button">
                                     {{ icon('actions-rocket', 'auto') }}
                                     <span class="btn-text">Create Sitepackage</span>
                                 </a>
@@ -64,7 +64,7 @@
         {% if filtered %}
             {% frame with { center: true } %}
                 <p>
-                    <a href="{{ path('wizards_sitepackage_new') }}" class="btn btn-primary">
+                    <a href="{{ path('tools_sitepackage_new') }}" class="btn btn-primary">
                         {{ icon('actions-rocket', 'auto') }}
                         <span class="btn-text">Show all Base Packages</span>
                     </a>

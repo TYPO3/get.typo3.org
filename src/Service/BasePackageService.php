@@ -296,7 +296,7 @@ class BasePackageService
         $input = new ArrayInput([
             'command' => 'init',
             '--name' => 't3o/base-packages',
-            '--description' => 'Known base packages shown at the get.typo3.org wizards.',
+            '--description' => 'Known base packages shown at the get.typo3.org Tools.',
             '--type' => 'project',
             '--stability' => 'dev',
             '--repository' => ['{"type": "path", "url": "packages/*/*"}', '{"packagist.org": false}'],

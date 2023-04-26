@@ -1,4 +1,4 @@
-{% extends 'wizards/layout.html.twig' %}
+{% extends 'tools/layout.html.twig' %}
 
 {% block title %}Success{% endblock %}
 
@@ -54,15 +54,15 @@
             <dd class="col-sm-9">{{ sitepackage.author.homepage }}</dd>
         </dl>
         <p>
-            <a href="{{ path('wizards_sitepackage_new') }}" class="btn btn-secondary">
+            <a href="{{ path('tools_sitepackage_new') }}" class="btn btn-secondary">
                 {{ icon('actions-undo', 'auto') }}
                 <span class="btn-text">Restart</span>
             </a>
-            <a href="{{ path('wizards_sitepackage_configure') }}" class="btn btn-secondary">
+            <a href="{{ path('tools_sitepackage_configure') }}" class="btn btn-secondary">
                 {{ icon('actions-open', 'auto') }}
                 <span class="btn-text">Edit Configuration</span>
             </a>
-            <a href="{{ path('wizards_sitepackage_download') }}" class="btn btn-primary">
+            <a href="{{ path('tools_sitepackage_download') }}" class="btn btn-primary">
                 {{ icon('actions-download', 'auto') }}
                 <span class="btn-text">Download</span>
             </a>
@@ -74,7 +74,7 @@
             Your Sitepackage has been successfully created and is ready for download.
         </p>
         <p>
-            <a href="{{ path('wizards_sitepackage_download') }}" class="btn btn-lg btn-primary">
+            <a href="{{ path('tools_sitepackage_download') }}" class="btn btn-lg btn-primary">
                 {{ icon('actions-download', 'auto') }}
                 <span class="btn-text">Download</span>
             </a>

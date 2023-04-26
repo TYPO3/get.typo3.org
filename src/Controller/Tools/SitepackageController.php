@@ -21,12 +21,12 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\Controller\Wizards;
+namespace App\Controller\Tools;
 
 use App\Factory\SitepackageFactory;
 use App\Form\Dto\SitepackageDto;
 use App\Form\SitepackageType;
-use App\Session\WizardSessionTrait;
+use App\Session\ToolSessionTrait;
 use App\Utility\StringUtility;
 use App\Utility\VersionUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,10 +42,10 @@ use UnexpectedValueException;
 
 use function sprintf;
 
-#[Route(path: '/wizards/sitepackage')]
+#[Route(path: '/tools/sitepackage')]
 final class SitepackageController extends AbstractController
 {
-    use WizardSessionTrait;
+    use ToolSessionTrait;
 
     public function __construct(
         private \App\Service\BasePackageService $basePackageService,
@@ -53,16 +53,16 @@ final class SitepackageController extends AbstractController
     ) {
     }
 
-    #[Route(path: '', name: 'wizards_sitepackage')]
+    #[Route(path: '', name: 'tools_sitepackage')]
     public function index(): Response
     {
         return $this->render(
-            'wizards/sitepackage/index.html.twig'
+            'tools/sitepackage/index.html.twig'
         );
     }
 
-    #[Route(path: '/new', name: 'wizards_sitepackage_new')]
-    #[Route(path: '/new/{vendor}/{project}', name: 'wizards_sitepackage_new_filtered')]
+    #[Route(path: '/new', name: 'tools_sitepackage_new')]
+    #[Route(path: '/new/{vendor}/{project}', name: 'tools_sitepackage_new_filtered')]
     public function new(string $vendor = '', string $project = ''): Response
     {
         $this->setSitepackageConfig(new SitepackageDto(), false);
@@ -82,12 +82,12 @@ final class SitepackageController extends AbstractController
                     'fatal',
                     $throwable->getMessage()
                 );
-                return $this->redirectToRoute('wizards_sitepackage_new');
+                return $this->redirectToRoute('tools_sitepackage_new');
             }
         }
 
         return $this->render(
-            'wizards/sitepackage/new.html.twig',
+            'tools/sitepackage/new.html.twig',
             [
                 'basePackages' => $basePackages,
                 'filtered' => $filtered,
@@ -95,13 +95,13 @@ final class SitepackageController extends AbstractController
         );
     }
 
-    #[Route(path: '/validate/{vendor}/{project}', name: 'wizards_sitepackage_validate')]
+    #[Route(path: '/validate/{vendor}/{project}', name: 'tools_sitepackage_validate')]
     public function validate(string $vendor, string $project): RedirectResponse
     {
         try {
             $configuration = $this->getSitepackageConfig();
         } catch (UnexpectedValueException) {
-            return $this->redirectToRoute('wizards_sitepackage_new');
+            return $this->redirectToRoute('tools_sitepackage_new');
         }
 
         $configuration->basePackage = sprintf('%s/%s', $vendor, $project);
@@ -114,28 +114,28 @@ final class SitepackageController extends AbstractController
                 'fatal',
                 $throwable->getMessage()
             );
-            return $this->redirectToRoute('wizards_sitepackage_new');
+            return $this->redirectToRoute('tools_sitepackage_new');
         }
 
         $this->setSitepackageConfig($configuration, $this->isAdvancedSitepackageConfig());
 
-        return $this->redirectToRoute('wizards_sitepackage_configure');
+        return $this->redirectToRoute('tools_sitepackage_configure');
     }
 
-    #[Route(path: '/configure', name: 'wizards_sitepackage_configure')]
+    #[Route(path: '/configure', name: 'tools_sitepackage_configure')]
     public function configure(Request $request): Response
     {
         try {
             $configuration = $this->getSitepackageConfig();
         } catch (UnexpectedValueException) {
-            return $this->redirectToRoute('wizards_sitepackage_new');
+            return $this->redirectToRoute('tools_sitepackage_new');
         }
 
         $form = $this->createForm(
             SitepackageType::class,
             $configuration,
             [
-                'action' => $this->generateUrl('wizards_sitepackage_configure'),
+                'action' => $this->generateUrl('tools_sitepackage_configure'),
                 'advanced' => $this->isAdvancedSitepackageConfig(),
             ]
         );
@@ -148,7 +148,7 @@ final class SitepackageController extends AbstractController
             ) {
                 $this->setSitepackageConfig($configuration, false);
 
-                return $this->redirectToRoute('wizards_sitepackage_configure');
+                return $this->redirectToRoute('tools_sitepackage_configure');
             }
 
             if (
@@ -157,37 +157,37 @@ final class SitepackageController extends AbstractController
             ) {
                 $this->setSitepackageConfig($configuration, true);
 
-                return $this->redirectToRoute('wizards_sitepackage_configure');
+                return $this->redirectToRoute('tools_sitepackage_configure');
             }
 
             if ($form->isValid()) {
                 $this->setSitepackageConfig($configuration, $this->isAdvancedSitepackageConfig());
 
-                return $this->redirectToRoute('wizards_sitepackage_success');
+                return $this->redirectToRoute('tools_sitepackage_success');
             }
         }
 
         return $this->render(
-            'wizards/sitepackage/configure.html.twig',
+            'tools/sitepackage/configure.html.twig',
             [
                 'form' => $form->createView(),
             ]
         );
     }
 
-    #[Route(path: '/success', name: 'wizards_sitepackage_success')]
+    #[Route(path: '/success', name: 'tools_sitepackage_success')]
     public function success(): Response
     {
         try {
             $sitepackage = SitepackageFactory::fromDto($this->getSitepackageConfig());
         } catch (UnexpectedValueException) {
-            return $this->redirectToRoute('wizards_sitepackage_new');
+            return $this->redirectToRoute('tools_sitepackage_new');
         }
 
         $this->setSitepackage($sitepackage);
 
         return $this->render(
-            'wizards/sitepackage/success.html.twig',
+            'tools/sitepackage/success.html.twig',
             [
                 'base_package' => $this->basePackageService->getInstalledBasePackage($sitepackage->getBasePackage()),
                 'sitepackage' => $sitepackage,
@@ -195,13 +195,13 @@ final class SitepackageController extends AbstractController
         );
     }
 
-    #[Route(path: '/download', name: 'wizards_sitepackage_download')]
+    #[Route(path: '/download', name: 'tools_sitepackage_download')]
     public function download(): Response
     {
         try {
             $sitepackage = $this->getSitepackage();
         } catch (UnexpectedValueException) {
-            return $this->redirectToRoute('wizards_sitepackage_new');
+            return $this->redirectToRoute('tools_sitepackage_new');
         }
 
         try {
@@ -209,7 +209,7 @@ final class SitepackageController extends AbstractController
         } catch (RuntimeError $runtimeError) {
             $this->setSitepackageError($runtimeError->getMessage());
 
-            return $this->redirectToRoute('wizards_sitepackage_error');
+            return $this->redirectToRoute('tools_sitepackage_error');
         }
 
         BinaryFileResponse::trustXSendfileTypeHeader();
@@ -222,11 +222,11 @@ final class SitepackageController extends AbstractController
             ->deleteFileAfterSend(true);
     }
 
-    #[Route(path: '/error', name: 'wizards_sitepackage_error')]
+    #[Route(path: '/error', name: 'tools_sitepackage_error')]
     public function error(): Response
     {
         return $this->render(
-            'wizards/sitepackage/error.html.twig',
+            'tools/sitepackage/error.html.twig',
             [
                 'error' => $this->getSitepackageError(),
             ]

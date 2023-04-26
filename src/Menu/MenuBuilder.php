@@ -45,17 +45,17 @@ class MenuBuilder extends TemplateMenuBuider
                 'label' => 'Release Notes',
             ]
         );
-        $wizards = $menu->addChild(
-            'wizards',
+        $tools = $menu->addChild(
+            'tools',
             [
-                'route' => 'wizards_sitepackage',
-                'label' => 'Wizards',
+                'route' => 'tools_sitepackage',
+                'label' => 'Tools',
             ]
         );
-        $wizards->addChild(
-            'wizards-sitepackage',
+        $tools->addChild(
+            'tools-sitepackage',
             [
-                'route' => 'wizards_sitepackage',
+                'route' => 'tools_sitepackage',
                 'label' => 'Sitepackage Builder',
             ]
         );
