@@ -51,19 +51,24 @@ class SitepackageController extends AbstractController
 
     /**
      * @OA\RequestBody(
+     *
      *     @Model(type=Sitepackage::class),
      *     request="sitepackage",
      *     required=true
      * )
+     *
      * @OA\Response(
      *     response=200,
      *     description="Successfully generated.",
+     *
      *     @OA\Schema(type="file")
      * )
+     *
      * @OA\Response(
      *     response=400,
      *     description="Request malformed."
      * )
+     *
      * @OA\Tag(name="sitepackage")
      */
     /*

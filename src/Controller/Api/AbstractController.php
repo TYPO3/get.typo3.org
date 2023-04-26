@@ -40,8 +40,6 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use DateTime;
 use DateTimeImmutable;
 
-use function iterator_apply;
-use function iterator_to_array;
 use function is_string;
 
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
