@@ -14,7 +14,7 @@
     {% frame with { id: 'configuration', indent: true, title: 'Your Sitepackage Configuration' } %}
         <dl class="row py-3">
             <dt class="col-sm-3">Base Package</dt>
-            <dd class="col-sm-9">{{ base_package.title }} ({{ base_package.packageName }})</dd>
+            <dd class="col-sm-9">{{ base_package.title }} ({{ base_package.composerPackageName }})</dd>
             <dt class="col-sm-3">Source</dt>
             <dd class="col-sm-9">{% if base_package.official %}TYPO3 official base package{% elseif base_package.thirdParty %}Unknown third party{% else %}Verified third party{% endif %}</dd>
             <dt class="col-sm-3">TYPO3 Version</dt>

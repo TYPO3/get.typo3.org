@@ -17,7 +17,7 @@
         </p>
     {% endframe %}
 
-    {% frame with { id: 'about', color: 'light', title: 'What is a Sitepackage?' } %}
+    {% frame with { id: 'about', title: 'What is a Sitepackage?' } %}
         <p>
             A Sitepackage is a <strong>TYPO3 Extension</strong> that containers all relevant configuration for a Website.
             Having all configuration stored in a package keeps it protected from unauthorized access.
@@ -31,79 +31,6 @@
             <a href="https://docs.typo3.org/m/typo3/tutorial-sitepackage/main/en-us/Index.html" class="btn btn-primary" target="_blank">
                 {{ icon('actions-notebook', 'auto') }}
                 <span class="btn-text">Learn about Sitepackages</span>
-            </a>
-        </p>
-    {% endframe %}
-
-    {% frame with { id: 'arguments', center: true, indent: true, title: 'Pros and Cons', titleSize: 3 } %}
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th class="text-center font-weight-normal">Site&shy;package</th>
-                        <th class="text-center font-weight-normal">Classic</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-left">Config files not accessible by editors</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Config files are protected <span class="text-muted">*</span></td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Autoload PageTS</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Autoload TypoScript</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Static PageTS Template</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Static TypoScript Template</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Dependency Management</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Distribution through TER</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">Clean Version Control possible</td>
-                        <td class="text-success">Yes</td>
-                        <td class="text-danger">No</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p>
-            <small class="font-italic text-muted">* Possible but not common practice</small>
-        </p>
-    {% endframe %}
-
-    {% frame with { center: true, id: 'start', title: 'Start your own Sitepackage' } %}
-        <p>
-            <a href="{{ path('tools_sitepackage_new') }}" class="btn btn-primary">
-                {{ icon('actions-rocket', 'auto') }}
-                <span class="btn-text">Create Sitepackage</span>
             </a>
         </p>
     {% endframe %}

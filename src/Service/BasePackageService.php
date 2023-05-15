@@ -25,7 +25,7 @@ namespace App\Service;
 
 use App\Exception\IncompatiblePackageException;
 use App\Exception\PackageNotInstalledException;
-use App\Form\Dto\BasePackageDto;
+use App\Package\BasePackage;
 use App\Repository\BasePackageRepository;
 use Composer\Composer;
 use Composer\Console\Application as ComposerApplication;
@@ -113,8 +113,11 @@ class BasePackageService
         $oldWorkingDir = (string)getcwd();
         //$oldWorkingDir = Platform::getCwd(true);
 
-        if ($oldWorkingDir !== $this->getProjectDir()) {
-            chdir($this->getProjectDir());
+        if ($oldWorkingDir !== ($projectDir = $this->getProjectDir())) {
+            if (!$this->filesystem->exists($projectDir)) {
+                $this->filesystem->mkdir($projectDir);
+            }
+            chdir($projectDir);
             $this->oldWorkingDir = $oldWorkingDir;
         }
     }
@@ -195,16 +198,31 @@ class BasePackageService
         $validAssetDirs = [];
 
         foreach ($this->getInstalledBasePackages() as $basePackage) {
-            if (!is_dir($originDir = $basePackage->getInstallPath() . '/public')) {
+            $assetDir = $basePackage->getAssetsDir();
+            $targetDir = $publicAssetsDir . $assetDir;
+
+            $this->filesystem->remove($targetDir);
+
+            if (!is_dir($originDir = $basePackage->getPublicInstallPath())) {
                 continue;
             }
 
-            $assetDir = $basePackage->getAssetsDir();
-            $targetDir = $publicAssetsDir . $assetDir;
+            $this->symlink($originDir, $targetDir, true);
             $validAssetDirs[] = $assetDir;
 
-            $this->filesystem->remove($targetDir);
-            $this->symlink($originDir, $targetDir, true);
+            foreach ($basePackage->getTemplates() as $template) {
+                $assetDir = $template->getAssetsDir();
+                $targetDir = $publicAssetsDir . $assetDir;
+
+                $this->filesystem->remove($targetDir);
+
+                if (!is_dir($originDir = $template->getPublicInstallPath())) {
+                    continue;
+                }
+
+                $this->symlink($originDir, $targetDir, true);
+                $validAssetDirs[] = $assetDir;
+            }
         }
 
         // remove the assets of the bundles that no longer exist
@@ -360,7 +378,7 @@ class BasePackageService
             '--ansi' => true,
             '--no-interaction' => true,
             '--working-dir' => $this->getProjectDir(),
-            'packages' => [$packageName . ':*'],
+            'packages' => [$packageName . ':@dev'],
         ]);
 
         if (($exitCode = $this->composerApplication->run($input, $output)) !== 0) {
@@ -425,10 +443,11 @@ class BasePackageService
     }
 
     /**
-     * @return array<int, BasePackageDto>
+     * @return array<int, BasePackage>
      */
     public function getInstalledBasePackages(): array
     {
+        /** @var array<int, BasePackage> */
         return $this->cache->get('installed-base-packages-grouped-by-official', function (ItemInterface $item): array {
             $item->tag(['installed-base-packages', 'base-packages']);
             $installedBasePackages = [];
@@ -444,7 +463,7 @@ class BasePackageService
 
                 foreach ($composer->getRepositoryManager()->getLocalRepository()->getPackages() as $package) {
                     if ($package->getType() === self::PACKAGE_TYPE) {
-                        $basePackageDto = BasePackageDto::fromPackage(
+                        $basePackageDto = BasePackage::fromPackage(
                             $composer->getInstallationManager()->getInstallPath($package),
                             $package,
                             $this->basePackageRepository->findOneBy([
@@ -456,7 +475,7 @@ class BasePackageService
                     }
                 }
 
-                usort($installedBasePackages, static function (BasePackageDto $a, BasePackageDto $b): int {
+                usort($installedBasePackages, static function (BasePackage $a, BasePackage $b): int {
                     if ($a->official !== $b->official) {
                         if ($a->official) {
                             return -1;
@@ -465,7 +484,7 @@ class BasePackageService
                         return 1;
                     }
 
-                    return $a->title <=> $b->title;
+                    return $a->getTitle() <=> $b->getTitle();
                 });
 
                 return $installedBasePackages;
@@ -475,10 +494,10 @@ class BasePackageService
         });
     }
 
-    public function getInstalledBasePackage(string $packageName): BasePackageDto
+    public function getInstalledBasePackage(string $packageName): BasePackage
     {
         foreach ($this->getInstalledBasePackages() as $basePackage) {
-            if ($basePackage->packageName === $packageName) {
+            if ($basePackage->getComposerPackageName() === $packageName) {
                 return $basePackage;
             }
         }
@@ -487,10 +506,11 @@ class BasePackageService
     }
 
     /**
-     * @return array<int, BasePackageDto>
+     * @return array<int, BasePackage>
      */
     public function getBasePackages(): array
     {
+        /** @var array<int, BasePackage> */
         return $this->cache->get('active-base-packages-grouped-by-official', function (ItemInterface $item): array {
             $item->tag(['active-base-packages', 'base-packages']);
 
@@ -520,7 +540,7 @@ class BasePackageService
                         );
                     }
 
-                    $basePackageDto = BasePackageDto::fromPackage(
+                    $basePackageDto = BasePackage::fromPackage(
                         $composer->getInstallationManager()->getInstallPath($package),
                         $package,
                         $basePackage
@@ -536,7 +556,7 @@ class BasePackageService
         });
     }
 
-    public function checkAndInstallMissingBasePackage(string $packageName): BasePackageDto
+    public function checkAndInstallMissingBasePackage(string $packageName): BasePackage
     {
         $this->changeToProjectDir();
 
@@ -559,7 +579,7 @@ class BasePackageService
         }
     }
 
-    public function validate(string $packageName): BasePackageDto
+    public function validate(string $packageName): BasePackage
     {
         $this->changeToProjectDir();
 
@@ -594,7 +614,10 @@ class BasePackageService
             $this->restoreToWorkingDir();
         }
 
+        //return $basePackage;
+
         try {
+            /*
             if (strlen($basePackage->title) < 5) {
                 throw new IncompatiblePackageException(
                     \sprintf('Title "%s" must have 5 characters or more.', $basePackage->title),
@@ -608,20 +631,35 @@ class BasePackageService
                     1_658_945_398
                 );
             }
+            */
 
-            if ($basePackage->typo3Versions === []) {
+            if ($basePackage->getTypo3Versions() === []) {
                 throw new IncompatiblePackageException(
                     'A base package must define one or more supported TYPO3 core versions.',
                     1_658_945_403
                 );
             }
 
-            if (!\file_exists($basePackage->getInstallPath() . '/public/' . $basePackage->previewImage)) {
-                throw new IncompatiblePackageException(
-                    'A base package must have a preview image.',
-                    1_658_946_257
-                );
+            /*
+            foreach ($basePackage->getTypo3Versions() as $typo3Version) {
+                if (!\file_exists($basePackage->getInstallPath() . '/templates/' . $typo3Version . '/public/' . $basePackage->previewImage)) {
+                    throw new IncompatiblePackageException(
+                        'A base package must have a preview image.',
+                        1_658_946_257
+                    );
+                }
             }
+
+            /*
+            foreach ($basePackage->typo3Versions as $typo3Version) {
+                if (!\file_exists($basePackage->getInstallPath() . '/templates/' . $typo3Version . '/docs/detail.md')) {
+                    throw new IncompatiblePackageException(
+                        'A base package must have a detail.md.',
+                        1_658_946_258
+                    );
+                }
+            }
+            */
 
             $forbiddenFiles = Finder::create()
                 ->ignoreDotFiles(false)

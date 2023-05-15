@@ -44,7 +44,7 @@ class BasePackageType extends AbstractType
         $choices = [];
 
         foreach ($this->basePackageService->getInstalledBasePackages() as $basePackage) {
-            $choices[sprintf('%s (%s)', $basePackage->title, $basePackage->packageName)] = $basePackage->packageName;
+            $choices[sprintf('%s (%s)', $basePackage->getTitle(), $basePackage->getComposerPackageName())] = $basePackage->getComposerPackageName();
         }
 
         $resolver->setDefaults([

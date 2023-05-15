@@ -71,12 +71,12 @@ class SitepackageType extends AbstractType
             ->add('typo3Version', Typo3VersionType::class, [
                 'label' => 'TYPO3 Version',
                 'choice_filter' => static function (int $version) use ($basePackage): bool {
-                    foreach ($basePackage->typo3Versions as $typo3Version) {
+                    foreach ($basePackage->getTypo3Versions() as $typo3Version) {
                         if ($version < VersionUtility::versionToInt($typo3Version)) {
                             continue;
                         }
 
-                        if ($version % 1_000_000 !== VersionUtility::versionToInt($typo3Version) % 1_000_000) {
+                        if ($version / 1_000_000 !== VersionUtility::versionToInt($typo3Version) / 1_000_000) {
                             continue;
                         }
 

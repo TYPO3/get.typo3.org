@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Form\Dto\BasePackageDto;
+use App\Package\BasePackage;
 use App\Package\Sitepackage;
 use App\Utility\VersionUtility;
 use RuntimeException;
@@ -39,7 +39,7 @@ use function rtrim;
 final class SitepackageGenerator
 {
     /**
-     * @var array<string, BasePackageDto>
+     * @var array<string, BasePackage>
      */
     private array $basePackages = [];
 
@@ -70,14 +70,6 @@ final class SitepackageGenerator
             ;
             $this->addFiles($zipFile, $files, $package, $sourceDir);
 
-            $sourceDir = dirname($sourceDir) . '/shared';
-            $files = Finder::create()
-                ->ignoreDotFiles(false)
-                ->ignoreVCS(false)
-                ->in($sourceDir)
-            ;
-            $this->addFiles($zipFile, $files, $package, $sourceDir);
-
             $zipFile->close();
         }
     }
@@ -92,9 +84,9 @@ final class SitepackageGenerator
         return $this->filename;
     }
 
-    private function getBasePackage(Sitepackage $package): BasePackageDto
+    private function getBasePackage(Sitepackage $package): BasePackage
     {
-        if (!($this->basePackages[$package->getBasePackage()] ?? null) instanceof BasePackageDto) {
+        if (!($this->basePackages[$package->getBasePackage()] ?? null) instanceof BasePackage) {
             $this->basePackages[$package->getBasePackage()] =
                 $this->basePackageService->getInstalledBasePackage($package->getBasePackage());
         }
@@ -105,26 +97,26 @@ final class SitepackageGenerator
     private function getSourceDir(Sitepackage $package): string
     {
         $basePackage = $this->getBasePackage($package);
+        $basePackageTemplate = null;
         $version = $package->getTypo3Version();
-        $versionDir = '';
 
-        foreach ($basePackage->typo3Versions as $v) {
-            if ($version < VersionUtility::versionToInt($v)) {
+        foreach ($basePackage->getTypo3Versions() as $typo3Version) {
+            if ($version < VersionUtility::versionToInt($typo3Version)) {
                 continue;
             }
 
-            $versionDir = $v;
+            $basePackageTemplate = $basePackage->getTemplates()[$typo3Version];
             break;
         }
 
-        if ($versionDir === '') {
+        if ($basePackageTemplate === null) {
             throw new RuntimeException(
                 sprintf('Template for version "%s" not found.', $version),
                 1_658_939_427
             );
         }
 
-        return $basePackage->getInstallPath() . '/templates/skeletons/' . $versionDir;
+        return $basePackageTemplate->getSkeletonInstallPath();
     }
 
     private function getFileContent(string $file, string $baseDir, Sitepackage $package): string

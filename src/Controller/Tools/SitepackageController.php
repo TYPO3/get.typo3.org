@@ -62,7 +62,7 @@ final class SitepackageController extends AbstractController
     }
 
     #[Route(path: '/new', name: 'tools_sitepackage_new')]
-    #[Route(path: '/new/{vendor}/{project}', name: 'tools_sitepackage_new_filtered')]
+    #[Route(path: '/new/{vendor}/{project}', name: 'tools_sitepackage_new')]
     public function new(string $vendor = '', string $project = ''): Response
     {
         $this->setSitepackageConfig(new SitepackageDto(), false);
@@ -95,6 +95,40 @@ final class SitepackageController extends AbstractController
         );
     }
 
+    #[Route(path: '/detail/{vendor}/{project}', name: 'tools_sitepackage_detail')]
+    #[Route(path: '/detail/{vendor}/{project}/{typo3Version}', name: 'tools_sitepackage_detail')]
+    public function detail(string $vendor, string $project, string $typo3Version = ''): Response
+    {
+        $this->setSitepackageConfig(new SitepackageDto(), false);
+
+        $basePackageName = sprintf('%s/%s', $vendor, $project);
+
+        try {
+            $basePackage = $this->basePackageService->checkAndInstallMissingBasePackage($basePackageName);
+
+            if ($typo3Version === '') {
+                $typo3Version = $basePackage->getTypo3Versions()[0];
+            }
+
+            $basePackageTemplate = $basePackage->getTemplates()[$typo3Version];
+        } catch (Throwable $throwable) {
+            $this->addFlash(
+                'fatal',
+                $throwable->getMessage()
+            );
+            return $this->redirectToRoute('tools_sitepackage_new');
+        }
+
+        return $this->render(
+            'tools/sitepackage/detail.html.twig',
+            [
+                'basePackage' => $basePackage,
+                'basePackageTemplate' => $basePackageTemplate,
+                'typo3Version' => $typo3Version,
+            ]
+        );
+    }
+
     #[Route(path: '/validate/{vendor}/{project}', name: 'tools_sitepackage_validate')]
     public function validate(string $vendor, string $project): RedirectResponse
     {
@@ -108,7 +142,7 @@ final class SitepackageController extends AbstractController
 
         try {
             $basePackage = $this->basePackageService->checkAndInstallMissingBasePackage($configuration->basePackage);
-            $configuration->typo3Version = VersionUtility::versionToInt($basePackage->typo3Versions[0]);
+            $configuration->typo3Version = VersionUtility::versionToInt($basePackage->getTypo3Versions()[0]);
         } catch (Throwable $throwable) {
             $this->addFlash(
                 'fatal',

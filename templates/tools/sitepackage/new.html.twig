@@ -26,7 +26,7 @@
                             </div>
                             <img
                                 class="basepackage-image card-img-top"
-                                src="/base-packages/{{ basePackage.assetsDir }}/{{ basePackage.previewImage }}"
+                                src="{{ asset("base-packages/#{ basePackage.assetPreviewImage }") }}"
                             >
                             {% if basePackage.official %}
                                 <img
@@ -43,16 +43,24 @@
                                 <h5>Supported TYPO3 versions</h3>
                                 <ul class="list-inline">
                                 {% for typo3Version in basePackage.typo3Versions %}
-                                    <li class="list-inline-item">{{ typo3Version }}</li>
+                                    <li class="list-inline-item">
+                                        <a href="{{ path('tools_sitepackage_detail', {'vendor': basePackage.composerVendorName, 'project': basePackage.composerProjectName, 'version': typo3Version}) }}">
+                                            {{ typo3Version }}
+                                        </a>
+                                    </li>
                                 {% endfor %}
                                 </ul>
                                 {% set btnClass = 'light' %}
                                 {% if basePackage.official %}
                                     {% set btnClass = 'primary' %}
                                 {% endif %}
-                                <a href="{{ path('tools_sitepackage_validate', {'vendor': basePackage.vendorName, 'project': basePackage.projectName}) }}" class="btn btn-{{ btnClass }} btn-block" role="button">
+                                <a href="{{ path('tools_sitepackage_validate', {'vendor': basePackage.composerVendorName, 'project': basePackage.composerProjectName}) }}" class="btn btn-{{ btnClass }} btn-block" role="button">
                                     {{ icon('actions-rocket', 'auto') }}
                                     <span class="btn-text">Create Sitepackage</span>
+                                </a>
+                                <a href="{{ path('tools_sitepackage_detail', {'vendor': basePackage.composerVendorName, 'project': basePackage.composerProjectName}) }}" class="btn btn-info btn-block" role="button">
+                                    {{ icon('actions-info', 'auto') }}
+                                    <span class="btn-text">Show details</span>
                                 </a>
                             </div>
                         </div>
