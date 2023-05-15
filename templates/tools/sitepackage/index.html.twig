@@ -1,0 +1,38 @@
+{% extends 'tools/layout.html.twig' %}
+
+{% block title %}Kickstart your TYPO3 template development{% endblock %}
+
+{% block body %}
+
+    {% frame with { color: 'dark', center: true, title: 'Sitepackage Builder', titleSize: 1, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <p class="lead">
+            Sitepackage-Builder is your kickstarter for modern TYPO3 Theme development. Learn more about TYPO3 templating
+            or start your own template right now.
+        </p>
+        <p>
+            <a href="{{ path('tools_sitepackage_new') }}" class="btn btn-lg btn-primary">
+                {{ icon('actions-rocket', 'auto') }}
+                <span class="btn-text">Create Sitepackage</span>
+            </a>
+        </p>
+    {% endframe %}
+
+    {% frame with { id: 'about', title: 'What is a Sitepackage?' } %}
+        <p>
+            A Sitepackage is a <strong>TYPO3 Extension</strong> that containers all relevant configuration for a Website.
+            Having all configuration stored in a package keeps it protected from unauthorized access.
+            As Extension your Sitepackage will manage your dependencies to other Extensions and/or the TYPO3 Version.
+            This will ease your deployment and enables you to put the configuration of your Webiste under Version Control.
+        </p>
+        <p>
+            Learn more about the <strong>best practices</strong> recommended from the TYPO3 Core Team.
+        </p>
+        <p>
+            <a href="https://docs.typo3.org/m/typo3/tutorial-sitepackage/main/en-us/Index.html" class="btn btn-primary" target="_blank">
+                {{ icon('actions-notebook', 'auto') }}
+                <span class="btn-text">Learn about Sitepackages</span>
+            </a>
+        </p>
+    {% endframe %}
+
+{% endblock %}

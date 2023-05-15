@@ -46,7 +46,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', 'Build Blazingly');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', 'Build Blazingly');
         self::assertSelectorTextContains('#download-community-1 .btn', 'Get version 10');
         self::assertSelectorTextContains('#download-community-2 .btn', 'Get version 9');
         self::assertSelectorTextContains('#download-elts-1 .btn-primary', 'Buy ELTS');
@@ -70,7 +70,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/version/10');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', 'TYPO3 10');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', 'TYPO3 10');
     }
 
     /**
@@ -80,7 +80,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/version/10.0.0');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '(10.0.0)');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '(10.0.0)');
         self::assertSelectorNotExists('#notice-elts');
         self::assertSelectorExists('#accordion-download');
     }
@@ -92,7 +92,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/version/6.2');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '(6.2.23 ELTS)');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '(6.2.23 ELTS)');
         self::assertSelectorExists('#notice-elts');
         self::assertSelectorNotExists('#accordion-download');
     }
@@ -104,7 +104,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/version/6.2.0');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '(6.2.0)');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '(6.2.0)');
         self::assertSelectorExists('#notice-elts');
         self::assertSelectorExists('#accordion-download');
     }
@@ -116,7 +116,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/version/4.5.0');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '(4.5.0)');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '(4.5.0)');
         self::assertSelectorExists('#notice-outdated');
         self::assertSelectorExists('#accordion-download');
     }
@@ -128,7 +128,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/version/4.5');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '(4.5.23 ELTS)');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '(4.5.23 ELTS)');
         self::assertSelectorExists('#notice-outdated');
         self::assertSelectorNotExists('#accordion-download');
     }
@@ -150,7 +150,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/release-notes/10');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '10.0.5');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '10.0.5');
     }
 
     /**
@@ -160,7 +160,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/release-notes/10.0.0');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '10.0.0');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '10.0.0');
         self::assertSelectorNotExists('#notice-elts');
     }
 
@@ -171,7 +171,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/release-notes/6.2');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '6.2.23 ELTS');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '6.2.23 ELTS');
         self::assertSelectorExists('#notice-elts');
     }
 
@@ -182,7 +182,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/release-notes/6.2.0');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '6.2.0');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '6.2.0');
         self::assertSelectorExists('#notice-elts');
     }
 
@@ -193,7 +193,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/release-notes/4.5.0');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '4.5.0');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '4.5.0');
         self::assertSelectorExists('#notice-outdated');
     }
 
@@ -204,7 +204,7 @@ class DefaultControllerTest extends AbstractCase
     {
         $this->client->request('GET', '/release-notes/4.5');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', '4.5.23 ELTS');
+        self::assertSelectorTextContains('div.frame-container:nth-child(2) > div:nth-child(1) > h1:nth-child(1)', '4.5.23 ELTS');
         self::assertSelectorExists('#notice-outdated');
     }
 }

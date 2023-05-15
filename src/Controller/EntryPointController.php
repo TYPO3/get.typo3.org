@@ -36,6 +36,8 @@ class EntryPointController extends AbstractController
     private const ENTRY_POINTS = [
         // 'slug' => 'route',
         'composer-helper' => 'composer-helper',
+        'sitepackage' => 'tools_sitepackage',
+        'sitepackage-builder' => 'tools_sitepackage',
     ];
 
     #[Route('/go/{slug}', requirements: ['slug' => '.+'])]

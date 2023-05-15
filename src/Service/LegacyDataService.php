@@ -37,6 +37,7 @@ class LegacyDataService
 
     public function getReleaseJson(): string
     {
+        /** @var string */
         return $this->cache->get('releases.json', function (ItemInterface $item): string {
             $item->tag(['major-versions', 'major-version', 'releases', 'release']);
             $content = json_encode($this->majorVersionRepository->findAllPreparedForJson(), JSON_THROW_ON_ERROR);

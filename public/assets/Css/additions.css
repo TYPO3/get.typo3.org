@@ -81,3 +81,11 @@ pre {
 .frame .swagger-ui .auth-wrapper .authorize {
     margin-right: 0;
 }
+
+
+/* BasePackage List */
+.basepackage-official-badge {
+    position: absolute;
+    right: 0.75em;
+    transform: translate(0, 25%);
+}

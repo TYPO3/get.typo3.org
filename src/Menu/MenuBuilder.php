@@ -28,9 +28,6 @@ use T3G\Bundle\TemplateBundle\Menu\MenuBuilder as TemplateMenuBuider;
 
 class MenuBuilder extends TemplateMenuBuider
 {
-    /**
-     * @inheritDoc
-     */
     public function mainDefault(array $options): ItemInterface
     {
         $menu = parent::mainDefault($options);
@@ -46,6 +43,20 @@ class MenuBuilder extends TemplateMenuBuider
             [
                 'route' => 'release-notes',
                 'label' => 'Release Notes',
+            ]
+        );
+        $tools = $menu->addChild(
+            'tools',
+            [
+                'route' => 'tools_sitepackage',
+                'label' => 'Tools',
+            ]
+        );
+        $tools->addChild(
+            'tools-sitepackage',
+            [
+                'route' => 'tools_sitepackage',
+                'label' => 'Sitepackage Builder',
             ]
         );
         $composer = $menu->addChild(
@@ -79,9 +90,6 @@ class MenuBuilder extends TemplateMenuBuider
         return $menu;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function mainProfile(array $options): ItemInterface
     {
         $menu = parent::mainProfile($options);

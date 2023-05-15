@@ -89,4 +89,17 @@ class VersionUtility
 
         return $version;
     }
+
+    public static function versionToInt(?string $version): int
+    {
+        if (($version = self::normalize($version, 3)) === null) {
+            return 0;
+        }
+
+        $versionParts = explode('.', $version);
+
+        return ((int)$versionParts[0] % 1000) * 1_000_000
+            + ((int)$versionParts[1] % 1000) * 1000
+            + ((int)$versionParts[2] % 1000);
+    }
 }

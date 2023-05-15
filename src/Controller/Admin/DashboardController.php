@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\BasePackage;
 use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Entity\Requirement;
@@ -32,7 +33,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Iterator;
 
 #[IsGranted('ROLE_ADMIN')]
 class DashboardController extends AbstractDashboardController
@@ -49,14 +49,12 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('Administration');
     }
 
-    /**
-     * @return Iterator<\EasyCorp\Bundle\EasyAdminBundle\Config\Menu\CrudMenuItem|\EasyCorp\Bundle\EasyAdminBundle\Config\Menu\DashboardMenuItem>
-     */
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Major Versions', 'fas fa-list', MajorVersion::class);
         yield MenuItem::linkToCrud('Requirements', 'fas fa-list', Requirement::class);
         yield MenuItem::linkToCrud('Releases', 'fas fa-list', Release::class);
+        yield MenuItem::linkToCrud('Base Packages', 'fas fa-list', BasePackage::class);
     }
 }

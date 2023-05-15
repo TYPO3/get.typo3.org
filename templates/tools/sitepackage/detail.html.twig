@@ -1,0 +1,90 @@
+{% extends 'tools/layout.html.twig' %}
+
+{% block title %}Create your own TYPO3 Sitepackage{% endblock %}
+
+{% block body %}
+
+    {% frame with { color: 'dark', center: true, title: 'Create your own Sitepackage', titleSize: 1, backgroundImage: asset("assets/Images/keyvisual.png") } %}
+        <p class="lead">
+            Awesome you made it here! Just a few more details about your
+            project and your own Sitepackage is ready for download.
+        </p>
+    {% endframe %}
+
+    {% frame %}
+        <header class="frame-header">
+            <h1>
+                {{ basePackage.title }} Base Package for TYPO3 {{ typo3Version }}
+                {% if basePackage.official %}
+                <img
+                    class=""
+                    src="{{ asset("assets/Images/OfficialBadge.svg") }}" alt="{{ basePackage.title }}"
+                    height="64"
+                    width="64"
+                >
+                {% endif %}
+            </h1>
+        </header>
+        <div>
+            <div class="row">
+                <div class="col-8">
+                    <div>
+                        {{ basePackageTemplate.description|markdown_to_html }}
+                    </div>
+                    <div>
+                        {% for imageFile, imageDescription in basePackageTemplate.assetsGallery %}
+                            <figure class="figure">
+                                <img src="{{ asset("base-packages/#{ imageFile }") }}" class="figure-img img-fluid rounded border" alt="{{ imageDescription }}">
+                                <figcaption class="figure-caption">{{ imageDescription }}</figcaption>
+                            </figure>
+                        {% endfor %}
+                    </div>
+                    <div class="d-grid">
+                        {% if basePackage.thirdParty %}
+                            <a href="{{ path('tools_sitepackage_new', {'vendor': basePackage.vendorName, 'project': basePackage.projectName}) }}" class="btn btn-light">
+                                {{ icon('actions-arrow-left-alt', 'auto') }}
+                                <span class="btn-text">Back to Base Package</span>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('tools_sitepackage_new') }}" class="btn btn-light">
+                                {{ icon('actions-arrow-left-alt', 'auto') }}
+                                <span class="btn-text">Back to Base Packages</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div id="facts" class="card">
+                        <div class="card-body">
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Last Update</th>
+                                    <td>15 September 2020</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Extensions</th>
+                                    <td>Bootstrap Package<br>Extension XY</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Framework</th>
+                                    <td>Bootstrap</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Columns</th>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Layout</th>
+                                    <td>Responsive</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endframe %}
+
+{% endblock %}

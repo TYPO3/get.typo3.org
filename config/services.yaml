@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.domain: '%env(APP_DOMAIN)%'
+    app.base_packages_project_dir: 'tmp/base-packages'
+    app.base_packages_assets_dir: 'base-packages'
 
 services:
     # default configuration for services in *this* file
@@ -17,10 +19,14 @@ services:
     App\:
         resource: '../src/'
         exclude:
+            - '../src/DataFixtures/'
             - '../src/DependencyInjection/'
             - '../src/Entity/'
-            - '../src/Kernel.php'
+            - '../src/Enum/'
+            - '../src/Exception/'
+            - '../src/Package/'
             - '../src/Tests/'
+            - '../src/Kernel.php'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -34,6 +40,9 @@ services:
         arguments:
             $appDomain: '%env(APP_DOMAIN)%'
 
+    App\EventListener\BasePackageListener:
+        tags: ['doctrine.orm.entity_listener']
+
     App\EventListener\MajorVersionListener:
         tags: ['doctrine.orm.entity_listener']
 
@@ -43,6 +52,17 @@ services:
     App\EventListener\RequirementListener:
         tags: ['doctrine.orm.entity_listener']
 
+    App\Security\GitHubRequestChecker:
+        arguments:
+            $signingSecret: '%env(APP_WEBHOOK_SECRET_GITHUB)%'
+
+    App\Service\BasePackageService:
+        arguments:
+            $projectDir: '%app.base_packages_project_dir%'
+            $assetsDir: '%app.base_packages_assets_dir%'
+
     App\Service\CacheWarmupService:
         arguments:
             $baseUrl: '%env(BASE_URL)%'
+
+    Composer\Console\Application:

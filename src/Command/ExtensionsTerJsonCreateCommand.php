@@ -423,9 +423,12 @@ class ExtensionsTerJsonCreateCommand extends Command
             ],
         ];
         if ($version->composerinfo !== null) {
-            $composerInfo = json_decode((string)$version->composerinfo, true, 512);
-            if (is_array($composerInfo) && is_array($composerInfo['autoload'] ?? null)) {
-                $autoload = $composerInfo['autoload'];
+            try {
+                $composerInfo = json_decode((string)$version->composerinfo, true, 512, JSON_THROW_ON_ERROR);
+                if (is_array($composerInfo) && is_array($composerInfo['autoload'] ?? null)) {
+                    $autoload = $composerInfo['autoload'];
+                }
+            } catch (\Throwable) {
             }
         }
 

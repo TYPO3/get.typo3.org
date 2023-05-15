@@ -233,7 +233,7 @@ class RequirementsController extends AbstractController
                 ]
             );
             if (!$entity instanceof Requirement) {
-                throw new NotFoundHttpException('Requirement does not exists');
+                throw new NotFoundHttpException('Requirement does not exists.');
             }
 
             $requirement->setVersion($entity->getVersion());
