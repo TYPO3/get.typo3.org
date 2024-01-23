@@ -44,6 +44,11 @@ class MajorVersionCrudController extends AbstractCrudController
         return MajorVersion::class;
     }
 
+    public function createEntity(string $entityFqcn): MajorVersion
+    {
+        return MajorVersion::create();
+    }
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions

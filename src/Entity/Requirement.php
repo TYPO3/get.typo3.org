@@ -48,6 +48,16 @@ use function ucfirst;
 #[ORM\UniqueConstraint(columns: ['version', 'category', 'name'])]
 class Requirement implements JsonSerializable, Stringable
 {
+    public static function create(MajorVersion $version = null): self
+    {
+        return new self(
+            null,
+            $version,
+            '',
+            ''
+        );
+    }
+
     public function __construct(
         #[ORM\Id]
         #[ORM\GeneratedValue]
@@ -55,7 +65,7 @@ class Requirement implements JsonSerializable, Stringable
         private ?int $id,
         #[ORM\ManyToOne(targetEntity: MajorVersion::class, inversedBy: 'requirements')]
         #[ORM\JoinColumn(name: 'version', referencedColumnName: 'version')]
-        private MajorVersion $version,
+        private ?MajorVersion $version,
         /**
          * @noRector
          *
@@ -96,7 +106,7 @@ class Requirement implements JsonSerializable, Stringable
         $this->version = $version;
     }
 
-    public function getVersion(): MajorVersion
+    public function getVersion(): ?MajorVersion
     {
         return $this->version;
     }
