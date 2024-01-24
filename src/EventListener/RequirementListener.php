@@ -33,21 +33,29 @@ final class RequirementListener
 {
     public function __construct(
         private readonly CacheService $cacheService,
-    ) {
-    }
+    ) {}
 
     public function postUpdate(Requirement $requirement, PostUpdateEventArgs $eventArgs): void
     {
-        $this->cacheService->purgeMajorVersion((string)$requirement->getVersion()->getVersion());
+        $majorVersion = $requirement->getVersion();
+        if ($majorVersion !== null) {
+            $this->cacheService->purgeMajorVersion((string)$majorVersion->getVersion());
+        }
     }
 
     public function postRemove(Requirement $requirement, PostRemoveEventArgs $eventArgs): void
     {
-        $this->cacheService->purgeMajorVersion((string)$requirement->getVersion()->getVersion());
+        $majorVersion = $requirement->getVersion();
+        if ($majorVersion !== null) {
+            $this->cacheService->purgeMajorVersion((string)$majorVersion->getVersion());
+        }
     }
 
     public function postPersist(Requirement $requirement, PostPersistEventArgs $eventArgs): void
     {
-        $this->cacheService->purgeMajorVersion((string)$requirement->getVersion()->getVersion());
+        $majorVersion = $requirement->getVersion();
+        if ($majorVersion !== null) {
+            $this->cacheService->purgeMajorVersion((string)$majorVersion->getVersion());
+        }
     }
 }

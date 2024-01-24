@@ -26,6 +26,7 @@ namespace App\Entity;
 use App\EventListener\MajorVersionListener;
 use App\Repository\MajorVersionRepository;
 use App\Utility\VersionUtility;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -53,6 +54,25 @@ class MajorVersion implements JsonSerializable, Stringable
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
     #[Serializer\Groups(['data', 'content', 'patch'])]
     private float $version;
+
+    public static function create(float $version = 0.0): self
+    {
+        $now = (new DateTimeImmutable())->setTime(0, 0, 0);
+        $emptyCollection = new ArrayCollection();
+        return new self(
+            $version,
+            sprintf('TYPO3 %d', $version),
+            'The upcoming LTS release (for new projects)',
+            'The development of the next major version',
+            $now,
+            null,
+            null,
+            null,
+            $emptyCollection,
+            $emptyCollection,
+            null,
+        );
+    }
 
     /**
      * @param Collection<int, Requirement> $requirements
@@ -89,6 +109,8 @@ class MajorVersion implements JsonSerializable, Stringable
         private DateTimeImmutable $releaseDate,
         /**
          * @OA\Property(example="2017-12-12T16:48:22+00:00")
+         *
+         * @todo `regularMaintenanceUntil` seems to be unused
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]

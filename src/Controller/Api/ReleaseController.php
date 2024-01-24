@@ -29,7 +29,6 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +36,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/release', '/v1/api/release'], defaults: ['_format' => 'json'])]
@@ -102,8 +102,6 @@ class ReleaseController extends AbstractController
     /**
      * Add new TYPO3 release.
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Security(name="Basic")
      *
      * @OA\RequestBody(
@@ -151,6 +149,7 @@ class ReleaseController extends AbstractController
      * @OA\Tag(name="release")
      */
     #[Route(path: '/', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function addRelease(Request $request): JsonResponse
     {
         $content = $request->getContent();
@@ -178,8 +177,6 @@ class ReleaseController extends AbstractController
 
     /**
      * Add TYPO3 Release Notes for Version.
-     *
-     * @IsGranted("ROLE_ADMIN")
      *
      * @Security(name="Basic")
      *
@@ -211,6 +208,7 @@ class ReleaseController extends AbstractController
      * @OA\Tag(name="content")
      */
     #[Route(path: '/{version}/release-notes', methods: ['PUT'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function addReleaseNotesForVersion(string $version, Request $request): JsonResponse
     {
         $this->checkVersionFormat($version);
@@ -284,8 +282,6 @@ class ReleaseController extends AbstractController
     /**
      * Update TYPO3 Release.
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Security(name="Basic")
      *
      * @OA\RequestBody(
@@ -319,6 +315,7 @@ class ReleaseController extends AbstractController
      * @OA\Tag(name="release")
      */
     #[Route(path: '/{version}', methods: ['PATCH'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function updateRelease(string $version, Request $request): JsonResponse
     {
         $this->checkVersionFormat($version);
@@ -350,8 +347,6 @@ class ReleaseController extends AbstractController
     /**
      * Delete TYPO3 release.
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Security(name="Basic")
      *
      * @OA\Response(
@@ -377,6 +372,7 @@ class ReleaseController extends AbstractController
      * @param string $version Specific TYPO3 Version to delete
      */
     #[Route(path: '/{version}', methods: ['DELETE'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function deleteRelease(string $version): JsonResponse
     {
         $entity = $this->getReleaseByVersion($version);

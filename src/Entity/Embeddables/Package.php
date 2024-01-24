@@ -57,8 +57,7 @@ class Package implements JsonSerializable
         #[Serializer\Groups(['data'])]
         #[Serializer\Type('string')]
         private ?string $sha256sum
-    ) {
-    }
+    ) {}
 
     public function getMd5sum(): ?string
     {

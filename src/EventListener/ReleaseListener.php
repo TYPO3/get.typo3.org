@@ -33,8 +33,7 @@ final class ReleaseListener
 {
     public function __construct(
         private readonly CacheService $cacheService,
-    ) {
-    }
+    ) {}
 
     public function postUpdate(Release $release, PostUpdateEventArgs $eventArgs): void
     {

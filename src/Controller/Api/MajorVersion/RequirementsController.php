@@ -29,7 +29,6 @@ use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +36,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(
@@ -96,8 +96,6 @@ class RequirementsController extends AbstractController
     /**
      * Create new major TYPO3 version requirement.
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Security(name="Basic")
      *
      * @OA\RequestBody(
@@ -146,6 +144,7 @@ class RequirementsController extends AbstractController
      * @OA\Tag(name="requirement")
      */
     #[Route(path: '/', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function addRequirement(string $version, Request $request): JsonResponse
     {
         $content = $request->getContent();
@@ -181,8 +180,6 @@ class RequirementsController extends AbstractController
 
     /**
      * Update requirement of major TYPO3 version.
-     *
-     * @IsGranted("ROLE_ADMIN")
      *
      * @Security(name="Basic")
      *
@@ -221,6 +218,7 @@ class RequirementsController extends AbstractController
      * @OA\Tag(name="requirement")
      */
     #[Route(path: '/', methods: ['PATCH'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function updateRequirement(string $version, Request $request): JsonResponse
     {
         $content = $request->getContent();
@@ -259,8 +257,6 @@ class RequirementsController extends AbstractController
     /**
      * Delete requirement of major TYPO3 version.
      *
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Security(name="Basic")
      *
      * @OA\Response(
@@ -284,6 +280,7 @@ class RequirementsController extends AbstractController
      * @OA\Tag(name="requirement")
      */
     #[Route(path: '/{category}/{name}', methods: ['DELETE'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function deleteRequirement(string $version, string $category, string $name): JsonResponse
     {
         $requirement = $this->getRequirements()->findOneBy(

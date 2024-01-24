@@ -30,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 use function sprintf;
 
@@ -38,8 +39,7 @@ final class DownloadController extends AbstractController
     public function __construct(
         private \App\Service\LegacyDataService $legacyDataService,
         private \App\Repository\ReleaseRepository $releases,
-    ) {
-    }
+    ) {}
 
     #[Route(path: '/{requestedVersion}', methods: ['GET'], name: 'specificversion')]
     #[Route(
@@ -67,7 +67,7 @@ final class DownloadController extends AbstractController
         // Get information about version to download
         try {
             $redirectData = $this->getDownloadRedirect($requestedVersion, $requestedFormat);
-        } catch (\Throwable) {
+        } catch (Throwable) {
             throw $this->createNotFoundException();
         }
 

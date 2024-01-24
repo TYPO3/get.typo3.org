@@ -27,7 +27,5 @@ use App\Entity\MajorVersion;
 
 final class MajorVersionFixturesData
 {
-    public function __construct(public string $key, public MajorVersion $version)
-    {
-    }
+    public function __construct(public string $key, public MajorVersion $version) {}
 }
