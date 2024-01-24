@@ -30,7 +30,7 @@ jobs:
           coverage: none
           extensions: zip, zlib
           ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: latest
+          php-version: '8.2'
           tools: composer:2
 
       - name: Get Composer Cache Directory
@@ -75,7 +75,7 @@ jobs:
           coverage: none
           extensions: ctype, iconv, json, sqlite3, tokenizer, zip, zlib
           ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: latest
+          php-version: '8.2'
           tools: composer:2
 
       - name: Get Composer Cache Directory
@@ -111,7 +111,7 @@ jobs:
           coverage: none
           extensions: ctype, iconv, json, sqlite3, tokenizer, zip, zlib
           ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: latest
+          php-version: '8.2'
           tools: composer:2
 
       - name: Get Composer Cache Directory
@@ -142,13 +142,14 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - '8.1'
+          - '8.2'
         experimental: [false]
-        include:
-          - php-version: 'latest'
-            experimental: true
-          - php-version: 'nightly'
-            experimental: true
+# @todo disabled experimental versions
+#        include:
+#          - php-version: 'latest'
+#            experimental: true
+#          - php-version: 'nightly'
+#            experimental: true
 
     steps:
       - name: Checkout
@@ -206,7 +207,7 @@ jobs:
           coverage: none
           extensions: ctype, iconv, json, sqlite3, tokenizer, zip, zlib
           ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: latest
+          php-version: '8.2'
           tools: composer:2
 
       - name: Get Composer Cache Directory
@@ -244,7 +245,7 @@ jobs:
           coverage: none
           extensions: ctype, iconv, json, sqlite3, tokenizer, zip, zlib
           ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: '8.1'
+          php-version: '8.2'
           tools: composer:2
 
       - name: Get Composer Cache Directory
@@ -282,7 +283,7 @@ jobs:
           coverage: none
           extensions: ctype, iconv, json, sqlite3, tokenizer, zip, zlib
           ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: latest
+          php-version: '8.2'
           tools: composer:2
 
       - name: Get Composer Cache Directory
@@ -320,7 +321,7 @@ jobs:
           coverage: none
           extensions: ctype, iconv, json, sqlite3, tokenizer, zip, zlib
           ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: latest
+          php-version: '8.2'
           tools: composer:2
 
       - name: Get Composer Cache Directory
@@ -352,19 +353,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.1']
+        php-version: ['8.2']
         dependencies: ['lock']
         experimental: [false]
         include:
-          - php-version: '8.1'
+          - php-version: '8.2'
             dependencies: 'highest'
             experimental: true
-          - php-version: 'latest'
-            dependencies: 'highest'
-            experimental: true
-          - php-version: 'nightly'
-            dependencies: 'highest'
-            experimental: true
+# @todo disabled experimental versions
+#          - php-version: 'latest'
+#            dependencies: 'highest'
+#            experimental: true
+#          - php-version: 'nightly'
+#            dependencies: 'highest'
+#            experimental: true
 
     steps:
       - name: Checkout
@@ -429,19 +431,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.1']
+        php-version: ['8.2']
         dependencies: ['lock']
         experimental: [false]
         include:
-          - php-version: '8.1'
+          - php-version: '8.2'
             dependencies: 'highest'
-            experimental: true
-          - php-version: 'latest'
-            dependencies: 'highest'
-            experimental: true
-          - php-version: 'nightly'
-            dependencies: 'highest'
-            experimental: true
+            experimental: false
+# @todo disabled experimental versions
+#          - php-version: 'latest'
+#            dependencies: 'highest'
+#            experimental: true
+#          - php-version: 'nightly'
+#            dependencies: 'highest'
+#            experimental: true
 
     steps:
       - name: Checkout
