@@ -99,7 +99,7 @@ class Requirement implements JsonSerializable, Stringable
         return $this->id;
     }
 
-    public function setVersion(MajorVersion $version): void
+    public function setVersion(?MajorVersion $version): void
     {
         $this->version = $version;
     }

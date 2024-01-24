@@ -43,7 +43,7 @@ class RequirementCrudController extends AbstractCrudController
         return Requirement::class;
     }
 
-    public function createEntity(string $entityFqcn)
+    public function createEntity(string $entityFqcn): Requirement
     {
         return Requirement::create();
     }
