@@ -7147,16 +7147,16 @@
         },
         {
             "name": "symfony/security-http",
-            "version": "v6.2.8",
+            "version": "v6.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-http.git",
-                "reference": "6d47056ee9f394aeace1799e73ead5a2107f581d"
+                "reference": "d6231dbabc17f24caa7ae174a9e37518caaf987a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-http/zipball/6d47056ee9f394aeace1799e73ead5a2107f581d",
-                "reference": "6d47056ee9f394aeace1799e73ead5a2107f581d",
+                "url": "https://api.github.com/repos/symfony/security-http/zipball/d6231dbabc17f24caa7ae174a9e37518caaf987a",
+                "reference": "d6231dbabc17f24caa7ae174a9e37518caaf987a",
                 "shasum": ""
             },
             "require": {
@@ -7212,7 +7212,7 @@
             "description": "Symfony Security Component - HTTP Integration",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-http/tree/v6.2.8"
+                "source": "https://github.com/symfony/security-http/tree/v6.2.13"
             },
             "funding": [
                 {
@@ -7228,7 +7228,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-10T10:06:03+00:00"
+            "time": "2023-07-13T14:28:09+00:00"
         },
         {
             "name": "symfony/serializer",
@@ -7745,16 +7745,16 @@
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v6.2.8",
+            "version": "v6.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bridge.git",
-                "reference": "30e3ad6ae749b2d2700ecf9b4a1a9d5c96b18927"
+                "reference": "14fd236ede61bd5559c5eecb2fd8309d8c3e6d7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/30e3ad6ae749b2d2700ecf9b4a1a9d5c96b18927",
-                "reference": "30e3ad6ae749b2d2700ecf9b4a1a9d5c96b18927",
+                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/14fd236ede61bd5559c5eecb2fd8309d8c3e6d7f",
+                "reference": "14fd236ede61bd5559c5eecb2fd8309d8c3e6d7f",
                 "shasum": ""
             },
             "require": {
@@ -7849,7 +7849,7 @@
             "description": "Provides integration for Twig with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/twig-bridge/tree/v6.2.8"
+                "source": "https://github.com/symfony/twig-bridge/tree/v6.2.13"
             },
             "funding": [
                 {
@@ -7865,7 +7865,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-31T09:14:44+00:00"
+            "time": "2023-07-20T16:42:25+00:00"
         },
         {
             "name": "symfony/twig-bundle",
