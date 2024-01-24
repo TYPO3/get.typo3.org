@@ -57,7 +57,7 @@ class MajorVersion implements JsonSerializable, Stringable
 
     public static function create(float $version = 0.0): self
     {
-        $now = (new \DateTimeImmutable())->setTime(0, 0, 0);
+        $now = (new DateTimeImmutable())->setTime(0, 0, 0);
         $emptyCollection = new ArrayCollection();
         return new self(
             $version,
@@ -109,6 +109,7 @@ class MajorVersion implements JsonSerializable, Stringable
         private DateTimeImmutable $releaseDate,
         /**
          * @OA\Property(example="2017-12-12T16:48:22+00:00")
+         *
          * @todo `regularMaintenanceUntil` seems to be unused
          */
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]

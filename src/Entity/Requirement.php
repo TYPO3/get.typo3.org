@@ -26,7 +26,6 @@ namespace App\Entity;
 use App\Enum\RequirementCategoryEnum;
 use App\EventListener\RequirementListener;
 use App\Repository\RequirementRepository;
-use Doctrine\DBAL\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
@@ -93,8 +92,7 @@ class Requirement implements JsonSerializable, Stringable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private ?string $max = null,
-    ) {
-    }
+    ) {}
 
     public function getId(): ?int
     {

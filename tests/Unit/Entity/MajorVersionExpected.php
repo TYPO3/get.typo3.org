@@ -36,6 +36,5 @@ class MajorVersionExpected
         public readonly ?DateTimeImmutable $eltsUntil,
         public readonly bool $active,
         public readonly bool $elts,
-    ) {
-    }
+    ) {}
 }

@@ -47,8 +47,7 @@ final class DefaultController extends AbstractController
         private \App\Service\ComposerPackagesService $composerPackagesService,
         private \App\Repository\MajorVersionRepository $majorVersions,
         private \App\Repository\ReleaseRepository $releases,
-    ) {
-    }
+    ) {}
 
     #[Route(path: '/', host: 'composer.%app.domain%', name: 'composer-root')]
     public function composerRoot(): RedirectResponse

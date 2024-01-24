@@ -32,8 +32,7 @@ class JsonController extends AbstractController
 {
     public function __construct(
         private \App\Service\LegacyDataService $legacyDataService,
-    ) {
-    }
+    ) {}
 
     // Route has set a priority to avoid conflicts with `specificversion`
     #[Route(path: '', methods: ['GET'], name: 'index', priority: 1)]
