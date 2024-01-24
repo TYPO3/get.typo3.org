@@ -32,8 +32,7 @@ class LoginController extends AbstractController
 {
     public function __construct(
         private \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils
-    ) {
-    }
+    ) {}
 
     #[Route('/login', name: 'app_login', priority: 1)]
     public function index(): Response

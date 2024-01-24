@@ -29,8 +29,7 @@ class CacheService
 {
     public function __construct(
         private readonly TagAwareCacheInterface $cache,
-    ) {
-    }
+    ) {}
 
     public function purgeMajorVersion(string $majorVersion): void
     {

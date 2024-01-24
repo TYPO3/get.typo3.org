@@ -26,7 +26,6 @@ namespace App\Entity;
 use App\Enum\RequirementCategoryEnum;
 use App\EventListener\RequirementListener;
 use App\Repository\RequirementRepository;
-use Doctrine\DBAL\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use OpenApi\Annotations as OA;
@@ -48,6 +47,16 @@ use function ucfirst;
 #[ORM\UniqueConstraint(columns: ['version', 'category', 'name'])]
 class Requirement implements JsonSerializable, Stringable
 {
+    public static function create(MajorVersion $version = null): self
+    {
+        return new self(
+            null,
+            $version,
+            '',
+            ''
+        );
+    }
+
     public function __construct(
         #[ORM\Id]
         #[ORM\GeneratedValue]
@@ -55,7 +64,7 @@ class Requirement implements JsonSerializable, Stringable
         private ?int $id,
         #[ORM\ManyToOne(targetEntity: MajorVersion::class, inversedBy: 'requirements')]
         #[ORM\JoinColumn(name: 'version', referencedColumnName: 'version')]
-        private MajorVersion $version,
+        private ?MajorVersion $version,
         /**
          * @noRector
          *
@@ -83,8 +92,7 @@ class Requirement implements JsonSerializable, Stringable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Serializer\Groups(['data', 'content', 'patch'])]
         private ?string $max = null,
-    ) {
-    }
+    ) {}
 
     public function getId(): ?int
     {
@@ -96,7 +104,7 @@ class Requirement implements JsonSerializable, Stringable
         $this->version = $version;
     }
 
-    public function getVersion(): MajorVersion
+    public function getVersion(): ?MajorVersion
     {
         return $this->version;
     }

@@ -716,8 +716,7 @@ final class ComposerPackagesService
 
     public function __construct(
         private readonly MajorVersionRepository $majorVersions,
-    ) {
-    }
+    ) {}
 
     public function buildForm(FormBuilderInterface $builder): FormInterface
     {

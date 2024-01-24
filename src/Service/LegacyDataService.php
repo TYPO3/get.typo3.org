@@ -32,8 +32,7 @@ class LegacyDataService
     public function __construct(
         private readonly TagAwareCacheInterface $cache,
         private readonly MajorVersionRepository $majorVersionRepository,
-    ) {
-    }
+    ) {}
 
     public function getReleaseJson(): string
     {

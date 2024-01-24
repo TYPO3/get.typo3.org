@@ -56,8 +56,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         private \App\Repository\RequirementRepository $requirements,
         private \App\Repository\ReleaseRepository $releases,
         private \Symfony\Component\Validator\Validator\ValidatorInterface $validator,
-    ) {
-    }
+    ) {}
 
     protected function getCache(): TagAwareCacheInterface
     {

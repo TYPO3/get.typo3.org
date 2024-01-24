@@ -33,8 +33,7 @@ final class MajorVersionListener
 {
     public function __construct(
         private readonly CacheService $cacheService,
-    ) {
-    }
+    ) {}
 
     public function postUpdate(MajorVersion $majorVersion, PostUpdateEventArgs $eventArgs): void
     {
