@@ -43,7 +43,13 @@ ddev composer install
 ddev restart
 {% endif %}
 {% if console %}
+{% if version == 10 %}
 ddev typo3cms install:setup
+{% else %}
+ddev typo3 install:setup
+{% endif %}
+{% elseif version >= 12 %}
+ddev typo3 setup
 {% else %}
 ddev exec touch public/FIRST_INSTALL
 {% endif %}
@@ -55,7 +61,17 @@ ddev launch</code></pre>
                                 <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>. Instead of the <code>ddev composer create</code> command above, run the command created with the Composer Helper prepended with <code>ddev</code>. E.g.:</p>
                                 <pre><code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }}
 ddev composer require "typo3/cms-core:^{{ package_version }}" "typo3/minimal:^{{ package_version }}" ...
+{% if console %}
+{% if version == 10 %}
 ddev typo3cms install:setup (if the TYPO3 Console is installed)
+{% else %}
+ddev typo3 install:setup (if the TYPO3 Console is installed)
+{% endif %}
+{% elseif version >= 12 %}
+ddev typo3 setup
+{% else %}
+ddev exec touch public/FIRST_INSTALL
+{% endif %}
 ddev launch</code></pre>
                             </div>
                         </div>
