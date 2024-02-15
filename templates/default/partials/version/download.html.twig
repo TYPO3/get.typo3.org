@@ -11,8 +11,8 @@
             {% endif %}
             {% set php_version_option = "" %}
             {% set console = true %}
-            {% if version == 12 %}
-                {% set php_version_option = " --php-version 8.1" %}
+            {% if version >= 12 %}
+                {% set php_version_option = " --php-version 8.2" %}
                 {% set console = false %}
             {% elseif version <= 10 %}
                 {% set php_version_option = " --php-version 7.4" %}
@@ -39,7 +39,7 @@
                                 <pre><code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }}
 ddev composer create --no-install "typo3/cms-base-distribution:^{{ package_version }}"
 ddev composer install
-{% if version == 12 %}
+{% if version >= 12 %}
 ddev restart
 {% endif %}
 {% if console %}
