@@ -56,7 +56,17 @@ ddev exec touch public/FIRST_INSTALL
 ddev launch</code></pre>
                                 <div class="alert alert-warning" role="alert">
                                     <p class="font-weight-bold">Important note for Git Bash users on Windows using the default terminal MSYS2, don't forget to prepend winpty to interactive commands:</p>
-                                    <pre><code>winpty ddev typo3cms install:setup</code></pre>
+                                    <pre>
+                                    {% if console %}
+                                        {% if version == 10 %}
+                                            <code>winpty ddev typo3cms install:setup</code>
+                                        {% else %}
+                                            <code>winpty ddev typo3 install:setup</code>
+                                        {% endif %}
+                                    {% else version >= 12 %}
+                                        <code>winpty ddev typo3 setup</code>
+                                    {% endif %}
+                                    </pre>
                                 </div>
                                 <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>. Instead of the <code>ddev composer create</code> command above, run the command created with the Composer Helper prepended with <code>ddev</code>. E.g.:</p>
                                 <pre><code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }}
