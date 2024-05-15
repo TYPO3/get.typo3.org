@@ -75,3 +75,7 @@ jobs:
           name: deployment
           path: .mage/logs
           retention-days: 7
+
+      - name: Echo logs
+        run: find .mage/logs/ -type f -exec cat {} +
+        if: always()
