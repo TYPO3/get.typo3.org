@@ -46,9 +46,7 @@ magephp:
                 - exec: { cmd: "php ./bin/console cache:clear --env=prod", desc: "Clear Cache", timeout: 600 }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab-dev.cron", desc: "Install crontab" }
-                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
             on-release:
-                - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
             post-release:
             post-deploy:
@@ -79,9 +77,7 @@ magephp:
                 - exec: { cmd: "php ./bin/console cache:clear --env=prod", desc: "Clear Cache", timeout: 600 }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab.cron", desc: "Install crontab" }
-                - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
             on-release:
-                - exec: { cmd: "nginx-reload", desc: "Reload Nginx Configuration" }
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache again" }
             post-release:
             post-deploy:
