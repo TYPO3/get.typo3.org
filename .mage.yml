@@ -43,6 +43,7 @@ magephp:
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
+                - exec: { cmd: "php ./bin/console cache:clear --env=prod", desc: "Clear Cache", timeout: 600 }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab-dev.cron", desc: "Install crontab" }
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
@@ -75,6 +76,7 @@ magephp:
                 - exec: { cmd: "php-restart", desc: "Restart PHP and reset OPcache" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:sync-metadata-storage --no-interaction", desc: "Synchronize DB Migrations" }
                 - exec: { cmd: "php ./bin/console doctrine:migrations:migrate --no-interaction", desc: "Apply DB Migrations" }
+                - exec: { cmd: "php ./bin/console cache:clear --env=prod", desc: "Clear Cache", timeout: 600 }
                 - exec: { cmd: "php ./bin/console cache:warmup --env=prod", desc: "Cache Warmup", timeout: 600 }
                 - exec: { cmd: "crontab cnf/crontab.cron", desc: "Install crontab" }
                 - fs/copy: { from: 'cnf/nginx.conf', to: '../../../../cnf/nginx.conf' }
