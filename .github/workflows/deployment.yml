@@ -5,7 +5,7 @@ on:
     inputs:
       php_version:
         description: 'PHP version to be used for the deployment.'
-        default: '8.1'
+        default: '8.2'
         required: false
         type: string
       composer_version:
@@ -75,3 +75,7 @@ jobs:
           name: deployment
           path: .mage/logs
           retention-days: 7
+
+      - name: Echo logs
+        run: find .mage/logs/ -type f -exec cat {} +
+        if: always()

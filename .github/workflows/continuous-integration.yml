@@ -181,8 +181,8 @@ jobs:
         if: ${{ matrix.php-version == 'nightly' }}
         run: |
           composer install --no-scripts --ignore-platform-reqs ${{ env.COMPOSER_FLAGS }}
-          composer config platform.php 8.1.99
-          composer bin phpunit config platform.php 8.1.99
+          composer config platform.php 8.2.99
+          composer bin phpunit config platform.php 8.2.99
           composer update --lock
 
       - name: Install dependencies
@@ -406,8 +406,8 @@ jobs:
         if: ${{ matrix.php-version == 'nightly' }}
         run: |
           composer install --no-scripts --ignore-platform-reqs ${{ env.COMPOSER_FLAGS }}
-          composer config platform.php 8.1.99
-          composer bin phpunit config platform.php 8.1.99
+          composer config platform.php 8.2.99
+          composer bin phpunit config platform.php 8.2.99
           composer update --lock
 
       - name: Install dependencies
@@ -484,8 +484,8 @@ jobs:
         if: ${{ matrix.php-version == 'nightly' }}
         run: |
           composer install --no-scripts --ignore-platform-reqs ${{ env.COMPOSER_FLAGS }}
-          composer config platform.php 8.1.99
-          composer bin phpunit config platform.php 8.1.99
+          composer config platform.php 8.2.99
+          composer bin phpunit config platform.php 8.2.99
           composer update --lock
 
       - name: Install dependencies

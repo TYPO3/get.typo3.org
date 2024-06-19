@@ -29,7 +29,7 @@
 		"source": "https://github.com/TYPO3/get.typo3.org"
 	},
 	"require": {
-		"php": ">=8.1",
+		"php": ">=8.2",
 		"ext-SimpleXML": "*",
 		"ext-ctype": "*",
 		"ext-iconv": "*",

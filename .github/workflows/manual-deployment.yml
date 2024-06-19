@@ -5,11 +5,11 @@ on:
     inputs:
       php_version:
         description: 'PHP version to be used for the deployment.'
-        default: '8.1'
+        default: '8.2'
         required: true
         type: choice
         options:
-          - '8.1'
+          - '8.2'
           - 'latest'
           - 'nightly'
       composer_version:

@@ -9,13 +9,16 @@
             {% else %}
                 {% set package_version = version %}
             {% endif %}
+            {# todo: this should be determined from 'requirements' #}
             {% set php_version_option = "" %}
-            {% set console = true %}
-            {% if version == 12 %}
+            {% set console = false %}
+            {% if version == 13 %}
+                {% set php_version_option = " --php-version 8.2" %}
+            {% elseif version == 12 %}
                 {% set php_version_option = " --php-version 8.1" %}
-                {% set console = false %}
             {% elseif version <= 10 %}
                 {% set php_version_option = " --php-version 7.4" %}
+                {% set console = true %}
             {% endif %}
             <div class="accordion-item card">
                 <div class="accordion-header card-header" id="accordion-heading-ddev">
@@ -36,27 +39,57 @@
                                 <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Documentation" target="_blank" rel="noopener">DDEV</a> simplifies integrating the power and consistency of containerization into your workflows. Set up environments in minutes; switch contexts and projects quickly and easily; speed your time to deployment. DDEV handles the complexity. You get on with the valuable part of your job.</p>
                                 <p><b>Before proceeding, make sure your DDEV installation is up to date.</b></p>
                                 <p>In a new project folder using your favorite shell, run these lines:</p>
-                                <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot{{ php_version_option }}
-ddev composer create --no-install "typo3/cms-base-distribution:^{{ package_version }}"
-ddev composer install
-{% if version == 12 %}
-ddev restart
-{% endif %}
-{% if console %}
-ddev typo3cms install:setup
-{% else %}
-ddev exec touch public/FIRST_INSTALL
-{% endif %}
-ddev launch</code></pre>
+                                <pre style="white-space: pre-line;">
+                                    <code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }}
+                                    ddev composer create --no-install "typo3/cms-base-distribution:^{{ package_version }}"
+                                    ddev composer install
+                                    {% if version == 12 %}
+                                        ddev restart
+                                    {% endif %}
+                                    {% if console %}
+                                        {% if version == 10 %}
+                                            ddev typo3cms install:setup
+                                        {% else %}
+                                            ddev typo3 install:setup
+                                        {% endif %}
+                                    {% elseif version >= 12 %}
+                                        ddev typo3 setup
+                                    {% else %}
+                                        ddev exec touch public/FIRST_INSTALL
+                                    {% endif %}
+                                    ddev launch
+                                </code></pre>
                                 <div class="alert alert-warning" role="alert">
                                     <p class="font-weight-bold">Important note for Git Bash users on Windows using the default terminal MSYS2, don't forget to prepend winpty to interactive commands:</p>
-                                    <pre><code>winpty ddev typo3cms install:setup</code></pre>
+                                    <pre style="white-space: pre-line;">
+                                    {% if console %}
+                                        {% if version == 10 %}
+                                            <code>winpty ddev typo3cms install:setup</code>
+                                        {% else %}
+                                            <code>winpty ddev typo3 install:setup</code>
+                                        {% endif %}
+                                    {% elseif version >= 12 %}
+                                        <code>winpty ddev typo3 setup</code>
+                                    {% endif %}
+                                    </pre>
                                 </div>
                                 <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>. Instead of the <code>ddev composer create</code> command above, run the command created with the Composer Helper prepended with <code>ddev</code>. E.g.:</p>
-                                <pre><code>ddev config --project-type=typo3 --docroot=public --create-docroot{{ php_version_option }}
-ddev composer require "typo3/cms-core:^{{ package_version }}" "typo3/minimal:^{{ package_version }}" ...
-ddev typo3cms install:setup (if the TYPO3 Console is installed)
-ddev launch</code></pre>
+                                <pre style="white-space: pre-line;">
+                                    <code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }}
+                                    ddev composer require "typo3/cms-core:^{{ package_version }}" "typo3/minimal:^{{ package_version }}" ...
+                                    {% if console %}
+                                        {% if version == 10 %}
+                                            ddev typo3cms install:setup (if the TYPO3 Console is installed)
+                                        {% else %}
+                                            ddev typo3 install:setup (if the TYPO3 Console is installed)
+                                        {% endif %}
+                                    {% elseif version >= 12 %}
+                                        ddev typo3 setup
+                                    {% else %}
+                                        ddev exec touch public/FIRST_INSTALL
+                                    {% endif %}
+                                    ddev launch
+                                </code></pre>
                             </div>
                         </div>
                     </div>
