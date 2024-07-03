@@ -93,9 +93,7 @@
 		"twig/twig": "^2.12 || ^3.0"
 	},
 	"require-dev": {
-		"bamarni/composer-bin-plugin": "^1.8",
 		"doctrine/doctrine-fixtures-bundle": "^3.4",
-		"ergebnis/composer-normalize": "^2.28",
 		"fakerphp/faker": "^1.20",
 		"roave/security-advisories": "dev-latest",
 		"symfony/browser-kit": "^6.2",
@@ -141,8 +139,6 @@
 	},
 	"config": {
 		"allow-plugins": {
-			"bamarni/composer-bin-plugin": true,
-			"ergebnis/composer-normalize": true,
 			"symfony/flex": true,
 			"symfony/runtime": true
 		},
@@ -152,14 +148,12 @@
 			"zircote/swagger-php": "source",
 			"*": "dist"
 		},
-		"sort-packages": true
+		"sort-packages": true,
+		"platform": {
+			"php": "8.3.8"
+		}
 	},
 	"extra": {
-		"bamarni-bin": {
-			"bin-links": true,
-			"forward-command": false,
-			"target-directory": "tools"
-		},
 		"symfony": {
 			"allow-contrib": false,
 			"id": "01C8T4G8QYJT0T9Q9SWDHVW8AC",
