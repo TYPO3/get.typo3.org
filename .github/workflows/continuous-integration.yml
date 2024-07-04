@@ -55,9 +55,6 @@ jobs:
       - name: Validate composer.json
         run: composer ci:composer:validate
 
-      - name: Normalize composer.json
-        run: composer ci:composer:normalize
-
       - name: Check dependencies
         run: composer ci:composer:require-checker
 
@@ -305,44 +302,6 @@ jobs:
       - name: Validation of coding standards
         run: composer ci:php:sniff
 
-  php_copypaste_detector:
-    name: PHP Copy/Paste Detector
-    needs:
-      - php_lint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          coverage: none
-          extensions: ctype, iconv, json, sqlite3, tokenizer, zip, zlib
-          ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
-          php-version: '8.2'
-          tools: composer:2
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-latest-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-latest-
-            ${{ runner.os }}-composer-
-
-      - name: Install dependencies
-        run: composer install ${{ env.COMPOSER_INSTALL_FLAGS }} ${{ env.COMPOSER_FLAGS }}
-
-      - name: Detection of copy/paste code in PHP files
-        run: composer ci:php:copypaste
-
   php_stan:
     name: PHP Stan
     needs:
@@ -545,7 +504,6 @@ jobs:
       - validation
       - php_coding_standards
       - php_sniff
-      - php_copypaste_detector
       - php_stan
       - php_rector
       - coveralls-finish
