@@ -95,7 +95,6 @@
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",
 		"doctrine/doctrine-fixtures-bundle": "^3.4",
-		"ergebnis/composer-normalize": "^2.28",
 		"fakerphp/faker": "^1.20",
 		"roave/security-advisories": "dev-latest",
 		"symfony/browser-kit": "^6.2",
@@ -142,7 +141,6 @@
 	"config": {
 		"allow-plugins": {
 			"bamarni/composer-bin-plugin": true,
-			"ergebnis/composer-normalize": true,
 			"symfony/flex": true,
 			"symfony/runtime": true
 		},
@@ -211,10 +209,8 @@
 			"@ci:php:rector",
 			"@ci:php:cs-fixer",
 			"@ci:php:sniff",
-			"@ci:php:copypaste",
 			"@ci:php:stan"
 		],
-		"ci:php:copypaste": "@php phpcpd src tests",
 		"ci:php:cs-fixer": "@php php-cs-fixer fix -v --dry-run --diff",
 		"ci:php:lint": "@php phplint --no-progress",
 		"ci:php:rector": "@php rector process --dry-run --no-progress-bar || true",
@@ -237,13 +233,8 @@
 		"ci:tests:php:unit": "@php phpunit -c tests/Unit/phpunit.xml",
 		"ci:yaml:lint": "@php yaml-lint .ddev config",
 		"fix": [
-			"@fix:composer",
 			"@fix:php"
 		],
-		"fix:composer": [
-			"@fix:composer:normalize"
-		],
-		"fix:composer:normalize": "@composer normalize",
 		"fix:php": [
 			"@fix:php:rector",
 			"@fix:php:cs-fixer"
