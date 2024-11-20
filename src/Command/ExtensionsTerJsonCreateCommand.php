@@ -105,8 +105,8 @@ class ExtensionsTerJsonCreateCommand extends Command
      * @var array<string, string>
      */
     protected static $abandonedExtensionKeys = [
-      'news' => 'georgringer/news',
-      'typo3_console' => 'helhum/typo3-console',
+        'news' => 'georgringer/news',
+        'typo3_console' => 'helhum/typo3-console',
     ];
 
     /**
@@ -167,7 +167,7 @@ class ExtensionsTerJsonCreateCommand extends Command
         'wizard_crpages' => 'typo3/cms-wizard-crpages',
         'wizard_sortpages' => 'typo3/cms-wizard-sortpages',
         'workspaces' => 'typo3/cms-workspaces',
-      ];
+    ];
 
     /**
      * Location where to output built files.

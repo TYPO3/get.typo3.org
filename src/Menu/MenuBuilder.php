@@ -69,6 +69,15 @@ class MenuBuilder extends TemplateMenuBuider
                 'label' => 'Repository',
             ]
         );
+
+        $menu->addChild(
+            'sitepackage',
+            [
+                'route' => 'sitepackage_index',
+                'label' => 'Sitepackage',
+            ]
+        );
+
         $menu->addChild(
             'api',
             [

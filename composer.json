@@ -20,6 +20,10 @@
 		{
 			"name": "Susanne Moog",
 			"email": "susanne.moog@typo3.com"
+		},
+		{
+			"name": "Benjamin Kott",
+			"email": "benjamin.kott@typo3.com"
 		}
 	],
 	"homepage": "https://get.typo3.org",

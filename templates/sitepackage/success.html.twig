@@ -1,0 +1,71 @@
+{% extends '@Template/layout.html.twig' %}
+{% block title %}Success{% endblock %}
+{% block body %}
+
+    {% frame with { backgroundColor: 'primary', options: ['center'] } %}
+        <h1>Congratulations!</h1>
+        <p class="lead">
+            We have sucessfully generated your sitepackage. You can now review the generated configuration below, or download the prepared sitepackage.
+        </p>
+        <a href="{{ path('sitepackage_download') }}" class="btn btn-outline-default btn-lg text-uppercase">
+            <span class="btn-text">Download</span>
+        </a>
+    {% endframe %}
+
+    {% frame %}
+        <h2>Generated Configuration</h2>
+        <h3>Base Package</h3>
+        <dl class="row">
+            <dt class="col-sm-3">TYPO3 Version</dt>
+            <dd class="col-sm-9">{{ sitepackage.typo3Version }}</dd>
+            <dt class="col-sm-3">Extension Key</dt>
+            <dd class="col-sm-9">{{ sitepackage.basePackage }}</dd>
+        </dl>
+        <h3>Extension</h3>
+        <dl class="row">
+            <dt class="col-sm-3">Titel</dt>
+            <dd class="col-sm-9">{{ sitepackage.title }}</dd>
+            {% if sitepackage.description %}
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">{{ sitepackage.description }}</dd>
+            {% endif %}
+            <dt class="col-sm-3">Extension Key</dt>
+            <dd class="col-sm-9">{{ sitepackage.extensionKey }}</dd>
+            {% if sitepackage.repositoryUrl %}
+            <dt class="col-sm-3">Repository</dt>
+            <dd class="col-sm-9">{{ sitepackage.repositoryUrl }}</dd>
+            {% endif %}
+        </dl>
+        <h3>PHP</h3>
+        <dl class="row">
+            <dt class="col-sm-3">Vendor</dt>
+            <dd class="col-sm-9">{{ sitepackage.vendorName }}</dd>
+            <dt class="col-sm-3">Package</dt>
+            <dd class="col-sm-9">{{ sitepackage.packageName }}</dd>
+            <dt class="col-sm-3">PSR-4</dt>
+            <dd class="col-sm-9">{{ sitepackage.vendorName }}\{{ sitepackage.packageName }}</dd>
+            <dt class="col-sm-3">Composer</dt>
+            <dd class="col-sm-9">{{ sitepackage.vendorNameAlternative }}/{{ sitepackage.packageNameAlternative }}</dd>
+        </dl>
+        <h3>Author</h3>
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">{{ sitepackage.author.name }}</dd>
+            <dt class="col-sm-3">E-Mail</dt>
+            <dd class="col-sm-9">{{ sitepackage.author.email }}</dd>
+            <dt class="col-sm-3">Company</dt>
+            <dd class="col-sm-9">{{ sitepackage.author.company }}</dd>
+            <dt class="col-sm-3">Homepage</dt>
+            <dd class="col-sm-9">{{ sitepackage.author.homepage }}</dd>
+        </dl>
+        <p>
+            <a href="{{ path('sitepackage_new') }}" class="btn btn-light">
+                <span class="btn-text">Restart</span>
+            </a>
+            <a href="{{ path('sitepackage_edit') }}" class="btn btn-primary">
+                <span class="btn-text">Edit Configuration</span>
+            </a>
+        </p>
+    {% endframe %}
+
+{% endblock %}

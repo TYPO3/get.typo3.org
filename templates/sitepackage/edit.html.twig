@@ -1,0 +1,21 @@
+{% extends '@Template/layout.html.twig' %}
+{% block title %}Edit your TYPO3 Sitepackage configuration{% endblock %}
+{% block body %}
+
+    {% frame with { backgroundColor: 'primary', options: ['center'] } %}
+        <h1>Edit your Configuration</h1>
+    {% endframe %}
+
+    {% frame %}
+        <h2>Configuration</h2>
+        {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {% endframe %}
+
+    {% frame with { backgroundColor: 'light', options: ['center'] } %}
+        <p>
+            <strong>We respect your Privacy.</strong><br>
+            We are not storing, sharing or doing any other crazy stuff with the data you provide to generate your very own sitepackage. Simple as that.
+        </p>
+    {% endframe %}
+
+{% endblock %}
