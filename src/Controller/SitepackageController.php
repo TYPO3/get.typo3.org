@@ -46,7 +46,7 @@ class SitepackageController extends AbstractController
     }
 
     #[Route(path: '/new/', name: 'sitepackage_new')]
-    public function new(Request $request)
+    public function new(Request $request): Response
     {
         $session = $request->getSession();
         $session->set('sitepackage', null);
@@ -74,9 +74,10 @@ class SitepackageController extends AbstractController
     }
 
     #[Route(path: '/edit/', name: 'sitepackage_edit')]
-    public function edit(Request $request)
+    public function edit(Request $request): Response
     {
         $session = $request->getSession();
+        /** @var Sitepackage|null $sitepackage */
         $sitepackage = $session->get('sitepackage');
         if ($sitepackage === null) {
             $this->addFlash(
@@ -109,9 +110,10 @@ class SitepackageController extends AbstractController
     }
 
     #[Route(path: '/success/', name: 'sitepackage_success')]
-    public function success(Request $request)
+    public function success(Request $request): Response
     {
         $session = $request->getSession();
+        /** @var Sitepackage|null $sitepackage */
         $sitepackage = $session->get('sitepackage');
         if ($sitepackage === null) {
             $this->addFlash(
@@ -131,9 +133,10 @@ class SitepackageController extends AbstractController
     }
 
     #[Route(path: '/download/', name: 'sitepackage_download')]
-    public function download(Request $request, SitepackageGenerator $sitepackageGenerator)
+    public function download(Request $request, SitepackageGenerator $sitepackageGenerator): Response
     {
         $session = $request->getSession();
+        /** @var Sitepackage|null $sitepackage */
         $sitepackage = $session->get('sitepackage');
         if ($sitepackage === null) {
             $this->addFlash(

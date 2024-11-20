@@ -27,10 +27,7 @@ class StringUtility
 {
     public static function clean(string $string): string
     {
-        $string = str_replace('.', '', $string);
-        $string = str_replace(':', '', $string);
-        $string = str_replace('-', ' ', $string);
-        $string = str_replace('&', '', $string);
+        $string = str_replace(['.', ':', '-', '&'], ['', '', ' ', ''], $string);
         $string = self::convertUmlauts($string);
         $string = self::toASCII($string);
         $string = trim($string);
@@ -76,7 +73,7 @@ class StringUtility
         );
         $ret = $matches[0];
         foreach ($ret as &$match) {
-            $match = $match == strtoupper((string)$match) ? strtolower((string)$match) : lcfirst((string)$match);
+            $match = $match === strtoupper($match) ? strtolower($match) : lcfirst($match);
         }
 
         return implode('_', $ret);
@@ -91,7 +88,7 @@ class StringUtility
         );
         $ret = $matches[0];
         foreach ($ret as &$match) {
-            $match = $match == strtoupper((string)$match) ? strtolower((string)$match) : lcfirst((string)$match);
+            $match = $match === strtoupper($match) ? strtolower($match) : lcfirst($match);
         }
 
         return implode('-', $ret);

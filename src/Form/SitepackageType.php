@@ -33,7 +33,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SitepackageType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    /**
+     * @param array{action: string} $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->setAction($options['action'])
@@ -83,17 +86,14 @@ class SitepackageType extends AbstractType
             ->add('author', AuthorType::class);
     }
 
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Sitepackage::class,
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'sitepackageForm';
     }

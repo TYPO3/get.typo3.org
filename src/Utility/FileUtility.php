@@ -25,10 +25,16 @@ namespace App\Utility;
 
 class FileUtility
 {
+    /**
+     * @return string[]
+     */
     public static function listDirectory(string $dir, bool $filesOnly = false): array
     {
         $result = [];
         $root = scandir($dir);
+        if ($root === false) {
+            return [];
+        }
         foreach ($root as $value) {
             if ($value === '.' || $value === '..') {
                 continue;

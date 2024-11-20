@@ -207,6 +207,21 @@ class Sitepackage implements JsonSerializable
         return $this;
     }
 
+    /**
+     * @return array{
+     *     typo3Version: float,
+     *     basePackage: string,
+     *     vendorName: string,
+     *     vendorNameAlternative: string,
+     *     title: string,
+     *     description: string,
+     *     packageName: string,
+     *     packageNameAlternative: string,
+     *     extensionKey: string,
+     *     repositoryUrl: string,
+     *     author: Author
+     * }
+     */
     public function jsonSerialize(): array
     {
         return [

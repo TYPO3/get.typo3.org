@@ -106,6 +106,9 @@ class Author implements JsonSerializable
         return $this;
     }
 
+    /**
+     * @return array{name: string, email: string, company: string, homepage: string}
+     */
     public function jsonSerialize(): array
     {
         return [

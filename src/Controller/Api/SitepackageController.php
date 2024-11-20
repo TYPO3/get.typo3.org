@@ -35,6 +35,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validation;
 
 use function count;
@@ -55,6 +56,7 @@ class SitepackageController extends AbstractController
     public function createSitepackage(Request $request): Response
     {
         $content = $request->getContent();
+        /** @var Sitepackage $sitepackage */
         $sitepackage = $this->serializer->deserialize($content, Sitepackage::class, 'json');
         $this->validateObject($sitepackage);
 
@@ -80,7 +82,7 @@ class SitepackageController extends AbstractController
             ->getValidator();
         $errors = $validator->validate($object);
         if (count($errors) > 0) {
-            $errorsString = (string)$errors;
+            $errorsString = implode("\n", array_map(static fn (ConstraintViolationInterface $x) => $x->getMessage(), (array)$errors));
             throw new BadRequestHttpException($errorsString);
         }
     }

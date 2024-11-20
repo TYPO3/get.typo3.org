@@ -46,7 +46,11 @@ class SitepackageGenerator
         $extensionKey = $package->getExtensionKey();
         $this->filename = $extensionKey . '.zip';
         $sourceDir = $this->kernel->getProjectDir() . '/resources/packages/' . $package->getBasePackage() . '/' . (string)$package->getTypo3Version() . '/src/';
-        $this->zipPath = tempnam(sys_get_temp_dir(), $this->filename);
+        $tempFileName = tempnam(sys_get_temp_dir(), $this->filename);
+        if ($tempFileName === false) {
+            throw new \RuntimeException(sprintf('Cannot create temporary name for %s/%s' . sys_get_temp_dir(), $this->filename), 1732123721);
+        }
+        $this->zipPath = $tempFileName;
         $fileList = FileUtility::listDirectory($sourceDir);
 
         $zipFile = new ZipArchive();
@@ -98,9 +102,9 @@ class SitepackageGenerator
 
     private function isTwigFile(string $file): bool
     {
-        $pathinfo = pathinfo($file);
+        $extension = pathinfo($file, PATHINFO_EXTENSION);
 
-        return $pathinfo['extension'] === 'twig';
+        return $extension === 'twig';
     }
 
     protected function createRelativeFilePath(string $file, string $sourceDir): string
