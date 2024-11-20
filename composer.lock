@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07c424a01561cb39135e612b87512b38",
+    "content-hash": "146b36bf6e37944816c34f6b39329dd7",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -10745,8 +10745,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "t3g/symfony-usercentrics-bundle": 20,
-        "roave/security-advisories": 20
+        "roave/security-advisories": 20,
+        "t3g/symfony-usercentrics-bundle": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
@@ -10757,8 +10757,9 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-sqlite3": "*",
+        "ext-zip": "*",
         "ext-zlib": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
