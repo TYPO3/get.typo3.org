@@ -1,3 +1,0 @@
-/**
- * Created from sitepackagebuilder.com
- */

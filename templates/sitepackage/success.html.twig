@@ -2,17 +2,17 @@
 {% block title %}Success{% endblock %}
 {% block body %}
 
-    {% frame with { backgroundColor: 'primary', options: ['center'] } %}
+    {% frame with { color: 'dark', height: 'small', center: true, indent: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
         <h1>Congratulations!</h1>
         <p class="lead">
             We have sucessfully generated your sitepackage. You can now review the generated configuration below, or download the prepared sitepackage.
         </p>
-        <a href="{{ path('sitepackage_download') }}" class="btn btn-outline-default btn-lg text-uppercase">
+        <a href="{{ path('sitepackage_download') }}" class="btn btn-lg btn-primary">
             <span class="btn-text">Download</span>
         </a>
     {% endframe %}
 
-    {% frame %}
+    {% frame with { indent: true } %}
         <h2>Generated Configuration</h2>
         <h3>Base Package</h3>
         <dl class="row">

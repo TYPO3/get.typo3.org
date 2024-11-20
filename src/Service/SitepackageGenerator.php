@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Package;
+use App\Entity\Sitepackage;
 use App\Utility\FileUtility;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
@@ -41,7 +41,7 @@ class SitepackageGenerator
         $this->kernel = $kernel;
     }
 
-    public function create(Package $package): void
+    public function create(Sitepackage $package): void
     {
         $extensionKey = $package->getExtensionKey();
         $this->filename = $extensionKey . '.zip';
@@ -80,7 +80,7 @@ class SitepackageGenerator
         return $this->filename;
     }
 
-    private function getFileContent(string $file, Package $package): string
+    private function getFileContent(string $file, Sitepackage $package): string
     {
         $content = file_get_contents($file);
         $fileUniqueId = uniqid('file');

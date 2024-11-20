@@ -2,23 +2,16 @@
 {% block title %}Create your very own TYPO3 Sitepackage{% endblock %}
 {% block body %}
 
-    {% frame with { backgroundColor: 'primary' } %}
+    {% frame with { color: 'dark', height: 'small', center: true, indent: true, backgroundImage: asset("assets/Images/keyvisual.png") } %}
         <h1>Create your very own Sitepackage</h1>
         <p class="lead">
             Awesome you made it here! Just a few more Information about your Project and your very own Sitepackage is ready to download.
         </p>
     {% endframe %}
 
-    {% frame %}
+    {% frame with { indent: true } %}
         <h2>Configuration</h2>
         {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {% endframe %}
-
-    {% frame with { backgroundColor: 'light', options: ['center'] } %}
-        <p>
-            <strong>We respect your Privacy.</strong><br>
-            We are not storing, sharing or doing any other crazy stuff with the data you provide to generate your very own sitepackage. Simple as that.
-        </p>
     {% endframe %}
 
 {% endblock %}

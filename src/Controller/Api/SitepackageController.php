@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\Package;
+use App\Entity\Sitepackage;
 use App\Service\SitepackageGenerator;
 use App\Utility\StringUtility;
 use JMS\Serializer\SerializerInterface;
@@ -48,14 +48,14 @@ class SitepackageController extends AbstractController
     ) {}
 
     #[Route(path: '/', methods: ['POST'])]
-    #[OA\RequestBody(required: true, content: new OA\JsonContent(ref: new Model(type: Package::class)))]
+    #[OA\RequestBody(required: true, content: new OA\JsonContent(ref: new Model(type: Sitepackage::class)))]
     #[OA\Response(response: 200, description: 'Successfully generated.', content: new OA\MediaType(mediaType: 'application/zip'))]
     #[OA\Response(response: 400, description: 'Request malformed.')]
     #[OA\Tag(name: 'sitepackage')]
     public function createSitepackage(Request $request): Response
     {
         $content = $request->getContent();
-        $sitepackage = $this->serializer->deserialize($content, Package::class, 'json');
+        $sitepackage = $this->serializer->deserialize($content, Sitepackage::class, 'json');
         $this->validateObject($sitepackage);
 
         $sitepackage->setVendorName(StringUtility::stringToUpperCamelCase($sitepackage->getAuthor()->getCompany()));

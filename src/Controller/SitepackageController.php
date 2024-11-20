@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Package;
-use App\Form\PackageType;
+use App\Entity\Sitepackage;
+use App\Form\SitepackageType;
 use App\Service\SitepackageGenerator;
 use App\Utility\StringUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,8 +50,8 @@ class SitepackageController extends AbstractController
     {
         $session = $request->getSession();
         $session->set('sitepackage', null);
-        $sitepackage = new Package();
-        $form = $this->createNewSitePackageForm($sitepackage);
+        $sitepackage = new Sitepackage();
+        $form = $this->createNewSitepackageForm($sitepackage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $sitepackage->setVendorName(StringUtility::stringToUpperCamelCase($sitepackage->getAuthor()->getCompany()));
@@ -153,10 +153,10 @@ class SitepackageController extends AbstractController
             ->deleteFileAfterSend(true);
     }
 
-    protected function createNewSitePackageForm(Package $sitepackage): FormInterface
+    protected function createNewSitepackageForm(Sitepackage $sitepackage): FormInterface
     {
         return $this->createForm(
-            PackageType::class,
+            SitepackageType::class,
             $sitepackage,
             ['action' => $this->generateUrl('sitepackage_new')]
         )->add(
@@ -170,10 +170,10 @@ class SitepackageController extends AbstractController
         );
     }
 
-    protected function createEditSitePackageForm(Package $sitepackage): FormInterface
+    protected function createEditSitePackageForm(Sitepackage $sitepackage): FormInterface
     {
         return $this->createForm(
-            PackageType::class,
+            SitepackageType::class,
             $sitepackage,
             ['action' => $this->generateUrl('sitepackage_edit')]
         )->add(
