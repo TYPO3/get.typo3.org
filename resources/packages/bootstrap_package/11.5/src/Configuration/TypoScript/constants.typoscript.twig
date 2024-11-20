@@ -1,0 +1,60 @@
+######################
+#### DEPENDENCIES ####
+######################
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:bootstrap_package/Configuration/TypoScript/constants.typoscript">
+
+
+############
+### PAGE ###
+############
+page {
+    logo {
+        file = EXT:{{ package.extensionKey }}/Resources/Public/Images/logo.svg
+        fileInverted = EXT:{{ package.extensionKey }}/Resources/Public/Images/logo-inverted.svg
+        height = 52
+        width = 192
+        alt = {{ package.title }}
+        linktitle = {{ package.title }}
+    }
+    favicon {
+        file = EXT:{{ package.extensionKey }}/Resources/Public/Icons/favicon.ico
+    }
+    fluidtemplate {
+        layoutRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Layouts/Page/
+        partialRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Partials/Page/
+        templateRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Templates/Page/
+    }
+}
+
+
+##################
+### EXTENSIONS ###
+##################
+plugin.bootstrap_package {
+    view {
+        layoutRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Layouts/
+        partialRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Partials/
+        templateRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Templates/
+    }
+}
+
+
+########################
+### CONTENT ELEMENTS ###
+########################
+plugin.bootstrap_package_contentelements {
+    view {
+        layoutRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Layouts/ContentElements/
+        partialRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Partials/ContentElements/
+        templateRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Templates/ContentElements/
+    }
+}
+
+
+################################
+### BOOTSTRAP SCSS CONSTANTS ###
+################################
+plugin.bootstrap_package.settings.scss {
+    primary = #eb3e4a
+    secondary = #013859
+}

@@ -1,0 +1,3 @@
+#
+# Add Static SQL tables
+#

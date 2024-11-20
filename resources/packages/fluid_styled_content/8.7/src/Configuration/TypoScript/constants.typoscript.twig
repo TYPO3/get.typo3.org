@@ -1,0 +1,56 @@
+######################
+#### DEPENDENCIES ####
+######################
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:fluid_styled_content/Configuration/TypoScript/constants.txt">
+
+
+##############################
+#### FLUID STYLED CONTENT ####
+##############################
+styles {
+    templates {
+        layoutRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Layouts/ContentElements/
+        partialRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Partials/ContentElements/
+        templateRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Templates/ContentElements/
+    }
+}
+
+
+############
+### PAGE ###
+############
+page {
+     fluidtemplate {
+        layoutRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Layouts/Page/
+        partialRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Partials/Page/
+        templateRootPath = EXT:{{ package.extensionKey }}/Resources/Private/Templates/Page/
+    }
+    meta {
+        description =
+        author =
+        keywords =
+        viewport = width=device-width, initial-scale=1
+        robots = index,follow
+        apple-mobile-web-app-capable = no
+        compatible = IE=edge
+    }
+    tracking {
+        google {
+            trackingID =
+            anonymizeIp = 1
+        }
+    }
+}
+
+
+##############
+### CONFIG ###
+##############
+config {
+    no_cache = 0
+    removeDefaultJS = 0
+    admPanel = 1
+    prefixLocalAnchors = all
+    headerComment = build by sitepackagebuilder.com
+    sendCacheHeaders = 1
+}
