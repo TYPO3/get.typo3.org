@@ -45,6 +45,7 @@ class SitePackageControllerTest extends ApiCase
                 'base_package' => 'bootstrap_package',
                 'typo3_version' => 13.4,
                 'title' => 'My Site Package',
+                'vendor_name' => 'MyVendor',
                 'description' => 'Project Configuration for Client',
                 'repository_url' => 'https://github.com/FriendsOfTYPO3/introduction',
                 'author' => [
@@ -85,25 +86,12 @@ class SitePackageControllerTest extends ApiCase
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         self::assertSame($responseContent, [
             'errors' => [
+                'Please enter a vendor, CamelCase',
                 'typo3_version' => [
                     'The selected choice is invalid.',
                 ],
                 'title' => [
                     'Please enter a title for your site package',
-                ],
-                'author' => [
-                    'name' => [
-                        'Please enter the authors\' name.',
-                    ],
-                    'email' => [
-                        'Please enter the authors\' email address.',
-                    ],
-                    'company' => [
-                        'Please enter the authors\' company.',
-                    ],
-                    'homepage' => [
-                        'Please enter the authors\' homepage URL.',
-                    ],
                 ],
             ],
         ]);

@@ -36,14 +36,17 @@ class SitePackage implements \JsonSerializable
     #[Assert\NotBlank]
     private float $typo3Version = 13.4;
 
-    private string $vendorName;
-
     private string $vendorNameAlternative;
 
     #[Assert\NotBlank(message: 'Please enter a title for your site package')]
     #[Assert\Length(min: 3)]
     #[Assert\Regex(pattern: '/^[A-Za-z0-9\x7f-\xff .:&-]+$/', message: 'Only letters, numbers and spaces are allowed')]
     private string $title;
+
+    #[Assert\NotBlank(message: 'Please enter a vendor, CamelCase')]
+    #[Assert\Length(min: 3)]
+    #[Assert\Regex(pattern: '/^[A-Za-z0-9]+$/', message: 'Only letters and numbers are allowed')]
+    private string $vendorName;
 
     #[Assert\Regex(pattern: '/^[A-Za-z0-9\x7f-\xff .,:!?&-]+$/', message: 'Only letters, numbers and spaces are allowed')]
     private string $description;

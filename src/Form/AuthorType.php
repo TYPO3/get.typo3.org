@@ -36,6 +36,8 @@ class AuthorType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'John Doe',
@@ -45,6 +47,8 @@ class AuthorType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'john.doe@example.com',
@@ -54,6 +58,8 @@ class AuthorType extends AbstractType
                 ],
             ])
             ->add('company', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'Company Inc.',
@@ -63,6 +69,8 @@ class AuthorType extends AbstractType
                 ],
             ])
             ->add('homepage', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'https://www.example.com',
