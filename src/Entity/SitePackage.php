@@ -23,13 +23,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Sitepackage\Author;
+use App\Entity\SitePackage\Author;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Sitepackage.
+ * SitePackage.
  */
-class Sitepackage implements \JsonSerializable
+class SitePackage implements \JsonSerializable
 {
     #[Assert\NotBlank]
     #[Assert\Choice(['bootstrap_package', 'fluid_styled_content'])]

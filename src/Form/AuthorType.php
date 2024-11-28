@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\Sitepackage\Author;
+use App\Entity\SitePackage\Author;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

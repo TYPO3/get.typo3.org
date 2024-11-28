@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Sitepackage;
-use App\Form\SitepackageType;
-use App\Service\SitepackageGenerator;
+use App\Entity\SitePackage;
+use App\Form\SitePackageType;
+use App\Service\SitePackageGenerator;
 use App\Utility\StringUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -36,7 +36,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/sitepackage', priority: 1)]
-class SitepackageController extends AbstractController
+class SitePackageController extends AbstractController
 {
     #[Route(path: '')]
     #[Route(path: '/', name: 'sitepackage_index')]
@@ -50,8 +50,8 @@ class SitepackageController extends AbstractController
     {
         $session = $request->getSession();
         $session->set('sitepackage', null);
-        $sitepackage = new Sitepackage();
-        $form = $this->createNewSitepackageForm($sitepackage);
+        $sitepackage = new SitePackage();
+        $form = $this->createNewSitePackageForm($sitepackage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $sitepackage->setVendorName(StringUtility::stringToUpperCamelCase($sitepackage->getAuthor()->getCompany()));
@@ -77,7 +77,7 @@ class SitepackageController extends AbstractController
     public function edit(Request $request): Response
     {
         $session = $request->getSession();
-        /** @var Sitepackage|null $sitepackage */
+        /** @var SitePackage|null $sitepackage */
         $sitepackage = $session->get('sitepackage');
         if ($sitepackage === null) {
             $this->addFlash(
@@ -113,7 +113,7 @@ class SitepackageController extends AbstractController
     public function success(Request $request): Response
     {
         $session = $request->getSession();
-        /** @var Sitepackage|null $sitepackage */
+        /** @var SitePackage|null $sitepackage */
         $sitepackage = $session->get('sitepackage');
         if ($sitepackage === null) {
             $this->addFlash(
@@ -133,10 +133,10 @@ class SitepackageController extends AbstractController
     }
 
     #[Route(path: '/download/', name: 'sitepackage_download')]
-    public function download(Request $request, SitepackageGenerator $sitepackageGenerator): Response
+    public function download(Request $request, SitePackageGenerator $sitepackageGenerator): Response
     {
         $session = $request->getSession();
-        /** @var Sitepackage|null $sitepackage */
+        /** @var SitePackage|null $sitepackage */
         $sitepackage = $session->get('sitepackage');
         if ($sitepackage === null) {
             $this->addFlash(
@@ -156,34 +156,34 @@ class SitepackageController extends AbstractController
             ->deleteFileAfterSend(true);
     }
 
-    protected function createNewSitepackageForm(Sitepackage $sitepackage): FormInterface
+    protected function createNewSitePackageForm(SitePackage $sitepackage): FormInterface
     {
         return $this->createForm(
-            SitepackageType::class,
+            SitePackageType::class,
             $sitepackage,
             ['action' => $this->generateUrl('sitepackage_new')]
         )->add(
             'save',
             SubmitType::class,
             [
-                'label' => 'Create Sitepackage',
+                'label' => 'Create SitePackage',
                 'icon' => 'floppy-disk',
                 'attr' => ['class' => 'btn-primary'],
             ]
         );
     }
 
-    protected function createEditSitePackageForm(Sitepackage $sitepackage): FormInterface
+    protected function createEditSitePackageForm(SitePackage $sitepackage): FormInterface
     {
         return $this->createForm(
-            SitepackageType::class,
+            SitePackageType::class,
             $sitepackage,
             ['action' => $this->generateUrl('sitepackage_edit')]
         )->add(
             'save',
             SubmitType::class,
             [
-                'label' => 'Update Sitepackage',
+                'label' => 'Update SitePackage',
                 'icon' => 'floppy-disk',
                 'attr' => ['class' => 'btn-primary'],
             ]

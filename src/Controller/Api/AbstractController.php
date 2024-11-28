@@ -29,7 +29,6 @@ use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
 use App\Repository\RequirementRepository;
 use App\Service\CacheService;
-use App\Service\SitepackageGenerator;
 use App\Utility\VersionUtility;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -56,8 +55,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         private MajorVersionRepository $majorVersions,
         private RequirementRepository $requirements,
         private ReleaseRepository $releases,
-        private ValidatorInterface $validator,
-        private SitepackageGenerator $sitepackageGenerator,
+        private ValidatorInterface $validator
     ) {}
 
     protected function getCache(): TagAwareCacheInterface
@@ -93,11 +91,6 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     protected function getReleases(): ReleaseRepository
     {
         return $this->releases;
-    }
-
-    protected function getSitepackageGenerator(): SitepackageGenerator
-    {
-        return $this->sitepackageGenerator;
     }
 
     protected function findMajorVersion(string $version): MajorVersion

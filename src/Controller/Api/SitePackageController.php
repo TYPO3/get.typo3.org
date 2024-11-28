@@ -23,8 +23,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\Sitepackage;
-use App\Form\SitepackageType;
+use App\Entity\SitePackage;
+use App\Form\SitePackageType;
+use App\Service\SitePackageGenerator;
 use App\Utility\StringUtility;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
@@ -34,25 +35,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/api/v1/sitepackage', defaults: ['_format' => 'json'])]
-class SitepackageController extends AbstractController
+class SitePackageController extends AbstractController
 {
     #[Route(path: '/', methods: ['POST'])]
     #[OA\RequestBody(
         required: true,
-        content: new OA\JsonContent(ref: new Model(type: SitepackageType::class, options: ['csrf_protection' => false])),
+        content: new OA\JsonContent(ref: new Model(type: SitePackageType::class, options: ['csrf_protection' => false])),
     )]
     #[OA\Response(response: 200, description: 'Successfully generated.', content: new OA\MediaType(mediaType: 'application/zip'))]
     #[OA\Response(response: 400, description: 'Request malformed.')]
     #[OA\Tag(name: 'sitepackage')]
-    public function createSitepackage(Request $request): Response
+    public function createSitePackage(Request $request, SitePackageGenerator $sitePackageGenerator): Response
     {
         $content = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         if (!is_array($content)) {
             $content = [];
         }
 
-        $sitepackage = new Sitepackage();
-        $form = $this->createForm(SitepackageType::class, $sitepackage, ['csrf_protection' => false]);
+        $sitepackage = new SitePackage();
+        $form = $this->createForm(SitePackageType::class, $sitepackage, ['csrf_protection' => false]);
         $form->submit($content, true);
 
         if ($form->isValid()) {
@@ -62,13 +63,12 @@ class SitepackageController extends AbstractController
             $sitepackage->setPackageNameAlternative(StringUtility::camelCaseToLowerCaseDashed($sitepackage->getPackageName()));
             $sitepackage->setExtensionKey(StringUtility::camelCaseToLowerCaseUnderscored($sitepackage->getPackageName()));
 
-            $sitepackageGenerator = $this->getSitepackageGenerator();
-            $sitepackageGenerator->create($sitepackage);
-            $filename = $sitepackageGenerator->getFilename();
+            $sitePackageGenerator->create($sitepackage);
+            $filename = $sitePackageGenerator->getFilename();
             BinaryFileResponse::trustXSendfileTypeHeader();
 
             return $this
-                ->file($sitepackageGenerator->getZipPath(), StringUtility::toASCII($filename))
+                ->file($sitePackageGenerator->getZipPath(), StringUtility::toASCII($filename))
                 ->deleteFileAfterSend(true);
         }
 

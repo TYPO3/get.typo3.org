@@ -64,7 +64,7 @@ class Requirement implements \JsonSerializable, \Stringable
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
         #[Groups(['data', 'content', 'patch'])]
         private string $name,
-        #[OA\Property(example: 'My Sitepackage')]
+        #[OA\Property(example: 'My Site Package')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
         #[Groups(['data', 'content', 'patch'])]
         private ?string $min = null,

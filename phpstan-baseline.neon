@@ -151,16 +151,16 @@ parameters:
 			path: src/Controller/DownloadController.php
 
 		-
-			message: '#^Method App\\Controller\\SitepackageController\:\:createEditSitePackageForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
+			message: '#^Method App\\Controller\\SitePackageController\:\:createEditSitePackageForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
-			path: src/Controller/SitepackageController.php
+			path: src/Controller/SitePackageController.php
 
 		-
-			message: '#^Method App\\Controller\\SitepackageController\:\:createNewSitepackageForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
+			message: '#^Method App\\Controller\\SitePackageController\:\:createNewSitePackageForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
-			path: src/Controller/SitepackageController.php
+			path: src/Controller/SitePackageController.php
 
 		-
 			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
@@ -199,16 +199,16 @@ parameters:
 			path: src/Form/Extension/AbstractIconExtension.php
 
 		-
-			message: '#^Class App\\Form\\SitepackageType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
+			message: '#^Class App\\Form\\SitePackageType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
-			path: src/Form/SitepackageType.php
+			path: src/Form/SitePackageType.php
 
 		-
 			message: '#^Parameter \#1 \$action of method Symfony\\Component\\Form\\FormConfigBuilderInterface\<mixed\>\:\:setAction\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
-			path: src/Form/SitepackageType.php
+			path: src/Form/SitePackageType.php
 
 		-
 			message: '#^Offset ''repositories'' might not exist on array\{name\: string, homepage\: string\|null, repositories\?\: array\<int, array\<string, string\>\>\|null, require\?\: array\<string, string\>\|null, require\-all\: bool, require\-dependencies\: bool, require\-dev\-dependencies\: bool\}\.$#'
@@ -287,6 +287,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/Service/ComposerPackagesService.php
+
+		-
+			message: '#^Method App\\Service\\SitePackageBaseService\:\:getBasePackageVersionChoices\(\) should return array\<string, float\> but returns array\<int\|string, float\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Service/SitePackageBaseService.php
 
 		-
 			message: '#^Parameter \#1 \$releases of method App\\Twig\\Filter\\SortByVersion\:\:sort\(\) expects Doctrine\\Common\\Collections\\Collection\<int, App\\Entity\\Release\>, mixed given\.$#'

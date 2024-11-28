@@ -25,12 +25,12 @@ namespace App\Tests\Functional\Controller\Api;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class SitepackageControllerTest extends ApiCase
+class SitePackageControllerTest extends ApiCase
 {
     /**
      * @test
      */
-    public function createSitepackage(): void
+    public function createSitePackage(): void
     {
         $this->client->request(
             'POST',
@@ -44,7 +44,7 @@ class SitepackageControllerTest extends ApiCase
             (string)json_encode([
                 'base_package' => 'bootstrap_package',
                 'typo3_version' => 13.4,
-                'title' => 'My Sitepackage',
+                'title' => 'My Site Package',
                 'description' => 'Project Configuration for Client',
                 'repository_url' => 'https://github.com/FriendsOfTYPO3/introduction',
                 'author' => [
