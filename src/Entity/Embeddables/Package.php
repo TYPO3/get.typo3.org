@@ -24,37 +24,28 @@ declare(strict_types=1);
 namespace App\Entity\Embeddables;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Embeddable]
 class Package implements \JsonSerializable
 {
     public function __construct(
-        /**
-         * @OA\Property(example="23cab7d353b055a3bf5ef8f9963ba348")
-         */
+        #[OA\Property(example: '23cab7d353b055a3bf5ef8f9963ba348')]
         #[Assert\Regex('/^[0-9a-f]{32}$/')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-        #[Serializer\Groups(['data'])]
-        #[Serializer\Type('string')]
+        #[Groups(['data'])]
         private ?string $md5sum,
-        /**
-         * @OA\Property(example="7af3a3fe4f1bbda916575c9779368d229d259819")
-         */
+        #[OA\Property(example: '7af3a3fe4f1bbda916575c9779368d229d259819')]
         #[Assert\Regex('/^[0-9a-f]{40}$/')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-        #[Serializer\Groups(['data'])]
-        #[Serializer\Type('string')]
+        #[Groups(['data'])]
         private ?string $sha1sum,
-        /**
-         * @OA\Property(example="1e34187712269aa556413d2529b950c0dbff17cc95160cf316de07a3c85ce859")
-         */
+        #[OA\Property(example: '1e34187712269aa556413d2529b950c0dbff17cc95160cf316de07a3c85ce859')]
         #[Assert\Regex('/^[A-Fa-f0-9]{64}$/')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-        #[Serializer\Groups(['data'])]
-        #[Serializer\Type('string')]
+        #[Groups(['data'])]
         private ?string $sha256sum
     ) {}
 

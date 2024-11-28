@@ -24,48 +24,36 @@ declare(strict_types=1);
 namespace App\Entity\Embeddables;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Embeddable]
 class ReleaseNotes
 {
-    /**
-     * @OA\Property(type="string", format="uri", example="https://typo3.org/news/article/typo3-v910-released")
-     */
+    #[OA\Property(format: 'uri', example: 'https://typo3.org/news/article/typo3-v910-released')]
     #[Assert\Url]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-    #[Serializer\Groups(['putcontent', 'content'])]
-    #[Serializer\Type('string')]
+    #[Groups(['putcontent', 'content'])]
     private ?string $newsLink = null;
 
-    /**
-     * @OA\Property(example="This release is a bugfix and regression fix release.", description="Short news text about the release.")
-     */
+    #[OA\Property(example: 'This release is a bugfix and regression fix release.", description="Short news text about the release.')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
-    #[Serializer\Groups(['putcontent', 'content'])]
-    #[Serializer\Type('string')]
+    #[Groups(['putcontent', 'content'])]
     private ?string $news = null;
 
-    /**
-     * @OA\Property(description="Ugrade instructions - supports markdown (github flavored)", example="The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n")
-     */
+    #[OA\Property(description: 'Ugrade instructions - supports markdown (github flavored)', example: 'The [usual upgrading procedure](https:\/\/docs.typo3.org\/upgrade) applies.\nNo database updates are necessary.\n')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
-    #[Serializer\Groups(['putcontent', 'content'])]
-    #[Serializer\Type('string')]
+    #[Groups(['putcontent', 'content'])]
     private ?string $upgradingInstructions = null;
 
-    /**
-     * @OA\Property(description="Changelog as markdown")
-     */
+    #[OA\Property(description: 'Changelog as markdown')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
-    #[Serializer\Groups(['putcontent', 'content'])]
-    #[Serializer\Type('string')]
+    #[Groups(['putcontent', 'content'])]
     private ?string $changes = null;
 
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
-    #[Serializer\Groups(['content'])]
+    #[Groups(['content'])]
     private ?string $legacyContent = null;
 
     public function setNewsLink(string $newsLink): void

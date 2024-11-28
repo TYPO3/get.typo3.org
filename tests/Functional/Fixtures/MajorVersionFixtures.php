@@ -25,7 +25,6 @@ namespace App\Tests\Functional\Fixtures;
 
 use App\Entity\MajorVersion;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
 
 final class MajorVersionFixtures extends Fixture
@@ -84,65 +83,47 @@ final class MajorVersionFixtures extends Fixture
         yield new MajorVersionFixturesData(
             self::MAJOR_VERSION_SPRINT,
             new MajorVersion(
-                10,
-                'TYPO3 10',
-                '[SUBTITLE]',
-                '[DESCRIPTION]',
-                $today,
-                null,
-                null,
-                null,
-                new ArrayCollection(),
-                new ArrayCollection(),
-                null
+                version: 10,
+                title: 'TYPO3 10',
+                subtitle: '[SUBTITLE]',
+                description: '[DESCRIPTION]',
+                releaseDate: $today
             )
         );
         yield new MajorVersionFixturesData(
             self::MAJOR_VERSION_LTS,
             new MajorVersion(
-                9,
-                'TYPO3 9',
-                '[SUBTITLE]',
-                '[DESCRIPTION]',
-                $today,
-                null,
-                $today->modify('+3 years')->modify('-1 day'),
-                null,
-                new ArrayCollection(),
-                new ArrayCollection(),
-                9.5
+                version: 9,
+                title: 'TYPO3 9',
+                subtitle: '[SUBTITLE]',
+                description: '[DESCRIPTION]',
+                releaseDate: $today,
+                maintainedUntil: $today->modify('+3 years')->modify('-1 day'),
+                lts: 9.5
             )
         );
         yield new MajorVersionFixturesData(
             self::MAJOR_VERSION_LTS_OLD,
             new MajorVersion(
-                8,
-                'TYPO3 8',
-                '[SUBTITLE]',
-                '[DESCRIPTION]',
-                $today->modify('-540 days'),
-                null,
-                $today->modify('+540 days')->modify('-1 day'),
-                null,
-                new ArrayCollection(),
-                new ArrayCollection(),
-                8.7
+                version: 8,
+                title: 'TYPO3 8',
+                subtitle: '[SUBTITLE]',
+                description: '[DESCRIPTION]',
+                releaseDate: $today->modify('-540 days'),
+                maintainedUntil: $today->modify('+540 days')->modify('-1 day'),
+                lts: 8.7
             )
         );
         yield new MajorVersionFixturesData(
             self::MAJOR_VERSION_ELTS,
             new MajorVersion(
-                7,
-                'TYPO3 7',
-                '[SUBTITLE]',
-                '[DESCRIPTION]',
-                $today->modify('-3 years'),
-                null,
-                $today->modify('-1 day'),
-                null,
-                new ArrayCollection(),
-                new ArrayCollection(),
-                7.6
+                version: 7,
+                title: 'TYPO3 7',
+                subtitle: '[SUBTITLE]',
+                description: '[DESCRIPTION]',
+                releaseDate: $today->modify('-3 years'),
+                maintainedUntil: $today->modify('-1 day'),
+                lts: 7.6
             )
         );
     }

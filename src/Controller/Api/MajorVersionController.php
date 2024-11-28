@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Entity\MajorVersion;
-use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -36,6 +35,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/major', '/v1/api/major'], defaults: ['_format' => 'json'])]
@@ -68,7 +68,9 @@ class MajorVersionController extends AbstractController
             return $this->getSerializer()->serialize(
                 $majors,
                 'json',
-                SerializationContext::create()->setGroups(['content'])
+                [
+                    AbstractNormalizer::GROUPS => ['content'],
+                ]
             );
         });
 
@@ -112,7 +114,9 @@ class MajorVersionController extends AbstractController
             return $this->getSerializer()->serialize(
                 $majorVersion,
                 'json',
-                SerializationContext::create()->setGroups(['content'])
+                [
+                    AbstractNormalizer::GROUPS => ['content'],
+                ]
             );
         });
 
@@ -249,7 +253,9 @@ class MajorVersionController extends AbstractController
             $json = $this->getSerializer()->serialize(
                 $entity,
                 'json',
-                SerializationContext::create()->setGroups(['content'])
+                [
+                    AbstractNormalizer::GROUPS => ['content'],
+                ]
             );
             return new JsonResponse($json, Response::HTTP_OK, [], true);
         }

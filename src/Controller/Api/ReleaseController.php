@@ -25,7 +25,6 @@ namespace App\Controller\Api;
 
 use App\Entity\Embeddables\ReleaseNotes;
 use App\Entity\Release;
-use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -37,6 +36,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/release', '/v1/api/release'], defaults: ['_format' => 'json'])]
@@ -92,7 +92,9 @@ class ReleaseController extends AbstractController
             return $this->getSerializer()->serialize(
                 $releases,
                 'json',
-                SerializationContext::create()->setGroups(['data'])
+                [
+                    AbstractNormalizer::GROUPS => ['data'],
+                ]
             );
         });
 
@@ -272,7 +274,9 @@ class ReleaseController extends AbstractController
             return $this->getSerializer()->serialize(
                 $release,
                 'json',
-                SerializationContext::create()->setGroups(['content'])
+                [
+                    AbstractNormalizer::GROUPS => ['content'],
+                ]
             );
         });
 
@@ -336,7 +340,9 @@ class ReleaseController extends AbstractController
             $json = $this->getSerializer()->serialize(
                 $release,
                 'json',
-                SerializationContext::create()->setGroups(['data', 'content'])
+                [
+                    AbstractNormalizer::GROUPS => ['data', 'content'],
+                ]
             );
             return new JsonResponse($json, Response::HTTP_OK, [], true);
         }

@@ -25,7 +25,6 @@ namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
 use App\Entity\Requirement;
-use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -37,6 +36,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(
@@ -86,7 +86,9 @@ class RequirementsController extends AbstractController
             return $this->getSerializer()->serialize(
                 $requirements,
                 'json',
-                SerializationContext::create()->setGroups(['data'])
+                [
+                    AbstractNormalizer::GROUPS => ['data'],
+                ]
             );
         });
 
@@ -246,7 +248,9 @@ class RequirementsController extends AbstractController
             $json = $this->getSerializer()->serialize(
                 $requirement,
                 'json',
-                SerializationContext::create()->setGroups(['content'])
+                [
+                    AbstractNormalizer::GROUPS => ['content'],
+                ]
             );
             return new JsonResponse($json, Response::HTTP_OK, [], true);
         }

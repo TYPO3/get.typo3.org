@@ -29,66 +29,48 @@ use App\Enum\ReleaseTypeEnum;
 use App\EventListener\ReleaseListener;
 use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @OA\Schema(
- *     description="TYPO3 release",
- *     title="Release",
- * )
- */
+#[OA\Schema(description: 'TYPO3 release', title: 'Release')]
 #[ORM\Entity(repositoryClass: ReleaseRepository::class)]
 #[ORM\EntityListeners([ReleaseListener::class])]
 class Release implements \JsonSerializable, \Stringable
 {
-    /**
-     * Version in a semver/version_compare compatible format.
-     *
-     * @OA\Property(example="8.7.12")
-     */
+    #[OA\Property(example: '8.7.12')]
     #[Assert\Regex(
         '/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/'
     )]
     #[ORM\Id]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-    #[Serializer\Groups(['content', 'data'])]
+    #[Groups(['content', 'data'])]
     private string $version;
 
-    /**
-     * @OA\Property(example="2017-12-12T16:48:22+00:00")
-     *
-     * @var \DateTime|\DateTimeImmutable
-     */
+    #[OA\Property(example: '2017-12-12T16:48:22+00:00')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
-    #[Serializer\Groups(['data', 'content'])]
-    #[Serializer\Type("DateTime<'Y-m-d\\TH:i:sP'>")]
+    #[Groups(['data', 'content'])]
     private \DateTimeInterface $date;
 
     #[Assert\Choice(callback: [ReleaseTypeEnum::class, 'getAvailableOptions'])]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-    #[Serializer\Groups(['data'])]
+    #[Groups(['data'])]
     private string $type;
 
-    /**
-     * @OA\Property(example="true")
-     */
+    #[OA\Property(example: true)]
     #[Assert\Type('boolean')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => 0])]
-    #[Serializer\Groups(['data', 'content'])]
+    #[Groups(['data', 'content'])]
     private bool $elts = false;
 
     #[Assert\Valid]
     #[ORM\Embedded(class: Package::class)]
-    #[Serializer\Type(\App\Entity\Embeddables\Package::class)]
-    #[Serializer\Groups(['data'])]
+    #[Groups(['data'])]
     private Package $tarPackage;
 
     #[Assert\Valid]
     #[ORM\Embedded(class: Package::class)]
-    #[Serializer\Type(\App\Entity\Embeddables\Package::class)]
-    #[Serializer\Groups(['data'])]
+    #[Groups(['data'])]
     private Package $zipPackage;
 
     #[Assert\Valid]
@@ -99,8 +81,7 @@ class Release implements \JsonSerializable, \Stringable
 
     #[Assert\Valid]
     #[ORM\Embedded(class: ReleaseNotes::class)]
-    #[Serializer\Type(\App\Entity\Embeddables\ReleaseNotes::class)]
-    #[Serializer\Groups(['content', 'putcontent'])]
+    #[Groups(['content', 'putcontent'])]
     private ReleaseNotes $releaseNotes;
 
     public function setVersion(string $version): void

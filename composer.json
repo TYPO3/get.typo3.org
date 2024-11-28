@@ -54,8 +54,6 @@
 		"easycorp/easyadmin-bundle": "^4.3",
 		"guzzlehttp/guzzle": "^7.4",
 		"guzzlehttp/promises": "^1.5",
-		"jms/serializer": "^3.17",
-		"jms/serializer-bundle": "^4.0.2",
 		"knplabs/knp-menu": "^3.3",
 		"nelmio/api-doc-bundle": "^4.9",
 		"nelmio/cors-bundle": "^2.2",

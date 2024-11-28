@@ -27,16 +27,11 @@ use App\Enum\RequirementCategoryEnum;
 use App\EventListener\RequirementListener;
 use App\Repository\RequirementRepository;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @OA\Schema(
- *     description="TYPO3 major version requirement",
- *     title="Requirement",
- * )
- */
+#[OA\Schema(description: 'TYPO3 major version requirement', title: 'Requirement')]
 #[ORM\Entity(repositoryClass: RequirementRepository::class)]
 #[ORM\EntityListeners([RequirementListener::class])]
 #[ORM\UniqueConstraint(columns: ['version', 'category', 'name'])]
@@ -60,30 +55,22 @@ class Requirement implements \JsonSerializable, \Stringable
         #[ORM\ManyToOne(targetEntity: MajorVersion::class, inversedBy: 'requirements')]
         #[ORM\JoinColumn(name: 'version', referencedColumnName: 'version')]
         private ?MajorVersion $version,
-        /**
-         * @OA\Property(example="database")
-         */
+        #[OA\Property(example: 'database')]
         #[Assert\Choice(callback: [RequirementCategoryEnum::class, 'getAvailableOptions'])]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
+        #[Groups(['data', 'content', 'patch'])]
         private string $category,
-        /**
-         * @OA\Property(example="mysql")
-         */
+        #[OA\Property(example: 'mysql')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
+        #[Groups(['data', 'content', 'patch'])]
         private string $name,
-        /**
-         * @OA\Property(example="5.5")
-         */
+        #[OA\Property(example: 'My Sitepackage')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
+        #[Groups(['data', 'content', 'patch'])]
         private ?string $min = null,
-        /**
-         * @OA\Property(example="5.7")
-         */
+        #[OA\Property(example: '5.7')]
         #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
+        #[Groups(['data', 'content', 'patch'])]
         private ?string $max = null,
     ) {}
 

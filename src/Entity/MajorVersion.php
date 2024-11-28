@@ -29,45 +29,101 @@ use App\Utility\VersionUtility;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-/**
- * @OA\Schema(
- *     description="TYPO3 major version",
- *     title="Major version",
- * )
- */
+#[OA\Schema(description: 'TYPO3 major version', title: 'Major version')]
 #[ORM\Entity(repositoryClass: MajorVersionRepository::class)]
 #[ORM\EntityListeners([MajorVersionListener::class])]
 class MajorVersion implements \JsonSerializable, \Stringable
 {
-    /**
-     * For example 7 or 8 or 4.3.
-     *
-     * @OA\Property(example="8")
-     */
+    #[OA\Property(example: 8)]
     #[ORM\Id]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
-    #[Serializer\Groups(['data', 'content', 'patch'])]
+    #[Groups(['data', 'content', 'patch'])]
+    #[Context([ObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true])]
     private float $version;
+
+    #[OA\Property(type: 'string', example: 'TYPO3 8 LTS')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[Groups(['data', 'content', 'patch'])]
+    private string $title;
+
+    #[OA\Property(example: 'The current stable LTS release (for all new projects)')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[Groups(['content', 'patch'])]
+    private string $subtitle;
+
+    #[OA\Property(example: 'The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[Groups(['content', 'patch'])]
+    private string $description;
+
+    #[OA\Property(example: '2017-12-12T16:48:22+00:00')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
+    #[Groups(['data', 'content', 'patch'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d\\TH:i:sP'])]
+    private \DateTimeImmutable $releaseDate;
+
+    #[OA\Property(example: '2017-12-12T16:48:22+00:00')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[Groups(['data', 'content', 'patch'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d\\TH:i:sP'])]
+    private ?\DateTimeImmutable $regularMaintenanceUntil;
+
+    #[OA\Property(example: '2017-12-12T16:48:22+00:00')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[Groups(['data', 'content', 'patch'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d\\TH:i:sP'])]
+    private ?\DateTimeImmutable $maintainedUntil;
+
+    #[OA\Property(example: '2017-12-12T16:48:22+00:00')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[Groups(['data', 'content', 'patch'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d\\TH:i:sP'])]
+    private ?\DateTimeImmutable $eltsUntil;
+
+    /**
+     * @var Collection<int, Requirement>
+     */
+    #[ORM\OneToMany(
+        targetEntity: Requirement::class,
+        mappedBy: 'version',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true
+    )]
+    #[Groups(['data', 'content'])]
+    private Collection $requirements;
+
+    /**
+     * @var Collection<int, Release>
+     */
+    #[ORM\OneToMany(
+        targetEntity: Release::class,
+        mappedBy: 'majorVersion',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true
+    )]
+    #[Groups(['data'])]
+    private Collection $releases;
+
+    #[OA\Property(example: 8.7)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
+    #[Groups(['data', 'content', 'patch'])]
+    private ?float $lts = null;
 
     public static function create(float $version = 0.0): self
     {
         $now = (new \DateTimeImmutable())->setTime(0, 0, 0);
-        $emptyCollection = new ArrayCollection();
         return new self(
             $version,
             sprintf('TYPO3 %d', $version),
             'The upcoming LTS release (for new projects)',
             'The development of the next major version',
-            $now,
-            null,
-            null,
-            null,
-            $emptyCollection,
-            $emptyCollection,
-            null,
+            $now
         );
     }
 
@@ -77,92 +133,36 @@ class MajorVersion implements \JsonSerializable, \Stringable
      */
     public function __construct(
         float $version,
-        /**
-         * TYPO3 7 LTS.
-         *
-         * @OA\Property(example="TYPO3 8 LTS")
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
-        private string $title,
-        /**
-         * @OA\Property(example="The current stable LTS release (for all new projects)")
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-        #[Serializer\Groups(['content', 'patch'])]
-        private string $subtitle,
-        /**
-         * @OA\Property(example="The latest version with Long Term Support (LTS). It will have full support until October 2018 and security bugfixes until March 2020.")
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-        #[Serializer\Groups(['content', 'patch'])]
-        private string $description,
-        /**
-         * @OA\Property(example="2017-12-12T16:48:22+00:00")
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
-        #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
-        private \DateTimeImmutable $releaseDate,
-        /**
-         * @OA\Property(example="2017-12-12T16:48:22+00:00")
-         *
-         * @todo `regularMaintenanceUntil` seems to be unused
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
-        #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
-        private ?\DateTimeImmutable $regularMaintenanceUntil,
-        /**
-         * @OA\Property(example="2017-12-12T16:48:22+00:00")
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
-        #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
-        private ?\DateTimeImmutable $maintainedUntil,
-        /**
-         * @OA\Property(example="2017-12-12T16:48:22+00:00")
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_IMMUTABLE, nullable: true)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
-        #[Serializer\Type("DateTimeImmutable<'Y-m-d\\TH:i:sP'>")]
-        private ?\DateTimeImmutable $eltsUntil,
-        /**
-         * @var Collection<int, Requirement>
-         */
-        #[ORM\OneToMany(
-            targetEntity: Requirement::class,
-            mappedBy: 'version',
-            cascade: ['persist', 'remove'],
-            orphanRemoval: true
-        )]
-        #[Serializer\Groups(['data', 'content'])]
-        #[Serializer\Type('ArrayCollection<App\Entity\Requirement>')]
-        private Collection $requirements,
-        /**
-         * @var Collection<int, Release>
-         */
-        #[ORM\OneToMany(
-            targetEntity: Release::class,
-            mappedBy: 'majorVersion',
-            cascade: ['persist', 'remove'],
-            orphanRemoval: true
-        )]
-        #[Serializer\Type('ArrayCollection<App\Entity\Release>')]
-        #[Serializer\Groups(['data'])]
-        private Collection $releases,
-        /**
-         * @OA\Property(example=8.7)
-         */
-        #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
-        #[Serializer\Groups(['data', 'content', 'patch'])]
-        private ?float $lts,
+        string $title,
+        string $subtitle,
+        string $description,
+        \DateTimeImmutable $releaseDate,
+        ?\DateTimeImmutable $regularMaintenanceUntil = null,
+        ?\DateTimeImmutable $maintainedUntil = null,
+        ?\DateTimeImmutable $eltsUntil = null,
+        ?Collection $requirements = null,
+        ?Collection $releases = null,
+        ?float $lts = null
     ) {
         $this->setVersion($version);
+        $this->setTitle($title);
+        $this->setSubtitle($subtitle);
+        $this->setDescription($description);
+        $this->setReleaseDate($releaseDate);
+        $this->setRegularMaintenanceUntil($regularMaintenanceUntil);
+        $this->setMaintainedUntil($maintainedUntil);
+        $this->setEltsUntil($eltsUntil);
+        $this->setRequirements($requirements ?? new ArrayCollection());
+        $this->setReleases($releases ?? new ArrayCollection());
+        $this->setLts($lts);
     }
 
-    public function setVersion(float $version): void
+    public function setVersion(float|string $version): void
     {
+        if (is_string($version)) {
+            $version = (float)$version;
+        }
+
         $this->version = (float)VersionUtility::extractMajorVersionNumber((string)$version);
     }
 

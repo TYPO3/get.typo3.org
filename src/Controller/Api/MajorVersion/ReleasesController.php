@@ -25,12 +25,12 @@ namespace App\Controller\Api\MajorVersion;
 
 use App\Controller\Api\AbstractController;
 use App\Entity\Release;
-use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
 #[Route(path: ['/api/v1/major/{version}/release', '/v1/api/major/{version}/release'], defaults: ['_format' => 'json'])]
@@ -73,7 +73,9 @@ class ReleasesController extends AbstractController
             return $this->getSerializer()->serialize(
                 $majorVersion->getReleases(),
                 'json',
-                SerializationContext::create()->setGroups(['data'])
+                [
+                    AbstractNormalizer::GROUPS => ['data'],
+                ]
             );
         });
 
@@ -113,7 +115,9 @@ class ReleasesController extends AbstractController
             return $this->getSerializer()->serialize(
                 $majorVersion->getLatestRelease(),
                 'json',
-                SerializationContext::create()->setGroups(['data'])
+                [
+                    AbstractNormalizer::GROUPS => ['data'],
+                ]
             );
         });
 
@@ -160,7 +164,9 @@ class ReleasesController extends AbstractController
                 $json = $this->getSerializer()->serialize(
                     $release,
                     'json',
-                    SerializationContext::create()->setGroups(['data'])
+                    [
+                        AbstractNormalizer::GROUPS => ['data'],
+                    ]
                 );
             }
 
@@ -204,7 +210,9 @@ class ReleasesController extends AbstractController
             return $this->getSerializer()->serialize(
                 $majorVersion->getLatestRelease(),
                 'json',
-                SerializationContext::create()->setGroups(['content'])
+                [
+                    AbstractNormalizer::GROUPS => ['content'],
+                ]
             );
         });
 

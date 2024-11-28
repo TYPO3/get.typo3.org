@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Entity;
 
 use App\Entity\MajorVersion;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 
 class MajorVersionTest extends TestCase
@@ -88,131 +87,102 @@ class MajorVersionTest extends TestCase
     public function entityTestDataProvider(): \Iterator
     {
         $dateTimeToday = new \DateTimeImmutable();
-        $collection = new ArrayCollection();
 
         yield 'SPRINT' => [
             new MajorVersion(
-                10,
-                'TYPO3 10',
-                'subtitle',
-                'description',
-                $dateTimeToday,
-                null,
-                null,
-                null,
-                $collection,
-                $collection,
-                null
+                version: 10,
+                title: 'TYPO3 10',
+                subtitle: 'subtitle',
+                description: 'description',
+                releaseDate: $dateTimeToday
             ),
             new MajorVersionExpected(
-                10,
-                'TYPO3 10',
-                $dateTimeToday,
-                null,
-                null,
-                null,
-                true,
-                false
+                version: 10,
+                title: 'TYPO3 10',
+                releaseDate: $dateTimeToday,
+                active: true,
+                elts: false
             ),
         ];
         yield 'LTS' => [
             new MajorVersion(
-                9.5,
-                'TYPO3 9',
-                'subtitle',
-                'description',
-                $dateTimeToday,
-                null,
-                $dateTimeToday->modify('+3 years')->modify('-1 day'),
-                null,
-                $collection,
-                $collection,
-                9.5
+                version: 9.5,
+                title: 'TYPO3 9',
+                subtitle: 'subtitle',
+                description: 'description',
+                releaseDate: $dateTimeToday,
+                maintainedUntil: $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                lts: 9.5
             ),
             new MajorVersionExpected(
-                9,
-                'TYPO3 9',
-                $dateTimeToday,
-                null,
-                $dateTimeToday->modify('+3 years')->modify('-1 day'),
-                $dateTimeToday->modify('+6 years')->modify('-1 day'),
-                true,
-                false
+                version: 9,
+                title: 'TYPO3 9',
+                releaseDate: $dateTimeToday,
+                maintainedUntil: $dateTimeToday->modify('+3 years')->modify('-1 day'),
+                eltsUntil: $dateTimeToday->modify('+6 years')->modify('-1 day'),
+                active: true,
+                elts: false
             ),
         ];
         yield 'ELTS' => [
             new MajorVersion(
-                7.6,
-                'TYPO3 7',
-                'subtitle',
-                'description',
-                $dateTimeToday->modify('-3 years'),
-                null,
-                $dateTimeToday->modify('-1 day'),
-                null,
-                $collection,
-                $collection,
-                7.6
+                version: 7.6,
+                title: 'TYPO3 7',
+                subtitle: 'subtitle',
+                description: 'description',
+                releaseDate: $dateTimeToday->modify('-3 years'),
+                maintainedUntil: $dateTimeToday->modify('-1 day'),
+                lts: 7.6
             ),
             new MajorVersionExpected(
-                7,
-                'TYPO3 7',
-                $dateTimeToday->modify('-3 years'),
-                null,
-                $dateTimeToday->modify('-1 day'),
-                $dateTimeToday->modify('-1 day')->modify('+3 years'),
-                false,
-                true
+                version: 7,
+                title: 'TYPO3 7',
+                releaseDate: $dateTimeToday->modify('-3 years'),
+                maintainedUntil: $dateTimeToday->modify('-1 day'),
+                eltsUntil: $dateTimeToday->modify('-1 day')->modify('+3 years'),
+                active: false,
+                elts: true
             ),
         ];
         yield 'ELTS-SET' => [
             new MajorVersion(
-                6.2,
-                'TYPO3 6.2',
-                'subtitle',
-                'description',
-                $dateTimeToday->modify('-3 years'),
-                null,
-                $dateTimeToday->modify('-1 day'),
-                $dateTimeToday->modify('-1 day')->modify('+4 years'),
-                $collection,
-                $collection,
-                6.2
+                version: 6.2,
+                title: 'TYPO3 6.2',
+                subtitle: 'subtitle',
+                description: 'description',
+                releaseDate: $dateTimeToday->modify('-3 years'),
+                maintainedUntil: $dateTimeToday->modify('-1 day'),
+                eltsUntil: $dateTimeToday->modify('-1 day')->modify('+4 years'),
+                lts: 6.2
             ),
             new MajorVersionExpected(
-                6.2,
-                'TYPO3 6.2',
-                $dateTimeToday->modify('-3 years'),
-                null,
-                $dateTimeToday->modify('-1 day'),
-                $dateTimeToday->modify('-1 day')->modify('+4 years'),
-                false,
-                true
+                version: 6.2,
+                title: 'TYPO3 6.2',
+                releaseDate: $dateTimeToday->modify('-3 years'),
+                maintainedUntil: $dateTimeToday->modify('-1 day'),
+                eltsUntil: $dateTimeToday->modify('-1 day')->modify('+4 years'),
+                active: false,
+                elts: true
             ),
         ];
         yield 'OUTDATED' => [
             new MajorVersion(
-                4.5,
-                'TYPO3 4.5',
-                'subtitle',
-                'description',
-                $dateTimeToday->modify('-6 years'),
-                null,
-                $dateTimeToday->modify('-3 years')->modify('-1 day'),
-                null,
-                $collection,
-                $collection,
-                4.5
+                version: 4.5,
+                title: 'TYPO3 4.5',
+                subtitle: 'subtitle',
+                description: 'description',
+                releaseDate: $dateTimeToday->modify('-6 years'),
+                maintainedUntil: $dateTimeToday->modify('-3 years')->modify('-1 day'),
+                lts: 4.5
             ),
             new MajorVersionExpected(
-                4.5,
-                'TYPO3 4.5',
-                $dateTimeToday->modify('-6 years'),
-                null,
-                $dateTimeToday->modify('-3 years')->modify('-1 day'),
-                $dateTimeToday->modify('-3 years')->modify('-1 day')->modify('+3 years'),
-                false,
-                false
+                version: 4.5,
+                title: 'TYPO3 4.5',
+                releaseDate: $dateTimeToday->modify('-6 years'),
+                maintainedUntil: $dateTimeToday->modify('-3 years')->modify('-1 day'),
+                eltsUntil: $dateTimeToday->modify('-3 years')->modify('-1 day')->modify('+3 years'),
+                active: false,
+                elts: false
             ),
         ];
     }
