@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Sitepackage\Author;
-use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,12 +33,10 @@ class Sitepackage implements \JsonSerializable
 {
     #[Assert\NotBlank]
     #[Assert\Choice(['bootstrap_package', 'fluid_styled_content'])]
-    #[OA\Property(type: 'string', example: 'bootstrap_package')]
     private string $basePackage = 'bootstrap_package';
 
     #[Assert\NotBlank]
     #[Assert\Choice([10.4, 11.5, 12.4, 13.4])]
-    #[OA\Property(type: 'float', example: 13.4)]
     private float $typo3Version = 13.4;
 
     private string $vendorName;
@@ -49,11 +46,9 @@ class Sitepackage implements \JsonSerializable
     #[Assert\NotBlank(message: 'Please enter a title for your site package')]
     #[Assert\Length(min: 3)]
     #[Assert\Regex(pattern: '/^[A-Za-z0-9\x7f-\xff .:&-]+$/', message: 'Only letters, numbers and spaces are allowed')]
-    #[OA\Property(type: 'string', example: 'My Sitepackage')]
     private string $title;
 
     #[Assert\Regex(pattern: '/^[A-Za-z0-9\x7f-\xff .,:!?&-]+$/', message: 'Only letters, numbers and spaces are allowed')]
-    #[OA\Property(type: 'string', example: 'Project Configuration for Client')]
     private string $description;
 
     private string $packageName;
@@ -61,7 +56,6 @@ class Sitepackage implements \JsonSerializable
     private string $extensionKey;
 
     #[Assert\Url]
-    #[OA\Property(type: 'string', example: 'https://github.com/FriendsOfTYPO3/introduction')]
     private string $repositoryUrl = '';
 
     #[Assert\Valid]

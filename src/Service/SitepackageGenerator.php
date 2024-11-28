@@ -53,8 +53,7 @@ class SitepackageGenerator
         $fileList = FileUtility::listDirectory($sourceDir);
 
         $zipFile = new \ZipArchive();
-        $opened = $zipFile->open($this->zipPath, \ZipArchive::CREATE);
-        if ($opened === true) {
+        if ($zipFile->open($this->zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
             foreach ($fileList as $file) {
                 if ($file !== $this->zipPath && file_exists($file)) {
                     $baseFileName = $this->createRelativeFilePath($file, $sourceDir);

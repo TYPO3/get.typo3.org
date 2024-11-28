@@ -40,11 +40,17 @@ class AuthorType extends AbstractType
                     'autocomplete' => 'off',
                     'placeholder' => 'John Doe',
                 ],
+                'documentation' => [
+                    'example' => 'J. Doe',
+                ],
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'john.doe@example.com',
+                ],
+                'documentation' => [
+                    'example' => 'info@typo3.com',
                 ],
             ])
             ->add('company', TextType::class, [
@@ -52,11 +58,17 @@ class AuthorType extends AbstractType
                     'autocomplete' => 'off',
                     'placeholder' => 'Company Inc.',
                 ],
+                'documentation' => [
+                    'example' => 'TYPO3',
+                ],
             ])
             ->add('homepage', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'off',
                     'placeholder' => 'https://www.example.com',
+                ],
+                'documentation' => [
+                    'example' => 'https://typo3.com',
                 ],
             ]);
     }

@@ -29,10 +29,16 @@ use App\Repository\MajorVersionRepository;
 use App\Repository\ReleaseRepository;
 use App\Repository\RequirementRepository;
 use App\Service\CacheService;
+use App\Service\SitepackageGenerator;
 use App\Utility\VersionUtility;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormErrorIterator;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -51,6 +57,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         private RequirementRepository $requirements,
         private ReleaseRepository $releases,
         private ValidatorInterface $validator,
+        private SitepackageGenerator $sitepackageGenerator,
     ) {}
 
     protected function getCache(): TagAwareCacheInterface
@@ -86,6 +93,11 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     protected function getReleases(): ReleaseRepository
     {
         return $this->releases;
+    }
+
+    protected function getSitepackageGenerator(): SitepackageGenerator
+    {
+        return $this->sitepackageGenerator;
     }
 
     protected function findMajorVersion(string $version): MajorVersion
@@ -213,5 +225,41 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         }
 
         return $result;
+    }
+
+    /**
+     * @template T
+     *
+     * @param FormInterface<T> $form
+     */
+    protected function sendErroneousResponse(FormInterface $form): Response
+    {
+        return new JsonResponse([
+            'errors' => $this->getErrors($form),
+        ], Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @template T
+     *
+     * @param FormInterface<T> $form
+     *
+     * @return array<int|string, mixed>
+     */
+    private function getErrors(FormInterface $form): array
+    {
+        $errors = [];
+        /** @var FormErrorIterator<FormError> $formErrors */
+        $formErrors = $form->getErrors();
+        foreach ($formErrors as $error) {
+            $errors[] = $error->getMessage();
+        }
+        foreach ($form->all() as $childForm) {
+            if (($childForm instanceof FormInterface) && count($childErrors = $this->getErrors($childForm)) > 0) {
+                $errors[$childForm->getName()] = $childErrors;
+            }
+        }
+
+        return $errors;
     }
 }
