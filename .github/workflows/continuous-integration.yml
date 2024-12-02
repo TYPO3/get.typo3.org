@@ -279,6 +279,7 @@ jobs:
       - validation
       - php_coding_standards
       - php_stan
+      - tests
     if: (github.ref == 'refs/heads/production') && github.event_name == 'push' && (github.repository == 'TYPO3/get.typo3.org')
     uses: ./.github/workflows/deployment.yml
     secrets:
