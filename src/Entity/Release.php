@@ -30,7 +30,9 @@ use App\EventListener\ReleaseListener;
 use App\Repository\ReleaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use OpenApi\Attributes as OA;
+use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[OA\Schema(description: 'TYPO3 release', title: 'Release')]
@@ -39,9 +41,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Release implements \JsonSerializable, \Stringable
 {
     #[OA\Property(example: '8.7.12')]
-    #[Assert\Regex(
-        '/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/'
-    )]
+    #[Assert\Regex('/^(\d+\.\d+\.\d+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/')]
     #[ORM\Id]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     #[Groups(['content', 'data'])]
@@ -49,7 +49,8 @@ class Release implements \JsonSerializable, \Stringable
 
     #[OA\Property(example: '2017-12-12T16:48:22+00:00')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
-    #[Groups(['data', 'content'])]
+    #[Groups(['content', 'data'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d\\TH:i:sP'])]
     private \DateTimeInterface $date;
 
     #[Assert\Choice(callback: [ReleaseTypeEnum::class, 'getAvailableOptions'])]
@@ -60,7 +61,7 @@ class Release implements \JsonSerializable, \Stringable
     #[OA\Property(example: true)]
     #[Assert\Type('boolean')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => 0])]
-    #[Groups(['data', 'content'])]
+    #[Groups(['content', 'data'])]
     private bool $elts = false;
 
     #[Assert\Valid]

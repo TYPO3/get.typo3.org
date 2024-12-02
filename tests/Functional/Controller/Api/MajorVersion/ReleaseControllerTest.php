@@ -45,6 +45,7 @@ class ReleaseControllerTest extends ApiCase
         $response = $this->client->getResponse();
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
+        self::assertIsArray($responseContent);
         $this->assertArrayStructure(
             [
                 [
@@ -83,6 +84,7 @@ class ReleaseControllerTest extends ApiCase
         $response = $this->client->getResponse();
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
+        self::assertIsArray($responseContent);
         $this->assertArrayStructure(
             [
                 'version' => 'string',
@@ -119,6 +121,7 @@ class ReleaseControllerTest extends ApiCase
         $response = $this->client->getResponse();
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
+        self::assertIsArray($responseContent);
         $this->assertArrayStructure(
             [
                 'version' => 'string',
@@ -155,6 +158,7 @@ class ReleaseControllerTest extends ApiCase
         $response = $this->client->getResponse();
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
+        self::assertIsArray($responseContent);
         $this->assertArrayStructure(
             [
                 'version' => 'string',

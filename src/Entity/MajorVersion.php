@@ -184,7 +184,13 @@ class MajorVersion implements \JsonSerializable, \Stringable
      */
     public function getReleases(): Collection
     {
-        return $this->releases;
+        $sorted = $this->releases->toArray();
+        usort($sorted, function ($a, $b) {
+            return version_compare($a->getVersion(), $b->getVersion());
+        });
+        $sorted = array_reverse($sorted);
+
+        return new ArrayCollection($sorted);
     }
 
     public function setTitle(string $title): void
@@ -376,14 +382,9 @@ class MajorVersion implements \JsonSerializable, \Stringable
             $releaseData[$release->getVersion()] = $release;
         }
 
-        uksort(
-            $releaseData,
-            static fn(string $a, string $b): int => version_compare($a, $b)
-        );
-        $desc = array_reverse($releaseData);
         $latest = $this->getLatestRelease();
         return [
-            'releases' => $desc,
+            'releases' => $releaseData,
             'latest' => $latest !== null ? $latest->getVersion() : '',
             'stable' => $latest !== null ? $latest->getVersion() : '',
             'active' => $this->isActive(),
