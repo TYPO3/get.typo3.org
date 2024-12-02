@@ -21,58 +21,26 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace App\Tests\Functional\Controller\Api;
+namespace App\Tests\Functional\Controller\Api\MajorVersion;
 
 use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
-use Symfony\Component\HttpFoundation\Response;
+use App\Tests\Functional\Controller\Api\ApiCase;
 
 class ReleaseControllerTest extends ApiCase
 {
     /**
      * @test
      */
-    public function createReleaseUnauthorized(): void
-    {
-        $response = $this->createReleaseFromJson('Json/Release-10.0.0.json');
-        self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
-    }
-
-    /**
-     * @test
-     */
-    public function createReleaseAuthorized(): void
-    {
-        $this->logIn();
-        $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
-
-        $response = $this->createReleaseFromJson('Json/Release-10.0.0.json');
-        self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertSame(
-            ['status' => 'success', 'Location' => '/v1/api/release/10.0.0'],
-            $this->decodeResponse($response)
-        );
-
-        $response = $this->createReleaseFromJson('Json/Release-10.0.1.json');
-        self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertSame(
-            ['status' => 'success', 'Location' => '/v1/api/release/10.0.1'],
-            $this->decodeResponse($response)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getReleaseStructureTest(): void
+    public function getReleasesByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
         $this->addFixture(new ReleaseFixtures());
         $this->addFixture(new RequirementFixtures());
         $this->executeFixtures();
 
-        $this->client->request('GET', '/api/v1/release/');
+        $this->client->request('GET', '/api/v1/major/10/release/');
 
         $response = $this->client->getResponse();
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
@@ -103,14 +71,14 @@ class ReleaseControllerTest extends ApiCase
     /**
      * @test
      */
-    public function getReleaseWithVersionStructureTest(): void
+    public function getLatestReleaseByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
         $this->addFixture(new ReleaseFixtures());
         $this->addFixture(new RequirementFixtures());
         $this->executeFixtures();
 
-        $this->client->request('GET', '/api/v1/release/10.0.0');
+        $this->client->request('GET', '/api/v1/major/10/release/latest');
 
         $response = $this->client->getResponse();
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
@@ -139,14 +107,50 @@ class ReleaseControllerTest extends ApiCase
     /**
      * @test
      */
-    public function getContentForVersionStructureTest(): void
+    public function getLatestSecurityReleaseByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
         $this->addFixture(new ReleaseFixtures());
         $this->addFixture(new RequirementFixtures());
         $this->executeFixtures();
 
-        $this->client->request('GET', '/api/v1/release/10.0.0/content');
+        $this->client->request('GET', '/api/v1/major/10/release/latest/security');
+
+        $response = $this->client->getResponse();
+        $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertArrayStructure(
+            [
+                'version' => 'string',
+                'date' => 'datetime',
+                'type' => 'string',
+                'elts' => 'boolean',
+                'tar_package' => [
+                    '?md5sum' => 'string',
+                    '?sha1sum' => 'string',
+                    '?sha256sum' => 'string',
+                ],
+                'zip_package' => [
+                    '?md5sum' => 'string',
+                    '?sha1sum' => 'string',
+                    '?sha256sum' => 'string',
+                ],
+            ],
+            $responseContent
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getLatestReleaseContentByMajorVersionStructureTest(): void
+    {
+        $this->addFixture(new MajorVersionFixtures());
+        $this->addFixture(new ReleaseFixtures());
+        $this->addFixture(new RequirementFixtures());
+        $this->executeFixtures();
+
+        $this->client->request('GET', '/api/v1/major/10/release/latest/content');
 
         $response = $this->client->getResponse();
         $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
@@ -162,6 +166,22 @@ class ReleaseControllerTest extends ApiCase
                     'upgrading_instructions' => 'string',
                     'changes' => 'string',
                     '?legacy_content' => 'string',
+                ],
+                '?checksums' => [
+                    'tar' => [
+                        '?sha1' => 'string',
+                        '?md5' => 'string',
+                        '?sha256' => 'string',
+                    ],
+                    'zip' => [
+                        '?sha1' => 'string',
+                        '?md5' => 'string',
+                        '?sha256' => 'string',
+                    ],
+                ],
+                '?urls' => [
+                    'tar' => 'string',
+                    'zip' => 'string',
                 ],
             ],
             $responseContent

@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\Api;
 
+use App\DataFixtures\MajorVersionFixtures;
+use App\DataFixtures\ReleaseFixtures;
+use App\DataFixtures\RequirementFixtures;
 use Symfony\Component\HttpFoundation\Response;
 
 class MajorVersionControllerTest extends ApiCase
@@ -45,5 +48,89 @@ class MajorVersionControllerTest extends ApiCase
         $response = $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
         self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
         self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], $this->decodeResponse($response));
+    }
+
+    /**
+     * @test
+     */
+    public function getMajorReleasesStructureTest(): void
+    {
+        $this->addFixture(new MajorVersionFixtures());
+        $this->addFixture(new ReleaseFixtures());
+        $this->addFixture(new RequirementFixtures());
+        $this->executeFixtures();
+
+        $this->client->request('GET', '/api/v1/major/');
+
+        $response = $this->client->getResponse();
+        $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertArrayStructure(
+            [
+                [
+                    'version' => 'float',
+                    'title' => 'string',
+                    'subtitle' => 'string',
+                    'description' => 'string',
+                    'release_date' => 'datetime',
+                    '?regular_maintenance_until' => 'datetime',
+                    '?maintained_until' => 'datetime',
+                    '?elts_until' => 'datetime',
+                    'requirements' => [
+                        [
+                            'category' => 'string',
+                            'name' => 'string',
+                            '?min' => 'string',
+                            '?max' => 'string',
+                        ],
+                    ],
+                    '?lts' => 'float',
+                    '?active' => 'boolean',
+                    '?elts' => 'boolean',
+                ],
+            ],
+            $responseContent
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getMajorReleaseWithVersionStructureTest(): void
+    {
+        $this->addFixture(new MajorVersionFixtures());
+        $this->addFixture(new ReleaseFixtures());
+        $this->addFixture(new RequirementFixtures());
+        $this->executeFixtures();
+
+        $this->client->request('GET', '/api/v1/major/10');
+
+        $response = $this->client->getResponse();
+        $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertArrayStructure(
+            [
+                'version' => 'float',
+                'title' => 'string',
+                'subtitle' => 'string',
+                'description' => 'string',
+                'release_date' => 'datetime',
+                '?regular_maintenance_until' => 'datetime',
+                '?maintained_until' => 'datetime',
+                '?elts_until' => 'datetime',
+                'requirements' => [
+                    [
+                        'category' => 'string',
+                        'name' => 'string',
+                        '?min' => 'string',
+                        '?max' => 'string',
+                    ],
+                ],
+                '?lts' => 'float',
+                '?active' => 'boolean',
+                '?elts' => 'boolean',
+            ],
+            $responseContent
+        );
     }
 }

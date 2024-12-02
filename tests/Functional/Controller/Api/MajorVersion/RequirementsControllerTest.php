@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\Api\MajorVersion;
 
+use App\DataFixtures\MajorVersionFixtures;
+use App\DataFixtures\ReleaseFixtures;
+use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\Controller\Api\ApiCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -52,5 +55,33 @@ class RequirementsControllerTest extends ApiCase
         $response = $this->createRequirementFromJson('Json/Requirement-10-1.json', '10');
         self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
         self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], $this->decodeResponse($response));
+    }
+
+    /**
+     * @test
+     */
+    public function getRequirementsByMajorVersionStructureTest(): void
+    {
+        $this->addFixture(new MajorVersionFixtures());
+        $this->addFixture(new ReleaseFixtures());
+        $this->addFixture(new RequirementFixtures());
+        $this->executeFixtures();
+
+        $this->client->request('GET', '/api/v1/major/10/requirements');
+
+        $response = $this->client->getResponse();
+        $responseContent = json_decode((string)$response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertArrayStructure(
+            [
+                [
+                    'category' => 'string',
+                    'name' => 'string',
+                    '?min' => 'string',
+                    '?max' => 'string',
+                ],
+            ],
+            $responseContent
+        );
     }
 }

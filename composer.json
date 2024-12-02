@@ -158,6 +158,9 @@
 		"sort-packages": true
 	},
 	"extra": {
+		"runtime": {
+			"use_putenv": true
+		},
 		"bamarni-bin": {
 			"bin-links": true,
 			"forward-command": false,
