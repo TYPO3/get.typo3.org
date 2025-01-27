@@ -9,9 +9,7 @@
     <div class="row">
         <f:for each="{data.carousel_items}" as="item" iteration="iteration">
             <div class="col">
-                <f:for each="{item.image}" as="image" iteration="iteration">
-                    <f:image image="{image}" width="100"/><br/>
-                </f:for>
+                <f:image image="{item.image}" width="100"/><br/>
                 {item.header}
             </div>
         </f:for>
