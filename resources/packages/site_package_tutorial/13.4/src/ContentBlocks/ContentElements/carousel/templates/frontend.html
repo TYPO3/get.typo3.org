@@ -10,9 +10,7 @@
     <div class="carousel-inner">
         <f:for each="{data.carousel_items}" as="item" iteration="iteration">
             <div class="carousel-item{f:if(condition: '{iteration.isFirst}', then:' active')}">
-                <f:for each="{item.image}" as="image" iteration="iteration">
-                    <f:image image="{image}" class="d-block w-100"/>
-                </f:for>
+                <f:image image="{item.image}" class="d-block w-100"/>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{item.header}</h5>
                     <f:format.html>{item.description}</f:format.html>
