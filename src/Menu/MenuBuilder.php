@@ -97,14 +97,14 @@ class MenuBuilder extends TemplateMenuBuider
         $menu->addChild(
             'install',
             [
-                'uri' => 'https://docs.typo3.org/installation',
+                'uri' => 'https://docs.typo3.org/permalink/t3coreapi:installation-index',
                 'label' => 'Installation Guide',
             ]
         );
         $menu->addChild(
             'gettingstarted',
             [
-                'uri' => 'https://docs.typo3.org/typo3cms/GettingStartedTutorial/',
+                'uri' => 'https://docs.typo3.org/permalink/t3start:start',
                 'label' => 'Getting Started',
             ]
         );
