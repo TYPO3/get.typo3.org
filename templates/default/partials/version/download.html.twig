@@ -36,8 +36,11 @@
                     <div class="accordion-body card-body">
                         <div class="accordion-content">
                             <div class="accordion-content-item accordion-content-text">
+                                {% if version >= 11 %}
+                                    <p>To the detailed instructions in <a href="https://docs.typo3.org/permalink/t3start:installation-ddev-tutorial@{{ version }}" title="DDEV Documentation" target="_blank" rel="noopener">Getting Started, Installing TYPO3 with DDEV</a></p>
+                                {% endif %}
                                 <p><a href="https://ddev.readthedocs.io/en/stable/" title="DDEV Documentation" target="_blank" rel="noopener">DDEV</a> simplifies integrating the power and consistency of containerization into your workflows. Set up environments in minutes; switch contexts and projects quickly and easily; speed your time to deployment. DDEV handles the complexity. You get on with the valuable part of your job.</p>
-                                <p><b>Before proceeding, make sure your DDEV installation is up to date.</b></p>
+                                <p><b>Before proceeding, make sure your DDEV installation is up-to-date.</b></p>
                                 <p>In a new project folder using your favorite shell, run these lines:</p>
                                 <pre style="white-space: pre-line;">
                                     <code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }} --webserver-type 'apache-fpm'
@@ -146,6 +149,9 @@
                                 using a client that supports Server Name Indication (SNI). This especially affects old versions
                                 of wget (before version 1.14).
                             </p>
+                            {% if version >= 12 %}
+                                <p>See also: <a href="https://docs.typo3.org/permalink/t3coreapi:legacyinstallation@{{ package_version }}" target="_blank" rel="noopener">TYPO3 installation with wget</a></p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -168,6 +174,7 @@
                     <div class="accordion-content">
                         <div class="accordion-content-item accordion-content-text">
                             <pre>git clone https://github.com/typo3/typo3</pre>
+                            <p>See also: <a href="https://docs.typo3.org/permalink/t3contribute:quickstart" target="_blank" rel="noopener">TYPO3 contribution quick start: Get ready to contribute to TYPO3 in under 30 minutes!</a></p>
                         </div>
                     </div>
                 </div>
@@ -205,6 +212,11 @@
                                 </li>
                                 {% endif %}
                             </ul>
+
+                            {% if version >= 12 %}
+                                <p>See also: <a href="https://docs.typo3.org/permalink/t3coreapi:legacyinstallation@{{ package_version }}" target="_blank" rel="noopener">TYPO3 installation with tarball/zip</a></p>
+                                <p>See also: <a href="https://docs.typo3.org/permalink/t3coreapi:release-integrity@{{ package_version }}" target="_blank" rel="noopener">TYPO3 release integrity</a></p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
