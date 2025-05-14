@@ -30,14 +30,22 @@
                         <div class="accordion-body card-body">
                             <div class="accordion-content">
                                 <div class="accordion-content-item accordion-content-text">
-                                    <p>Download the Site Package and save it into folder
-                                        <a href="https://docs.typo3.org/permalink/t3coreapi:directory-packages@{{ sitepackage.typo3Version }}">packages</a>
+                                    <p>Use this method if you have a
+                                        <a href="https://docs.typo3.org/permalink/t3coreapi:installation-composer@{{ sitepackage.typo3Version }}" target="_blank" rel="noreferrer">Composer-based TYPO3 installation</a>.</p>
+                                    <p>Download the Site Package, save and unzip it into folder
+                                        <a href="https://docs.typo3.org/permalink/t3coreapi:directory-packages@{{ sitepackage.typo3Version }}" target="_blank" rel="noreferrer">packages/</a>
                                         in the root of your TYPO3 installation.</p>
-                                    <p>Require the Site Package using Composer: </p>
+                                    <p>Require the Site Package using Composer. Call the following commands in the folder
+                                        that contains your root composer.json file. </p>
                                     <pre style="white-space: pre-line;">
-                                        <code>composer req {{ sitepackage.vendorNameAlternative }}/{{ sitepackage.packageNameAlternative }}</code>
+                                        <code>
+                                            unzip {{ sitepackage.extensionKey }}.zip -d packages/{{ sitepackage.extensionKey }}
+                                            composer req {{ sitepackage.vendorNameAlternative }}/{{ sitepackage.packageNameAlternative }}:@dev
+                                        </code>
                                     </pre>
                                     {% include 'sitepackage/partials/typoscript-provider.twig' %}
+                                    <p>See also the following section in the Site Package Tutorial:
+                                        <a href="https://docs.typo3.org/permalink/t3sitepackage:extension-installation-site-package@{{ sitepackage.typo3Version }}" target="_blank" rel="noreferrer">Install the site package you just created</a>.</p>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +54,7 @@
                         <h4 class="accordion-title">
                             <a href="#accordion-classic" class="accordion-title-link collapsed" data-bs-toggle="collapse" data-bs-parent="#accordion-installation" aria-expanded="false" aria-controls="accordion-classic">
                                 <span class="accordion-title-link-text">
-                                    Classic TYPO3 installation
+                                    Classic TYPO3 installation (no Composer)
                                 </span>
                                 <span class="accordion-title-link-state"></span>
                             </a>
@@ -56,10 +64,19 @@
                         <div class="accordion-body card-body">
                             <div class="accordion-content">
                                 <div class="accordion-content-item accordion-content-text">
-                                    <p>Download the Site Package and save it into folder
-                                        <a href="https://docs.typo3.org/permalink/t3coreapi:legacy-directory-typo3conf-ext@{{ sitepackage.typo3Version }}">typo3conf/ext/</a>
+                                    <p>Use this method if you have a
+                                        <a href="https://docs.typo3.org/permalink/t3coreapi:legacyinstallation@{{ sitepackage.typo3Version }}" target="_blank" rel="noreferrer">Classic TYPO3 installation (no Composer)</a>.</p>
+                                    <p>Download the Site Package, save and unzip it into folder
+                                        <a href="https://docs.typo3.org/permalink/t3coreapi:legacy-directory-typo3conf-ext@{{ sitepackage.typo3Version }}" target="_blank" rel="noreferrer">typo3conf/ext/{{ sitepackage.extensionKey }}/</a>
                                         in the root of your TYPO3 installation.</p>
-                                    <p>Activate extension "{{ sitepackage.title }}" with key {{ sitepackage.extensionKey }} in the Extension Manager. </p>
+
+                                    <pre style="white-space: pre-line;">
+                                        <code>
+                                            unzip {{ sitepackage.extensionKey }}.zip -d typo3conf/ext/{{ sitepackage.extensionKey }}
+                                            composer req {{ sitepackage.vendorNameAlternative }}/{{ sitepackage.packageNameAlternative }}:@dev
+                                        </code>
+                                    </pre>
+                                    <p>Activate the extension "{{ sitepackage.title }}" with key {{ sitepackage.extensionKey }} in the Extension Manager.</p>
                                     {% include 'sitepackage/partials/typoscript-provider.twig' %}
                                 </div>
                             </div>
