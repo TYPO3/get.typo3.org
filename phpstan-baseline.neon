@@ -73,6 +73,18 @@ parameters:
 			path: src/Command/ListMissingDownloadsCommand.php
 
 		-
+			message: '#^Dead catch \- Symfony\\Component\\HttpClient\\Exception\\ClientException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: src/Command/ListMissingDownloadsCommand.php
+
+		-
+			message: '#^Dead catch \- Symfony\\Component\\HttpClient\\Exception\\RedirectionException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: src/Command/ListMissingDownloadsCommand.php
+
+		-
 			message: '#^Parameter \#1 \$url of method App\\Command\\ListMissingDownloadsCommand\:\:getFixedUrl\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -283,6 +295,12 @@ parameters:
 			path: src/Service/ComposerPackagesService.php
 
 		-
+			message: '#^PHPDoc tag @var with type string is not subtype of native type \(list\{0\: 13, 1\: 12, 2\: 11, 3\: 10, 4\?\: 9, 5\?\: 8\}\|list\{10, 9, 8\}\|list\{11, 10, 9, 8\}\|list\{13, 12\}\|list\{8\}\|list\{9, 8\}\|\(literal\-string&non\-falsy\-string\)\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Service/ComposerPackagesService.php
+
+		-
 			message: '#^Parameter \#1 \$child of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects string\|Symfony\\Component\\Form\\FormBuilderInterface, list\<string\>\|string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -299,6 +317,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/Twig/Filter/SortByVersion.php
+
+		-
+			message: '#^Parameter \#1 \$str of function strtr expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Utility/StringUtility.php
+
+		-
+			message: '#^Parameter \#2 \$from of function strtr expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Utility/StringUtility.php
 
 		-
 			message: '#^Method App\\Tests\\Functional\\Controller\\Api\\ApiCase\:\:decodeResponse\(\) should return array\<string, mixed\> but returns array\<mixed, mixed\>\.$#'
