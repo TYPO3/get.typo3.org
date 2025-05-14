@@ -1,5 +1,6 @@
 {
     "require": {
+        "phpstan/phpstan": "^2.1.15",
         "phpstan/extension-installer": "*",
         "phpstan/phpstan-deprecation-rules": "*",
         "phpstan/phpstan-doctrine": "*",
