@@ -43,7 +43,7 @@ class SitePackageGenerator
     public function create(SitePackage $package): void
     {
         $extensionKey = $package->getExtensionKey();
-        $this->filename = $extensionKey . '.zip';
+        $this->filename = $extensionKey . '_1.0.0.zip';
         $sourceDir = $this->kernel->getProjectDir() . '/resources/packages/' . $package->getBasePackage() . '/' . (string)$package->getTypo3Version() . '/src/';
         $tempFileName = tempnam(sys_get_temp_dir(), $this->filename);
         if ($tempFileName === false) {
