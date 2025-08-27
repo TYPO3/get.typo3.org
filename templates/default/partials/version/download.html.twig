@@ -13,11 +13,11 @@
             {% set php_version_option = "" %}
             {% set console = false %}
             {% if version == 13 %}
-                {% set php_version_option = " --php-version 8.2" %}
+                {% set php_version_option = "--php-version='8.2'" %}
             {% elseif version == 12 %}
-                {% set php_version_option = " --php-version 8.1" %}
+                {% set php_version_option = "--php-version='8.1'" %}
             {% elseif version <= 10 %}
-                {% set php_version_option = " --php-version 7.4" %}
+                {% set php_version_option = "--php-version='7.4'" %}
                 {% set console = true %}
             {% endif %}
             <div class="accordion-item card">
@@ -43,7 +43,7 @@
                                 <p><b>Before proceeding, make sure your DDEV installation is up-to-date.</b></p>
                                 <p>In a new project folder using your favorite shell, run these lines:</p>
                                 <pre style="white-space: pre-line;">
-                                    <code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }} --webserver-type 'apache-fpm'
+                                    <code>ddev config --project-type='typo3' --docroot='public' {{ php_version_option }} --webserver-type='apache-fpm' --web-environment='TYPO3_CONTEXT=Development'
                                     ddev composer create --no-install "typo3/cms-base-distribution:^{{ package_version }}"
                                     ddev composer install
                                     {% if version == 12 %}
@@ -79,7 +79,7 @@
                                 </div>
                                 <p>If you are experienced with Composer you can create your own composer.json and select the needed packages of TYPO3 via the <a href="{{ path('composer-helper') }}" title="Composer Helper">Composer Helper</a>. Instead of the <code>ddev composer create</code> command above, run the command created with the Composer Helper prepended with <code>ddev</code>. E.g.:</p>
                                 <pre style="white-space: pre-line;">
-                                    <code>ddev config --project-type=typo3 --docroot=public{{ php_version_option }} --webserver-type 'apache-fpm'
+                                    <code>ddev config --project-type='typo3' --docroot='public' {{ php_version_option }} --webserver-type='apache-fpm' --web-environment='TYPO3_CONTEXT=Development'
                                     ddev composer require "typo3/cms-core:^{{ package_version }}" "typo3/minimal:^{{ package_version }}" ...
                                     {% if console %}
                                         {% if version == 10 %}
