@@ -31,7 +31,13 @@ parameters:
 			path: src/Command/ExtensionsTerJsonCreateCommand.php
 
 		-
-			message: '#^Property App\\Command\\ExtensionsTerJsonCreateCommand\:\:\$extensions \(array\<int, SimpleXMLElement\>\) does not accept array\<SimpleXMLElement\>\.$#'
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: src/Command/ExtensionsTerJsonCreateCommand.php
+
+		-
+			message: '#^Property App\\Command\\ExtensionsTerJsonCreateCommand\:\:\$extensions \(array\<int, SimpleXMLElement\>\) does not accept array\<SimpleXMLElement\>\|null\.$#'
 			identifier: assign.propertyType
 			count: 1
 			path: src/Command/ExtensionsTerJsonCreateCommand.php
@@ -97,7 +103,13 @@ parameters:
 			path: src/Command/ListMissingDownloadsCommand.php
 
 		-
-			message: '#^Parameter \#1 \$packages of method App\\Service\\ComposerPackagesService\:\:cleanPackagesForVersions\(\) expects array\<string, bool\|string\>, array\<mixed\> given\.$#'
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: src/Command/ListMissingDownloadsCommand.php
+
+		-
+			message: '#^Parameter \#1 \$packages of method App\\Service\\ComposerPackagesService\:\:cleanPackagesForVersions\(\) expects array\<string, bool\|string\>, array\<string, mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Controller/DefaultController.php
@@ -190,6 +202,12 @@ parameters:
 			message: '#^Binary operation "\." between ''Unknown option \('' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
+			path: src/Enum/AbstractEnum.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
 			path: src/Enum/AbstractEnum.php
 
 		-
@@ -301,7 +319,7 @@ parameters:
 			path: src/Service/ComposerPackagesService.php
 
 		-
-			message: '#^Parameter \#1 \$child of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects string\|Symfony\\Component\\Form\\FormBuilderInterface, list\<string\>\|string given\.$#'
+			message: '#^Parameter \#1 \$child of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects string\|Symfony\\Component\\Form\\FormBuilderInterface, array\<int, string\>\|string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Service/ComposerPackagesService.php
@@ -317,18 +335,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/Twig/Filter/SortByVersion.php
-
-		-
-			message: '#^Parameter \#1 \$str of function strtr expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Utility/StringUtility.php
-
-		-
-			message: '#^Parameter \#2 \$from of function strtr expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Utility/StringUtility.php
 
 		-
 			message: '#^Method App\\Tests\\Functional\\Controller\\Api\\ApiCase\:\:decodeResponse\(\) should return array\<string, mixed\> but returns array\<mixed, mixed\>\.$#'
