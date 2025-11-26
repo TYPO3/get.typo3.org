@@ -26,7 +26,6 @@ namespace App\Tests\Functional\Controller\Web;
 use App\Tests\Functional\AbstractCase;
 use App\Tests\Functional\Fixtures\MajorVersionFixtures;
 use App\Tests\Functional\Fixtures\ReleaseFixtures;
-use Iterator;
 use Symfony\Component\HttpFoundation\Response;
 
 class DownloadControllerTest extends AbstractCase
@@ -60,7 +59,7 @@ class DownloadControllerTest extends AbstractCase
     }
 
     /**
-     * @return Iterator<string, array{
+     * @return \Iterator<string, array{
      *   requestVersion: string,
      *   requestFormat: string,
      *   expectedCode: int

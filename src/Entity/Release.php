@@ -45,7 +45,7 @@ class Release implements \JsonSerializable, \Stringable
     #[ORM\Id]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     #[Groups(['content', 'data'])]
-    private string $version;
+    private string $version = '';
 
     #[OA\Property(example: '2017-12-12T16:48:22+00:00')]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
