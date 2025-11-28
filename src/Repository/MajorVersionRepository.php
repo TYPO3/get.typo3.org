@@ -309,7 +309,7 @@ final class MajorVersionRepository extends ServiceEntityRepository
     {
         $version = (string)$version;
         if (!str_contains($version, '.')) {
-            if (\in_array((int)$version, [7, 8, 9, 10, 11, 12, 13], true)) {
+            if (\in_array((int)$version, [7, 8, 9, 10, 11, 12, 13, 14], true)) {
                 $version .= '.0000';
             } else {
                 $version .= '.0';
