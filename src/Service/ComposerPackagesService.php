@@ -66,6 +66,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-adminpanel',
             'description' => 'The TYPO3 admin panel provides a panel with additional functionality in the frontend (Debugging, Caching, Preview...)',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -77,6 +78,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-backend',
             'description' => 'Classes for the TYPO3 backend.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -89,6 +91,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-belog',
             'description' => 'Displays backend log, both per page and system wide. Available as the module Tools>Log (system wide overview) and Web>Info/Log (page relative overview).',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -101,6 +104,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-beuser',
             'description' => 'Backend user administration and overview. Allows you to compare the settings of users and verify their permissions and see who is online.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -120,6 +124,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-core',
             'description' => 'The core library of TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -146,6 +151,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-dashboard',
             'description' => 'Dashboard for TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -163,6 +169,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-extbase',
             'description' => 'A framework to build extensions for TYPO3 CMS.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -175,6 +182,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-extensionmanager',
             'description' => 'TYPO3 Extension Manager.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -195,6 +203,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-felogin',
             'description' => 'A template-based plugin to log in Website Users in the Frontend.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -207,6 +216,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-filelist',
             'description' => 'Listing of files in the directory.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -219,6 +229,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-filemetadata',
             'description' => 'Add advanced metadata to File.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -231,6 +242,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-fluid',
             'description' => 'Fluid is a next-generation templating engine which makes the life of extension authors a lot easier!',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -243,6 +255,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-fluid-styled-content',
             'description' => 'A set of common content elements based on Fluid for Frontend output.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -255,6 +268,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-form',
             'description' => 'Form Library, Plugin and Editor.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -267,6 +281,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-frontend',
             'description' => 'Classes for the frontend of TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -286,6 +301,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-impexp',
             'description' => 'Import and Export of records from TYPO3 in a custom serialized format (.T3D) for data exchange with other TYPO3 systems.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -298,6 +314,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-indexed-search',
             'description' => 'Indexed Search Engine for TYPO3 pages, PDF-files, Word-files, HTML and text files. Provides a backend module for statistics of the indexer and a frontend plugin. Documentation can be found in the extension "doc_indexed_search".',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -310,6 +327,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-info',
             'description' => 'Shows various infos.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -329,6 +347,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-install',
             'description' => 'The Install Tool mounted as the module Tools>Install in TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -348,6 +367,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-linkvalidator',
             'description' => 'Link Validator checks the links in your website for validity. It can validate all kinds of links: internal, external and file links. Scheduler is supported to run Link Validator via Cron including the option to send status mails, if broken links were detected.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -360,6 +380,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-lowlevel',
             'description' => "Enables the 'Config' and 'DB Check' modules for technical analysis of the system. This includes raw database search, checking relations, counting pages and records etc.",
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -372,6 +393,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-opendocs',
             'description' => 'Shows opened documents by the user.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -384,6 +406,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-reactions',
             'description' => 'Handle incoming Webhooks for TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
             ],
@@ -402,6 +425,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-recycler',
             'description' => 'The recycler offers the possibility to restore deleted records or remove them from the database permanently. These actions can be applied to a single record, multiple records, and recursively to child records (ex. restoring a page can restore all content elements on that page). Filtering by page and by table provides a quick overview of deleted records before taking action on them.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -414,6 +438,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-redirects',
             'description' => 'Custom redirects in TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -425,6 +450,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-reports',
             'description' => 'The reports module groups several system reports.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -445,6 +471,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-rte-ckeditor',
             'description' => 'Integration of CKEditor as Rich Text Editor.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -464,6 +491,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-scheduler',
             'description' => "The TYPO3 Scheduler let's you register tasks to happen at a specific time.",
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -476,6 +504,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-seo',
             'description' => 'SEO features for TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -487,6 +516,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-setup',
             'description' => 'Allows users to edit a limited set of options for their user profile, eg. preferred language and their name and email address.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -511,15 +541,30 @@ final class ComposerPackagesService
             ],
         ],
         [
+            'name'        => 'typo3/cms-styleguide',
+            'description' => 'TYPO3 extension to showcase TYPO3 Backend capabilities',
+            'versions' => [
+                14,
+            ],
+        ],
+        [
             'name'        => 'typo3/cms-sys-note',
             'description' => 'Records with messages which can be placed on any page and contain instructions or other information related to a page or section.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
                 10,
                 9,
                 8,
+            ],
+        ],
+        [
+            'name'        => 'typo3/theme-camino',
+            'description' => 'TYPO3 Theme: "Camino" - The default theme for TYPO3 sites in the TYPO3 v14 series.',
+            'versions' => [
+                14,
             ],
         ],
         [
@@ -546,6 +591,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-tstemplate',
             'description' => 'Framework for management of TypoScript template records for the CMS frontend.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -565,6 +611,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-viewpage',
             'description' => 'Shows the frontend webpage inside the backend frameset.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -577,6 +624,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-webhooks',
             'description' => 'Handle outgoing Webhooks for TYPO3',
             'versions' => [
+                14,
                 13,
                 12,
             ],
@@ -599,6 +647,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-workspaces',
             'description' => 'Adds workspaces functionality with custom stages to TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -611,6 +660,7 @@ final class ComposerPackagesService
             'name'        => 'typo3/minimal',
             'description' => 'Provides Composer requirements to the minimal set of system extensions that is required to run TYPO3.',
             'versions' => [
+                14,
                 13,
                 12,
                 11,
@@ -668,6 +718,7 @@ final class ComposerPackagesService
             'typo3/cms-scheduler',
             'typo3/cms-seo',
             'typo3/cms-setup',
+            'typo3/cms-styleguide',
             'typo3/cms-sv',
             'typo3/cms-sys-action',
             'typo3/cms-sys-note',
@@ -681,6 +732,7 @@ final class ComposerPackagesService
             'typo3/cms-wizard-sortpages',
             'typo3/cms-workspaces',
             'typo3/minimal',
+            'typo3/theme-camino',
         ],
         'typo3/minimal'   => [
             'typo3/cms-backend',
@@ -725,6 +777,7 @@ final class ComposerPackagesService
             'typo3/cms-tstemplate',
             'typo3/cms-viewpage',
             'typo3/minimal',
+            'typo3/theme-camino',
         ],
     ];
 
