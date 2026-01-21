@@ -769,7 +769,6 @@ final class ComposerPackagesService
             'typo3/cms-tstemplate',
             'typo3/cms-viewpage',
             'typo3/minimal',
-            'typo3/theme-camino',
         ],
     ];
 
