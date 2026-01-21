@@ -46,10 +46,10 @@ final class ComposerPackagesService
     public const SPECIAL_VERSIONS_GROUP = 'Special Version Selectors';
 
     /**
-     * @var array<int, array{
-     *   name: string,
-     *   description: string,
-     *   versions: array<int>
+     * @var non-empty-list<array{
+     *   name: non-empty-string,
+     *   description: non-empty-string,
+     *   versions: list<positive-int>
      * }>
      */
     private const PACKAGES = [
@@ -922,7 +922,6 @@ final class ComposerPackagesService
         $composerPackages = '';
 
         foreach (self::PACKAGES as $package) {
-            /** @var string $packageName */
             $packageName = $package['name'];
 
             if (!in_array($majorVersion, $package['versions'], true)) {
