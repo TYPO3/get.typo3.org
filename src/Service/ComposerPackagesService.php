@@ -541,13 +541,6 @@ final class ComposerPackagesService
             ],
         ],
         [
-            'name'        => 'typo3/cms-styleguide',
-            'description' => 'TYPO3 extension to showcase TYPO3 Backend capabilities',
-            'versions' => [
-                14,
-            ],
-        ],
-        [
             'name'        => 'typo3/cms-sys-note',
             'description' => 'Records with messages which can be placed on any page and contain instructions or other information related to a page or section.',
             'versions' => [
