@@ -711,7 +711,6 @@ final class ComposerPackagesService
             'typo3/cms-scheduler',
             'typo3/cms-seo',
             'typo3/cms-setup',
-            'typo3/cms-styleguide',
             'typo3/cms-sv',
             'typo3/cms-sys-action',
             'typo3/cms-sys-note',
