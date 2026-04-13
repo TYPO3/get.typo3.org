@@ -11,7 +11,7 @@ security:
             memory:
                 users:
                     release-team:
-                        password: '$2y$15$enKo8VPgw7nd07YcIfPaZOUwfWd.S6Rz0GcaPJXkf3br8NFejkmuq'
+                        password: '%env(PASSWORD_RELEASE_TEAM)%'
                         roles: ROLE_ADMIN
     firewalls:
         dev:
