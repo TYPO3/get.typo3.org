@@ -39,6 +39,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
+/**
+ * @extends AbstractCrudController<Release>
+ */
 class ReleaseCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

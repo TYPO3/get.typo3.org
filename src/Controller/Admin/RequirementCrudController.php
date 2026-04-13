@@ -34,6 +34,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
+/**
+ * @extends AbstractCrudController<Requirement>
+ */
 class RequirementCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

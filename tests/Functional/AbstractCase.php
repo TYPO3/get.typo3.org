@@ -25,10 +25,10 @@ namespace App\Tests\Functional;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Panther\PantherTestCase;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -39,7 +39,7 @@ abstract class AbstractCase extends PantherTestCase
 
     private ?ORMExecutor $fixtureExecutor = null;
 
-    private ?ContainerAwareLoader $fixtureLoader = null;
+    private ?Loader $fixtureLoader = null;
 
     protected function setUp(): void
     {
@@ -93,10 +93,10 @@ abstract class AbstractCase extends PantherTestCase
         return $this->fixtureExecutor;
     }
 
-    private function getFixtureLoader(): ContainerAwareLoader
+    private function getFixtureLoader(): Loader
     {
         if ($this->fixtureLoader === null) {
-            $this->fixtureLoader = new ContainerAwareLoader(static::getContainer());
+            $this->fixtureLoader = new Loader();
         }
 
         return $this->fixtureLoader;
