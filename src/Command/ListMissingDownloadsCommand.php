@@ -128,11 +128,11 @@ class ListMissingDownloadsCommand extends Command
                 }
 
                 $result = sprintf(
-                    'https://downloads.sourceforge.net/project/typo3/TYPO3%20Source%20and%20Dummy/TYPO3%20%s/typo3_src-%s.',
+                    'https://downloads.sourceforge.net/project/typo3/TYPO3%%20Source%%20and%%20Dummy/TYPO3%%20%s/typo3_src-%s.%s',
                     $release,
-                    $release
+                    $release,
+                    $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz'
                 );
-                $result .= $format === self::FORMAT_ZIP ? 'zip' : 'tar.gz';
 
                 if (!$this->checkUrl($result)) {
                     return 'failed (' . $result . ')';
