@@ -3,7 +3,6 @@ security:
         users_in_memory:
             memory:
                 users:
-                    # Authorization for staging context with username `preview` and password `U@2C@3t295hb`
                     preview:
-                        password: $2y$15$SgeNw0b1gRuwQrZeATT0Fea1EIVhDDLNc18MKZKxFu24UnkeGeKoi
+                        password: '%env(PASSWORD_STAGING_PREVIEW)%'
                         roles: ROLE_GUEST
