@@ -307,7 +307,7 @@ parameters:
 			path: src/Service/ComposerPackagesService.php
 
 		-
-			message: '#^Offset 0 might not exist on array\{0\?\: string\}\.$#'
+			message: '#^Offset 0 might not exist on array\{\}\|array\{non-empty-string\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: src/Service/ComposerPackagesService.php
