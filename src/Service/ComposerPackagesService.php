@@ -516,7 +516,6 @@ final class ComposerPackagesService
             'name'        => 'typo3/cms-setup',
             'description' => 'Allows users to edit a limited set of options for their user profile, eg. preferred language and their name and email address.',
             'versions' => [
-                14,
                 13,
                 12,
                 11,
