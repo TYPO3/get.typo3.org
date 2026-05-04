@@ -27,22 +27,19 @@ use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\Controller\Api\ApiCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 class RequirementsControllerTest extends ApiCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function addRequirementUnauthorized(): void
     {
         $response = $this->createRequirementFromJson('Json/Requirement-10-0.json', '10');
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addRequirementAuthorized(): void
     {
         $this->logIn();
@@ -57,9 +54,7 @@ class RequirementsControllerTest extends ApiCase
         self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], $this->decodeResponse($response));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getRequirementsByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());

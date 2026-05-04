@@ -25,7 +25,6 @@ namespace App\Repository;
 
 use App\Entity\Release;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,7 +46,7 @@ final class ReleaseRepository extends ServiceEntityRepository
     {
         return $this->findOneBy(
             ['majorVersion' => $version, 'type' => 'security'],
-            ['date' => Criteria::DESC]
+            ['date' => 'DESC']
         );
     }
 }

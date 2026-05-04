@@ -34,12 +34,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
-#[Route(path: ['/api/v1/release', '/v1/api/release'], defaults: ['_format' => 'json'])]
+#[Route(path: '/api/v1/release', defaults: ['_format' => 'json'])]
+#[Route(path: '/v1/api/release', defaults: ['_format' => 'json'])]
 class ReleaseController extends AbstractController
 {
     /**

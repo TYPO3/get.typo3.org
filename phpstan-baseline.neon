@@ -223,12 +223,6 @@ parameters:
 			path: src/Form/AuthorType.php
 
 		-
-			message: '#^Cannot access offset ''icon'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/Form/Extension/AbstractIconExtension.php
-
-		-
 			message: '#^Class App\\Form\\SitePackageType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1

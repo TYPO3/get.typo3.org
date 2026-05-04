@@ -26,22 +26,19 @@ namespace App\Tests\Functional\Controller\Api;
 use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 class ReleaseControllerTest extends ApiCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function createReleaseUnauthorized(): void
     {
         $response = $this->createReleaseFromJson('Json/Release-10.0.0.json');
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createReleaseAuthorized(): void
     {
         $this->logIn();
@@ -62,9 +59,7 @@ class ReleaseControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReleaseStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
@@ -101,9 +96,7 @@ class ReleaseControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReleaseWithVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
@@ -138,9 +131,7 @@ class ReleaseControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getContentForVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());

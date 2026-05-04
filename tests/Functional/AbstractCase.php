@@ -45,6 +45,10 @@ abstract class AbstractCase extends PantherTestCase
     {
         $this->client = static::createClient();
 
+        if (self::$kernel === null) {
+            throw new \LogicException('Kernel is null');
+        }
+
         DatabasePrimer::prime(self::$kernel);
     }
 

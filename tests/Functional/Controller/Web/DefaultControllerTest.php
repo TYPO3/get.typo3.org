@@ -27,6 +27,7 @@ use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\AbstractCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class DefaultControllerTest extends AbstractCase
 {
@@ -39,9 +40,7 @@ class DefaultControllerTest extends AbstractCase
         $this->executeFixtures();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webDefault(): void
     {
         $this->client->request('GET', '/');
@@ -53,9 +52,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorTextNotContains('h4', 'TYPO3 4.5');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webDownloadRedirect(): void
     {
         $this->client->request('GET', '/download');
@@ -63,9 +60,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorTextContains('a', '/version/10');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webVersionSprint(): void
     {
         $this->client->request('GET', '/version/10');
@@ -73,9 +68,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorTextContains('h1', 'TYPO3 10');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webVersionSpecific(): void
     {
         $this->client->request('GET', '/version/10.0.0');
@@ -85,9 +78,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorExists('#accordion-download');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webVersionElts(): void
     {
         $this->client->request('GET', '/version/6.2');
@@ -97,9 +88,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorNotExists('#accordion-download');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webVersionBeforeElts(): void
     {
         $this->client->request('GET', '/version/6.2.0');
@@ -109,9 +98,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorExists('#accordion-download');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webVersionOutdated(): void
     {
         $this->client->request('GET', '/version/4.5.0');
@@ -121,9 +108,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorExists('#accordion-download');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webVersionOutdatedElts(): void
     {
         $this->client->request('GET', '/version/4.5');
@@ -133,9 +118,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorNotExists('#accordion-download');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webReleaseNotesRedirect(): void
     {
         $this->client->request('GET', '/release-notes');
@@ -143,9 +126,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorTextContains('a', '/release-notes/10');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function weReleaseNotesSprint(): void
     {
         $this->client->request('GET', '/release-notes/10');
@@ -153,9 +134,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorTextContains('h1', '10.0.5');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webReleaseNotesSpecific(): void
     {
         $this->client->request('GET', '/release-notes/10.0.0');
@@ -164,9 +143,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorNotExists('#notice-elts');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webReleaseNotesElts(): void
     {
         $this->client->request('GET', '/release-notes/6.2');
@@ -175,9 +152,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorExists('#notice-elts');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webReleaseNotesBeforeElts(): void
     {
         $this->client->request('GET', '/release-notes/6.2.0');
@@ -186,9 +161,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorExists('#notice-elts');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webReleaseNotesOutdated(): void
     {
         $this->client->request('GET', '/release-notes/4.5.0');
@@ -197,9 +170,7 @@ class DefaultControllerTest extends AbstractCase
         self::assertSelectorExists('#notice-outdated');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function webReleaseNotesOutdatedElts(): void
     {
         $this->client->request('GET', '/release-notes/4.5');

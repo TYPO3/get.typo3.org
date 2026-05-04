@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -32,48 +33,43 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
+#[AsCommand(name: 'satis:build', description: 'Build Composer Repository. By default changed extension since yesterday are rebuilt.')]
 class SatisBuildCommand extends Command
 {
-    /**
-     * @var string|null
-     */
-    protected static $defaultName = 'satis:build';
-
     protected function configure(): void
     {
-        $this->setDescription('Build Composer Repository. By default changed extension since yesterday are rebuilt.')
-            ->setDefinition([
-                new InputArgument(
-                    'output-dir',
-                    InputArgument::OPTIONAL,
-                    'Location where to output built files',
-                    __DIR__ . '/../../public/satis'
-                ),
-                new InputArgument(
-                    'file',
-                    InputArgument::OPTIONAL,
-                    'Json file to create and use',
-                    __DIR__ . '/../../var/satis/satis.json'
-                ),
-                new InputArgument(
-                    'repository-dir',
-                    InputArgument::OPTIONAL,
-                    'Location where to output and search for repository files',
-                    __DIR__ . '/../../var/satis'
-                ),
-                new InputOption(
-                    'all',
-                    null,
-                    InputOption::VALUE_NONE,
-                    'Build all repositories'
-                ),
-                new InputOption(
-                    'auto',
-                    null,
-                    InputOption::VALUE_NONE,
-                    'Build all repositories automatically'
-                ),
-            ]);
+        $this->setDefinition([
+            new InputArgument(
+                'output-dir',
+                InputArgument::OPTIONAL,
+                'Location where to output built files',
+                __DIR__ . '/../../public/satis'
+            ),
+            new InputArgument(
+                'file',
+                InputArgument::OPTIONAL,
+                'Json file to create and use',
+                __DIR__ . '/../../var/satis/satis.json'
+            ),
+            new InputArgument(
+                'repository-dir',
+                InputArgument::OPTIONAL,
+                'Location where to output and search for repository files',
+                __DIR__ . '/../../var/satis'
+            ),
+            new InputOption(
+                'all',
+                null,
+                InputOption::VALUE_NONE,
+                'Build all repositories'
+            ),
+            new InputOption(
+                'auto',
+                null,
+                InputOption::VALUE_NONE,
+                'Build all repositories automatically'
+            ),
+        ]);
     }
 
     /**

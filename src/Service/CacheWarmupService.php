@@ -64,7 +64,7 @@ class CacheWarmupService implements CacheWarmerInterface
     /**
      * @return string[] A list of classes or files to preload on PHP 7.4+
      */
-    public function warmUp(string $cacheDir): array
+    public function warmUp(string $cacheDir, ?string $buildDir = null): array
     {
         $routesWithoutArguments = [
             'root',

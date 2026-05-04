@@ -24,15 +24,14 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Utility;
 
 use App\Utility\VersionUtility;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class VersionUtilityTest extends TestCase
 {
-    /**
-     * @dataProvider extractMajorVersionNumberTestDataProvider
-     *
-     * @test
-     */
+    #[DataProvider('extractMajorVersionNumberTestDataProvider')]
+    #[Test]
     public function extractMajorVersionNumberTest(string $version, float $expectedResult): void
     {
         $result = VersionUtility::extractMajorVersionNumber($version);
@@ -42,7 +41,7 @@ class VersionUtilityTest extends TestCase
     /**
      * @return \Iterator<string, array<int, float|string>>
      */
-    public function extractMajorVersionNumberTestDataProvider(): \Iterator
+    public static function extractMajorVersionNumberTestDataProvider(): \Iterator
     {
         yield 'Minor 4' => ['4.5', 4.5];
         yield 'Patch 4' => ['4.5.35', 4.5];
@@ -57,11 +56,8 @@ class VersionUtilityTest extends TestCase
         yield 'Max' => ['99', 99];
     }
 
-    /**
-     * @dataProvider isValidSemverVersionTestDataProvider
-     *
-     * @test
-     */
+    #[DataProvider('isValidSemverVersionTestDataProvider')]
+    #[Test]
     public function isValidSemverVersionTest(string $version, bool $expectedResult): void
     {
         $result = VersionUtility::isValidSemverVersion($version);
@@ -71,7 +67,7 @@ class VersionUtilityTest extends TestCase
     /**
      * @return \Iterator<string, array<bool|string>>
      */
-    public function isValidSemverVersionTestDataProvider(): \Iterator
+    public static function isValidSemverVersionTestDataProvider(): \Iterator
     {
         yield 'Patch 6' => ['6.2.0', true];
         yield 'Dev 6' => ['6.99.99-dev', true];

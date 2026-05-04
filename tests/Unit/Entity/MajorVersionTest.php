@@ -24,15 +24,14 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Entity;
 
 use App\Entity\MajorVersion;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class MajorVersionTest extends TestCase
 {
-    /**
-     * @dataProvider entityTestDataProvider
-     *
-     * @test
-     */
+    #[DataProvider('entityTestDataProvider')]
+    #[Test]
     public function entityTest(MajorVersion $majorVersion, MajorVersionExpected $expectedResult): void
     {
         self::assertSame($expectedResult->version, $majorVersion->getVersion());
@@ -45,11 +44,8 @@ class MajorVersionTest extends TestCase
         self::assertEquals($expectedResult->elts, $majorVersion->isElts());
     }
 
-    /**
-     * @dataProvider entityTestDataProvider
-     *
-     * @test
-     */
+    #[DataProvider('entityTestDataProvider')]
+    #[Test]
     public function entityToArrayTest(MajorVersion $majorVersion, MajorVersionExpected $expectedResult): void
     {
         $majorVersion = $majorVersion->toArray();
@@ -63,11 +59,8 @@ class MajorVersionTest extends TestCase
         self::assertEquals($expectedResult->elts, $majorVersion['elts']);
     }
 
-    /**
-     * @dataProvider entityTestDataProvider
-     *
-     * @test
-     */
+    #[DataProvider('entityTestDataProvider')]
+    #[Test]
     public function entityToJsonTest(MajorVersion $majorVersion, MajorVersionExpected $expectedResult): void
     {
         $majorVersion = json_encode($majorVersion, JSON_THROW_ON_ERROR);
@@ -84,7 +77,7 @@ class MajorVersionTest extends TestCase
     /**
      * @return \Iterator<string, array<int, MajorVersion|MajorVersionExpected>>
      */
-    public function entityTestDataProvider(): \Iterator
+    public static function entityTestDataProvider(): \Iterator
     {
         $dateTimeToday = new \DateTimeImmutable();
 

@@ -31,7 +31,7 @@ use App\Repository\RequirementRepository;
 use App\Service\CacheService;
 use App\Utility\VersionUtility;
 use Doctrine\Inflector\InflectorFactory;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormErrorIterator;
@@ -131,19 +131,18 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     protected function mapObjects(object $baseObject, array $data): void
     {
         $inflector = InflectorFactory::create()->build();
-        /** @var ClassMetadataInfo<object> $metadata */
+        /** @var ClassMetadata<object> $metadata */
         $metadata = $this->managerRegistry->getManager()->getMetadataFactory()->getMetadataFor($baseObject::class);
         $data = $this->flat($data);
         foreach ($metadata->getFieldNames() as $field) {
             $fieldName = $inflector->tableize($field);
 
             if (array_key_exists($fieldName, $data) && \is_string($data[$fieldName])) {
-                if (isset($metadata->fieldMappings[$field]['type'])) {
-                    if ($metadata->fieldMappings[$field]['type'] === 'datetime') {
-                        $data[$fieldName] = new \DateTime($data[$fieldName]);
-                    } elseif ($metadata->fieldMappings[$field]['type'] === 'datetime_immutable') {
-                        $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
-                    }
+                $type = $metadata->getTypeOfField($field);
+                if ($type === 'datetime') {
+                    $data[$fieldName] = new \DateTime($data[$fieldName]);
+                } elseif ($type === 'datetime_immutable') {
+                    $data[$fieldName] = new \DateTimeImmutable($data[$fieldName]);
                 }
 
                 // careful! setters are not being called! Inflection is up to you if you need it!

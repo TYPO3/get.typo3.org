@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,6 +32,7 @@ use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Yaml\Yaml;
 
+#[AsCommand(name: 'app:download:missing:list')]
 class ListMissingDownloadsCommand extends Command
 {
     /**
@@ -47,11 +49,6 @@ class ListMissingDownloadsCommand extends Command
      * @var string
      */
     private const NO_ERROR = 'OK';
-
-    /**
-     * @var string|null
-     */
-    protected static $defaultName = 'app:download:missing:list';
 
     protected function configure(): void
     {

@@ -6,7 +6,6 @@ doctrine:
         charset: utf8mb4
     orm:
         auto_generate_proxy_classes: true
-        enable_lazy_ghost_objects: false
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:

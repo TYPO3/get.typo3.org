@@ -25,6 +25,7 @@ namespace App\Entity\SitePackage;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 
 class BasePackage
 {
@@ -70,7 +71,7 @@ class BasePackage
      */
     public function getVersions(): ArrayCollection
     {
-        return $this->versions->matching(new Criteria(null, ['version' => Criteria::DESC]));
+        return $this->versions->matching(new Criteria(null, ['version' => Order::Descending]));
     }
 
     public function addVersion(BasePackageVersion $version): self
