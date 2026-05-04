@@ -33,7 +33,7 @@
 		"source": "https://github.com/TYPO3/get.typo3.org"
 	},
 	"require": {
-		"php": ">=8.2",
+		"php": ">=8.3",
 		"ext-SimpleXML": "*",
 		"ext-ctype": "*",
 		"ext-iconv": "*",
@@ -233,7 +233,7 @@
 		"fix:php:cs-fixer": "@php php-cs-fixer fix",
 		"satis:install": [
 			"rm -fr satis",
-			"@composer create-project --stability=dev --ansi composer/satis satis"
+			"@composer create-project --stability=dev --ansi composer/satis:^3.0 satis"
 		],
 		"satis:update": [
 			"@satis:install"
