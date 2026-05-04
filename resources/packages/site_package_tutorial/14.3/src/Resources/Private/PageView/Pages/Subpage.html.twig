@@ -1,0 +1,18 @@
+<f:layout name="PageLayout"/>
+<f:section name="Main">
+
+    <f:render partial="Stage" arguments="{_all}"/>
+    <f:render partial="Navigation/Breadcrumb" arguments="{_all}"/>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <f:render partial="Content" arguments="{records: content.main.records}"/>
+            </div>
+            <div class="col-md-4">
+                <f:render partial="Content" arguments="{records: content.sidebar.records}"/>
+            </div>
+        </div>
+    </div>
+
+</f:section>

@@ -1,6 +1,0 @@
-#
-# TCEMAIN
-#
-TCEMAIN {
-
-}

@@ -1,0 +1,19 @@
+<f:layout name="Default" />
+<f:section name="Main">
+
+    <div style="background-color: yellow; padding: 0.5em 1em;">
+        <dl>
+            <dt>Template file</dt>
+            <dd>
+                <code>packages/{{ package.extensionKey }}/Resources/Private/PageView/Pages/Default.html</code>
+            </dd>
+            <dt>Backend Configuration</dt>
+            <dd>
+                <code>packages/{{ package.extensionKey }}/Configuration/Sets/SitePackage/PageTsConfig/BackendLayouts/default.tsconfig</code>
+            </dd>
+        </dl>
+    </div>
+
+    <f:render partial="Content" arguments="{records: content.main.records}"/>
+
+</f:section>

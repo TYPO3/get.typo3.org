@@ -1,0 +1,23 @@
+name: {{ package.packageNameAlternative }}/carousel
+typeName: {{ package.extensionKey }}_carousel
+group: {{ package.extensionKey }}
+prefixFields: true
+prefixType: full
+fields:
+  - identifier: carousel_items
+    type: Collection
+    minitems: 1
+    appearance:
+      collapseAll: true
+      levelLinksPosition: both
+    fields:
+      - identifier: image
+        type: File
+        allowed: common-image-types
+        minitems: 1
+        relationship: manyToOne
+      - identifier: header
+        type: Text
+      - identifier: description
+        type: Textarea
+        enableRichtext: true

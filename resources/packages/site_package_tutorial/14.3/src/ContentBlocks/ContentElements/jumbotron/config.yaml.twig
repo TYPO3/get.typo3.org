@@ -1,0 +1,23 @@
+name: {{ package.packageNameAlternative }}/jumbotron
+typeName: {{ package.extensionKey }}_jumbotron
+group: {{ package.extensionKey }}
+prefixFields: true
+prefixType: full
+fields:
+  -
+    identifier: header
+    useExistingField: true
+  -
+    identifier: bodytext
+    useExistingField: true
+    enableRichtext: true
+  -
+    identifier: button_text
+    type: Text
+    default: 'Read more'
+    min: 4
+    max: 15
+  -
+    identifier: button_link
+    type: Link
+    required: true

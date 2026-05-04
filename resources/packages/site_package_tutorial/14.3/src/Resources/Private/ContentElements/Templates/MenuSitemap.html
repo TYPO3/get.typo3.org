@@ -1,0 +1,24 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="Main">
+
+    <f:render section="Menu" arguments="{menu: menu, level: 1}" />
+
+</f:section>
+<f:section name="Menu">
+
+    <f:if condition="{menu}">
+        <ul class="list-group ps-4 mt-2">
+            <f:for each="{menu}" as="page">
+                <li class="list-group-item">
+                    <a href="{page.link}" class="text-decoration-none text-dark level-{level}{f:if(condition: '{level} < 2', then: ' fw-bold')}">
+                        <span>{page.title}</span>
+                    </a>
+                    <f:render section="Menu" arguments="{menu: page.children, level: '{level + 1}'}" />
+                </li>
+            </f:for>
+        </ul>
+    </f:if>
+
+</f:section>
+</html>

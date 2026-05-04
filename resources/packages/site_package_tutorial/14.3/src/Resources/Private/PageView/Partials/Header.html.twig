@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuToggler" aria-controls="menuToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuToggler">
+            <f:link.page pageUid="{site.rootPageId}" class="navbar-brand">
+                <f:image src="{settings.{{ package.packageName }}.logo}" alt="{settings.{{ package.packageName }}.logo-alt}" class="pe-3" />
+                {site.configuration.websiteTitle}
+            </f:link.page>
+
+            <f:render partial="Navigation/Menu" arguments="{_all}"/>
+        </div>
+    </div>
+</nav>

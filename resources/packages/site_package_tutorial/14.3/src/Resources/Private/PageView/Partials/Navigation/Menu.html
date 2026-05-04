@@ -1,0 +1,13 @@
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <f:for each="{menu}" as="menuItem">
+        <li class="nav-item">
+            <a class="nav-link {f:if(condition: menuItem.active, then:'active')}"
+               href="{menuItem.link}"
+               target="{menuItem.target}"
+               title="{menuItem.title}"
+            >
+                {menuItem.title}
+            </a>
+        </li>
+    </f:for>
+</ul>

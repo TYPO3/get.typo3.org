@@ -1,0 +1,21 @@
+/* Custom Carousel Styling */
+
+/* Change the color and size of indicators */
+.carousel-indicators button {
+    background-color: #007bff; /* Bootstrap primary color */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    background-color: #0056b3; /* Darker shade for active indicator */
+}
+
+/* Style navigation buttons */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 50%; /* Round buttons */
+    padding: 10px; /* Space around the icon */
+}

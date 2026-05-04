@@ -1,0 +1,64 @@
+##############
+#### PAGE ####
+##############
+page = PAGE
+page {
+    typeNum = 0
+    shortcutIcon = EXT:{{ package.extensionKey }}/Resources/Public/Icons/favicon.ico
+
+    10 = PAGEVIEW
+    10 {
+        paths {
+            0 = EXT:{{ package.extensionKey }}/Resources/Private/PageView/
+            1 = {$page.pageview.paths}
+        }
+        dataProcessing {
+            10 = files
+            10 {
+                references.fieldName = media
+            }
+            20 = menu
+            20 {
+                levels = 2
+                includeSpacer = 1
+                as = mainnavigation
+            }
+            30 = page-content
+        }
+    }
+
+    meta {
+        viewport = {$page.meta.viewport}
+        robots = {$page.meta.robots}
+        apple-mobile-web-app-capable = {$page.meta.apple-mobile-web-app-capable}
+
+        X-UA-Compatible = {$page.meta.compatible}
+        X-UA-Compatible {
+            attribute = http-equiv
+        }
+    }
+
+    includeCSSLibs {
+
+    }
+
+    includeCSS {
+        {{ package.extensionKey }}_layout = EXT:{{ package.extensionKey }}/Resources/Public/Css/layout.css
+    }
+
+    includeJSLibs {
+
+    }
+
+    includeJS {
+
+    }
+
+    includeJSFooterlibs {
+
+    }
+
+    includeJSFooter {
+        {{ package.extensionKey }}_scripts = EXT:{{ package.extensionKey }}/Resources/Public/JavaScript/main.js
+    }
+}

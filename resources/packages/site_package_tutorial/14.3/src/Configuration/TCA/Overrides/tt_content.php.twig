@@ -1,0 +1,11 @@
+<?php
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+ExtensionManagementUtility::addTcaSelectItemGroup(
+    'tt_content',
+    'CType',
+    '{{ package.extensionKey }}',
+    'LLL:EXT:{{ package.extensionKey }}/Resources/Private/Language/locallang_be.xlf:content_element.group.{{ package.extensionKey }}',
+    'after:default',
+);

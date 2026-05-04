@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file datatype="plaintext" original="labels.xlf" source-language="en" date="2024-11-24T18:55:27+00:00" product-name="t3docs/carousel">
+        <header/>
+        <body>
+            <trans-unit id="title" resname="title">
+                <source>Carousel</source>
+            </trans-unit>
+            <trans-unit id="description" resname="description">
+                <source>See also https://getbootstrap.com/docs/5.0/components/carousel/</source>
+            </trans-unit>
+            <trans-unit id="carousel_items.label" resname="carousel_items.label">
+                <source>Carousel Items</source>
+            </trans-unit>
+            <trans-unit id="carousel_items.image.label" resname="carousel_items.image.label">
+                <source>Image</source>
+            </trans-unit>
+            <trans-unit id="carousel_items.header.label" resname="carousel_items.header.label">
+                <source>Header</source>
+            </trans-unit>
+            <trans-unit id="carousel_items.description.label" resname="carousel_items.description.label">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="previous.label" resname="previous.label">
+                <source>Previous</source>
+            </trans-unit>
+            <trans-unit id="next.label" resname="next.label">
+                <source>Next</source>
+            </trans-unit>
+            <trans-unit id="backend.itemCount" resname="backend.itemCount">
+                <source>Carousel with %s items</source>
+            </trans-unit>
+            <trans-unit id="backend.lastUpdated" resname="backend.lastUpdated">
+                <source>Last updated %s</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

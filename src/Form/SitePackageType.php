@@ -68,7 +68,7 @@ class SitePackageType extends AbstractType
                 }),
                 'documentation' => [
                     'type' => 'float',
-                    'example' => 13.4,
+                    'example' => 14.3,
                 ],
                 'expanded' => true,
             ])
