@@ -24,10 +24,12 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Service\ComposerPackagesService;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'app:core-extensions-redirects')]
 final class CoreExtensionsRedirectsCommand extends Command
 {
     /**
@@ -42,11 +44,6 @@ final class CoreExtensionsRedirectsCommand extends Command
         'typo3/cms-sys-action',
         'typo3/cms-taskcenter',
     ];
-
-    /**
-     * @var string|null
-     */
-    protected static $defaultName = 'app:core-extensions-redirects';
 
     public function __construct(private readonly ComposerPackagesService $composerPackagesService)
     {

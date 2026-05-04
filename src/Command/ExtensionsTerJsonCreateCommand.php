@@ -26,18 +26,15 @@ namespace App\Command;
 use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
 use GuzzleHttp\Client;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'extensions:ter:json:create')]
 class ExtensionsTerJsonCreateCommand extends Command
 {
-    /**
-     * @var string|null
-     */
-    protected static $defaultName = 'extensions:ter:json:create';
-
     /**
      * @var string
      */

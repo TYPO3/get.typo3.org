@@ -26,6 +26,7 @@ namespace App\Tests\Functional\Controller\Web;
 use App\Tests\Functional\AbstractCase;
 use App\Tests\Functional\Fixtures\MajorVersionFixtures;
 use App\Tests\Functional\Fixtures\ReleaseFixtures;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 class JsonControllerTest extends AbstractCase
@@ -38,9 +39,7 @@ class JsonControllerTest extends AbstractCase
         $this->executeFixtures();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index(): void
     {
         $this->client->request('GET', '/json');

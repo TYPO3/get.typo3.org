@@ -26,22 +26,19 @@ namespace App\Tests\Functional\Controller\Api;
 use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 class MajorVersionControllerTest extends ApiCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function createMajorVersionUnauthorized(): void
     {
         $response = $this->createMajorVersionFromJson('Json/MajorVersion-10.json');
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createMajorVersionAuthorized(): void
     {
         $this->logIn();
@@ -50,9 +47,7 @@ class MajorVersionControllerTest extends ApiCase
         self::assertSame(['status' => 'success', 'Location' => '/v1/api/major/10'], $this->decodeResponse($response));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMajorReleasesStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
@@ -94,9 +89,7 @@ class MajorVersionControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMajorReleaseWithVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());

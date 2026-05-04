@@ -1,6 +1,4 @@
 security:
-    # https://symfony.com/doc/current/security/experimental_authenticators.html
-    enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
@@ -44,8 +42,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         # Special rules for get.typo3.dev
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1, 185.17.71.134, 2a04:503:0:1019::134], host: ^get\.typo3\.dev$ }
-        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED, host: ^get\.typo3\.dev$ }
+        - { path: ^/, roles: PUBLIC_ACCESS, ips: [127.0.0.1, ::1, 185.17.71.134, 2a04:503:0:1019::134], host: ^get\.typo3\.dev$ }
+        - { path: ^/, roles: IS_AUTHENTICATED, host: ^get\.typo3\.dev$ }
 
 when@test:
     security:

@@ -26,6 +26,8 @@ namespace App\Tests\Functional\Controller\Web;
 use App\Tests\Functional\AbstractCase;
 use App\Tests\Functional\Fixtures\MajorVersionFixtures;
 use App\Tests\Functional\Fixtures\ReleaseFixtures;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 class DownloadControllerTest extends AbstractCase
@@ -39,11 +41,8 @@ class DownloadControllerTest extends AbstractCase
         $this->executeFixtures();
     }
 
-    /**
-     * @dataProvider webDownloadVersionDataProvider
-     *
-     * @test
-     */
+    #[DataProvider('webDownloadVersionDataProvider')]
+    #[Test]
     public function webDownloadVersion(
         string $requestVersion,
         string $requestFormat,
@@ -65,7 +64,7 @@ class DownloadControllerTest extends AbstractCase
      *   expectedCode: int
      * }>
      */
-    public function webDownloadVersionDataProvider(): \Iterator
+    public static function webDownloadVersionDataProvider(): \Iterator
     {
         yield 'Sprint version' => [
             'requestVersion' => '10.0.0',

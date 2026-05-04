@@ -35,8 +35,7 @@ final class RequirementFixtures extends Fixture implements DependentFixtureInter
     public function load(ObjectManager $manager): void
     {
         foreach (MajorVersionFixtures::getVersions() as $majorVersionIdentifier) {
-            /** @var MajorVersion $majorVersion */
-            $majorVersion = $this->getReference($majorVersionIdentifier);
+            $majorVersion = $this->getReference($majorVersionIdentifier, MajorVersion::class);
             $requirements = $this->getData();
 
             foreach ($requirements as $data) {

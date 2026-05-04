@@ -60,8 +60,7 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         string $versionReference,
         int $amount = 12
     ): void {
-        /** @var MajorVersion $majorVersion */
-        $majorVersion = $this->getReference($versionReference);
+        $majorVersion = $this->getReference($versionReference, MajorVersion::class);
 
         $faker = \Faker\Factory::create();
         $majorVersionNumber =  $majorVersion->getVersion();

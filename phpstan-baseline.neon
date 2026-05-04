@@ -109,6 +109,36 @@ parameters:
 			path: src/Command/ListMissingDownloadsCommand.php
 
 		-
+			message: '#^Parameter \$path of attribute class Symfony\\Component\\Routing\\Attribute\\Route constructor expects array\<string, string\>\|string\|null, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Api/CacheController.php
+
+		-
+			message: '#^Parameter \$path of attribute class Symfony\\Component\\Routing\\Attribute\\Route constructor expects array\<string, string\>\|string\|null, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Api/MajorVersion/ReleasesController.php
+
+		-
+			message: '#^Parameter \$path of attribute class Symfony\\Component\\Routing\\Attribute\\Route constructor expects array\<string, string\>\|string\|null, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Api/MajorVersion/RequirementsController.php
+
+		-
+			message: '#^Parameter \$path of attribute class Symfony\\Component\\Routing\\Attribute\\Route constructor expects array\<string, string\>\|string\|null, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Api/MajorVersionController.php
+
+		-
+			message: '#^Parameter \$path of attribute class Symfony\\Component\\Routing\\Attribute\\Route constructor expects array\<string, string\>\|string\|null, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Api/ReleaseController.php
+
+		-
 			message: '#^Parameter \#1 \$packages of method App\\Service\\ComposerPackagesService\:\:cleanPackagesForVersions\(\) expects array\<string, bool\|string\>, array\<string, mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -221,12 +251,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/Form/AuthorType.php
-
-		-
-			message: '#^Cannot access offset ''icon'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/Form/Extension/AbstractIconExtension.php
 
 		-
 			message: '#^Class App\\Form\\SitePackageType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'

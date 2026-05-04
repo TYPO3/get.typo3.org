@@ -29,7 +29,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 

@@ -56,8 +56,7 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
         string $versionReference,
         int $amount
     ): void {
-        /** @var MajorVersion $majorVersion */
-        $majorVersion = $this->getReference($versionReference);
+        $majorVersion = $this->getReference($versionReference, MajorVersion::class);
 
         $majorVersionNumber =  $majorVersion->getVersion();
         $ltsVersionNumber = $majorVersion->getLts() ?? $majorVersionNumber;

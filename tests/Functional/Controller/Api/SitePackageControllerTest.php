@@ -23,13 +23,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\Api;
 
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 class SitePackageControllerTest extends ApiCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function createSitePackage(): void
     {
         $this->client->request(
@@ -60,9 +59,7 @@ class SitePackageControllerTest extends ApiCase
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function validationMissingCheck(): void
     {
         $this->client->request(

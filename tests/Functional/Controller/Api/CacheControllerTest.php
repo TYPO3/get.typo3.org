@@ -26,6 +26,7 @@ namespace App\Tests\Functional\Controller\Api;
 use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 class CacheControllerTest extends ApiCase
@@ -39,9 +40,7 @@ class CacheControllerTest extends ApiCase
         $this->executeFixtures();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheMajorVersionUnauthorized(): void
     {
         $this->client->request('DELETE', '/v1/api/cache/majorVersion/10');
@@ -49,9 +48,7 @@ class CacheControllerTest extends ApiCase
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheMajorVersionInvalid(): void
     {
         $this->logIn();
@@ -60,9 +57,7 @@ class CacheControllerTest extends ApiCase
         self::assertSame(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheMajorVersionNotFound(): void
     {
         $this->logIn();
@@ -71,9 +66,7 @@ class CacheControllerTest extends ApiCase
         self::assertSame(Response::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheMajorVersionAuthorized(): void
     {
         $this->logIn();
@@ -93,9 +86,7 @@ class CacheControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheReleaseUnauthorized(): void
     {
         $this->client->request('DELETE', '/v1/api/cache/release/10.0.0');
@@ -103,9 +94,7 @@ class CacheControllerTest extends ApiCase
         self::assertSame(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheReleaseInvalid(): void
     {
         $this->logIn();
@@ -114,9 +103,7 @@ class CacheControllerTest extends ApiCase
         self::assertSame(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheReleaseNotFound(): void
     {
         $this->logIn();
@@ -125,9 +112,7 @@ class CacheControllerTest extends ApiCase
         self::assertSame(Response::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function deleteCacheReleaseAuthorized(): void
     {
         $this->logIn();

@@ -27,12 +27,11 @@ use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
 use App\Tests\Functional\Controller\Api\ApiCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ReleaseControllerTest extends ApiCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function getReleasesByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
@@ -69,9 +68,7 @@ class ReleaseControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLatestReleaseByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
@@ -106,9 +103,7 @@ class ReleaseControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLatestSecurityReleaseByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());
@@ -143,9 +138,7 @@ class ReleaseControllerTest extends ApiCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLatestReleaseContentByMajorVersionStructureTest(): void
     {
         $this->addFixture(new MajorVersionFixtures());

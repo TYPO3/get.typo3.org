@@ -25,13 +25,13 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add ~/.ssh/deploy_key
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         name: Checkout
 
       - name: Set up PHP Version
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           tools: andres-montanez/magallanes
 
       - name: Get Environment

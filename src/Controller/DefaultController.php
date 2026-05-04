@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Regular content and download pages.
@@ -70,7 +70,8 @@ final class DefaultController extends AbstractController
         return $response;
     }
 
-    #[Route(path: ['/api', '/v1/api/doc'])]
+    #[Route(path: '/api')]
+    #[Route(path: '/v1/api/doc')]
     public function apiDoc(): RedirectResponse
     {
         return $this->redirectToRoute('app.swagger_ui');

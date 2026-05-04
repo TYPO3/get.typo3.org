@@ -109,7 +109,7 @@ class SitePackageType extends AbstractType
             ]);
     }
 
-    public function setDefaultOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => SitePackage::class,
