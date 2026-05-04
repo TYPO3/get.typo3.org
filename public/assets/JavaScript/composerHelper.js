@@ -21,10 +21,26 @@ const bundlePackages = function(allComposerPackages) {
         if (!e.target.matches('.js-composer-helper-toggle-packages')) return;
         const packages = JSON.parse(e.target.dataset.packages);
         uncheckAll(allComposerPackages);
-        Object.keys(packages).forEach(index => {
-            const input = document.querySelectorAll('input[name="form[' + packages[index] + ']"]')[0];
-            input.checked = true;
-            input.parentElement.classList.add('active');
+
+        const versionSelect = document.querySelector('[data-composer-helper-version="true"]');
+        let majorVersion = null;
+        if (versionSelect && versionSelect.value) {
+            const match = versionSelect.value.match(/^\^(\d+)/);
+            if (match) {
+                majorVersion = parseInt(match[1], 10);
+            }
+        }
+
+        Object.keys(packages).forEach(packageName => {
+            const versions = packages[packageName];
+            if (Array.isArray(versions) && majorVersion !== null && !versions.includes(majorVersion)) {
+                return;
+            }
+            const input = document.querySelectorAll('input[name="form[' + packageName + ']"]')[0];
+            if (input) {
+                input.checked = true;
+                input.parentElement.classList.add('active');
+            }
         });
     });
 };
