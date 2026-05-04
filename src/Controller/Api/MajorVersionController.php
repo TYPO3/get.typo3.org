@@ -38,8 +38,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
-#[Route(path: '/api/v1/major', defaults: ['_format' => 'json'])]
-#[Route(path: '/v1/api/major', defaults: ['_format' => 'json'])]
+#[Route(path: ['/api/v1/major', '/v1/api/major'], defaults: ['_format' => 'json'])]
 class MajorVersionController extends AbstractController
 {
     /**

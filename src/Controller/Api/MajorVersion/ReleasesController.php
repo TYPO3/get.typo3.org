@@ -33,8 +33,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
-#[Route(path: '/api/v1/major/{version}/release', defaults: ['_format' => 'json'])]
-#[Route(path: '/v1/api/major/{version}/release', defaults: ['_format' => 'json'])]
+#[Route(path: ['/api/v1/major/{version}/release', '/v1/api/major/{version}/release'], defaults: ['_format' => 'json'])]
 class ReleasesController extends AbstractController
 {
     /**

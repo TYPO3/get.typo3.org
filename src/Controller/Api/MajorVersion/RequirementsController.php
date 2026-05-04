@@ -39,8 +39,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Contracts\Cache\ItemInterface;
 
-#[Route(path: '/api/v1/major/{version}/requirement', defaults: ['_format' => 'json'])]
-#[Route(path: '/v1/api/major/{version}/requirement', defaults: ['_format' => 'json'])]
+#[Route(path: ['/api/v1/major/{version}/requirement', '/v1/api/major/{version}/requirement'], defaults: ['_format' => 'json'])]
 class RequirementsController extends AbstractController
 {
     /**
