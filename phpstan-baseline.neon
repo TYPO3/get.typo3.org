@@ -307,14 +307,8 @@ parameters:
 			path: src/Service/ComposerPackagesService.php
 
 		-
-			message: '#^Offset 0 might not exist on array\{\}\|array\{non-empty-string\}\.$#'
+			message: '#^Offset 0 might not exist on array\{\}\|array\{non\-empty\-string\}\.$#'
 			identifier: offsetAccess.notFound
-			count: 1
-			path: src/Service/ComposerPackagesService.php
-
-		-
-			message: '#^Parameter \#1 \$child of method Symfony\\Component\\Form\\FormBuilderInterface\<mixed\>\:\:add\(\) expects string\|Symfony\\Component\\Form\\FormBuilderInterface, array\<int, string\>\|string given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/Service/ComposerPackagesService.php
 

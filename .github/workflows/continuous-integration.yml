@@ -20,7 +20,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -55,7 +55,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -90,7 +90,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -125,7 +125,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -162,7 +162,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -199,7 +199,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -236,7 +236,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Get Composer Cache Directory
         id: composer-cache
