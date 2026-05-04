@@ -174,8 +174,8 @@
 
     {% if eltsVersions|length > 0 %}
         {% frame with { id: 'download-elts', rulerBefore: true, center: true, title: 'Past Versions with Extended Long&nbsp;Term&nbsp;Support', titleSize: 3 } %}
-            <p>With TYPO3 CMS, you made the right choice. Now benefit from a total of 6 years of support per version.</p>
-            <p>3 years of free support by the TYPO3 core team and the community.<br>3 further years of vendor support with ELTS by TYPO3 GmbH.</p>
+            <p>With TYPO3 CMS, you made the right choice. Now benefit from a total of 7 years of support per version.</p>
+            <p>3 years of free support by the TYPO3 core team and the community.<br>4 further years of vendor support with ELTS by TYPO3 GmbH. <span class="text-danger">*</span></p>
         {% endframe %}
         {% frame %}
             <div class="card-group-element card-group-element-align-left card-group-element-columns-{{ eltsVersions|length + 1 }}">
@@ -193,7 +193,7 @@
                                     <h5>Supported Until</h5>
                                     <ul class="list-unstyled">
                                         <li>Free: <strong>{{ version.maintainedUntil|date("Y-m-d") }}</strong></li>
-                                        <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }}</strong></li>
+                                        <li>ELTS: <strong>{{ version.eltsUntil|date("Y-m-d") }} <span class="text-warning">*</span></strong></li>
                                     </ul>
                                     <hr>
                                 {% endif %}
@@ -203,7 +203,7 @@
                                         <li>Version: <strong>{{ version.latestRelease.version }}{% if version.latestRelease.elts %} ELTS{% endif %}</strong></li>
                                         <li>Release Date: <strong>{{ version.latestRelease.date|date("Y-m-d") }}</strong></li>
                                     </ul>
-                                    <a href="https://typo3.com/elts" class="btn btn-primary">Buy ELTS {{ version.version }}</a>
+                                    <a href="https://my.typo3.org/*/elts/{{ version.lts }}" class="btn btn-primary">Buy ELTS {{ version.version }}</a>
                                     <a href="{{ path('version', {'version': version.version}) }}" class="btn btn-light">
                                         {% if version.latestRelease.elts %}See ELTS{% else %}Get version{% endif %}
                                         {{ version.version }}
@@ -218,8 +218,8 @@
             </div>
         {% endframe %}
         {% frame with { indent: true, center: true } %}
-            <p><strong>Extended Long Term Support prolongs security and compliance support for your expired LTS version,
-                    and keeps you legally compliant and up-to-date. ELTS support runs for a total of 3 years per version,
+            <p><strong><span class="text-warning">*</span> Extended Long Term Support prolongs security and compliance support for your expired LTS version,
+                    and keeps you legally compliant and up-to-date. ELTS support runs for up to 4 years per version (4th year reserved for TYPO3 Partners),
                     starting seamlessly on the day official community support for a given LTS version ends.</strong></p>
         {% endframe %}
     {% endif %}
