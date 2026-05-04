@@ -1,0 +1,9 @@
+<f:for each="{content.stage.records}" as="record">
+    <div class="container">
+        <f:cObject
+            typoscriptObjectPath="{record.mainType}"
+            data="{record}"
+            table="{record.mainType}"
+        />
+    </div>
+</f:for>

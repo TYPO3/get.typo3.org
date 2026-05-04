@@ -1,0 +1,29 @@
+<f:asset.css identifier="content-block-css-t3docs-t3docs/carousel" href="{cb:assetPath()}/frontend.css"/>
+<f:asset.script identifier="content-block-js-t3docs-t3docs/carousel" src="{cb:assetPath()}/frontend.js"/>
+
+<div id="carousel{data.uid}" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <f:for each="{data.carousel_items}" as="item" iteration="iteration">
+            <button type="button" data-bs-target="#carousel{data.uid}" data-bs-slide-to="{iteration.index}" class="{f:if(condition: '{iteration.isFirst}', then:' active')}" aria-current="true" aria-label="{item.header}"></button>
+        </f:for>
+    </div>
+    <div class="carousel-inner">
+        <f:for each="{data.carousel_items}" as="item" iteration="iteration">
+            <div class="carousel-item{f:if(condition: '{iteration.isFirst}', then:' active')}">
+                <f:image image="{item.image}" class="d-block w-100"/>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{item.header}</h5>
+                    <f:format.html>{item.description}</f:format.html>
+                </div>
+            </div>
+        </f:for>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{data.uid}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden"><f:translate key="{cb:languagePath()}:previous.label"/></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel{data.uid}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden"><f:translate key="{cb:languagePath()}:next.label"/></span>
+    </button>
+</div>

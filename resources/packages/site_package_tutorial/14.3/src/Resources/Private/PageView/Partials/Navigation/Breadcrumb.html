@@ -1,0 +1,22 @@
+<f:if condition="{breadcrumb}">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary">
+                <f:for each="{breadcrumb}" as="item">
+                    <f:if condition="{item.current}">
+                        <f:then>
+                            <li class="breadcrumb-item active" aria-current="page">{item.title}</li>
+                        </f:then>
+                        <f:else>
+                            <li class="breadcrumb-item">
+                                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{item.link}" title="{item.title}">
+                                    <span class="breadcrumb-text">{item.title}</span>
+                                </a>
+                            </li>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </ol>
+        </nav>
+    </div>
+</f:if>

@@ -1,0 +1,22 @@
+<f:layout name="Preview"/>
+
+<f:section name="Header">
+    <f:variable name="itemCount"><f:count subject="{data.carousel_items}" /></f:variable>
+    <div>{f:translate(key: '{cb:languagePath()}:backend.itemCount', arguments: {0: '{itemCount}'})}</div>
+</f:section>
+
+<f:section name="Content">
+    <div class="row">
+        <f:for each="{data.carousel_items}" as="item" iteration="iteration">
+            <div class="col">
+                <f:image image="{item.image}" width="100"/><br/>
+                {item.header}
+            </div>
+        </f:for>
+    </div>
+</f:section>
+
+<f:section name="Footer">
+    <f:variable name="lastUpdated"><f:format.date>{data.rawRecord.crdate}</f:format.date></f:variable>
+    <div>{f:translate(key: '{cb:languagePath()}:backend.lastUpdated', arguments: {0: '{lastUpdated}'})}</div>
+</f:section>

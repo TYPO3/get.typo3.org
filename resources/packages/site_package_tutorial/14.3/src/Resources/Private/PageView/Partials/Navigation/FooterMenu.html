@@ -1,0 +1,7 @@
+<f:if condition="{footerMenu}">
+    <ul class="nav col-md-4 justify-content-end">
+        <f:for each="{footerMenu}" as="menuItem">
+            <li class="nav-item"><a href="{menuItem.link}" class="nav-link px-2 text-body-secondary">{menuItem.title}</a></li>
+        </f:for>
+    </ul>
+</f:if>

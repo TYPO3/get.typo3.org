@@ -1,0 +1,16 @@
+page = PAGE
+page {
+  10 = PAGEVIEW
+  10 {
+    paths {
+      0 = EXT:{{ package.extensionKey }}/Resources/Private/PageView/
+      10 = {${{ package.packageName }}.template_path}
+    }
+
+    dataProcessing {
+      # makes content elements available as {content} in Fluid template
+      10 = page-content
+    }
+  }
+  shortcutIcon = {${{ package.packageName }}.favicon}
+}

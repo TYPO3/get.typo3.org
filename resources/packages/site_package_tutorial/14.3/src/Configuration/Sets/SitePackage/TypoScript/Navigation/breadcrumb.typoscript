@@ -1,0 +1,12 @@
+page {
+  10 {
+    dataProcessing {
+      30 = menu
+      30 {
+        special = rootline
+        special.range = 0|-1
+        as = breadcrumb
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+TCEFORM {
+    pages {
+        # Hide "Frontend Layout" field as we use the "Backend Layout" for the complete layout
+        layout {
+            disabled = 1
+        }
+    }
+    tt_content {
+        header_layout {
+            # Prevent H1 headlines in content elements
+            removeItems = 1
+        }
+    }
+}
+
+TCEMAIN {
+    table {
+        pages {
+            # Pages will *not* have "(copy)" appended:
+            disablePrependAtCopy = 1
+            # Pages will *not* be hidden upon copy:
+            disableHideAtCopy = 1
+        }
+
+        tt_content {
+            # Content will *not* have "(copy)" appended:
+            disablePrependAtCopy = 1
+        }
+    }
+}

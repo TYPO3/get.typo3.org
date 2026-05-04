@@ -34,7 +34,7 @@ class SitePackage implements \JsonSerializable
     private string $basePackage = 'bootstrap_package';
 
     #[Assert\NotBlank]
-    private float $typo3Version = 13.4;
+    private float $typo3Version = 14.3;
 
     private string $vendorName;
 

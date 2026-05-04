@@ -1,0 +1,48 @@
+categories:
+  {{ package.packageName }}:
+    label: '{{ package.title }}'
+  {{ package.packageName }}.templates:
+    label: 'Templates'
+    parent: {{ package.packageName }}
+  {{ package.packageName }}.layout:
+    label: 'Layout'
+    parent: {{ package.packageName }}
+  {{ package.packageName }}.menus:
+    label: 'Menus'
+    parent: {{ package.packageName }}
+
+settings:
+  {{ package.packageName }}.template_path:
+    label: 'Page template path'
+    category: {{ package.packageName }}.templates
+    description: 'Path to the templates of the {{ package.title }}.'
+    type: string
+    default: 'EXT:{{ package.extensionKey }}/Resources/Private/Templates/'
+
+  {{ package.packageName }}.logo:
+    label: 'Logo'
+    category: {{ package.packageName }}.layout
+    description: 'Path to the logo of {{ package.title }}.'
+    type: string
+    default: 'EXT:{{ package.extensionKey }}/Resources/Public/Images/logo.svg'
+
+  {{ package.packageName }}.logo-alt:
+    label: 'Logo Alt text'
+    category: {{ package.packageName }}.layout
+    description: 'Alternative text of the logo for the visually impaired'
+    type: string
+    default: 'Logo'
+
+  {{ package.packageName }}.favicon:
+    label: 'Favicon'
+    description: 'This icon is displayed in search engine results and in the browser tab'
+    category: {{ package.packageName }}.layout
+    type: string
+    default: 'EXT:{{ package.extensionKey }}/Resources/Public/Icons/favicon.ico'
+
+  {{ package.packageName }}.footerMenuRoot:
+      label: 'Footer menu root uid'
+      description: 'The subpages of this page are displayed in the footer'
+      category: {{ package.packageName }}.menus
+      type: int
+      default: 2

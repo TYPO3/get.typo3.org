@@ -1,0 +1,13 @@
+options {
+    clearCache {
+        pages = 1
+    }
+    pageTree {
+        showDomainNameWithTitle = 1
+        showPageIdWithTitle = 1
+    }
+    sites {
+        # These sets are already included, therefore hide them in the site configuration set editor
+        hideSets := addToList(typo3/fluid-styled-content,typo3/fluid-styled-content-css)
+    }
+}
