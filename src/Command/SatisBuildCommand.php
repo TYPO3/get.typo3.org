@@ -98,6 +98,12 @@ class SatisBuildCommand extends Command
             $buildAll = \true;
         }
 
+        foreach ([$repositoryDir, $outputDir] as $dir) {
+            if (!is_dir($dir) && !mkdir($dir, 0o775, true) && !is_dir($dir)) {
+                throw new \RuntimeException(sprintf('Could not create directory "%s".', $dir), 1_714_822_800);
+            }
+        }
+
         if (!($application = $this->getApplication()) instanceof Application) {
             throw new \RuntimeException('Application is not initialized.', 1_660_125_012);
         }
