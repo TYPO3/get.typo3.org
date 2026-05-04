@@ -14,6 +14,10 @@ startup. So simply run
 
 `ddev start`
 
+To build the Composer repository (Satis) served at `composer.typo3.org` run
+
+`ddev exec ./bin/console satis:build`
+
 and start hacking. To head to the project in the browser run
 
 `ddev launch`
@@ -23,6 +27,7 @@ and start hacking. To head to the project in the browser run
 1. create and edit `.env.local` to overwrite vars from `.env.dist`
 1. execute `composer install`
 1. execute `php ./bin/console doctrine:schema:create` to create database schema
+1. execute `php ./bin/console satis:build` to build the Composer repository
 
 ### Database Creation and Migration
 
