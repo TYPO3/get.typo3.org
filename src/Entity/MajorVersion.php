@@ -203,6 +203,18 @@ class MajorVersion implements \JsonSerializable, \Stringable
         return $this->title;
     }
 
+    public function getComputedTitle(): string
+    {
+        $base = sprintf('TYPO3 %d', (int)$this->version);
+        if ($this->isElts()) {
+            return $base . ' ELTS';
+        }
+        if ($this->getLts() !== null) {
+            return $base . ' LTS';
+        }
+        return $base;
+    }
+
     public function setSubtitle(string $subtitle): void
     {
         $this->subtitle = $subtitle;

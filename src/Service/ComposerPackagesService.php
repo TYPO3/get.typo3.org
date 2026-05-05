@@ -818,7 +818,7 @@ final class ComposerPackagesService
         $versions = $this->majorVersions->findAllComposerSupported();
         foreach ($versions as $version) {
             if ($version->getLatestRelease() instanceof Release) {
-                $versionChoices['choices'][self::CMS_VERSIONS_GROUP][$version->getTitle()] =
+                $versionChoices['choices'][self::CMS_VERSIONS_GROUP][$version->getComputedTitle()] =
                     $this->getComposerVersionConstraint($version->getLatestRelease()->getVersion());
             }
         }
@@ -840,7 +840,7 @@ final class ComposerPackagesService
 
                 if (\is_null($version->getLatestRelease()->getMajorVersion()->getLts())) {
                     $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP]
-                        [$version->getTitle() . ' - next minor release (' . $nextMinor . ')'] =
+                        [$version->getComputedTitle() . ' - next minor release (' . $nextMinor . ')'] =
                         $this->getComposerVersionConstraint($nextMinor, true);
                 }
             } else {
@@ -848,7 +848,7 @@ final class ComposerPackagesService
             }
 
             $versionChoices['choices'][self::SPECIAL_VERSIONS_GROUP]
-                [$version->getTitle() . ' - next patch release (' . $nextPatch . ')'] =
+                [$version->getComputedTitle() . ' - next patch release (' . $nextPatch . ')'] =
                 $this->getComposerVersionConstraint($nextPatch, true);
         }
 
