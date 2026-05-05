@@ -1,6 +1,6 @@
 template:
     application:
-        name: 'get.typo3.org'
+        name: 'Get TYPO3'
         platformkey: download
         copyright:
             author: TYPO3 Association
@@ -20,5 +20,4 @@ template:
                 Entry in the register of commerce of the Kanton Zug: CHE‑112.256.297
                 Represented by: Olivier Dobberkau (President)
         theme:
-            use_logo: true
             background: white
