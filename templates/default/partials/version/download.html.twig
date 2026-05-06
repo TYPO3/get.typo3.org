@@ -44,7 +44,7 @@
                                 <p>In a new project folder using your favorite shell, run these lines:</p>
                                 <pre style="white-space: pre-line;">
                                     <code>ddev config --project-type='typo3' --docroot='public' {{ php_version_option }} --webserver-type='apache-fpm' --web-environment='TYPO3_CONTEXT=Development'
-                                    ddev composer create --no-install "typo3/cms-base-distribution:^{{ package_version }}"
+                                    ddev composer create-project --no-install "typo3/cms-base-distribution:^{{ package_version }}"
                                     ddev composer install
                                     {% if version == 12 %}
                                         ddev restart
