@@ -55,6 +55,9 @@
 }
 
 
+.frame .swagger-ui pre.version {
+    overflow: unset;
+}
 .frame .swagger-ui .col {
     width: initial;
 }
