@@ -5,7 +5,7 @@ mod {
     web_layout {
         BackendLayouts {
             default {
-                title = LLL:EXT:{{ package.extensionKey }}/Resources/Private/Language/locallang_be.xlf:backend_layout.default
+                title = LLL:{{ package.extensionKey }}.backend.layouts:default
                 config {
                     backend_layout {
                         colCount = 1
@@ -14,19 +14,21 @@ mod {
                             1 {
                                 columns {
                                     1 {
-                                        name = LLL:EXT:{{ package.extensionKey }}/Resources/Private/Language/locallang_be.xlf:backend_layout.column.stage
+                                        name = LLL:{{ package.extensionKey }}.backend.layouts:column.stage
                                         colPos = 1
                                         identifier = stage
                                         slideMode = slide
+                                        allowedContentTypes = site_package_jumbotron,text
                                     }
                                 }
                             }
                             2 {
                                 columns {
                                     1 {
-                                        name = LLL:EXT:{{ package.extensionKey }}/Resources/Private/Language/locallang_be.xlf:backend_layout.column.normal
+                                        name = LLL:{{ package.extensionKey }}.backend.layouts:column.normal
                                         colPos = 0
                                         identifier = main
+                                        disallowedContentTypes = site_package_jumbotron
                                     }
                                 }
                             }
