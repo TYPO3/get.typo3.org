@@ -90,7 +90,7 @@
 		"symfony/validator": "^7.4",
 		"symfony/web-link": "^7.4",
 		"symfony/yaml": "^7.4",
-		"t3g/symfony-template-bundle": "dev-master",
+		"t3g/symfony-template-bundle": "^6.1",
 		"t3g/symfony-usercentrics-bundle": "^2.0 || dev-master",
 		"twig/extra-bundle": "^3.0",
 		"twig/twig": "^3.0"
