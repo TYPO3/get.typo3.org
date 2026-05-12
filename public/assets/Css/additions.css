@@ -16,6 +16,19 @@
 }
 
 
+.elts-version-actions {
+    container-type: inline-size;
+}
+.elts-version-actions .btn {
+    min-width: max-content;
+}
+@container (max-width: 19rem) {
+    .elts-version-actions .btn {
+        width: 100%;
+    }
+}
+
+
 .composer-helper-form .form-check {
     width: 250px;
     max-width: 100%;
