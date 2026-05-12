@@ -52,7 +52,7 @@ class ChangeHighlighter extends AbstractExtension
                     $cssClass .= ' change-important';
                 }
 
-                return '<li class="change ' . $cssClass . '">' . $matches['content'];
+                return '<li class="pre change ' . $cssClass . '">' . $matches['content'];
             },
             $changeList
         );

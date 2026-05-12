@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25dfa9205f7ae34d41576e0cf5ceeb3d",
+    "content-hash": "c756c7e8a4e8b455fd53182165859b34",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -8552,16 +8552,16 @@
         },
         {
             "name": "t3g/symfony-template-bundle",
-            "version": "dev-master",
+            "version": "6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3GmbH/symfony-template-bundle.git",
-                "reference": "94fa962b889ce47e4c626c40fc49fbbc817160c7"
+                "reference": "a202722cfddfd70efedc9bd557558e5132d1e959"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/94fa962b889ce47e4c626c40fc49fbbc817160c7",
-                "reference": "94fa962b889ce47e4c626c40fc49fbbc817160c7",
+                "url": "https://api.github.com/repos/TYPO3GmbH/symfony-template-bundle/zipball/a202722cfddfd70efedc9bd557558e5132d1e959",
+                "reference": "a202722cfddfd70efedc9bd557558e5132d1e959",
                 "shasum": ""
             },
             "require": {
@@ -8586,12 +8586,11 @@
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "overtrue/phplint": "^5.5.0",
                 "symfony/phpunit-bridge": "^5.4 || ^6.4 || ^7.4",
-                "symfony/webpack-encore-bundle": "^1.13"
+                "symfony/webpack-encore-bundle": "^2.4"
             },
             "suggest": {
                 "symfony/webpack-encore-bundle": "Needed to support encore entrypoints."
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
@@ -8616,9 +8615,9 @@
             ],
             "support": {
                 "issues": "https://github.com/TYPO3GmbH/symfony-template-bundle/issues",
-                "source": "https://github.com/TYPO3GmbH/symfony-template-bundle/tree/master"
+                "source": "https://github.com/TYPO3GmbH/symfony-template-bundle/tree/6.1.0"
             },
-            "time": "2026-04-28T13:10:08+00:00"
+            "time": "2026-05-12T13:42:56+00:00"
         },
         {
             "name": "t3g/symfony-usercentrics-bundle",
@@ -10177,7 +10176,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "t3g/symfony-template-bundle": 20,
         "t3g/symfony-usercentrics-bundle": 20
     },
     "prefer-stable": true,

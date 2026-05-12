@@ -6,18 +6,26 @@
 .card-inverse {
     background-color: #313131;
     color: #ffffff;
-}
-
-
-pre {
-    border-radius: 2px;
-    padding: 1rem;
-    background-color: rgba(0,0,0,0.05);
+    --frame-link-color: #ffffff;
+    --frame-link-hover-color: #ffffff;
 }
 
 
 .no-user-selection {
     user-select: none;
+}
+
+
+.elts-version-actions {
+    container-type: inline-size;
+}
+.elts-version-actions .btn {
+    min-width: max-content;
+}
+@container (max-width: 19rem) {
+    .elts-version-actions .btn {
+        width: 100%;
+    }
 }
 
 
@@ -50,7 +58,7 @@ pre {
     padding: 0;
 }
 .changelog .change {
-    font-family: monospace;
+    font-family: 'Source Code Pro', monospace;
 }
 .changelog .change-feature,
 .changelog .change-release {
@@ -62,6 +70,9 @@ pre {
 }
 
 
+.frame .swagger-ui pre.version {
+    overflow: unset;
+}
 .frame .swagger-ui .col {
     width: initial;
 }
