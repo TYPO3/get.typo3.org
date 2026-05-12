@@ -6,6 +6,8 @@
 .card-inverse {
     background-color: #313131;
     color: #ffffff;
+    --frame-link-color: #ffffff;
+    --frame-link-hover-color: #ffffff;
 }
 
 
