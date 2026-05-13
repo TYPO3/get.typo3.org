@@ -9,7 +9,7 @@
 			<packager_username>t3docs</packager_username>
 			<packager_name></packager_name>
 			<packager_email>{{ package.author.email }}</packager_email>
-			<TYPO3_version>14.3.0</TYPO3_version>
+			<TYPO3_version>13.4.0</TYPO3_version>
 			<created>Sat 5. October 2024</created>
 		</meta>
 		<static_tables index="relStaticTables" type="array"></static_tables>
@@ -1755,7 +1755,7 @@
 				<field index="image" type="integer">1</field>
 				<field index="assets" type="integer">0</field>
 				<field index="imagewidth" type="integer">250</field>
-				<field index="imageheight" type="integer">0</field>
+				<field index="imageheight" type="NULL"></field>
 				<field index="imageorient" type="integer">17</field>
 				<field index="imageborder" type="integer">0</field>
 				<field index="image_zoom" type="integer">0</field>
@@ -1839,7 +1839,7 @@
 				<field index="image" type="integer">1</field>
 				<field index="assets" type="integer">0</field>
 				<field index="imagewidth" type="integer">250</field>
-				<field index="imageheight" type="integer">0</field>
+				<field index="imageheight" type="NULL"></field>
 				<field index="imageorient" type="integer">18</field>
 				<field index="imageborder" type="integer">0</field>
 				<field index="image_zoom" type="integer">0</field>
@@ -2044,7 +2044,7 @@
 				<field index="image" type="integer">1</field>
 				<field index="assets" type="integer">0</field>
 				<field index="imagewidth" type="integer">250</field>
-				<field index="imageheight" type="integer">0</field>
+				<field index="imageheight" type="NULL"></field>
 				<field index="imageorient" type="integer">0</field>
 				<field index="imageborder" type="integer">0</field>
 				<field index="image_zoom" type="integer">0</field>
