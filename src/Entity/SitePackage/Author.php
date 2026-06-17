@@ -30,20 +30,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Author implements \JsonSerializable
 {
-    #[Assert\NotBlank(message: "Please enter the authors' name.")]
-    #[Assert\Length(min: 3)]
     private string $name;
 
-    #[Assert\NotBlank(message: "Please enter the authors' email address.")]
     #[Assert\Email(message: "The email '{{ value }}' is not a valid email.")]
     private string $email;
 
-    #[Assert\NotBlank(message: "Please enter the authors' company.")]
-    #[Assert\Length(min: 3)]
-    #[Assert\Regex(pattern: '/^[A-Za-z0-9\x7f-\xff .:&-]+$/', message: 'Only letters, numbers and spaces are allowed')]
+    #[Assert\Regex(pattern: '/^[\p{L}\p{N} .:&-]+$/u', message: 'Invalid characters in company name.')]
     private string $company;
 
-    #[Assert\NotBlank(message: "Please enter the authors' homepage URL.")]
     #[Assert\Url]
     private string $homepage;
 
