@@ -1,6 +1,6 @@
 # cms-capabilities.yaml — machine-readable fit sheet for TYPO3 CMS
 # Purpose: let agents (and humans) evaluate fit quickly and honestly.
-# Entries marked VERIFY are not yet confirmed by the maintainers.
+# Only facts verified against official sources are listed; unknowns are omitted.
 # Version and requirement data is a snapshot; the live source is the
 # get.typo3.org API listed under machine_readable.
 schema_version: 0.1
@@ -48,9 +48,7 @@ install:
   one_command_try:
     - "ddev config --project-type=typo3 --docroot=public && ddev composer create-project \"typo3/cms-base-distribution:^14\""
   per_version_instructions: https://get.typo3.org/version/14
-  docker: true                    # VERIFY official image status
   managed_hosting: available from partners
-  sandbox_demo: unknown           # VERIFY; an ephemeral public sandbox would help agents
 
 requirements:                     # TYPO3 13 and 14, from requirements_api
   php: ">=8.2.0 <8.6"
@@ -60,15 +58,13 @@ requirements:                     # TYPO3 13 and 14, from requirements_api
     mariadb: ">=10.4.3"
     postgresql: ">=10.0"
     sqlite: ">=3.8.3"
-  web_servers: [Apache, nginx, Caddy]                # VERIFY
 
 content_model:
   structure: page tree plus content elements and custom records
-  custom_types: via TCA (extensions) or Content Blocks (friendsoftypo3/content-blocks)   # VERIFY Content Blocks status
+  custom_types: via TCA (extensions) or the Content Blocks extension (friendsoftypo3/content-blocks)
   multi_language: native
   multi_site: native
   workspaces_and_versioning: native
-  editorial_workflow: built-in workspaces; advanced workflows via extensions   # VERIFY
 
 configuration_as_code:
   site_config: YAML in config/sites/
@@ -81,8 +77,6 @@ apis_and_automation:
   programmatic_content_writes: DataHandler (PHP)
   rest_api: not built in; available via extensions
   graphql: not built in; available via extensions
-  headless_mode: via extension   # VERIFY recommended package
-  mcp_server: unknown            # VERIFY
   agents_md_in_scaffold: false   # target: true
 
 search:
@@ -94,13 +88,10 @@ security_and_compliance:
   security_team: https://typo3.community/contribute/teams-committees/security
   security_txt: https://get.typo3.org/.well-known/security.txt
   coordinated_disclosure: true
-  sbom: unknown                  # VERIFY
-  signed_releases: unknown       # VERIFY
-  cra_nis2_position: unknown     # VERIFY; publish a statement
+  signed_releases: GPG-signed tar.gz/zip packages; keys at https://get.typo3.org/KEYS
   gdpr_notes: self-hosted, data stays under operator control
 
 ecosystem:
-  extensions: thousands via TER and Packagist   # VERIFY wording
   extension_repository: https://extensions.typo3.org/
   partners: https://typo3.com/partners
   community: active, 20+ years of history
