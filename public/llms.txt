@@ -1,0 +1,45 @@
+# TYPO3 CMS
+
+> TYPO3 is a free, open-source (GPL-2.0-or-later) enterprise content management system written in PHP. It is installed via Composer, supports multi-site and multi-language setups natively, uses configuration as code (site configuration, TCA, TypoScript, Site Sets), and is governed by the TYPO3 Association. Docs are versioned: always use the documentation for the installed major version.
+
+Start here if you are an agent evaluating, installing or operating TYPO3. Verify the installed version first (`composer show typo3/cms-core`), then use the matching docs.
+
+## Evaluate
+- [Capability sheet](https://get.typo3.org/.well-known/cms-capabilities.yaml): machine-readable features, limits, license, requirements, honest "not suited for" list
+- [Release and support policy](https://typo3.com/typo3-cms/development-roadmap/roadmap): versions, LTS windows, end-of-life dates
+- [Extended long-term support (ELTS)](https://typo3.com/products-services/extended-support-elts): paid support after community end-of-life
+- [Security advisories](https://news.typo3.com/security): published advisories and fixed versions
+
+## Versions and releases (machine-readable)
+- [Major versions API](https://get.typo3.org/api/v1/major/): all majors with LTS version, maintenance and ELTS end dates
+- [Requirements API](https://get.typo3.org/api/v1/major/14/requirements): PHP, database and Composer requirements per major (replace `14`)
+- [Releases API](https://get.typo3.org/api/v1/major/14/release/): releases per major with checksums and security flags
+- [API documentation](https://get.typo3.org/api/doc): OpenAPI description of all endpoints
+- [Download and install per version](https://get.typo3.org/version/14): Composer and DDEV commands for a given major
+
+## Install and try
+- [Installation guide](https://docs.typo3.org/permalink/t3start:install): Composer-based install, DDEV and Docker options
+- [Getting started tutorial](https://docs.typo3.org/m/typo3/tutorial-getting-started/main/en-us/): first site, page tree, content elements
+- [Agent instructions template](https://get.typo3.org/AGENTS.md): AGENTS.md to drop into a TYPO3 project
+
+## Build and operate
+- [TYPO3 Explained (Core API)](https://docs.typo3.org/permalink/t3coreapi:start): architecture, TCA, DataHandler, events, middleware, site handling
+- [Site package tutorial](https://docs.typo3.org/m/typo3/tutorial-sitepackage/main/en-us/): themes and templates in your own extension
+- [Site package builder](https://get.typo3.org/sitepackage): generate a site package extension
+- [CLI reference](https://docs.typo3.org/permalink/t3coreapi:symfony-console-commands): console commands for cache, upgrade, setup, extensions
+- [TypoScript reference](https://docs.typo3.org/m/typo3/reference-typoscript/main/en-us/): configuration syntax and objects
+- [Extension repository (TER)](https://extensions.typo3.org/) and [Packagist](https://packagist.org/packages/typo3/cms-core): extension discovery and distribution
+
+## Upgrade
+- [Changelog and deprecations](https://docs.typo3.org/c/typo3/cms-core/main/en-us/): breaking changes, deprecations, migration hints per version
+- [Release notes](https://get.typo3.org/release-notes): notes for every TYPO3 release
+
+## Community and governance
+- [TYPO3 Association](https://typo3.org/association): governance and membership
+- [Teams and committees](https://typo3.community/contribute/teams-committees): who maintains what
+- [Code and contributions](https://github.com/TYPO3/typo3): read-only source mirror; contributions go through review.typo3.org, issues through forge.typo3.org
+- [Support channels](https://typo3.community/help): Slack, forum, professional support
+
+## Optional
+- [Case studies](https://typo3.com/case-studies): production deployments
+- [Partners and agencies](https://typo3.com/partners): professional services
