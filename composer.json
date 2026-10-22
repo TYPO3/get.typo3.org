@@ -219,7 +219,7 @@
 		],
 		"ci:tests:php:functional": "@php phpunit -c tests/Functional/phpunit.xml",
 		"ci:tests:php:unit": "@php phpunit -c tests/Unit/phpunit.xml",
-		"ci:yaml:lint": "@php yaml-lint .ddev config",
+		"ci:yaml:lint": "@php bin/console lint:yaml .ddev config",
 		"fix": [
 			"@fix:php"
 		],
