@@ -90,10 +90,17 @@ branch which is deployed then to the production site.
 Rules for language, texts and commit messages are in [AGENTS.md](AGENTS.md).
 They apply to people and AI agents.
 
-### API Development Access
+### Development Access
 
-In the dev context you can authorize your requests with the username `developer`
-and the password `password` by default.
+In the dev context the user `developer` with the password `password` has the
+role `ROLE_ADMIN`. Use it for:
+
+* the API: send it as HTTP basic authentication
+* the administration: log in at `/login`, for example
+  https://get.typo3.org.ddev.site/login, and open `/admin`
+
+The user is defined in `config/packages/dev/security.yaml` and exists only in
+the dev environment.
 
 ### Download Link Checker
 
