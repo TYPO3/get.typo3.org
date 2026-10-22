@@ -203,7 +203,7 @@
 			"@ci:php:stan"
 		],
 		"ci:php:cs-fixer": "@php php-cs-fixer fix -v --dry-run --diff",
-		"ci:php:lint": "@php phplint --no-progress",
+		"ci:php:lint": "@php phplint lint --no-progress",
 		"ci:php:stan": "@php phpstan analyse --no-progress",
 		"ci:static": [
 			"@ci:json:lint",
