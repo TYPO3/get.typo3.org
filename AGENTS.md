@@ -66,6 +66,19 @@ The tool dependencies in `tools/` have no lock file in git. Thus CI installs
 the newest version of each tool. If a check is green on your machine but red in
 CI, update the tools first: `composer tools:setup:update`.
 
+## Fixtures in tests
+
+The fixtures in `src/DataFixtures/` generate random data with Faker. Keep it
+random: a test that passes with any data checks more than a test with one
+data set.
+
+If a test queries one specific record, the fixtures must keep that record as
+a reference. Register it with `addReference()` under a constant of the fixture
+class, for example `ReleaseFixtures::LATEST_SECURITY_RELEASE_SPRINT`. In the
+test, read it with `getFixtureReference()` and compare the response with it.
+Do not expect a random record to exist: a test that depends on chance fails
+in some runs only.
+
 ## Committing
 
 Stage only the files that you changed: `git add <path>`. Do not use
