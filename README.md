@@ -51,15 +51,28 @@ php ./bin/console doctrine:fixtures:load
 
 ### Testing
 
-For DDEV installations prepend `ddev` before the composer commands.
+For DDEV installations prepend `ddev` before the composer commands. The
+functional tests need the database.
 
 ```bash
-composer test
+composer ci                       # all checks and tests that CI runs
 
-composer test:php:cgl
-composer test:php:lint
-composer test:php:unit
-composer test:php:functional
+composer ci:static                # JSON, YAML and PHP lint, coding standards, PHPStan
+composer ci:php:cs-fixer
+composer ci:php:stan
+composer ci:tests                 # unit and functional tests
+composer ci:tests:php:unit
+composer ci:tests:php:functional
+
+composer fix                      # apply the coding standards
+```
+
+The tools in `tools/` have no lock file in git, so CI installs the newest
+version of each tool. If a check passes locally but fails in CI, update the
+tools first:
+
+```bash
+composer tools:setup:update
 ```
 
 ### Commits and Pull Requests on Github
@@ -73,6 +86,9 @@ breaking changes e.g. in the API.
 After a pull request is merged it gets automatically deployed and more manual
 checks and tests can be done before cherry picking the commit to the `production`
 branch which is deployed then to the production site.
+
+Rules for language, texts and commit messages are in [AGENTS.md](AGENTS.md).
+They apply to people and AI agents.
 
 ### API Development Access
 
