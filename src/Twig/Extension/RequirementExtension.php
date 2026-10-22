@@ -78,7 +78,7 @@ class RequirementExtension extends AbstractExtension
 
         foreach ($categories as $category => $categoryRequirements) {
             if (
-                \array_key_exists(
+                array_key_exists(
                     $category,
                     $result
                 )
@@ -112,10 +112,10 @@ class RequirementExtension extends AbstractExtension
                                 }
                             }
 
-                            $result[$requirement->getCategory()] = \sprintf(
+                            $result[$requirement->getCategory()] = sprintf(
                                 '%s %s',
                                 $requirement->getTitle(),
-                                \implode(', ', $supportedVersions)
+                                implode(', ', $supportedVersions)
                             );
                             break;
 
@@ -125,10 +125,10 @@ class RequirementExtension extends AbstractExtension
 
                             if ($requirement->getMin() !== \null) {
                                 $version = VersionUtility::normalize($requirement->getMin(), 3) ?? '';
-                                if (\str_ends_with($version, '.0')) {
-                                    $version = \substr($version, 0, -2);
+                                if (str_ends_with($version, '.0')) {
+                                    $version = substr($version, 0, -2);
                                 }
-                                $result[$requirement->getCategory()] .= \sprintf(
+                                $result[$requirement->getCategory()] .= sprintf(
                                     '&nbsp;%s+',
                                     $version
                                 );
@@ -193,7 +193,7 @@ class RequirementExtension extends AbstractExtension
     {
         foreach ($requirements as &$requirement) {
             if (
-                \in_array(
+                in_array(
                     $requirement->getCategory(),
                     [
                         RequirementCategoryEnum::OPTION_PHP,

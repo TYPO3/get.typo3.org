@@ -73,8 +73,8 @@ final class DownloadController extends AbstractController
     private function createEltsVersionResponse(Request $request, Release $release): Response
     {
         $statusCode = Response::HTTP_PAYMENT_REQUIRED;
-        $statusMessage =
-            'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
+        $statusMessage
+            = 'ELTS version requires a valid subscription. For more information visit: https://typo3.com/elts';
         $acceptHeader = $request->headers->get('Accept') ?? '';
         $response = new Response();
 
@@ -202,14 +202,14 @@ final class DownloadController extends AbstractController
                 }
 
                 return [
-                    'url'     => 'https://cdn.typo3.com/typo3/' .
-                                 $version .
-                                 '/' .
-                                 $package .
-                                 '-' .
-                                 $version .
-                                 '.' .
-                                 $format,
+                    'url'     => 'https://cdn.typo3.com/typo3/'
+                                 . $version
+                                 . '/'
+                                 . $package
+                                 . '-'
+                                 . $version
+                                 . '.'
+                                 . $format,
                     'version' => $version,
                     'format'  => $format,
                 ];
@@ -217,7 +217,7 @@ final class DownloadController extends AbstractController
         }
 
         throw new \InvalidArgumentException(
-            \sprintf('No download found for version %s with format %s.', $versionName, $format),
+            sprintf('No download found for version %s with format %s.', $versionName, $format),
             1_660_745_735
         );
     }

@@ -187,7 +187,7 @@ class ExtensionsTerJsonCreateCommand extends Command
         /** @var string $outputDir */
         $outputDir = $input->getArgument('output-dir');
         if (($outputPath = realpath($outputDir)) === false) {
-            throw new \RuntimeException(\sprintf('Path "%s" not found.', $outputDir), 1_660_250_640);
+            throw new \RuntimeException(sprintf('Path "%s" not found.', $outputDir), 1_660_250_640);
         }
 
         $this->outputDir = $outputPath;
@@ -229,7 +229,7 @@ class ExtensionsTerJsonCreateCommand extends Command
         );
         $responseBody = $response->getBody()->getContents();
 
-        if (!\is_array($json = \json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR))) {
+        if (!is_array($json = json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR))) {
             throw new \RuntimeException('Invalid response.', 1_660_251_247);
         }
 
@@ -237,18 +237,18 @@ class ExtensionsTerJsonCreateCommand extends Command
             throw new \RuntimeException($json['meta']['error']);
         }
 
-        if (\is_array($json['data'])) {
+        if (is_array($json['data'])) {
             // Assign core extensions
             foreach (self::$coreExtensions as $extKey => $composerName) {
                 $json['data'][$extKey]['composer_name'] = $composerName;
             }
 
             foreach ($json['data'] as $extKey => $settings) {
-                if (!\is_string($extKey)) {
+                if (!is_string($extKey)) {
                     throw new \RuntimeException('Invalid extension key.', 1_660_251_470);
                 }
 
-                if (!\is_string($settings['composer_name'])) {
+                if (!is_string($settings['composer_name'])) {
                     throw new \RuntimeException('Invalid package name.', 1_660_251_471);
                 }
 
@@ -256,8 +256,8 @@ class ExtensionsTerJsonCreateCommand extends Command
 
                 if (str_contains($extKey, '_')) {
                     $this->registerComposerAlias([
-                        \str_replace('_', '-', $extKey),
-                        \str_replace('_', '', $extKey),
+                        str_replace('_', '-', $extKey),
+                        str_replace('_', '', $extKey),
                     ], $settings['composer_name']);
                 }
             }
@@ -412,7 +412,7 @@ class ExtensionsTerJsonCreateCommand extends Command
         ];
         if ($version->composerinfo !== null) {
             $composerInfo = json_decode((string)$version->composerinfo, true, 512);
-            if (\is_array($composerInfo) && \is_array($composerInfo['autoload'] ?? null)) {
+            if (is_array($composerInfo) && is_array($composerInfo['autoload'] ?? null)) {
                 $autoload = $composerInfo['autoload'];
             }
         }
@@ -451,7 +451,7 @@ class ExtensionsTerJsonCreateCommand extends Command
 
         $dependencies = unserialize((string)$version->dependencies);
 
-        if (!\is_array($dependencies)) {
+        if (!is_array($dependencies)) {
             // Ignore extensions with invalid dependencies
             return [];
         }

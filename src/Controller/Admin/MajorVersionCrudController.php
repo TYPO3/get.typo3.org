@@ -65,7 +65,7 @@ class MajorVersionCrudController extends AbstractCrudController
         yield TextField::new('title', 'Title');
         yield TextField::new('subtitle', 'Subtitle');
 
-        if (\in_array($pageName, [Crud::PAGE_DETAIL, Crud::PAGE_EDIT, Crud::PAGE_NEW], true)) {
+        if (in_array($pageName, [Crud::PAGE_DETAIL, Crud::PAGE_EDIT, Crud::PAGE_NEW], true)) {
             yield TextareaField::new('description', 'Description');
         }
 

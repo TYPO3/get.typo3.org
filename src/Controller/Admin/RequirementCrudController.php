@@ -71,7 +71,7 @@ class RequirementCrudController extends AbstractCrudController
     {
         yield AssociationField::new('version', 'Major Version');
         yield ChoiceField::new('category', 'Category')->setChoices(
-            static fn() => \array_flip(RequirementCategoryEnum::getAvailableOptions(true))
+            static fn() => array_flip(RequirementCategoryEnum::getAvailableOptions(true))
         );
         yield TextField::new('name', 'Name');
         yield TextField::new('min', 'Lower Bound');

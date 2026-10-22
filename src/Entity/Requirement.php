@@ -124,7 +124,7 @@ class Requirement implements \JsonSerializable, \Stringable
             'mariadb' => 'MariaDB',
             'sqlite' => 'SQLite',
             'ram' => 'RAM',
-            default => \ucfirst($this->getName()),
+            default => ucfirst($this->getName()),
         };
     }
 
@@ -158,7 +158,7 @@ class Requirement implements \JsonSerializable, \Stringable
 
     public function __toString(): string
     {
-        $result = \ucfirst($this->getCategory()) . ' / ' . $this->getTitle();
+        $result = ucfirst($this->getCategory()) . ' / ' . $this->getTitle();
 
         if (($min = $this->getMin()) !== \null) {
             $result .= ': ' . $min;

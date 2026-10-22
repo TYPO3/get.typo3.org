@@ -72,11 +72,11 @@ class ReleaseCrudController extends AbstractCrudController
         yield IdField::new('version', 'Release Version');
         yield DateTimeField::new('date', 'Release Date');
         yield ChoiceField::new('type', 'Release Type')->setChoices(
-            static fn() => \array_flip(ReleaseTypeEnum::getAvailableOptions(true))
+            static fn() => array_flip(ReleaseTypeEnum::getAvailableOptions(true))
         );
         yield BooleanField::new('elts', 'ELTS Release');
 
-        if (\in_array($pageName, [Crud::PAGE_DETAIL, Crud::PAGE_EDIT, Crud::PAGE_NEW], true)) {
+        if (in_array($pageName, [Crud::PAGE_DETAIL, Crud::PAGE_EDIT, Crud::PAGE_NEW], true)) {
             yield TextField::new('tarPackage.md5sum', 'Tar Package MD5 Checksum');
             yield TextField::new('tarPackage.sha1sum', 'Tar Package SHA1 Checksum');
             yield TextField::new('tarPackage.sha256sum', 'Tar Package SHA256 Checksum');

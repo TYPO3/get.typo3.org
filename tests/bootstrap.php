@@ -26,12 +26,12 @@ namespace App\Tests;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Filesystem\Filesystem;
 
-require \dirname(__DIR__) . '/vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-if (\file_exists(\dirname(__DIR__) . '/config/bootstrap.php')) {
-    require \dirname(__DIR__) . '/config/bootstrap.php';
+if (file_exists(dirname(__DIR__) . '/config/bootstrap.php')) {
+    require dirname(__DIR__) . '/config/bootstrap.php';
 } else {
-    (new Dotenv())->bootEnv(\dirname(__DIR__) . '/.env');
+    (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 }
 
 // ensure a fresh cache when debug mode is disabled

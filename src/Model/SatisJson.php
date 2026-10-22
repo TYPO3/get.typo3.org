@@ -113,6 +113,6 @@ class SatisJson implements \Stringable
             unset($this->data['require']);
         }
 
-        return (string)\json_encode($this->data, JSON_PRETTY_PRINT);
+        return (string)json_encode($this->data, JSON_PRETTY_PRINT);
     }
 }
