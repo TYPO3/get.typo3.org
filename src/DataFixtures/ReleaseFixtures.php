@@ -34,9 +34,19 @@ use Doctrine\Persistence\ObjectManager;
 
 final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * @var string
+     */
+    public const LATEST_SECURITY_RELEASE_SPRINT = 'release-latest-security-sprint';
+
     public function load(ObjectManager $manager): void
     {
-        $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_SPRINT, 6);
+        $this->generateReleasesForMajorVersion(
+            $manager,
+            MajorVersionFixtures::MAJOR_VERSION_SPRINT,
+            6,
+            self::LATEST_SECURITY_RELEASE_SPRINT
+        );
         $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS, 12);
         $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_LTS_OLD, 18);
         $this->generateReleasesForMajorVersion($manager, MajorVersionFixtures::MAJOR_VERSION_ELTS, 24);
@@ -58,7 +68,8 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
     protected function generateReleasesForMajorVersion(
         ObjectManager $manager,
         string $versionReference,
-        int $amount = 12
+        int $amount = 12,
+        ?string $latestSecurityReleaseReference = null
     ): void {
         $majorVersion = $this->getReference($versionReference, MajorVersion::class);
 
@@ -78,6 +89,8 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             ? (int)$ltsVersionData[1] : $versionData[1];
 
         for ($i = 0; $i < $amount; ++$i) {
+            // the newest release is the referenced one, so it is the latest security release
+            $isReferencedRelease = $latestSecurityReleaseReference !== null && $i === $amount - 1;
             $fakeVersion = $versionData;
             $fakeVersion[1] = $faker->numberBetween($versionData[1], $ltsVersionData[1]);
             $fakeVersion[2] = $i;
@@ -94,7 +107,9 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             $release = new Release();
             $release->setVersion($version);
             /** @var string $type */
-            $type = $faker->randomElement(ReleaseTypeEnum::getAvailableOptions());
+            $type = $isReferencedRelease
+                ? ReleaseTypeEnum::OPTION_SECURITY
+                : $faker->randomElement(ReleaseTypeEnum::getAvailableOptions());
             $release->setType($type);
             $release->setDate($date);
             $release->setMajorVersion($majorVersion);
@@ -133,6 +148,10 @@ final class ReleaseFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $manager->persist($release);
+
+            if ($isReferencedRelease) {
+                $this->addReference($latestSecurityReleaseReference, $release);
+            }
         }
     }
 }

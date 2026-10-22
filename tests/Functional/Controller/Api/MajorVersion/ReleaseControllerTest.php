@@ -26,6 +26,8 @@ namespace App\Tests\Functional\Controller\Api\MajorVersion;
 use App\DataFixtures\MajorVersionFixtures;
 use App\DataFixtures\ReleaseFixtures;
 use App\DataFixtures\RequirementFixtures;
+use App\Entity\Release;
+use App\Enum\ReleaseTypeEnum;
 use App\Tests\Functional\Controller\Api\ApiCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -110,6 +112,10 @@ class ReleaseControllerTest extends ApiCase
         $this->addFixture(new ReleaseFixtures());
         $this->addFixture(new RequirementFixtures());
         $this->executeFixtures();
+        $latestSecurityRelease = $this->getFixtureReference(
+            ReleaseFixtures::LATEST_SECURITY_RELEASE_SPRINT,
+            Release::class
+        );
 
         $this->client->request('GET', '/api/v1/major/10/release/latest/security');
 
@@ -136,6 +142,8 @@ class ReleaseControllerTest extends ApiCase
             ],
             $responseContent
         );
+        self::assertSame($latestSecurityRelease->getVersion(), $responseContent['version']);
+        self::assertSame(ReleaseTypeEnum::OPTION_SECURITY, $responseContent['type']);
     }
 
     #[Test]

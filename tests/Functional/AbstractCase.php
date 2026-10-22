@@ -78,6 +78,18 @@ abstract class AbstractCase extends PantherTestCase
         $appCacheTaggable->invalidateTags(['major-versions', 'releases', 'requirements']);
     }
 
+    /**
+     * @template T of object
+     *
+     * @param class-string<T> $class
+     *
+     * @return T
+     */
+    protected function getFixtureReference(string $name, string $class): object
+    {
+        return $this->getFixtureExecutor()->getReferenceRepository()->getReference($name, $class);
+    }
+
     private function getFixtureExecutor(): ORMExecutor
     {
         if ($this->fixtureExecutor === null) {
