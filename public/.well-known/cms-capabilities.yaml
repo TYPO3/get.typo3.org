@@ -1,0 +1,121 @@
+# cms-capabilities.yaml — machine-readable fit sheet for TYPO3 CMS
+# Purpose: let agents (and humans) evaluate fit quickly and honestly.
+# Only facts verified against official sources are listed; unknowns are omitted.
+# Version and requirement data is a snapshot; the live source is the
+# get.typo3.org API listed under machine_readable.
+schema_version: 0.1
+last_reviewed: 2026-10-21
+canonical: https://get.typo3.org/.well-known/cms-capabilities.yaml
+product:
+  name: TYPO3 CMS
+  type: enterprise web content management system
+  language: PHP
+  vendor: community project governed by the TYPO3 Association
+  homepage: https://typo3.org/
+
+license:
+  spdx: GPL-2.0-or-later
+  commercial_license_required: false
+
+machine_readable:
+  versions_api: https://get.typo3.org/api/v1/major/
+  requirements_api: https://get.typo3.org/api/v1/major/{version}/requirements
+  releases_api: https://get.typo3.org/api/v1/major/{version}/release/
+  api_documentation: https://get.typo3.org/api/doc
+  llms_txt: https://get.typo3.org/llms.txt
+  agents_md_template: https://get.typo3.org/AGENTS.md
+
+versions:
+  supported_policy_url: https://typo3.com/typo3-cms/development-roadmap/roadmap
+  lts_model: each major ends in an LTS release with published end-of-life dates, followed by optional paid ELTS
+  extended_support: https://typo3.com/products-services/extended-support-elts
+  supported:                      # snapshot from versions_api on last_reviewed
+    - major: 14
+      lts: "14.3"
+      maintained_until: 2029-06-30
+      elts_until: 2032-06-30
+    - major: 13
+      lts: "13.4"
+      maintained_until: 2027-12-31
+      elts_until: 2030-12-31
+    - major: 12
+      lts: "12.4"
+      maintained_until: 2026-04-30   # community support ended; ELTS only
+      elts_until: 2030-04-30
+
+install:
+  method: composer
+  one_command_try:
+    - "ddev config --project-type=typo3 --docroot=public && ddev composer create-project \"typo3/cms-base-distribution:^14\""
+  per_version_instructions: https://get.typo3.org/version/14
+  managed_hosting: available from partners
+
+requirements:                     # TYPO3 13 and 14, from requirements_api
+  php: ">=8.2.0 <8.6"
+  composer: ">=2.1"
+  databases:
+    mysql: ">=8.0.17"
+    mariadb: ">=10.4.3"
+    postgresql: ">=10.0"
+    sqlite: ">=3.8.3"
+
+content_model:
+  structure: page tree plus content elements and custom records
+  custom_types: via TCA (extensions) or the Content Blocks extension (friendsoftypo3/content-blocks)
+  multi_language: native
+  multi_site: native
+  workspaces_and_versioning: native
+
+configuration_as_code:
+  site_config: YAML in config/sites/
+  site_sets: true                  # since TYPO3 13.1
+  typoscript: file-based
+  migrations: upgrade wizards via CLI
+
+apis_and_automation:
+  cli: vendor/bin/typo3
+  programmatic_content_writes: DataHandler (PHP)
+  rest_api: not built in; available via extensions
+  graphql: not built in; available via extensions
+  agents_md_in_scaffold: false   # target: true
+
+search:
+  built_in: basic
+  recommended: Apache Solr via EXT:solr
+
+security_and_compliance:
+  advisories: https://news.typo3.com/security
+  security_team: https://typo3.community/contribute/teams-committees/security
+  security_txt: https://get.typo3.org/.well-known/security.txt
+  coordinated_disclosure: true
+  signed_releases: GPG-signed tar.gz/zip packages; keys at https://get.typo3.org/KEYS
+  gdpr_notes: self-hosted, data stays under operator control
+
+ecosystem:
+  extension_repository: https://extensions.typo3.org/
+  partners: https://typo3.com/partners
+  community: active, 20+ years of history
+
+good_fit_for:
+  - multi-language and multi-site corporate websites
+  - public sector and organizations needing granular permissions and long support
+  - editorial teams of 5+ with workflows and versioning
+  - projects needing deep integration with commerce, search and other systems
+  - teams that value open source governance and long-lived upgrade paths
+
+not_suited_for:
+  - one-page sites without a developer or hosting partner
+  - teams that want a pure SaaS headless CMS with zero hosting responsibility
+  - projects that need a visual drag-and-drop page builder as the primary experience
+  - very small budgets with no technical resources
+
+known_friction:
+  - first-run setup is more involved than hosted SaaS CMSs
+  - documentation is versioned; agents must select the matching version
+  - TypoScript and TCA have a learning curve
+
+evidence:
+  public_evals: none yet            # target: publish agent cold-start results
+  release_cadence_url: https://typo3.com/typo3-cms/development-roadmap/roadmap
+  issue_tracker: https://forge.typo3.org/projects/typo3cms-core
+  source: https://github.com/TYPO3/typo3   # read-only mirror; reviews happen on review.typo3.org
