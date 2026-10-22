@@ -27,7 +27,6 @@ use App\Entity\MajorVersion;
 use App\Entity\Release;
 use App\Repository\MajorVersionRepository;
 use Composer\Semver\VersionParser;
-use GuzzleHttp\Utils;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -891,7 +890,7 @@ final class ComposerPackagesService
                 $sanitizedName = str_replace('/', '-', $packageName);
                 $bundleData[$sanitizedName] = $constraint === true ? null : $constraint;
             }
-            $sanitizedBundles[$bundleName] = Utils::jsonEncode($bundleData);
+            $sanitizedBundles[$bundleName] = json_encode($bundleData, JSON_THROW_ON_ERROR);
         }
 
         return $sanitizedBundles;
