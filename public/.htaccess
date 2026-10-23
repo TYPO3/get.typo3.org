@@ -1,5 +1,6 @@
 SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 DirectoryIndex index.php
+AddType application/yaml .yaml
 RewriteEngine On
 Options +FollowSymlinks
 RewriteCond %{REQUEST_FILENAME} !-f
