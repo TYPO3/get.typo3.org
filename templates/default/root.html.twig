@@ -126,7 +126,7 @@
                                 {% endif %}
                             </div>
                             <div class="card-footer">
-                                <h5><a href="{{ path('version', {'version': version.version}) }}#system-requirements">System requirements</a></h5>
+                                <h5>System requirements</h5>
                                 <ul class="list-info">
                                     {% for requirement in version.requirements|prepareRequirementsShort %}
                                         <li>{{ requirement|raw }}</li>
@@ -138,8 +138,8 @@
                                     {% elseif version.version >= 7 %}
                                         <li>Internet Explorer 9 and later</li>
                                     {% endif %}
-                                    <li><a href="{{ path('version', {'version': version.version}) }}#system-requirements">Detailed list of requirements</a></li>
                                 </ul>
+                                <a href="{{ path('version', {'version': version.version}) }}#system-requirements">Detailed list of requirements</a>
                                 <hr>
                                 {% if version.maintainedUntil %}
                                     <h5>End of support</h5>

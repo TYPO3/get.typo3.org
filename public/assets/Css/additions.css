@@ -8,6 +8,15 @@
     color: #ffffff;
     --frame-link-color: #ffffff;
     --frame-link-hover-color: #ffffff;
+
+    a:not([class]),
+    .card a[class=""]{
+        color: var(--frame-link-color);
+
+        &:hover {
+            color: var(--frame-link-hover-color);
+        }
+    }
 }
 
 
