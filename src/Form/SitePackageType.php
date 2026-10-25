@@ -78,7 +78,16 @@ class SitePackageType extends AbstractType
                     'placeholder' => 'My Site Package',
                 ],
                 'documentation' => [
-                    'example' => 'My SitePackage',
+                    'example' => 'My Site Package',
+                ],
+            ])
+            ->add('vendor_name', TextType::class, [
+                'attr' => [
+                    'autocomplete' => 'off',
+                    'placeholder' => 'MyCompany',
+                ],
+                'documentation' => [
+                    'example' => 'MyCompany',
                 ],
             ])
             ->add('description', TextareaType::class, [

@@ -122,17 +122,27 @@
             <dt class="col-sm-3">Composer</dt>
             <dd class="col-sm-9">{{ sitepackage.vendorNameAlternative }}/{{ sitepackage.packageNameAlternative }}</dd>
         </dl>
-        <h3>Author</h3>
-        <dl class="row">
-            <dt class="col-sm-3">Name</dt>
-            <dd class="col-sm-9">{{ sitepackage.author.name }}</dd>
-            <dt class="col-sm-3">E-Mail</dt>
-            <dd class="col-sm-9">{{ sitepackage.author.email }}</dd>
-            <dt class="col-sm-3">Company</dt>
-            <dd class="col-sm-9">{{ sitepackage.author.company }}</dd>
-            <dt class="col-sm-3">Homepage</dt>
-            <dd class="col-sm-9">{{ sitepackage.author.homepage }}</dd>
-        </dl>
+        {%- if sitepackage.author.name or sitepackage.author.email or sitepackage.author.company or sitepackage.author.homepage  %}
+            <h3>Author</h3>
+            <dl class="row">
+                {%- if sitepackage.author.name  %}
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">{{ sitepackage.author.name }}</dd>
+                {%- endif %}
+                {%- if sitepackage.author.email  %}
+                <dt class="col-sm-3">E-Mail</dt>
+                <dd class="col-sm-9">{{ sitepackage.author.email }}</dd>
+                {%- endif %}
+                {%- if sitepackage.author.company  %}
+                <dt class="col-sm-3">Company</dt>
+                <dd class="col-sm-9">{{ sitepackage.author.company }}</dd>
+                {%- endif %}
+                {%- if sitepackage.author.homepage  %}
+                <dt class="col-sm-3">Homepage</dt>
+                <dd class="col-sm-9">{{ sitepackage.author.homepage }}</dd>
+                {%- endif %}
+            </dl>
+        {%- endif %}
         <p>
             <a href="{{ path('sitepackage_new') }}" class="btn btn-light">
                 <span class="btn-text">Restart</span>

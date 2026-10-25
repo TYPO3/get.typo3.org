@@ -54,7 +54,7 @@ class SitePackageController extends AbstractController
         $form = $this->createNewSitePackageForm($sitepackage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $sitepackage->setVendorName(StringUtility::stringToUpperCamelCase($sitepackage->getAuthor()->getCompany()));
+            $sitepackage->setVendorName(StringUtility::stringToUpperCamelCase($sitepackage->getVendorName()));
             $sitepackage->setVendorNameAlternative(StringUtility::camelCaseToLowerCaseDashed($sitepackage->getVendorName()));
             $sitepackage->setPackageName(StringUtility::stringToUpperCamelCase($sitepackage->getTitle()));
             $sitepackage->setPackageNameAlternative(StringUtility::camelCaseToLowerCaseDashed($sitepackage->getPackageName()));
@@ -90,7 +90,6 @@ class SitePackageController extends AbstractController
         $form = $this->createEditSitePackageForm($sitepackage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $sitepackage->setVendorName(StringUtility::stringToUpperCamelCase($sitepackage->getAuthor()->getCompany()));
             $sitepackage->setVendorNameAlternative(StringUtility::camelCaseToLowerCaseDashed($sitepackage->getVendorName()));
             $sitepackage->setPackageName(StringUtility::stringToUpperCamelCase($sitepackage->getTitle()));
             $sitepackage->setPackageNameAlternative(StringUtility::camelCaseToLowerCaseDashed($sitepackage->getPackageName()));
