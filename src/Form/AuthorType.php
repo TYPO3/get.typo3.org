@@ -42,6 +42,7 @@ class AuthorType extends AbstractType
                 ],
                 'documentation' => [
                     'example' => 'J. Doe',
+                    'minLength' => 3,
                 ],
             ])
             ->add('email', EmailType::class, [
@@ -60,6 +61,7 @@ class AuthorType extends AbstractType
                 ],
                 'documentation' => [
                     'example' => 'TYPO3',
+                    'minLength' => 3,
                 ],
             ])
             ->add('homepage', TextType::class, [

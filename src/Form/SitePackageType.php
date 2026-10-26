@@ -58,6 +58,7 @@ class SitePackageType extends AbstractType
                 }),
                 'documentation' => [
                     'example' => 'bootstrap_package',
+                    'enum' => array_values($sitePackageBaseService->getBasePackageChoices()),
                 ],
                 'expanded' => true,
             ])
@@ -69,6 +70,7 @@ class SitePackageType extends AbstractType
                 'documentation' => [
                     'type' => 'float',
                     'example' => 14.3,
+                    'enum' => array_values($sitePackageBaseService->getBasePackageVersionChoices()),
                 ],
                 'expanded' => true,
             ])
@@ -79,6 +81,7 @@ class SitePackageType extends AbstractType
                 ],
                 'documentation' => [
                     'example' => 'My SitePackage',
+                    'minLength' => 3,
                 ],
             ])
             ->add('description', TextareaType::class, [
