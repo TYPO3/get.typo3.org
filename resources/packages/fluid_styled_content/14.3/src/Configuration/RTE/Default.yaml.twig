@@ -5,38 +5,52 @@ imports:
 
 editor:
     config:
-        contentsCss: "EXT:{{ package.extensionKey }}/Resources/Public/Css/rte.css"
+        contentsCss:
+            - "EXT:{{ package.extensionKey }}/Resources/Public/Css/rte.css"
 
-        stylesSet:
-            - { name: "Lead", element: "p", attributes: { 'class': 'lead' } }
+        toolbar:
+            items:
+                - style
+                - heading
+                - '|'
+                - bold
+                - italic
+                - subscript
+                - superscript
+                - '|'
+                - bulletedList
+                - numberedList
+                - blockQuote
+                - alignment
+                - '|'
+                - link
+                - '|'
+                - removeFormat
+                - undo
+                - redo
+                - '|'
+                - insertTable
+                - '|'
+                - specialCharacters
+                - sourceEditing
 
-        toolbarGroups:
-            - { name: styles, groups: [ format, styles ] }
-            - { name: basicstyles, groups: [ basicstyles ] }
-            - { name: paragraph, groups: [ list, indent, blocks, align ] }
-            - "/"
-            - { name: links, groups: [ links ] }
-            - { name: clipboard, groups: [ clipboard, cleanup, undo ] }
-            - { name: editing, groups: [ spellchecker ] }
-            - { name: insert, groups: [ insert ] }
-            - { name: tools, groups: [ table, specialchar ] }
-            - { name: document, groups: [ mode ] }
+        heading:
+            options:
+                - { model: 'paragraph', title: 'Paragraph' }
+                - { model: 'heading1', view: 'h1', title: 'Heading 1' }
+                - { model: 'heading2', view: 'h2', title: 'Heading 2' }
+                - { model: 'heading3', view: 'h3', title: 'Heading 3' }
+                - { model: 'heading4', view: 'h4', title: 'Heading 4' }
+                - { model: 'heading5', view: 'h5', title: 'Heading 5' }
+                - { model: 'formatted', view: 'pre', title: 'Pre-Formatted Text' }
 
-        format_tags: "p;h1;h2;h3;h4;h5;pre"
+        style:
+            definitions:
+                - { name: "Lead", element: "p", classes: ['lead'] }
 
-        justifyClasses:
-            - text-left
-            - text-center
-            - text-right
-            - text-justify
-
-        extraPlugins:
-            - justify
-
-        removePlugins:
-            - image
-
-        removeButtons:
-            - Anchor
-            - Underline
-            - Strike
+        alignment:
+            options:
+                - { name: 'left', className: 'text-left' }
+                - { name: 'center', className: 'text-center' }
+                - { name: 'right', className: 'text-right' }
+                - { name: 'justify', className: 'text-justify' }
