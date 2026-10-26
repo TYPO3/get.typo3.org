@@ -63,13 +63,15 @@ class SitePackageControllerTest extends ApiCase
     public function documentationListsTheValuesTheRequestAccepts(): void
     {
         $this->client->request('GET', '/api/doc.json');
-        /** @var array{components: array{schemas: array<string, array{properties: array<string, array{enum?: list<mixed>, minLength?: int}>}>}} $documentation */
+        /** @var array{components: array{schemas: array<string, array{properties: array<string, array{type?: string, format?: string, enum?: list<mixed>, minLength?: int}>}>}} $documentation */
         $documentation = $this->decodeResponse($this->client->getResponse());
         $schemas = $documentation['components']['schemas'];
 
         $sitePackage = $schemas['SitePackageType']['properties'];
         self::assertContains('bootstrap_package', $sitePackage['base_package']['enum'] ?? []);
         self::assertContains(13.4, $sitePackage['typo3_version']['enum'] ?? []);
+        self::assertSame('number', $sitePackage['typo3_version']['type'] ?? null);
+        self::assertSame('float', $sitePackage['typo3_version']['format'] ?? null);
         self::assertSame(3, $sitePackage['title']['minLength'] ?? null);
 
         $author = $schemas['AuthorType']['properties'];

@@ -68,7 +68,8 @@ class SitePackageType extends AbstractType
                     return $sitePackageBaseService->getBasePackageVersionChoices();
                 }),
                 'documentation' => [
-                    'type' => 'float',
+                    'type' => 'number',
+                    'format' => 'float',
                     'example' => 14.3,
                     'enum' => array_values($sitePackageBaseService->getBasePackageVersionChoices()),
                 ],
