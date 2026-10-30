@@ -13,7 +13,7 @@
                 <f:image image="{item.image}" class="d-block w-100"/>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{item.header}</h5>
-                    <f:format.html>{item.description}</f:format.html>
+                    <f:render.text field="description">{item}</f:render.text>
                 </div>
             </div>
         </f:for>

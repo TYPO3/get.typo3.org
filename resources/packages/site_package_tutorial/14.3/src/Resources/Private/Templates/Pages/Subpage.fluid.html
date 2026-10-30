@@ -7,10 +7,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <f:render partial="Content" arguments="{records: content.main.records}"/>
+                <f:render.contentArea contentArea="{content.main}"/>
             </div>
             <div class="col-md-4">
-                <f:render partial="Content" arguments="{records: content.sidebar.records}"/>
+                <f:render.contentArea contentArea="{content.sidebar}"/>
             </div>
         </div>
     </div>

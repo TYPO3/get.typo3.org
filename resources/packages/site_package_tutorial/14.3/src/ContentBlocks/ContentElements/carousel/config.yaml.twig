@@ -2,7 +2,6 @@ name: {{ package.packageNameAlternative }}/carousel
 typeName: {{ package.extensionKey }}_carousel
 group: {{ package.extensionKey }}
 prefixFields: true
-prefixType: full
 fields:
   - identifier: carousel_items
     type: Collection
@@ -15,7 +14,7 @@ fields:
         type: File
         allowed: common-image-types
         minitems: 1
-        relationship: manyToOne
+        relationship: oneToOne
       - identifier: header
         type: Text
       - identifier: description
